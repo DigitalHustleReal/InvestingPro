@@ -102,7 +102,7 @@ export default function ProductCategoryPage() {
             {/* Hero */}
             <div className="bg-slate-900 border-b border-slate-800 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-500 rounded-full blur-[128px]" />
+                    <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500 rounded-full blur-[128px]" />
                     <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-500 rounded-full blur-[128px]" />
                 </div>
 
@@ -164,20 +164,20 @@ export default function ProductCategoryPage() {
                                         {/* Header */}
                                         <div className="flex items-start justify-between mb-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
+                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
                                                     <Package className="w-6 h-6 text-white" />
                                                 </div>
                                                 <div>
-                                                    <h3 className="font-bold text-slate-900 group-hover:text-teal-600 transition-colors line-clamp-1">
+                                                    <h3 className="font-bold text-slate-900 group-hover:text-emerald-600 transition-colors line-clamp-1">
                                                         {product.name}
                                                     </h3>
                                                     <p className="text-sm text-slate-500">{product.provider_name}</p>
                                                 </div>
                                             </div>
                                             {product.trust_score && product.trust_score >= 70 && (
-                                                <div className="flex items-center gap-1 bg-teal-50 px-2 py-1 rounded-lg">
-                                                    <TrendingUp className="w-4 h-4 text-teal-600" />
-                                                    <span className="text-sm font-bold text-teal-700">{product.trust_score}</span>
+                                                <div className="flex items-center gap-1 bg-emerald-50 px-2 py-1 rounded-lg">
+                                                    <TrendingUp className="w-4 h-4 text-emerald-600" />
+                                                    <span className="text-sm font-bold text-emerald-700">{product.trust_score}</span>
                                                 </div>
                                             )}
                                         </div>
@@ -205,10 +205,10 @@ export default function ProductCategoryPage() {
 
                                         {/* CTA */}
                                         <div className="flex items-center justify-between pt-4 border-t">
-                                            <span className="text-sm text-teal-600 font-medium group-hover:underline flex items-center gap-1">
+                                            <span className="text-sm text-emerald-600 font-medium group-hover:underline flex items-center gap-1">
                                                 View Details <ArrowRight className="w-4 h-4" />
                                             </span>
-                                            <Button size="sm" className="bg-teal-600 hover:bg-teal-700 text-xs">
+                                            <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-xs">
                                                 Learn More
                                             </Button>
                                         </div>

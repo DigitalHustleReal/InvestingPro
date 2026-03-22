@@ -140,7 +140,7 @@ export function AuthorHoverCard({ author, children, className, showAvatar = fals
                 <div className="bg-slate-100/50 dark:bg-slate-900/50 px-5 py-4 flex items-center justify-between border-t border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm">
                     <div className="flex gap-1">
                          {author.social_links?.twitter && (
-                            <a href={author.social_links.twitter} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 text-slate-600 hover:text-sky-500 hover:shadow-md transition-all">
+                            <a href={author.social_links.twitter} target="_blank" rel="noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 text-slate-600 hover:text-blue-500 hover:shadow-md transition-all">
                                 <Twitter className="w-4 h-4" />
                             </a>
                         )}

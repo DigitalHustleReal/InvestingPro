@@ -169,7 +169,7 @@ export default function ArticleDetailPage() {
             <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {/* Header */}
                 <div className="mb-8">
-                    <Badge className="mb-4 bg-teal-50 text-teal-700 border-teal-100">
+                    <Badge className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-100">
                         {article.category?.replace(/-/g, ' ')}
                     </Badge>
                     <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">

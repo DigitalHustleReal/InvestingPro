@@ -36,14 +36,14 @@ const badgeConfig: Record<string, { icon: React.ElementType; color: string; bg: 
     
     // Loan tags
     'Low Interest Rate': { icon: Percent, color: 'text-green-700', bg: 'bg-green-50 border-green-200' },
-    'Minimal Fees': { icon: Wallet, color: 'text-teal-700', bg: 'bg-teal-50 border-teal-200' },
+    'Minimal Fees': { icon: Wallet, color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-200' },
     'Flexible Tenure': { icon: Clock, color: 'text-indigo-700', bg: 'bg-indigo-50 border-indigo-200' },
     'Home Buyer Choice': { icon: Award, color: 'text-rose-700', bg: 'bg-rose-50 border-rose-200' },
     'Quick Approval': { icon: Zap, color: 'text-orange-700', bg: 'bg-orange-50 border-orange-200' },
     
     // Mutual Fund tags
     'High Returns': { icon: TrendingUp, color: 'text-green-700', bg: 'bg-green-50 border-green-200' },
-    'Low Expense': { icon: Percent, color: 'text-teal-700', bg: 'bg-teal-50 border-teal-200' },
+    'Low Expense': { icon: Percent, color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-200' },
     'Top Rated': { icon: Star, color: 'text-amber-700', bg: 'bg-amber-50 border-amber-200' },
     'Safe Bet': { icon: Shield, color: 'text-blue-700', bg: 'bg-blue-50 border-blue-200' },
     

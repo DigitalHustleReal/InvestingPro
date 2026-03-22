@@ -216,7 +216,7 @@ export default function LoanEligibilityPage() {
             />
 
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white pt-28 pb-16">
+            <div className="bg-gradient-to-r from-emerald-600 to-emerald-600 text-white pt-28 pb-16">
                 <div className="container mx-auto px-4">
                     <AutoBreadcrumbs className="mb-6 text-white/70" />
                     
@@ -390,7 +390,7 @@ export default function LoanEligibilityPage() {
                 {step === 2 && results.length > 0 && (
                     <div className="max-w-4xl mx-auto space-y-6">
                         {/* Summary */}
-                        <Card className="rounded-3xl shadow-2xl border-0 bg-gradient-to-br from-emerald-600 to-teal-600 text-white overflow-hidden">
+                        <Card className="rounded-3xl shadow-2xl border-0 bg-gradient-to-br from-emerald-600 to-emerald-600 text-white overflow-hidden">
                             <CardContent className="p-8">
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                                     <div>

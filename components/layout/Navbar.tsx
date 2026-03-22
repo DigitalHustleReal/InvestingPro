@@ -36,9 +36,9 @@ function SearchButton({ variant = 'desktop' }: { variant?: 'desktop' | 'mobile' 
         return (
             <button 
                 onClick={openSearch}
-                className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 text-sm text-left shadow-sm hover:shadow-md"
+                className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-green-300 dark:hover:border-green-600 transition-all duration-200 text-sm text-left shadow-sm hover:shadow-md"
             >
-                <Search className="w-4 h-4 text-primary-700 dark:text-primary-500 flex-shrink-0" />
+                <Search className="w-4 h-4 text-green-700 dark:text-green-400 flex-shrink-0" />
                 <span className="flex-1">Search products, guides...</span>
                 <kbd className="px-2 py-0.5 text-xs bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-slate-600">⌘K</kbd>
             </button>
@@ -51,14 +51,14 @@ function SearchButton({ variant = 'desktop' }: { variant?: 'desktop' | 'mobile' 
             className="hidden lg:flex items-center gap-2 h-9 w-48 xl:w-56 px-3 
                        bg-slate-50 dark:bg-slate-800/50 
                        border border-slate-200 dark:border-slate-700 
-                       hover:border-primary-700 dark:hover:border-primary-600 
+                       hover:border-green-600 dark:hover:border-green-500 
                        hover:bg-white dark:hover:bg-slate-800
                        rounded-lg transition-all duration-200 
                        shadow-sm hover:shadow-md
-                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:ring-offset-2"
+                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
             aria-label="Search products and guides"
         >
-            <Search className="w-4 h-4 text-primary-700 dark:text-primary-500 flex-shrink-0" />
+            <Search className="w-4 h-4 text-green-700 dark:text-green-400 flex-shrink-0" />
             <span className="text-sm text-slate-600 dark:text-slate-400 flex-1 text-left truncate">Search...</span>
             <kbd className="hidden xl:inline-flex px-1.5 py-0.5 text-[10px] bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-600 font-mono">⌘K</kbd>
         </button>
@@ -134,7 +134,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
     };
 
     return (
-        <header className="sticky top-0 z-50 bg-white/75 dark:bg-slate-950/75 border-b border-slate-200/50 dark:border-slate-800/50 backdrop-blur-md transition-all duration-300 shadow-sm dark:shadow-slate-900/10 supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-950/60">
+        <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0A1F14]/80 border-b border-slate-200/50 dark:border-green-900/30 backdrop-blur-md transition-all duration-300 shadow-sm dark:shadow-green-950/10 supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-[#0A1F14]/60">
             <nav className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14 lg:h-[72px]">
                     {/* Logo */}
@@ -173,7 +173,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                             variant="ghost" 
                             size="icon" 
                             onClick={openSearch}
-                            className="hidden lg:flex text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded-xl"
+                            className="hidden lg:flex text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded-xl"
                             aria-label="Search products and guides"
                         >
                             <Search className="w-5 h-5" />
@@ -186,7 +186,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                 <Button 
                                     variant="ghost" 
                                     size="icon" 
-                                    className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded-xl"
+                                    className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded-xl"
                                     aria-label="Sign In"
                                     title="Sign In"
                                 >
@@ -194,7 +194,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                 </Button>
                             </Link>
                             
-                            <Button asChild variant="default" className="bg-primary-700 hover:bg-primary-800 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-primary-900/20 transition-all duration-200 h-10 px-5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2">
+                            <Button asChild variant="default" className="bg-green-700 hover:bg-green-800 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-green-900/20 transition-all duration-200 h-10 px-5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
                                 <Link href="/compare">
                                     Get Started
                                 </Link>
@@ -219,7 +219,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                         <Button 
                             variant="ghost" 
                             size="icon" 
-                            className="text-primary-600 hover:bg-primary-50 hover:text-primary-700 dark:text-primary-500"
+                            className="text-green-700 hover:bg-green-50 hover:text-green-800 dark:text-green-400"
                             aria-label="Open menu"
                             onClick={() => setIsOpen(true)}
                         >
@@ -264,7 +264,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                         className="w-full flex items-center justify-between py-3 text-left group"
                                                         aria-expanded={isExpanded}
                                                     >
-                                                        <span className="text-base font-semibold text-slate-900 group-hover:text-primary-600 transition-colors">
+                                                        <span className="text-base font-semibold text-slate-900 group-hover:text-green-700 transition-colors">
                                                             {category.name}
                                                         </span>
                                                         {isExpanded ? (
@@ -299,7 +299,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                                                                 <Link
                                                                                     href={collection.href}
                                                                                     onClick={() => setIsOpen(false)}
-                                                                                    className="text-sm text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:font-medium transition-all block py-3 min-h-[44px] flex items-center"
+                                                                                    className="text-sm text-slate-600 dark:text-slate-300 hover:text-green-700 dark:hover:text-green-400 hover:font-medium transition-all block py-3 min-h-[44px] flex items-center"
                                                                                 >
                                                                                     {collection.name}
                                                                                 </Link>
@@ -330,16 +330,16 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                 {/* Mobile Menu Footer */}
                                 <div className="p-4 border-t border-slate-200 bg-slate-50 space-y-3">
                                     <Link href="/compare" onClick={() => setIsOpen(false)}>
-                                        <Button variant="default" className="w-full bg-primary-700 hover:bg-primary-800 text-white font-bold shadow-lg hover:shadow-xl hover:shadow-primary-900/20 transition-all h-10 rounded-lg">
+                                        <Button variant="default" className="w-full bg-green-700 hover:bg-green-800 text-white font-bold shadow-lg hover:shadow-xl hover:shadow-green-900/20 transition-all h-10 rounded-lg">
                                             Get Started
                                         </Button>
                                     </Link>
                                     <Link href="/login" onClick={() => setIsOpen(false)}>
-                                        <Button variant="outline" className="w-full h-10 font-semibold text-slate-600 hover:text-primary-600 border-slate-200">
+                                        <Button variant="outline" className="w-full h-10 font-semibold text-slate-600 hover:text-green-700 border-slate-200">
                                             Log In
                                         </Button>
                                     </Link>
-                                    <Link href="/methodology" onClick={() => setIsOpen(false)} className="block text-center py-2 text-sm font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
+                                    <Link href="/methodology" onClick={() => setIsOpen(false)} className="block text-center py-2 text-sm font-semibold text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 transition-colors">
                                         ⭐ How We Rate Products
                                     </Link>
                                     <div className="pt-2 border-t border-slate-200">

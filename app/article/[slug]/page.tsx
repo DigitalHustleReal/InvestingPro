@@ -168,7 +168,7 @@ export default function ArticleDetail() {
 
                 {/* Header */}
                 <div className="mb-8">
-                    <Badge className="mb-4 bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-50">
+                    <Badge className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-100 hover:bg-emerald-50">
                         {article.category?.replace(/-/g, ' ')}
                     </Badge>
                     <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">
@@ -246,7 +246,7 @@ export default function ArticleDetail() {
                 {/* Content */}
                 <div 
                     id="article-content"
-                    className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-a:text-teal-600 hover:prose-a:text-teal-700"
+                    className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-a:text-emerald-600 hover:prose-a:text-emerald-700"
                 >
                     {(() => {
                         // Get raw content from any source

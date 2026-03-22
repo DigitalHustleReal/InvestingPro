@@ -105,24 +105,24 @@ export function Footer() {
     };
 
     return (
-        <footer className="bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-slate-900">
+        <footer className="bg-slate-50 dark:bg-[#071410] text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-green-900/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 {/* PROMINENT Trust & Transparency Banner - FTC Compliance */}
-                <div className="mb-16 p-8 rounded-xl border-2 border-primary-600/30 bg-gradient-to-r from-primary-100/30 via-slate-100/50 to-slate-100/30 dark:from-primary-950/30 dark:via-slate-900/50 dark:to-slate-900/30 relative overflow-hidden">
+                <div className="mb-16 p-8 rounded-xl border-2 border-green-600/20 bg-gradient-to-r from-green-50/50 via-slate-50/50 to-slate-50/30 dark:from-green-950/30 dark:via-slate-900/50 dark:to-slate-900/30 relative overflow-hidden">
                     {/* Decorative Element */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/5 blur-[100px] rounded-full" />
-                    
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/5 blur-[100px] rounded-full" />
+
                     <div className="relative z-10">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
                             {/* Left: Trust Message */}
                             <div className="text-center md:text-left max-w-xl">
-                                <div className="inline-flex items-center gap-2 bg-primary-100/50 dark:bg-primary-900/50 border border-primary-600/50 rounded-full px-4 py-1.5 mb-4">
-                                    <span className="w-2 h-2 bg-primary-400 rounded-full animate-pulse" />
-                                    <span className="text-primary-700 dark:text-primary-300 text-xs font-bold uppercase tracking-widest">100% Independent</span>
+                                <div className="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/40 border border-green-600/30 rounded-full px-4 py-1.5 mb-4">
+                                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                                    <span className="text-green-800 dark:text-green-300 text-xs font-bold uppercase tracking-widest">100% Independent</span>
                                 </div>
                                 <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
                                     Zero Ads. Zero BS. <br className="hidden md:block" />
-                                    <span className="text-primary-600 dark:text-primary-400">100% Honest</span>
+                                    <span className="text-green-700 dark:text-green-400">100% Honest</span>
                                 </h3>
                                 <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
                                     We only make money through affiliate partnerships when you apply for products. 
@@ -139,9 +139,9 @@ export function Footer() {
                                     <span>How We Make Money</span>
                                     <ArrowUp className="w-4 h-4 rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                                 </Link>
-                                <Link 
+                                <Link
                                     href="/methodology"
-                                    className="px-6 py-3 bg-primary-50 dark:bg-primary-600/20 hover:bg-primary-100 dark:hover:bg-primary-600/30 border border-primary-200 dark:border-primary-600/50 rounded-xl text-primary-700 dark:text-primary-300 font-semibold text-sm transition-all flex items-center gap-2 justify-center group"
+                                    className="px-6 py-3 bg-green-50 dark:bg-green-900/30 hover:bg-green-100 dark:hover:bg-green-900/40 border border-green-200 dark:border-green-700/50 rounded-xl text-green-800 dark:text-green-300 font-semibold text-sm transition-all flex items-center gap-2 justify-center group"
                                 >
                                     <span>Our Methodology</span>
                                     <ArrowUp className="w-4 h-4 rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -153,8 +153,8 @@ export function Footer() {
                 {/* Newsletter - Pre-Footer */}
                 {/* Newsletter - Theme-Aligned Card */}
                 <div className="relative mb-20 p-8 md:p-12 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 shadow-xl">
-                    <div className="absolute inset-0 bg-gradient-to-br from-secondary-100/10 dark:from-secondary-900/10 via-slate-100/0 dark:via-slate-900/0 to-slate-100/0 dark:to-slate-900/0" />
-                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-secondary-500/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-100/10 dark:from-green-900/10 via-slate-100/0 dark:via-slate-900/0 to-slate-100/0 dark:to-slate-900/0" />
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-500/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
                     
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="text-center md:text-left max-w-xl">
@@ -198,7 +198,7 @@ export function Footer() {
                                     { name: "Travel Cards", href: "/credit-cards?filter=travel" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm md:text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm md:text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -212,7 +212,7 @@ export function Footer() {
                                     { name: "Check Eligibility", href: "/loans/calculators/eligibility" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -226,7 +226,7 @@ export function Footer() {
                                     { name: "Fixed Deposits", href: "/fixed-deposits" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -239,7 +239,7 @@ export function Footer() {
                                     { name: "Small Business Finance", href: "/small-business" },
                                 ].map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -253,7 +253,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {displayCalculators.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -264,7 +264,7 @@ export function Footer() {
                                 <ul className="space-y-2">
                                     {displayComparisons.map((link, i) => (
                                         <li key={i}>
-                                            <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                            <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -275,7 +275,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerData.resources.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -289,7 +289,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.company.map((link, i) => (
                                     <li key={i}>
-                                    <Link href={link.href || getHref(link.page)} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                    <Link href={link.href || getHref(link.page)} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -299,7 +299,7 @@ export function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.legal.map((link, i) => (
                                     <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">{link.name}</Link>
+                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -337,13 +337,13 @@ export function Footer() {
                             </div>
                             <button
                                 onClick={() => setDisclaimerExpanded(!disclaimerExpanded)}
-                                className="text-primary-400 hover:text-primary-300 text-sm mt-3 font-medium flex items-center gap-1"
+                                className="text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 text-sm mt-3 font-medium flex items-center gap-1"
                             >
                                 {disclaimerExpanded ? 'Show Less' : 'Read Full Disclaimer'}
                                 <ArrowUp className={`w-3 h-3 transition-transform ${disclaimerExpanded ? 'rotate-180' : ''}`} />
                             </button>
                             <p className="pt-3 border-t border-slate-200 dark:border-slate-700/50 mt-3">
-                                <Link href="/disclaimer" className="text-primary-400 hover:text-primary-300 underline font-medium text-xs">
+                                <Link href="/disclaimer" className="text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 underline font-medium text-xs">
                                     Read complete terms of service
                                 </Link>
                             </p>
@@ -357,9 +357,9 @@ export function Footer() {
                                 </p>
 
                                 {/* Centered India Badge - The Heart of the App */}
-                                <div className="order-1 md:order-2 flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/50 border border-slate-700/50 hover:bg-slate-800 transition-colors cursor-default">
-                                    <span className="text-xs font-medium text-slate-300 flex items-center gap-1.5">
-                                        Made with <Heart className="w-3.5 h-3.5 text-danger-500 fill-danger-500" /> in India
+                                <div className="order-1 md:order-2 flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800/50 cursor-default">
+                                    <span className="text-xs font-medium text-green-800 dark:text-green-300 flex items-center gap-1.5">
+                                        Made with <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" /> in India
                                     </span>
                                 </div>
 
@@ -385,7 +385,7 @@ export function Footer() {
             <button 
                 onClick={scrollToTop}
                 aria-label="Back to top"
-                className={`fixed bottom-8 right-8 z-50 p-3 rounded-full bg-primary-500 text-white shadow-xl shadow-primary-500/20 hover:bg-primary-600 transition-all duration-300 transform ${showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+                className={`fixed bottom-20 md:bottom-8 right-4 md:right-8 z-40 p-3 rounded-full bg-green-700 text-white shadow-xl shadow-green-700/20 hover:bg-green-800 transition-all duration-300 transform ${showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
             >
                 <ArrowUp className="w-5 h-5" strokeWidth={2} />
             </button>

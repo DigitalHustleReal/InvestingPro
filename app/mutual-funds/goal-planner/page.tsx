@@ -32,7 +32,7 @@ const goals = [
     { id: 'retirement', label: 'Retirement', icon: Target, color: 'from-blue-500 to-indigo-600', description: 'Build a secure retirement corpus' },
     { id: 'education', label: "Child's Education", icon: GraduationCap, color: 'from-purple-500 to-pink-600', description: 'Save for education expenses' },
     { id: 'house', label: 'Dream Home', icon: Home, color: 'from-amber-500 to-orange-600', description: 'Down payment or full purchase' },
-    { id: 'vacation', label: 'Vacation', icon: Plane, color: 'from-teal-500 to-cyan-600', description: 'Plan your dream trip' },
+    { id: 'vacation', label: 'Vacation', icon: Plane, color: 'from-emerald-500 to-green-600', description: 'Plan your dream trip' },
     { id: 'emergency', label: 'Emergency Fund', icon: Shield, color: 'from-emerald-500 to-green-600', description: '6-12 months expenses backup' },
     { id: 'wealth_creation', label: 'Wealth Creation', icon: TrendingUp, color: 'from-rose-500 to-red-600', description: 'Grow your wealth long-term' },
 ];

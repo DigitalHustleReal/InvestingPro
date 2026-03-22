@@ -6,19 +6,14 @@ export const revalidate = 300;
 // Rebuild trigger 1
 import React, { Suspense } from 'react';
 import HeroSplit from "@/components/home/HeroSplit";
-import DiscoveryWizard from "@/components/home/DiscoveryWizard";
-import SmartAdvisorWidget from "@/components/home/SmartAdvisorWidget";
 import QuickToolsSection from "@/components/home/QuickToolsSection";
 import LatestInsights from "@/components/home/LatestInsights";
-import TrustSection from "@/components/home/TrustSection";
 import SEOHead from "@/components/common/SEOHead";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import CategoryDiscovery from "@/components/home/CategoryDiscovery";
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
-import TrendingSection from "@/components/home/TrendingSection";
-import ScrollProgressBar from "@/components/common/ScrollProgressBar";
 import HomepageOptimizations from "@/components/home/HomepageOptimizations";
-import { STAT_STRINGS, STRUCTURED_DATA_STATS } from "@/lib/constants/platform-stats";
+import { STRUCTURED_DATA_STATS } from "@/lib/constants/platform-stats";
 
 // Lazy load heavy components below the fold for better initial load performance
 import StickyMobileCTA from "@/components/home/StickyMobileCTA";
@@ -35,21 +30,37 @@ function CommandCenterSection({ children, name }: { children: React.ReactNode, n
     );
 }
 
+/**
+ * Homepage v3 — Streamlined from 8 sections → 5
+ *
+ * New order (optimized for conversion path):
+ * 1. Hero — value prop + search + inline trust signals
+ * 2. Category Discovery — immediate routing (moved from position 7)
+ * 3. Featured Products — high-intent selection
+ * 4. Quick Tools — calculators (moved from position 6)
+ * 5. Latest Insights — editorial authority + SEO
+ *
+ * Removed:
+ * - SmartAdvisorWidget (competed with hero search)
+ * - TrendingSection (used mock data, not real)
+ * - TrustSection (signals integrated into hero)
+ * - ScrollProgressBar (not needed on homepage)
+ */
 export default function Home() {
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "FinancialService",
-        "name": "InvestingPro - Smart Financial Decisions Made Simple",
+        "name": "InvestingPro - India's Most Trusted Finance Comparison Platform",
         "alternateName": "InvestingPro.in",
-        "description": "Compare credit cards, loans, mutual funds, and government schemes. Get expert reviews and AI-powered recommendations to make smarter financial decisions.",
+        "description": "Compare credit cards, loans, mutual funds, and insurance. Independent research, AI-powered recommendations, and free financial calculators for smart money decisions.",
         "url": "https://investingpro.in",
-        "slogan": "Compare. Decide. Apply. India's Smartest Financial Choices.",
+        "slogan": "India's Most Trusted Finance Comparison Platform",
         "aggregateRating": STRUCTURED_DATA_STATS.aggregateRating,
         "areaServed": {
             "@type": "Country",
             "name": "India"
         },
-        "knowsAbout": ["Personal Finance", "Credit Cards", "Loans", "Mutual Funds", "Investment", "Government Schemes"],
+        "knowsAbout": ["Personal Finance", "Credit Cards", "Loans", "Mutual Funds", "Investment", "Insurance", "Fixed Deposits"],
         "potentialAction": {
             "@type": "SearchAction",
             "target": {
@@ -60,7 +71,7 @@ export default function Home() {
         },
         "offers": {
             "@type": "AggregateOffer",
-            "offerCount": "10000+",
+            "offerCount": "500+",
             "lowPrice": "0",
             "highPrice": "0",
             "priceCurrency": "INR"
@@ -71,73 +82,51 @@ export default function Home() {
         <>
             {/* Phase 3 Optimizations: Performance, Accessibility, Conversion Tracking */}
             <HomepageOptimizations />
-            
-            {/* Scroll Progress Indicator */}
-            <ScrollProgressBar />
-            
-            <main 
-                className="flex flex-col min-h-screen bg-white" 
-                role="main" 
+
+            <main
+                className="flex flex-col min-h-screen bg-background"
+                role="main"
                 aria-label="InvestingPro homepage"
                 id="main-content"
             >
             <SEOHead
-                title="InvestingPro - Compare Credit Cards, Loans & Mutual Funds | Make Smart Decisions"
-                description="Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations, expert reviews, and instant applications. Make smarter financial decisions."
+                title="InvestingPro - Compare Credit Cards, Loans & Mutual Funds | India's Trusted Platform"
+                description="Compare 500+ credit cards, mutual funds, loans, and insurance products. Free calculators, independent rankings, and AI-powered recommendations. No paid rankings."
                 structuredData={structuredData}
             />
 
-            {/* Hero Tier: Mission Critical - HERO 2.0 SPLIT DECISION ENGINE */}
+            {/* 1. Hero — Value prop, search, trust signals */}
             <CommandCenterSection name="Hero">
                 <section data-section-name="Hero" aria-label="Hero section">
                     <HeroSplit />
                 </section>
             </CommandCenterSection>
 
-            {/* Intelligence Tier: Lead Generation - Advanced Smart Advisor */}
-            <CommandCenterSection name="Smart Advisor">
-                <SmartAdvisorWidget />
-            </CommandCenterSection>
-
-            {/* Product Tier: High-intent Selection (Resilient with fallbacks) */}
-            <CommandCenterSection name="Featured Products">
-                <section data-section-name="Featured Products" aria-label="Featured financial products">
-                    <FeaturedProducts />
-                </section>
-            </CommandCenterSection>
-
-            {/* Trending Tier: Market Insights - Drive Repeat Visits */}
-            <CommandCenterSection name="Trending">
-                <section data-section-name="Trending" aria-label="Trending market insights">
-                    <TrendingSection />
-                </section>
-            </CommandCenterSection>
-
-            {/* Editorial Tier: Authority & SEO - MOVED UP for better SEO and user flow */}
-            <CommandCenterSection name="Latest Insights">
-                <section data-section-name="Latest Insights" aria-label="Latest financial insights and articles">
-                    <LatestInsights />
-                </section>
-            </CommandCenterSection>
-
-            {/* Utility Tier: User Engagement - After learning for better flow */}
-            <CommandCenterSection name="Quick Tools">
-                <section data-section-name="Quick Tools" aria-label="Financial calculators and tools">
-                    <QuickToolsSection />
-                </section>
-            </CommandCenterSection>
-
-            {/* Discovery Tier: Navigation & SEO */}
+            {/* 2. Category Discovery — Immediate routing to product categories */}
             <CommandCenterSection name="Category Discovery">
                 <section data-section-name="Category Discovery" aria-label="Explore financial categories">
                     <CategoryDiscovery />
                 </section>
             </CommandCenterSection>
 
-            {/* Trust Tier: Brand Credibility + Testimonials (MERGED) */}
-            <CommandCenterSection name="Trust">
-                <section data-section-name="Trust" aria-label="Trust signals and testimonials">
-                    <TrustSection />
+            {/* 3. Featured Products — High-intent selection */}
+            <CommandCenterSection name="Featured Products">
+                <section data-section-name="Featured Products" aria-label="Featured financial products">
+                    <FeaturedProducts />
+                </section>
+            </CommandCenterSection>
+
+            {/* 4. Quick Tools — Calculators (high retention, viral sharing) */}
+            <CommandCenterSection name="Quick Tools">
+                <section data-section-name="Quick Tools" aria-label="Financial calculators and tools">
+                    <QuickToolsSection />
+                </section>
+            </CommandCenterSection>
+
+            {/* 5. Latest Insights — Editorial authority + SEO */}
+            <CommandCenterSection name="Latest Insights">
+                <section data-section-name="Latest Insights" aria-label="Latest financial insights and articles">
+                    <LatestInsights />
                 </section>
             </CommandCenterSection>
 

@@ -67,7 +67,7 @@ const categories = [
         title: 'Loans',
         shortDesc: 'Home, Car, Personal',
         icon: Landmark,
-        gradient: 'from-emerald-500 to-teal-500',
+        gradient: 'from-emerald-500 to-green-600',
         lightBg: 'bg-emerald-50 dark:bg-emerald-900/20',
         stats: { guides: 85, tools: 8 },
         badge: null,
@@ -115,8 +115,8 @@ const categories = [
         title: 'Mutual Funds',
         shortDesc: 'SIP & Lumpsum',
         icon: TrendingUp,
-        gradient: 'from-cyan-500 to-blue-500',
-        lightBg: 'bg-cyan-50 dark:bg-cyan-900/20',
+        gradient: 'from-green-500 to-emerald-600',
+        lightBg: 'bg-green-50 dark:bg-green-900/20',
         stats: { guides: 110, tools: 6 },
         badge: 'Trending',
         quickLinks: [
@@ -131,8 +131,8 @@ const categories = [
         title: 'Banking',
         shortDesc: 'FD, RD, Savings',
         icon: Building2,
-        gradient: 'from-sky-500 to-cyan-500',
-        lightBg: 'bg-sky-50 dark:bg-sky-900/20',
+        gradient: 'from-blue-500 to-indigo-500',
+        lightBg: 'bg-blue-50 dark:bg-blue-900/20',
         stats: { guides: 65, tools: 4 },
         badge: null,
         quickLinks: [
@@ -204,7 +204,7 @@ function CategoryCard({ category, isHovered, onHover }: {
                         <div className={cn(
                             "absolute -top-2 -right-2 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide shadow-lg",
                             category.badge === 'Popular' && "bg-gradient-to-r from-amber-400 to-orange-400 text-white",
-                            category.badge === 'Trending' && "bg-gradient-to-r from-emerald-400 to-teal-400 text-white",
+                            category.badge === 'Trending' && "bg-gradient-to-r from-green-500 to-emerald-500 text-white",
                             category.badge === 'New' && "bg-gradient-to-r from-violet-400 to-purple-400 text-white"
                         )}>
                             {category.badge}

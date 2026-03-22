@@ -36,26 +36,32 @@ Rich editor:  Tiptap + BlockNote
 
 ## 3. Design System (LOCK — do not change without explicit instruction)
 
-**Theme:** Dark-only (`defaultTheme="dark"`, `enableSystem={false}`)
-**Base:** Deep Navy `#070B14` (`--background: 222 47% 7%`)
+**Theme:** Light-first (`defaultTheme="light"`, `enableSystem={false}`)
+**Light base:** White `#FFFFFF` — Dark mode via `.dark` class: Green-tinted dark `#0A1F14`
 
-| Token | Color | Use |
-|-------|-------|-----|
-| `--primary` | Cyan `#06B6D4` | CTAs, links, highlights |
-| `--secondary` | Blue `#3B82F6` | Secondary actions |
-| `--accent` | Gold `#fbb614` | Premium, alerts, badges |
-| `--success` | Emerald `#10B981` | Positive states |
-| `--error` | Rose `#f43f5e` | Errors, destructive |
-| `--card` | Dark Navy `#0D121F` | Card surfaces |
-| `--border` | Muted Navy | Borders |
+| Token | Light Mode | Dark Mode | Use |
+|-------|-----------|-----------|-----|
+| `--primary` | Forest Green `#166534` | Emerald `#16A34A` | CTAs, links, highlights |
+| `--accent` | Indian Gold `#D97706` | Gold `#D97706` | Premium, Indian identity |
+| `--success` | Emerald `#16A34A` | Emerald `#16A34A` | Positive states |
+| `--error` | Red `#DC2626` | Rose `#f43f5e` | Errors, destructive |
+| `--card` | Near-white `#FAFAFA` | Green-dark `hsl(150 47% 10%)` | Card surfaces |
+| `--border` | Light slate | Green-tinted dark | Borders |
+
+**Brand Colors (Tailwind):**
+- `green-*` (50-950) — Primary green palette
+- `amber-*` (50-950) — Indian gold/saffron accent
+- `primary-*` — Maps to green (DEFAULT=#166534, light=#16A34A)
 
 **Fonts:**
 - Body: `Inter` (`--font-inter`)
 - Display: `Outfit` (`--font-outfit`)
 - Content: `Source Serif 4` (`--font-serif`)
 - Code: `JetBrains Mono` (`--font-mono`)
+- Numbers: `font-variant-numeric: tabular-nums` globally
 
 **CSS rule:** Use semantic tokens (`bg-primary`, `text-accent`, `border-border`) NOT raw hex.
+Use `green-*` or `primary-*` Tailwind classes — NEVER `cyan-*`, `teal-*`, or `sky-*`.
 Legacy `wt-*` variables exist — migrate to semantic tokens when touching those files.
 
 ---
@@ -203,7 +209,8 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 - [ ] CMS article templates (5 standard) need creation
 - [ ] PWA manifest exists (`/manifest.json`) — needs full PWA audit
 - [ ] Mobile optimization audit pending
-- [ ] UI overhaul planned: colors, theme, mobile-first
+- [x] UI overhaul Phase 1-3 complete: green brand, light mode default, mobile bottom nav
+- [ ] UI overhaul Phase 4-5 pending: calculator result cards, performance audit
 
 ---
 
@@ -213,9 +220,10 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 ❌ Don't run "audit the whole platform" — target specific files/features
 ❌ Don't change tailwind.config.ts without discussing design impact
 ❌ Don't add new AI providers — use the existing failover chain
-❌ Don't hardcode colors — use CSS variables
+❌ Don't hardcode colors — use CSS variables or semantic Tailwind tokens
+❌ Don't use cyan-*, teal-*, or sky-* — brand is green-* / primary-*
 ❌ Don't skip try/catch on DB calls in page components
-❌ Don't add light mode — app is dark-only by design
+❌ Don't remove dark mode support — app is light-first with dark mode option
 ❌ Don't touch lib/env.ts without reading it fully first
 ❌ Don't create new files if editing existing ones works
 ```
@@ -224,7 +232,8 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 
 ## 11. Architecture Decisions (Settled — Don't Re-debate)
 
-- **Dark-only** intentional — financial platform trust + readability
+- **Light-first with dark mode** — green brand (trust + money) for Indian market
+- **Mobile-first** — bottom tab navigation, thumb-zone design, Indian app patterns
 - **Multi-LLM failover** in `lib/ai-service.ts` — cost + reliability
 - **App Router** (not Pages) — for streaming, server components
 - **Supabase RLS** — all DB security enforced at row level, not just API
