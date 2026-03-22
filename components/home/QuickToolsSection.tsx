@@ -58,7 +58,7 @@ const calculators = [
     { id: "tax", icon: FileText, title: "Tax Calculator", shortTitle: "Tax", description: "Optimize your taxes", href: "/calculators/tax", color: "orange" },
     { id: "fd", icon: PiggyBank, title: "FD Calculator", shortTitle: "FD", description: "Fixed deposit returns", href: "/calculators/fd", color: "violet" },
     { id: "ppf", icon: Shield, title: "PPF Calculator", shortTitle: "PPF", description: "Long-term savings", href: "/calculators/ppf", color: "rose" },
-    { id: "home", icon: Home, title: "Home Loan", shortTitle: "Home Loan", description: "Buy your dream home", href: "/calculators/home-loan", color: "sky" },
+    { id: "home", icon: Home, title: "Home Loan", shortTitle: "Home Loan", description: "Buy your dream home", href: "/calculators/home-loan", color: "green" },
     { id: "goal", icon: Target, title: "Goal Planner", shortTitle: "Goals", description: "Reach financial milestones", href: "/calculators/goal", color: "indigo" },
 ];
 
@@ -119,7 +119,7 @@ function HeroSIPCalculator() {
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover/sip:text-emerald-600 dark:group-hover/sip:text-emerald-400 transition-colors">SIP Calculator</h3>
                     <p className="text-slate-500 dark:text-slate-600 text-sm font-medium">See how small investments grow huge.</p>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover/sip:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/20 group-hover/sip:scale-110 transition-transform">
                     <TrendingUp className="w-6 h-6 text-white" />
                 </div>
             </div>
@@ -218,7 +218,7 @@ function PreviewCard({ title, icon: Icon, color, href, description }: any) {
         orange: "bg-orange-500 text-orange-500",
         violet: "bg-violet-500 text-violet-500",
         rose: "bg-rose-500 text-rose-500",
-        sky: "bg-sky-500 text-sky-500",
+        green: "bg-green-600 text-green-600",
         indigo: "bg-indigo-500 text-indigo-500",
     };
     
@@ -268,7 +268,7 @@ export default function QuickToolsSection() {
                         Financial Toolkit
                     </Badge>
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
-                        Calculate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">Financial Future</span>
+                        Calculate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-700 to-emerald-500">Financial Future</span>
                     </h2>
                     <p className="text-lg text-slate-600 dark:text-slate-400">
                         Powerful tools to help you plan, save, and grow your wealth.
@@ -318,7 +318,7 @@ export default function QuickToolsSection() {
                             orange: 'bg-orange-500',
                             violet: 'bg-violet-500',
                             rose: 'bg-rose-500',
-                            sky: 'bg-sky-500',
+                            green: 'bg-green-600',
                             indigo: 'bg-indigo-500',
                             slate: 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-600'
                         };
