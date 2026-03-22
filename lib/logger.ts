@@ -244,8 +244,8 @@ class Logger {
     /**
      * Log error message
      */
-    error(message: string, error?: Error, context?: Record<string, any>) {
-        this.log('error', message, context, error);
+    error(message: string, error?: Error | unknown, context?: Record<string, any>) {
+        this.log('error', message, context, error instanceof Error ? error : undefined);
     }
 
     /**
