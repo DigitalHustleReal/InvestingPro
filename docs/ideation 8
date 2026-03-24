@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>InvestingPro — All Category Pages</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B2A4A;--saf:#E8871A;--safd:rgba(232,135,26,.1);--grn:#1A6B4A;--grn2:#4CAF7D;--grnd:rgba(26,107,74,.08);--cream:#F5F0E8;--paper:#FFFDF8;--mist:#E4DEDA;--ash:#7A8799;--red:#C0392B;--sky:#1E6FBF;--warn:#B45309;--pur:#6B21A8;}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--ink);font-size:13.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.page{display:none}.page.on{display:block}
+
+/* LEFT SIDEBAR NAVIGATOR */
+.pnav{background:var(--paper);border-right:1px solid var(--mist);width:208px;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:500;scrollbar-width:thin}
+.pn-logo{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--ink);padding:14px 16px 12px;border-bottom:1px solid var(--mist);display:block;cursor:pointer}
+.pn-logo em{color:var(--saf)}
+.pn-sec{font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ash);padding:12px 16px 5px}
+.pnl{display:flex;align-items:center;gap:7px;padding:9px 16px;font-size:12.5px;color:var(--ash);cursor:pointer;transition:all .12s;border-left:2px solid transparent;font-weight:500}
+.pnl:hover{background:var(--cream);color:var(--ink)}.pnl.on{color:var(--ink);border-left-color:var(--saf);background:var(--safd);font-weight:600}
+.pnl .ic{font-size:14px;width:20px;text-align:center}
+
+/* MAIN CONTENT */
+.ca{margin-left:208px}
+@media(max-width:800px){.pnav{transform:translateX(-100%);transition:transform .25s;z-index:600}.pnav.open{transform:translateX(0);box-shadow:4px 0 20px rgba(27,42,74,.15)}.ca{margin-left:0}}
+
+/* SHARED NAV */
+.topnav{background:var(--paper);height:54px;display:flex;align-items:stretch;padding:0 20px;border-bottom:1px solid var(--mist);position:sticky;top:0;z-index:300}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--ink);display:flex;align-items:center;margin-right:16px;flex-shrink:0;cursor:pointer}
+.logo em{color:var(--saf)}
+.navlinks{display:flex;height:54px;overflow-x:auto;scrollbar-width:none;flex:1}
+.navlinks::-webkit-scrollbar{display:none}
+.nl{height:54px;padding:0 11px;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:var(--ash);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .13s;font-family:inherit}
+.nl:hover,.nl.on{color:var(--ink);border-bottom-color:var(--saf)}.nl.grn{color:var(--grn);font-weight:600}
+.navr{margin-left:auto;display:flex;align-items:center;gap:7px;flex-shrink:0}
+.btnp{padding:7px 13px;background:var(--saf);color:#fff;border:none;border-radius:6px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer}.btnp:hover{background:#D4791A}
+.ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:4px}
+.ham span{width:18px;height:1.5px;background:var(--ash);display:block;border-radius:1px}
+@media(max-width:800px){.navlinks,.navr .btnp{display:none}.ham{display:flex}}
+
+/* TRUST BAR */
+.tbar{background:var(--grn);padding:6px 20px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.tbar::-webkit-scrollbar{display:none}
+.ti{display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(245,240,232,.8);padding:0 12px;border-right:1px solid rgba(245,240,232,.15);white-space:nowrap;font-weight:500}
+.ti:first-child{padding-left:0}.ti:last-child{border:none}.ti::before{content:'✓';font-size:10px}
+
+/* BREADCRUMB */
+.bc{background:var(--paper);border-bottom:1px solid var(--mist);padding:8px 20px;font-size:12px;color:var(--ash)}
+.bc a{color:var(--saf);text-decoration:none;cursor:pointer}.bc .cur{color:var(--ink);font-weight:500}
+
+/* PAGE HEADER */
+.ph{background:var(--paper);padding:20px;border-bottom:1px solid var(--mist)}
+.ph h1{font-family:'Playfair Display',serif;font-size:24px;font-style:italic;font-weight:400;color:var(--ink);margin-bottom:5px}
+.ph h1 em{color:var(--saf)}
+.kicker{font-size:9px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--saf);margin-bottom:5px}
+.ph-meta{font-size:12px;color:var(--ash);display:flex;gap:12px;flex-wrap:wrap}
+
+/* 2-COL LAYOUT */
+.pb{display:grid;grid-template-columns:1fr 258px;gap:0;max-width:1020px;margin:0 auto;padding:18px 20px;align-items:start}
+@media(max-width:700px){.pb{grid-template-columns:1fr;padding:14px 14px}}
+.mc{}.sb{padding-left:17px}
+@media(max-width:700px){.sb{padding-left:0;margin-top:18px}}
+
+/* EDITORIAL NOTE */
+.en{background:var(--grnd);border:1px solid rgba(26,107,74,.15);border-radius:10px;padding:12px 14px;display:flex;gap:9px;align-items:flex-start;margin-bottom:14px}
+.en-ic{width:22px;height:22px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;flex-shrink:0;font-weight:700}
+.en-tg{font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--grn);margin-bottom:2px}
+.en-bd{font-size:12px;color:#1A3D2B;line-height:1.6}
+
+/* METHOD STRIP */
+.ms{background:rgba(26,107,74,.04);border-top:1px solid rgba(26,107,74,.1);border-bottom:1px solid rgba(26,107,74,.1);padding:7px 20px;font-size:12px;color:#1A3D2B;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ms a{color:var(--sky);text-decoration:none;font-weight:500}
+.msc{padding:2px 7px;border-radius:6px;font-size:10.5px;font-weight:700;background:#E8F5EE;color:var(--grn);white-space:nowrap}
+
+/* FILTER BAR */
+.fb{background:var(--paper);border-bottom:1px solid var(--mist);padding:8px 20px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.fbl{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ash);flex-shrink:0}
+.chip{padding:5px 11px;border:1px solid var(--mist);border-radius:20px;font-size:12px;color:var(--ash);background:var(--paper);cursor:pointer;white-space:nowrap;transition:all .12s;font-family:inherit}
+.chip:hover{border-color:var(--saf);color:var(--saf)}.chip.on{background:var(--saf);border-color:var(--saf);color:#fff}
+.fbr{margin-left:auto;font-size:12px;color:var(--sky);cursor:pointer;font-weight:500;white-space:nowrap}
+
+/* CARD ROW */
+.cr{background:var(--paper);border:1px solid var(--mist);border-radius:12px;overflow:hidden;margin-bottom:9px;transition:border-color .15s,box-shadow .15s}
+.cr:hover{border-color:rgba(232,135,26,.3);box-shadow:0 3px 14px rgba(27,42,74,.05)}
+.crpk{background:var(--safd);padding:4px 15px;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--saf);font-weight:700;border-bottom:1px solid rgba(232,135,26,.1)}
+.cri{display:grid;grid-template-columns:96px 1fr 112px;align-items:stretch}
+@media(max-width:550px){.cri{grid-template-columns:78px 1fr}.crr{display:none}}
+.crl{padding:12px 9px;display:flex;flex-direction:column;align-items:center;gap:5px;border-right:1px solid var(--mist)}
+.ct{width:64px;height:40px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;font-family:'DM Mono',monospace;letter-spacing:.04em}
+.crbn{font-size:9.5px;color:var(--ash);text-align:center}
+.sts{font-size:10px;color:#F59E0B;letter-spacing:-1px}
+.crm{padding:12px 15px}
+.crn{font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.crd{font-size:12px;color:var(--ash);margin-bottom:7px;line-height:1.5}
+.crtags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px}
+.tg{padding:3px 7px;border-radius:5px;font-size:11px;font-weight:500}
+.tgg{background:#EBF7F0;color:var(--grn)}.tgr{background:#FDECEA;color:var(--red)}.tgb{background:#EAF2FB;color:var(--sky)}.tgm{background:var(--cream);color:var(--ash)}
+.crst{display:flex;gap:13px}
+.csi .v{font-size:12.5px;font-weight:600;color:var(--ink)}.csi .l{font-size:10px;color:var(--ash);margin-top:1px}
+.crr{padding:11px 9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border-left:1px solid var(--mist)}
+.ring{position:relative;width:48px;height:48px}
+.ring svg{width:48px;height:48px;transform:rotate(-90deg)}
+.ringc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.rp{font-size:11px;font-weight:700}.rl{font-size:8px;color:var(--ash)}
+.bap{width:100%;padding:7px;background:var(--saf);color:#fff;border:none;border-radius:5px;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer}.bap:hover{background:#D4791A}
+.bcp{width:100%;padding:6px;background:transparent;color:var(--ash);border:1px solid var(--mist);border-radius:5px;font-family:inherit;font-size:11px;cursor:pointer}.bcp:hover{border-color:var(--ink);color:var(--ink)}
+.crf{padding:6px 15px;background:var(--cream);border-top:1px solid var(--mist);display:flex;justify-content:space-between;font-size:11px;color:var(--ash)}
+.crf .ed{color:var(--grn);font-weight:500}.crf a{color:var(--sky);text-decoration:none}
+
+/* SIDEBAR */
+.sc{background:var(--paper);border:1px solid var(--mist);border-radius:11px;padding:14px;margin-bottom:13px}
+.sk{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ash);margin-bottom:9px}
+.slink{display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:6px;cursor:pointer;text-decoration:none;transition:background .12s;font-size:12.5px;color:var(--sky);margin-bottom:1px}
+.slink:hover{background:var(--cream)}.slink::before{content:'›';color:var(--saf);font-size:12px}
+.rr{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--mist);font-size:12px}
+.rr:last-child{border:none}.rb{color:var(--ash)}.rv{font-weight:700;color:var(--grn)}
+.toc-l{display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:6px;cursor:pointer;transition:background .12s;font-size:12.5px;color:var(--ink);border-bottom:1px solid var(--mist);margin-bottom:0}
+.toc-l:last-child{border:none}.toc-l:hover{background:var(--cream)}.toc-l::before{content:'§';color:var(--saf);font-size:10px}
+
+/* CALCULATOR */
+.cw{background:var(--paper);border:1px solid var(--mist);border-radius:11px;overflow:hidden;margin-bottom:14px}
+.ci2{display:grid;grid-template-columns:310px 1fr}
+@media(max-width:650px){.ci2{grid-template-columns:1fr}}
+.cin{padding:18px;border-right:1px solid var(--mist)}.cout{padding:18px;background:var(--cream)}
+.fl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:5px;display:block}
+.fh{font-size:11px;color:var(--ash);margin-top:2px}
+.slr{display:flex;justify-content:space-between;font-size:11px;color:var(--ash);margin-bottom:2px}.slv{font-weight:600;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--saf);margin:2px 0}
+.ip{width:100%;border:1px solid var(--mist);border-radius:6px;padding:8px 11px;font-family:inherit;font-size:12.5px;color:var(--ink);background:var(--paper);outline:none;transition:border-color .13s}
+.ip:focus{border-color:var(--saf)}.ip.sel{cursor:pointer}
+.ctab{width:100%;padding:10px;background:var(--saf);color:#fff;border:none;border-radius:7px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;margin-top:4px}.ctab:hover{background:#D4791A}
+.ctag{background:var(--grn)}.ctag:hover{background:#155d3e}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.rc2{background:var(--paper);border:1px solid var(--mist);border-radius:8px;padding:11px;text-align:center}
+.rc2.hero{background:var(--ink);grid-column:span 2}
+.rnum{font-family:'Playfair Display',serif;font-size:20px;color:var(--ink)}
+.rc2.hero .rnum{color:var(--saf);font-size:24px}
+.rlb{font-size:10px;color:var(--ash);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
+.rc2.hero .rlb{color:rgba(245,240,232,.4)}
+.pr{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.plb{font-size:11.5px;color:var(--ash);width:100px;flex-shrink:0}
+.pt{flex:1;height:6px;background:var(--mist);border-radius:3px;overflow:hidden}
+.pf{height:100%;border-radius:3px}.pvl{font-size:11.5px;font-weight:600;width:32px;text-align:right;flex-shrink:0}
+.comp-r{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--mist);font-size:12px}
+.comp-r:last-child{border:none}.compb{color:var(--ash)}.compv{font-weight:600}
+
+/* SECTION HEADING */
+.sh{margin:20px 0 12px}
+.sh h2{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--ink);font-weight:400}
+.sh h2 em{color:var(--saf)}.sh p{font-size:12.5px;color:var(--ash);margin-top:3px}
+
+/* DATA TABLE */
+.dt{width:100%;border-collapse:collapse;margin-bottom:14px;border-radius:10px;overflow:hidden;border:1px solid var(--mist)}
+.dt th{background:var(--ink);color:rgba(245,240,232,.7);padding:8px 12px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.dt th:last-child{text-align:right}
+.dt td{padding:9px 12px;border-bottom:1px solid var(--mist);font-size:12.5px}
+.dt tr:last-child td{border:none}.dt tr:hover td{background:rgba(232,135,26,.02)}.dt td:last-child{text-align:right}
+.dg{color:var(--grn);font-weight:700}.dr{color:var(--red)}.dw{color:var(--warn)}
+.dtag{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:6px}
+.dtag-g{background:#E8F5EE;color:var(--grn)}.dtag-b{background:#EAF2FB;color:var(--sky)}
+
+/* FUND ROW */
+.fr{background:var(--paper);border:1px solid var(--mist);border-radius:10px;overflow:hidden;margin-bottom:7px;display:grid;grid-template-columns:1fr auto;align-items:center;transition:border-color .14s}
+.fr:hover{border-color:rgba(232,135,26,.25)}
+.frm{padding:12px 15px}.frn{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.frt{display:flex;gap:4px;margin-bottom:5px}
+.frs{display:flex;gap:14px}.frs .v{font-size:13.5px;font-weight:700}.frs .l{font-size:10px;color:var(--ash);margin-top:1px}
+.frc{padding:0 13px;display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--mist)}
+@media(max-width:550px){.fr{grid-template-columns:1fr}.frc{flex-direction:row;border-left:none;border-top:1px solid var(--mist);padding:9px 15px}}
+.bsip{padding:7px 12px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.blump{padding:7px 12px;background:transparent;color:var(--ash);border:1px solid var(--mist);border-radius:5px;font-family:inherit;font-size:11.5px;cursor:pointer}.blump:hover{border-color:var(--ink);color:var(--ink)}
+
+/* INSURANCE CARD */
+.ic{background:var(--paper);border:1px solid var(--mist);border-radius:11px;overflow:hidden;transition:border-color .14s}
+.ic:hover{border-color:rgba(232,135,26,.25)}
+.ich{padding:12px 14px;border-bottom:1px solid var(--mist)}
+.icn{font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:2px}.icc{font-size:11px;color:var(--ash)}
+.icb{padding:12px 14px}
+.icp{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink)}.icpl{font-size:10px;color:var(--ash);margin-bottom:7px}
+.icfeats{display:flex;flex-direction:column;gap:3px}
+.icfeats span{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ash)}
+.icfeats span::before{content:'✓';color:var(--grn);font-size:11px}
+.icft{padding:9px 14px;background:var(--cream);border-top:1px solid var(--mist);display:flex;gap:6px}
+.ib{flex:1;padding:7px;background:var(--saf);color:#fff;border:none;border-radius:5px;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer}
+
+/* FD RATE CARD */
+.fdc{background:var(--paper);border:1px solid var(--mist);border-radius:11px;overflow:hidden;margin-bottom:11px}
+.fdch{padding:11px 14px;border-bottom:1px solid var(--mist);display:flex;justify-content:space-between;align-items:center}
+.fdcn{font-size:13px;font-weight:600;color:var(--ink)}
+.fdtg{padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700}
+.fdtg-g{background:#E8F5EE;color:var(--grn)}.fdtg-b{background:#EAF2FB;color:var(--sky)}.fdtg-m{background:var(--cream);color:var(--ash)}
+.fdt{width:100%;border-collapse:collapse}
+.fdt th{background:var(--cream);padding:7px 12px;font-size:10px;font-weight:700;color:var(--ash);text-transform:uppercase;letter-spacing:.05em;text-align:left}
+.fdt th:last-child{text-align:right}
+.fdt td{padding:8px 12px;border-bottom:1px solid var(--mist);font-size:12.5px}
+.fdt tr:last-child td{border:none}.fdt td:last-child{text-align:right;font-weight:700}.fdb{color:var(--grn)}
+
+/* TAX / REGIME */
+.reg{border-radius:10px;overflow:hidden;border:1px solid var(--mist)}
+.regh{padding:11px 14px;border-bottom:1px solid var(--mist)}
+.regn{font-size:13.5px;font-weight:600;margin-bottom:2px}.regsub{font-size:11px;color:var(--ash)}
+.regrow{display:flex;justify-content:space-between;padding:7px 14px;border-bottom:1px solid var(--mist);font-size:12px}
+.regrow:last-child{border:none}.rrl{color:var(--ash)}.rrv{font-weight:600}
+.regres{padding:11px 14px;text-align:center;border-top:2px solid var(--mist)}
+.rrtax{font-family:'Playfair Display',serif;font-size:21px;font-weight:400}.rrlb{font-size:10.5px;color:var(--ash);margin-top:2px}
+
+/* CIBIL HERO */
+.cibhero{background:var(--ink);padding:28px 20px;position:relative;overflow:hidden}
+.cibhero::before{content:'';position:absolute;right:-50px;top:-50px;width:280px;height:280px;background:radial-gradient(circle,rgba(232,135,26,.07) 0%,transparent 65%);pointer-events:none}
+.cibhero-inner{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;position:relative;z-index:1}
+@media(max-width:700px){.cibhero-inner{grid-template-columns:1fr}}
+.sb-bands{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:14px 0}
+.sbb{border-radius:7px;padding:9px 6px;text-align:center}
+.sbb-n{font-family:'Playfair Display',serif;font-size:14px;margin-bottom:2px}
+.sbb-l{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}.sbb-r{font-size:9px;margin-top:2px;opacity:.7}
+.fb2r{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.fb2l{font-size:11px;color:rgba(245,240,232,.6);width:120px;flex-shrink:0}
+.fb2t{flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.fb2f{height:100%;border-radius:3px}.fb2v{font-size:11px;font-weight:600;width:40px;text-align:right;flex-shrink:0;color:rgba(245,240,232,.55)}
+.simcard{background:rgba(245,240,232,.06);border:1px solid rgba(245,240,232,.12);border-radius:13px;padding:18px}
+.bigring{position:relative;width:130px;height:130px;margin:0 auto 14px}
+.bigring svg{width:130px;height:130px;transform:rotate(-90deg)}
+.brc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.brn{font-family:'Playfair Display',serif;font-size:34px;color:var(--grn2);line-height:1}.brl{font-size:11px;color:rgba(245,240,232,.4);margin-top:2px}
+.sima{background:var(--cream);border:1px solid var(--mist);border-radius:7px;padding:9px 11px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .12s}
+.sima:hover{background:#E0D9D0}
+.sat{font-size:12px;font-weight:500;color:var(--ink)}.sas{font-size:11px;color:var(--ash);margin-top:1px}
+.dp{background:#E8F5EE;color:var(--grn);padding:2px 7px;border-radius:6px;font-size:11.5px;font-weight:700;flex-shrink:0}
+.dn{background:#FDECEA;color:var(--red);padding:2px 7px;border-radius:6px;font-size:11.5px;font-weight:700;flex-shrink:0}
+
+/* IFSC PAGE */
+.ifsc-search{background:var(--ink);padding:24px 20px}
+.ifsc-form{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:7px;max-width:780px;margin:0 auto}
+@media(max-width:600px){.ifsc-form{grid-template-columns:1fr}}
+.ifc{background:var(--ink);color:var(--saf);font-family:'DM Mono',monospace;font-size:18px;font-weight:500;padding:12px;text-align:center;border-radius:8px;margin:12px 0;letter-spacing:.08em}
+.irrow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--mist);font-size:12px}
+.irrow:last-child{border:none}.irk{color:var(--ash)}.irv{font-weight:500;color:var(--ink)}
+
+/* GLOSSARY */
+.gal-alpha{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:15px}
+.gab{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ash);background:var(--paper);border:1px solid var(--mist);cursor:pointer;transition:all .12s}
+.gab:hover,.gab.on{background:var(--saf);border-color:var(--saf);color:#fff}
+.glos-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:550px){.glos-grid{grid-template-columns:1fr}}
+.gi{padding:10px 13px;border-bottom:1px solid var(--mist);cursor:pointer;transition:background .12s;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.gi:hover{background:var(--paper)}.git{font-size:12.5px;font-weight:600;color:var(--ink)}.gis{font-size:11px;color:var(--ash);margin-top:2px;line-height:1.4}.gia{color:var(--saf);font-size:12px;flex-shrink:0;margin-top:3px}
+.gdd{background:var(--paper);border:1px solid var(--mist);border-radius:11px;padding:18px;margin-bottom:14px}
+.gdt{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--ink);margin-bottom:6px}
+.gdb{font-size:13px;color:var(--ink);line-height:1.75}
+.gdex{background:var(--cream);border-radius:7px;padding:10px 13px;margin:9px 0;border-left:3px solid var(--saf);font-size:12.5px;color:var(--ink);line-height:1.6}
+.rt2{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.rtl{padding:4px 10px;background:var(--cream);border:1px solid var(--mist);border-radius:20px;font-size:12px;color:var(--sky);cursor:pointer}
+
+/* ARTICLE PAGE */
+.artlayout{display:grid;grid-template-columns:1fr 250px;gap:28px;max-width:980px;margin:0 auto;padding:20px;align-items:start}
+@media(max-width:700px){.artlayout{grid-template-columns:1fr;padding:14px}}
+.artbody h2{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--ink);margin:20px 0 9px;font-weight:400}
+.artbody h2 em{color:var(--saf)}.artbody h3{font-size:14.5px;font-weight:600;color:var(--ink);margin:16px 0 7px}
+.artbody p{font-size:13.5px;color:#2A3A50;line-height:1.8;margin-bottom:10px}
+.artbody ul{padding-left:16px;margin-bottom:10px}.artbody li{font-size:13.5px;color:#2A3A50;line-height:1.8;margin-bottom:3px}
+.ktbox{background:var(--cream);border-radius:9px;padding:13px 15px;margin-bottom:16px;border:1px solid var(--mist)}
+.ktlbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink);margin-bottom:7px}
+.kti{display:flex;align-items:flex-start;gap:5px;padding:4px 0;border-bottom:1px solid var(--mist);font-size:12.5px;color:var(--ink);line-height:1.5}
+.kti:last-child{border:none}.kti::before{content:'→';color:var(--saf);flex-shrink:0;margin-top:1px}
+.pullq{border-left:3px solid var(--saf);padding:9px 14px;margin:12px 0;background:var(--cream);border-radius:0 6px 6px 0}
+.pqt{font-family:'Playfair Display',serif;font-size:14.5px;font-style:italic;color:var(--ink);line-height:1.4}.pqs{font-size:11px;color:var(--ash);margin-top:3px}
+.faqi{border-bottom:1px solid var(--mist);padding:11px 0}
+.faqq{font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:7px}
+.faqq::after{content:'+';font-size:15px;color:var(--saf);flex-shrink:0}.faqq.op::after{content:'−'}
+.faqa{font-size:12.5px;color:var(--ash);line-height:1.7;margin-top:7px;display:none}.faqa.op{display:block}
+
+/* BANNER */
+.ban{background:linear-gradient(135deg,var(--ink),#243859);padding:18px 20px;border-radius:11px;margin-bottom:14px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+@media(max-width:480px){.ban{grid-template-columns:1fr}}
+.bank{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--saf);font-weight:700;margin-bottom:3px}
+.bant{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:#F5F0E8;margin-bottom:3px}.bans{font-size:12px;color:rgba(245,240,232,.4)}
+.banb{padding:9px 16px;background:var(--saf);color:#fff;border:none;border-radius:6px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+
+/* SHOW MORE */
+.smwrap{text-align:center;padding:13px}
+.smb{padding:8px 20px;border:1px solid var(--mist);border-radius:7px;background:var(--paper);color:var(--sky);font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer}
+
+/* NEWSLETTER */
+.nlsec{background:var(--ink);padding:36px 20px}
+.nli{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+@media(max-width:700px){.nli{grid-template-columns:1fr}}
+.nlform{display:flex;gap:7px;max-width:380px}
+.nlinput{flex:1;background:rgba(245,240,232,.08);border:1px solid rgba(245,240,232,.14);border-radius:6px;padding:9px 12px;color:#F5F0E8;font-family:inherit;font-size:13px;outline:none}
+.nlinput::placeholder{color:rgba(245,240,232,.28)}.nlinput:focus{border-color:rgba(232,135,26,.45)}
+.nlbtn{padding:9px 15px;background:var(--saf);color:#fff;border:none;border-radius:6px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.nlprev{background:rgba(245,240,232,.06);border:1px solid rgba(245,240,232,.1);border-radius:11px;padding:16px}
+.nlpw{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--saf);font-weight:700;margin-bottom:5px}
+.nlps{font-size:14px;font-weight:500;color:#F5F0E8;margin-bottom:6px;line-height:1.3}
+.nlpb{font-size:12px;color:rgba(245,240,232,.4);line-height:1.6;margin-bottom:10px}
+.nlpc{margin-top:10px;padding-top:9px;border-top:1px solid rgba(245,240,232,.08);font-size:11px;color:rgba(245,240,232,.25);display:flex;align-items:center;gap:5px}
+.nlpc::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn2);flex-shrink:0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* MOBILE BOTTOM NAV */
+.mobnav{display:none}
+@media(max-width:800px){
+  .mobnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--paper);border-top:1px solid var(--mist);z-index:500}
+  .mni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 6px;cursor:pointer;font-size:10px;font-weight:500;color:var(--ash);background:none;border:none;font-family:inherit}
+  .mni.on{color:var(--saf)}.mni-ic{font-size:18px;line-height:1}
+  .mni-c{background:var(--grn);border-radius:9px;padding:5px 0;margin:0 2px;color:rgba(245,240,232,.85)!important;position:relative}
+  .mni-c::before{content:'FREE';position:absolute;top:-6px;left:50%;transform:translateX(-50%);background:var(--saf);color:#fff;font-size:7px;font-weight:700;padding:1px 4px;border-radius:5px;white-space:nowrap}
+  body{padding-bottom:65px}
+}
+</style>
+</head>
+<body>
+
+<!-- LEFT PAGE NAVIGATOR -->
+<nav class="pnav" id="pnav">
+  <span class="pn-logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span>
+  <div class="pn-sec">Category Pages</div>
+  <div class="pnl on" id="pnl-cards" onclick="goto('cards')"><span class="ic">💳</span>Credit Cards</div>
+  <div class="pnl" id="pnl-loans" onclick="goto('loans')"><span class="ic">🏠</span>Loans</div>
+  <div class="pnl" id="pnl-mf" onclick="goto('mf')"><span class="ic">📈</span>Mutual Funds</div>
+  <div class="pnl" id="pnl-fd" onclick="goto('fd')"><span class="ic">🏦</span>FD &amp; Savings</div>
+  <div class="pnl" id="pnl-ins" onclick="goto('ins')"><span class="ic">🛡️</span>Insurance</div>
+  <div class="pnl" id="pnl-tax" onclick="goto('tax')"><span class="ic">🧾</span>Tax &amp; 80C</div>
+  <div class="pnl" id="pnl-cibil" onclick="goto('cibil')"><span class="ic">📊</span>CIBIL Score</div>
+  <div class="pn-sec">Calculators</div>
+  <div class="pnl" id="pnl-emi" onclick="goto('emi')"><span class="ic">🧮</span>EMI Calculator</div>
+  <div class="pnl" id="pnl-sip" onclick="goto('sip')"><span class="ic">📉</span>SIP Calculator</div>
+  <div class="pn-sec">SEO / Tools Pages</div>
+  <div class="pnl" id="pnl-ifsc" onclick="goto('ifsc')"><span class="ic">🔍</span>IFSC Lookup</div>
+  <div class="pnl" id="pnl-glos" onclick="goto('glos')"><span class="ic">📚</span>Finance Glossary</div>
+  <div class="pnl" id="pnl-art" onclick="goto('art')"><span class="ic">📝</span>Article Template</div>
+</nav>
+
+<div class="ca">
+
+<!-- ══════ PAGE: CREDIT CARDS ══════ -->
+<div class="page on" id="pg-cards">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl on">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl" onclick="goto('mf')">Invest &amp; Save</button><button class="nl" onclick="goto('ins')">Insurance</button><button class="nl" onclick="goto('tax')">Tax &amp; 80C</button><button class="nl grn" onclick="goto('cibil')">Free CIBIL</button></div><div class="navr"><button class="btnp" onclick="goto('cibil')">Free CIBIL</button><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="tbar"><div class="ti">Rankings never influenced by commission</div><div class="ti">Methodology published</div><div class="ti">Daily rate updates</div><div class="ti">AMFI-Registered</div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <span class="cur">Best Credit Cards India — March 2026</span></div>
+<div class="ph"><div class="kicker">Credit Cards</div><h1>Best Credit Cards in <em>India</em> — March 2026</h1><div class="ph-meta"><span>📋 48 cards compared</span><span style="color:var(--grn)">✓ Updated today</span><span>Reviewed by InvestingPro Research</span></div></div>
+<div class="ms"><strong>Ranking criteria:</strong><span class="msc">Reward rate 40%</span><span class="msc">Approval ease 30%</span><span class="msc">Fee value 20%</span><span class="msc">Service 10%</span>· Commission never influences order · <a href="#">Full methodology</a></div>
+<div class="fb"><span class="fbl">Filter</span><button class="chip on" onclick="fchip(this)">All</button><button class="chip" onclick="fchip(this)">Cashback</button><button class="chip" onclick="fchip(this)">Travel</button><button class="chip" onclick="fchip(this)">Fuel</button><button class="chip" onclick="fchip(this)">Dining</button><button class="chip" onclick="fchip(this)">Lifetime Free</button><button class="chip" onclick="fchip(this)">Premium</button><span class="fbr" onclick="goto('cibil')">Set CIBIL for personalised odds →</span></div>
+<div class="pb">
+<div class="mc">
+<div class="en"><div class="en-ic">★</div><div><div class="en-tg">Research Note · March 2026</div><div class="en-bd">SBI Cashback wins for most online spenders — 5% flat with no merchant restrictions. Critical caveat: 42% annual interest if you carry a balance. Pay in full monthly. For lifetime-free: Amazon Pay ICICI. — <strong>InvestingPro Research</strong></div></div></div>
+
+<div class="cr"><div class="crpk">★ #1 · InvestingPro Top Pick · March 2026</div><div class="cri"><div class="crl"><div class="ct" style="background:linear-gradient(135deg,#1B2A4A,#2D4A6A)">SBI</div><div class="crbn">State Bank of India</div><div class="sts">★★★★★</div></div><div class="crm"><div class="crn">SBI Cashback Credit Card</div><div class="crd">5% cashback on ALL online spends. No merchant restrictions, no category caps. India's most versatile flat-rate cashback card.</div><div class="crtags"><span class="tg tgg">5% all online</span><span class="tg tgg">1% offline</span><span class="tg tgb">No restrictions</span><span class="tg tgr">No lounge</span><span class="tg tgr">42% if carried</span></div><div class="crst"><div class="csi"><div class="v">₹999/yr</div><div class="l">Annual fee</div></div><div class="csi"><div class="v">₹2L spend</div><div class="l">Fee waiver</div></div><div class="csi"><div class="v">750+</div><div class="l">CIBIL req.</div></div><div class="csi"><div class="v">10 days</div><div class="l">Approval</div></div></div></div><div class="crr"><div class="ring" title="88% approval likelihood"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#E4DEDA" stroke-width="5"/><circle cx="24" cy="24" r="18" fill="none" stroke="#1A6B4A" stroke-width="5" stroke-dasharray="99 113" stroke-linecap="round"/></svg><div class="ringc"><div class="rp" style="color:var(--grn)">88%</div><div class="rl">likely</div></div></div><button class="bap">Apply →</button><button class="bcp">+ Compare</button></div></div><div class="crf"><span class="ed">Best for online shoppers who pay in full.</span><span>Earns commission · <a href="#">Doesn't affect rank</a></span></div></div>
+
+<div class="cr"><div class="cri"><div class="crl"><div class="ct" style="background:linear-gradient(135deg,#92400E,#B45309)">HDFC</div><div class="crbn">HDFC Bank</div><div class="sts">★★★★</div></div><div class="crm"><div class="crn">HDFC Millennia Credit Card</div><div class="crd">Best for Amazon, Flipkart, Swiggy &amp; Zomato spenders. Strong dining + online rewards.</div><div class="crtags"><span class="tg tgg">5% top 4 apps</span><span class="tg tgg">2.5% other online</span><span class="tg tgb">Free w/ salary a/c</span></div><div class="crst"><div class="csi"><div class="v">₹1,000/yr</div><div class="l">Annual fee</div></div><div class="csi"><div class="v">₹1L spend</div><div class="l">Fee waiver</div></div><div class="csi"><div class="v">760+</div><div class="l">CIBIL req.</div></div></div></div><div class="crr"><div class="ring"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#E4DEDA" stroke-width="5"/><circle cx="24" cy="24" r="18" fill="none" stroke="#B45309" stroke-width="5" stroke-dasharray="81 113" stroke-linecap="round"/></svg><div class="ringc"><div class="rp" style="color:var(--warn)">72%</div><div class="rl">likely</div></div></div><button class="bap">Apply →</button><button class="bcp">+ Compare</button></div></div><div class="crf"><span class="ed">Perfect if Amazon &amp; Zomato are your main spends.</span><span>Earns commission on approval</span></div></div>
+
+<div class="cr"><div class="cri"><div class="crl"><div class="ct" style="background:linear-gradient(135deg,#1a3060,#2d4d8a)">AMZN</div><div class="crbn">ICICI Bank</div><div class="sts">★★★★</div></div><div class="crm"><div class="crn">Amazon Pay ICICI Credit Card</div><div class="crd">India's best lifetime-free card. No fee ever, no waiver condition. 5% on Amazon for Prime members.</div><div class="crtags"><span class="tg tgg">5% Amazon Prime</span><span class="tg tgg">2% other apps</span><span class="tg tgg" style="background:#E8F5EE">♾️ Lifetime Free</span><span class="tg tgb">No conditions</span></div><div class="crst"><div class="csi"><div class="v">₹0</div><div class="l">Annual fee</div></div><div class="csi"><div class="v">No condition</div><div class="l">Always free</div></div><div class="csi"><div class="v">720+</div><div class="l">CIBIL req.</div></div></div></div><div class="crr"><div class="ring"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#E4DEDA" stroke-width="5"/><circle cx="24" cy="24" r="18" fill="none" stroke="#1A6B4A" stroke-width="5" stroke-dasharray="103 113" stroke-linecap="round"/></svg><div class="ringc"><div class="rp" style="color:var(--grn)">91%</div><div class="rl">likely</div></div></div><button class="bap">Apply →</button><button class="bcp">+ Compare</button></div></div><div class="crf"><span class="ed">Best lifetime-free card in India. Zero conditions.</span><span>Earns commission · <a href="#">Doesn't affect rank</a></span></div></div>
+
+<div class="cr"><div class="cri"><div class="crl"><div class="ct" style="background:linear-gradient(135deg,#0F5132,#198754)">Axis</div><div class="crbn">Axis Bank</div><div class="sts">★★★★★</div></div><div class="crm"><div class="crn">Axis Magnus Credit Card</div><div class="crd">India's best premium travel card. Unlimited domestic lounge, 25 international lounge visits/yr, 12 reward pts per ₹200.</div><div class="crtags"><span class="tg tgg">Unlimited domestic lounge</span><span class="tg tgg">25 intl/yr</span><span class="tg tgr">High income needed</span></div><div class="crst"><div class="csi"><div class="v">₹12,500/yr</div><div class="l">Annual fee</div></div><div class="csi"><div class="v">₹15L spend</div><div class="l">Fee waiver</div></div><div class="csi"><div class="v">800+</div><div class="l">CIBIL req.</div></div></div></div><div class="crr"><div class="ring"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#E4DEDA" stroke-width="5"/><circle cx="24" cy="24" r="18" fill="none" stroke="#B45309" stroke-width="5" stroke-dasharray="63 113" stroke-linecap="round"/></svg><div class="ringc"><div class="rp" style="color:var(--warn)">56%</div><div class="rl">likely</div></div></div><button class="bap">Apply →</button><button class="bcp">+ Compare</button></div></div><div class="crf"><span class="ed">Only worth it if you travel 4+ times per year. Calculate lounge value first.</span><span>Earns ₹3,500 commission</span></div></div>
+
+<div class="smwrap"><button class="smb" onclick="alert('Full card database — connect to Supabase for 500+ cards')">Show 20 more cards ↓</button></div>
+</div>
+<div class="sb">
+<div class="sc"><div class="sk">Personalised approval odds</div><p style="font-size:12px;color:var(--ash);line-height:1.6;margin-bottom:10px">Set your CIBIL score to see personalised approval likelihood for every card.</p><button class="ctag ctab" onclick="goto('cibil')">Check free CIBIL →</button></div>
+<div class="sc"><div class="sk">Quick links</div><a class="slink" href="#">Best cashback cards</a><a class="slink" href="#">Best travel cards</a><a class="slink" href="#">Lifetime free cards</a><a class="slink" href="#">Cards by CIBIL score</a><a class="slink" href="#">Card comparison tool</a></div>
+<div class="sc"><div class="sk">Tools</div><a class="slink" onclick="goto('cibil')">CIBIL Simulator</a><a class="slink" onclick="goto('emi')">EMI Calculator</a><a class="slink" onclick="goto('glos')">Finance Glossary</a></div>
+</div>
+</div>
+</div>
+
+
+<!-- ══════ PAGE: LOANS ══════ -->
+<div class="page" id="pg-loans">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl on">Loans</button><button class="nl" onclick="goto('mf')">Invest &amp; Save</button><button class="nl" onclick="goto('ins')">Insurance</button><button class="nl" onclick="goto('tax')">Tax &amp; 80C</button><button class="nl grn" onclick="goto('cibil')">Free CIBIL</button></div><div class="navr"><button class="btnp" onclick="goto('emi')">EMI Calculator</button><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="tbar"><div class="ti">1–2% commission on disbursed loan — disclosed</div><div class="ti">Rankings by true cost not commission</div><div class="ti">Rates scraped from bank sites daily</div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <span class="cur">Best Home Loan Rates — March 2026</span></div>
+<div class="ph"><div class="kicker">Home &amp; Personal Loans</div><h1>Best Home Loan Rates in <em>India</em> — March 2026</h1><div class="ph-meta"><span>🏦 14 banks compared</span><span style="color:var(--grn)">✓ Updated today 7am</span></div></div>
+<div class="pb">
+<div class="mc">
+<div class="en"><div class="en-ic">★</div><div><div class="en-tg">Research Note</div><div class="en-bd">SBI has the lowest headline rate (8.35%) but your actual rate depends on CIBIL, loan amount &amp; property type. A CIBIL of 749 vs 750 can cost ₹4.8L extra on a ₹60L loan over 20 years. Use our CIBIL Simulator before applying. — <strong>InvestingPro Research</strong></div></div></div>
+
+<div class="sh"><h2>Home loan rates today — <em>all banks</em></h2><p>Scraped from bank websites at 7am daily. Starting rates for 800+ CIBIL. Your actual rate may differ.</p></div>
+<div style="background:var(--paper);border:1px solid var(--mist);border-radius:12px;overflow:hidden;margin-bottom:16px">
+<div style="padding:11px 15px;border-bottom:1px solid var(--mist);display:flex;justify-content:space-between"><span style="font-size:13px;font-weight:600">Home Loan Comparison — ₹50L for 20 years</span><span style="font-size:11px;color:var(--grn)">Updated: Today 7:00am</span></div>
+<table class="dt" style="margin:0;border:none;border-radius:0">
+<tr><th>Bank</th><th>Rate (pa)</th><th style="text-align:left">EMI / ₹50L</th><th>vs SBI</th><th>Action</th></tr>
+<tr><td><strong>SBI</strong></td><td class="dg">8.35%</td><td style="text-align:left;font-weight:700">₹43,152</td><td><span class="dtag dtag-g">Cheapest</span></td><td><button class="bap" style="width:70px;padding:5px;font-size:11px">Apply</button></td></tr>
+<tr><td><strong>Bank of Baroda</strong></td><td style="font-weight:600">8.40%</td><td style="text-align:left;font-weight:700">₹43,351</td><td style="color:var(--warn);font-size:12px">+₹199/mo</td><td><button class="bap" style="width:70px;padding:5px;font-size:11px">Apply</button></td></tr>
+<tr><td><strong>HDFC Bank</strong></td><td style="font-weight:600">8.50%</td><td style="text-align:left;font-weight:700">₹43,741</td><td style="color:var(--warn);font-size:12px">+₹589/mo</td><td><button class="bap" style="width:70px;padding:5px;font-size:11px">Apply</button></td></tr>
+<tr><td><strong>ICICI Bank</strong></td><td style="font-weight:600">8.55%</td><td style="text-align:left;font-weight:700">₹43,938</td><td style="color:var(--warn);font-size:12px">+₹786/mo</td><td><button class="bap" style="width:70px;padding:5px;font-size:11px">Apply</button></td></tr>
+<tr><td><strong>Kotak Mahindra</strong></td><td style="font-weight:600">8.65%</td><td style="text-align:left;font-weight:700">₹44,334</td><td style="color:var(--red);font-size:12px">+₹1,182/mo</td><td><button class="bap" style="width:70px;padding:5px;font-size:11px">Apply</button></td></tr>
+</table>
+</div>
+
+<div class="ban"><div><div class="bank">CIBIL matters more than you think</div><div class="bant">Your CIBIL score changes your rate by up to 1.5%</div><div class="bans">On ₹60L loan: difference between 700 &amp; 800 CIBIL = ₹9.8 lakh extra interest over 20 years.</div></div><button class="banb" onclick="goto('cibil')">Simulate CIBIL Impact →</button></div>
+
+<div class="sh"><h2>Personal loan rates — <em>by CIBIL band</em></h2></div>
+<table class="dt">
+<tr><th>Bank</th><th>Rate from</th><th>Max loan</th><th>CIBIL req.</th></tr>
+<tr><td><strong>HDFC Bank</strong></td><td class="dg">10.50%</td><td>₹40 lakh</td><td style="text-align:right">750+</td></tr>
+<tr><td><strong>Bajaj Finserv</strong></td><td style="font-weight:600">11.00%</td><td>₹35 lakh</td><td style="text-align:right">700+</td></tr>
+<tr><td><strong>SBI Personal</strong></td><td style="font-weight:600">11.45%</td><td>₹20 lakh</td><td style="text-align:right">650+</td></tr>
+<tr><td><strong>Axis Bank</strong></td><td style="font-weight:600">10.99%</td><td>₹25 lakh</td><td style="text-align:right">720+</td></tr>
+</table>
+</div>
+<div class="sb">
+<div class="sc"><div class="sk">EMI Calculator</div><p style="font-size:12px;color:var(--ash);margin-bottom:10px;line-height:1.6">See your exact monthly EMI + total interest at any rate &amp; tenure.</p><button class="ctab" onclick="goto('emi')">Open EMI Calculator →</button></div>
+<div class="sc"><div class="sk">Today's best rates</div><div class="rr"><span class="rb">SBI Home Loan</span><span class="rv">8.35%</span></div><div class="rr"><span class="rb">HDFC Home Loan</span><span class="rv">8.50%</span></div><div class="rr"><span class="rb">SBI Personal</span><span class="rv">11.45%</span></div><div style="font-size:10.5px;color:var(--ash);margin-top:7px">800+ CIBIL · Updated 7am today</div></div>
+<div class="sc"><div class="sk">Related guides</div><a class="slink" href="#">How CIBIL affects your rate</a><a class="slink" href="#">Home loan tax benefits</a><a class="slink" href="#">Prepayment strategy</a><a class="slink" onclick="goto('emi')">EMI Calculator</a></div>
+</div>
+</div>
+</div>
+
+
+<!-- ══════ PAGE: MUTUAL FUNDS ══════ -->
+<div class="page" id="pg-mf">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl on">Invest &amp; Save</button><button class="nl" onclick="goto('ins')">Insurance</button><button class="nl" onclick="goto('tax')">Tax &amp; 80C</button><button class="nl grn" onclick="goto('cibil')">Free CIBIL</button></div><div class="navr"><button class="btnp" onclick="goto('sip')">SIP Calculator</button><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="tbar"><div class="ti">AMFI-Registered ARN Distributor</div><div class="ti">Trail commission disclosed</div><div class="ti">Returns from AMFI official data</div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <span class="cur">Best Mutual Funds &amp; SIP — March 2026</span></div>
+<div class="ph"><div class="kicker">Mutual Funds &amp; SIP</div><h1>Best SIP Funds in <em>India</em> — March 2026</h1><div class="ph-meta"><span>2,000+ funds</span><span style="color:var(--grn)">✓ NAV updated daily</span><span>AMFI data</span></div></div>
+<div class="fb"><span class="fbl">Category</span><button class="chip on" onclick="fchip(this)">All</button><button class="chip" onclick="fchip(this)">Large Cap</button><button class="chip" onclick="fchip(this)">Mid Cap</button><button class="chip" onclick="fchip(this)">ELSS</button><button class="chip" onclick="fchip(this)">Index Funds</button><button class="chip" onclick="fchip(this)">Flexi Cap</button><button class="chip" onclick="fchip(this)">Debt</button></div>
+<div class="pb">
+<div class="mc">
+<div class="en"><div class="en-ic">★</div><div><div class="en-tg">Research Note</div><div class="en-bd">For most investors: a simple 2-fund portfolio (large cap index + mid cap index) beats 80% of active funds over 10 years, at lower cost. If you want tax saving too, add ELSS. This is our honest recommendation. — <strong>InvestingPro Research</strong></div></div></div>
+<div class="sh"><h2>Top funds — <em>3-year performance</em></h2><p>Sorted by 3Y CAGR. Past returns do not guarantee future performance.</p></div>
+
+<div class="fr"><div class="frm"><div class="frn">Mirae Asset Large Cap Fund <span class="tg tgb" style="font-size:10.5px;padding:2px 7px">Index-like cost</span></div><div class="frt"><span class="tg tgb">Large Cap</span><span class="tg tgm">Regular Plan</span></div><div class="frs"><div><div class="v" style="color:var(--grn)">21.4%</div><div class="l">3Y returns</div></div><div><div class="v">18.2%</div><div class="l">5Y returns</div></div><div><div class="v">0.54%</div><div class="l">Expense ratio</div></div><div><div class="v">₹500</div><div class="l">Min SIP</div></div></div></div><div class="frc"><button class="bsip">Start SIP</button><button class="blump">Lump Sum</button></div></div>
+
+<div class="fr"><div class="frm"><div class="frn">Axis Midcap Fund</div><div class="frt"><span class="tg tgb">Mid Cap</span><span class="tg tgm">Growth</span></div><div class="frs"><div><div class="v" style="color:var(--grn)">28.6%</div><div class="l">3Y returns</div></div><div><div class="v">24.1%</div><div class="l">5Y returns</div></div><div><div class="v">0.78%</div><div class="l">Expense ratio</div></div><div><div class="v">₹500</div><div class="l">Min SIP</div></div></div></div><div class="frc"><button class="bsip">Start SIP</button><button class="blump">Lump Sum</button></div></div>
+
+<div class="fr"><div class="frm"><div class="frn">Quant ELSS Tax Saver Fund <span class="tg tgg" style="font-size:10.5px;padding:2px 7px">80C saving</span></div><div class="frt"><span class="tg tgg">ELSS</span><span class="tgb tg">3yr lock-in</span></div><div class="frs"><div><div class="v" style="color:var(--grn)">32.1%</div><div class="l">3Y returns</div></div><div><div class="v">26.4%</div><div class="l">5Y returns</div></div><div><div class="v">0.55%</div><div class="l">Expense ratio</div></div><div><div class="v">₹500</div><div class="l">Min SIP</div></div></div></div><div class="frc"><button class="bsip">Start SIP</button><button class="blump">Lump Sum</button></div></div>
+
+<div class="fr"><div class="frm"><div class="frn">HDFC Nifty 50 Index Fund</div><div class="frt"><span class="tg tgb">Index</span><span class="tg tgg">Lowest cost</span></div><div class="frs"><div><div class="v" style="color:var(--grn)">19.8%</div><div class="l">3Y returns</div></div><div><div class="v">17.2%</div><div class="l">5Y returns</div></div><div><div class="v">0.10%</div><div class="l">Expense ratio</div></div><div><div class="v">₹100</div><div class="l">Min SIP</div></div></div></div><div class="frc"><button class="bsip">Start SIP</button><button class="blump">Lump Sum</button></div></div>
+
+<div class="fr"><div class="frm"><div class="frn">Parag Parikh Flexi Cap Fund</div><div class="frt"><span class="tg tgb">Flexi Cap</span><span class="tg tgm">International exposure</span></div><div class="frs"><div><div class="v" style="color:var(--grn)">24.3%</div><div class="l">3Y returns</div></div><div><div class="v">22.1%</div><div class="l">5Y returns</div></div><div><div class="v">0.67%</div><div class="l">Expense ratio</div></div><div><div class="v">₹1,000</div><div class="l">Min SIP</div></div></div></div><div class="frc"><button class="bsip">Start SIP</button><button class="blump">Lump Sum</button></div></div>
+<div class="smwrap"><button class="smb">Load 20 more funds ↓</button></div>
+</div>
+<div class="sb">
+<div class="sc"><div class="sk">SIP Calculator</div><p style="font-size:12px;color:var(--ash);line-height:1.6;margin-bottom:10px">₹5,000/month × 10 years at 12% = ?</p><button class="ctab" onclick="goto('sip')">Open SIP Calculator →</button></div>
+<div class="sc"><div class="sk">Quick guides</div><a class="slink" href="#">Index vs active — the data</a><a class="slink" href="#">Best ELSS funds 2026</a><a class="slink" href="#">SIP vs lump sum timing</a><a class="slink" href="#">How to read a fund factsheet</a></div>
+<div class="sc"><div class="sk">Top FD rates</div><div class="rr"><span class="rb">AU Small Finance</span><span class="rv">7.25%</span></div><div class="rr"><span class="rb">Utkarsh SFB</span><span class="rv">7.50%</span></div><div class="rr"><span class="rb">SBI</span><span class="rv">6.80%</span></div><a class="slink" onclick="goto('fd')">All FD rates →</a></div>
+</div>
+</div>
+</div>
+
+
+<!-- ══════ PAGE: FD & SAVINGS ══════ -->
+<div class="page" id="pg-fd">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl on">Invest &amp; Save</button><button class="nl" onclick="goto('ins')">Insurance</button><button class="nl" onclick="goto('tax')">Tax &amp; 80C</button><button class="nl grn" onclick="goto('cibil')">Free CIBIL</button></div><div class="navr"><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <span class="cur">Best FD Rates — March 2026</span></div>
+<div class="ph"><div class="kicker">Fixed Deposits &amp; Savings</div><h1>Best FD Rates in <em>India</em> — March 2026</h1><div class="ph-meta"><span>42 banks compared</span><span style="color:var(--grn)">✓ Updated 7am today</span></div></div>
+<div class="pb">
+<div class="mc">
+<div class="en"><div class="en-ic">★</div><div><div class="en-tg">Research Note</div><div class="en-bd">Small Finance Banks offer 7–9% vs 6.5–7% at big banks. Safe? Yes — DICGC insures up to ₹5 lakh per depositor (Government of India guarantee). For amounts above ₹5L, spread across multiple SFBs. — <strong>InvestingPro Research</strong></div></div></div>
+<div class="sh"><h2>Small Finance Banks — <em>highest rates, DICGC insured</em></h2></div>
+
+<div class="fdc"><div class="fdch"><span class="fdcn">Suryoday Small Finance Bank</span><span class="fdtg fdtg-g">Highest overall</span></div><table class="fdt"><tr><th>Tenure</th><th>General</th><th>Senior Citizen (+0.50%)</th></tr><tr><td>1 year</td><td class="fdb">7.25%</td><td class="fdb">7.75%</td></tr><tr><td>2 years</td><td>7.50%</td><td>8.00%</td></tr><tr><td>3 years</td><td>7.25%</td><td>7.75%</td></tr><tr><td>5 years</td><td>7.00%</td><td>7.50%</td></tr></table></div>
+<div class="fdc"><div class="fdch"><span class="fdcn">AU Small Finance Bank</span><span class="fdtg fdtg-b">Most popular</span></div><table class="fdt"><tr><th>Tenure</th><th>General</th><th>Senior Citizen (+0.50%)</th></tr><tr><td>1 year</td><td class="fdb">7.25%</td><td class="fdb">7.75%</td></tr><tr><td>2 years</td><td>7.25%</td><td>7.75%</td></tr><tr><td>3 years</td><td>7.25%</td><td>7.75%</td></tr></table></div>
+
+<div class="sh"><h2>Major banks — <em>lower rates, higher trust</em></h2></div>
+<div class="fdc"><div class="fdch"><span class="fdcn">State Bank of India</span><span class="fdtg fdtg-m">Safest option</span></div><table class="fdt"><tr><th>Tenure</th><th>General</th><th>Senior Citizen (+0.50%)</th></tr><tr><td>1 year</td><td>6.80%</td><td>7.30%</td></tr><tr><td>2 years</td><td>7.00%</td><td>7.50%</td></tr><tr><td>3 years</td><td>6.75%</td><td>7.25%</td></tr><tr><td>5 years</td><td>6.50%</td><td>7.00%</td></tr></table></div>
+<div class="fdc"><div class="fdch"><span class="fdcn">HDFC Bank</span><span class="fdtg fdtg-m">Private sector</span></div><table class="fdt"><tr><th>Tenure</th><th>General</th><th>Senior Citizen (+0.50%)</th></tr><tr><td>1 year</td><td>6.60%</td><td>7.10%</td></tr><tr><td>2 years</td><td>7.00%</td><td>7.50%</td></tr><tr><td>5 years</td><td>7.00%</td><td>7.50%</td></tr></table></div>
+</div>
+<div class="sb">
+<div class="sc"><div class="sk">FD Maturity Calculator</div>
+<div style="margin-bottom:10px">
+<div class="slr"><span>Amount</span><span class="slv" id="fda-v">₹1,00,000</span></div>
+<input type="range" min="10000" max="5000000" value="100000" step="10000" oninput="cFD('a',this.value)">
+<div class="slr" style="margin-top:8px"><span>Rate</span><span class="slv" id="fdr-v">7.25%</span></div>
+<input type="range" min="5" max="9.5" value="7.25" step="0.25" oninput="cFD('r',this.value)">
+<div class="slr" style="margin-top:8px"><span>Tenure</span><span class="slv" id="fdt-v">2 years</span></div>
+<input type="range" min="1" max="10" value="2" step="1" oninput="cFD('t',this.value)">
+</div>
+<div style="background:var(--ink);border-radius:8px;padding:12px;text-align:center">
+<div style="font-size:10px;color:rgba(245,240,232,.35);margin-bottom:3px;text-transform:uppercase;letter-spacing:.08em">Matures to</div>
+<div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--saf)" id="fd-mat">₹1,15,693</div>
+<div style="font-size:10.5px;color:rgba(245,240,232,.3);margin-top:2px" id="fd-int">Earned: ₹15,693</div>
+</div>
+</div>
+<div class="sc"><div class="sk">FD vs SIP</div><a class="slink" href="#">Which beats inflation better?</a><a class="slink" href="#">Is SFB FD really safe?</a><a class="slink" onclick="goto('mf')">Best mutual funds</a></div>
+</div>
+</div>
+</div>
+
+
+<!-- ══════ PAGE: INSURANCE ══════ -->
+<div class="page" id="pg-ins">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl" onclick="goto('mf')">Invest &amp; Save</button><button class="nl on">Insurance</button><button class="nl" onclick="goto('tax')">Tax &amp; 80C</button><button class="nl grn" onclick="goto('cibil')">Free CIBIL</button></div><div class="navr"><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <span class="cur">Best Term Insurance Plans India 2026</span></div>
+<div class="ph"><div class="kicker">Term Life Insurance</div><h1>Best Term Insurance in <em>India</em> — 2026</h1><div class="ph-meta"><span>18 insurers compared</span><span style="color:var(--grn)">✓ Updated this week</span></div></div>
+<div class="fb"><span class="fbl">Type</span><button class="chip on" onclick="fchip(this)">Term Life</button><button class="chip" onclick="fchip(this)">Health Insurance</button><button class="chip" onclick="fchip(this)">Motor Insurance</button><button class="chip" onclick="fchip(this)">Travel Insurance</button></div>
+<div class="pb">
+<div class="mc">
+<div class="en"><div class="en-ic">⚠</div><div><div class="en-tg">Important Research Note</div><div class="en-bd"><strong>85% of Indian families are underinsured.</strong> Rule: buy 10–15x your annual income. If you earn ₹10L/yr, you need ₹1–1.5 crore in term cover. ULIPs are NOT life insurance — they are investment products with very high charges. Never mix insurance with investment. — <strong>InvestingPro Research</strong></div></div></div>
+
+<div class="sh"><h2>Best term life plans — <em>₹1 crore cover comparison</em></h2><p>For 30-year-old male, 30-year tenure. Premiums vary by age and health.</p></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:16px">
+<div class="ic"><div class="ich"><div class="icn">HDFC Life Click 2 Protect</div><div class="icc">HDFC Life Insurance</div></div><div class="icb"><div class="icp">₹8,200/yr</div><div class="icpl">₹1Cr cover · 30yr male · 30yr tenure</div><div class="icfeats"><span>Claim settlement: 99.3%</span><span>Critical illness rider available</span><span>Terminal illness benefit</span><span>Return of premium option</span></div></div><div class="icft"><button class="ib">Get Quote</button><button class="ib" style="background:transparent;color:var(--ash);border:1px solid var(--mist)">Compare</button></div></div>
+
+<div class="ic"><div class="ich"><div class="icn">Max Life Smart Secure Plus</div><div class="icc">Max Life Insurance</div></div><div class="icb"><div class="icp">₹7,800/yr</div><div class="icpl">₹1Cr cover · 30yr male · 30yr tenure</div><div class="icfeats"><span>Claim settlement: 99.5% — highest in India</span><span>Waiver of premium on disability</span><span>Joint life option available</span><span>Whole life cover option</span></div></div><div class="icft"><button class="ib">Get Quote</button><button class="ib" style="background:transparent;color:var(--ash);border:1px solid var(--mist)">Compare</button></div></div>
+
+<div class="ic"><div class="ich"><div class="icn">ICICI Pru iProtect Smart</div><div class="icc">ICICI Prudential Life</div></div><div class="icb"><div class="icp">₹8,500/yr</div><div class="icpl">₹1Cr cover · 30yr male · 30yr tenure</div><div class="icfeats"><span>Claim settlement: 97.9%</span><span>34 critical illnesses covered</span><span>Accidental death extra payout</span></div></div><div class="icft"><button class="ib">Get Quote</button><button class="ib" style="background:transparent;color:var(--ash);border:1px solid var(--mist)">Compare</button></div></div>
+
+<div class="ic" style="border-color:rgba(192,57,43,.2)"><div class="ich" style="background:#FFFBFB"><div class="icn" style="color:var(--red)">❌ ULIPs — Avoid</div><div class="icc">Multiple insurers</div></div><div class="icb" style="background:#FFFBFB"><div class="icp" style="color:var(--red)">₹60K–₹1.2L/yr</div><div class="icpl">For similar cover — 10–15x the cost of term</div><div style="display:flex;flex-direction:column;gap:3px"><span style="display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--red)">⚠ High charges eat your returns</span><span style="display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--red)">⚠ Insurance + investment = bad at both</span><span style="display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--red)">⚠ Agent earns 30–40% first year</span></div></div><div class="icft"><button class="ib" style="background:#FDECEA;color:var(--red)">Read why to avoid ULIPs →</button></div></div>
+</div>
+</div>
+<div class="sb">
+<div class="sc"><div class="sk">How much cover?</div>
+<div class="slr"><span>Annual income (₹)</span></div>
+<input class="ip" type="number" id="ins-inc" placeholder="10,00,000" oninput="cCover()" style="margin-bottom:8px">
+<div id="ins-res" style="background:var(--cream);border-radius:8px;padding:10px;font-size:12px;color:var(--ash);line-height:1.6">Enter income above to calculate recommended cover.</div>
+</div>
+<div class="sc"><div class="sk">Claim settlement ratios</div><div class="rr"><span class="rb">Max Life</span><span class="rv">99.5%</span></div><div class="rr"><span class="rb">HDFC Life</span><span class="rv">99.3%</span></div><div class="rr"><span class="rb">LIC</span><span class="rv">98.7%</span></div><div class="rr"><span class="rb">ICICI Pru</span><span class="rv">97.9%</span></div><div style="font-size:10.5px;color:var(--ash);margin-top:6px">Higher = better. Source: IRDAI 2024–25</div></div>
+</div>
+</div>
+</div>
+
+
+<!-- ══════ PAGE: TAX & 80C ══════ -->
+<div class="page" id="pg-tax">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl" onclick="goto('mf')">Invest &amp; Save</button><button class="nl" onclick="goto('ins')">Insurance</button><button class="nl on">Tax &amp; 80C</button><button class="nl grn" onclick="goto('cibil')">Free CIBIL</button></div><div class="navr"><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <span class="cur">Old vs New Tax Regime — FY 2025-26</span></div>
+<div class="ph"><div class="kicker">Tax Planning FY 2025–26</div><h1>Old vs New Regime — <em>which saves you more?</em></h1><div class="ph-meta"><span>FY 2025–26</span><span style="color:var(--grn)">✓ Latest budget verified</span></div></div>
+<div class="pb">
+<div class="mc">
+<div class="en"><div class="en-ic">★</div><div><div class="en-tg">Research Note</div><div class="en-bd">New regime is better for most people below ₹12L. Old regime wins if you claim HRA + ₹1.5L 80C + home loan interest. Use the calculator below to find your breakeven in 30 seconds. — <strong>InvestingPro Research</strong></div></div></div>
+
+<div class="cw"><div class="ci2">
+<div class="cin">
+<div style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--ink);margin-bottom:14px">Which regime saves <em style="color:var(--saf)">you</em> more?</div>
+<div style="margin-bottom:13px"><label class="fl">Annual Gross Income</label><div class="slr"><span>₹5L</span><span class="slv" id="ti-v">₹12,00,000</span><span>₹50L</span></div><input type="range" min="500000" max="5000000" value="1200000" step="50000" id="ti" oninput="cTax()"></div>
+<div style="margin-bottom:13px"><label class="fl">HRA exemption (old regime)</label><div class="slr"><span>₹0</span><span class="slv" id="th-v">₹1,50,000</span><span>₹6L</span></div><input type="range" min="0" max="600000" value="150000" step="10000" id="th" oninput="cTax()"></div>
+<div style="margin-bottom:13px"><label class="fl">Section 80C investments</label><div class="slr"><span>₹0</span><span class="slv" id="tc-v">₹1,50,000</span><span>₹1.5L max</span></div><input type="range" min="0" max="150000" value="150000" step="10000" id="tc" oninput="cTax()"></div>
+<div style="margin-bottom:13px"><label class="fl">Home loan interest (Sec 24B)</label><div class="slr"><span>₹0</span><span class="slv" id="tl-v">₹1,50,000</span><span>₹2L</span></div><input type="range" min="0" max="200000" value="150000" step="10000" id="tl" oninput="cTax()"></div>
+</div>
+<div class="cout">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
+<div class="reg"><div class="regh"><div class="regn" style="color:var(--sky)">Old Regime</div><div class="regsub">With deductions</div></div><div class="regrow"><span class="rrl">Gross income</span><span class="rrv" id="to-g">₹12,00,000</span></div><div class="regrow"><span class="rrl">Deductions</span><span class="rrv" style="color:var(--grn)" id="to-d">−₹4,50,000</span></div><div class="regrow"><span class="rrl">Taxable income</span><span class="rrv" id="to-t">₹7,50,000</span></div><div class="regres"><div class="rrtax" id="to-tax" style="color:var(--sky)">₹62,400</div><div class="rrlb">Tax payable</div></div></div>
+<div class="reg"><div class="regh"><div class="regn" style="color:var(--pur)">New Regime</div><div class="regsub">Default from FY24</div></div><div class="regrow"><span class="rrl">Gross income</span><span class="rrv" id="tn-g">₹12,00,000</span></div><div class="regrow"><span class="rrl">Std deduction</span><span class="rrv" style="color:var(--grn)">₹75,000</span></div><div class="regrow"><span class="rrl">Taxable income</span><span class="rrv" id="tn-t">₹11,25,000</span></div><div class="regres"><div class="rrtax" id="tn-tax" style="color:var(--pur)">₹75,000</div><div class="rrlb">Tax payable</div></div></div>
+</div>
+<div style="background:var(--ink);border-radius:9px;padding:12px;text-align:center"><div style="font-size:9.5px;color:rgba(245,240,232,.35);margin-bottom:3px;text-transform:uppercase;letter-spacing:.08em">Recommendation</div><div style="font-family:'Playfair Display',serif;font-size:14px;color:var(--saf)" id="t-rec">Old regime saves you ₹12,600 more</div></div>
+</div>
+</div></div>
+
+<div class="sh"><h2>80C instruments — <em>honest ranking</em></h2></div>
+<table class="dt"><tr><th>Instrument</th><th>Returns</th><th>Lock-in</th><th>Best for</th></tr>
+<tr><td><strong>ELSS Mutual Funds</strong></td><td class="dg">15–25% (historic)</td><td>3 years</td><td><span class="dtag dtag-g">Best returns</span></td></tr>
+<tr><td><strong>PPF</strong></td><td>7.1% (tax-free)</td><td>15 years</td><td><span class="dtag dtag-b">Safest</span></td></tr>
+<tr><td><strong>NPS Tier 1</strong></td><td>8–10% (market)</td><td>Till retirement</td><td style="text-align:right;font-size:12px;color:var(--pur)">Extra ₹50K deduction</td></tr>
+<tr><td><strong>Tax Saver FD</strong></td><td>6.5–7.25%</td><td>5 years</td><td style="text-align:right;font-size:12px;color:var(--ash)">Guaranteed</td></tr>
+</table>
+</div>
+<div class="sb">
+<div class="sc"><div class="sk">80C quick summary</div><div class="rr"><span class="rb">ELSS (3yr)</span><span style="font-weight:700;color:var(--pur)">Best returns</span></div><div class="rr"><span class="rb">PPF (15yr)</span><span class="rv">7.1% tax-free</span></div><div class="rr"><span class="rb">NPS extra</span><span class="rv">₹50K 80CCD(1B)</span></div><div style="font-size:10.5px;color:var(--ash);margin-top:6px">Max ₹1.5L limit · Invest before March 31</div></div>
+<div class="sc"><div class="sk">Related</div><a class="slink" href="#">Old vs new regime guide</a><a class="slink" href="#">NPS vs PPF calculator</a><a class="slink" href="#">HRA calculation guide</a><a class="slink" onclick="goto('mf')">Best ELSS funds</a></div>
+</div>
+</div>
+</div>
+
+
+<!-- ══════ PAGE: CIBIL SCORE ══════ -->
+<div class="page" id="pg-cibil">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl" onclick="goto('mf')">Invest &amp; Save</button><button class="nl" onclick="goto('ins')">Insurance</button><button class="nl" onclick="goto('tax')">Tax &amp; 80C</button><button class="nl grn on">Free CIBIL</button></div><div class="navr"><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <span class="cur">Free CIBIL Score — CIBIL Simulator</span></div>
+<div class="cibhero">
+<div class="cibhero-inner">
+<div>
+<div class="kicker" style="color:var(--saf)">CIBIL Score — First in India</div>
+<h1 style="font-family:'Playfair Display',serif;font-size:26px;font-style:italic;color:#F5F0E8;margin-bottom:9px;font-weight:400;line-height:1.1">Your CIBIL — <em style="color:var(--saf)">what it means &amp; how to improve it</em></h1>
+<p style="font-size:13px;color:rgba(245,240,232,.45);max-width:360px;line-height:1.7;margin-bottom:14px">India's first CIBIL Simulator. See how specific actions change your score before making any financial move.</p>
+<div class="sb-bands">
+<div class="sbb" style="background:rgba(192,57,43,.15)"><div class="sbb-n" style="color:#F87171">300</div><div class="sbb-l" style="color:#F87171;font-size:9px">Poor</div><div class="sbb-r" style="color:rgba(248,113,113,.5)">300–549</div></div>
+<div class="sbb" style="background:rgba(180,83,9,.15)"><div class="sbb-n" style="color:#FBB040">550</div><div class="sbb-l" style="color:#FBB040;font-size:9px">Fair</div><div class="sbb-r" style="color:rgba(251,176,64,.5)">550–649</div></div>
+<div class="sbb" style="background:rgba(30,111,191,.15)"><div class="sbb-n" style="color:#60A5FA">650</div><div class="sbb-l" style="color:#60A5FA;font-size:9px">Good</div><div class="sbb-r" style="color:rgba(96,165,250,.5)">650–749</div></div>
+<div class="sbb" style="background:rgba(26,107,74,.15)"><div class="sbb-n" style="color:#4CAF7D">750</div><div class="sbb-l" style="color:#4CAF7D;font-size:9px">Very Good</div><div class="sbb-r" style="color:rgba(76,175,125,.5)">750–799</div></div>
+<div class="sbb" style="background:rgba(26,107,74,.25)"><div class="sbb-n" style="color:var(--grn2)">800</div><div class="sbb-l" style="color:var(--grn2);font-size:9px">Excellent</div><div class="sbb-r" style="color:rgba(76,175,125,.5)">800–900</div></div>
+</div>
+<div style="font-size:10.5px;color:rgba(245,240,232,.35);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:7px">Score factors</div>
+<div class="fb2r"><span class="fb2l">Payment history</span><div class="fb2t"><div class="fb2f" style="width:35%;background:var(--saf)"></div></div><span class="fb2v">35%</span></div>
+<div class="fb2r"><span class="fb2l">Credit utilisation</span><div class="fb2t"><div class="fb2f" style="width:30%;background:#60A5FA"></div></div><span class="fb2v">30%</span></div>
+<div class="fb2r"><span class="fb2l">Credit age</span><div class="fb2t"><div class="fb2f" style="width:15%;background:#A78BFA"></div></div><span class="fb2v">15%</span></div>
+<div class="fb2r"><span class="fb2l">Credit mix</span><div class="fb2t"><div class="fb2f" style="width:10%;background:var(--grn2)"></div></div><span class="fb2v">10%</span></div>
+<div class="fb2r"><span class="fb2l">New enquiries</span><div class="fb2t"><div class="fb2f" style="width:10%;background:#F87171"></div></div><span class="fb2v">10%</span></div>
+</div>
+<div class="simcard">
+<div class="kicker" style="color:var(--saf);margin-bottom:10px">✦ CIBIL Simulator — First in India</div>
+<div style="text-align:center;margin-bottom:13px">
+<div class="bigring"><svg viewBox="0 0 130 130"><circle cx="65" cy="65" r="52" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="7"/><circle cx="65" cy="65" r="52" fill="none" stroke="#4CAF7D" stroke-width="7" stroke-dasharray="244 327" stroke-linecap="round" id="cib-ring"/></svg><div class="brc"><div class="brn" id="cib-n">748</div><div class="brl" id="cib-l">Good</div></div></div>
+</div>
+<div style="font-size:9.5px;color:rgba(245,240,232,.3);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:7px">Toggle actions to simulate</div>
+<div class="sima" onclick="cibSim(this,18)"><div><div class="sat">Pay card balance to ₹0</div><div class="sas">Reduce utilisation below 10%</div></div><span class="dp">+18</span></div>
+<div class="sima" onclick="cibSim(this,-8)"><div><div class="sat">Apply for personal loan</div><div class="sas">Hard enquiry from bank</div></div><span class="dn">−8</span></div>
+<div class="sima" onclick="cibSim(this,22)"><div><div class="sat">Reduce utilisation to 30%</div><div class="sas">Across all cards combined</div></div><span class="dp">+22</span></div>
+<div class="sima" onclick="cibSim(this,-45)"><div><div class="sat">Miss one EMI payment</div><div class="sas">Home or personal loan</div></div><span class="dn">−45</span></div>
+<div class="sima" onclick="cibSim(this,15)"><div><div class="sat">Pay on time — 12 months</div><div class="sas">All EMIs and cards</div></div><span class="dp">+15</span></div>
+<div class="sima" onclick="cibSim(this,-12)"><div><div class="sat">Close oldest credit card</div><div class="sas">Reduces average credit age</div></div><span class="dn">−12</span></div>
+<button class="ctag ctab" style="margin-top:12px">Get full improvement plan →</button>
+</div>
+</div>
+</div>
+<div class="pb">
+<div class="mc">
+<div class="sh"><h2>How CIBIL score affects your <em>home loan rate</em></h2></div>
+<table class="dt"><tr><th>CIBIL Score</th><th>SBI Rate</th><th>EMI / ₹60L / 20yr</th><th>Extra vs 800+</th></tr>
+<tr><td><strong>800+</strong></td><td class="dg">8.35%</td><td>₹51,782</td><td><span class="dtag dtag-g">Best rate</span></td></tr>
+<tr><td>750–799</td><td style="font-weight:600">8.60%</td><td>₹52,806</td><td class="dw">+₹1,024/mo · ₹2.46L total</td></tr>
+<tr><td>700–749</td><td style="font-weight:600">8.85%</td><td>₹53,835</td><td class="dr">+₹2,053/mo · ₹4.93L total</td></tr>
+<tr><td>Below 700</td><td class="dr">9.35%+</td><td>₹55,913</td><td class="dr">+₹4,131/mo · ₹9.9L total</td></div></tr></table>
+</div>
+<div class="sb">
+<div class="sc"><div class="sk">Quick improvements</div><div style="display:flex;flex-direction:column;gap:5px"><div style="padding:7px 9px;background:var(--cream);border-radius:6px;font-size:12px">✓ Pay all EMIs on time</div><div style="padding:7px 9px;background:var(--cream);border-radius:6px;font-size:12px">✓ Keep utilisation below 30%</div><div style="padding:7px 9px;background:var(--cream);border-radius:6px;font-size:12px">✓ Don't close old cards</div><div style="padding:7px 9px;background:var(--cream);border-radius:6px;font-size:12px">✓ Avoid multiple applications</div></div></div>
+<div class="sc"><div class="sk">Related tools</div><a class="slink" onclick="goto('emi')">EMI Calculator</a><a class="slink" onclick="goto('loans')">Compare Home Loans</a><a class="slink" onclick="goto('cards')">Cards by CIBIL</a></div>
+</div>
+</div>
+</div>
+
+
+<!-- ══════ PAGE: EMI CALCULATOR ══════ -->
+<div class="page" id="pg-emi">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl on">Tools</button></div><div class="navr"><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <a onclick="goto('loans')">Loans</a> › <span class="cur">Home Loan EMI Calculator</span></div>
+<div class="ph"><div class="kicker">Calculator</div><h1>Home Loan EMI Calculator — <em>with CIBIL rate adjustment</em></h1></div>
+<div style="max-width:860px;margin:20px auto;padding:0 20px">
+<div class="cw"><div class="ci2">
+<div class="cin">
+<div style="margin-bottom:13px"><label class="fl">Loan Amount</label><div class="slr"><span>₹5L</span><span class="slv" id="ea-v">₹60,00,000</span><span>₹5Cr</span></div><input type="range" min="500000" max="50000000" value="6000000" step="100000" id="ea" oninput="cEMI()"></div>
+<div style="margin-bottom:13px"><label class="fl">Annual Interest Rate</label><div class="slr"><span>6%</span><span class="slv" id="er-v">8.35%</span><span>18%</span></div><input type="range" min="6" max="18" value="8.35" step="0.05" id="er" oninput="cEMI()"></div>
+<div style="margin-bottom:13px"><label class="fl">Loan Tenure</label><div class="slr"><span>1yr</span><span class="slv" id="et-v">20 years</span><span>30yr</span></div><input type="range" min="1" max="30" value="20" step="1" id="et" oninput="cEMI()"></div>
+<div style="margin-bottom:13px"><label class="fl">Your CIBIL Score</label><select class="ip sel" id="ecibil" onchange="cEMI()"><option value="0">800+ (Best rate available)</option><option value="0.25">750–799 (+0.25% premium)</option><option value="0.5" selected>700–749 (+0.50% premium)</option><option value="1">650–699 (+1.00% premium)</option><option value="1.5">Below 650 (+1.50% premium)</option></select></div>
+<div id="e-actualrate" style="background:rgba(232,135,26,.08);border:1px solid rgba(232,135,26,.2);border-radius:6px;padding:8px 11px;font-size:12px;color:var(--warn)">Your offered rate: <strong id="e-ar">8.85%</strong> (base 8.35% + 0.50% CIBIL premium)</div>
+</div>
+<div class="cout">
+<div class="rg">
+<div class="rc2 hero"><div class="rnum">₹<span id="e-emi">53,835</span></div><div class="rlb">Monthly EMI</div></div>
+<div class="rc2"><div class="rnum" style="color:var(--red);font-size:18px" id="e-int">₹29.2L</div><div class="rlb">Total interest</div></div>
+<div class="rc2"><div class="rnum" style="font-size:17px" id="e-tot">₹89.2L</div><div class="rlb">Total payable</div></div>
+</div>
+<div style="margin-bottom:12px">
+<div style="font-size:10.5px;color:var(--ash);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:6px">Payment breakup</div>
+<div style="height:11px;border-radius:5px;overflow:hidden;display:flex;margin-bottom:5px"><div style="background:var(--grn)" id="e-pbar"></div><div style="background:var(--red)" id="e-ibar"></div></div>
+<div style="display:flex;gap:12px;font-size:11.5px"><div style="display:flex;align-items:center;gap:4px"><div style="width:9px;height:9px;border-radius:2px;background:var(--grn)"></div>Principal <strong id="e-pp" style="color:var(--grn)">67%</strong></div><div style="display:flex;align-items:center;gap:4px"><div style="width:9px;height:9px;border-radius:2px;background:var(--red)"></div>Interest <strong id="e-ip" style="color:var(--red)">33%</strong></div></div>
+</div>
+<div style="font-size:10.5px;color:var(--ash);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:7px">Compare banks at this amount</div>
+<div class="comp-r"><span class="compb">SBI (8.35%)</span><span class="compv dg" id="e-sbi">₹51,782</span></div>
+<div class="comp-r"><span class="compb">HDFC (8.50%)</span><span class="compv" id="e-hdfc">₹52,391</span></div>
+<div class="comp-r"><span class="compb" style="color:var(--saf);font-weight:600">Your EMI</span><span class="compv" style="color:var(--saf)" id="e-your">₹53,835</span></div>
+<div class="comp-r" style="border-top:1px solid var(--mist);padding-top:7px;margin-top:4px"><span class="compb">Save by improving CIBIL to 800+</span><span class="compv dg" id="e-save">₹48,540 over 20yr</span></div>
+</div>
+</div></div>
+</div>
+</div>
+
+<!-- ══════ PAGE: SIP CALCULATOR ══════ -->
+<div class="page" id="pg-sip">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('mf')">Invest &amp; Save</button><button class="nl on">Tools</button></div><div class="navr"><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <a onclick="goto('mf')">Mutual Funds</a> › <span class="cur">SIP Goal Planner</span></div>
+<div class="ph"><div class="kicker">SIP Calculator</div><h1>SIP Goal Planner — <em>how much will you have?</em></h1></div>
+<div style="max-width:860px;margin:20px auto;padding:0 20px">
+<div class="cw"><div class="ci2">
+<div class="cin">
+<div style="margin-bottom:13px"><label class="fl">Monthly SIP Amount</label><div class="slr"><span>₹500</span><span class="slv" id="sa-v">₹5,000</span><span>₹1L</span></div><input type="range" min="500" max="100000" value="5000" step="500" id="sa" oninput="cSIP()"></div>
+<div style="margin-bottom:13px"><label class="fl">Expected Annual Return</label><div class="slr"><span>6%</span><span class="slv" id="sr-v">12%</span><span>25%</span></div><input type="range" min="6" max="25" value="12" step="0.5" id="sr" oninput="cSIP()"></div>
+<div style="margin-bottom:13px"><label class="fl">Investment Duration</label><div class="slr"><span>1yr</span><span class="slv" id="sy-v">10 years</span><span>40yr</span></div><input type="range" min="1" max="40" value="10" step="1" id="sy" oninput="cSIP()"></div>
+<div style="margin-bottom:13px"><label class="fl">Annual Step-up %</label><div class="slr"><span>0%</span><span class="slv" id="ss-v">10%</span><span>30%</span></div><input type="range" min="0" max="30" value="10" step="1" id="ss" oninput="cSIP()"><div class="fh">Increase SIP by this % every year</div></div>
+</div>
+<div class="cout">
+<div class="rg">
+<div class="rc2 hero"><div class="rnum">₹<span id="s-corp">13.2L</span></div><div class="rlb">Estimated corpus</div></div>
+<div class="rc2"><div class="rnum" style="font-size:17px" id="s-inv">₹6.0L</div><div class="rlb">Total invested</div></div>
+<div class="rc2"><div class="rnum" style="color:var(--grn);font-size:17px" id="s-gain">₹7.2L</div><div class="rlb">Estimated gains</div></div>
+</div>
+<div style="margin-bottom:12px">
+<div style="height:11px;border-radius:5px;overflow:hidden;display:flex;margin-bottom:5px"><div style="background:var(--sky)" id="s-ibar"></div><div style="background:var(--grn)" id="s-gbar"></div></div>
+<div style="display:flex;gap:12px;font-size:11.5px"><div style="display:flex;align-items:center;gap:4px"><div style="width:9px;height:9px;border-radius:2px;background:var(--sky)"></div>Invested <strong id="s-ipp" style="color:var(--sky)">45%</strong></div><div style="display:flex;align-items:center;gap:4px"><div style="width:9px;height:9px;border-radius:2px;background:var(--grn)"></div>Returns <strong id="s-gpp" style="color:var(--grn)">55%</strong></div></div>
+</div>
+<div style="font-size:10.5px;color:var(--ash);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:7px">Power of step-up SIP</div>
+<div class="comp-r"><span class="compb">Without step-up</span><span class="compv" id="s-ns">₹11.6L</span></div>
+<div class="comp-r"><span class="compb">With 10% step-up</span><span class="compv dg" id="s-ws">₹13.2L</span></div>
+<div class="comp-r"><span class="compb">Extra from step-up</span><span class="compv" style="color:var(--saf)" id="s-diff">₹1.6L more</span></div>
+</div>
+</div></div>
+</div>
+</div>
+
+
+<!-- ══════ PAGE: IFSC LOOKUP (SEO) ══════ -->
+<div class="page" id="pg-ifsc">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl on">Tools</button></div><div class="navr"><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <a onclick="goto('emi')">Tools</a> › <span class="cur">IFSC Code Lookup — All 80,000+ Branches</span></div>
+<div class="ifsc-search">
+<div style="max-width:760px;margin:0 auto">
+<div class="kicker" style="color:var(--saf)">IFSC Code Lookup</div>
+<h1 style="font-family:'Playfair Display',serif;font-size:24px;font-style:italic;color:#F5F0E8;margin-bottom:6px;font-weight:400">Find IFSC code for <em style="color:var(--saf)">any branch in India</em></h1>
+<p style="font-size:12.5px;color:rgba(245,240,232,.4);margin-bottom:16px">All 80,000+ branches · RBI official data · Updated monthly</p>
+<div class="ifsc-form">
+<select class="ip" id="ifsc-bank" style="background:rgba(255,255,255,.1);border-color:rgba(245,240,232,.2);color:#F5F0E8"><option value="">Select Bank</option><option>State Bank of India</option><option>HDFC Bank</option><option>ICICI Bank</option><option>Axis Bank</option><option>Punjab National Bank</option><option>Bank of Baroda</option><option>Canara Bank</option><option>Kotak Mahindra Bank</option></select>
+<select class="ip" id="ifsc-state" style="background:rgba(255,255,255,.1);border-color:rgba(245,240,232,.2);color:#F5F0E8"><option value="">Select State</option><option>Maharashtra</option><option>Karnataka</option><option>Tamil Nadu</option><option>Delhi</option><option>Gujarat</option><option>Andhra Pradesh</option><option>Telangana</option></select>
+<select class="ip" id="ifsc-city" style="background:rgba(255,255,255,.1);border-color:rgba(245,240,232,.2);color:#F5F0E8"><option value="">Select City</option><option>Mumbai</option><option>Bengaluru</option><option>Chennai</option><option>Hyderabad</option><option>Ahmedabad</option></select>
+<button class="ctab" style="padding:9px 16px;white-space:nowrap" onclick="doIFSC()">Search →</button>
+</div>
+<div style="margin-top:11px;font-size:12px;color:rgba(245,240,232,.32)">Or enter code directly: <input placeholder="e.g. SBIN0001234" id="ifsc-direct" style="background:rgba(255,255,255,.08);border:1px solid rgba(245,240,232,.15);border-radius:5px;padding:5px 10px;color:#F5F0E8;font-family:inherit;font-size:12px;width:200px;outline:none;margin-left:5px"> <button onclick="doIFSC()" style="background:rgba(232,135,26,.8);color:#fff;border:none;border-radius:5px;padding:5px 10px;font-family:inherit;font-size:12px;cursor:pointer;margin-left:5px">Find</button></div>
+</div>
+</div>
+<div style="max-width:760px;margin:0 auto;padding:16px 20px">
+<div id="ifsc-res" style="display:none;background:var(--paper);border:1px solid var(--mist);border-radius:11px;padding:18px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:13px;font-weight:600">IFSC Code Result</span><div class="ifc">SBIN0001234</div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--mist);border-radius:9px;overflow:hidden">
+<div class="irrow"><span class="irk">Bank</span><span class="irv">State Bank of India</span></div>
+<div class="irrow"><span class="irk">Branch</span><span class="irv">Main Branch, Mumbai</span></div>
+<div class="irrow"><span class="irk">Address</span><span class="irv">State Bank Bhavan, Madame Cama Road</span></div>
+<div class="irrow"><span class="irk">City</span><span class="irv">Mumbai</span></div>
+<div class="irrow"><span class="irk">State</span><span class="irv">Maharashtra</span></div>
+<div class="irrow"><span class="irk">MICR</span><span class="irv" style="font-family:'DM Mono',monospace">400002001</span></div>
+</div>
+</div>
+<div class="sh"><h2>Popular IFSC searches</h2></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+<div style="background:var(--paper);border:1px solid var(--mist);border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .12s" onclick="doIFSC()"><div style="font-size:12.5px;font-weight:600;color:var(--ink)">SBI — Mumbai</div><div style="font-size:11px;color:var(--ash)">1,240 branches</div></div>
+<div style="background:var(--paper);border:1px solid var(--mist);border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .12s" onclick="doIFSC()"><div style="font-size:12.5px;font-weight:600;color:var(--ink)">HDFC — Bengaluru</div><div style="font-size:11px;color:var(--ash)">380 branches</div></div>
+<div style="background:var(--paper);border:1px solid var(--mist);border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .12s" onclick="doIFSC()"><div style="font-size:12.5px;font-weight:600;color:var(--ink)">ICICI — Hyderabad</div><div style="font-size:11px;color:var(--ash)">292 branches</div></div>
+<div style="background:var(--paper);border:1px solid var(--mist);border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .12s" onclick="doIFSC()"><div style="font-size:12.5px;font-weight:600;color:var(--ink)">Axis — Chennai</div><div style="font-size:11px;color:var(--ash)">215 branches</div></div>
+<div style="background:var(--paper);border:1px solid var(--mist);border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .12s" onclick="doIFSC()"><div style="font-size:12.5px;font-weight:600;color:var(--ink)">PNB — Delhi</div><div style="font-size:11px;color:var(--ash)">890 branches</div></div>
+<div style="background:var(--paper);border:1px solid var(--mist);border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .12s" onclick="doIFSC()"><div style="font-size:12.5px;font-weight:600;color:var(--ink)">Kotak — Pune</div><div style="font-size:11px;color:var(--ash)">178 branches</div></div>
+</div>
+<div class="sh" style="margin-top:20px"><h2>What is an IFSC code?</h2></div>
+<p style="font-size:13.5px;color:#2A3A50;line-height:1.8;margin-bottom:10px">IFSC (Indian Financial System Code) is an 11-character alphanumeric code that uniquely identifies every bank branch in India. The first 4 characters are the bank code, the 5th character is always '0', and the last 6 characters are the branch code.</p>
+<p style="font-size:13.5px;color:#2A3A50;line-height:1.8">You need the IFSC code for NEFT, RTGS, IMPS, and UPI transfers. Most online banking apps auto-fill this when you add a beneficiary, but sometimes you need to enter it manually.</p>
+</div>
+</div>
+
+
+<!-- ══════ PAGE: GLOSSARY (SEO) ══════ -->
+<div class="page" id="pg-glos">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl on">Tools</button></div><div class="navr"><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <span class="cur">Finance Glossary — 200 Indian Finance Terms</span></div>
+<div class="ph"><div class="kicker">Finance Glossary</div><h1>Indian Finance Glossary — <em>200 terms explained plainly</em></h1><div class="ph-meta"><span>200 terms</span><span>Plain English</span><span style="color:var(--grn)">Updated 2026</span></div></div>
+<div style="max-width:980px;margin:0 auto;padding:18px 20px">
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
+<input class="ip" type="text" placeholder="Search any finance term..." style="max-width:300px" id="glos-q" oninput="searchGlos()">
+<span style="font-size:12px;color:var(--ash)">or browse by letter:</span>
+</div>
+<div class="gal-alpha" id="gal-alpha"></div>
+<div id="glos-det" class="gdd" style="display:none">
+<div class="gdt" id="gd-t">CIBIL Score</div>
+<div class="gdb" id="gd-b"><p>A CIBIL score is a 3-digit credit score between 300 and 900 representing your creditworthiness to Indian lenders. Higher scores unlock better loan rates and higher card limits.</p><div class="gdex">📐 Example: A CIBIL of 780 qualifies you for a home loan at 8.50%. A score of 720 might mean 8.85% — adding ₹2,053/month on a ₹60L loan, or ₹4.93L over 20 years.</div></div>
+<div class="rt2" id="gd-rel"></div>
+</div>
+<div class="glos-grid" id="glos-grid"></div>
+</div>
+</div>
+
+<!-- ══════ PAGE: ARTICLE TEMPLATE (SEO) ══════ -->
+<div class="page" id="pg-art">
+<div class="topnav"><span class="logo" onclick="goto('cards')">Investing<em>Pro</em>.in</span><div class="navlinks"><button class="nl on" onclick="goto('cards')">Credit Cards</button><button class="nl" onclick="goto('loans')">Loans</button><button class="nl" onclick="goto('mf')">Invest &amp; Save</button><button class="nl grn" onclick="goto('cibil')">Free CIBIL</button></div><div class="navr"><button class="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div>
+<div class="bc"><a onclick="goto('cards')">Home</a> › <a onclick="goto('cibil')">CIBIL Score</a> › <span class="cur">How CIBIL Score Affects Your Home Loan Rate</span></div>
+<div class="artlayout">
+<div class="artbody">
+<div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px"><span class="tg tgb">Home Loans</span><span class="tg tgb">CIBIL Score</span><span style="font-size:11.5px;color:var(--grn)">✓ Updated March 20, 2026</span><span style="font-size:11.5px;color:var(--ash)">8 min read</span></div>
+<h1 style="font-family:'Playfair Display',serif;font-size:26px;font-style:italic;color:var(--ink);line-height:1.1;margin-bottom:9px;font-weight:400">How your CIBIL score <em style="color:var(--saf)">directly determines</em> your home loan interest rate</h1>
+<div style="font-size:12px;color:var(--ash);display:flex;gap:11px;flex-wrap:wrap;margin-bottom:14px"><span>By <strong>InvestingPro Research Team</strong></span><span>Fact-checked: March 2026</span></div>
+<div class="ktbox"><div class="ktlbl">Key Takeaways</div><div class="kti">A CIBIL score difference of 50 points can change your home loan rate by 0.5% — ₹4.8 lakh more interest on ₹60L over 20 years.</div><div class="kti">Scores of 800+ qualify for the bank's best advertised rates. Below 700 typically pays 1–2% higher.</div><div class="kti">Use our CIBIL Simulator to see your exact score impact before applying — 2 minutes, zero cost.</div><div class="kti">You can improve your CIBIL score by 40–60 points in 3–6 months with the right actions.</div></div>
+
+<p>Banks advertise their lowest home loan rate — say 8.35% — but that rate is only for borrowers with a CIBIL score above 800. If your score is 720, you'll be offered 8.85% or higher. The difference sounds small. It isn't.</p>
+<div class="pullq"><div class="pqt">"The bank won't tell you how much more they charge based on your credit score. We will."</div><div class="pqs">InvestingPro Research · March 2026</div></div>
+
+<h2>The rate table banks don't publish — <em>by CIBIL band</em></h2>
+<table class="dt"><tr><th>CIBIL Band</th><th>SBI Rate</th><th>EMI / ₹60L / 20yr</th><th>vs 800+</th></tr><tr><td><strong>800+</strong></td><td class="dg">8.35%</td><td>₹51,782</td><td><span class="dtag dtag-g">Best rate</span></td></tr><tr><td>750–799</td><td>8.60%</td><td>₹52,806</td><td class="dw">+₹2.46L total</td></tr><tr><td>700–749</td><td>8.85%</td><td>₹53,835</td><td class="dr">+₹4.93L total</td></tr><tr><td>Below 700</td><td class="dr">9.35%+</td><td>₹55,913</td><td class="dr">+₹9.9L total</td></tr></table>
+
+<h2>The 5 CIBIL factors — <em>what each one means</em></h2>
+<h3>1. Payment history (35%) — the most important</h3>
+<p>Every EMI payment and credit card bill is reported to CIBIL. Miss one payment and your score drops 40–60 points instantly. Pay on time for 12 consecutive months and it recovers by 25–40 points.</p>
+<h3>2. Credit utilisation (30%) — the one you can fix fastest</h3>
+<p>This is the percentage of your total credit card limit that you're using. If you have cards with a ₹2 lakh limit and you've spent ₹1.5 lakh, your utilisation is 75% — which significantly damages your score. Keep it below 30% for the best impact. Below 10% is optimal.</p>
+<h3>3. Credit age (15%)</h3>
+<p>The longer your credit history, the better. This is why closing your oldest credit card can hurt your score — it shortens your average credit age. Keep old cards alive, even if you barely use them.</p>
+
+<h2>90-day improvement plan — <em>actionable steps</em></h2>
+<ul>
+<li><strong>Month 1:</strong> Pay down the highest-utilisation card first. Going from 80% to 40% on one card adds 15–20 points.</li>
+<li><strong>Month 2:</strong> Set up auto-pay for all EMIs. Not a single missed payment for the next 90 days.</li>
+<li><strong>Month 3:</strong> Check your CIBIL report for errors. 18% of Indian credit reports contain at least one error. Dispute them via CIBIL's online portal — errors corrected typically add 20–40 points.</li>
+</ul>
+
+<h2>FAQs</h2>
+<div class="faqi"><div class="faqq" onclick="togFAQ(this)">How long does it take to improve a CIBIL score?</div><div class="faqa">Most people see 30–50 points improvement within 3–6 months of consistent on-time payments and reduced utilisation. Serious damage (missed EMI, settled account) takes 12–24 months to recover from, as the mark stays on your report for 7 years but diminishes over time.</div></div>
+<div class="faqi"><div class="faqq" onclick="togFAQ(this)">Does checking my own CIBIL score reduce it?</div><div class="faqa">No. Checking your own score is a "soft enquiry" and has zero impact. Only "hard enquiries" — when a bank pulls your score for a loan or card application — affect your score. Each hard enquiry reduces your score by approximately 5–10 points.</div></div>
+<div class="faqi"><div class="faqq" onclick="togFAQ(this)">What is a good CIBIL score for a home loan?</div><div class="faqa">750 or above qualifies for best advertised rates at most PSU banks. 800+ unlocks absolute best rates. Most banks approve loans for 700+ at higher rates. Below 650, most banks reject or charge very high rates.</div></div>
+<div class="faqi"><div class="faqq" onclick="togFAQ(this)">How often is CIBIL score updated?</div><div class="faqa">CIBIL receives data from member banks monthly. Your score is recalculated when new data arrives. Major changes (paying off a card, a new EMI) typically reflect within 30–45 days.</div></div>
+</div>
+<div class="sb">
+<div class="sc"><div class="sk">Table of Contents</div><div class="toc-l">The hidden rate table</div><div class="toc-l">The 5 CIBIL factors</div><div class="toc-l">90-day improvement plan</div><div class="toc-l">FAQs</div></div>
+<div class="sc"><div class="sk">Related tools</div><button class="ctag ctab" onclick="goto('cibil')" style="margin-bottom:7px">CIBIL Simulator →</button><button class="ctab" onclick="goto('emi')">EMI Calculator →</button></div>
+<div class="sc"><div class="sk">Today's best rates</div><div class="rr"><span class="rb">SBI (800+ CIBIL)</span><span class="rv">8.35%</span></div><div class="rr"><span class="rb">HDFC (800+ CIBIL)</span><span class="rv">8.50%</span></div><a class="slink" onclick="goto('loans')">All home loan rates →</a></div>
+<div class="sc"><div class="sk">Related articles</div><a class="slink" href="#">How to dispute CIBIL errors</a><a class="slink" href="#">CIBIL score by age</a><a class="slink" href="#">7 CIBIL myths busted</a></div>
+</div>
+</div>
+</div>
+
+
+<!-- ══════ NEWSLETTER SECTION (shared) ══════ -->
+<div class="nlsec" id="newsletter-sec">
+<div class="nli">
+<div>
+<div class="kicker" style="color:var(--saf)">InvestingPro Weekly</div>
+<h2 style="font-family:'Playfair Display',serif;font-size:22px;font-style:italic;color:#F5F0E8;margin-bottom:7px;font-weight:400">The 60-second briefing <em style="color:var(--saf)">50,000 Indians</em> read every Monday</h2>
+<p style="font-size:12.5px;color:rgba(245,240,232,.4);line-height:1.7;max-width:320px;margin-bottom:14px">Rate changes, new card launches, one honest tip. Free forever. We only email when there's something genuinely worth knowing.</p>
+<form class="nlform" onsubmit="subNL(event)"><input class="nlinput" type="email" placeholder="your@email.com" required><button class="nlbtn" type="submit">Subscribe →</button></form>
+<div style="font-size:11px;color:rgba(245,240,232,.2);margin-top:6px">No spam · Unsubscribe anytime · 50,000+ subscribers</div>
+</div>
+<div class="nlprev"><div class="nlpw">This week — March 24, 2026</div><div class="nlps">RBI cut rates 0.25%. Here's what to do in the next 7 days.</div><div class="nlpb">Lock your FD now before rates drop further. Refinance if your home loan is above 8.8%. The right move depends on your situation — we break it down with actual ₹ numbers.</div><div class="nlpc">50,247 subscribers read this edition</div></div>
+</div>
+</div>
+
+<!-- ══════ MOBILE BOTTOM NAV ══════ -->
+<nav class="mobnav">
+<button class="mni on" onclick="goto('cards')"><span class="mni-ic">🏠</span><span>Home</span></button>
+<button class="mni" onclick="goto('cards')"><span class="mni-ic">💳</span><span>Cards</span></button>
+<button class="mni mni-c" onclick="goto('cibil')"><span class="mni-ic">📊</span><span>CIBIL</span></button>
+<button class="mni" onclick="goto('emi')"><span class="mni-ic">🧮</span><span>Tools</span></button>
+<button class="mni" onclick="toggleNav()"><span class="mni-ic">☰</span><span>More</span></button>
+</nav>
+
+</div><!-- end .ca -->
+
+
+<script>
+/* ─── GLOSSARY DATA ─── */
+const GLOS=[
+  {t:'CIBIL Score',s:'3-digit credit score (300–900) — determines your loan rates',def:'A CIBIL score is a 3-digit number between 300 and 900 representing your creditworthiness. The higher the score, the better loan rates and card approvals you qualify for. Calculated by TransUnion CIBIL using your payment history, credit utilisation, credit age, credit mix, and new enquiries.',ex:'A score of 780 qualifies you for a home loan at 8.50%. A score of 720 means 8.85% — adding ₹2,053/month on ₹60L over 20 years.',rel:['Credit Utilisation','Hard Enquiry','CIBIL Report']},
+  {t:'EMI',s:'Equated Monthly Instalment — fixed monthly loan payment',def:'EMI is the fixed monthly amount you pay towards a loan. Each payment covers part interest and part principal. In the early years of a loan, most of the EMI goes towards interest; in the later years, more goes towards principal.',ex:'On a ₹30L home loan at 8.5% for 20 years, your EMI would be ₹26,035/month.',rel:['Home Loan','CIBIL Score','Principal']},
+  {t:'ELSS',s:'Equity-Linked Savings Scheme — mutual fund with 80C tax benefit',def:'ELSS funds are equity mutual funds that qualify for ₹1.5L tax deduction under Section 80C. They invest primarily in stocks and have the shortest lock-in period (3 years) among all 80C instruments. Returns are market-linked and not guaranteed.',ex:'₹1.5L invested in ELSS saves you ₹46,800 in tax (30% bracket) and has historically returned 15–25% annually over the long term.',rel:['Section 80C','PPF','Mutual Fund','NAV']},
+  {t:'SIP',s:'Systematic Investment Plan — regular fixed investment in mutual funds',def:'SIP is a method of investing a fixed amount in mutual funds at regular intervals (usually monthly). It benefits from rupee cost averaging — you automatically buy more units when markets are low and fewer when they are high.',ex:'₹5,000/month SIP at 12% annual return for 10 years grows to approximately ₹11.6 lakh (invested ₹6L, earned ₹5.6L).',rel:['Mutual Fund','NAV','XIRR','SWP']},
+  {t:'PPF',s:'Public Provident Fund — government-backed 15-year savings with 7.1% tax-free',def:'PPF is a long-term savings scheme backed by the Government of India. Current interest rate: 7.1% per annum, compounded annually. EEE tax benefit — Exempt at investment (80C deduction), Exempt during accumulation, Exempt at maturity.',ex:'₹1.5L/year in PPF for 15 years at 7.1% grows to approximately ₹40.7L — entirely tax-free.',rel:['Section 80C','ELSS','NPS']},
+  {t:'NPS',s:'National Pension System — market-linked retirement pension scheme',def:'NPS is a government-regulated pension scheme. Contributions qualify for an additional ₹50,000 deduction under Section 80CCD(1B) over and above the standard ₹1.5L 80C limit — making it unique. Money is locked until retirement (60 years).',ex:'If you invest ₹50,000/year in NPS, you save ₹15,600 in taxes (30% bracket) in addition to your regular 80C savings.',rel:['Section 80C','PPF','Retirement']},
+  {t:'Repo Rate',s:"RBI's key interest rate — all loan rates follow when it changes",def:"The repo rate is the interest rate at which the Reserve Bank of India lends money to commercial banks. When RBI raises the repo rate, banks raise their own lending rates (home loans, personal loans) within weeks. When it falls, loan rates follow.",ex:'When RBI cut repo rate from 6.5% to 6.25%, SBI reduced its home loan rate from 8.60% to 8.35% within 30 days.',rel:['Home Loan','EMI','Fixed Deposit']},
+  {t:'CAGR',s:'Compound Annual Growth Rate — true annualised return on investments',def:"CAGR is the rate at which an investment grows annually over time, assuming profits are reinvested. It's used to compare fund performance over different time periods. Unlike simple returns, CAGR accounts for compounding.",ex:'A fund that grew from ₹1 lakh to ₹2.59 lakh over 10 years has a CAGR of 10%. This is a more useful measure than saying "it doubled in 10 years".',rel:['Mutual Fund','XIRR','SIP']},
+  {t:'Credit Utilisation',s:'Percentage of your total credit card limit that you are using',def:'Credit utilisation ratio is the percentage of your available credit that you are using at any point. If your total card limit is ₹2L and you have spent ₹60K, your utilisation is 30%. Lower is better — keep it below 30% for a healthy CIBIL score, below 10% for maximum impact.',ex:'Reducing your utilisation from 75% to 30% can add 15–25 points to your CIBIL score within 45 days.',rel:['CIBIL Score','Hard Enquiry']},
+  {t:'Section 80C',s:'Tax deduction up to ₹1.5L per year on qualifying investments',def:'Section 80C of the Income Tax Act allows deduction of up to ₹1,50,000 from your taxable income for specified investments: ELSS mutual funds, PPF, EPF, NSC, 5-year tax saver FD, life insurance premiums, home loan principal, and more.',ex:'If you earn ₹12L and invest ₹1.5L in 80C instruments, your taxable income becomes ₹10.5L, saving ₹31,200 in taxes.',rel:['ELSS','PPF','NPS','HRA']},
+  {t:'HRA',s:'House Rent Allowance — salary component that reduces your tax',def:'HRA is a component of salary provided by employers. Salaried employees living in rented accommodation can claim HRA exemption to reduce their taxable income. The exemption amount depends on your salary, actual rent paid, and city (metro vs non-metro).',ex:'If you receive ₹20,000/month HRA and pay ₹18,000/month rent in Mumbai, you may be able to exempt the entire ₹2.4L annually from your taxable income.',rel:['Section 80C','Old Regime','Income Tax']},
+  {t:'Hard Enquiry',s:'When a bank checks your CIBIL as part of a loan/card application',def:'A hard enquiry occurs when a lender checks your CIBIL credit report while processing your loan or credit card application. Each hard enquiry reduces your CIBIL score by approximately 5–10 points. Multiple hard enquiries within a short period signal financial stress to lenders.',ex:'Applying for 3 credit cards in 2 months = 3 hard enquiries = approximately 15–30 points off your CIBIL score.',rel:['CIBIL Score','Credit Utilisation','Soft Enquiry']},
+  {t:'FD',s:'Fixed Deposit — guaranteed-return bank deposit for fixed tenure',def:'A Fixed Deposit is a financial instrument where you deposit money with a bank for a fixed tenure at a predetermined interest rate. Returns are guaranteed. DICGC (Government of India) insures up to ₹5 lakh per depositor per bank.',ex:'₹1 lakh in a 2-year FD at 7.25% grows to ₹1,15,056 at maturity.',rel:['DICGC','Interest Rate','Tax Saver FD']},
+  {t:'XIRR',s:'Extended Internal Rate of Return — actual annualised return on irregular cashflows',def:"XIRR is the true annualised return on investments with irregular cashflows, like SIPs. Unlike simple CAGR (which assumes a single lump-sum investment), XIRR accounts for the timing of each SIP payment. This is the correct way to measure your mutual fund SIP's performance.",ex:'A ₹5,000/month SIP started 5 years ago might show a fund CAGR of 18%, but your personal XIRR would be lower (e.g., 14%) because your early investments had less time to compound.',rel:['SIP','CAGR','Mutual Fund']},
+  {t:'NAV',s:'Net Asset Value — per-unit price of a mutual fund, calculated daily',def:'NAV is the per-unit market value of a mutual fund. It is calculated daily: (Total fund assets - Liabilities) / Number of units. When you invest ₹5,000 in a fund with NAV of ₹50, you get 100 units.',ex:'If you invested when NAV was ₹20 and current NAV is ₹40, your investment has doubled — regardless of the NAV amount itself, only the growth matters.',rel:['Mutual Fund','SIP','CAGR']},
+  {t:'IFSC Code',s:'11-character code identifying a bank branch for online transfers',def:'IFSC (Indian Financial System Code) is an 11-character alphanumeric code that uniquely identifies each bank branch in India. The first 4 characters are the bank code, the 5th is always 0, and the last 6 are the branch code.',ex:"SBI's Main Branch in Mumbai: SBIN0001234. You need this for NEFT, RTGS, IMPS, and UPI transfers.",rel:['NEFT','RTGS','IMPS']},
+  {t:'DICGC',s:'Government insurance covering up to ₹5 lakh per bank per depositor',def:'DICGC (Deposit Insurance and Credit Guarantee Corporation) is a wholly owned subsidiary of RBI. It insures all deposits (savings, FD, current, recurring) up to ₹5 lakh per depositor per bank. This includes Small Finance Banks.',ex:'If you have ₹4L in SFB FD and the bank fails, you get the full ₹4L back from DICGC. If you have ₹6L, only ₹5L is insured.',rel:['FD','Small Finance Bank','RBI']},
+  {t:'SWP',s:'Systematic Withdrawal Plan — regular fixed withdrawal from mutual funds',def:'SWP allows you to withdraw a fixed amount from your mutual fund investments at regular intervals. It is used to generate regular income from a corpus, typically in retirement. Unlike an FD, your remaining units continue to grow.',ex:'A ₹50L corpus in an 8% return fund with ₹30,000/month SWP can theoretically last 30+ years while preserving capital.',rel:['SIP','Mutual Fund','Retirement']},
+  {t:'Sovereign Gold Bond',s:'Government bonds linked to gold price + 2.5% annual interest',def:'SGBs are government securities denominated in grams of gold. They pay 2.5% interest annually on the initial investment value, PLUS you get the gold price appreciation at maturity. If held for 8 years (full tenure), capital gains are completely tax-free.',ex:'If you buy 10 grams SGB at ₹6,000/gram (₹60,000 total), you get ₹1,500/year in interest AND ₹80,000 if gold is at ₹8,000/gram at maturity — all tax-free.',rel:['Investment','Capital Gains','Tax']},
+  {t:'NBFC',s:'Non-Banking Financial Company — offers loans without a banking licence',def:'NBFCs are financial companies that offer banking-like services (loans, deposits) but cannot accept demand deposits or issue cheques. They are regulated by RBI but have less stringent requirements than banks.',ex:'Bajaj Finance, Muthoot Finance, LIC Housing Finance are NBFCs. They often approve loans faster and for borrowers banks reject, but at higher interest rates.',rel:['Home Loan','Personal Loan','RBI']},
+];
+
+function buildGlossary(){
+  const alpha='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const ac=document.getElementById('gal-alpha');
+  if(!ac)return;
+  alpha.forEach(l=>{
+    const b=document.createElement('button');
+    b.className='gab';b.textContent=l;
+    b.onclick=()=>{document.querySelectorAll('.gab').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderGlos(GLOS.filter(t=>t.t[0].toUpperCase()===l))};
+    ac.appendChild(b);
+  });
+  renderGlos(GLOS);
+}
+function renderGlos(terms){
+  const g=document.getElementById('glos-grid');
+  if(!g)return;
+  g.innerHTML='';
+  terms.forEach(t=>{
+    const d=document.createElement('div');d.className='gi';
+    d.innerHTML=`<div><div class="git">${t.t}</div><div class="gis">${t.s}</div></div><span class="gia">›</span>`;
+    d.onclick=()=>{
+      document.getElementById('gd-t').textContent=t.t;
+      document.getElementById('gd-b').innerHTML=`<p>${t.def}</p><div class="gdex">📐 <strong>Example:</strong> ${t.ex}</div>`;
+      const rel=document.getElementById('gd-rel');rel.innerHTML='';
+      t.rel.forEach(r=>{const s=document.createElement('span');s.className='rtl';s.textContent=r;s.onclick=()=>{const found=GLOS.find(x=>x.t===r);if(found)d.onclick()};rel.appendChild(s)});
+      document.getElementById('glos-det').style.display='block';
+      document.getElementById('glos-det').scrollIntoView({behavior:'smooth',block:'start'});
+    };
+    g.appendChild(d);
+  });
+}
+function searchGlos(){
+  const q=(document.getElementById('glos-q').value||'').toLowerCase();
+  renderGlos(q?GLOS.filter(t=>t.t.toLowerCase().includes(q)||t.s.toLowerCase().includes(q)||t.def.toLowerCase().includes(q)):GLOS);
+}
+
+/* ─── PAGE ROUTER ─── */
+function goto(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  const pg=document.getElementById('pg-'+id);
+  if(pg)pg.classList.add('on');
+  document.querySelectorAll('.pnl').forEach(l=>l.classList.remove('on'));
+  const pl=document.getElementById('pnl-'+id);
+  if(pl)pl.classList.add('on');
+  window.scrollTo(0,0);
+  // close mobile nav
+  document.getElementById('pnav').classList.remove('open');
+}
+function toggleNav(){
+  document.getElementById('pnav').classList.toggle('open');
+}
+
+/* ─── FILTER CHIPS ─── */
+function fchip(el){
+  el.closest('.fb').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
+
+/* ─── CIBIL SIMULATOR ─── */
+let cBase=748,cD={};
+function cibSim(el,delta){
+  const k=el.querySelector('.sat').textContent.slice(0,20);
+  if(cD[k]){delete cD[k];el.style.background='';el.style.borderColor=''}
+  else{cD[k]=delta;el.style.background=delta>0?'rgba(26,107,74,.07)':'rgba(192,57,43,.07)';el.style.borderColor=delta>0?'rgba(26,107,74,.2)':'rgba(192,57,43,.2)'}
+  let s=cBase;Object.values(cD).forEach(x=>s+=x);
+  s=Math.min(900,Math.max(300,s));
+  const el2=document.getElementById('cib-n');if(el2)el2.textContent=s;
+  const l=s>=800?'Excellent':s>=750?'Very Good':s>=700?'Good':s>=650?'Fair':'Poor';
+  const c=s>=700?'#4CAF7D':s>=650?'#FBB040':'#F87171';
+  const ll=document.getElementById('cib-l');if(ll)ll.textContent=l;
+  if(el2)el2.style.color=c;
+  const ring=document.getElementById('cib-ring');
+  if(ring){const dash=Math.round(((s-300)/600)*327);ring.setAttribute('stroke-dasharray',dash+' 327');ring.setAttribute('stroke',c);}
+}
+
+/* ─── EMI CALCULATOR ─── */
+function cEMI(){
+  const P=+(document.getElementById('ea')||{value:6000000}).value;
+  const cibP=+(document.getElementById('ecibil')||{value:0.5}).value;
+  const baseR=+(document.getElementById('er')||{value:8.35}).value;
+  const actualR=baseR+cibP;
+  const n=+(document.getElementById('et')||{value:20}).value*12;
+  const r=actualR/(12*100);
+  const emi=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  const tot=emi*n;const interest=tot-P;
+  const pPct=Math.round(P/tot*100);const iPct=100-pPct;
+  ss('ea-v','₹'+fmt(P));ss('er-v',baseR.toFixed(2)+'%');ss('et-v',Math.round(n/12)+' years');
+  ss('e-emi',Math.round(emi).toLocaleString('en-IN'));
+  ss('e-int','₹'+fmtL(interest));ss('e-tot','₹'+fmtL(tot));
+  sst('e-pbar','width',pPct+'%');sst('e-ibar','width',iPct+'%');
+  ss('e-pp',pPct+'%');ss('e-ip',iPct+'%');
+  const sbr=(8.35+cibP)/(12*100);const sEMI=P*sbr*Math.pow(1+sbr,n)/(Math.pow(1+sbr,n)-1);
+  const hbr=(8.5+cibP)/(12*100);const hEMI=P*hbr*Math.pow(1+hbr,n)/(Math.pow(1+hbr,n)-1);
+  ss('e-sbi','₹'+Math.round(sEMI).toLocaleString('en-IN'));
+  ss('e-hdfc','₹'+Math.round(hEMI).toLocaleString('en-IN'));
+  ss('e-your','₹'+Math.round(emi).toLocaleString('en-IN'));
+  const bestEMI=P*(8.35/(12*100))*Math.pow(1+8.35/(12*100),n)/(Math.pow(1+8.35/(12*100),n)-1);
+  ss('e-save','₹'+fmtL(Math.abs((emi-bestEMI)*n))+' over '+Math.round(n/12)+'yr');
+  const ar=document.getElementById('e-ar');if(ar)ar.textContent=actualR.toFixed(2)+'%';
+  const arbox=document.getElementById('e-actualrate');if(arbox)arbox.querySelector('strong').textContent=actualR.toFixed(2)+'%';
+}
+
+/* ─── SIP CALCULATOR ─── */
+function cSIP(){
+  const sip=+(document.getElementById('sa')||{value:5000}).value;
+  const r=+(document.getElementById('sr')||{value:12}).value/100/12;
+  const n=+(document.getElementById('sy')||{value:10}).value*12;
+  const step=+(document.getElementById('ss')||{value:10}).value/100;
+  ss('sa-v','₹'+sip.toLocaleString('en-IN'));
+  ss('sr-v',(document.getElementById('sr')||{value:12}).value+'%');
+  ss('sy-v',Math.round(n/12)+' years');
+  ss('ss-v',(document.getElementById('ss')||{value:10}).value+'%');
+  const inv=sip*n;
+  const fv=r===0?inv:sip*((Math.pow(1+r,n)-1)/r)*(1+r);
+  const gains=fv-inv;const invP=Math.round(inv/fv*100);
+  ss('s-corp',fmtL(fv));ss('s-inv','₹'+fmtL(inv));ss('s-gain','₹'+fmtL(gains));
+  sst('s-ibar','width',invP+'%');sst('s-gbar','width',(100-invP)+'%');
+  ss('s-ipp',invP+'%');ss('s-gpp',(100-invP)+'%');
+  ss('s-ns','₹'+fmtL(fv));
+  let stepFV=0;let m=sip;
+  for(let y=0;y<Math.round(n/12);y++){for(let mo=0;mo<12;mo++)stepFV=(stepFV+m)*(1+r);m*=(1+step);}
+  ss('s-ws','₹'+fmtL(stepFV));ss('s-diff','₹'+fmtL(Math.abs(stepFV-fv))+' more');
+}
+
+/* ─── FD CALCULATOR ─── */
+let fdA=100000,fdR=7.25,fdT=2;
+function cFD(type,val){
+  if(type==='a'){fdA=+val;ss('fda-v','₹'+fmt(fdA))}
+  if(type==='r'){fdR=+val;ss('fdr-v',fdR+'%')}
+  if(type==='t'){fdT=+val;ss('fdt-v',fdT+' year'+(fdT>1?'s':''))}
+  const mat=fdA*Math.pow(1+fdR/100,fdT);
+  const int=mat-fdA;
+  ss('fd-mat','₹'+Math.round(mat).toLocaleString('en-IN'));
+  ss('fd-int','Earned: ₹'+Math.round(int).toLocaleString('en-IN'));
+}
+
+/* ─── TAX CALCULATOR ─── */
+function cTax(){
+  const inc=+(document.getElementById('ti')||{value:1200000}).value;
+  const hra=+(document.getElementById('th')||{value:150000}).value;
+  const c80=+(document.getElementById('tc')||{value:150000}).value;
+  const hl=+(document.getElementById('tl')||{value:150000}).value;
+  ss('ti-v','₹'+fmtL(inc));ss('th-v','₹'+fmtL(hra));ss('tc-v','₹'+fmtL(c80));ss('tl-v','₹'+fmtL(hl));
+  const oldDed=50000+hra+c80+hl;const oldTI=Math.max(0,inc-oldDed);const oldTax=calcOld(oldTI);
+  const newTI=Math.max(0,inc-75000);const newTax=calcNew(newTI);
+  ss('to-g','₹'+fmtL(inc));ss('to-d','−₹'+fmtL(oldDed));ss('to-t','₹'+fmtL(oldTI));ss('to-tax','₹'+fmtL(oldTax));
+  ss('tn-g','₹'+fmtL(inc));ss('tn-t','₹'+fmtL(newTI));ss('tn-tax','₹'+fmtL(newTax));
+  const diff=newTax-oldTax;
+  ss('t-rec',diff>0?'Old regime saves you ₹'+fmtL(diff)+' more':diff<0?'New regime saves you ₹'+fmtL(-diff)+' more':'Both regimes equal for you');
+}
+function calcOld(inc){let t=0;if(inc>1000000)t+=(inc-1000000)*.3;if(inc>500000)t+=Math.min(inc-500000,500000)*.2;if(inc>250000)t+=Math.min(inc-250000,250000)*.05;return Math.round(t*1.04)}
+function calcNew(inc){if(inc<=700000)return 0;let t=0;const sl=[[300000,0],[400000,.05],[300000,.1],[400000,.15],[300000,.2],[Infinity,.3]];let rem=inc;for(const[lim,rt]of sl){const ch=Math.min(rem,lim);t+=ch*rt;rem-=ch;if(rem<=0)break}return Math.round(t*1.04)}
+
+/* ─── INSURANCE COVER ─── */
+function cCover(){
+  const inc=parseInt((document.getElementById('ins-inc')||{value:0}).value)||0;
+  const res=document.getElementById('ins-res');if(!res)return;
+  if(!inc){res.textContent='Enter income above to calculate.';return}
+  res.innerHTML=`Recommended cover: <strong>₹${fmtL(inc*10)} – ₹${fmtL(inc*15)}</strong><br><span style="font-size:11px;color:var(--ash)">10–15× your annual income of ₹${fmtL(inc)}</span>`;
+}
+
+/* ─── IFSC ─── */
+function doIFSC(){const r=document.getElementById('ifsc-res');if(r)r.style.display='block';}
+
+/* ─── FAQ TOGGLE ─── */
+function togFAQ(q){q.classList.toggle('op');q.nextElementSibling.classList.toggle('op')}
+
+/* ─── NEWSLETTER ─── */
+function subNL(e){e.preventDefault();const b=e.target.querySelector('.nlbtn');b.textContent='Subscribed! ✓';b.style.background='#1A6B4A';e.target.querySelector('.nlinput').value='';setTimeout(()=>{b.textContent='Subscribe →';b.style.background=''},3000)}
+
+/* ─── HELPERS ─── */
+function ss(id,val){const el=document.getElementById(id);if(el)el.textContent=val}
+function sst(id,prop,val){const el=document.getElementById(id);if(el)el.style[prop]=val}
+function fmt(n){return Math.round(n).toLocaleString('en-IN')}
+function fmtL(n){n=Math.round(n);if(n>=10000000)return(n/10000000).toFixed(1)+'Cr';if(n>=100000)return(n/100000).toFixed(1)+'L';return n.toLocaleString('en-IN')}
+
+/* ─── INIT ─── */
+buildGlossary();
+cEMI();cSIP();cFD('a',null);cTax();
+</script>
+</body>
+</html>
