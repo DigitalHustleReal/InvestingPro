@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>InvestingPro — India's Most Methodical Financial Comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   INVESTINGPRO.IN — HOMEPAGE
+   Tone: Editorial authority · Warm expertise · Indian
+   Trust model: Institutional, methodology-first
+   ═══════════════════════════════════════════════════ */
+:root{
+  --ink:#1B2A4A; --ink2:#243859;
+  --saf:#E8871A; --saf2:#F5A045; --saf-dim:rgba(232,135,26,.1);
+  --grn:#1A6B4A; --grn2:#4CAF7D; --grn-dim:rgba(26,107,74,.09);
+  --cream:#F5F0E8; --cream2:#EDE8DF;
+  --paper:#FFFDF8; --paper2:#FAF6EE;
+  --mist:#E4DEDA; --bone:#D4CDBE;
+  --ash:#7A8799; --fog:#B0BAC8;
+  --red:#C0392B; --sky:#1E6FBF; --warn:#B45309; --purple:#6B21A8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:14px}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* ─── SKIP LINK ─── */
+.skip{position:absolute;left:-9999px;top:4px;padding:6px 12px;background:var(--saf);color:#fff;border-radius:4px;font-size:12px;z-index:999}
+.skip:focus{left:4px}
+
+/* ─── TOP ANNOUNCEMENT BAR ─── */
+.announce-bar{
+  background:var(--ink);
+  padding:8px 0;
+  text-align:center;
+  font-size:12px;
+  color:rgba(245,240,232,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  position:relative;
+}
+.announce-bar a{color:var(--saf);text-decoration:none;font-weight:500}
+.ab-live{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(26,107,74,.15);border:1px solid rgba(26,107,74,.3);
+  border-radius:20px;padding:2px 9px;font-size:11px;color:var(--grn2);font-weight:600
+}
+.ab-dot{width:5px;height:5px;background:var(--grn2);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ─── MAIN NAV ─── */
+.nav-wrap{position:sticky;top:0;z-index:400;box-shadow:0 1px 0 var(--mist)}
+.main-nav{
+  background:var(--paper);height:58px;
+  display:flex;align-items:stretch;padding:0 28px;
+}
+.logo{
+  font-family:'Playfair Display',serif;font-size:20px;font-style:italic;
+  font-weight:400;color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;margin-right:24px;flex-shrink:0;
+}
+.logo .pro{color:var(--saf)}
+.logo .in-badge{
+  font-size:9.5px;font-style:normal;font-weight:600;letter-spacing:.05em;
+  color:var(--ash);margin-left:4px;align-self:flex-end;margin-bottom:4px;
+}
+
+/* Desktop nav items */
+.nav-items{display:flex;height:58px;flex:1}
+.nav-item{position:static;height:58px}
+.nav-trigger{
+  height:58px;padding:0 13px;display:flex;align-items:center;gap:4px;
+  font-size:12.5px;font-weight:500;color:var(--ash);cursor:pointer;
+  border:none;background:none;border-bottom:2px solid transparent;
+  white-space:nowrap;transition:color .14s,border-color .14s;font-family:inherit;
+}
+.nav-trigger:hover{color:var(--ink)}
+.nav-trigger.has-mega:hover,.nav-trigger.open{color:var(--ink);border-bottom-color:var(--saf)}
+.nt-chevron{width:9px;height:9px;transition:transform .18s;opacity:.45;margin-top:1px}
+.nav-trigger.open .nt-chevron{transform:rotate(180deg);opacity:.7}
+
+/* FREE CIBIL — special green link */
+.nav-cibil{
+  height:58px;padding:0 13px;display:flex;align-items:center;
+  font-size:12.5px;font-weight:600;color:var(--grn);
+  cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;
+  font-family:inherit;transition:border-color .14s;white-space:nowrap;
+}
+.nav-cibil:hover{border-bottom-color:var(--grn)}
+
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0;padding-left:16px}
+.btn-sm{
+  padding:7px 14px;border-radius:6px;font-size:12px;font-weight:600;
+  cursor:pointer;font-family:inherit;border:none;white-space:nowrap;transition:all .14s;
+}
+.btn-outline{background:transparent;border:1px solid var(--mist);color:var(--ash)}
+.btn-outline:hover{border-color:var(--ink);color:var(--ink)}
+.btn-saf{background:var(--saf);color:#fff}
+.btn-saf:hover{background:#D4791A}
+.btn-grn{
+  display:flex;align-items:center;gap:5px;
+  background:var(--grn-dim);border:1px solid rgba(26,107,74,.2);color:var(--grn);
+  border-radius:20px;padding:6px 14px;
+}
+.btn-grn::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--grn);flex-shrink:0}
+.btn-grn:hover{background:rgba(26,107,74,.15)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{width:20px;height:1.5px;background:var(--ash);border-radius:1px;display:block;transition:all .2s}
+
+/* ─── MEGA MENU ─── */
+.mega-overlay{
+  display:none;position:fixed;top:58px;left:0;right:0;bottom:0;
+  background:rgba(27,42,74,.2);backdrop-filter:blur(2px);z-index:300;
+}
+.mega-overlay.open{display:block}
+.mega-panel{
+  display:none;position:absolute;top:58px;left:0;right:0;
+  background:var(--paper);border-top:2px solid var(--saf);
+  border-bottom:1px solid var(--mist);
+  box-shadow:0 12px 40px rgba(27,42,74,.1);z-index:350;
+}
+.mega-panel.open{display:block}
+.mega-inner{
+  max-width:1100px;margin:0 auto;padding:24px 28px;
+  display:grid;gap:0;
+}
+.mega-cols{display:flex;gap:0}
+.mega-col{flex:1;padding:0 20px;border-right:1px solid var(--mist)}
+.mega-col:first-child{padding-left:0}
+.mega-col:last-child{border:none}
+.mc-kicker{
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--saf);margin-bottom:12px;
+}
+.mc-link{
+  display:flex;align-items:flex-start;gap:10px;padding:7px 8px;
+  border-radius:8px;cursor:pointer;text-decoration:none;transition:background .12s;margin-bottom:2px;
+}
+.mc-link:hover{background:var(--cream)}
+.mc-icon{
+  width:30px;height:30px;border-radius:7px;display:flex;align-items:center;
+  justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px;
+}
+.mc-text .n{font-size:12.5px;font-weight:500;color:var(--ink);line-height:1.2}
+.mc-text .s{font-size:11px;color:var(--ash);margin-top:1px;line-height:1.3}
+.mega-live{
+  background:var(--cream);border-radius:10px;padding:13px 14px;
+  border:1px solid var(--mist);min-width:180px;
+}
+.ml-kicker{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ash);margin-bottom:8px}
+.ml-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:5px 0;border-bottom:1px solid var(--mist);font-size:12px;
+}
+.ml-row:last-child{border:none}
+.ml-name{color:var(--ash)}
+.ml-val{font-weight:600;font-size:12px}
+.ml-badge{padding:1px 7px;border-radius:8px;font-size:10.5px;font-weight:700}
+.mega-cta-row{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid var(--mist)}
+.mega-cta-link{font-size:12px;color:var(--saf);font-weight:600;text-decoration:none;cursor:pointer}
+.mega-cta-link:hover{text-decoration:underline}
+
+/* ─── TRUST BAR ─── */
+.trust-bar{
+  background:var(--grn);padding:7px 0;
+  display:flex;overflow-x:auto;scrollbar-width:none;
+}
+.trust-bar::-webkit-scrollbar{display:none}
+.trust-bar-inner{
+  max-width:1100px;margin:0 auto;padding:0 28px;
+  display:flex;align-items:center;gap:0;min-width:max-content;
+}
+.tb-item{
+  display:flex;align-items:center;gap:6px;
+  font-size:11.5px;color:rgba(245,240,232,.82);font-weight:500;
+  padding:0 16px;border-right:1px solid rgba(245,240,232,.15);white-space:nowrap;
+}
+.tb-item:first-child{padding-left:0}
+.tb-item:last-child{border:none}
+.tb-check{
+  width:15px;height:15px;border-radius:50%;background:rgba(245,240,232,.15);
+  display:flex;align-items:center;justify-content:center;font-size:8px;color:rgba(245,240,232,.9);
+  flex-shrink:0;
+}
+
+/* ─── HERO ─── */
+.hero{
+  background:var(--ink);padding:60px 0 56px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;right:-80px;top:-80px;
+  width:500px;height:500px;
+  background:radial-gradient(circle at center,rgba(232,135,26,.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;left:20%;bottom:0;
+  width:60%;height:1px;background:rgba(232,135,26,.15);
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;padding:0 28px;
+  display:grid;grid-template-columns:1fr 400px;gap:48px;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(245,240,232,.07);border:1px solid rgba(245,240,232,.14);
+  border-radius:20px;padding:5px 13px;margin-bottom:16px;
+  font-size:11px;color:rgba(245,240,232,.6);font-weight:500;
+}
+.hb-dot{width:5px;height:5px;background:var(--grn2);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{
+  font-family:'Playfair Display',serif;font-size:42px;font-weight:400;
+  font-style:italic;color:#F5F0E8;line-height:1.08;margin-bottom:14px;
+}
+.hero h1 em{color:var(--saf);font-style:italic}
+.hero-sub{
+  font-size:14.5px;color:rgba(245,240,232,.48);line-height:1.75;
+  max-width:400px;margin-bottom:24px;
+}
+.hero-stats{display:flex;gap:24px;align-items:center;margin-bottom:20px}
+.hs{}.hs-n{font-family:'Playfair Display',serif;font-size:22px;color:#F5F0E8}
+.hs-l{font-size:10.5px;color:rgba(245,240,232,.32);margin-top:1px}
+.hs-div{width:1px;height:30px;background:rgba(245,240,232,.1)}
+.method-note{
+  display:flex;align-items:flex-start;gap:8px;
+  background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);
+  border-radius:8px;padding:10px 13px;font-size:11.5px;color:rgba(245,240,232,.4);
+  max-width:420px;line-height:1.6;
+}
+.method-note strong{color:rgba(245,240,232,.65)}
+.method-note a{color:var(--saf);text-decoration:none}
+
+/* ─── SMART ADVISOR WIDGET ─── */
+.smart-widget{
+  background:rgba(245,240,232,.07);border:1px solid rgba(245,240,232,.13);
+  border-radius:14px;padding:22px;
+}
+.sw-kicker{
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--saf);margin-bottom:4px;display:flex;align-items:center;gap:6px;
+}
+.sw-kicker::before{content:'✦';font-size:10px}
+.sw-q{
+  font-family:'Playfair Display',serif;font-size:15px;font-style:italic;
+  color:#F5F0E8;margin-bottom:14px;line-height:1.3;
+}
+.sw-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.sw-chip{
+  padding:6px 13px;background:rgba(245,240,232,.07);
+  border:1px solid rgba(245,240,232,.14);border-radius:20px;
+  font-size:12px;color:rgba(245,240,232,.6);cursor:pointer;
+  transition:all .15s;font-family:inherit;
+}
+.sw-chip:hover,.sw-chip.sel{
+  background:var(--saf);border-color:var(--saf);color:#fff;
+}
+.sw-row{display:flex;gap:7px;margin-bottom:9px}
+.sw-input{
+  flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(245,240,232,.14);
+  border-radius:7px;padding:9px 12px;color:#F5F0E8;font-family:inherit;
+  font-size:12.5px;outline:none;transition:border-color .15s;
+}
+.sw-input::placeholder{color:rgba(245,240,232,.25)}
+.sw-input:focus{border-color:rgba(232,135,26,.5)}
+.sw-btn{
+  padding:9px 16px;background:var(--saf);color:#fff;border:none;
+  border-radius:7px;font-family:inherit;font-size:12.5px;font-weight:600;
+  cursor:pointer;white-space:nowrap;transition:background .14s;
+}
+.sw-btn:hover{background:#D4791A}
+.sw-note{font-size:11px;color:rgba(245,240,232,.22)}
+.sw-divider{
+  display:flex;align-items:center;gap:8px;margin:12px 0;
+  font-size:11px;color:rgba(245,240,232,.2);
+}
+.sw-divider::before,.sw-divider::after{content:'';flex:1;height:1px;background:rgba(245,240,232,.1)}
+.sw-cibil{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(26,107,74,.12);border:1px solid rgba(26,107,74,.2);
+  border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .14s;
+}
+.sw-cibil:hover{background:rgba(26,107,74,.18)}
+.cibil-mini-ring{position:relative;width:36px;height:36px;flex-shrink:0}
+.cibil-mini-ring svg{width:36px;height:36px;transform:rotate(-90deg)}
+.cmr-inner{
+  position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;font-size:9.5px;font-weight:700;color:var(--grn2);
+}
+.sc-text .sc-label{font-size:12px;font-weight:600;color:#F5F0E8}
+.sc-text .sc-sub{font-size:11px;color:rgba(245,240,232,.4)}
+
+/* ─── INTENT RAIL ─── */
+.intent-rail{
+  background:var(--paper);border-bottom:1px solid var(--mist);
+  display:flex;overflow-x:auto;scrollbar-width:none;
+}
+.intent-rail::-webkit-scrollbar{display:none}
+.ir-inner{
+  max-width:1100px;margin:0 auto;padding:0 28px;
+  display:flex;min-width:max-content;width:100%;
+}
+.ir-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:10px 20px;cursor:pointer;border-bottom:2.5px solid transparent;
+  transition:border-color .14s;white-space:nowrap;flex-shrink:0;
+  text-decoration:none;
+}
+.ir-item:hover{border-bottom-color:rgba(232,135,26,.35)}
+.ir-item.active{border-bottom-color:var(--saf)}
+.ir-icon{font-size:18px;line-height:1}
+.ir-label{font-size:12px;font-weight:600;color:var(--ink)}
+.ir-sub{font-size:10px;color:var(--ash)}
+
+/* ─── EDITORIAL NOTE ─── */
+.ed-note{
+  background:rgba(26,107,74,.06);border:1px solid rgba(26,107,74,.16);
+  border-radius:10px;padding:13px 16px;display:flex;align-items:flex-start;gap:10px;
+}
+.en-icon{
+  width:26px;height:26px;border-radius:50%;background:var(--grn);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#fff;flex-shrink:0;font-weight:700;margin-top:1px;
+}
+.en-content{}
+.en-label{
+  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;color:var(--grn);margin-bottom:3px;
+}
+.en-text{font-size:12.5px;color:#1A3D2B;line-height:1.6}
+
+/* ─── METHODOLOGY STRIP ─── */
+.method-strip{
+  background:rgba(26,107,74,.04);border-top:1px solid rgba(26,107,74,.1);
+  border-bottom:1px solid rgba(26,107,74,.1);
+  padding:9px 0;
+}
+.ms-inner{
+  max-width:1100px;margin:0 auto;padding:0 28px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-size:12.5px;color:#1A3D2B;
+}
+.ms-inner a{color:var(--sky);text-decoration:none;font-weight:500}
+.ms-inner a:hover{text-decoration:underline}
+.ms-chips{display:flex;gap:6px;flex-wrap:wrap;margin-left:4px}
+.ms-chip{
+  padding:2px 9px;border-radius:8px;font-size:11px;font-weight:600;
+  background:#E8F5EE;color:var(--grn);white-space:nowrap;
+}
+
+/* ─── FILTER BAR ─── */
+.filter-bar{
+  background:var(--paper);border-bottom:1px solid var(--mist);
+  padding:10px 0;position:sticky;top:58px;z-index:100;
+}
+.fb-inner{
+  max-width:1100px;margin:0 auto;padding:0 28px;
+  display:flex;align-items:center;gap:7px;overflow-x:auto;scrollbar-width:none;
+}
+.fb-inner::-webkit-scrollbar{display:none}
+.fb-label{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;color:var(--ash);flex-shrink:0;
+}
+.fb-chip{
+  padding:5px 13px;border:1px solid var(--mist);border-radius:20px;
+  font-size:12px;color:var(--ash);background:var(--paper);cursor:pointer;
+  white-space:nowrap;transition:all .13s;font-family:inherit;
+}
+.fb-chip:hover{border-color:var(--saf);color:var(--saf)}
+.fb-chip.on{background:var(--saf);border-color:var(--saf);color:#fff}
+.fb-right{
+  margin-left:auto;font-size:12px;font-weight:500;color:var(--sky);
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+}
+
+/* ─── SECTION WRAPPER ─── */
+.section{padding:40px 0}
+.section.bg-paper{background:var(--paper)}
+.section.bg-cream{background:var(--cream)}
+.section.bg-ink{background:var(--ink)}
+.inner{max-width:1100px;margin:0 auto;padding:0 28px}
+.section-hd{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:16px;margin-bottom:20px;
+}
+.sh-left{}
+.kicker{
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:700;color:var(--saf);margin-bottom:5px;
+}
+.sh-title{
+  font-family:'Playfair Display',serif;font-size:24px;
+  font-weight:400;font-style:italic;color:var(--ink);margin-bottom:4px;
+}
+.sh-title em{color:var(--saf)}
+.sh-sub{font-size:12.5px;color:var(--ash);max-width:440px;line-height:1.6}
+.sh-link{font-size:12.5px;color:var(--saf);text-decoration:none;font-weight:600;flex-shrink:0;padding-bottom:8px}
+.sh-link:hover{text-decoration:underline}
+
+/* ─── CARD ROW (horizontal listing row) ─── */
+.card-row{
+  background:var(--paper);border:1px solid var(--mist);border-radius:14px;
+  overflow:hidden;margin-bottom:10px;
+  transition:border-color .18s,box-shadow .18s;
+}
+.card-row:hover{border-color:rgba(232,135,26,.35);box-shadow:0 4px 18px rgba(27,42,74,.07)}
+.cr-pick-strip{
+  background:var(--saf-dim);padding:5px 18px;
+  border-bottom:1px solid rgba(232,135,26,.12);
+  display:flex;align-items:center;gap:8px;
+  font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--saf);font-weight:700;
+}
+.cr-body{display:grid;grid-template-columns:108px 1fr 130px;align-items:stretch}
+.cr-left{
+  padding:14px 12px;display:flex;flex-direction:column;align-items:center;
+  gap:7px;border-right:1px solid var(--mist);
+}
+.card-thumb{
+  width:74px;height:46px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#fff;font-family:'DM Mono',monospace;
+}
+.cr-bank{font-size:10px;color:var(--ash);text-align:center;line-height:1.3}
+.cr-stars{font-size:11px;color:#F59E0B;letter-spacing:-1px}
+.cr-mid{padding:14px 18px}
+.cr-name{font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.cr-desc{font-size:12.5px;color:var(--ash);margin-bottom:10px;line-height:1.55}
+.cr-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.cr-pill{
+  display:flex;align-items:center;gap:4px;
+  padding:4px 9px;border-radius:6px;font-size:11.5px;font-weight:500;
+}
+.cr-pill.pos{background:#F0F9F4;color:var(--grn)}
+.cr-pill.neg{background:#FEF0EE;color:var(--red)}
+.cr-pill.info{background:#EAF2FB;color:var(--sky)}
+.cr-meta{display:flex;gap:18px}
+.cm-item .v{font-size:13px;font-weight:600;color:var(--ink)}
+.cm-item .l{font-size:10.5px;color:var(--ash);margin-top:1px}
+.cr-right{
+  padding:14px 12px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:9px;
+  border-left:1px solid var(--mist);
+}
+.approval-ring{position:relative;width:54px;height:54px}
+.approval-ring svg{width:54px;height:54px;transform:rotate(-90deg)}
+.ar-center{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;line-height:1.1;
+}
+.ar-pct{font-size:12px;font-weight:700}
+.ar-label{font-size:8.5px;color:var(--ash)}
+.cr-apply{
+  width:100%;padding:9px 8px;background:var(--saf);color:#fff;border:none;
+  border-radius:7px;font-family:inherit;font-size:12.5px;font-weight:700;
+  cursor:pointer;transition:background .14s;
+}
+.cr-apply:hover{background:#D4791A}
+.cr-compare{
+  width:100%;padding:7px 8px;background:transparent;color:var(--ash);
+  border:1px solid var(--mist);border-radius:7px;font-family:inherit;
+  font-size:12px;cursor:pointer;transition:all .13s;
+}
+.cr-compare:hover{border-color:var(--ink);color:var(--ink)}
+.cr-footer{
+  padding:8px 18px;background:var(--cream);border-top:1px solid var(--mist);
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:11px;color:var(--ash);
+}
+.cr-footer .ed{color:var(--grn);font-weight:500}
+.cr-footer a{color:var(--sky);text-decoration:none}
+
+/* ─── CIBIL TEASER SECTION ─── */
+.cibil-section{
+  display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;
+}
+.cs-left{}
+.cs-ring-wrap{
+  background:var(--paper);border:1px solid var(--mist);border-radius:16px;
+  padding:32px;display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+.big-ring{position:relative;width:150px;height:150px}
+.big-ring svg{width:150px;height:150px;transform:rotate(-90deg)}
+.br-center{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.br-score{font-family:'Playfair Display',serif;font-size:38px;font-weight:400;color:var(--grn);line-height:1}
+.br-label{font-size:12px;color:var(--ash);margin-top:3px}
+.sim-actions{width:100%;display:flex;flex-direction:column;gap:6px}
+.sim-action{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 12px;background:var(--cream);border:1px solid var(--mist);
+  border-radius:8px;cursor:pointer;transition:background .13s;
+}
+.sim-action:hover{background:var(--cream2)}
+.sa-left{}
+.sa-title{font-size:12.5px;font-weight:500;color:var(--ink)}
+.sa-sub{font-size:11px;color:var(--ash);margin-top:1px}
+.sa-delta{
+  padding:3px 9px;border-radius:8px;font-size:12px;font-weight:700;flex-shrink:0;
+}
+.delta-pos{background:#E8F5EE;color:var(--grn)}
+.delta-neg{background:#FDECEA;color:var(--red)}
+.sim-cta{
+  width:100%;padding:11px;background:var(--grn);color:#fff;border:none;
+  border-radius:8px;font-family:inherit;font-size:13px;font-weight:700;
+  cursor:pointer;transition:background .14s;
+}
+.sim-cta:hover{background:#155d3e}
+
+/* ─── RATE TABLE ─── */
+.rate-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rate-card{background:var(--paper);border:1px solid var(--mist);border-radius:12px;overflow:hidden}
+.rc-hd{
+  padding:13px 16px;border-bottom:1px solid var(--mist);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.rc-title{font-size:13px;font-weight:600;color:var(--ink)}
+.rc-updated{font-size:10.5px;color:var(--grn);font-weight:500}
+.rate-table{width:100%;border-collapse:collapse}
+.rate-table th{
+  background:var(--cream);padding:8px 13px;text-align:left;
+  font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ash);
+}
+.rate-table th:last-child{text-align:right}
+.rate-table td{
+  padding:9px 13px;border-bottom:1px solid var(--mist);font-size:12.5px;
+}
+.rate-table tr:last-child td{border:none}
+.rate-table tr:hover td{background:rgba(232,135,26,.02)}
+.rate-table td:last-child{text-align:right;font-weight:700}
+.rt-best{color:var(--grn)}
+.rt-normal{color:var(--ink)}
+
+/* ─── NEWSLETTER ─── */
+.nl-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.nl-kicker{color:var(--saf)}
+.nl-title{
+  font-family:'Playfair Display',serif;font-size:24px;font-style:italic;
+  color:#F5F0E8;margin-bottom:8px;
+}
+.nl-sub{font-size:13px;color:rgba(245,240,232,.42);line-height:1.7;max-width:340px;margin-bottom:18px}
+.nl-form{display:flex;gap:7px;max-width:380px}
+.nl-input{
+  flex:1;background:rgba(245,240,232,.08);border:1px solid rgba(245,240,232,.14);
+  border-radius:7px;padding:10px 13px;color:#F5F0E8;font-family:inherit;
+  font-size:13px;outline:none;transition:border-color .14s;
+}
+.nl-input::placeholder{color:rgba(245,240,232,.28)}
+.nl-input:focus{border-color:rgba(232,135,26,.45)}
+.nl-btn{
+  padding:10px 16px;background:var(--saf);color:#fff;border:none;
+  border-radius:7px;font-family:inherit;font-size:13px;font-weight:700;
+  cursor:pointer;transition:background .14s;white-space:nowrap;
+}
+.nl-btn:hover{background:#D4791A}
+.nl-meta{font-size:11px;color:rgba(245,240,232,.22);margin-top:7px}
+.nl-preview{
+  background:rgba(245,240,232,.06);border:1px solid rgba(245,240,232,.1);
+  border-radius:12px;padding:18px;
+}
+.nlp-week{
+  font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:700;color:var(--saf);margin-bottom:6px;
+}
+.nlp-subject{font-size:14px;font-weight:500;color:#F5F0E8;margin-bottom:8px;line-height:1.3}
+.nlp-body{font-size:12.5px;color:rgba(245,240,232,.42);line-height:1.65;margin-bottom:12px}
+.nlp-tags{display:flex;gap:6px;flex-wrap:wrap}
+.nlp-tag{
+  padding:3px 10px;border-radius:8px;font-size:11px;font-weight:500;
+  background:rgba(245,240,232,.08);color:rgba(245,240,232,.5);
+}
+.nlp-count{
+  margin-top:12px;padding-top:10px;border-top:1px solid rgba(245,240,232,.08);
+  font-size:11px;color:rgba(245,240,232,.3);display:flex;align-items:center;gap:5px;
+}
+.nlp-count::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn2);animation:pulse 2s infinite}
+
+/* ─── FOOTER ─── */
+.footer{background:var(--ink);padding:48px 0 28px}
+.footer-grid{
+  max-width:1100px;margin:0 auto;padding:0 28px;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px;
+}
+.footer-brand{}
+.fb-logo{
+  font-family:'Playfair Display',serif;font-size:20px;font-style:italic;
+  color:#F5F0E8;margin-bottom:8px;
+}
+.fb-logo span{color:var(--saf)}
+.fb-desc{font-size:12.5px;color:rgba(245,240,232,.33);line-height:1.65;max-width:260px;margin-bottom:16px}
+.trust-stack{display:flex;flex-direction:column;gap:7px}
+.ts-item{
+  display:flex;align-items:center;gap:6px;
+  font-size:11.5px;color:rgba(245,240,232,.38);
+}
+.ts-check{
+  width:14px;height:14px;border-radius:50%;background:rgba(26,107,74,.3);
+  display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--grn2);flex-shrink:0;
+}
+.footer-col h4{
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
+  color:rgba(245,240,232,.45);margin-bottom:13px;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer-col li{
+  font-size:12.5px;color:rgba(245,240,232,.28);cursor:pointer;
+  transition:color .13s;
+}
+.footer-col li:hover{color:rgba(245,240,232,.65)}
+.footer-bottom{
+  max-width:1100px;margin:0 auto;padding:18px 28px 0;
+  border-top:1px solid rgba(245,240,232,.07);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:10px;
+  font-size:11px;color:rgba(245,240,232,.2);
+}
+.fb-links{display:flex;gap:16px}
+.fb-links span{cursor:pointer;transition:color .13s}
+.fb-links span:hover{color:rgba(245,240,232,.5)}
+
+/* ─── MOBILE BOTTOM NAV ─── */
+.mobile-nav{display:none}
+
+/* ══════════════════════════════════════
+   RESPONSIVE — MOBILE FIRST
+════════════════════════════════════════ */
+@media(max-width:900px){
+  /* Nav */
+  .nav-items,.nav-right .btn-saf,.nav-right .btn-outline{display:none}
+  .hamburger{display:flex}
+  .main-nav{padding:0 18px}
+  .nav-right{gap:6px}
+  .btn-grn{padding:5px 10px;font-size:11px}
+
+  /* Hero */
+  .hero{padding:36px 0 32px}
+  .hero-inner{grid-template-columns:1fr;gap:28px;padding:0 18px}
+  .hero h1{font-size:28px}
+  .hero-sub{font-size:13px;max-width:none}
+  .hero-stats{gap:16px}
+  .hs-n{font-size:18px}
+  .method-note{font-size:11px}
+
+  /* Trust bar */
+  .trust-bar-inner{padding:0 18px}
+  .tb-item{padding:0 12px;font-size:11px}
+
+  /* Intent rail */
+  .ir-inner{padding:0 18px}
+  .ir-item{padding:9px 14px}
+
+  /* Inner sections */
+  .inner{padding:0 18px}
+  .method-strip .ms-inner{padding:0 18px}
+  .filter-bar .fb-inner{padding:0 18px}
+
+  /* Card row */
+  .cr-body{grid-template-columns:84px 1fr}
+  .cr-right{display:none}
+  .card-thumb{width:60px;height:38px}
+
+  /* CIBIL section */
+  .cibil-section{grid-template-columns:1fr}
+
+  /* Rate grid */
+  .rate-grid{grid-template-columns:1fr}
+
+  /* Newsletter */
+  .nl-grid{grid-template-columns:1fr;gap:24px}
+
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+
+  /* Mobile bottom nav */
+  .mobile-nav{
+    display:flex;position:fixed;bottom:0;left:0;right:0;
+    background:var(--paper);border-top:1px solid var(--mist);z-index:500;
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    box-shadow:0 -4px 20px rgba(27,42,74,.08);
+  }
+  .mbn-item{
+    flex:1;display:flex;flex-direction:column;align-items:center;
+    gap:3px;padding:10px 4px 8px;cursor:pointer;text-decoration:none;
+    border:none;background:none;font-family:inherit;transition:color .13s;
+  }
+  .mbn-icon{font-size:20px;line-height:1}
+  .mbn-label{font-size:10px;font-weight:500;color:var(--ash)}
+  .mbn-item.active .mbn-label{color:var(--saf)}
+  .mbn-item.active .mbn-icon{filter:none}
+  .mbn-cibil{
+    position:relative;
+    background:var(--grn);border-radius:12px;padding:6px 0;
+    margin:0 4px;
+  }
+  .mbn-cibil .mbn-label{color:rgba(245,240,232,.8)}
+  .mbn-cibil::before{
+    content:'FREE';position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+    background:var(--saf);color:#fff;font-size:8px;font-weight:700;
+    padding:1px 5px;border-radius:6px;white-space:nowrap;
+  }
+  body{padding-bottom:70px}
+}
+
+@media(max-width:500px){
+  .hero h1{font-size:24px}
+  .hero-stats{flex-wrap:wrap;gap:12px}
+  .footer-grid{grid-template-columns:1fr;gap:20px}
+  .announce-bar{font-size:11px}
+}
+
+/* ─── MOBILE DRAWER ─── */
+.mob-drawer{
+  position:fixed;top:0;left:0;bottom:0;width:280px;
+  background:var(--paper);z-index:600;transform:translateX(-100%);
+  transition:transform .28s ease;box-shadow:none;overflow-y:auto;
+  padding:0;
+}
+.mob-drawer.open{transform:translateX(0);box-shadow:4px 0 24px rgba(27,42,74,.15)}
+.mob-drawer-overlay{
+  display:none;position:fixed;inset:0;background:rgba(27,42,74,.35);
+  z-index:599;backdrop-filter:blur(2px);
+}
+.mob-drawer-overlay.open{display:block}
+.mob-d-hd{
+  padding:16px 20px;border-bottom:1px solid var(--mist);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.mob-d-logo{
+  font-family:'Playfair Display',serif;font-size:17px;
+  font-style:italic;color:var(--ink);
+}
+.mob-d-logo span{color:var(--saf)}
+.mob-d-close{
+  width:28px;height:28px;background:var(--cream);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--ash);cursor:pointer;border:none;
+}
+.mob-d-links{padding:12px 0}
+.mob-d-section{
+  padding:6px 20px;font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;font-weight:700;color:var(--ash);margin-top:8px;
+}
+.mob-d-link{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 20px;font-size:13px;color:var(--ink);cursor:pointer;
+  transition:background .12s;text-decoration:none;
+}
+.mob-d-link:hover{background:var(--cream)}
+.mob-d-link.green{color:var(--grn);font-weight:600}
+.mob-d-link span{font-size:11px;color:var(--ash)}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner>*{animation:fadeUp .5s ease both}
+.hero-inner>*:nth-child(1){animation-delay:.05s}
+.hero-inner>*:nth-child(2){animation-delay:.2s}
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to main content</a>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  <div class="ab-live"><span class="ab-dot"></span>Live</div>
+  RBI repo rate update · SBI home loan from 8.35% today ·
+  <a href="#rates">See all rate changes →</a>
+</div>
+
+<!-- NAV WRAP -->
+<div class="nav-wrap">
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <a class="logo" href="/" aria-label="InvestingPro Home">
+      Investing<span class="pro">Pro</span><span class="in-badge">.in</span>
+    </a>
+
+    <div class="nav-items">
+
+      <!-- Credit Cards -->
+      <div class="nav-item">
+        <button class="nav-trigger has-mega" onclick="toggleMega('cards',this)" aria-expanded="false" aria-haspopup="true">
+          Credit Cards
+          <svg class="nt-chevron" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <!-- Loans -->
+      <div class="nav-item">
+        <button class="nav-trigger has-mega" onclick="toggleMega('loans',this)" aria-expanded="false" aria-haspopup="true">
+          Loans
+          <svg class="nt-chevron" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <!-- Invest & Save -->
+      <div class="nav-item">
+        <button class="nav-trigger has-mega" onclick="toggleMega('invest',this)" aria-expanded="false" aria-haspopup="true">
+          Invest & Save
+          <svg class="nt-chevron" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <!-- Insurance -->
+      <div class="nav-item">
+        <button class="nav-trigger has-mega" onclick="toggleMega('insure',this)" aria-expanded="false" aria-haspopup="true">
+          Insurance
+          <svg class="nt-chevron" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <!-- Tax -->
+      <div class="nav-item">
+        <button class="nav-trigger has-mega" onclick="toggleMega('tax',this)" aria-expanded="false" aria-haspopup="true">
+          Tax & 80C
+          <svg class="nt-chevron" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <!-- Free CIBIL — direct -->
+      <div class="nav-item">
+        <button class="nav-cibil">Free CIBIL</button>
+      </div>
+
+      <!-- Tools -->
+      <div class="nav-item">
+        <button class="nav-trigger has-mega" onclick="toggleMega('tools',this)" aria-expanded="false" aria-haspopup="true">
+          Tools
+          <svg class="nt-chevron" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="nav-right">
+      <button class="btn-grn btn-sm">Free CIBIL check</button>
+      <button class="btn-saf btn-sm">Compare Cards</button>
+      <button class="hamburger" onclick="openDrawer()" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MEGA MENUS -->
+  <div class="mega-overlay" id="mega-overlay" onclick="closeAllMega()"></div>
+
+  <!-- Cards mega -->
+  <div class="mega-panel" id="mega-cards" role="dialog" aria-label="Credit Cards menu">
+    <div class="mega-inner">
+      <div class="mega-cols">
+        <div class="mega-col">
+          <div class="mc-kicker">By use case</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">💰</div><div class="mc-text"><div class="n">Best cashback cards</div><div class="s">Online, groceries, OTT</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">✈️</div><div class="mc-text"><div class="n">Best travel cards</div><div class="s">Lounge access, miles, forex</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">⛽</div><div class="mc-text"><div class="n">Fuel credit cards</div><div class="s">Surcharge waiver + cashback</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F3EFF8">🍽️</div><div class="mc-text"><div class="n">Dining & entertainment</div><div class="s">Restaurant discounts + OTT</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">🏠</div><div class="mc-text"><div class="n">Rent & utility cards</div><div class="s">Earn on rent via BBPS</div></div></a>
+        </div>
+        <div class="mega-col">
+          <div class="mc-kicker">By type</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">🆓</div><div class="mc-text"><div class="n">Lifetime free cards</div><div class="s">Zero annual fee — forever</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F1EFE8">🎯</div><div class="mc-text"><div class="n">Entry-level cards</div><div class="s">CIBIL 650+, easy approval</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">⭐</div><div class="mc-text"><div class="n">Premium & super premium</div><div class="s">Infinia, Magnus, Centurion</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">🏦</div><div class="mc-text"><div class="n">Browse by bank</div><div class="s">HDFC, SBI, Axis, ICICI, Amex</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F3EFF8">⚖️</div><div class="mc-text"><div class="n">Card vs card comparator</div><div class="s">500+ comparison pairs</div></div></a>
+        </div>
+        <div class="mega-col" style="min-width:200px;flex:0 0 200px">
+          <div class="mc-kicker">Top picks — March 2026</div>
+          <div class="mega-live">
+            <div class="ml-kicker">Best cashback</div>
+            <div class="ml-row"><span class="ml-name">SBI Cashback</span><span class="ml-badge" style="background:#E8F5EE;color:#1A6B4A">5% online</span></div>
+            <div class="ml-row"><span class="ml-name">Amazon Pay ICICI</span><span class="ml-badge" style="background:#E8F5EE;color:#1A6B4A">Free forever</span></div>
+            <div class="ml-row"><span class="ml-name">HDFC Millennia</span><span class="ml-badge" style="background:#EAF2FB;color:#1E6FBF">5% apps</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mega-cta-row">
+        <a class="mega-cta-link" href="#">See all 500+ credit cards →</a>
+        <a class="mega-cta-link" href="#">How we rank credit cards</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loans mega -->
+  <div class="mega-panel" id="mega-loans" role="dialog" aria-label="Loans menu">
+    <div class="mega-inner">
+      <div class="mega-cols">
+        <div class="mega-col">
+          <div class="mc-kicker">Home loans</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">📊</div><div class="mc-text"><div class="n">Home loan rates today</div><div class="s">All banks, updated daily</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">🧮</div><div class="mc-text"><div class="n">EMI calculator</div><div class="s">With CIBIL rate adjustment</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">🏆</div><div class="mc-text"><div class="n">Best home loan banks</div><div class="s">Ranked by true cost</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F3EFF8">📋</div><div class="mc-text"><div class="n">Home loan complete guide</div><div class="s">Process, documents, traps</div></div></a>
+        </div>
+        <div class="mega-col">
+          <div class="mc-kicker">Personal & other</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">💼</div><div class="mc-text"><div class="n">Personal loans</div><div class="s">By CIBIL score, by salary</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">🚗</div><div class="mc-text"><div class="n">Car loans</div><div class="s">New vs used, best rates</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">🎓</div><div class="mc-text"><div class="n">Education loans</div><div class="s">India + abroad options</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F1EFE8">📦</div><div class="mc-text"><div class="n">Loan against MF / FD</div><div class="s">India's most underused option</div></div></a>
+        </div>
+        <div class="mega-col" style="min-width:200px;flex:0 0 200px">
+          <div class="mc-kicker">Live rates — 800+ CIBIL</div>
+          <div class="mega-live">
+            <div class="ml-kicker">Home loan rates</div>
+            <div class="ml-row"><span class="ml-name">SBI</span><span class="ml-val" style="color:#1A6B4A">8.35%</span></div>
+            <div class="ml-row"><span class="ml-name">HDFC</span><span class="ml-val">8.50%</span></div>
+            <div class="ml-row"><span class="ml-name">ICICI</span><span class="ml-val">8.55%</span></div>
+            <div style="font-size:10.5px;color:var(--ash);margin-top:8px">Updated today · 800+ CIBIL score</div>
+          </div>
+        </div>
+      </div>
+      <div class="mega-cta-row">
+        <a class="mega-cta-link" href="#">How your CIBIL affects your home loan rate →</a>
+        <a class="mega-cta-link" href="#">EMI Calculator</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invest mega -->
+  <div class="mega-panel" id="mega-invest" role="dialog" aria-label="Invest and Save menu">
+    <div class="mega-inner">
+      <div class="mega-cols">
+        <div class="mega-col">
+          <div class="mc-kicker">Mutual funds</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F3EFF8">📈</div><div class="mc-text"><div class="n">Best SIP funds 2026</div><div class="s">Large cap, mid cap, ELSS</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">🧮</div><div class="mc-text"><div class="n">SIP calculator</div><div class="s">Goal-based, inflation-adjusted</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">⚖️</div><div class="mc-text"><div class="n">Index vs active funds</div><div class="s">The honest data-backed answer</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">🔄</div><div class="mc-text"><div class="n">SWP retirement planner</div><div class="s">How to draw down your corpus</div></div></a>
+        </div>
+        <div class="mega-col">
+          <div class="mc-kicker">Fixed income</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">🏦</div><div class="mc-text"><div class="n">Best FD rates today</div><div class="s">All banks, updated daily</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">🏅</div><div class="mc-text"><div class="n">Small finance bank FDs</div><div class="s">7–9% rates — are they safe?</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F3EFF8">🥇</div><div class="mc-text"><div class="n">Sovereign gold bonds</div><div class="s">Gold + 2.5% guaranteed return</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F1EFE8">🏛️</div><div class="mc-text"><div class="n">PPF / NPS / EPF guide</div><div class="s">Retirement accounts compared</div></div></a>
+        </div>
+        <div class="mega-col" style="min-width:200px;flex:0 0 200px">
+          <div class="mc-kicker">Best FD rates now</div>
+          <div class="mega-live">
+            <div class="ml-kicker">1-year FD</div>
+            <div class="ml-row"><span class="ml-name">AU Small Finance</span><span class="ml-val" style="color:#1A6B4A">7.25%</span></div>
+            <div class="ml-row"><span class="ml-name">SBI</span><span class="ml-val">6.80%</span></div>
+            <div class="ml-row"><span class="ml-name">HDFC Bank</span><span class="ml-val">6.60%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mega-cta-row">
+        <a class="mega-cta-link" href="#">Compare all FD rates →</a>
+        <a class="mega-cta-link" href="#">SIP vs FD — which is right for you?</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insurance mega -->
+  <div class="mega-panel" id="mega-insure" role="dialog" aria-label="Insurance menu">
+    <div class="mega-inner">
+      <div class="mega-cols">
+        <div class="mega-col">
+          <div class="mc-kicker">Life & health</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FDECEA">🛡️</div><div class="mc-text"><div class="n">Term life insurance</div><div class="s">How much cover you really need</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">🏥</div><div class="mc-text"><div class="n">Health insurance</div><div class="s">Family floater vs individual plans</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">❌</div><div class="mc-text"><div class="n">Why most ULIPs are bad</div><div class="s">The honest analysis</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F3EFF8">👴</div><div class="mc-text"><div class="n">Senior citizen health cover</div><div class="s">Best plans, no claim bonus</div></div></a>
+        </div>
+        <div class="mega-col">
+          <div class="mc-kicker">Motor & travel</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">🚗</div><div class="mc-text"><div class="n">Car insurance</div><div class="s">Comprehensive vs 3rd party</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F3EFF8">🛵</div><div class="mc-text"><div class="n">Bike insurance</div><div class="s">Best premiums, claim ratio</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">✈️</div><div class="mc-text"><div class="n">Travel insurance</div><div class="s">Medical cover abroad</div></div></a>
+        </div>
+        <div class="mega-col" style="min-width:200px;flex:0 0 200px">
+          <div style="background:#FEF2F2;border:1px solid rgba(192,57,43,.15);border-radius:10px;padding:14px;font-size:12px;color:#7F1D1D;line-height:1.65">
+            <div style="font-weight:600;font-size:12.5px;margin-bottom:5px">Research team note</div>
+            85% of Indian families are underinsured. Term life is the single most important financial decision most people delay. We'll tell you exactly how much cover you need — and the best price.
+          </div>
+        </div>
+      </div>
+      <div class="mega-cta-row">
+        <a class="mega-cta-link" href="#">How much life cover do you need? →</a>
+        <a class="mega-cta-link" href="#">Best health insurance plans 2026</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tax mega -->
+  <div class="mega-panel" id="mega-tax" role="dialog" aria-label="Tax and 80C menu">
+    <div class="mega-inner">
+      <div class="mega-cols">
+        <div class="mega-col">
+          <div class="mc-kicker">Tax planning</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">⚖️</div><div class="mc-text"><div class="n">Old vs new tax regime</div><div class="s">Which actually saves you more</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">🧮</div><div class="mc-text"><div class="n">Income tax calculator FY26</div><div class="s">Both regimes, all slabs</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">🏠</div><div class="mc-text"><div class="n">HRA + home loan benefit</div><div class="s">How to claim both together</div></div></a>
+        </div>
+        <div class="mega-col">
+          <div class="mc-kicker">80C investments</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F3EFF8">📊</div><div class="mc-text"><div class="n">ELSS vs PPF vs NPS</div><div class="s">Complete data comparison</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">📋</div><div class="mc-text"><div class="n">₹1.5L limit optimiser</div><div class="s">Best allocation for your profile</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">🏛️</div><div class="mc-text"><div class="n">NPS extra ₹50K deduction</div><div class="s">80CCD(1B) — most miss this</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">🧾</div><div class="mc-text"><div class="n">Section 80D health premium</div><div class="s">₹25,000–₹50,000 deduction</div></div></a>
+        </div>
+      </div>
+      <div class="mega-cta-row">
+        <a class="mega-cta-link" href="#">Old vs new tax regime calculator →</a>
+        <a class="mega-cta-link" href="#">80C planner for FY 2025–26</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tools mega -->
+  <div class="mega-panel" id="mega-tools" role="dialog" aria-label="Tools menu">
+    <div class="mega-inner">
+      <div class="mega-cols">
+        <div class="mega-col">
+          <div class="mc-kicker">Calculators</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">🏠</div><div class="mc-text"><div class="n">Home loan EMI calculator</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F3EFF8">📈</div><div class="mc-text"><div class="n">SIP & SWP planner</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">💰</div><div class="mc-text"><div class="n">FD maturity calculator</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">🧾</div><div class="mc-text"><div class="n">Income tax calculator</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F1EFE8">📊</div><div class="mc-text"><div class="n">CIBIL Simulator</div><div class="s">First in India — what-if scenarios</div></div></a>
+        </div>
+        <div class="mega-col">
+          <div class="mc-kicker">Lookup tools</div>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#F1EFE8">🔍</div><div class="mc-text"><div class="n">IFSC code lookup</div><div class="s">All 80,000+ branches</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#FEF3E2">🥇</div><div class="mc-text"><div class="n">Gold rate by city</div><div class="s">Updated daily from MCX</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#EAF2FB">📅</div><div class="mc-text"><div class="n">Bank holidays 2026</div><div class="s">All states, all banks</div></div></a>
+          <a class="mc-link" href="#"><div class="mc-icon" style="background:#E8F5EE">📚</div><div class="mc-text"><div class="n">Finance glossary</div><div class="s">200 Indian finance terms defined</div></div></a>
+        </div>
+      </div>
+      <div class="mega-cta-row">
+        <a class="mega-cta-link" href="#">All calculators →</a>
+        <a class="mega-cta-link" href="#">IFSC code lookup</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar" role="complementary" aria-label="Trust signals">
+    <div class="trust-bar-inner">
+      <div class="tb-item"><div class="tb-check">✓</div>Rankings never influenced by commission</div>
+      <div class="tb-item"><div class="tb-check">✓</div>Methodology published and auditable</div>
+      <div class="tb-item"><div class="tb-check">✓</div>No hard credit check to compare</div>
+      <div class="tb-item"><div class="tb-check">✓</div>Rates updated daily from bank websites</div>
+      <div class="tb-item"><div class="tb-check">✓</div>AMFI-Registered · ARN verified</div>
+      <div class="tb-item"><div class="tb-check">✓</div>RBI & SEBI compliant disclosures</div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE DRAWER -->
+<div class="mob-drawer-overlay" id="mob-overlay" onclick="closeDrawer()"></div>
+<div class="mob-drawer" id="mob-drawer" role="dialog" aria-label="Navigation menu" aria-modal="true">
+  <div class="mob-d-hd">
+    <div class="mob-d-logo">Investing<span>Pro</span>.in</div>
+    <button class="mob-d-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
+  </div>
+  <div class="mob-d-links">
+    <div class="mob-d-section">Products</div>
+    <a class="mob-d-link" href="#">Credit Cards <span>Best picks →</span></a>
+    <a class="mob-d-link" href="#">Loans <span>Home, personal, car</span></a>
+    <a class="mob-d-link" href="#">Mutual Funds & SIP <span>Compare funds</span></a>
+    <a class="mob-d-link" href="#">FD & Savings <span>Best rates today</span></a>
+    <a class="mob-d-link" href="#">Insurance <span>Term, health, motor</span></a>
+    <a class="mob-d-link" href="#">Tax & 80C <span>Plan for FY26</span></a>
+    <div class="mob-d-section" style="margin-top:12px">Tools</div>
+    <a class="mob-d-link green" href="#">Free CIBIL Score Check</a>
+    <a class="mob-d-link" href="#">CIBIL Simulator</a>
+    <a class="mob-d-link" href="#">EMI Calculator</a>
+    <a class="mob-d-link" href="#">IFSC Code Lookup</a>
+    <a class="mob-d-link" href="#">All Calculators</a>
+    <div class="mob-d-section" style="margin-top:12px">Learn</div>
+    <a class="mob-d-link" href="#">Finance Glossary</a>
+    <a class="mob-d-link" href="#">Our Methodology</a>
+    <a class="mob-d-link" href="#">InvestingPro Weekly</a>
+  </div>
+</div>
+
+<!-- ════════════ MAIN CONTENT ════════════ -->
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" aria-label="Homepage hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">
+        <span class="hb-dot"></span>
+        Methodology-first · No affiliate bias · AMFI Registered
+      </div>
+      <h1>India's most<br><em>methodical</em><br>financial advisor</h1>
+      <p class="hero-sub">We rank 500+ financial products using published, auditable criteria. Every recommendation shows the data — and the honest downside. No hidden bias, no commission-driven rankings.</p>
+      <div class="hero-stats">
+        <div class="hs"><div class="hs-n">500+</div><div class="hs-l">Products ranked</div></div>
+        <div class="hs-div"></div>
+        <div class="hs"><div class="hs-n">8 criteria</div><div class="hs-l">Per card, scored</div></div>
+        <div class="hs-div"></div>
+        <div class="hs"><div class="hs-n">Daily</div><div class="hs-l">Rate updates</div></div>
+        <div class="hs-div"></div>
+        <div class="hs"><div class="hs-n">Free</div><div class="hs-l">Always, forever</div></div>
+      </div>
+      <div class="method-note">
+        <span>📐</span>
+        <span><strong>Our ranking formula is public:</strong> Reward rate 40% · Approval ease 30% · Fee value 20% · Service 10%. Commission never changes the order. <a href="#">See full methodology →</a></span>
+      </div>
+    </div>
+
+    <!-- SmartAdvisor widget -->
+    <div class="smart-widget" role="complementary" aria-label="Smart card finder">
+      <div class="sw-kicker">SmartAdvisor — AI-Powered</div>
+      <div class="sw-q">"What do you mostly want to save on?"</div>
+      <div class="sw-chips" role="group" aria-label="Spending categories">
+        <button class="sw-chip sel" onclick="selChip(this)">Online Shopping</button>
+        <button class="sw-chip" onclick="selChip(this)">Travel</button>
+        <button class="sw-chip" onclick="selChip(this)">Fuel</button>
+        <button class="sw-chip" onclick="selChip(this)">Dining</button>
+        <button class="sw-chip" onclick="selChip(this)">OTT Bills</button>
+        <button class="sw-chip" onclick="selChip(this)">Rent</button>
+        <button class="sw-chip" onclick="selChip(this)">Groceries</button>
+        <button class="sw-chip" onclick="selChip(this)">UPI</button>
+      </div>
+      <div class="sw-row">
+        <input class="sw-input" type="number" placeholder="Monthly spend on this (₹)" aria-label="Monthly spend amount">
+        <button class="sw-btn" onclick="findCard()">Find best card →</button>
+      </div>
+      <div class="sw-note">No login · No hard credit check · Instant personalised results</div>
+      <div class="sw-divider">or check your CIBIL score first</div>
+      <div class="sw-cibil" role="button" tabindex="0" aria-label="Check free CIBIL score">
+        <div class="cibil-mini-ring">
+          <svg viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(245,240,232,.1)" stroke-width="4"/>
+            <circle cx="18" cy="18" r="14" fill="none" stroke="#4CAF7D" stroke-width="4" stroke-dasharray="66 88" stroke-linecap="round"/>
+          </svg>
+          <div class="cmr-inner">?</div>
+        </div>
+        <div class="sc-text">
+          <div class="sc-label">Check your free CIBIL score</div>
+          <div class="sc-sub">No login · No hard enquiry · Instant</div>
+        </div>
+        <div style="margin-left:auto;font-size:11px;color:var(--grn2);font-weight:600">Free →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTENT RAIL -->
+<nav class="intent-rail" aria-label="Browse by financial goal">
+  <div class="ir-inner">
+    <a class="ir-item active" href="#cards" aria-label="Credit cards - save on spending">
+      <span class="ir-icon">💳</span>
+      <span class="ir-label">Save on Spending</span>
+      <span class="ir-sub">Credit Cards</span>
+    </a>
+    <a class="ir-item" href="#invest">
+      <span class="ir-icon">📈</span>
+      <span class="ir-label">Grow Savings</span>
+      <span class="ir-sub">MF · FD · SIP</span>
+    </a>
+    <a class="ir-item" href="#tax">
+      <span class="ir-icon">🧾</span>
+      <span class="ir-label">Save on Taxes</span>
+      <span class="ir-sub">80C · ELSS · NPS</span>
+    </a>
+    <a class="ir-item" href="#loans">
+      <span class="ir-icon">🏠</span>
+      <span class="ir-label">Borrow Smart</span>
+      <span class="ir-sub">Home · Personal</span>
+    </a>
+    <a class="ir-item" href="#cibil">
+      <span class="ir-icon">📊</span>
+      <span class="ir-label">Protect Score</span>
+      <span class="ir-sub">CIBIL · Credit</span>
+    </a>
+    <a class="ir-item" href="#insurance">
+      <span class="ir-icon">🛡️</span>
+      <span class="ir-label">Protect Life</span>
+      <span class="ir-sub">Term · Health</span>
+    </a>
+    <a class="ir-item" href="#tools">
+      <span class="ir-icon">🧮</span>
+      <span class="ir-label">Run Numbers</span>
+      <span class="ir-sub">EMI · SIP · Tax</span>
+    </a>
+  </div>
+</nav>
+
+<!-- CREDIT CARDS SECTION -->
+<section class="section bg-paper" id="cards" aria-labelledby="cards-heading">
+  <div class="inner">
+    <div class="section-hd">
+      <div class="sh-left">
+        <div class="kicker">Top Picks · March 2026</div>
+        <h2 class="sh-title" id="cards-heading">The <em>right cards</em> for how India actually spends</h2>
+        <p class="sh-sub">Ranked by reward rate (40%), approval ease (30%), fee value (20%), service (10%). Commission never changes the order.</p>
+      </div>
+      <a class="sh-link" href="#">See all 500+ cards →</a>
+    </div>
+
+    <!-- Editorial note -->
+    <div class="ed-note" style="margin-bottom:18px">
+      <div class="en-icon">★</div>
+      <div class="en-content">
+        <div class="en-label">InvestingPro Research Note · March 2026</div>
+        <div class="en-text">SBI Cashback is the most versatile pick for online spenders — 5% with no merchant restrictions. Critical caveat: 42% annual interest if you carry a balance. Only apply if you pay the full amount every month. For a free card without conditions, Amazon Pay ICICI is the strongest lifetime-free option. — <strong>InvestingPro Research Team</strong></div>
+      </div>
+    </div>
+
+    <!-- Methodology strip -->
+    <div class="method-strip" style="margin:0 -28px 18px;width:calc(100% + 56px)">
+      <div class="ms-inner">
+        <strong>Ranking criteria:</strong>
+        <div class="ms-chips">
+          <span class="ms-chip">Reward rate 40%</span>
+          <span class="ms-chip">Approval ease 30%</span>
+          <span class="ms-chip">Fee value 20%</span>
+          <span class="ms-chip">Service 10%</span>
+        </div>
+        · Commission never influences ranking ·
+        <a href="#">Full methodology</a>
+      </div>
+    </div>
+
+    <!-- Filter bar (sticky) -->
+    <div class="filter-bar" style="margin:0 -28px;width:calc(100% + 56px);position:relative;top:auto">
+      <div class="fb-inner">
+        <span class="fb-label">Filter</span>
+        <button class="fb-chip on">All Cards</button>
+        <button class="fb-chip">Online Shopping</button>
+        <button class="fb-chip">Travel</button>
+        <button class="fb-chip">Fuel</button>
+        <button class="fb-chip">Dining</button>
+        <button class="fb-chip">Lifetime Free</button>
+        <button class="fb-chip">No Annual Fee</button>
+        <button class="fb-chip">Premium</button>
+        <span class="fb-right">Set CIBIL for personalised odds →</span>
+      </div>
+    </div>
+
+    <!-- Card Row 1 -->
+    <div class="card-row">
+      <div class="cr-pick-strip">
+        <span>★</span>
+        #1 · InvestingPro Top Pick · March 2026
+      </div>
+      <div class="cr-body">
+        <div class="cr-left">
+          <div class="card-thumb" style="background:linear-gradient(135deg,#1B2A4A,#2D4A6A)">SBI</div>
+          <div class="cr-bank">State Bank of India</div>
+          <div class="cr-stars">★★★★★</div>
+        </div>
+        <div class="cr-mid">
+          <div class="cr-name">SBI Cashback Credit Card</div>
+          <div class="cr-desc">5% cashback on all online spends — no merchant restrictions, no cap on categories. The most versatile flat-rate cashback card available in India.</div>
+          <div class="cr-pills">
+            <span class="cr-pill pos">5% all online spends</span>
+            <span class="cr-pill pos">1% offline</span>
+            <span class="cr-pill info">No merchant restrictions</span>
+            <span class="cr-pill neg">No lounge access</span>
+            <span class="cr-pill neg">42% interest if carried</span>
+          </div>
+          <div class="cr-meta">
+            <div class="cm-item"><div class="v">₹999/yr</div><div class="l">Annual fee</div></div>
+            <div class="cm-item"><div class="v">₹2L spend</div><div class="l">Waiver threshold</div></div>
+            <div class="cm-item"><div class="v">750+</div><div class="l">CIBIL recommended</div></div>
+            <div class="cm-item"><div class="v">10 days</div><div class="l">Typical approval</div></div>
+          </div>
+        </div>
+        <div class="cr-right">
+          <div>
+            <div class="approval-ring" aria-label="88% approval likelihood">
+              <svg viewBox="0 0 54 54">
+                <circle cx="27" cy="27" r="21" fill="none" stroke="#E4DEDA" stroke-width="5"/>
+                <circle cx="27" cy="27" r="21" fill="none" stroke="#1A6B4A" stroke-width="5" stroke-dasharray="115 132" stroke-linecap="round"/>
+              </svg>
+              <div class="ar-center"><div class="ar-pct" style="color:#1A6B4A">88%</div><div class="ar-label">likely</div></div>
+            </div>
+            <div style="font-size:10px;color:var(--ash);text-align:center;margin-top:3px">Approval odds</div>
+          </div>
+          <button class="cr-apply">Apply Now →</button>
+          <button class="cr-compare">+ Compare</button>
+        </div>
+      </div>
+      <div class="cr-footer">
+        <span class="ed">Research note: Best for online shoppers who pay in full each month.</span>
+        <span>Earns commission · <a href="#">Doesn't affect ranking</a></span>
+      </div>
+    </div>
+
+    <!-- Card Row 2 -->
+    <div class="card-row">
+      <div class="cr-body">
+        <div class="cr-left">
+          <div class="card-thumb" style="background:linear-gradient(135deg,#92400E,#B45309)">HDFC</div>
+          <div class="cr-bank">HDFC Bank</div>
+          <div class="cr-stars">★★★★</div>
+        </div>
+        <div class="cr-mid">
+          <div class="cr-name">HDFC Millennia Credit Card</div>
+          <div class="cr-desc">Best for Amazon, Flipkart, Swiggy and Zomato spenders. Excellent for users who consolidate spending on these 4 platforms.</div>
+          <div class="cr-pills">
+            <span class="cr-pill pos">5% Amazon, Flipkart, Swiggy</span>
+            <span class="cr-pill pos">2.5% other online</span>
+            <span class="cr-pill info">Free with HDFC salary account</span>
+          </div>
+          <div class="cr-meta">
+            <div class="cm-item"><div class="v">₹1,000/yr</div><div class="l">Annual fee</div></div>
+            <div class="cm-item"><div class="v">₹1L spend</div><div class="l">Waiver threshold</div></div>
+            <div class="cm-item"><div class="v">760+</div><div class="l">CIBIL recommended</div></div>
+          </div>
+        </div>
+        <div class="cr-right">
+          <div>
+            <div class="approval-ring" aria-label="72% approval likelihood">
+              <svg viewBox="0 0 54 54">
+                <circle cx="27" cy="27" r="21" fill="none" stroke="#E4DEDA" stroke-width="5"/>
+                <circle cx="27" cy="27" r="21" fill="none" stroke="#B45309" stroke-width="5" stroke-dasharray="95 132" stroke-linecap="round"/>
+              </svg>
+              <div class="ar-center"><div class="ar-pct" style="color:#B45309">72%</div><div class="ar-label">likely</div></div>
+            </div>
+            <div style="font-size:10px;color:var(--ash);text-align:center;margin-top:3px">Approval odds</div>
+          </div>
+          <button class="cr-apply">Apply Now →</button>
+          <button class="cr-compare">+ Compare</button>
+        </div>
+      </div>
+      <div class="cr-footer">
+        <span class="ed">Best if you spend heavily on Amazon and Zomato.</span>
+        <span>Earns commission on approval</span>
+      </div>
+    </div>
+
+    <!-- Card Row 3 -->
+    <div class="card-row">
+      <div class="cr-body">
+        <div class="cr-left">
+          <div class="card-thumb" style="background:linear-gradient(135deg,#1a3060,#2d4d8a)">AMZN</div>
+          <div class="cr-bank">ICICI Bank</div>
+          <div class="cr-stars">★★★★</div>
+        </div>
+        <div class="cr-mid">
+          <div class="cr-name">Amazon Pay ICICI Credit Card</div>
+          <div class="cr-desc">India's best lifetime-free credit card. No annual fee, no waiver condition, no minimum spend. 5% on Amazon for Prime members.</div>
+          <div class="cr-pills">
+            <span class="cr-pill pos">5% on Amazon (Prime)</span>
+            <span class="cr-pill pos">2% on other apps</span>
+            <span class="cr-pill pos">1% everywhere else</span>
+            <span class="cr-pill info" style="background:#E8F5EE;color:var(--grn)">Lifetime free — forever</span>
+          </div>
+          <div class="cr-meta">
+            <div class="cm-item"><div class="v">₹0</div><div class="l">Annual fee</div></div>
+            <div class="cm-item"><div class="v">No condition</div><div class="l">Always free</div></div>
+            <div class="cm-item"><div class="v">720+</div><div class="l">CIBIL recommended</div></div>
+          </div>
+        </div>
+        <div class="cr-right">
+          <div>
+            <div class="approval-ring" aria-label="91% approval likelihood">
+              <svg viewBox="0 0 54 54">
+                <circle cx="27" cy="27" r="21" fill="none" stroke="#E4DEDA" stroke-width="5"/>
+                <circle cx="27" cy="27" r="21" fill="none" stroke="#1A6B4A" stroke-width="5" stroke-dasharray="120 132" stroke-linecap="round"/>
+              </svg>
+              <div class="ar-center"><div class="ar-pct" style="color:#1A6B4A">91%</div><div class="ar-label">likely</div></div>
+            </div>
+            <div style="font-size:10px;color:var(--ash);text-align:center;margin-top:3px">Approval odds</div>
+          </div>
+          <button class="cr-apply">Apply Now →</button>
+          <button class="cr-compare">+ Compare</button>
+        </div>
+      </div>
+      <div class="cr-footer">
+        <span class="ed">Best lifetime-free card in India. Zero conditions, real rewards.</span>
+        <span>Earns commission · <a href="#">Doesn't affect ranking</a></span>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding-top:16px">
+      <a href="#" style="font-size:13px;color:var(--sky);text-decoration:none;font-weight:500;border:1px solid var(--mist);padding:9px 22px;border-radius:8px;display:inline-block;background:var(--paper)">Show 20 more cards</a>
+    </div>
+  </div>
+</section>
+
+<!-- CIBIL SECTION -->
+<section class="section bg-cream" id="cibil" aria-labelledby="cibil-heading">
+  <div class="inner">
+    <div class="cibil-section">
+      <div class="cs-left">
+        <div class="kicker">CIBIL Simulator</div>
+        <h2 class="sh-title" id="cibil-heading">"What would my CIBIL be<br><em>if I did this?</em>"</h2>
+        <p style="font-size:13.5px;color:var(--ash);line-height:1.75;margin-bottom:16px;max-width:380px">India's first CIBIL simulator. Toggle financial actions to see their exact impact on your score — before you make any move. Know the outcome before you commit.</p>
+        <div class="ed-note" style="max-width:380px">
+          <div class="en-icon">★</div>
+          <div class="en-content">
+            <div class="en-label">Research note</div>
+            <div class="en-text" style="font-size:12px">A CIBIL difference of just 50 points can change your home loan interest rate by 0.5%. On a ₹60L loan, that's ₹4.8 lakh over 20 years.</div>
+          </div>
+        </div>
+        <button style="margin-top:16px;padding:11px 22px;background:var(--grn);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">Try CIBIL Simulator →</button>
+      </div>
+
+      <!-- CIBIL tool mockup -->
+      <div class="cs-ring-wrap">
+        <div class="kicker" style="align-self:flex-start">Your simulated score</div>
+        <div class="big-ring" aria-label="CIBIL score display">
+          <svg viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="58" fill="none" stroke="#E4DEDA" stroke-width="8"/>
+            <circle cx="75" cy="75" r="58" fill="none" stroke="#1A6B4A" stroke-width="8" stroke-dasharray="272 365" stroke-linecap="round" id="sim-circle"/>
+          </svg>
+          <div class="br-center">
+            <div class="br-score" id="sim-score">748</div>
+            <div class="br-label" id="sim-label">Good</div>
+          </div>
+        </div>
+        <div class="sim-actions" role="group" aria-label="CIBIL actions">
+          <div style="font-size:11px;color:var(--ash);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:2px">Toggle actions to simulate</div>
+          <div class="sim-action" onclick="toggleAction(this,18)" data-delta="18">
+            <div class="sa-left"><div class="sa-title">Pay card balance to ₹0</div><div class="sa-sub">Reduces utilisation below 10%</div></div>
+            <span class="sa-delta delta-pos">+18</span>
+          </div>
+          <div class="sim-action" onclick="toggleAction(this,-8)" data-delta="-8">
+            <div class="sa-left"><div class="sa-title">Apply for personal loan</div><div class="sa-sub">Hard enquiry from bank</div></div>
+            <span class="sa-delta delta-neg">−8</span>
+          </div>
+          <div class="sim-action" onclick="toggleAction(this,22)" data-delta="22">
+            <div class="sa-left"><div class="sa-title">Reduce utilisation to 30%</div><div class="sa-sub">Across all cards combined</div></div>
+            <span class="sa-delta delta-pos">+22</span>
+          </div>
+          <div class="sim-action" onclick="toggleAction(this,-45)" data-delta="-45">
+            <div class="sa-left"><div class="sa-title">Miss one EMI payment</div><div class="sa-sub">Home or personal loan</div></div>
+            <span class="sa-delta delta-neg">−45</span>
+          </div>
+          <div class="sim-action" onclick="toggleAction(this,15)" data-delta="15">
+            <div class="sa-left"><div class="sa-title">Pay all EMIs on time 12 months</div><div class="sa-sub">Consistent payment history</div></div>
+            <span class="sa-delta delta-pos">+15</span>
+          </div>
+        </div>
+        <button class="sim-cta">See full simulation & improvement plan →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RATES SECTION -->
+<section class="section bg-paper" id="rates" aria-labelledby="rates-heading">
+  <div class="inner">
+    <div class="section-hd">
+      <div class="sh-left">
+        <div class="kicker">Live Rate Tables</div>
+        <h2 class="sh-title" id="rates-heading">Today's best rates — <em>updated every morning</em></h2>
+        <p class="sh-sub">Scraped from bank websites daily at 7am. Not marketing rates — the actual rates you'll be offered.</p>
+      </div>
+      <a class="sh-link" href="#">Full rate comparison →</a>
+    </div>
+    <div class="rate-grid">
+      <div class="rate-card">
+        <div class="rc-hd">
+          <div class="rc-title">🏠 Home loan rates — 800+ CIBIL</div>
+          <div class="rc-updated">Updated today</div>
+        </div>
+        <table class="rate-table" aria-label="Home loan rates">
+          <tr><th>Bank</th><th>Rate (pa)</th><th>Your EMI / ₹50L</th></tr>
+          <tr><td>SBI</td><td class="rt-best">8.35%</td><td>₹43,152</td></tr>
+          <tr><td>HDFC Bank</td><td class="rt-normal">8.50%</td><td>₹43,741</td></tr>
+          <tr><td>ICICI Bank</td><td class="rt-normal">8.55%</td><td>₹43,938</td></tr>
+          <tr><td>Kotak Mahindra</td><td class="rt-normal">8.65%</td><td>₹44,334</td></tr>
+          <tr><td>Bank of Baroda</td><td class="rt-normal">8.40%</td><td>₹43,351</td></tr>
+        </table>
+      </div>
+      <div class="rate-card">
+        <div class="rc-hd">
+          <div class="rc-title">🏦 Fixed deposit rates — 1 year</div>
+          <div class="rc-updated">Updated today</div>
+        </div>
+        <table class="rate-table" aria-label="Fixed deposit rates">
+          <tr><th>Bank</th><th>Rate pa</th><th>₹1L matures to</th></tr>
+          <tr><td>AU Small Finance</td><td class="rt-best">7.25%</td><td>₹1,07,250</td></tr>
+          <tr><td>Utkarsh SFB</td><td class="rt-best">7.50%</td><td>₹1,07,500</td></tr>
+          <tr><td>SBI</td><td class="rt-normal">6.80%</td><td>₹1,06,800</td></tr>
+          <tr><td>HDFC Bank</td><td class="rt-normal">6.60%</td><td>₹1,06,600</td></tr>
+          <tr><td>ICICI Bank</td><td class="rt-normal">6.70%</td><td>₹1,06,700</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER SECTION -->
+<section class="section bg-ink" id="newsletter" aria-labelledby="nl-heading">
+  <div class="inner">
+    <div class="nl-grid">
+      <div>
+        <div class="kicker nl-kicker">InvestingPro Weekly</div>
+        <h2 class="nl-title" id="nl-heading">The 60-second briefing<br>50,000 Indians read every Monday</h2>
+        <p class="nl-sub">Rate changes, new card launches, one honest tip per week. Free forever. We only email when there's something genuinely worth knowing — which is roughly once a week.</p>
+        <form class="nl-form" onsubmit="subscribeNL(event)" aria-label="Newsletter subscription">
+          <input class="nl-input" type="email" placeholder="your@email.com" required aria-label="Email address">
+          <button class="nl-btn" type="submit">Subscribe Free →</button>
+        </form>
+        <div class="nl-meta">No spam · Unsubscribe anytime · Read by 50,000+ Indians</div>
+      </div>
+      <div class="nl-preview" aria-label="Newsletter preview">
+        <div class="nlp-week">This week's edition — March 24, 2026</div>
+        <div class="nlp-subject">RBI cut rates 0.25%. Here's what to do in the next 7 days.</div>
+        <div class="nlp-body">Lock your FD now before rates drop further. Refinance if your home loan is above 8.8%. The right move depends on your situation — we break it down with actual ₹ numbers.</div>
+        <div class="nlp-tags">
+          <span class="nlp-tag">Rate change</span>
+          <span class="nlp-tag">FD strategy</span>
+          <span class="nlp-tag">Home loan tip</span>
+        </div>
+        <div class="nlp-count">50,247 subscribers read this edition</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="fb-logo">Investing<span>Pro</span>.in</div>
+      <div class="fb-desc">India's most methodical financial comparison platform. Our rankings are published, auditable, and never influenced by commission.</div>
+      <div class="trust-stack">
+        <div class="ts-item"><div class="ts-check">✓</div>AMFI-Registered Mutual Fund Distributor</div>
+        <div class="ts-item"><div class="ts-check">✓</div>Rankings never influenced by commission</div>
+        <div class="ts-item"><div class="ts-check">✓</div>Methodology published on every page</div>
+        <div class="ts-item"><div class="ts-check">✓</div>Not a SEBI-registered investment advisor</div>
+        <div class="ts-item"><div class="ts-check">✓</div>Information purposes only</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Credit Cards</h4>
+      <ul>
+        <li>Best Cashback Cards</li>
+        <li>Best Travel Cards</li>
+        <li>Lifetime Free Cards</li>
+        <li>Premium Cards</li>
+        <li>Compare Cards</li>
+        <li>Card Reviews</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li>Home Loans</li>
+        <li>Personal Loans</li>
+        <li>Best FD Rates</li>
+        <li>Mutual Funds</li>
+        <li>Term Insurance</li>
+        <li>Tax & 80C</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Tools & About</h4>
+      <ul>
+        <li>Free CIBIL Check</li>
+        <li>CIBIL Simulator</li>
+        <li>IFSC Code Lookup</li>
+        <li>All Calculators</li>
+        <li>Our Methodology</li>
+        <li>InvestingPro Weekly</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 InvestingPro.in · For informational purposes only</span>
+    <div class="fb-links">
+      <span>Privacy Policy</span>
+      <span>Terms of Use</span>
+      <span>Commission Disclosure</span>
+      <span>Contact</span>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+  <a class="mbn-item active" href="#" aria-label="Home">
+    <span class="mbn-icon">🏠</span>
+    <span class="mbn-label">Home</span>
+  </a>
+  <a class="mbn-item" href="#cards" aria-label="Credit Cards">
+    <span class="mbn-icon">💳</span>
+    <span class="mbn-label">Cards</span>
+  </a>
+  <a class="mbn-item mbn-cibil" href="#cibil" aria-label="CIBIL Score - Free">
+    <span class="mbn-icon">📊</span>
+    <span class="mbn-label">CIBIL</span>
+  </a>
+  <a class="mbn-item" href="#tools" aria-label="Tools and Calculators">
+    <span class="mbn-icon">🧮</span>
+    <span class="mbn-label">Tools</span>
+  </a>
+  <button class="mbn-item" onclick="openDrawer()" aria-label="More options">
+    <span class="mbn-icon">☰</span>
+    <span class="mbn-label">More</span>
+  </button>
+</nav>
+
+<script>
+/* ── Mega menu ── */
+let openMega=null,openTrigger=null;
+function toggleMega(id,trigger){
+  if(openMega===id){closeAllMega();return}
+  closeAllMega();
+  openMega=id;openTrigger=trigger;
+  document.getElementById('mega-'+id).classList.add('open');
+  document.getElementById('mega-overlay').classList.add('open');
+  trigger.classList.add('open');
+  trigger.setAttribute('aria-expanded','true');
+}
+function closeAllMega(){
+  document.querySelectorAll('.mega-panel.open').forEach(p=>p.classList.remove('open'));
+  document.getElementById('mega-overlay').classList.remove('open');
+  document.querySelectorAll('.nav-trigger.open').forEach(t=>{
+    t.classList.remove('open');
+    t.setAttribute('aria-expanded','false');
+  });
+  openMega=null;openTrigger=null;
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAllMega()});
+
+/* ── Mobile drawer ── */
+function openDrawer(){
+  document.getElementById('mob-drawer').classList.add('open');
+  document.getElementById('mob-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDrawer(){
+  document.getElementById('mob-drawer').classList.remove('open');
+  document.getElementById('mob-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ── Smart Advisor chips ── */
+function selChip(el){
+  el.closest('.sw-chips').querySelectorAll('.sw-chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function findCard(){
+  const chip=document.querySelector('.sw-chip.sel');
+  const cat=chip?chip.textContent:'spending';
+  const inp=document.querySelector('.sw-input').value;
+  alert('Finding best cards for '+cat+(inp?' with ₹'+parseInt(inp).toLocaleString('en-IN')+'/month spend':'')+'...\n\n(Connect to API for live results)');
+}
+
+/* ── CIBIL Simulator ── */
+let baseScore=748,activeDeltas={};
+function toggleAction(el,delta){
+  const key=el.dataset.delta+'_'+el.querySelector('.sa-title').textContent.slice(0,20);
+  if(activeDeltas[key]){
+    delete activeDeltas[key];
+    el.style.background='';
+    el.style.borderColor='';
+  }else{
+    activeDeltas[key]=delta;
+    el.style.background=delta>0?'rgba(26,107,74,.06)':'rgba(192,57,43,.06)';
+    el.style.borderColor=delta>0?'rgba(26,107,74,.2)':'rgba(192,57,43,.2)';
+  }
+  updateScore();
+}
+function updateScore(){
+  let s=baseScore;
+  Object.values(activeDeltas).forEach(d=>s+=d);
+  s=Math.min(900,Math.max(300,s));
+  document.getElementById('sim-score').textContent=s;
+  const labels={excellent:[800,'Excellent'],vgood:[750,'Very Good'],good:[700,'Good'],fair:[650,'Fair'],poor:[0,'Poor']};
+  let lbl='Poor',col='#C0392B';
+  if(s>=800){lbl='Excellent';col='#1A6B4A'}
+  else if(s>=750){lbl='Very Good';col='#1A6B4A'}
+  else if(s>=700){lbl='Good';col='#B45309'}
+  else if(s>=650){lbl='Fair';col='#B45309'}
+  document.getElementById('sim-label').textContent=lbl;
+  document.getElementById('sim-score').style.color=col;
+  const circle=document.getElementById('sim-circle');
+  const pct=(s-300)/600;
+  const dash=Math.round(pct*365);
+  circle.setAttribute('stroke-dasharray',dash+' 365');
+  circle.setAttribute('stroke',col);
+}
+
+/* ── Filter chips ── */
+document.querySelectorAll('.fb-chip').forEach(c=>{
+  c.addEventListener('click',function(){
+    this.closest('.fb-inner').querySelectorAll('.fb-chip').forEach(x=>x.classList.remove('on'));
+    this.classList.add('on');
+  });
+});
+
+/* ── Newsletter ── */
+function subscribeNL(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.nl-btn');
+  btn.textContent='Subscribed! ✓';
+  btn.style.background='#1A6B4A';
+  e.target.querySelector('.nl-input').value='';
+  setTimeout(()=>{btn.textContent='Subscribe Free →';btn.style.background=''},3000);
+}
+
+/* ── Intent rail active state on scroll ── */
+const irItems=document.querySelectorAll('.ir-item');
+const sections=['cards','cibil','rates','newsletter'];
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(id=>{
+    const s=document.getElementById(id);
+    if(s&&window.scrollY>=s.offsetTop-120)current=id;
+  });
+},{passive:true});
+</script>
+</body>
+</html>
