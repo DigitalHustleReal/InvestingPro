@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>InvestingPro.in — Free Data Intelligence Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080F;--c1:#0D1117;--c2:#111827;--c3:#1A2235;--c4:#212D42;
+  --br:#1E2A3E;--br2:#263348;
+  --t1:#F0F4FF;--t2:#8B9EC4;--t3:#4A5A7A;
+  --vi:#6C63FF;--vix:rgba(108,99,255,.12);
+  --gr:#00D084;--grx:rgba(0,208,132,.1);
+  --am:#FF9F43;--amx:rgba(255,159,67,.1);
+  --cy:#22D3EE;--cyx:rgba(34,211,238,.1);
+  --re:#FF5B5B;--rex:rgba(255,91,91,.1);
+  --pk:#F72585;--pkx:rgba(247,37,133,.1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--t1);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:13px;-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:1140px;margin:0 auto;padding:36px 24px}
+
+/* ── HERO ── */
+.hero{text-align:center;padding:52px 0 44px;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 900px 400px at 50% 0%,rgba(108,99,255,.07),transparent);pointer-events:none}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--vi);margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+.eyebrow::before,.eyebrow::after{content:'';width:32px;height:1px;background:var(--vi)}
+h1{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;letter-spacing:-.04em;color:var(--t1);margin-bottom:12px}
+h1 span{color:var(--gr)}
+.hero-sub{font-size:14.5px;color:var(--t2);max-width:580px;margin:0 auto 20px;line-height:1.7}
+.hero-chips{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.hc{padding:4px 13px;border:1px solid var(--br2);border-radius:20px;font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace}
+.hc.gr{border-color:rgba(0,208,132,.25);color:var(--gr)}.hc.vi{border-color:rgba(108,99,255,.25);color:var(--vi)}.hc.am{border-color:rgba(255,159,67,.25);color:var(--am)}.hc.cy{border-color:rgba(34,211,238,.25);color:var(--cy)}
+
+/* ── SECTION HEADERS ── */
+.section{margin-bottom:44px}
+.section-hd{margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--br)}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.section-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:700;color:var(--t1);letter-spacing:-.03em}
+.section-sub{font-size:13px;color:var(--t2);margin-top:4px;max-width:640px}
+
+/* ── SOURCE CARDS ── */
+.source-grid{display:grid;gap:14px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:1fr 1fr 1fr}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+.source-card{background:var(--c1);border:1px solid var(--br);border-radius:14px;overflow:hidden;transition:border-color .15s,transform .15s}
+.source-card:hover{border-color:var(--br2);transform:translateY(-1px)}
+.sc-top{padding:16px 18px 12px;display:flex;align-items:flex-start;gap:12px}
+.sc-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.sc-ico.gr{background:var(--grx)}.sc-ico.vi{background:var(--vix)}.sc-ico.am{background:var(--amx)}.sc-ico.cy{background:var(--cyx)}.sc-ico.re{background:var(--rex)}.sc-ico.pk{background:var(--pkx)}
+.sc-info{flex:1;min-width:0}
+.sc-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--t1);margin-bottom:2px}
+.sc-source{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t3);margin-bottom:6px}
+.sc-desc{font-size:12px;color:var(--t2);line-height:1.6}
+.sc-body{padding:0 18px 14px;display:flex;flex-direction:column;gap:10px}
+.sc-divider{height:1px;background:var(--br);margin:0 18px}
+.tag-row{display:flex;flex-wrap:wrap;gap:5px}
+.tag{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap}
+.t-gr{background:var(--grx);color:var(--gr);border:1px solid rgba(0,208,132,.2)}
+.t-vi{background:var(--vix);color:var(--vi);border:1px solid rgba(108,99,255,.2)}
+.t-am{background:var(--amx);color:var(--am);border:1px solid rgba(255,159,67,.2)}
+.t-cy{background:var(--cyx);color:var(--cy);border:1px solid rgba(34,211,238,.2)}
+.t-re{background:var(--rex);color:var(--re);border:1px solid rgba(255,91,91,.2)}
+.t-pk{background:var(--pkx);color:var(--pk);border:1px solid rgba(247,37,133,.2)}
+.t-dim{background:var(--c3);color:var(--t3);border:1px solid var(--br)}
+
+.sc-feature{background:var(--c2);border-radius:8px;padding:9px 12px}
+.sf-label{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.sf-items{display:flex;flex-direction:column;gap:4px}
+.sf-item{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--t2)}
+.sf-item::before{content:'→';color:var(--vi);font-size:10px;flex-shrink:0}
+
+.sc-api{background:var(--bg);border-radius:6px;padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sc-api span{color:var(--gr)}
+
+.impact-bar{padding:9px 12px;background:var(--c2);border-radius:8px}
+.ib-label{font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.ib-items{display:flex;flex-direction:column;gap:5px}
+.ib-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ib-name{font-size:11.5px;color:var(--t2);flex:1}
+.ib-track{flex:1;height:4px;background:var(--c4);border-radius:2px;overflow:hidden}
+.ib-fill{height:100%;border-radius:2px}
+
+/* ── PRIORITY MATRIX ── */
+.matrix{background:var(--c1);border:1px solid var(--br);border-radius:14px;overflow:hidden;margin-bottom:18px}
+.matrix-hd{padding:14px 18px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
+.matrix-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--t1)}
+table{width:100%;border-collapse:collapse}
+thead th{padding:9px 14px;text-align:left;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);background:var(--c2);border-bottom:1px solid var(--br);font-family:'JetBrains Mono',monospace;font-weight:400}
+thead th:first-child{padding-left:18px}
+td{padding:10px 14px;border-bottom:1px solid var(--br);font-size:12.5px;vertical-align:middle}
+td:first-child{padding-left:18px}
+tbody tr:last-child td{border:none}
+tbody tr:hover td{background:rgba(255,255,255,.015)}
+.td-main{font-weight:600;color:var(--t1)}
+.td-sub{font-size:11px;color:var(--t3);margin-top:2px}
+.td-code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2)}
+
+/* ── CODE SNIPPET ── */
+.code-card{background:var(--bg);border:1px solid var(--br);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.code-hd{padding:9px 14px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;background:var(--c1)}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
+.code-copy{font-size:10px;color:var(--vi);background:var(--vix);border:none;padding:3px 9px;border-radius:5px;cursor:pointer;font-family:inherit}
+pre{padding:14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;overflow-x:auto;line-height:1.7}
+.kw{color:#C792EA}.str{color:#C3E88D}.fn{color:#82AAFF}.cm{color:#546E7A;font-style:italic}.num{color:#F78C6C}.prop{color:#FFCB6B}
+
+/* ── FEATURE BOX ── */
+.feature-box{background:linear-gradient(135deg,rgba(108,99,255,.08),rgba(34,211,238,.04));border:1px solid rgba(108,99,255,.2);border-radius:14px;padding:20px 22px;margin-bottom:18px}
+.fb-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--t1);margin-bottom:6px}
+.fb-sub{font-size:12.5px;color:var(--t2);line-height:1.65;margin-bottom:14px}
+.fb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.fb-item{background:rgba(255,255,255,.04);border:1px solid var(--br);border-radius:8px;padding:11px 13px}
+.fbi-n{font-size:17px;font-weight:700;color:var(--gr);font-family:'Syne',sans-serif;line-height:1}
+.fbi-l{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ── NOTICE ── */
+.notice{padding:12px 16px;border-radius:9px;font-size:12.5px;line-height:1.65;margin-bottom:18px;display:flex;gap:10px}
+.n-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.notice.gr{background:var(--grx);border:1px solid rgba(0,208,132,.2);color:#8EFFD9}
+.notice.am{background:var(--amx);border:1px solid rgba(255,159,67,.2);color:#FFCB8F}
+.notice.vi{background:var(--vix);border:1px solid rgba(108,99,255,.2);color:#C4BFFF}
+
+/* ── PHASE TIMELINE ── */
+.timeline{display:flex;gap:0;margin-bottom:18px;border-radius:12px;overflow:hidden;border:1px solid var(--br)}
+.phase{flex:1;padding:16px;border-right:1px solid var(--br);background:var(--c1)}
+.phase:last-child{border:none}
+.phase-label{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;font-weight:500}
+.phase-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:8px}
+.phase-items{font-size:11.5px;color:var(--t3);line-height:1.8}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){.grid-3,.grid-4{grid-template-columns:1fr 1fr}.timeline{flex-direction:column}.phase{border-right:none;border-bottom:1px solid var(--br)}.phase:last-child{border:none}}
+@media(max-width:600px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.fb-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">InvestingPro.in — Data Intelligence Map</div>
+  <h1>Free Data That Builds <span>Authority</span></h1>
+  <div class="hero-sub">Every free, open-source, and public dataset available for Indian personal finance — mapped to platform features, traffic potential, and build sequence. No licensing fees. All legal. All authoritative.</div>
+  <div class="hero-chips">
+    <span class="hc gr">26 Data Sources</span>
+    <span class="hc vi">8 Content Verticals</span>
+    <span class="hc am">1.8M+ Potential Monthly Visits</span>
+    <span class="hc cy">₹0 Data Cost</span>
+  </div>
+</div>
+
+<!-- OPPORTUNITY OVERVIEW -->
+<div class="section">
+  <div class="feature-box">
+    <div class="fb-title">The Data Opportunity in Numbers</div>
+    <div class="fb-sub">InvestingPro can power every feature with 100% free, authoritative government and open-source data — the same data BankBazaar and GoodReturns use, but you build better tools around it.</div>
+    <div class="fb-grid">
+      <div class="fb-item"><div class="fbi-n">80,200+</div><div class="fbi-l">IFSC codes (Razorpay OS)</div></div>
+      <div class="fb-item"><div class="fbi-n">16,000+</div><div class="fbi-l">Mutual fund schemes (AMFI)</div></div>
+      <div class="fb-item"><div class="fbi-n">1.6M+</div><div class="fbi-l">PIN codes in India (data.gov.in)</div></div>
+      <div class="fb-item"><div class="fbi-n">100+</div><div class="fbi-l">RBI macro indicators (DBIE API)</div></div>
+      <div class="fb-item"><div class="fbi-n">200+</div><div class="fbi-l">Bank holiday entries/year (RBI)</div></div>
+      <div class="fb-item"><div class="fbi-n">Daily</div><div class="fbi-l">Gold/silver MCX rates (IBJA)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 1. PROGRAMMATIC SEO DATA -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-label">Tier 1 — Highest Traffic Impact</div>
+    <div class="section-title">Programmatic SEO Powerhouses</div>
+    <div class="section-sub">These datasets generate thousands of pages automatically. Each page targets a specific search query. Total potential: 1.5M+ monthly visits from these alone.</div>
+  </div>
+  <div class="source-grid grid-2">
+
+    <!-- IFSC -->
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico gr">🏦</div>
+        <div class="sc-info">
+          <div class="sc-name">Razorpay IFSC Dataset</div>
+          <div class="sc-source">ifsc.razorpay.com · GitHub MIT License · Free forever</div>
+          <div class="sc-desc">Complete database of every bank branch in India with IFSC, MICR, NEFT/RTGS/IMPS/UPI support flags, address, contact, and geo data. Updated via automated scraper from RBI sources.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row">
+          <span class="tag t-gr">80,200+ branches</span>
+          <span class="tag t-gr">MIT License</span>
+          <span class="tag t-am">1.29M searches/mo</span>
+          <span class="tag t-cy">REST API live</span>
+        </div>
+        <div class="sc-api"><span>GET</span> https://ifsc.razorpay.com/{IFSC_CODE}</div>
+        <div class="sc-feature">
+          <div class="sf-label">What to build with this</div>
+          <div class="sf-items">
+            <div class="sf-item">80,200 individual IFSC lookup pages (/ifsc/HDFC0000123)</div>
+            <div class="sf-item">Bank directory pages by state/city/bank name</div>
+            <div class="sf-item">Branch-level data enriched with nearby ATMs/services</div>
+            <div class="sf-item">IFSC validator widget embed on every page</div>
+            <div class="sf-item">Download complete JSON dataset for Next.js SSG</div>
+          </div>
+        </div>
+        <div class="impact-bar">
+          <div class="ib-label">Traffic Potential</div>
+          <div class="ib-items">
+            <div class="ib-row"><span class="ib-name">IFSC lookup queries</span><div class="ib-track"><div class="ib-fill" style="width:95%;background:var(--gr)"></div></div><span style="font-size:10px;color:var(--gr);font-family:monospace">1.29M/mo</span></div>
+            <div class="ib-row"><span class="ib-name">Bank branch searches</span><div class="ib-track"><div class="ib-fill" style="width:60%;background:var(--am)"></div></div><span style="font-size:10px;color:var(--am);font-family:monospace">240K/mo</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MF NAV -->
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico vi">📈</div>
+        <div class="sc-info">
+          <div class="sc-name">AMFI Daily NAV — mfapi.in</div>
+          <div class="sc-source">amfiindia.com · mfapi.in · Free public API</div>
+          <div class="sc-desc">Every mutual fund scheme's NAV updated daily by AMFI. mfapi.in wraps it into a clean REST API with historical data. 16,000+ schemes. The authoritative source — same data Zerodha and Groww use.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row">
+          <span class="tag t-gr">16,000+ schemes</span>
+          <span class="tag t-gr">Daily updates</span>
+          <span class="tag t-vi">Historical NAV</span>
+          <span class="tag t-cy">CORS enabled</span>
+        </div>
+        <div class="sc-api"><span>GET</span> https://api.mfapi.in/mf/{schemeCode}</div>
+        <div class="sc-feature">
+          <div class="sf-label">What to build with this</div>
+          <div class="sf-items">
+            <div class="sf-item">Live NAV table on every fund page — updated daily</div>
+            <div class="sf-item">Fund performance charts (1Y/3Y/5Y returns auto-calculated)</div>
+            <div class="sf-item">SIP return calculator with real historical NAV data</div>
+            <div class="sf-item">CAGR comparison across fund categories</div>
+            <div class="sf-item">Best performing funds widget on homepage</div>
+          </div>
+        </div>
+        <div class="impact-bar">
+          <div class="ib-label">Traffic Potential</div>
+          <div class="ib-items">
+            <div class="ib-row"><span class="ib-name">MF NAV searches</span><div class="ib-track"><div class="ib-fill" style="width:75%;background:var(--vi)"></div></div><span style="font-size:10px;color:var(--vi);font-family:monospace">~450K/mo</span></div>
+            <div class="ib-row"><span class="ib-name">Fund comparison queries</span><div class="ib-track"><div class="ib-fill" style="width:50%;background:var(--cy)"></div></div><span style="font-size:10px;color:var(--cy);font-family:monospace">~180K/mo</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gold -->
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico am">🥇</div>
+        <div class="sc-info">
+          <div class="sc-name">Gold & Silver Daily Rates — IBJA</div>
+          <div class="sc-source">indiagoldratesapi.com · MCX · IBJA · Free tier available</div>
+          <div class="sc-desc">India Bullion and Jewellers Association (IBJA) publishes authenticated daily gold and silver rates. Updated every morning. City-level rates vary slightly. "Aaj sone ka bhav" is one of India's most searched queries.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row">
+          <span class="tag t-am">Daily rates</span>
+          <span class="tag t-am">City-level data</span>
+          <span class="tag t-gr">IBJA authenticated</span>
+          <span class="tag t-dim">22K/24K variants</span>
+        </div>
+        <div class="sc-api"><span>GET</span> https://indiagoldratesapi.com/api/rates</div>
+        <div class="sc-feature">
+          <div class="sf-label">What to build with this</div>
+          <div class="sf-items">
+            <div class="sf-item">Gold rate by city pages (100 cities = 100 programmatic pages)</div>
+            <div class="sf-item">Historical gold price chart with 52-week high/low</div>
+            <div class="sf-item">Gold rate calculator (grams to rupees widget)</div>
+            <div class="sf-item">SGB vs physical gold vs gold ETF comparison tool</div>
+            <div class="sf-item">Today's rate in homepage announcement bar</div>
+          </div>
+        </div>
+        <div class="impact-bar">
+          <div class="ib-label">Traffic Potential</div>
+          <div class="ib-items">
+            <div class="ib-row"><span class="ib-name">"Aaj sone ka bhav"</span><div class="ib-track"><div class="ib-fill" style="width:88%;background:var(--am)"></div></div><span style="font-size:10px;color:var(--am);font-family:monospace">~2.4M/mo</span></div>
+            <div class="ib-row"><span class="ib-name">Gold rate [city]</span><div class="ib-track"><div class="ib-fill" style="width:65%;background:var(--am)"></div></div><span style="font-size:10px;color:var(--am);font-family:monospace">~600K/mo</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIN Codes -->
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico cy">📮</div>
+        <div class="sc-info">
+          <div class="sc-name">PIN Code Directory — data.gov.in</div>
+          <div class="sc-source">data.gov.in · Ministry of Communications · Free API</div>
+          <div class="sc-desc">All India PIN code directory from Department of Posts. Every PIN code with district, division, state, office name, and type. 19,100+ post offices. Free API key from data.gov.in — no cost.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row">
+          <span class="tag t-cy">154,000+ PIN codes</span>
+          <span class="tag t-gr">Free API key</span>
+          <span class="tag t-vi">All states covered</span>
+        </div>
+        <div class="sc-api"><span>GET</span> https://data.gov.in/api/datastore/resource/{id}?filters[pincode]={pin}</div>
+        <div class="sc-feature">
+          <div class="sf-label">What to build with this</div>
+          <div class="sf-items">
+            <div class="sf-item">PIN code → nearest branches/ATMs lookup pages</div>
+            <div class="sf-item">Local bank availability by PIN code (50K+ pages)</div>
+            <div class="sf-item">Address autocomplete with IFSC enrichment</div>
+            <div class="sf-item">District-level financial data hub pages</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 2. RBI MACRO DATA -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-label">Tier 1 — Authority & Trust Signals</div>
+    <div class="section-title">RBI Official Data — DBIE Portal</div>
+    <div class="section-sub">Reserve Bank of India's Database on Indian Economy. 100+ macro indicators, all free. Direct from the source — not scraped. This is what makes InvestingPro the authoritative reference, not just another comparison site.</div>
+  </div>
+  <div class="notice vi"><span class="n-icon">💡</span><div>data.rbi.org.in is RBI's official open data portal. All data is free, machine-readable, and carries the highest possible authority signal for SEO. Being cited alongside "Source: RBI" is the Indian personal finance equivalent of citing a Supreme Court ruling.</div></div>
+  <div class="source-grid grid-3">
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico gr">📊</div>
+        <div class="sc-info">
+          <div class="sc-name">Repo Rate & Policy Rates</div>
+          <div class="sc-source">rbi.org.in/Scripts/Statistics.aspx</div>
+          <div class="sc-desc">Official repo rate, reverse repo, CRR, SLR, SDF, MSF rates. Updated every MPC meeting (6 times/year). Current: 5.25% (Feb 2026).</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-gr">6x/year update</span><span class="tag t-vi">Historical data</span><span class="tag t-dim">Free download</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Repo rate history chart on homepage</div>
+            <div class="sf-item">FD rate impact calculator (repo rate vs bank FD)</div>
+            <div class="sf-item">Home loan rate movement tracker</div>
+            <div class="sf-item">"Rate cut alert" email/WhatsApp trigger</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico am">📉</div>
+        <div class="sc-info">
+          <div class="sc-name">CPI Inflation Data</div>
+          <div class="sc-source">mospi.gov.in · CEIC · tradingeconomics.com</div>
+          <div class="sc-desc">India's official CPI, food inflation, core inflation data. Monthly release. Current: 2.75% (Jan 2026). New CPI methodology as of 2026 with updated household weights.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-am">Monthly</span><span class="tag t-gr">Official source</span><span class="tag t-vi">New 2026 weights</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Real return calculator (FD rate minus inflation)</div>
+            <div class="sf-item">Inflation-adjusted SIP goal planner</div>
+            <div class="sf-item">CPI history chart with rate cut annotations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico cy">💱</div>
+        <div class="sc-info">
+          <div class="sc-name">Bank-wise FD & Lending Rates</div>
+          <div class="sc-source">rbi.org.in — DBIE database tables</div>
+          <div class="sc-desc">RBI publishes bank-wise deposit rates, WALR (weighted average lending rate), and WALDR (deposit rate) monthly. This is the legal source for rate comparisons.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-cy">All banks</span><span class="tag t-gr">Monthly</span><span class="tag t-am">WALR + WALDR</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">FD rate comparison tables (source: RBI)</div>
+            <div class="sf-item">Home loan rate trends by bank</div>
+            <div class="sf-item">Rate alert notifications</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico re">🏦</div>
+        <div class="sc-info">
+          <div class="sc-name">Bank Holidays — RBI Official</div>
+          <div class="sc-source">rbi.org.in/Scripts/HolidayMatrixDisplay.aspx</div>
+          <div class="sc-desc">Official bank holidays published by RBI for all states. Updated annually. Data includes clearing house holidays, RTGS holidays, and state-specific bank holidays — scraping the HTML is straightforward.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-re">All states</span><span class="tag t-gr">Annual update</span><span class="tag t-vi">RTGS/NEFT/clearing</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">500+ bank holiday pages (state × year)</div>
+            <div class="sf-item">RTGS transfer schedule widget</div>
+            <div class="sf-item">iCal export — bookmark magnet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico pk">💹</div>
+        <div class="sc-info">
+          <div class="sc-name">GDP & Growth Projections</div>
+          <div class="sc-source">mospi.gov.in · RBI Monetary Policy Reports</div>
+          <div class="sc-desc">Quarterly GDP figures, RBI's GDP forecast updates, sectoral growth data. RBI currently projects 7.4% GDP growth for FY2025-26. Free from MoSPI's official open data portal.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-pk">Quarterly</span><span class="tag t-gr">Official MoSPI</span><span class="tag t-am">RBI projections</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Economic calendar with major data releases</div>
+            <div class="sf-item">Investment climate overview page</div>
+            <div class="sf-item">NPS/long-term investment context articles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico vi">🌍</div>
+        <div class="sc-info">
+          <div class="sc-name">Forex Rates — RBI Reference</div>
+          <div class="sc-source">rbi.org.in — Reference Rate</div>
+          <div class="sc-desc">RBI publishes official USD/INR, EUR/INR, GBP/INR, JPY/INR reference rates daily at 12:30 PM. Free to use. Authoritative for NRI remittance and travel insurance content.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-vi">Daily 12:30PM</span><span class="tag t-gr">4 major currencies</span><span class="tag t-cy">NRI relevant</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Currency converter widget (NRI feature)</div>
+            <div class="sf-item">Travel insurance premium context</div>
+            <div class="sf-item">NRI investment guide with forex angle</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 3. MARKET DATA -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-label">Tier 2 — Market Data & Tools</div>
+    <div class="section-title">Free Market & Investment Data</div>
+    <div class="section-sub">Stock market, indices, and investment data to power calculators, comparison tools, and research features.</div>
+  </div>
+  <div class="source-grid grid-3">
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico am">📊</div>
+        <div class="sc-info">
+          <div class="sc-name">NSE/BSE via Yahoo Finance</div>
+          <div class="sc-source">finance.yahoo.com · yfinance Python · Free</div>
+          <div class="sc-desc">Real-time NSE/BSE stock and index data. Nifty 50, Sensex, Nifty Bank, gold ETFs, government bond prices. Sufficient for index fund comparison tools and calculators. No API key required for basic usage.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-am">Real-time delayed</span><span class="tag t-gr">All NSE/BSE symbols</span><span class="tag t-dim">Rate limited</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Index fund vs active fund performance comparison</div>
+            <div class="sf-item">Nifty 50 returns calculator (lump sum + SIP)</div>
+            <div class="sf-item">Gold ETF vs physical gold returns chart</div>
+            <div class="sf-item">Benchmark comparison for MF pages</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico gr">🏛️</div>
+        <div class="sc-info">
+          <div class="sc-name">NPS Returns — PFRDA Data</div>
+          <div class="sc-source">npstrust.org.in · PFRDA · Free public data</div>
+          <div class="sc-desc">NPS fund NAVs and returns published by NPS Trust. All scheme types (Tier I & II, Equity/Bonds/Govt/Alt). Historical returns since 2009. Updated daily. Completely free — PFRDA mandates transparency.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-gr">Daily NAV</span><span class="tag t-vi">All fund managers</span><span class="tag t-cy">2009 history</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">NPS vs ELSS vs PPF returns comparison (huge SEO opportunity — underserved)</div>
+            <div class="sf-item">NPS retirement corpus calculator with real returns</div>
+            <div class="sf-item">Defence pension + NPS combination guide (personal angle)</div>
+            <div class="sf-item">80CCD(1B) extra ₹50K deduction planner</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico vi">💰</div>
+        <div class="sc-info">
+          <div class="sc-name">PPF / SSY / NSC Rates — MoF</div>
+          <div class="sc-source">finmin.nic.in · Ministry of Finance · Free</div>
+          <div class="sc-desc">Ministry of Finance notifies small savings scheme rates quarterly. PPF, NSC, SSY (Sukanya Samriddhi), POMIS, SCSS, KVP, Kisan Vikas Patra rates — all official. Not available as API but easily scrapeable from gazette notifications.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-vi">Quarterly update</span><span class="tag t-gr">Official gazette</span><span class="tag t-am">8 scheme types</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Small savings vs FD vs MF comparison table</div>
+            <div class="sf-item">SSY calculator for daughters (highly emotional, high share rate)</div>
+            <div class="sf-item">SCSS (senior citizens) comparison vs bank FD</div>
+            <div class="sf-item">PPF vs ELSS vs NPS full comparison page</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico cy">📋</div>
+        <div class="sc-info">
+          <div class="sc-name">Income Tax Slabs & Deductions — IT Dept</div>
+          <div class="sc-source">incometax.gov.in · Finance Bill · Free public</div>
+          <div class="sc-desc">Official Income Tax slabs (old and new regime), deduction limits (80C, 80D, 80E, HRA, LTA), surcharge rates, cess rates. Updated annually in Budget. The foundation for every tax calculator.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-cy">Annual Budget update</span><span class="tag t-gr">FY2025-26 current</span><span class="tag t-am">Both regimes</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Old vs new regime calculator (highest search volume tax query)</div>
+            <div class="sf-item">80C deduction optimizer (which instrument saves most)</div>
+            <div class="sf-item">HRA + home loan dual benefit calculator</div>
+            <div class="sf-item">Tax-saving investment recommendations engine</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico pk">🔢</div>
+        <div class="sc-info">
+          <div class="sc-name">Twelve Data — Free Tier (5000 req/day)</div>
+          <div class="sc-source">twelvedata.com · Free API key · NSE/BSE included</div>
+          <div class="sc-desc">Real-time and historical stock data including Indian exchanges. Free tier: 800 API credits/day (5000/day with signup). Includes 100+ technical indicators. Good for Nifty/Sensex historical data for calculators.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-pk">Free tier</span><span class="tag t-gr">NSE + BSE</span><span class="tag t-vi">100+ indicators</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Sensex/Nifty historical returns for SIP simulations</div>
+            <div class="sf-item">Index fund benchmark data for MF comparison</div>
+            <div class="sf-item">CAGR calculator with real benchmark data</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico am">⚖️</div>
+        <div class="sc-info">
+          <div class="sc-name">SEBI Data — SEBI Official Portal</div>
+          <div class="sc-source">sebi.gov.in · Free public data</div>
+          <div class="sc-desc">SEBI publishes registered investment advisers, mutual fund distributors (ARN holders), and broker registrations. Also: market statistics, FII/FPI data, and corporate action data. All publicly available.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-am">ARN verification</span><span class="tag t-gr">Registered entities</span><span class="tag t-cy">FII/FPI data</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Trust badge: "SEBI-registered" verifier widget</div>
+            <div class="sf-item">AMFI ARN lookup page (verify your distributor)</div>
+            <div class="sf-item">FII/FPI flow charts for market context articles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4. CONTENT & COMPARISON DATA -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-label">Tier 2 — Comparison & Content Enrichment</div>
+    <div class="section-title">Data That Powers Comparison Features</div>
+    <div class="section-sub">Open datasets for credit, insurance, and financial product comparison pages.</div>
+  </div>
+  <div class="source-grid grid-3">
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico re">❤️</div>
+        <div class="sc-info">
+          <div class="sc-name">IRDAI Insurance Data</div>
+          <div class="sc-source">irdai.gov.in · Free public data</div>
+          <div class="sc-desc">Insurance Regulatory Authority publishes claim settlement ratios (CSR) for all life and health insurers annually. CSR is the single most important metric for Indian insurance comparison — consumers search for it directly.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-re">Annual CSR data</span><span class="tag t-gr">All insurers</span><span class="tag t-am">Life + health</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Claim settlement ratio comparison table (insurer × year)</div>
+            <div class="sf-item">"Best claim settlement ratio term insurance" page</div>
+            <div class="sf-item">Health insurer comparison with IRDAI data</div>
+            <div class="sf-item">CSR widget on every insurance product card</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico vi">🏗️</div>
+        <div class="sc-info">
+          <div class="sc-name">RERA Project Data</div>
+          <div class="sc-source">rera.maharashtra.gov.in (and state portals)</div>
+          <div class="sc-desc">Real Estate Regulatory Authority publishes all registered housing projects state-wise. Project status, developer name, RERA registration number. Available via state portals — strong trust signal for home loan content.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-vi">State-wise</span><span class="tag t-gr">Project status</span><span class="tag t-cy">Developer info</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">RERA project checker widget on home loan pages</div>
+            <div class="sf-item">"How to verify RERA registration" guide</div>
+            <div class="sf-item">Home buyer checklist with RERA verification step</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico gr">🧮</div>
+        <div class="sc-info">
+          <div class="sc-name">EPF Returns — EPFO</div>
+          <div class="sc-source">epfindia.gov.in · EPFO · Free public data</div>
+          <div class="sc-desc">EPFO announces EPF interest rate annually. Historical rates available going back decades. Current FY2024-25: 8.25%. One of the most stable, government-backed savings rates in India.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-gr">Annual rate</span><span class="tag t-vi">Tax-free returns</span><span class="tag t-am">Historical data</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">EPF vs PPF vs NPS returns comparison</div>
+            <div class="sf-item">VPF (Voluntary PF) calculator</div>
+            <div class="sf-item">Retirement corpus calculator including EPF</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico cy">🗓️</div>
+        <div class="sc-info">
+          <div class="sc-name">NSE / BSE Market Calendar</div>
+          <div class="sc-source">nseindia.com · bseindia.com · Free scraping</div>
+          <div class="sc-desc">NSE and BSE publish trading holidays, trading hours, and settlement calendars. NSE's website is scrapeable and the data is used publicly across thousands of finance sites — no licensing issues.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-cy">Annual calendar</span><span class="tag t-gr">Exchange holidays</span><span class="tag t-dim">Equity + F&O</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">NSE/BSE trading holidays calendar page</div>
+            <div class="sf-item">MF NAV availability schedule</div>
+            <div class="sf-item">SIP trigger date guidance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico am">🏢</div>
+        <div class="sc-info">
+          <div class="sc-name">Sovereign Gold Bond Data — RBI</div>
+          <div class="sc-source">rbi.org.in · Official SGB series data</div>
+          <div class="sc-desc">RBI publishes all SGB series issue prices, redemption prices, and interest payment schedule. Each SGB series has a dedicated RBI page. The 2.5% annual interest is guaranteed — quantifiable comparison data.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-am">All SGB series</span><span class="tag t-gr">Issue + redemption</span><span class="tag t-vi">Official RBI</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">SGB vs physical gold vs gold ETF full comparison</div>
+            <div class="sf-item">SGB issue calendar — upcoming series dates</div>
+            <div class="sf-item">SGB returns calculator (price + 2.5% interest)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <div class="sc-top">
+        <div class="sc-ico pk">📰</div>
+        <div class="sc-info">
+          <div class="sc-name">Finance News — RSS Feeds (Free)</div>
+          <div class="sc-source">rbi.org.in · sebi.gov.in · ET · Mint · Free RSS</div>
+          <div class="sc-desc">RBI, SEBI, Ministry of Finance all publish free RSS feeds of press releases and circulars. Economic Times and Mint have public RSS feeds. Free, real-time, authoritative news aggregation.</div>
+        </div>
+      </div>
+      <div class="sc-divider"></div>
+      <div class="sc-body">
+        <div class="tag-row"><span class="tag t-pk">Real-time</span><span class="tag t-gr">Official sources</span><span class="tag t-cy">No API key</span></div>
+        <div class="sc-feature">
+          <div class="sf-label">Use on platform</div>
+          <div class="sf-items">
+            <div class="sf-item">Finance news ticker on homepage</div>
+            <div class="sf-item">RBI circular alerts for CIBIL/banking changes</div>
+            <div class="sf-item">Budget news aggregation (Jan-Feb seasonal traffic spike)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- IMPLEMENTATION CODE -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-label">Implementation</div>
+    <div class="section-title">How to Fetch This Data in Next.js</div>
+    <div class="section-sub">Production-ready Next.js code snippets for the highest-priority data sources.</div>
+  </div>
+
+  <div class="source-grid grid-2">
+    <div>
+      <div class="code-card">
+        <div class="code-hd"><span class="code-lang">JS · AMFI Mutual Fund NAV</span></div>
+        <pre><span class="cm">// next.js getStaticProps — MF NAV from mfapi.in</span>
+<span class="kw">export async function</span> <span class="fn">getStaticProps</span>({ params }) {
+  <span class="kw">const</span> code = params.schemeCode;
+  <span class="kw">const</span> res = <span class="kw">await</span> fetch(
+    <span class="str">`https://api.mfapi.in/mf/${code}`</span>
+  );
+  <span class="kw">const</span> { meta, data } = <span class="kw">await</span> res.json();
+
+  <span class="cm">// 'data' = array of {date, nav} objects</span>
+  <span class="cm">// Calculate 1Y, 3Y, 5Y CAGR from data</span>
+  <span class="kw">const</span> currentNAV = parseFloat(data[<span class="num">0</span>].nav);
+  <span class="kw">const</span> nav1yAgo = <span class="fn">getNavDaysAgo</span>(data, <span class="num">365</span>);
+  <span class="kw">const</span> returns1Y = ((currentNAV / nav1yAgo) - <span class="num">1</span>) * <span class="num">100</span>;
+
+  <span class="kw">return</span> {
+    props: { meta, data: data.slice(<span class="num">0</span>, <span class="num">365</span>), returns1Y },
+    revalidate: <span class="num">86400</span> <span class="cm">// Regenerate daily</span>
+  };
+}</pre>
+      </div>
+
+      <div class="code-card">
+        <div class="code-hd"><span class="code-lang">JS · IFSC Lookup</span></div>
+        <pre><span class="cm">// pages/ifsc/[code].js — 80K static pages</span>
+<span class="kw">export async function</span> <span class="fn">getStaticProps</span>({ params }) {
+  <span class="kw">const</span> res = <span class="kw">await</span> fetch(
+    <span class="str">`https://ifsc.razorpay.com/${params.code}`</span>
+  );
+  <span class="kw">if</span> (!res.ok) <span class="kw">return</span> { notFound: <span class="kw">true</span> };
+  <span class="kw">const</span> branch = <span class="kw">await</span> res.json();
+
+  <span class="cm">// branch.BANK, .BRANCH, .STATE, .DISTRICT</span>
+  <span class="cm">// .NEFT, .RTGS, .IMPS, .UPI — booleans</span>
+  <span class="kw">return</span> {
+    props: { branch },
+    revalidate: <span class="num">604800</span> <span class="cm">// Weekly update fine</span>
+  };
+}
+
+<span class="cm">// getStaticPaths — pre-build ALL 80K pages</span>
+<span class="kw">export async function</span> <span class="fn">getStaticPaths</span>() {
+  <span class="cm">// Download ifsc.json from razorpay releases</span>
+  <span class="cm">// Map to {params: {code: 'HDFC0000123'}}</span>
+  <span class="kw">return</span> { paths, fallback: <span class="str">'blocking'</span> };
+}</pre>
+      </div>
+    </div>
+
+    <div>
+      <div class="code-card">
+        <div class="code-hd"><span class="code-lang">JS · RBI Repo Rate (scraped)</span></div>
+        <pre><span class="cm">// lib/rbi-data.js — scrape + cache RBI rates</span>
+<span class="kw">import</span> * <span class="kw">as</span> cheerio <span class="kw">from</span> <span class="str">'cheerio'</span>;
+
+<span class="kw">export async function</span> <span class="fn">fetchRBIRates</span>() {
+  <span class="kw">const</span> res = <span class="kw">await</span> fetch(
+    <span class="str">'https://rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx'</span>
+  );
+  <span class="kw">const</span> html = <span class="kw">await</span> res.text();
+  <span class="kw">const</span> $ = cheerio.<span class="fn">load</span>(html);
+
+  <span class="cm">// Or fetch from DBIE API (data.rbi.org.in)</span>
+  <span class="cm">// Structured JSON available for key indicators</span>
+  <span class="kw">return</span> {
+    repoRate: <span class="num">5.25</span>,       <span class="cm">// Feb 2026</span>
+    reverseRepo: <span class="num">3.35</span>,
+    crr: <span class="num">4.0</span>,
+    slr: <span class="num">18.0</span>,
+    inflationCPI: <span class="num">2.75</span>,  <span class="cm">// Jan 2026</span>
+    lastUpdated: <span class="kw">new</span> <span class="fn">Date</span>().toISOString()
+  };
+}</pre>
+      </div>
+
+      <div class="code-card">
+        <div class="code-hd"><span class="code-lang">JS · Gold Rate (IBJA)</span></div>
+        <pre><span class="cm">// pages/gold-rate/[city].js — 100 city pages</span>
+<span class="kw">export async function</span> <span class="fn">getStaticProps</span>({ params }) {
+  <span class="cm">// Option 1: IBJA API (paid but cheap)</span>
+  <span class="cm">// Option 2: Scrape goodreturns.in (fair use)</span>
+  <span class="cm">// Option 3: MCX commodity API</span>
+
+  <span class="kw">const</span> goldData = <span class="kw">await</span> <span class="fn">fetchGoldRate</span>(params.city);
+
+  <span class="kw">return</span> {
+    props: {
+      city: params.city,
+      rate22k: goldData.rate22k,  <span class="cm">// ₹/gram</span>
+      rate24k: goldData.rate24k,
+      date: goldData.date,
+      weeklyChange: goldData.change7d
+    },
+    revalidate: <span class="num">3600</span> <span class="cm">// Hourly</span>
+  };
+}</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRIORITY BUILD TABLE -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-label">Build Sequence</div>
+    <div class="section-title">Prioritized by Traffic × Effort Ratio</div>
+    <div class="section-sub">Every data source ranked by estimated monthly visits per development day invested.</div>
+  </div>
+  <div class="matrix">
+    <div class="matrix-hd"><div class="matrix-title">Data Source Build Priority Matrix</div><span style="font-size:11px;color:var(--t3)">Phase 1 = Build in Month 1</span></div>
+    <table>
+      <thead><tr><th>#</th><th>Data Source</th><th>Est. Monthly Visits</th><th>Build Time</th><th>Traffic/Day Ratio</th><th>Phase</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-code">01</td>
+          <td><div class="td-main">IFSC Lookup (Razorpay)</div><div class="td-sub">80,200 pages, MIT license, REST API live</div></td>
+          <td style="color:var(--gr);font-weight:700">1.3M+</td>
+          <td class="td-code">3–5 days</td>
+          <td><span style="background:var(--grx);color:var(--gr);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">EXCEPTIONAL</span></td>
+          <td><span style="background:var(--rex);color:var(--re);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 1</span></td>
+          <td><span style="background:var(--amx);color:var(--am);padding:2px 9px;border-radius:5px;font-size:10px">Build now</span></td>
+        </tr>
+        <tr>
+          <td class="td-code">02</td>
+          <td><div class="td-main">Gold Rate by City (IBJA)</div><div class="td-sub">100 city pages, daily auto-update</div></td>
+          <td style="color:var(--gr);font-weight:700">600K+</td>
+          <td class="td-code">2–3 days</td>
+          <td><span style="background:var(--grx);color:var(--gr);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">EXCELLENT</span></td>
+          <td><span style="background:var(--rex);color:var(--re);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 1</span></td>
+          <td><span style="background:var(--amx);color:var(--am);padding:2px 9px;border-radius:5px;font-size:10px">Build now</span></td>
+        </tr>
+        <tr>
+          <td class="td-code">03</td>
+          <td><div class="td-main">Bank Holidays (RBI scrape)</div><div class="td-sub">500+ pages (state × year), high repeat bookmarks</div></td>
+          <td style="color:var(--am);font-weight:700">280K+</td>
+          <td class="td-code">1–2 days</td>
+          <td><span style="background:var(--grx);color:var(--gr);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">EXCELLENT</span></td>
+          <td><span style="background:var(--rex);color:var(--re);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 1</span></td>
+          <td><span style="background:var(--amx);color:var(--am);padding:2px 9px;border-radius:5px;font-size:10px">Build now</span></td>
+        </tr>
+        <tr>
+          <td class="td-code">04</td>
+          <td><div class="td-main">MF NAV — mfapi.in (16K schemes)</div><div class="td-sub">Mutual fund pages with live NAV, returns calculator</div></td>
+          <td style="color:var(--am);font-weight:700">450K+</td>
+          <td class="td-code">5–7 days</td>
+          <td><span style="background:var(--cyx);color:var(--cy);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">VERY GOOD</span></td>
+          <td><span style="background:var(--vix);color:var(--vi);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 2</span></td>
+          <td><span style="background:var(--c3);color:var(--t3);padding:2px 9px;border-radius:5px;font-size:10px">Plan month 2</span></td>
+        </tr>
+        <tr>
+          <td class="td-code">05</td>
+          <td><div class="td-main">RBI Rate Dashboard</div><div class="td-sub">Repo rate, inflation, forex — authority content</div></td>
+          <td style="color:var(--am);font-weight:700">120K+</td>
+          <td class="td-code">2 days</td>
+          <td><span style="background:var(--cyx);color:var(--cy);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">VERY GOOD</span></td>
+          <td><span style="background:var(--rex);color:var(--re);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 1</span></td>
+          <td><span style="background:var(--amx);color:var(--am);padding:2px 9px;border-radius:5px;font-size:10px">Build now</span></td>
+        </tr>
+        <tr>
+          <td class="td-code">06</td>
+          <td><div class="td-main">Income Tax Calculators (IT Dept slabs)</div><div class="td-sub">Old vs new regime — most searched tax query India</div></td>
+          <td style="color:var(--am);font-weight:700">340K+</td>
+          <td class="td-code">3 days</td>
+          <td><span style="background:var(--cyx);color:var(--cy);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">VERY GOOD</span></td>
+          <td><span style="background:var(--rex);color:var(--re);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 1</span></td>
+          <td><span style="background:var(--amx);color:var(--am);padding:2px 9px;border-radius:5px;font-size:10px">Build now</span></td>
+        </tr>
+        <tr>
+          <td class="td-code">07</td>
+          <td><div class="td-main">IRDAI Claim Settlement Ratios</div><div class="td-sub">CSR comparison table — most trusted insurance metric</div></td>
+          <td style="color:var(--vi);font-weight:700">95K+</td>
+          <td class="td-code">1 day</td>
+          <td><span style="background:var(--grx);color:var(--gr);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">EXCELLENT</span></td>
+          <td><span style="background:var(--vix);color:var(--vi);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 2</span></td>
+          <td><span style="background:var(--c3);color:var(--t3);padding:2px 9px;border-radius:5px;font-size:10px">Plan month 3</span></td>
+        </tr>
+        <tr>
+          <td class="td-code">08</td>
+          <td><div class="td-main">NPS Returns (PFRDA)</div><div class="td-sub">Underserved — nobody has built a good NPS comparison</div></td>
+          <td style="color:var(--vi);font-weight:700">75K+</td>
+          <td class="td-code">2 days</td>
+          <td><span style="background:var(--cyx);color:var(--cy);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">VERY GOOD</span></td>
+          <td><span style="background:var(--vix);color:var(--vi);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 2</span></td>
+          <td><span style="background:var(--c3);color:var(--t3);padding:2px 9px;border-radius:5px;font-size:10px">Plan month 3</span></td>
+        </tr>
+        <tr>
+          <td class="td-code">09</td>
+          <td><div class="td-main">PPF/SSY/SCSS Rates (MoF)</div><div class="td-sub">Small savings comparison — quarterly update cycle</div></td>
+          <td style="color:var(--vi);font-weight:700">60K+</td>
+          <td class="td-code">1 day</td>
+          <td><span style="background:var(--grx);color:var(--gr);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">EXCELLENT</span></td>
+          <td><span style="background:var(--vix);color:var(--vi);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 2</span></td>
+          <td><span style="background:var(--c3);color:var(--t3);padding:2px 9px;border-radius:5px;font-size:10px">Plan month 2</span></td>
+        </tr>
+        <tr>
+          <td class="td-code">10</td>
+          <td><div class="td-main">PIN Code Financial Pages</div><div class="td-sub">50K+ pages mapping PIN → banks/ATMs/services</div></td>
+          <td style="color:var(--t3);font-weight:700">200K+</td>
+          <td class="td-code">4 days</td>
+          <td><span style="background:var(--cyx);color:var(--cy);padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:700">GOOD</span></td>
+          <td><span style="background:var(--c3);color:var(--t3);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700">Phase 3</span></td>
+          <td><span style="background:var(--c3);color:var(--t3);padding:2px 9px;border-radius:5px;font-size:10px">Month 6+</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PHASE PLAN -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-label">Execution Plan</div>
+    <div class="section-title">Data Build Sequence — 12 Months</div>
+  </div>
+  <div class="timeline">
+    <div class="phase">
+      <div class="phase-label" style="color:var(--re)">Month 1–2 · Foundation</div>
+      <div class="phase-title">₹0 data, highest ROI</div>
+      <div class="phase-items">
+        IFSC lookup (80K pages)<br>
+        Bank holidays (500 pages)<br>
+        Gold rate by city (100 pages)<br>
+        RBI rates dashboard<br>
+        Tax calculator (IT Dept slabs)<br>
+        Razorpay IFSC dataset download
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label" style="color:var(--am)">Month 3–4 · Investment Layer</div>
+      <div class="phase-title">MF + NPS + Savings</div>
+      <div class="phase-items">
+        MF NAV pages (mfapi.in)<br>
+        SIP calculator with real NAV data<br>
+        NPS returns pages (PFRDA)<br>
+        PPF/SSY/SCSS comparison<br>
+        EPF vs other savings comparison<br>
+        SGB series tracker (RBI data)
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label" style="color:var(--vi)">Month 5–6 · Insurance Layer</div>
+      <div class="phase-title">IRDAI + Comparison</div>
+      <div class="phase-items">
+        IRDAI CSR comparison table<br>
+        Health insurer comparison<br>
+        SEBI-registered entity checker<br>
+        AMFI ARN verification widget<br>
+        Forex rates widget (NRI)<br>
+        Finance news RSS aggregator
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-label" style="color:var(--gr)">Month 7–12 · Scale</div>
+      <div class="phase-title">Programmatic expansion</div>
+      <div class="phase-items">
+        PIN code pages (50K+)<br>
+        Nifty 50 returns calculator<br>
+        RERA project checker widget<br>
+        NSE/BSE holiday calendar<br>
+        Economic calendar (RBI, SEBI events)<br>
+        Full data API for partners (B2B)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTHORITY NOTE -->
+<div class="notice gr" style="margin-bottom:28px">
+  <span class="n-icon">✦</span>
+  <div><strong>The compounding authority effect:</strong> Every data source here comes from RBI, SEBI, IRDAI, AMFI, or Razorpay (who sourced from RBI). When you cite "Source: RBI DBIE" or "Data: AMFI" next to your rates table, it does two things: (1) it protects you legally, (2) it signals to Google that your content is authoritative. This is how MSE built trust — they always cited their sources clearly. The competitors (BankBazaar, Paisabazaar) often don't credit data sources at all. Doing so is a differentiator.
+</div>
+</div>
+
+<div style="text-align:center;padding:28px 0;border-top:1px solid var(--br)">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:6px">InvestingPro.in — Data Intelligence Map</div>
+  <div style="font-size:12px;color:var(--t3)">26 free data sources · 0 licensing costs · 1.8M+ monthly visit potential · Build sequence: IFSC → Gold → Holidays → MF NAV</div>
+</div>
+
+</div><!-- .wrap -->
+</body>
+</html>
