@@ -17,6 +17,7 @@ import { STRUCTURED_DATA_STATS } from "@/lib/constants/platform-stats";
 
 // Lazy load heavy components below the fold for better initial load performance
 import StickyMobileCTA from "@/components/home/StickyMobileCTA";
+import NewsletterSubscribe from "@/components/common/NewsletterSubscribe";
 
 /**
  * Section wrapper that provides isolation.
@@ -127,6 +128,17 @@ export default function Home() {
             <CommandCenterSection name="Latest Insights">
                 <section data-section-name="Latest Insights" aria-label="Latest financial insights and articles">
                     <LatestInsights />
+                </section>
+            </CommandCenterSection>
+
+            {/* 6. Newsletter — InvestingPro Weekly subscribe */}
+            <CommandCenterSection name="Newsletter">
+                <section
+                    data-section-name="Newsletter"
+                    aria-label="Subscribe to InvestingPro Weekly newsletter"
+                    className="py-12 px-4 max-w-3xl mx-auto w-full"
+                >
+                    <NewsletterSubscribe variant="section" />
                 </section>
             </CommandCenterSection>
 

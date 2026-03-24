@@ -258,7 +258,7 @@ export default function StocksPage() {
                 <div className="mb-24">
                     <div className="flex items-center justify-between mb-12">
                         <div>
-                            <h2 className="text-4xl font-bold text-slate-900 tracking-tight">Best Stock Brokers 2024</h2>
+                            <h2 className="text-4xl font-bold text-slate-900 tracking-tight">Best Stock Brokers 2026</h2>
                             <p className="text-slate-500 font-bold mt-1 text-sm uppercase tracking-widest opacity-60">Conflict-Free Benchmarking</p>
                         </div>
                         <Link href="/demat-accounts">
