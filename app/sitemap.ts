@@ -96,6 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             { url: '/ppf-nps/small-savings-comparison', freq: 'monthly' as const, p: 0.8 },
             { url: '/ppf-nps/nps-returns', freq: 'monthly' as const, p: 0.8 },
             { url: '/insurance/claim-settlement-ratio', freq: 'yearly' as const, p: 0.8 },
+            { url: '/credit-cards/ai-subscriptions', freq: 'weekly' as const, p: 0.85 },
         ];
         for (const r of phase1Routes) {
             sitemap.push({
