@@ -24,6 +24,7 @@ import SocialShareButtons from '@/components/common/SocialShareButtons';
 import RelatedArticles from '@/components/articles/RelatedArticles';
 import { ReadingProgressBar } from '@/components/articles/ReadingProgressBar';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
+import NewsletterSubscribe from '@/components/common/NewsletterSubscribe';
 import Image from 'next/image';
 
 interface Article {
@@ -310,8 +311,13 @@ export default function ArticleDetail() {
                     </div>
                 )}
 
-                {/* Compliance Disclaimer */}
+                {/* Newsletter subscribe — convert readers to subscribers */}
                 <div className="mt-12">
+                    <NewsletterSubscribe variant="compact" />
+                </div>
+
+                {/* Compliance Disclaimer */}
+                <div className="mt-6">
                     <ComplianceDisclaimer variant="compact" />
                 </div>
 

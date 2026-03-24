@@ -23,6 +23,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1.0,
         });
 
+        // IFSC lookup tool
+        sitemap.push({
+            url: `${baseUrl}/ifsc`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        });
+
+        // Newsletter landing page
+        sitemap.push({
+            url: `${baseUrl}/newsletter`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        });
+
         // Pillar pages (from NAVIGATION_CATEGORIES)
         for (const category of NAVIGATION_CATEGORIES) {
             sitemap.push({
