@@ -39,6 +39,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.7,
         });
 
+        // Free Tools Hub — Engineering as Marketing
+        sitemap.push({
+            url: `${baseUrl}/tools`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.85,
+        });
+
+        // Gold Rate — hub + 50 city pages
+        sitemap.push({
+            url: `${baseUrl}/gold-rate`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.85,
+        });
+        const { GOLD_RATE_CITIES } = await import('@/lib/data/gold-rate');
+        for (const city of GOLD_RATE_CITIES) {
+            sitemap.push({
+                url: `${baseUrl}/gold-rate/${city.slug}`,
+                lastModified: new Date(),
+                changeFrequency: 'daily',
+                priority: 0.8,
+            });
+        }
+
+        // Bank Holidays — hub + 25 state pages
+        sitemap.push({
+            url: `${baseUrl}/bank-holidays`,
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 0.8,
+        });
+        const { STATES } = await import('@/lib/data/bank-holidays');
+        for (const state of STATES) {
+            sitemap.push({
+                url: `${baseUrl}/bank-holidays/${state.slug}`,
+                lastModified: new Date(),
+                changeFrequency: 'yearly',
+                priority: 0.75,
+            });
+        }
+
+        // RBI Rates Dashboard
+        sitemap.push({
+            url: `${baseUrl}/rbi-rates`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.8,
+        });
+
         // Pillar pages (from NAVIGATION_CATEGORIES)
         for (const category of NAVIGATION_CATEGORIES) {
             sitemap.push({
