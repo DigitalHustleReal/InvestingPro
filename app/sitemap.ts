@@ -89,6 +89,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         });
 
+        // Phase 1 data intelligence pages
+        const phase1Routes = [
+            { url: '/taxes/old-vs-new-regime', freq: 'yearly' as const, p: 0.9 },
+            { url: '/mutual-funds/nav', freq: 'daily' as const, p: 0.85 },
+            { url: '/ppf-nps/small-savings-comparison', freq: 'monthly' as const, p: 0.8 },
+            { url: '/ppf-nps/nps-returns', freq: 'monthly' as const, p: 0.8 },
+            { url: '/insurance/claim-settlement-ratio', freq: 'yearly' as const, p: 0.8 },
+        ];
+        for (const r of phase1Routes) {
+            sitemap.push({
+                url: `${baseUrl}${r.url}`,
+                lastModified: new Date(),
+                changeFrequency: r.freq,
+                priority: r.p,
+            });
+        }
+        const { FEATURED_SCHEMES } = await import('@/lib/data/mf-nav');
+        for (const scheme of FEATURED_SCHEMES) {
+            sitemap.push({
+                url: `${baseUrl}/mutual-funds/nav/${scheme.schemeCode}`,
+                lastModified: new Date(),
+                changeFrequency: 'daily',
+                priority: 0.75,
+            });
+        }
+
         // Pillar pages (from NAVIGATION_CATEGORIES)
         for (const category of NAVIGATION_CATEGORIES) {
             sitemap.push({
