@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>InvestingPro — Platform Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1B2A4A;--saf:#E8871A;--grn:#1A6B4A;--cream:#F5F0E8;
+  --paper:#FFFDF8;--mist:#EDE8DF;--ash:#8A96A8;--red:#C0392B;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);font-size:14px}
+/* NAV */
+nav{background:var(--ink);padding:0 40px;display:flex;align-items:center;height:56px;gap:0;position:sticky;top:0;z-index:100}
+.logo{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--cream);margin-right:32px;flex-shrink:0}
+.logo span{color:var(--saf)}
+.nav-links{display:flex;gap:0;flex:1}
+.nav-link{padding:0 14px;height:56px;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:rgba(245,240,232,.45);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:.15s}
+.nav-link:hover{color:var(--cream)}
+.nav-link.active{color:var(--cream);border-bottom-color:var(--saf)}
+.nav-link.dim{opacity:.3;cursor:default}
+.nav-cta{margin-left:auto;background:var(--saf);color:#fff;padding:8px 18px;border-radius:6px;font-size:12.5px;font-weight:600;flex-shrink:0}
+/* TRUST BAR */
+.trust-bar{background:var(--grn);color:rgba(255,255,255,.85);font-size:11.5px;padding:7px 40px;display:flex;gap:24px;align-items:center}
+.tb-item{display:flex;align-items:center;gap:5px}
+.tb-dot{width:5px;height:5px;background:var(--saf);border-radius:50%}
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--ink) 0%,#243859 100%);padding:64px 40px 56px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-80px;top:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(232,135,26,.08),transparent 70%);pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:center}
+.hero-kicker{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:12px}
+.hero-h1{font-family:'Playfair Display',serif;font-style:italic;font-size:46px;color:var(--cream);line-height:1.1;margin-bottom:16px}
+.hero-h1 em{color:var(--saf);font-style:normal}
+.hero-sub{font-size:15px;color:rgba(245,240,232,.5);line-height:1.8;margin-bottom:28px;max-width:480px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:var(--saf);color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;border:none;cursor:pointer}
+.btn-outline{background:transparent;color:var(--cream);padding:12px 24px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid rgba(245,240,232,.25);cursor:pointer}
+/* CIBIL WIDGET IN HERO */
+.cibil-widget{background:var(--paper);border-radius:16px;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+.cw-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.cw-sub{font-size:11.5px;color:var(--ash);margin-bottom:20px}
+.score-ring-wrap{display:flex;justify-content:center;margin-bottom:20px;position:relative}
+.score-ring{width:140px;height:140px;border-radius:50%;background:conic-gradient(var(--saf) 0% 68%,#E5E7EB 68% 100%);display:flex;align-items:center;justify-content:center;position:relative}
+.score-inner{width:110px;height:110px;background:var(--paper);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-n{font-family:'Playfair Display',serif;font-size:32px;color:var(--ink);font-weight:700}
+.score-l{font-size:10px;color:var(--ash)}
+.score-label{position:absolute;bottom:-6px;background:var(--saf);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
+.cw-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.cw-btn{padding:10px;border-radius:8px;font-size:12px;font-weight:600;text-align:center;cursor:pointer}
+.cw-btn-p{background:var(--saf);color:#fff}
+.cw-btn-s{background:rgba(26,107,74,.08);color:var(--grn);border:1px solid rgba(26,107,74,.2)}
+.cw-note{font-size:10.5px;color:var(--ash);margin-top:10px;text-align:center}
+/* VERTICALS GRID */
+.section{padding:56px 40px;max-width:1180px;margin:0 auto}
+.sec-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:8px}
+.sec-h2{font-family:'Playfair Display',serif;font-style:italic;font-size:32px;color:var(--ink);margin-bottom:6px}
+.sec-h2 em{color:var(--saf)}
+.sec-sub{font-size:14px;color:var(--ash);line-height:1.7;margin-bottom:32px}
+.verticals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.v-card{border-radius:14px;padding:20px;border:1.5px solid;cursor:pointer;transition:.2s;position:relative}
+.v-card.focus{background:var(--ink);border-color:var(--saf);color:var(--cream)}
+.v-card.focus .v-icon{background:rgba(232,135,26,.15);color:var(--saf)}
+.v-card.focus .v-name{color:var(--cream)}
+.v-card.focus .v-desc{color:rgba(245,240,232,.5)}
+.v-card.focus .v-stat{color:var(--saf)}
+.v-card.soon{background:var(--paper);border-color:var(--mist);opacity:.5}
+.v-card.y2{background:var(--paper);border-color:rgba(26,107,74,.2)}
+.v-icon{width:38px;height:38px;border-radius:10px;background:rgba(26,107,74,.08);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px}
+.v-card.y2 .v-icon{background:rgba(26,107,74,.08)}
+.v-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.v-desc{font-size:12px;color:var(--ash);line-height:1.5;margin-bottom:10px}
+.v-stat{font-size:11px;font-weight:600;color:var(--saf)}
+.v-badge{position:absolute;top:12px;right:12px;font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;letter-spacing:.05em}
+.badge-now{background:rgba(232,135,26,.15);color:var(--saf)}
+.badge-y2{background:rgba(26,107,74,.1);color:var(--grn)}
+.badge-y3{background:rgba(27,42,74,.08);color:var(--ash)}
+/* TOOLS ROW */
+.tools-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}
+.tool-card{background:var(--paper);border:1px solid var(--mist);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:.2s}
+.tool-card:hover{border-color:var(--saf);box-shadow:0 4px 20px rgba(232,135,26,.1)}
+.tool-icon{font-size:24px;margin-bottom:8px}
+.tool-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.tool-desc{font-size:11px;color:var(--ash)}
+.tool-hot{display:inline-block;font-size:9px;font-weight:700;background:rgba(232,135,26,.12);color:var(--saf);padding:2px 7px;border-radius:8px;margin-top:5px}
+/* DIVIDER */
+.divider{height:1px;background:var(--mist);margin:0 40px}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+  <div class="logo">Investing<span>Pro</span></div>
+  <div class="nav-links">
+    <div class="nav-link active">Credit Cards</div>
+    <div class="nav-link">CIBIL Score</div>
+    <div class="nav-link">Calculators</div>
+    <div class="nav-link dim">Loans</div>
+    <div class="nav-link dim">Mutual Funds</div>
+    <div class="nav-link dim">Fixed Deposits</div>
+    <div class="nav-link dim">Insurance</div>
+    <div class="nav-link dim">Demat</div>
+  </div>
+  <div class="nav-cta">Check Eligibility Free</div>
+</nav>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="tb-item"><div class="tb-dot"></div>AMFI Registered</div>
+  <div class="tb-item"><div class="tb-dot"></div>Independent — we earn when you apply, never from banks for rankings</div>
+  <div class="tb-item"><div class="tb-dot"></div>Rates verified 24 Mar 2026</div>
+  <div class="tb-item"><div class="tb-dot"></div>2.3L+ users helped</div>
+</div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker">India's Most Trusted Finance Platform</div>
+      <h1 class="hero-h1">Compare every card.<br>Know your <em>CIBIL score.</em><br>Pay less interest.</h1>
+      <p class="hero-sub">Independent comparisons across credit cards, loans, mutual funds and more. Built by an Indian, for Indians — no sponsored rankings.</p>
+      <div class="hero-actions">
+        <button class="btn-primary">Find My Best Card</button>
+        <button class="btn-outline">Check CIBIL Free</button>
+      </div>
+    </div>
+    <!-- CIBIL WIDGET -->
+    <div class="cibil-widget">
+      <div class="cw-title">Your CIBIL Score Simulator</div>
+      <div class="cw-sub">See how your next move changes your score</div>
+      <div class="score-ring-wrap">
+        <div class="score-ring">
+          <div class="score-inner">
+            <div class="score-n">742</div>
+            <div class="score-l">GOOD</div>
+          </div>
+          <div class="score-label">▲ +18 if you pay off HDFC card</div>
+        </div>
+      </div>
+      <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:10px 14px;font-size:12px;color:#166534;margin-bottom:4px">
+        At 760 → you qualify for <strong>HDFC Regalia, Axis Magnus</strong>
+      </div>
+      <div class="cw-actions">
+        <div class="cw-btn cw-btn-p">Simulate My Score</div>
+        <div class="cw-btn cw-btn-s">Get Free Report</div>
+      </div>
+      <div class="cw-note">No hard enquiry · No credit impact · 100% free</div>
+    </div>
+  </div>
+</div>
+<!-- VERTICALS -->
+<div class="section">
+  <div class="sec-label">Platform Roadmap — Vertical by Vertical</div>
+  <h2 class="sec-h2">Deep on <em>one vertical at a time.</em> Then the next.</h2>
+  <p class="sec-sub">Year 1: Credit Cards + CIBIL. Year 2: Loans + FDs. Year 3: Mutual Funds. Year 4: Insurance + Demat. Not shallow across 8 — deep on 2, then move.</p>
+  <div class="verticals-grid">
+    <div class="v-card focus">
+      <div class="v-badge badge-now">YEAR 1 — NOW</div>
+      <div class="v-icon">💳</div>
+      <div class="v-name">Credit Cards</div>
+      <div class="v-desc">150+ cards compared. Cashback, travel, fuel, OTT, dining. Approval probability per card.</div>
+      <div class="v-stat">300K searches/mo · ₹3,500 CPA</div>
+    </div>
+    <div class="v-card focus">
+      <div class="v-badge badge-now">YEAR 1 — NOW</div>
+      <div class="v-icon">📊</div>
+      <div class="v-name">CIBIL Score</div>
+      <div class="v-desc">Free simulator. Score improvement path. First-in-India product. Zero competition.</div>
+      <div class="v-stat">2M searches/mo · Moat</div>
+    </div>
+    <div class="v-card y2">
+      <div class="v-badge badge-y2">YEAR 2</div>
+      <div class="v-icon">🏠</div>
+      <div class="v-name">Loans</div>
+      <div class="v-desc">Home loan, personal loan, balance transfer. Live rate tables from 30+ lenders.</div>
+      <div class="v-stat">200K searches/mo · ₹90K/loan</div>
+    </div>
+    <div class="v-card y2">
+      <div class="v-badge badge-y2">YEAR 2</div>
+      <div class="v-icon">🏦</div>
+      <div class="v-name">Fixed Deposits</div>
+      <div class="v-desc">Bank + NBFC + small finance bank FD rates. Auto-updated daily.</div>
+      <div class="v-stat">80K searches/mo · Display ads</div>
+    </div>
+    <div class="v-card soon">
+      <div class="v-badge badge-y3">YEAR 3</div>
+      <div class="v-icon">📈</div>
+      <div class="v-name">Mutual Funds</div>
+      <div class="v-desc">SIP recommendations, ELSS tax saving, large/mid/small cap comparison.</div>
+      <div class="v-stat">250K searches/mo · Trail income</div>
+    </div>
+    <div class="v-card soon">
+      <div class="v-badge badge-y3">YEAR 3</div>
+      <div class="v-icon">🛡️</div>
+      <div class="v-name">Insurance</div>
+      <div class="v-desc">Term, health, motor. Premium comparison from 20+ insurers.</div>
+      <div class="v-stat">150K searches/mo · ₹8K CPA</div>
+    </div>
+    <div class="v-card soon">
+      <div class="v-badge badge-y3">YEAR 4</div>
+      <div class="v-icon">📉</div>
+      <div class="v-name">Demat Accounts</div>
+      <div class="v-desc">Zerodha vs Groww vs Upstox. Brokerage comparison, trading tools.</div>
+      <div class="v-stat">60K searches/mo · ₹2K CPA</div>
+    </div>
+    <div class="v-card soon">
+      <div class="v-badge badge-y3">YEAR 4</div>
+      <div class="v-icon">🧾</div>
+      <div class="v-name">Tax Hub</div>
+      <div class="v-desc">Old vs new regime. Section 80C. ELSS crosslink. Interactive calculator.</div>
+      <div class="v-stat">900K searches/mo · Seasonal</div>
+    </div>
+  </div>
+  <!-- TOOLS -->
+  <div style="margin-top:40px">
+    <div class="sec-label">Free Tools — Engineering as Marketing</div>
+    <h2 class="sec-h2" style="font-size:24px;margin-bottom:24px"><em>1.5M visits/month</em> from tools alone</h2>
+  </div>
+  <div class="tools-row">
+    <div class="tool-card">
+      <div class="tool-icon">🏧</div>
+      <div class="tool-name">IFSC Lookup</div>
+      <div class="tool-desc">80,000 branches · RBI data</div>
+      <div class="tool-hot">500K visits/mo</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📅</div>
+      <div class="tool-name">EMI Calculator</div>
+      <div class="tool-desc">Home · Car · Personal loan</div>
+      <div class="tool-hot">Best UX in market</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📈</div>
+      <div class="tool-name">SIP Calculator</div>
+      <div class="tool-desc">+71% YoY search growth</div>
+      <div class="tool-hot">Visual returns chart</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🪙</div>
+      <div class="tool-name">Gold Rate Today</div>
+      <div class="tool-desc">100 cities · Live MCX</div>
+      <div class="tool-hot">100 city pages</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📊</div>
+      <div class="tool-name">Tax Calculator</div>
+      <div class="tool-desc">Old vs New regime 2025-26</div>
+      <div class="tool-hot">800K searches/mo</div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+<!-- CREDIT CARDS VERTICAL — DEEP VIEW -->
+<div style="background:var(--paper);padding:56px 40px">
+<div style="max-width:1180px;margin:0 auto">
+  <div class="sec-label">Year 1 Deep Vertical — Credit Cards</div>
+  <h2 class="sec-h2">Find the <em>right card</em> in 60 seconds</h2>
+  <p class="sec-sub">Ranked by real reward rates. Approval probability shown for your CIBIL score. No sponsored order.</p>
+  <!-- FILTER BAR -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px">
+    <div style="background:var(--ink);color:var(--cream);padding:8px 18px;border-radius:20px;font-size:12.5px;font-weight:600">All Cards</div>
+    <div style="background:var(--paper);border:1px solid var(--mist);color:var(--ash);padding:8px 18px;border-radius:20px;font-size:12.5px;cursor:pointer">Cashback</div>
+    <div style="background:var(--paper);border:1px solid var(--mist);color:var(--ash);padding:8px 18px;border-radius:20px;font-size:12.5px;cursor:pointer">Travel</div>
+    <div style="background:var(--paper);border:1px solid var(--mist);color:var(--ash);padding:8px 18px;border-radius:20px;font-size:12.5px;cursor:pointer">Lifetime Free</div>
+    <div style="background:var(--paper);border:1px solid var(--mist);color:var(--ash);padding:8px 18px;border-radius:20px;font-size:12.5px;cursor:pointer">OTT</div>
+    <div style="background:var(--paper);border:1px solid var(--mist);color:var(--ash);padding:8px 18px;border-radius:20px;font-size:12.5px;cursor:pointer">Fuel</div>
+    <div style="background:var(--paper);border:1px solid var(--mist);color:var(--ash);padding:8px 18px;border-radius:20px;font-size:12.5px;cursor:pointer">Lounge Access</div>
+    <div style="background:rgba(232,135,26,.08);border:1px solid rgba(232,135,26,.3);color:var(--saf);padding:8px 18px;border-radius:20px;font-size:12.5px;cursor:pointer">🆕 Rent Payment</div>
+    <div style="background:rgba(232,135,26,.08);border:1px solid rgba(232,135,26,.3);color:var(--saf);padding:8px 18px;border-radius:20px;font-size:12.5px;cursor:pointer">🆕 Electricity Bill</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:12px;color:var(--ash)">
+    <span>Your CIBIL: <strong style="color:var(--ink)">742</strong></span>
+    <span>·</span>
+    <span>Showing approval probability for your score</span>
+    <span style="margin-left:auto;cursor:pointer;color:var(--saf);font-weight:600">How we rank ↗</span>
+  </div>
+  <!-- CARD ROWS -->
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <!-- Card 1 -->
+    <div style="background:#fff;border:1.5px solid rgba(26,107,74,.25);border-radius:14px;padding:20px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center">
+      <div style="text-align:center">
+        <div style="font-size:9px;font-weight:700;color:var(--saf);letter-spacing:.1em;margin-bottom:4px">EDITOR'S PICK</div>
+        <div style="width:70px;height:44px;background:linear-gradient(135deg,#1B2A4A,#243859);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cream);font-size:10px;font-weight:700">HDFC</div>
+        <div style="font-size:10px;color:var(--ash);margin-top:4px">Regalia Gold</div>
+      </div>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px">HDFC Regalia Gold</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px">
+          <div><span style="color:var(--ash)">Reward Rate</span><br><strong style="color:var(--grn)">4× points (2.5% value)</strong></div>
+          <div><span style="color:var(--ash)">Annual Fee</span><br><strong>₹2,500 + GST</strong></div>
+          <div><span style="color:var(--ash)">Lounge Access</span><br><strong>12 domestic + 6 intl</strong></div>
+          <div><span style="color:var(--ash)">Welcome Bonus</span><br><strong>2,500 points (₹1,250)</strong></div>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px">
+          <div style="background:#F0FDF4;border:1px solid #BBF7D0;color:#166534;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600">✓ Likely — your 742 qualifies</div>
+          <div style="background:rgba(27,42,74,.05);color:var(--ash);padding:4px 10px;border-radius:6px;font-size:11px">Min income: ₹12L/yr</div>
+          <div style="background:rgba(27,42,74,.05);color:var(--ash);padding:4px 10px;border-radius:6px;font-size:11px">Best for: Travel + dining</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="background:var(--saf);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">Apply Now →</div>
+        <div style="font-size:10px;color:var(--ash);margin-top:5px">Instant approval check</div>
+        <div style="font-size:10px;color:var(--ash)">No credit impact</div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div style="background:#fff;border:1px solid var(--mist);border-radius:14px;padding:20px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center">
+      <div style="text-align:center">
+        <div style="width:70px;height:44px;background:linear-gradient(135deg,#8B1A1A,#C0392B);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">AXIS</div>
+        <div style="font-size:10px;color:var(--ash);margin-top:4px">Magnus</div>
+      </div>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px">Axis Bank Magnus</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px">
+          <div><span style="color:var(--ash)">Reward Rate</span><br><strong style="color:var(--grn)">12× EDGE miles (4.8%)</strong></div>
+          <div><span style="color:var(--ash)">Annual Fee</span><br><strong>₹12,500 + GST</strong></div>
+          <div><span style="color:var(--ash)">Lounge Access</span><br><strong>Unlimited Priority Pass</strong></div>
+          <div><span style="color:var(--ash)">Welcome Bonus</span><br><strong>12,500 miles</strong></div>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px">
+          <div style="background:#FEF9C3;border:1px solid #FDE047;color:#92400E;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600">~ Possible — 742 borderline</div>
+          <div style="background:rgba(27,42,74,.05);color:var(--ash);padding:4px 10px;border-radius:6px;font-size:11px">Min income: ₹18L/yr</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="background:var(--saf);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">Apply Now →</div>
+        <div style="font-size:10px;color:var(--ash);margin-top:5px">On Axis Bank site</div>
+      </div>
+    </div>
+    <!-- Card 3 — Free -->
+    <div style="background:#fff;border:1px solid var(--mist);border-radius:14px;padding:20px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center">
+      <div style="text-align:center">
+        <div style="width:70px;height:44px;background:linear-gradient(135deg,#1A6B4A,#2D9B6B);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">SBI</div>
+        <div style="font-size:10px;color:var(--ash);margin-top:4px">SimplyCLICK</div>
+      </div>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px">SBI SimplyCLICK <span style="background:rgba(26,107,74,.1);color:var(--grn);font-size:10px;padding:2px 7px;border-radius:6px;font-weight:600">Lifetime Free</span></div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px">
+          <div><span style="color:var(--ash)">Reward Rate</span><br><strong style="color:var(--grn)">10× on online spends</strong></div>
+          <div><span style="color:var(--ash)">Annual Fee</span><br><strong style="color:var(--grn)">₹0 forever</strong></div>
+          <div><span style="color:var(--ash)">Best For</span><br><strong>Online shopping</strong></div>
+        </div>
+        <div style="margin-top:10px">
+          <div style="background:#F0FDF4;border:1px solid #BBF7D0;color:#166534;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;display:inline-block">✓ Highly Likely — 742 easily qualifies</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="background:var(--saf);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">Apply Now →</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:16px;padding:14px 18px;background:rgba(27,42,74,.04);border-radius:10px;font-size:12px;color:var(--ash)">
+    <strong style="color:var(--ink)">How we rank:</strong> Reward rate 40% · Approval ease 30% · Fee value 20% · Customer service 10%. We earn a commission when you apply — this never affects ranking order. <span style="color:var(--saf);cursor:pointer">Full methodology →</span>
+  </div>
+</div>
+</div>
+<div class="divider"></div>
+<!-- NEWSLETTER + FOOTER TRUST -->
+<div style="background:var(--ink);padding:56px 40px">
+<div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+  <div>
+    <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:10px">InvestingPro Weekly</div>
+    <h2 style="font-family:'Playfair Display',serif;font-style:italic;font-size:28px;color:var(--cream);margin-bottom:10px">5 money tips.<br>Every Monday. <span style="color:var(--saf)">Free.</span></h2>
+    <p style="font-size:13.5px;color:rgba(245,240,232,.45);line-height:1.8;margin-bottom:24px">Rate changes, new card launches, tax tips, and one thing you can do this week to improve your finances. No junk. Unsubscribe any time.</p>
+    <div style="display:flex;gap:8px">
+      <input type="email" placeholder="your@email.com" style="flex:1;padding:12px 16px;border-radius:8px;border:1px solid rgba(245,240,232,.15);background:rgba(255,255,255,.06);color:var(--cream);font-size:13.5px;outline:none">
+      <button style="background:var(--saf);color:#fff;padding:12px 20px;border-radius:8px;font-size:13.5px;font-weight:700;border:none;cursor:pointer;white-space:nowrap">Subscribe →</button>
+    </div>
+    <div style="font-size:11px;color:rgba(245,240,232,.25);margin-top:8px">Join 2,300 subscribers · No spam · Unsubscribe anytime</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--saf)">2.3L+</div>
+      <div style="font-size:11px;color:rgba(245,240,232,.35);margin-top:4px">Users helped find the right financial product</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--saf)">₹0</div>
+      <div style="font-size:11px;color:rgba(245,240,232,.35);margin-top:4px">Cost to use. Ever. We earn from banks — not users.</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--saf)">150+</div>
+      <div style="font-size:11px;color:rgba(245,240,232,.35);margin-top:4px">Credit cards compared with live rates</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--saf)">AMFI</div>
+      <div style="font-size:11px;color:rgba(245,240,232,.35);margin-top:4px">Registered · RBI compliant · SEBI disclosed</div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- DESIGN SYSTEM REFERENCE -->
+<div style="background:#0D1117;padding:40px;font-family:'DM Sans',sans-serif">
+<div style="max-width:1180px;margin:0 auto">
+  <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:20px;font-weight:600">Design System Reference — Locked Tokens</div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);padding:10px 14px;border-radius:8px">
+      <div style="width:24px;height:24px;border-radius:4px;background:#1B2A4A"></div>
+      <div><div style="font-size:11px;color:#fff;font-weight:600">--ink</div><div style="font-size:10px;color:rgba(255,255,255,.3)">#1B2A4A · Nav, Hero bg</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);padding:10px 14px;border-radius:8px">
+      <div style="width:24px;height:24px;border-radius:4px;background:#E8871A"></div>
+      <div><div style="font-size:11px;color:#fff;font-weight:600">--saf</div><div style="font-size:10px;color:rgba(255,255,255,.3)">#E8871A · CTAs, accents</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);padding:10px 14px;border-radius:8px">
+      <div style="width:24px;height:24px;border-radius:4px;background:#1A6B4A"></div>
+      <div><div style="font-size:11px;color:#fff;font-weight:600">--grn</div><div style="font-size:10px;color:rgba(255,255,255,.3)">#1A6B4A · Trust, positive</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);padding:10px 14px;border-radius:8px">
+      <div style="width:24px;height:24px;border-radius:4px;background:#F5F0E8;border:1px solid rgba(255,255,255,.1)"></div>
+      <div><div style="font-size:11px;color:#fff;font-weight:600">--cream</div><div style="font-size:10px;color:rgba(255,255,255,.3)">#F5F0E8 · Page bg</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);padding:10px 14px;border-radius:8px">
+      <div style="width:24px;height:24px;border-radius:4px;background:#FFFDF8;border:1px solid rgba(255,255,255,.1)"></div>
+      <div><div style="font-size:11px;color:#fff;font-weight:600">--paper</div><div style="font-size:10px;color:rgba(255,255,255,.3)">#FFFDF8 · Cards, widgets</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);padding:10px 14px;border-radius:8px">
+      <div style="width:24px;height:24px;border-radius:4px;background:#EDE8DF;border:1px solid rgba(255,255,255,.1)"></div>
+      <div><div style="font-size:11px;color:#fff;font-weight:600">--mist</div><div style="font-size:10px;color:rgba(255,255,255,.3)">#EDE8DF · Borders, dividers</div></div>
+    </div>
+  </div>
+  <div style="margin-top:16px;font-size:11px;color:rgba(255,255,255,.2)">Fonts: Playfair Display Italic (headings) · DM Sans (body) · Never use cyan/teal/sky</div>
+</div>
+</div>
+</body>
+</html>
