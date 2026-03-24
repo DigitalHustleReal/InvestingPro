@@ -249,6 +249,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             logger.error('Error fetching articles for sitemap', error as Error);
         }
 
+        // Card vs Card Comparison Pages (Programmatic SEO)
+        sitemap.push({
+            url: `${baseUrl}/credit-cards/vs`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.85,
+        });
+        const { POPULAR_PAIRS, buildPairSlug } = await import('@/lib/data/card-vs-card');
+        for (const [a, b] of POPULAR_PAIRS) {
+            sitemap.push({
+                url: `${baseUrl}/credit-cards/vs/${buildPairSlug(a, b)}`,
+                lastModified: new Date(),
+                changeFrequency: 'weekly',
+                priority: 0.8,
+            });
+        }
+
+        // SGB Series Tracker + Currency Converter
+        sitemap.push({
+            url: `${baseUrl}/gold-rate/sgb`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        });
+        sitemap.push({
+            url: `${baseUrl}/tools/currency-converter`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.85,
+        });
+
         // Versus Comparison Pages (Programmatic SEO)
         try {
             const { data: versusPages } = await supabase
