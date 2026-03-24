@@ -1,0 +1,2381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>InvestingPro.in — Complete UI/UX Design System 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   INVESTINGPRO DESIGN SYSTEM — MASTER FILE
+   Constraint: Institutional brand (no face)
+   Model: NerdWallet structure + Bankrate trust
+   + Indian identity + AI-native tools
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* Brand palette */
+  --ink:       #1B2A4A;
+  --ink-light: #243859;
+  --saf:       #E8871A;
+  --saf-light: #F5A045;
+  --saf-dim:   rgba(232,135,26,.12);
+  --grn:       #1A6B4A;
+  --grn-light: #4CAF7D;
+  --grn-dim:   rgba(26,107,74,.10);
+  --cream:     #F5F0E8;
+  --paper:     #FFFDF8;
+  --mist:      #EDE8DF;
+  --bone:      #E8E0D4;
+  --ash:       #8A96A8;
+  --fog:       #B8C0CC;
+  --red:       #C0392B;
+  --sky:       #1E6FBF;
+  --warn:      #B45309;
+
+  /* Typography */
+  --serif:     'Playfair Display', Georgia, serif;
+  --sans:      'DM Sans', system-ui, sans-serif;
+  --mono:      'DM Mono', 'Courier New', monospace;
+
+  /* Spacing scale */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
+  --s5: 20px; --s6: 24px; --s8: 32px; --s10: 40px;
+  --s12: 48px; --s16: 64px;
+
+  /* Radius */
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 3px rgba(27,42,74,.06);
+  --shadow-md: 0 4px 16px rgba(27,42,74,.08);
+  --shadow-lg: 0 8px 32px rgba(27,42,74,.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--cream);
+}
+
+/* ─── MASTER NAV ─── */
+.main-nav {
+  background: var(--paper);
+  border-bottom: 1px solid var(--mist);
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--s6);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.logo {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+  text-decoration: none;
+  margin-right: var(--s8);
+  flex-shrink: 0;
+}
+.logo span { color: var(--saf); }
+
+.nav-links {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  list-style: none;
+  height: 56px;
+}
+.nav-links li { position: relative; }
+.nav-links a {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 var(--s4);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ash);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.active { color: var(--ink); border-bottom-color: var(--saf); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.cibil-pill {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 7px 14px;
+  background: var(--grn-dim);
+  border: 1px solid rgba(26,107,74,.2);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--grn);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s;
+}
+.cibil-pill:hover { background: rgba(26,107,74,.18); }
+.cibil-pill::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: var(--grn);
+  border-radius: 50%;
+}
+
+.btn-primary {
+  padding: 8px 16px;
+  background: var(--saf);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s;
+}
+.btn-primary:hover { background: #D4791A; }
+
+.btn-ghost {
+  padding: 7px 14px;
+  background: transparent;
+  color: var(--ash);
+  border: 1px solid var(--mist);
+  border-radius: var(--r-sm);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .15s;
+}
+.btn-ghost:hover { border-color: var(--ash); color: var(--ink); }
+
+/* Trust bar under nav */
+.trust-bar {
+  background: var(--grn);
+  padding: 8px var(--s6);
+  display: flex;
+  align-items: center;
+  gap: var(--s6);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.trust-bar::-webkit-scrollbar { display: none; }
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(245,240,232,.85);
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.trust-item::before {
+  content: '✓';
+  font-size: 11px;
+  color: #A8E6C2;
+}
+.trust-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(245,240,232,.2);
+  flex-shrink: 0;
+}
+
+/* ─── INTENT RAIL ─── */
+.intent-rail {
+  background: var(--paper);
+  border-bottom: 1px solid var(--mist);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0;
+}
+.intent-rail::-webkit-scrollbar { display: none; }
+.ir-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: border-color .15s;
+  white-space: nowrap;
+  min-width: 100px;
+}
+.ir-item:hover { border-bottom-color: rgba(232,135,26,.4); }
+.ir-item.active { border-bottom-color: var(--saf); }
+.ir-icon { font-size: 20px; }
+.ir-label { font-size: 11.5px; font-weight: 600; color: var(--ink); }
+.ir-sub { font-size: 10px; color: var(--ash); }
+
+/* ─── LAYOUT WRAPPER ─── */
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--s6);
+}
+.wrap-narrow { max-width: 860px; margin: 0 auto; padding: 0 var(--s6); }
+
+/* ─── HERO SECTION ─── */
+.hero {
+  background: var(--ink);
+  padding: var(--s12) var(--s6) var(--s12);
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 400px;
+  height: 400px;
+  background: rgba(232,135,26,.06);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: var(--s10);
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(245,240,232,.07);
+  border: 1px solid rgba(245,240,232,.15);
+  border-radius: 20px;
+  padding: 5px 14px;
+  margin-bottom: var(--s4);
+  font-size: 11px;
+  color: rgba(245,240,232,.65);
+  font-weight: 500;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--grn-light);
+  border-radius: 50%;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 400;
+  color: #F5F0E8;
+  line-height: 1.1;
+  font-style: italic;
+  margin-bottom: var(--s4);
+}
+.hero h1 em { color: var(--saf); font-style: italic; }
+
+.hero-sub {
+  font-size: 14px;
+  color: rgba(245,240,232,.5);
+  line-height: 1.7;
+  max-width: 400px;
+  margin-bottom: var(--s6);
+}
+
+.hero-stats {
+  display: flex;
+  gap: var(--s6);
+  align-items: center;
+}
+.hs-item .n {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: #F5F0E8;
+}
+.hs-item .l { font-size: 11px; color: rgba(245,240,232,.35); margin-top: 1px; }
+.hs-div { width: 1px; height: 32px; background: rgba(245,240,232,.1); }
+
+/* Methodology badge — institutional trust signal */
+.method-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  background: rgba(245,240,232,.06);
+  border: 1px solid rgba(245,240,232,.12);
+  border-radius: var(--r-md);
+  padding: var(--s3) var(--s4);
+  margin-top: var(--s4);
+  font-size: 12px;
+  color: rgba(245,240,232,.5);
+  max-width: 400px;
+}
+.method-badge strong { color: rgba(245,240,232,.75); }
+
+/* ─── SMART ADVISOR WIDGET ─── */
+.smart-widget {
+  background: rgba(245,240,232,.06);
+  border: 1px solid rgba(245,240,232,.14);
+  border-radius: var(--r-lg);
+  padding: var(--s5);
+}
+.sw-tag {
+  font-size: 9.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--saf);
+  font-weight: 600;
+  margin-bottom: var(--s2);
+}
+.sw-question {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-style: italic;
+  color: #F5F0E8;
+  margin-bottom: var(--s4);
+}
+.sw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-bottom: var(--s4);
+}
+.sw-chip {
+  padding: 6px 13px;
+  background: rgba(245,240,232,.07);
+  border: 1px solid rgba(245,240,232,.15);
+  border-radius: 20px;
+  font-size: 12px;
+  color: rgba(245,240,232,.65);
+  cursor: pointer;
+  transition: all .2s;
+}
+.sw-chip:hover, .sw-chip.on {
+  background: var(--saf);
+  border-color: var(--saf);
+  color: #fff;
+}
+.sw-row {
+  display: flex;
+  gap: var(--s2);
+}
+.sw-input {
+  flex: 1;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(245,240,232,.15);
+  border-radius: var(--r-sm);
+  padding: 9px 13px;
+  color: #F5F0E8;
+  font-family: var(--sans);
+  font-size: 13px;
+  outline: none;
+}
+.sw-input::placeholder { color: rgba(245,240,232,.25); }
+.sw-go {
+  padding: 9px 16px;
+  background: var(--saf);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.sw-note {
+  font-size: 11px;
+  color: rgba(245,240,232,.25);
+  margin-top: var(--s2);
+}
+
+/* ─── SECTION CONTAINER ─── */
+.section {
+  padding: var(--s10) 0;
+}
+.section.alt { background: var(--paper); }
+.section.dark { background: var(--ink); }
+.section.tinted { background: var(--cream); }
+
+.section-header {
+  margin-bottom: var(--s6);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s4);
+}
+.sh-left {}
+.kicker {
+  font-size: 9.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--saf);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.sh-title {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+.sh-title em { color: var(--saf); }
+.sh-sub { font-size: 13px; color: var(--ash); line-height: 1.6; max-width: 480px; }
+.sh-link {
+  font-size: 12.5px;
+  color: var(--saf);
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+  padding-bottom: 24px;
+}
+.sh-link:hover { text-decoration: underline; }
+
+/* ─── EDITORIAL NOTE (replaces named expert) ─── */
+.ed-note {
+  background: rgba(26,107,74,.06);
+  border: 1px solid rgba(26,107,74,.18);
+  border-radius: var(--r-md);
+  padding: var(--s4);
+  margin-bottom: var(--s4);
+}
+.en-header {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-bottom: 5px;
+}
+.en-icon {
+  width: 24px; height: 24px;
+  background: var(--grn);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.en-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--grn);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.en-body {
+  font-size: 12.5px;
+  color: #1A3D2B;
+  line-height: 1.65;
+}
+
+/* ─── METHODOLOGY STRIP ─── */
+.method-strip {
+  background: rgba(26,107,74,.05);
+  border-top: 1px solid rgba(26,107,74,.15);
+  border-bottom: 1px solid rgba(26,107,74,.15);
+  padding: 10px var(--s6);
+  font-size: 12.5px;
+  color: #1A3D2B;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+.method-strip strong { font-weight: 600; }
+.method-strip a { color: var(--sky); text-decoration: none; }
+
+/* ─── FILTER BAR ─── */
+.filter-bar {
+  background: var(--paper);
+  border-bottom: 1px solid var(--mist);
+  padding: 10px var(--s6);
+  display: flex;
+  gap: var(--s2);
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 56px;
+  z-index: 100;
+}
+.fb-label {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.fb-chip {
+  padding: 5px 13px;
+  border: 1px solid var(--mist);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--ash);
+  background: var(--paper);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s;
+}
+.fb-chip:hover { border-color: var(--saf); color: var(--saf); }
+.fb-chip.on { background: var(--saf); border-color: var(--saf); color: #fff; }
+.fb-right {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--saf);
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ─── CARD ROW (Product listing row) ─── */
+.card-row {
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-bottom: var(--s3);
+  transition: border-color .2s, box-shadow .2s;
+}
+.card-row:hover {
+  border-color: rgba(232,135,26,.4);
+  box-shadow: var(--shadow-md);
+}
+.cr-pick {
+  background: var(--saf-dim);
+  padding: 5px 18px;
+  font-size: 9.5px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--saf);
+  font-weight: 700;
+  border-bottom: 1px solid rgba(232,135,26,.15);
+}
+.cr-body {
+  display: grid;
+  grid-template-columns: 120px 1fr 140px;
+  align-items: stretch;
+}
+.cr-left {
+  padding: var(--s4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+  border-right: 1px solid var(--mist);
+}
+.cr-card-img {
+  width: 80px;
+  height: 50px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+}
+.cr-bank { font-size: 10.5px; color: var(--ash); text-align: center; }
+.cr-stars { font-size: 10.5px; color: #F59E0B; letter-spacing: -1px; }
+
+.cr-mid { padding: var(--s4) var(--s5); flex: 1; }
+.cr-name { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.cr-desc { font-size: 12.5px; color: var(--ash); margin-bottom: var(--s3); line-height: 1.6; }
+.cr-highlights { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s3); }
+.cr-hl {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  background: var(--cream);
+  border-radius: var(--r-sm);
+  font-size: 11.5px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.cr-hl-dot { width: 5px; height: 5px; border-radius: 50%; }
+.cr-meta { display: flex; gap: var(--s5); }
+.cr-m2 .v { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.cr-m2 .l { font-size: 10px; color: var(--ash); }
+
+.cr-right {
+  padding: var(--s4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s3);
+  border-left: 1px solid var(--mist);
+}
+.approval-ring {
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ar-inner {
+  width: 42px; height: 42px;
+  background: var(--paper);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.ar-pct { font-size: 12px; font-weight: 700; }
+.ar-label { font-size: 9.5px; color: var(--ash); }
+.cr-apply {
+  width: 100%;
+  padding: 9px;
+  background: var(--saf);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.cr-compare {
+  width: 100%;
+  padding: 7px;
+  background: transparent;
+  color: var(--ash);
+  border: 1px solid var(--mist);
+  border-radius: var(--r-sm);
+  font-family: var(--sans);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.cr-compare:hover { border-color: var(--ink); color: var(--ink); }
+
+.cr-footer {
+  padding: 8px 18px;
+  background: var(--cream);
+  border-top: 1px solid var(--mist);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ash);
+}
+.cr-footer .editorial { color: var(--grn); font-weight: 500; }
+.cr-footer a { color: var(--sky); text-decoration: none; }
+
+/* ─── ARTICLE LAYOUT ─── */
+.article-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--s8);
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--s8) var(--s6);
+}
+.article-main {}
+.article-sidebar {}
+
+.article-kicker {
+  display: flex;
+  gap: var(--s3);
+  align-items: center;
+  margin-bottom: var(--s4);
+  flex-wrap: wrap;
+}
+.ak-tag {
+  padding: 3px 9px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.ak-updated { font-size: 11px; color: var(--grn); font-weight: 500; }
+.ak-read { font-size: 11px; color: var(--ash); }
+
+.article-title {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: var(--s4);
+}
+.article-title em { color: var(--saf); }
+
+/* Key Takeaways box */
+.key-takeaways {
+  background: var(--cream);
+  border-radius: var(--r-md);
+  padding: var(--s4) var(--s5);
+  margin-bottom: var(--s5);
+  border: 1px solid var(--mist);
+}
+.kt-label {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 700;
+  margin-bottom: var(--s3);
+}
+.kt-item {
+  display: flex;
+  gap: var(--s3);
+  align-items: flex-start;
+  padding: 5px 0;
+  font-size: 13px;
+  color: var(--ink);
+  border-bottom: 1px solid var(--mist);
+  line-height: 1.5;
+}
+.kt-item:last-child { border: none; }
+.kt-item::before {
+  content: '→';
+  color: var(--saf);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.article-body {
+  font-size: 15px;
+  color: #2A3A50;
+  line-height: 1.8;
+}
+.article-body p { margin-bottom: var(--s4); }
+.article-body h2 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  margin: var(--s6) 0 var(--s3);
+}
+.article-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: var(--s5) 0 var(--s3);
+}
+
+/* Inline data table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: var(--s5) 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--mist);
+}
+.data-table th {
+  background: var(--ink);
+  color: rgba(245,240,232,.7);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--mist);
+  color: var(--ink);
+}
+.data-table tr:last-child td { border: none; }
+.data-table tr:hover td { background: rgba(232,135,26,.03); }
+.td-green { color: var(--grn); font-weight: 700; }
+.td-red { color: var(--red); }
+.badge-green {
+  background: #E8F5EE;
+  color: var(--grn);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Pull quote */
+.pull-quote {
+  border-left: 3px solid var(--saf);
+  padding: var(--s3) var(--s5);
+  margin: var(--s5) 0;
+  background: var(--cream);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.pq-text {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.pq-source { font-size: 11.5px; color: var(--ash); margin-top: var(--s2); }
+
+/* Sidebar */
+.sidebar-card {
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  border-radius: var(--r-lg);
+  padding: var(--s4);
+  margin-bottom: var(--s4);
+}
+.sc-title {
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  font-weight: 600;
+  margin-bottom: var(--s3);
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 0;
+  font-size: 12.5px;
+  color: var(--sky);
+  cursor: pointer;
+  border-bottom: 1px solid var(--mist);
+}
+.toc-item:last-child { border: none; }
+.toc-item::before { content: '›'; color: var(--saf); }
+
+/* ─── TOOL PAGE ─── */
+.tool-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  align-items: start;
+  min-height: 500px;
+}
+.tool-inputs {
+  padding: var(--s6);
+  border-right: 1px solid var(--mist);
+}
+.tool-results {
+  padding: var(--s6);
+  background: var(--cream);
+}
+.tool-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: var(--s5);
+}
+.tool-title em { color: var(--saf); }
+
+.field-group { margin-bottom: var(--s5); }
+.field-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: var(--s2);
+  display: block;
+}
+.field-hint { font-size: 11px; color: var(--ash); margin-top: 3px; }
+.slider-wrap { margin: var(--s2) 0; }
+.slider-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--ash);
+  margin-bottom: 4px;
+}
+.slider-val { font-weight: 600; color: var(--ink); }
+input[type=range] { width: 100%; accent-color: var(--saf); }
+.ip-input {
+  width: 100%;
+  border: 1px solid var(--mist);
+  border-radius: var(--r-sm);
+  padding: 9px 12px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--paper);
+  outline: none;
+  transition: border-color .2s;
+}
+.ip-input:focus { border-color: var(--saf); }
+.ip-select {
+  width: 100%;
+  border: 1px solid var(--mist);
+  border-radius: var(--r-sm);
+  padding: 9px 12px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--paper);
+  outline: none;
+  cursor: pointer;
+}
+.calc-cta {
+  width: 100%;
+  padding: 12px;
+  background: var(--saf);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: var(--s3);
+}
+.calc-cta:hover { background: #D4791A; }
+
+/* Result cards */
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s3);
+  margin-bottom: var(--s5);
+}
+.result-card {
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  border-radius: var(--r-md);
+  padding: var(--s4);
+  text-align: center;
+}
+.rc-label { font-size: 11px; color: var(--ash); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 5px; }
+.rc-value {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 400;
+}
+.result-card.hero-result {
+  background: var(--ink);
+}
+.result-card.hero-result .rc-label { color: rgba(245,240,232,.4); }
+.result-card.hero-result .rc-value { color: var(--saf); }
+
+/* Progress bar */
+.prog-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-bottom: 8px;
+}
+.prog-label { font-size: 12px; color: var(--ash); width: 130px; flex-shrink: 0; }
+.prog-track { flex: 1; height: 7px; background: var(--mist); border-radius: 4px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 4px; }
+.prog-val { font-size: 12px; font-weight: 600; width: 36px; text-align: right; flex-shrink: 0; }
+
+/* ─── HOMEPAGE CARD GRID ─── */
+.home-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s4);
+}
+.hc {
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: all .2s;
+}
+.hc:hover { transform: translateY(-2px); border-color: rgba(232,135,26,.4); box-shadow: var(--shadow-md); }
+.hc-pick {
+  background: var(--saf-dim);
+  padding: 4px 16px;
+  font-size: 9.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--saf);
+  font-weight: 700;
+}
+.hc-top {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--mist);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+}
+.hc-img {
+  width: 46px; height: 29px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.hc-name { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.hc-bank { font-size: 10.5px; color: var(--ash); margin-top: 2px; }
+.hc-ring {
+  margin-left: auto;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.hc-body { padding: 12px 16px; }
+.hc-rate {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.hc-rate-l { font-size: 11px; color: var(--ash); }
+.hc-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: var(--s2); }
+.hc-tag {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.hc-foot {
+  padding: 9px 16px;
+  background: var(--saf-dim);
+  border-top: 1px solid var(--mist);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hc-fee { font-size: 11px; color: var(--ash); }
+.hc-fee strong { color: var(--ink); }
+.hc-apply {
+  padding: 6px 14px;
+  background: var(--saf);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ─── NEWSLETTER SECTION ─── */
+.newsletter-section {
+  background: var(--ink);
+  padding: var(--s10) var(--s6);
+}
+.nl-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s10);
+  align-items: center;
+}
+.nl-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  color: #F5F0E8;
+  margin-bottom: 8px;
+}
+.nl-sub {
+  font-size: 13px;
+  color: rgba(245,240,232,.45);
+  margin-bottom: var(--s5);
+  line-height: 1.7;
+  max-width: 360px;
+}
+.nl-form { display: flex; gap: var(--s2); max-width: 400px; }
+.nl-input {
+  flex: 1;
+  background: rgba(245,240,232,.08);
+  border: 1px solid rgba(245,240,232,.15);
+  border-radius: var(--r-sm);
+  padding: 10px 13px;
+  color: #F5F0E8;
+  font-family: var(--sans);
+  font-size: 13px;
+  outline: none;
+}
+.nl-input::placeholder { color: rgba(245,240,232,.3); }
+.nl-submit {
+  padding: 10px 16px;
+  background: var(--saf);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nl-preview {
+  background: rgba(245,240,232,.05);
+  border: 1px solid rgba(245,240,232,.1);
+  border-radius: var(--r-md);
+  padding: var(--s4);
+}
+.nlp-label {
+  font-size: 9.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--saf);
+  margin-bottom: 6px;
+}
+.nlp-head { font-size: 13px; font-weight: 600; color: #F5F0E8; margin-bottom: 5px; }
+.nlp-body { font-size: 12px; color: rgba(245,240,232,.45); line-height: 1.6; }
+
+/* ─── FOOTER ─── */
+.footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(245,240,232,.08);
+  padding: var(--s10) var(--s6) var(--s6);
+}
+.footer-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--s8);
+  margin-bottom: var(--s8);
+}
+.footer-brand {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  color: #F5F0E8;
+  margin-bottom: 8px;
+}
+.footer-brand span { color: var(--saf); }
+.footer-desc {
+  font-size: 12.5px;
+  color: rgba(245,240,232,.35);
+  line-height: 1.65;
+  max-width: 280px;
+  margin-bottom: var(--s4);
+}
+/* Institutional trust badges */
+.trust-badges { display: flex; flex-direction: column; gap: 6px; }
+.tb-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  color: rgba(245,240,232,.4);
+}
+.tb-item::before {
+  content: '✓';
+  color: var(--grn-light);
+  font-size: 11px;
+}
+.footer-col h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(245,240,232,.6);
+  margin-bottom: var(--s3);
+  letter-spacing: .04em;
+}
+.footer-col ul { list-style: none; }
+.footer-col li {
+  font-size: 12.5px;
+  color: rgba(245,240,232,.3);
+  padding: 3px 0;
+  cursor: pointer;
+  transition: color .15s;
+}
+.footer-col li:hover { color: rgba(245,240,232,.7); }
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: var(--s5);
+  border-top: 1px solid rgba(245,240,232,.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  font-size: 11px;
+  color: rgba(245,240,232,.25);
+}
+.footer-trust-row {
+  display: flex;
+  gap: var(--s4);
+  align-items: center;
+}
+
+/* ─── BREADCRUMB ─── */
+.breadcrumb {
+  padding: 10px var(--s6);
+  background: var(--paper);
+  border-bottom: 1px solid var(--mist);
+  font-size: 12px;
+  color: var(--ash);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  max-width: 100%;
+}
+.breadcrumb a { color: var(--saf); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .current { color: var(--ink); font-weight: 500; }
+
+/* ─── MOBILE STYLES ─── */
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; gap: var(--s6); }
+  .hero h1 { font-size: 28px; }
+  .home-card-grid { grid-template-columns: 1fr; }
+  .article-grid { grid-template-columns: 1fr; }
+  .article-sidebar { display: none; }
+  .tool-layout { grid-template-columns: 1fr; }
+  .tool-results { border-top: 1px solid var(--mist); }
+  .cr-body { grid-template-columns: 90px 1fr; }
+  .cr-right { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s6); }
+  .nl-grid { grid-template-columns: 1fr; gap: var(--s6); }
+  .nav-links { display: none; }
+  .nav-inner { justify-content: space-between; }
+  .result-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Mobile bottom nav */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--paper);
+    border-top: 1px solid var(--mist);
+    display: flex;
+    z-index: 500;
+    box-shadow: 0 -4px 16px rgba(27,42,74,.08);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mbn-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 10px 4px;
+    font-size: 10px;
+    color: var(--ash);
+    cursor: pointer;
+    transition: color .15s;
+    text-decoration: none;
+  }
+  .mbn-item.active { color: var(--saf); }
+  .mbn-icon { font-size: 20px; }
+  .mbn-label { font-weight: 500; }
+  body { padding-bottom: 70px; }
+}
+
+/* ─── CIBIL TOOL STYLES ─── */
+.cibil-ring-wrap {
+  position: relative;
+  width: 140px; height: 140px;
+  margin: 0 auto var(--s4);
+}
+.cibil-ring-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.cibil-score-display {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.csd-num {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1;
+}
+.csd-label { font-size: 12px; color: var(--ash); margin-top: 3px; }
+
+.sim-action {
+  background: var(--cream);
+  border-radius: var(--r-md);
+  padding: 11px 14px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 1px solid var(--mist);
+  transition: background .15s;
+}
+.sim-action:hover { background: var(--bone); }
+.sa-left .title { font-size: 13px; font-weight: 500; color: var(--ink); }
+.sa-left .sub { font-size: 11.5px; color: var(--ash); }
+.sa-delta {
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.delta-pos { background: #E8F5EE; color: var(--grn); }
+.delta-neg { background: #FDECEA; color: var(--red); }
+
+.sim-result {
+  background: var(--ink);
+  border-radius: var(--r-md);
+  padding: var(--s4);
+  margin-top: var(--s4);
+  color: #F5F0E8;
+}
+.sr-label { font-size: 11px; color: rgba(245,240,232,.45); margin-bottom: 3px; }
+.sr-score {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--saf);
+  margin-bottom: 6px;
+}
+.sr-sub { font-size: 12.5px; color: rgba(245,240,232,.5); line-height: 1.55; }
+
+/* ─── COMPARISON PAGE ─── */
+.compare-headers {
+  display: grid;
+  gap: 0;
+  margin-bottom: 0;
+}
+.compare-cell {
+  padding: var(--s4);
+  border-right: 1px solid var(--mist);
+  border-bottom: 1px solid var(--mist);
+}
+.compare-cell:last-child { border-right: none; }
+.ch-card { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.ch-bank { font-size: 11.5px; color: var(--ash); }
+.winner-cell { background: rgba(232,135,26,.04); }
+.winner-border { border: 2px solid rgba(232,135,26,.4) !important; }
+.win-badge {
+  display: inline-block;
+  background: var(--saf);
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+.cell-win { background: #E8F5EE; color: var(--grn); font-weight: 700; padding: 3px 8px; border-radius: 8px; font-size: 12px; }
+.cell-lose { color: rgba(138,150,168,.6); font-size: 12px; }
+
+/* ─── TYPOGRAPHY SHOWCASE ─── */
+.type-ramp { padding: var(--s4) 0; border-bottom: 1px solid var(--mist); display: flex; align-items: baseline; gap: var(--s5); }
+.type-ramp:last-child { border: none; }
+.tr-meta { width: 160px; flex-shrink: 0; }
+.tr-name { font-size: 11px; font-weight: 600; color: var(--ink); }
+.tr-spec { font-size: 10px; color: var(--ash); margin-top: 2px; font-family: var(--mono); }
+
+/* ─── UTILITY ─── */
+.tag { padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.tag-green { background: #E8F5EE; color: var(--grn); }
+.tag-blue { background: #EAF2FB; color: var(--sky); }
+.tag-muted { background: var(--mist); color: var(--ash); }
+.tag-amber { background: #FEF3E2; color: var(--warn); }
+.tag-purple { background: #F3EFF8; color: #6B21A8; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     SECTION 1: DESIGN SYSTEM OVERVIEW
+════════════════════════════════════════ -->
+<div style="background:var(--ink);padding:40px 60px 36px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:10px">InvestingPro.in — Complete Design System 2026</div>
+    <div style="font-family:var(--serif);font-size:36px;font-weight:400;font-style:italic;color:#F5F0E8;line-height:1.1;margin-bottom:10px">Institutional brand, <em style="color:var(--saf)">zero compromise</em> on trust</div>
+    <div style="font-size:14px;color:rgba(245,240,232,.45);max-width:640px;line-height:1.7">Model: NerdWallet's IA skeleton · Bankrate's institutional trust · Investopedia's depth · Credit Karma's personalisation. Adapted for a faceless-expert Indian platform that builds authority through methodology, data, and tool quality — not a personal face.</div>
+    <div style="display:flex;gap:16px;margin-top:20px;flex-wrap:wrap">
+      <div style="background:rgba(245,240,232,.07);border:1px solid rgba(245,240,232,.12);border-radius:8px;padding:8px 16px;font-size:12px;color:rgba(245,240,232,.6)">Constraint: No face, no personal social media</div>
+      <div style="background:rgba(232,135,26,.12);border:1px solid rgba(232,135,26,.25);border-radius:8px;padding:8px 16px;font-size:12px;color:rgba(245,240,232,.7)">Trust model: Methodology + Data + Tool quality</div>
+      <div style="background:rgba(26,107,74,.12);border:1px solid rgba(26,107,74,.25);border-radius:8px;padding:8px 16px;font-size:12px;color:rgba(245,240,232,.7)">Era: 2026 AI-native build</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 2: COLOR SYSTEM
+════════════════════════════════════════ -->
+<div style="padding:40px 60px;background:var(--paper);border-bottom:1px solid var(--mist)">
+<div style="max-width:1200px;margin:0 auto">
+  <div class="kicker">Color System</div>
+  <div style="font-family:var(--serif);font-size:24px;font-style:italic;color:var(--ink);margin-bottom:20px">The Saffron India palette</div>
+
+  <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:8px;margin-bottom:24px">
+    <div>
+      <div style="height:64px;background:var(--ink);border-radius:8px 8px 0 0"></div>
+      <div style="background:white;border:1px solid var(--mist);border-top:none;border-radius:0 0 8px 8px;padding:8px">
+        <div style="font-size:11px;font-weight:600;color:var(--ink)">Ink Navy</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ash)">#1B2A4A</div>
+        <div style="font-size:10px;color:var(--fog)">Hero bg · Nav · Dark sections</div>
+      </div>
+    </div>
+    <div>
+      <div style="height:64px;background:var(--saf);border-radius:8px 8px 0 0"></div>
+      <div style="background:white;border:1px solid var(--mist);border-top:none;border-radius:0 0 8px 8px;padding:8px">
+        <div style="font-size:11px;font-weight:600;color:var(--ink)">Saffron</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ash)">#E8871A</div>
+        <div style="font-size:10px;color:var(--fog)">CTA · Accents · India identity</div>
+      </div>
+    </div>
+    <div>
+      <div style="height:64px;background:var(--grn);border-radius:8px 8px 0 0"></div>
+      <div style="background:white;border:1px solid var(--mist);border-top:none;border-radius:0 0 8px 8px;padding:8px">
+        <div style="font-size:11px;font-weight:600;color:var(--ink)">Forest</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ash)">#1A6B4A</div>
+        <div style="font-size:10px;color:var(--fog)">Approved · Trust bar · Positive</div>
+      </div>
+    </div>
+    <div>
+      <div style="height:64px;background:var(--cream);border:1px solid var(--mist);border-radius:8px 8px 0 0"></div>
+      <div style="background:white;border:1px solid var(--mist);border-top:none;border-radius:0 0 8px 8px;padding:8px">
+        <div style="font-size:11px;font-weight:600;color:var(--ink)">Warm Cream</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ash)">#F5F0E8</div>
+        <div style="font-size:10px;color:var(--fog)">Page background · Editorial</div>
+      </div>
+    </div>
+    <div>
+      <div style="height:64px;background:var(--paper);border:1px solid var(--mist);border-radius:8px 8px 0 0"></div>
+      <div style="background:white;border:1px solid var(--mist);border-top:none;border-radius:0 0 8px 8px;padding:8px">
+        <div style="font-size:11px;font-weight:600;color:var(--ink)">Paper White</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ash)">#FFFDF8</div>
+        <div style="font-size:10px;color:var(--fog)">Cards · Sections · Content</div>
+      </div>
+    </div>
+    <div>
+      <div style="height:64px;background:var(--sky);border-radius:8px 8px 0 0"></div>
+      <div style="background:white;border:1px solid var(--mist);border-top:none;border-radius:0 0 8px 8px;padding:8px">
+        <div style="font-size:11px;font-weight:600;color:var(--ink)">Sky Blue</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ash)">#1E6FBF</div>
+        <div style="font-size:10px;color:var(--fog)">Links · Info · Categories</div>
+      </div>
+    </div>
+    <div>
+      <div style="height:64px;background:var(--red);border-radius:8px 8px 0 0"></div>
+      <div style="background:white;border:1px solid var(--mist);border-top:none;border-radius:0 0 8px 8px;padding:8px">
+        <div style="font-size:11px;font-weight:600;color:var(--ink)">Alert Red</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ash)">#C0392B</div>
+        <div style="font-size:10px;color:var(--fog)">Rejected · Danger · Loss</div>
+      </div>
+    </div>
+    <div>
+      <div style="height:64px;background:var(--warn);border-radius:8px 8px 0 0"></div>
+      <div style="background:white;border:1px solid var(--mist);border-top:none;border-radius:0 0 8px 8px;padding:8px">
+        <div style="font-size:11px;font-weight:600;color:var(--ink)">Amber</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ash)">#B45309</div>
+        <div style="font-size:10px;color:var(--fog)">Caution · Fair · Possible</div>
+      </div>
+    </div>
+    <div>
+      <div style="height:64px;background:var(--ash);border-radius:8px 8px 0 0"></div>
+      <div style="background:white;border:1px solid var(--mist);border-top:none;border-radius:0 0 8px 8px;padding:8px">
+        <div style="font-size:11px;font-weight:600;color:var(--ink)">Ash</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ash)">#8A96A8</div>
+        <div style="font-size:10px;color:var(--fog)">Secondary text · Metadata</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="kicker" style="margin-top:32px">Typography System</div>
+  <div style="font-family:var(--serif);font-size:24px;font-style:italic;color:var(--ink);margin-bottom:16px">Two fonts. One rule each.</div>
+  <div style="background:var(--cream);border-radius:12px;padding:20px;border:1px solid var(--mist)">
+    <div class="type-ramp">
+      <div class="tr-meta"><div class="tr-name">Display / Hero</div><div class="tr-spec">Playfair Display Italic · 34–48px · 400</div></div>
+      <div style="font-family:var(--serif);font-size:38px;font-weight:400;font-style:italic;color:var(--ink)">India's most honest financial advisor</div>
+    </div>
+    <div class="type-ramp">
+      <div class="tr-meta"><div class="tr-name">Section heading</div><div class="tr-spec">Playfair Display Italic · 24–30px · 400</div></div>
+      <div style="font-family:var(--serif);font-size:26px;font-weight:400;font-style:italic;color:var(--ink)">Best cashback credit cards in India</div>
+    </div>
+    <div class="type-ramp">
+      <div class="tr-meta"><div class="tr-name">Article heading</div><div class="tr-spec">Playfair Display Italic · 20–22px · 400</div></div>
+      <div style="font-family:var(--serif);font-size:20px;font-weight:400;font-style:italic;color:var(--ink)">Why your CIBIL score matters more than the rate</div>
+    </div>
+    <div class="type-ramp">
+      <div class="tr-meta"><div class="tr-name">Body text</div><div class="tr-spec">DM Sans · 14–15px · 400 · 1.75lh</div></div>
+      <div style="font-size:15px;color:var(--ash);line-height:1.75">The SBI Cashback card offers 5% on all online spends with no merchant restrictions. For most Indians who pay full balance monthly, it's the most generous flat cashback card available.</div>
+    </div>
+    <div class="type-ramp">
+      <div class="tr-meta"><div class="tr-name">UI / nav labels</div><div class="tr-spec">DM Sans · 12–13px · 500</div></div>
+      <div style="font-size:13px;font-weight:500;color:var(--ink)">Credit Cards · Personal Loans · CIBIL Score · Calculators · Apply Now</div>
+    </div>
+    <div class="type-ramp">
+      <div class="tr-meta"><div class="tr-name">Kicker / label</div><div class="tr-spec">DM Sans · 9–10px · 600 · tracked</div></div>
+      <div style="font-size:9.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--saf)">Credit Cards · Updated March 2026 · Free Tool</div>
+    </div>
+    <div class="type-ramp">
+      <div class="tr-meta"><div class="tr-name">Data / code</div><div class="tr-spec">DM Mono · 11–13px · 400–500</div></div>
+      <div style="font-family:var(--mono);font-size:13px;color:var(--ash)">#1B2A4A &nbsp;·&nbsp; 8.35% &nbsp;·&nbsp; ₹51,782/mo &nbsp;·&nbsp; CIBIL: 748</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 3: DESKTOP HOMEPAGE MOCKUP
+════════════════════════════════════════ -->
+<div style="padding:40px 0 0;background:var(--cream)">
+<div style="max-width:1200px;margin:0 auto;padding:0 60px">
+  <div class="kicker">Desktop Homepage</div>
+  <div style="font-family:var(--serif);font-size:24px;font-style:italic;color:var(--ink);margin-bottom:20px">Full page mockup — desktop 1200px</div>
+</div>
+
+<!-- NAV -->
+<div class="main-nav">
+  <div class="nav-inner">
+    <a class="logo" href="#">Investing<span>Pro</span></a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Credit Cards</a></li>
+      <li><a href="#">Loans</a></li>
+      <li><a href="#">Mutual Funds</a></li>
+      <li><a href="#">Tax & 80C</a></li>
+      <li><a href="#">FD & Savings</a></li>
+      <li><a href="#">Calculators</a></li>
+      <li><a href="#">Glossary</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="cibil-pill" href="#">Free CIBIL Check</a>
+      <a class="btn-primary" href="#">Compare Cards</a>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">Rankings never influenced by commission</div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">Methodology published and auditable</div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">No hard credit check to compare</div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">Rates updated daily from bank websites</div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">AMFI-registered · RBI compliant</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge">Methodology-first · No affiliate bias</div>
+      <h1>India's most <em>methodical</em> financial comparison</h1>
+      <p class="hero-sub">We rank 500+ financial products using published, auditable criteria. Every recommendation includes the data behind it — and the honest downside.</p>
+      <div class="hero-stats">
+        <div class="hs-item"><div class="n">500+</div><div class="l">Products ranked</div></div>
+        <div class="hs-div"></div>
+        <div class="hs-item"><div class="n">8 criteria</div><div class="l">Per card ranked</div></div>
+        <div class="hs-div"></div>
+        <div class="hs-item"><div class="n">Daily</div><div class="l">Rate updates</div></div>
+      </div>
+      <div class="method-badge">
+        <strong>Our ranking formula is public:</strong> Reward rate 40% · Approval ease 30% · Fee value 20% · Service 10%
+        <a href="#" style="color:var(--saf-light);text-decoration:none;margin-left:4px;flex-shrink:0">See full methodology →</a>
+      </div>
+    </div>
+    <div>
+      <div class="smart-widget">
+        <div class="sw-tag">✦ SmartAdvisor · AI-Powered</div>
+        <div class="sw-question">"What do you mostly want to save on?"</div>
+        <div class="sw-chips">
+          <div class="sw-chip on">Online Shopping</div>
+          <div class="sw-chip">Travel</div>
+          <div class="sw-chip">Fuel</div>
+          <div class="sw-chip">Dining</div>
+          <div class="sw-chip">OTT Bills</div>
+          <div class="sw-chip">Rent</div>
+        </div>
+        <div class="sw-row">
+          <input class="sw-input" type="text" placeholder="Monthly spend on this category (₹)">
+          <button class="sw-go">Find Best Card →</button>
+        </div>
+        <div class="sw-note">No login · No hard credit check · Instant results</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTENT RAIL -->
+<div class="intent-rail">
+  <div class="ir-item active">
+    <div class="ir-icon">💳</div>
+    <div class="ir-label">Save on Spending</div>
+    <div class="ir-sub">Credit Cards</div>
+  </div>
+  <div class="ir-item">
+    <div class="ir-icon">📈</div>
+    <div class="ir-label">Grow Savings</div>
+    <div class="ir-sub">MF · FD · SIP</div>
+  </div>
+  <div class="ir-item">
+    <div class="ir-icon">🧾</div>
+    <div class="ir-label">Save on Taxes</div>
+    <div class="ir-sub">80C · ELSS · NPS</div>
+  </div>
+  <div class="ir-item">
+    <div class="ir-icon">🏠</div>
+    <div class="ir-label">Borrow Smart</div>
+    <div class="ir-sub">Home · Personal Loans</div>
+  </div>
+  <div class="ir-item">
+    <div class="ir-icon">📊</div>
+    <div class="ir-label">Protect Score</div>
+    <div class="ir-sub">CIBIL · Credit Health</div>
+  </div>
+  <div class="ir-item">
+    <div class="ir-icon">🧮</div>
+    <div class="ir-label">Run Numbers</div>
+    <div class="ir-sub">EMI · SIP · Tax</div>
+  </div>
+</div>
+
+<!-- TOP PICKS SECTION -->
+<div class="section alt">
+  <div class="wrap">
+    <div class="section-header">
+      <div class="sh-left">
+        <div class="kicker">Top Picks This Week</div>
+        <div class="sh-title">The <em>right</em> cards for how India actually spends</div>
+        <div class="sh-sub">Ranked on reward rate, approval ease, and real-world value — not what earns us most commission.</div>
+      </div>
+      <a class="sh-link" href="#">See all 500+ cards →</a>
+    </div>
+    <div class="ed-note" style="margin-bottom:20px">
+      <div class="en-header">
+        <div class="en-icon">★</div>
+        <div class="en-title">InvestingPro Research Note — March 2026</div>
+      </div>
+      <div class="en-body">SBI Cashback is the most versatile cashback card for online shoppers with no merchant restrictions. The catch: 42% interest if you carry a balance. Only apply if you pay in full monthly. — <strong>InvestingPro Research Team</strong></div>
+    </div>
+    <div class="home-card-grid">
+      <div class="hc">
+        <div class="hc-pick">★ InvestingPro's Top Pick</div>
+        <div class="hc-top">
+          <div class="hc-img" style="background:#1B2A4A">SBI</div>
+          <div><div class="hc-name">SBI Cashback Card</div><div class="hc-bank">State Bank of India</div></div>
+          <div class="hc-ring" style="background:conic-gradient(#1A6B4A 88%,#EDE8DF 0)">
+            <div style="width:26px;height:26px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--grn)">88%</div>
+          </div>
+        </div>
+        <div class="hc-body">
+          <div class="hc-rate">5%</div>
+          <div class="hc-rate-l">Cashback on all online spends — no restrictions</div>
+          <div class="hc-tags">
+            <span class="hc-tag tag-green">Most Applied</span>
+            <span class="hc-tag tag-blue">Online</span>
+            <span class="hc-tag tag-amber">LTF Option</span>
+          </div>
+        </div>
+        <div class="hc-foot">
+          <div class="hc-fee">Annual: <strong>₹999</strong></div>
+          <button class="hc-apply">Apply Now</button>
+        </div>
+      </div>
+      <div class="hc">
+        <div class="hc-top" style="padding-top:18px">
+          <div class="hc-img" style="background:#B45309">HDFC</div>
+          <div><div class="hc-name">HDFC Millennia Card</div><div class="hc-bank">HDFC Bank</div></div>
+          <div class="hc-ring" style="background:conic-gradient(#B45309 72%,#EDE8DF 0)">
+            <div style="width:26px;height:26px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--warn)">72%</div>
+          </div>
+        </div>
+        <div class="hc-body">
+          <div class="hc-rate">5%</div>
+          <div class="hc-rate-l">Amazon, Flipkart, Swiggy, Zomato</div>
+          <div class="hc-tags"><span class="hc-tag tag-blue">Millennials</span><span class="hc-tag tag-green">Dining</span></div>
+        </div>
+        <div class="hc-foot"><div class="hc-fee">Annual: <strong>₹1,000</strong></div><button class="hc-apply">Apply Now</button></div>
+      </div>
+      <div class="hc">
+        <div class="hc-top" style="padding-top:18px">
+          <div class="hc-img" style="background:#92400E">AMZN</div>
+          <div><div class="hc-name">Amazon Pay ICICI</div><div class="hc-bank">ICICI Bank</div></div>
+          <div class="hc-ring" style="background:conic-gradient(#1A6B4A 91%,#EDE8DF 0)">
+            <div style="width:26px;height:26px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--grn)">91%</div>
+          </div>
+        </div>
+        <div class="hc-body">
+          <div class="hc-rate">5%</div>
+          <div class="hc-rate-l">On Amazon · 1–2% all others</div>
+          <div class="hc-tags"><span class="hc-tag tag-muted">Lifetime Free</span><span class="hc-tag tag-blue">Amazon</span></div>
+        </div>
+        <div class="hc-foot"><div class="hc-fee">Annual: <strong>₹0 — Always Free</strong></div><button class="hc-apply">Apply Now</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER SECTION -->
+<div class="newsletter-section">
+  <div class="nl-grid">
+    <div>
+      <div class="kicker" style="color:var(--saf)">InvestingPro Weekly</div>
+      <div class="nl-title">The briefing 50,000 Indians read every Monday</div>
+      <div class="nl-sub">Rate changes, new card launches, one honest tip. 60 seconds. Free forever. No spam — we only email when there's something genuinely worth knowing.</div>
+      <div class="nl-form">
+        <input class="nl-input" type="email" placeholder="your@email.com">
+        <button class="nl-submit">Subscribe Free →</button>
+      </div>
+      <div style="font-size:11px;color:rgba(245,240,232,.25);margin-top:10px">No spam · Unsubscribe anytime · Read in 60 seconds</div>
+    </div>
+    <div class="nl-preview">
+      <div class="nlp-label">This Week's Edition</div>
+      <div class="nlp-head">RBI cut rates 0.25%. Here's what to do in the next 7 days.</div>
+      <div class="nlp-body">Lock in your FD now · Refinance if your home loan is above 8.8% · SIP entry point improving. Our full analysis with ₹ impact numbers →</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Investing<span>Pro</span></div>
+      <div class="footer-desc">India's most methodical financial comparison platform. Our rankings are published, auditable, and never influenced by commission.</div>
+      <div class="trust-badges">
+        <div class="tb-item">AMFI-Registered Mutual Fund Distributor</div>
+        <div class="tb-item">Rankings never influenced by commission</div>
+        <div class="tb-item">Methodology published on every page</div>
+        <div class="tb-item">Not a SEBI-registered investment advisor</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Credit Cards</h4>
+      <ul>
+        <li>Best Cashback Cards</li>
+        <li>Best Travel Cards</li>
+        <li>Lifetime Free Cards</li>
+        <li>Premium Cards</li>
+        <li>Compare Cards</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Loans & CIBIL</h4>
+      <ul>
+        <li>Home Loans</li>
+        <li>Personal Loans</li>
+        <li>Free CIBIL Check</li>
+        <li>CIBIL Simulator</li>
+        <li>IFSC Code Lookup</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li>Our Methodology</li>
+        <li>How We Rank</li>
+        <li>Commission Disclosure</li>
+        <li>InvestingPro Weekly</li>
+        <li>Contact</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 InvestingPro.in — investingpro.in</span>
+    <div class="footer-trust-row">
+      <span>Methodology-first</span>
+      <span>·</span>
+      <span>Free to use</span>
+      <span>·</span>
+      <span>No hard credit check</span>
+      <span>·</span>
+      <span>AMFI Registered</span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 4: CATEGORY PAGE
+════════════════════════════════════════ -->
+<div style="padding:40px 0 0;background:var(--cream)">
+<div style="max-width:1200px;margin:0 auto;padding:0 60px">
+  <div class="kicker">Category Page</div>
+  <div style="font-family:var(--serif);font-size:24px;font-style:italic;color:var(--ink);margin-bottom:20px">/credit-cards/cashback — full layout</div>
+</div>
+
+<!-- Reuse nav above -->
+<div style="background:var(--paper);border-bottom:1px solid var(--mist);height:56px;display:flex;align-items:center;padding:0 40px;gap:0">
+  <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:var(--ink);margin-right:32px">Investing<span style="color:var(--saf)">Pro</span></span>
+  <div style="display:flex;height:56px;align-items:center;gap:0;font-size:13px;font-weight:500;color:var(--ash)">
+    <span style="padding:0 13px;height:56px;display:flex;align-items:center;border-bottom:2px solid var(--saf);color:var(--ink)">Credit Cards</span>
+    <span style="padding:0 13px;height:56px;display:flex;align-items:center">Loans</span>
+    <span style="padding:0 13px;height:56px;display:flex;align-items:center">Mutual Funds</span>
+    <span style="padding:0 13px;height:56px;display:flex;align-items:center">Tax & 80C</span>
+  </div>
+  <div style="margin-left:auto;display:flex;gap:8px">
+    <span style="padding:6px 14px;background:var(--grn-dim);border:1px solid rgba(26,107,74,.2);border-radius:20px;font-size:12px;font-weight:600;color:var(--grn)">● Free CIBIL</span>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="#">Home</a> › <a href="#">Credit Cards</a> ›
+  <span class="current">Best Cashback Credit Cards in India</span>
+</div>
+
+<!-- Page header -->
+<div style="background:var(--paper);padding:24px 40px;border-bottom:1px solid var(--mist)">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start">
+    <div>
+      <div class="kicker">Cashback Credit Cards</div>
+      <div style="font-family:var(--serif);font-size:28px;font-style:italic;color:var(--ink);margin-bottom:8px">Best Cashback Credit Cards in <em style="color:var(--saf)">India</em> — March 2026</div>
+      <div style="font-size:12px;color:var(--ash);display:flex;gap:16px;flex-wrap:wrap">
+        <span>48 cards compared</span>
+        <span style="color:var(--grn)">Updated today</span>
+        <span>Reviewed by InvestingPro Research Team</span>
+        <span>8 min read</span>
+      </div>
+    </div>
+    <div class="ed-note">
+      <div class="en-header"><div class="en-icon">★</div><div class="en-title">Research Team Note</div></div>
+      <div class="en-body" style="font-size:12px">SBI Cashback wins for most online spenders. Caveat: 42% interest if you carry a balance. Lifetime-free seekers: Amazon Pay ICICI. — <strong>InvestingPro Research Team</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- Methodology strip -->
+<div class="method-strip" style="max-width:100%">
+  <strong>Ranking methodology:</strong> Cashback rate (40%) · Approval ease (30%) · Annual fee value (20%) · Service (10%). Commission never influences our order. <a href="#">Full methodology →</a>
+</div>
+
+<!-- Filter bar -->
+<div class="filter-bar">
+  <div class="fb-label">Filter</div>
+  <div class="fb-chip on">All Cards</div>
+  <div class="fb-chip">Online Shopping</div>
+  <div class="fb-chip">Dining</div>
+  <div class="fb-chip">Fuel</div>
+  <div class="fb-chip">UPI</div>
+  <div class="fb-chip">Lifetime Free</div>
+  <div class="fb-chip">No Annual Fee</div>
+  <div class="fb-right">Set your CIBIL score for personalised results →</div>
+</div>
+
+<div style="background:var(--cream);padding:20px 40px">
+<div style="max-width:1200px;margin:0 auto">
+
+<!-- Card row 1 -->
+<div class="card-row">
+  <div class="cr-pick">#1 · InvestingPro Top Pick · March 2026</div>
+  <div class="cr-body">
+    <div class="cr-left">
+      <div class="cr-card-img" style="background:linear-gradient(135deg,#1B2A4A,#243856)">SBI</div>
+      <div class="cr-bank">State Bank of India</div>
+      <div class="cr-stars">★★★★★</div>
+      <span class="tag tag-green" style="font-size:10px">Best Overall</span>
+    </div>
+    <div class="cr-mid">
+      <div class="cr-name">SBI Cashback Credit Card</div>
+      <div class="cr-desc">5% cashback on all online spends — no merchant restrictions. The most versatile flat-rate cashback card in India.</div>
+      <div class="cr-highlights">
+        <div class="cr-hl"><div class="cr-hl-dot" style="background:var(--grn)"></div>5% all online spends</div>
+        <div class="cr-hl"><div class="cr-hl-dot" style="background:var(--grn)"></div>1% offline</div>
+        <div class="cr-hl"><div class="cr-hl-dot" style="background:var(--sky)"></div>No merchant restrictions</div>
+        <div class="cr-hl" style="background:#FDECEA"><div class="cr-hl-dot" style="background:var(--red)"></div>No lounge access</div>
+      </div>
+      <div class="cr-meta">
+        <div class="cr-m2"><div class="v">₹999/yr</div><div class="l">Annual fee</div></div>
+        <div class="cr-m2"><div class="v">₹2L spend</div><div class="l">Fee waiver</div></div>
+        <div class="cr-m2"><div class="v">42% pa</div><div class="l">Interest rate</div></div>
+        <div class="cr-m2"><div class="v">750+</div><div class="l">CIBIL recommended</div></div>
+      </div>
+    </div>
+    <div class="cr-right">
+      <div>
+        <div class="approval-ring" style="background:conic-gradient(#1A6B4A 88%,#EDE8DF 0)">
+          <div class="ar-inner"><div class="ar-pct" style="color:var(--grn)">88%</div></div>
+        </div>
+        <div style="font-size:10px;color:var(--ash);text-align:center;margin-top:3px">Likely approved</div>
+      </div>
+      <button class="cr-apply">Apply Now →</button>
+      <button class="cr-compare">+ Compare</button>
+    </div>
+  </div>
+  <div class="cr-footer">
+    <div class="editorial">Research team note: Best for online shoppers who pay in full monthly.</div>
+    <div>Earns commission · <a href="#">Doesn't affect ranking</a></div>
+  </div>
+</div>
+
+<!-- Card row 2 -->
+<div class="card-row">
+  <div class="cr-body">
+    <div class="cr-left">
+      <div class="cr-card-img" style="background:linear-gradient(135deg,#B45309,#78350F)">HDFC</div>
+      <div class="cr-bank">HDFC Bank</div>
+      <div class="cr-stars">★★★★</div>
+    </div>
+    <div class="cr-mid">
+      <div class="cr-name">HDFC Millennia Credit Card</div>
+      <div class="cr-desc">Best for Amazon, Flipkart, Swiggy and Zomato spenders. Strong dining benefits included.</div>
+      <div class="cr-highlights">
+        <div class="cr-hl"><div class="cr-hl-dot" style="background:var(--grn)"></div>5% on Amazon, Flipkart, Swiggy</div>
+        <div class="cr-hl"><div class="cr-hl-dot" style="background:var(--grn)"></div>2.5% other online</div>
+        <div class="cr-hl"><div class="cr-hl-dot" style="background:var(--sky)"></div>Free with HDFC account</div>
+      </div>
+      <div class="cr-meta">
+        <div class="cr-m2"><div class="v">₹1,000/yr</div><div class="l">Annual fee</div></div>
+        <div class="cr-m2"><div class="v">₹1L spend</div><div class="l">Fee waiver</div></div>
+        <div class="cr-m2"><div class="v">760+</div><div class="l">CIBIL recommended</div></div>
+      </div>
+    </div>
+    <div class="cr-right">
+      <div>
+        <div class="approval-ring" style="background:conic-gradient(#B45309 72%,#EDE8DF 0)">
+          <div class="ar-inner"><div class="ar-pct" style="color:var(--warn)">72%</div></div>
+        </div>
+        <div style="font-size:10px;color:var(--ash);text-align:center;margin-top:3px">Possible approval</div>
+      </div>
+      <button class="cr-apply">Apply Now →</button>
+      <button class="cr-compare">+ Compare</button>
+    </div>
+  </div>
+  <div class="cr-footer">
+    <div class="editorial">Perfect if you spend heavily on Amazon and Zomato.</div>
+    <div>Earns commission on approval</div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 5: ARTICLE PAGE LAYOUT
+════════════════════════════════════════ -->
+<div style="padding:40px 0 0;background:var(--cream)">
+<div style="max-width:1200px;margin:0 auto;padding:0 60px">
+  <div class="kicker">Article Page</div>
+  <div style="font-family:var(--serif);font-size:24px;font-style:italic;color:var(--ink);margin-bottom:20px">/guides/how-cibil-score-affects-home-loan-rate</div>
+</div>
+
+<div class="article-grid">
+  <div class="article-main">
+    <div class="article-kicker">
+      <span class="ak-tag tag-blue">Home Loans</span>
+      <span class="ak-tag tag-muted">CIBIL Score</span>
+      <span class="ak-updated">Updated March 20, 2026</span>
+      <span class="ak-read">8 min read</span>
+    </div>
+    <h1 class="article-title">How your CIBIL score <em>directly determines</em> your home loan interest rate</h1>
+    <div style="font-size:12px;color:var(--ash);display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+      <span>By <strong>InvestingPro Research Team</strong></span>
+      <span>Reviewed by <strong>InvestingPro Financial Analysts</strong></span>
+      <span>Fact-checked: March 2026</span>
+    </div>
+
+    <div class="key-takeaways">
+      <div class="kt-label">Key Takeaways</div>
+      <div class="kt-item">A CIBIL score difference of 50 points can change your home loan rate by 0.5% — that's ₹3.8 lakh more interest on a ₹60L loan over 20 years.</div>
+      <div class="kt-item">Scores of 800+ qualify for the bank's best advertised rates. Scores below 700 typically pay 1–2% higher.</div>
+      <div class="kt-item">Use our CIBIL Simulator to see your exact score impact before applying — and how long improvement takes.</div>
+    </div>
+
+    <div class="ed-note">
+      <div class="en-header"><div class="en-icon">★</div><div class="en-title">InvestingPro Research Note</div></div>
+      <div class="en-body">Most people don't realise a CIBIL of 749 vs 750 can change their home loan rate by 0.5%. On a ₹60L loan that's ₹4.8 lakh over 20 years. Read this before you apply for any home loan.</div>
+    </div>
+
+    <div class="article-body">
+      <p>Banks advertise their lowest home loan rate — say 8.35% — but that rate is only for borrowers with a CIBIL score above 800. If your score is 720, you'll be offered 8.85% or higher. The difference sounds small. It isn't.</p>
+
+      <div class="pull-quote">
+        <div class="pq-text">"The banks won't tell you how much more they charge based on your credit score. We will."</div>
+        <div class="pq-source">InvestingPro Research · March 2026</div>
+      </div>
+
+      <h2>The rate table banks don't publish — by CIBIL score</h2>
+
+      <table class="data-table">
+        <tr><th>CIBIL Range</th><th>SBI Rate</th><th>EMI on ₹60L/20yr</th><th>Extra vs best</th></tr>
+        <tr><td>800+</td><td class="td-green">8.35%</td><td>₹51,782</td><td><span class="badge-green">Benchmark</span></td></tr>
+        <tr><td>750–799</td><td>8.60%</td><td>₹52,806</td><td style="color:var(--warn)">+₹1,024/mo</td></tr>
+        <tr><td>700–749</td><td>8.85%</td><td>₹53,835</td><td style="color:var(--red)">+₹2,053/mo</td></tr>
+        <tr><td>Below 700</td><td class="td-red">9.35%+</td><td>₹55,913</td><td style="color:var(--red)">+₹4,131/mo</td></tr>
+      </table>
+
+      <h3>What actually moves your CIBIL score</h3>
+      <div style="background:var(--cream);border-radius:10px;padding:16px;margin:16px 0;border:1px solid var(--mist)">
+        <div style="font-size:11px;color:var(--ash);margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:600">Score factor weights</div>
+        <div class="prog-row"><div class="prog-label">Payment history</div><div class="prog-track"><div class="prog-fill" style="width:35%;background:var(--grn)"></div></div><div class="prog-val" style="color:var(--grn)">35%</div></div>
+        <div class="prog-row"><div class="prog-label">Credit utilisation</div><div class="prog-track"><div class="prog-fill" style="width:30%;background:var(--sky)"></div></div><div class="prog-val" style="color:var(--sky)">30%</div></div>
+        <div class="prog-row"><div class="prog-label">Credit age</div><div class="prog-track"><div class="prog-fill" style="width:15%;background:var(--saf)"></div></div><div class="prog-val" style="color:var(--saf)">15%</div></div>
+        <div class="prog-row"><div class="prog-label">Credit mix</div><div class="prog-track"><div class="prog-fill" style="width:10%;background:var(--warn)"></div></div><div class="prog-val" style="color:var(--warn)">10%</div></div>
+        <div class="prog-row"><div class="prog-label">New enquiries</div><div class="prog-track"><div class="prog-fill" style="width:10%;background:var(--red)"></div></div><div class="prog-val" style="color:var(--red)">10%</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-sidebar">
+    <div class="sidebar-card">
+      <div class="sc-title">In this guide</div>
+      <div class="toc-item">Why CIBIL affects your rate</div>
+      <div class="toc-item">The rate table by score band</div>
+      <div class="toc-item">The 5 score factors</div>
+      <div class="toc-item">How fast can you improve?</div>
+      <div class="toc-item">Best home loans right now</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sc-title">Related Tools</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="background:var(--cream);border-radius:8px;padding:9px 11px;cursor:pointer;display:flex;gap:8px;align-items:center"><span style="font-size:16px">📊</span><div><div style="font-size:12px;font-weight:600;color:var(--ink)">CIBIL Simulator</div><div style="font-size:11px;color:var(--ash)">See score impact before acting</div></div></div>
+        <div style="background:var(--cream);border-radius:8px;padding:9px 11px;cursor:pointer;display:flex;gap:8px;align-items:center"><span style="font-size:16px">🏠</span><div><div style="font-size:12px;font-weight:600;color:var(--ink)">Home Loan EMI Calculator</div><div style="font-size:11px;color:var(--ash)">EMI at different rates</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 6: TOOL/CALCULATOR PAGE
+════════════════════════════════════════ -->
+<div style="padding:40px 0 0;background:var(--cream)">
+<div style="max-width:1200px;margin:0 auto;padding:0 60px">
+  <div class="kicker">Calculator / Tool Page</div>
+  <div style="font-family:var(--serif);font-size:24px;font-style:italic;color:var(--ink);margin-bottom:20px">/tools/home-loan-emi-calculator</div>
+</div>
+
+<div style="background:var(--paper);border:1px solid var(--mist);border-radius:14px;margin:0 60px;overflow:hidden;max-width:1200px">
+<div class="tool-layout">
+  <div class="tool-inputs">
+    <div class="kicker" style="margin-bottom:6px">Home Loan EMI Calculator</div>
+    <div class="tool-title">What will my <em>monthly EMI</em> be?</div>
+    <div class="field-group">
+      <label class="field-label">Loan Amount</label>
+      <div class="slider-wrap">
+        <div class="slider-row"><span>₹5L</span><span class="slider-val">₹60,00,000</span><span>₹5Cr</span></div>
+        <input type="range" min="500000" max="50000000" value="6000000" step="100000">
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Interest Rate (per annum)</label>
+      <div class="slider-wrap">
+        <div class="slider-row"><span>6%</span><span class="slider-val">8.35%</span><span>18%</span></div>
+        <input type="range" min="6" max="18" value="8.35" step="0.05">
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Loan Tenure</label>
+      <div class="slider-wrap">
+        <div class="slider-row"><span>1 yr</span><span class="slider-val">20 years</span><span>30 yr</span></div>
+        <input type="range" min="1" max="30" value="20" step="1">
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Your CIBIL Score Range</label>
+      <select class="ip-select">
+        <option>800+ (Best rate available)</option>
+        <option>750–799 (+0.25% to rate)</option>
+        <option selected>700–749 (+0.50% to rate)</option>
+        <option>650–699 (+1.00% to rate)</option>
+      </select>
+      <div class="field-hint">We add the bank's typical CIBIL premium to show your actual offered rate.</div>
+    </div>
+    <button class="calc-cta">Calculate EMI →</button>
+  </div>
+
+  <div class="tool-results">
+    <div class="result-grid">
+      <div class="result-card hero-result" style="grid-column:span 2">
+        <div class="rc-label">Monthly EMI</div>
+        <div class="rc-value">₹51,782</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Total Interest</div>
+        <div class="rc-value" style="color:var(--red);font-size:20px">₹24,42,780</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Total Payable</div>
+        <div class="rc-value" style="font-size:20px">₹84,42,780</div>
+      </div>
+    </div>
+
+    <!-- Breakup bar -->
+    <div style="background:var(--paper);border-radius:10px;padding:16px;border:1px solid var(--mist);margin-bottom:14px">
+      <div style="font-size:11px;color:var(--ash);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px">Payment Breakup</div>
+      <div style="height:14px;border-radius:7px;overflow:hidden;display:flex;margin-bottom:8px">
+        <div style="width:71%;background:var(--grn)"></div>
+        <div style="width:29%;background:var(--red)"></div>
+      </div>
+      <div style="display:flex;gap:16px;font-size:12px">
+        <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:2px;background:var(--grn)"></div>Principal <strong style="color:var(--grn)">71%</strong></div>
+        <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:2px;background:var(--red)"></div>Interest <strong style="color:var(--red)">29%</strong></div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;color:var(--ash);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px">Best rates for this loan amount</div>
+    <table class="data-table">
+      <tr><th>Bank</th><th>Your rate</th><th>Monthly EMI</th><th>vs Cheapest</th><th></th></tr>
+      <tr><td style="font-weight:600">SBI</td><td class="td-green">8.85%</td><td>₹53,835</td><td><span class="badge-green">Cheapest</span></td><td><button style="padding:4px 12px;background:var(--saf);color:#fff;border:none;border-radius:5px;font-size:11px;cursor:pointer">Apply</button></td></tr>
+      <tr><td style="font-weight:600">HDFC</td><td>9.00%</td><td>₹54,449</td><td style="color:var(--warn)">+₹614/mo</td><td><button style="padding:4px 12px;background:var(--ink);color:#F5F0E8;border:none;border-radius:5px;font-size:11px;cursor:pointer">Apply</button></td></tr>
+      <tr><td style="font-weight:600">ICICI</td><td>9.10%</td><td>₹54,860</td><td style="color:var(--warn)">+₹1,025/mo</td><td><button style="padding:4px 12px;background:var(--ink);color:#F5F0E8;border:none;border-radius:5px;font-size:11px;cursor:pointer">Apply</button></td></tr>
+    </table>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 7: MOBILE LAYOUTS
+════════════════════════════════════════ -->
+<div style="padding:40px 60px;background:var(--paper);border-top:1px solid var(--mist)">
+<div style="max-width:1200px;margin:0 auto">
+  <div class="kicker">Mobile Layouts</div>
+  <div style="font-family:var(--serif);font-size:24px;font-style:italic;color:var(--ink);margin-bottom:24px">All key screens — 390px viewport</div>
+
+  <div style="display:flex;gap:24px;overflow-x:auto;scrollbar-width:none;padding-bottom:16px">
+
+    <!-- Mobile: Homepage -->
+    <div style="flex-shrink:0;text-align:center">
+      <div style="font-size:12px;font-weight:600;color:var(--ash);margin-bottom:10px">Home</div>
+      <div style="width:220px;background:#1a1a2e;border-radius:28px;padding:8px;border:3px solid rgba(255,255,255,.15);position:relative">
+        <div style="background:#0a0a1a;border-radius:20px;overflow:hidden;min-height:420px">
+          <div style="height:18px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:8px;color:rgba(255,255,255,.4)"><span>9:41</span><span>●●●●</span></div>
+          <!-- Mobile nav -->
+          <div style="background:#FFFDF8;padding:0 12px;height:40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #EDE8DF">
+            <span style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#1B2A4A">Investing<span style="color:#E8871A">Pro</span></span>
+            <div style="display:flex;flex-direction:column;gap:2px"><span style="width:14px;height:1.5px;background:#8A96A8;display:block"></span><span style="width:14px;height:1.5px;background:#8A96A8;display:block"></span><span style="width:14px;height:1.5px;background:#8A96A8;display:block"></span></div>
+          </div>
+          <!-- Trust bar mobile -->
+          <div style="background:#1A6B4A;padding:4px 12px;font-size:7.5px;color:rgba(245,240,232,.8)">Methodology-first · AMFI Registered · No hidden commissions</div>
+          <!-- Hero mobile -->
+          <div style="background:#1B2A4A;padding:12px">
+            <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#F5F0E8;margin-bottom:4px">India's most <em style="color:#E8871A">methodical</em> financial advisor</div>
+            <div style="font-size:8px;color:rgba(245,240,232,.45);margin-bottom:8px;line-height:1.5">Ranked by published criteria, not by what pays us most.</div>
+            <!-- Intent chips -->
+            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px">
+              <span style="padding:4px 8px;background:rgba(232,135,26,.15);border:1px solid rgba(232,135,26,.3);border-radius:10px;font-size:7.5px;color:#E8871A">💳 Cards</span>
+              <span style="padding:4px 8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;font-size:7.5px;color:rgba(245,240,232,.5)">🏠 Loans</span>
+              <span style="padding:4px 8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;font-size:7.5px;color:rgba(245,240,232,.5)">📊 CIBIL</span>
+              <span style="padding:4px 8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;font-size:7.5px;color:rgba(245,240,232,.5)">📈 SIP</span>
+            </div>
+          </div>
+          <!-- Cards section -->
+          <div style="padding:10px 12px;background:#F5F0E8">
+            <div style="font-size:8px;color:#8A96A8;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px">Top picks · March 2026</div>
+            <!-- Card item -->
+            <div style="background:#FFFDF8;border:1px solid #EDE8DF;border-radius:8px;padding:9px 10px;margin-bottom:6px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:5px">
+                <div>
+                  <div style="font-size:10px;font-weight:600;color:#1B2A4A">SBI Cashback Card</div>
+                  <div style="font-size:8.5px;color:#8A96A8">5% all online · ₹999/yr</div>
+                </div>
+                <div style="width:26px;height:26px;border-radius:50%;background:conic-gradient(#1A6B4A 88%,#EDE8DF 0);display:flex;align-items:center;justify-content:center">
+                  <div style="width:20px;height:20px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#1A6B4A">88%</div>
+                </div>
+              </div>
+              <div style="background:#E8871A;border-radius:5px;padding:5px;font-size:8.5px;font-weight:700;color:#fff;text-align:center">Apply Now →</div>
+            </div>
+            <div style="background:#FFFDF8;border:1px solid #EDE8DF;border-radius:8px;padding:9px 10px;margin-bottom:6px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between">
+                <div>
+                  <div style="font-size:10px;font-weight:600;color:#1B2A4A">Amazon Pay ICICI</div>
+                  <div style="font-size:8.5px;color:#8A96A8">5% Amazon · Free forever</div>
+                </div>
+                <div style="width:26px;height:26px;border-radius:50%;background:conic-gradient(#1A6B4A 91%,#EDE8DF 0);display:flex;align-items:center;justify-content:center">
+                  <div style="width:20px;height:20px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#1A6B4A">91%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Bottom nav -->
+          <div style="display:flex;background:#FFFDF8;border-top:1px solid #EDE8DF">
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#E8871A"><span style="font-size:14px;display:block">🏠</span>Home</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">💳</span>Cards</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">📊</span>CIBIL</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">🧮</span>Tools</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">☰</span>More</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile: CIBIL Simulator -->
+    <div style="flex-shrink:0;text-align:center">
+      <div style="font-size:12px;font-weight:600;color:var(--ash);margin-bottom:10px">CIBIL Simulator</div>
+      <div style="width:220px;background:#1a1a2e;border-radius:28px;padding:8px;border:3px solid rgba(255,255,255,.15)">
+        <div style="background:#0a0a1a;border-radius:20px;overflow:hidden;min-height:420px">
+          <div style="height:18px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:8px;color:rgba(255,255,255,.4)"><span>9:41</span><span>●●●●</span></div>
+          <div style="background:#FFFDF8;padding:0 12px;height:40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #EDE8DF">
+            <span style="font-size:11px;font-weight:600;color:#1B2A4A">← CIBIL Simulator</span>
+          </div>
+          <div style="padding:12px;background:#F5F0E8">
+            <div style="font-size:8px;color:#E8871A;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:6px">First in India</div>
+            <div style="font-family:Georgia,serif;font-size:13px;font-style:italic;color:#1B2A4A;margin-bottom:12px">What would your CIBIL be if...?</div>
+            <!-- Score ring -->
+            <div style="text-align:center;margin-bottom:10px">
+              <div style="position:relative;width:80px;height:80px;margin:0 auto">
+                <svg viewBox="0 0 80 80" width="80" height="80" style="transform:rotate(-90deg)">
+                  <circle cx="40" cy="40" r="32" fill="none" stroke="#EDE8DF" stroke-width="6"/>
+                  <circle cx="40" cy="40" r="32" fill="none" stroke="#1A6B4A" stroke-width="6" stroke-dasharray="150 201" stroke-linecap="round"/>
+                </svg>
+                <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
+                  <div style="font-family:Georgia,serif;font-size:18px;color:#1A6B4A">748</div>
+                  <div style="font-size:7.5px;color:#8A96A8">Good</div>
+                </div>
+              </div>
+            </div>
+            <!-- Actions -->
+            <div style="background:#FFFDF8;border:1px solid #EDE8DF;border-radius:7px;padding:8px 10px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-size:10px;font-weight:600;color:#1B2A4A">Pay Axis card to ₹0</div><div style="font-size:8.5px;color:#8A96A8">Outstanding: ₹42,000</div></div>
+              <span style="background:#E8F5EE;color:#1A6B4A;font-size:9.5px;font-weight:700;padding:3px 7px;border-radius:8px">+18</span>
+            </div>
+            <div style="background:#FFFDF8;border:1px solid #EDE8DF;border-radius:7px;padding:8px 10px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-size:10px;font-weight:600;color:#1B2A4A">Take ₹5L personal loan</div><div style="font-size:8.5px;color:#8A96A8">New hard enquiry</div></div>
+              <span style="background:#FDECEA;color:#C0392B;font-size:9.5px;font-weight:700;padding:3px 7px;border-radius:8px">−8</span>
+            </div>
+            <div style="background:#1B2A4A;border-radius:7px;padding:9px 10px;margin-top:8px">
+              <div style="font-size:8px;color:rgba(245,240,232,.4);margin-bottom:3px">Simulated result:</div>
+              <div style="font-family:Georgia,serif;font-size:14px;color:#E8871A">CIBIL → 766 · Very Good</div>
+              <div style="font-size:8px;color:rgba(245,240,232,.45);margin-top:3px">Qualifies for HDFC Infinia</div>
+            </div>
+          </div>
+          <div style="display:flex;background:#FFFDF8;border-top:1px solid #EDE8DF">
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">🏠</span>Home</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">💳</span>Cards</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#E8871A"><span style="font-size:14px;display:block">📊</span>CIBIL</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">🧮</span>Tools</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">☰</span>More</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile: Calculator -->
+    <div style="flex-shrink:0;text-align:center">
+      <div style="font-size:12px;font-weight:600;color:var(--ash);margin-bottom:10px">EMI Calculator</div>
+      <div style="width:220px;background:#1a1a2e;border-radius:28px;padding:8px;border:3px solid rgba(255,255,255,.15)">
+        <div style="background:#0a0a1a;border-radius:20px;overflow:hidden;min-height:420px">
+          <div style="height:18px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:8px;color:rgba(255,255,255,.4)"><span>9:41</span><span>●●●●</span></div>
+          <div style="background:#FFFDF8;padding:0 12px;height:40px;display:flex;align-items:center;border-bottom:1px solid #EDE8DF">
+            <span style="font-size:11px;font-weight:600;color:#1B2A4A">← Home Loan EMI</span>
+          </div>
+          <div style="padding:10px 12px">
+            <div style="font-family:Georgia,serif;font-size:12px;font-style:italic;color:#1B2A4A;margin-bottom:10px">What will my EMI be?</div>
+            <!-- Sliders -->
+            <div style="margin-bottom:8px">
+              <div style="display:flex;justify-content:space-between;font-size:8.5px;color:#8A96A8;margin-bottom:2px"><span>Loan Amount</span><span style="font-weight:600;color:#1B2A4A">₹60,00,000</span></div>
+              <div style="height:4px;background:#EDE8DF;border-radius:2px;overflow:hidden"><div style="width:50%;height:100%;background:#E8871A;border-radius:2px"></div></div>
+            </div>
+            <div style="margin-bottom:8px">
+              <div style="display:flex;justify-content:space-between;font-size:8.5px;color:#8A96A8;margin-bottom:2px"><span>Interest Rate</span><span style="font-weight:600;color:#1B2A4A">8.35%</span></div>
+              <div style="height:4px;background:#EDE8DF;border-radius:2px;overflow:hidden"><div style="width:25%;height:100%;background:#E8871A;border-radius:2px"></div></div>
+            </div>
+            <div style="margin-bottom:10px">
+              <div style="display:flex;justify-content:space-between;font-size:8.5px;color:#8A96A8;margin-bottom:2px"><span>Tenure</span><span style="font-weight:600;color:#1B2A4A">20 years</span></div>
+              <div style="height:4px;background:#EDE8DF;border-radius:2px;overflow:hidden"><div style="width:65%;height:100%;background:#E8871A;border-radius:2px"></div></div>
+            </div>
+            <!-- Results -->
+            <div style="background:#1B2A4A;border-radius:10px;padding:12px;margin-bottom:8px;text-align:center">
+              <div style="font-size:8px;color:rgba(245,240,232,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Monthly EMI</div>
+              <div style="font-family:Georgia,serif;font-size:24px;color:#E8871A">₹51,782</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              <div style="background:#F5F0E8;border-radius:7px;padding:8px;text-align:center">
+                <div style="font-size:7.5px;color:#8A96A8;margin-bottom:2px">Total Interest</div>
+                <div style="font-size:13px;font-weight:600;color:#C0392B">₹24.4L</div>
+              </div>
+              <div style="background:#F5F0E8;border-radius:7px;padding:8px;text-align:center">
+                <div style="font-size:7.5px;color:#8A96A8;margin-bottom:2px">Total Payable</div>
+                <div style="font-size:13px;font-weight:600;color:#1B2A4A">₹84.4L</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;background:#FFFDF8;border-top:1px solid #EDE8DF">
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">🏠</span>Home</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">💳</span>Cards</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">📊</span>CIBIL</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#E8871A"><span style="font-size:14px;display:block">🧮</span>Tools</div>
+            <div style="flex:1;padding:7px 4px;text-align:center;font-size:7.5px;color:#8A96A8"><span style="font-size:14px;display:block">☰</span>More</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 8: INSTITUTIONAL TRUST SYSTEM
+════════════════════════════════════════ -->
+<div style="padding:40px 60px;background:var(--ink)">
+<div style="max-width:1200px;margin:0 auto">
+  <div class="kicker">Institutional Trust Architecture</div>
+  <div style="font-family:var(--serif);font-size:24px;font-style:italic;color:#F5F0E8;margin-bottom:20px">How to build <em style="color:var(--saf)">Bankrate-level trust</em> without a named face</div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+    <div style="background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);border-radius:12px;padding:18px">
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:8px">Signal 1</div>
+      <div style="font-size:14px;font-weight:500;color:#F5F0E8;margin-bottom:8px">Published, auditable methodology</div>
+      <div style="font-size:12px;color:rgba(245,240,232,.45);line-height:1.65">Every category page shows: "Ranked by: Reward rate 40% · Approval ease 30% · Fee value 20% · Service 10%." Not "we choose the best." Here is the formula. Anyone can audit it. Bankrate does this — it's why Google trusts them for YMYL.</div>
+    </div>
+    <div style="background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);border-radius:12px;padding:18px">
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:8px">Signal 2</div>
+      <div style="font-size:14px;font-weight:500;color:#F5F0E8;margin-bottom:8px">AMFI-registered badge (verifiable)</div>
+      <div style="font-size:12px;color:rgba(245,240,232,.45);line-height:1.65">Pass NISM Series V-A. Get ARN number. Add to every page header: "AMFI Registered — ARN-XXXXXX." Anyone can verify on amfiindia.com. This is the 2026 equivalent of Martin Lewis's journalism background. Searchable, institutional, permanent.</div>
+    </div>
+    <div style="background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);border-radius:12px;padding:18px">
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:8px">Signal 3</div>
+      <div style="font-size:14px;font-weight:500;color:#F5F0E8;margin-bottom:8px">Tool quality as trust proxy</div>
+      <div style="font-size:12px;color:rgba(245,240,232,.45);line-height:1.65">A CIBIL Simulator that works accurately is a trust signal no faceless competitor has. When a tool gives a user correct, actionable, personalised results — that builds more trust than any byline. NerdWallet built credibility through tool quality long before named experts.</div>
+    </div>
+    <div style="background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);border-radius:12px;padding:18px">
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:8px">Signal 4</div>
+      <div style="font-size:14px;font-weight:500;color:#F5F0E8;margin-bottom:8px">Commission transparency above every list</div>
+      <div style="font-size:12px;color:rgba(245,240,232,.45);line-height:1.65">"We earn commission on some products above. Rankings are determined by our published methodology — not by what pays us most." This single sentence above every comparison list separates InvestingPro from every Indian competitor. Implement by Day 1.</div>
+    </div>
+    <div style="background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);border-radius:12px;padding:18px">
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:8px">Signal 5</div>
+      <div style="font-size:14px;font-weight:500;color:#F5F0E8;margin-bottom:8px">Data sources cited on every page</div>
+      <div style="font-size:12px;color:rgba(245,240,232,.45);line-height:1.65">"Source: SBI official rate table, March 22, 2026 · RBI Master Circular 2025." Investopedia cites all data sources. Google's quality raters look for this on YMYL content. It signals research rigour without requiring a personal byline.</div>
+    </div>
+    <div style="background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);border-radius:12px;padding:18px">
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--saf);font-weight:600;margin-bottom:8px">Signal 6 — Post-2030</div>
+      <div style="font-size:14px;font-weight:500;color:#F5F0E8;margin-bottom:8px">Add the expert face when you retire</div>
+      <div style="font-size:12px;color:rgba(245,240,232,.45);line-height:1.65">Everything you build now — methodology, email list, tool quality, AMFI registration — becomes 10x more powerful when you add a named retired defence officer as the expert voice in 2030. The credibility compound is already building. The face can come later.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

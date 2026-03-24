@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InvestingPro — SERP Competitive Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070a0f;--panel:#0d1117;--surface:#111820;--surface2:#16202d;
+  --border:#1a2535;--border2:#243044;
+  --text:#dde6f5;--muted:#556070;--muted2:#3a4a5e;
+  --blue:#4f8ef7;--cyan:#22d3ee;--green:#34d399;--gold:#fbbf24;
+  --orange:#fb923c;--red:#f87171;--purple:#a78bfa;--pink:#f472b6;
+  --teal:#2dd4bf;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:12.5px;line-height:1.5}
+
+/* ── HERO ── */
+.hero{padding:52px 56px 40px;border-bottom:1px solid var(--border);background:linear-gradient(160deg,#070a0f 55%,#0a0f1a 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-60px;bottom:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(79,142,247,.06) 0%,transparent 70%);pointer-events:none}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px}
+.hero h1{font-family:'Syne',sans-serif;font-size:40px;font-weight:700;line-height:1.05;margin-bottom:12px}
+.hero h1 span{color:var(--blue)}
+.hero p{color:var(--muted);font-size:13px;max-width:600px;line-height:1.65}
+.hero-note{margin-top:16px;display:inline-flex;align-items:center;gap:8px;background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.15);border-radius:6px;padding:7px 14px;font-size:11.5px;color:var(--cyan)}
+
+/* ── GRID ── */
+.main{padding:36px 56px 60px}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── COMPETITOR CARDS ── */
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:44px}
+.comp-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:0;overflow:hidden;transition:border-color .2s}
+.comp-card:hover{border-color:var(--border2)}
+.card-header{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+.card-logo{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.card-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:600}
+.card-type{font-size:10.5px;color:var(--muted);margin-top:1px}
+.threat-badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;font-weight:500;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.threat-critical{background:rgba(248,113,113,.15);color:var(--red)}
+.threat-high{background:rgba(251,191,36,.12);color:var(--gold)}
+.threat-med{background:rgba(79,142,247,.12);color:var(--blue)}
+.threat-low{background:rgba(52,211,153,.1);color:var(--green)}
+
+.card-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.stat-cell{background:var(--panel);padding:12px 16px}
+.stat-cell .val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--text)}
+.stat-cell .lbl{font-size:10px;color:var(--muted);margin-top:1px}
+.stat-cell .delta{font-size:9.5px;margin-top:2px}
+.delta.up{color:var(--green)}
+.delta.dn{color:var(--red)}
+
+.card-body{padding:14px 18px}
+.card-insight{font-size:11.5px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.card-pages{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.page-pill{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted)}
+.page-pill.hot{border-color:rgba(251,191,36,.3);color:var(--gold);background:rgba(251,191,36,.05)}
+
+.card-gaps{padding:12px 18px 18px;border-top:1px solid var(--border)}
+.gap-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px}
+.gap-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text);margin-bottom:4px}
+.gap-item::before{content:'↗';color:var(--cyan);font-size:10px;flex-shrink:0}
+
+/* ── BATTLE TABLE ── */
+.battle-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;margin-bottom:44px}
+table.battle{width:100%;border-collapse:collapse}
+table.battle thead th{background:var(--surface);font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:10px 16px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;font-weight:400}
+table.battle thead th:first-child{padding-left:20px}
+table.battle tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+table.battle tbody tr:last-child{border-bottom:none}
+table.battle tbody tr:hover{background:rgba(79,142,247,.03)}
+table.battle td{padding:11px 16px;vertical-align:middle}
+table.battle td:first-child{padding-left:20px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text)}
+
+.bar-cell{display:flex;align-items:center;gap:8px}
+.bar{height:5px;border-radius:3px;flex-shrink:0}
+.bar-num{font-family:'JetBrains Mono',monospace;font-size:10.5px;white-space:nowrap}
+
+.rank-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.verdict{display:inline-flex;padding:2px 8px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.04em;font-weight:500;white-space:nowrap}
+.v-win{background:rgba(52,211,153,.1);color:var(--green)}
+.v-fight{background:rgba(251,191,36,.1);color:var(--gold)}
+.v-lose{background:rgba(248,113,113,.1);color:var(--red)}
+.v-skip{background:rgba(86,96,112,.1);color:var(--muted)}
+
+/* ── STRATEGY CARDS ── */
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:44px}
+.strat-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+.strat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.s-blue::before{background:linear-gradient(90deg,var(--blue),transparent)}
+.s-green::before{background:linear-gradient(90deg,var(--green),transparent)}
+.s-gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.s-purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.s-cyan::before{background:linear-gradient(90deg,var(--cyan),transparent)}
+.s-orange::before{background:linear-gradient(90deg,var(--orange),transparent)}
+.strat-icon{font-size:20px;margin-bottom:10px}
+.strat-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;margin-bottom:6px}
+.strat-body{font-size:11.5px;color:var(--muted);line-height:1.6}
+.strat-metric{margin-top:14px;display:flex;align-items:center;justify-content:space-between}
+.strat-metric .effort{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+.effort-low{background:rgba(52,211,153,.1);color:var(--green)}
+.effort-med{background:rgba(251,191,36,.1);color:var(--gold)}
+.effort-high{background:rgba(248,113,113,.1);color:var(--red)}
+.strat-metric .timeline{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
+
+/* ── PROGRAMMATIC SECTION ── */
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:44px}
+@media(max-width:700px){.prog-grid{grid-template-columns:1fr}}
+.prog-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px}
+.prog-card h3{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.prog-card p{font-size:11.5px;color:var(--muted);line-height:1.6}
+.prog-card ul{margin-top:10px;padding-left:0;list-style:none}
+.prog-card li{font-size:11px;color:var(--text);padding:4px 0;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:6px}
+.prog-card li:last-child{border-bottom:none}
+.prog-card li::before{content:'→';color:var(--blue);font-size:10px;flex-shrink:0}
+
+/* ── VERDICT BOX ── */
+.verdict-box{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:44px}
+.vb-head{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
+.vb-sub{font-size:12px;color:var(--muted);margin-bottom:22px}
+.vb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.vb-item{background:var(--surface);border-radius:8px;padding:14px 16px}
+.vb-n{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500}
+.vb-l{font-size:10.5px;color:var(--muted);margin-top:2px}
+
+@media(max-width:900px){
+  .hero,.main{padding-left:20px;padding-right:20px}
+  .hero h1{font-size:28px}
+  .comp-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">investingpro.in · serp competitive intelligence · march 2026</div>
+  <h1>How many pages does it take to <span>outrank them?</span></h1>
+  <p>Traffic, indexed pages, domain authority, and page-count data for every major competitor — sourced from Similarweb, Semrush public data, and published SEO analyses. Includes exact SERP battlegrounds and where InvestingPro can win.</p>
+  <div class="hero-note">⚡ All data from free public sources: Similarweb, Semrush free tier, Semrush.com competitor pages, published SEO teardowns</div>
+</div>
+
+<div class="main">
+
+<!-- ══ COMPETITOR PROFILES ══ -->
+<div class="section-label">Competitor Profiles — Traffic & Authority</div>
+<div class="comp-grid">
+
+  <!-- PAISABAZAAR -->
+  <div class="comp-card">
+    <div class="card-header">
+      <div class="card-logo" style="background:rgba(248,113,113,.1)">🏦</div>
+      <div>
+        <div class="card-name">Paisabazaar.com</div>
+        <div class="card-type">Full-stack comparison — loans, CC, MF, CIBIL, FD</div>
+      </div>
+      <div class="threat-badge threat-critical">Critical</div>
+    </div>
+    <div class="card-stats">
+      <div class="stat-cell"><div class="val">9.6M</div><div class="lbl">Monthly visits (Sep '25)</div><div class="delta up">▲5.1% MoM organic</div></div>
+      <div class="stat-cell"><div class="val">75</div><div class="lbl">Authority Score (Semrush)</div><div class="delta">Domain since 2014</div></div>
+      <div class="stat-cell"><div class="val">51.8%</div><div class="lbl">Traffic from organic search</div></div>
+      <div class="stat-cell"><div class="val">#412</div><div class="lbl">India rank (Semrush Sep '25)</div></div>
+    </div>
+    <div class="card-body">
+      <p class="card-insight">Paisabazaar's #1 traffic driver is CIBIL score check — millions of monthly searches. Their complete navigation was reverse-engineered to build InvestingPro's keyword map. They have explicit pages for every loan type, every fund category, and every calculator. They are the floor to beat.</p>
+      <div class="card-pages">
+        <span class="page-pill hot">CIBIL hub → 2M–5M/mo</span>
+        <span class="page-pill">SWP MF page</span>
+        <span class="page-pill">Flexi cap funds</span>
+        <span class="page-pill">Gold loan EMI calc</span>
+        <span class="page-pill">Mudra loan</span>
+        <span class="page-pill">Capital gain bonds</span>
+      </div>
+    </div>
+    <div class="card-gaps">
+      <div class="gap-label">Where InvestingPro can win</div>
+      <div class="gap-item">Paisabazaar's UPI credit card page is thin — better content wins</div>
+      <div class="gap-item">SWP calculator — they have a page, but the tool is weak</div>
+      <div class="gap-item">SmartAdvisor AI widget is a differentiator they don't have</div>
+    </div>
+  </div>
+
+  <!-- BANKBAZAAR -->
+  <div class="comp-card">
+    <div class="card-header">
+      <div class="card-logo" style="background:rgba(79,142,247,.1)">💳</div>
+      <div>
+        <div class="card-name">BankBazaar.com</div>
+        <div class="card-type">Credit card issuer + comparison + programmatic SEO machine</div>
+      </div>
+      <div class="threat-badge threat-critical">Critical</div>
+    </div>
+    <div class="card-stats">
+      <div class="stat-cell"><div class="val">8.5M</div><div class="lbl">Monthly visits (Sep '25)</div><div class="delta">Peak: 11.8M (Oct '24)</div></div>
+      <div class="stat-cell"><div class="val">78</div><div class="lbl">Authority Score (Semrush)</div><div class="delta">DR 74 · Founded 2008</div></div>
+      <div class="stat-cell"><div class="val">200K+</div><div class="lbl">Pages indexed in Google</div><div class="delta">135K+ in top-5 keywords</div></div>
+      <div class="stat-cell"><div class="val">2.3M</div><div class="lbl">Total keywords ranked</div><div class="delta up">70.5% organic traffic</div></div>
+    </div>
+    <div class="card-body">
+      <p class="card-insight">BankBazaar's secret weapon: programmatic IFSC code pages — 80,000+ auto-generated pages, 236K keywords, 1.29M traffic/month from one tool. They also have 6,000–7,000 word pages for every major loan type updated daily. 1M backlinks from 6,500 domains including Yahoo News, Reuters, Indiatimes.</p>
+      <div class="card-pages">
+        <span class="page-pill hot">IFSC codes → 1.29M/mo</span>
+        <span class="page-pill hot">Bank holidays → big seasonal</span>
+        <span class="page-pill">Tax subfolders</span>
+        <span class="page-pill">Saving schemes</span>
+        <span class="page-pill">6K-word loan pages</span>
+      </div>
+    </div>
+    <div class="card-gaps">
+      <div class="gap-label">Where InvestingPro can win</div>
+      <div class="gap-item">BankBazaar has weak mutual fund coverage — not their core</div>
+      <div class="gap-item">No AI-powered recommendation tool — SmartAdvisor fills this</div>
+      <div class="gap-item">UPI credit card category is underbuilt vs their CC coverage</div>
+    </div>
+  </div>
+
+  <!-- CARDEXPERT -->
+  <div class="comp-card">
+    <div class="card-header">
+      <div class="card-logo" style="background:rgba(52,211,153,.1)">🎯</div>
+      <div>
+        <div class="card-name">CardExpert.in</div>
+        <div class="card-type">Credit card specialist — deep reviews, community</div>
+      </div>
+      <div class="threat-badge threat-high">High (CC only)</div>
+    </div>
+    <div class="card-stats">
+      <div class="stat-cell"><div class="val">679K</div><div class="lbl">Monthly visits (Aug '25)</div><div class="delta up">▲298% MoM — growing fast</div></div>
+      <div class="stat-cell"><div class="val">4.2K</div><div class="lbl">Referring domains</div><div class="delta">18.5K total backlinks</div></div>
+      <div class="stat-cell"><div class="val">7:31</div><div class="lbl">Avg session duration</div><div class="delta up">Highest engagement of all</div></div>
+      <div class="stat-cell"><div class="val">2015</div><div class="lbl">Founded (10 years old)</div><div class="delta">1-person operation</div></div>
+    </div>
+    <div class="card-body">
+      <p class="card-insight">The most dangerous niche competitor. Single founder, cult following among credit card enthusiasts. The 7:31 average session duration is exceptional — readers trust it deeply. Covers every card review, every devaluation, every bank policy change. But only credit cards.</p>
+      <div class="card-pages">
+        <span class="page-pill hot">Best CC India — ranked</span>
+        <span class="page-pill hot">HDFC Infinia review</span>
+        <span class="page-pill">Axis Atlas review</span>
+        <span class="page-pill">UPI credit cards</span>
+        <span class="page-pill">CC vs CC comparisons</span>
+      </div>
+    </div>
+    <div class="card-gaps">
+      <div class="gap-label">Where InvestingPro can win</div>
+      <div class="gap-item">CardExpert doesn't cover loans, MF, tax, FD — InvestingPro does all</div>
+      <div class="gap-item">No recommendation tool — just static lists</div>
+      <div class="gap-item">Monetisation weak — InvestingPro can out-convert by vertical</div>
+    </div>
+  </div>
+
+  <!-- GOODRETURNS -->
+  <div class="comp-card">
+    <div class="card-header">
+      <div class="card-logo" style="background:rgba(251,191,36,.1)">📊</div>
+      <div>
+        <div class="card-name">GoodReturns.in</div>
+        <div class="card-type">Gold/silver prices + financial news + interest rates</div>
+      </div>
+      <div class="threat-badge threat-med">Medium</div>
+    </div>
+    <div class="card-stats">
+      <div class="stat-cell"><div class="val">23.2M</div><div class="lbl">Monthly visits (Nov '25)</div><div class="delta dn">▼46% — volatile, gold-heavy</div></div>
+      <div class="stat-cell"><div class="val">12.8M</div><div class="lbl">Total backlinks</div><div class="delta">Large content archive</div></div>
+      <div class="stat-cell"><div class="val">68.2%</div><div class="lbl">Organic search traffic</div><div class="delta">5:17 avg session duration</div></div>
+      <div class="stat-cell"><div class="val">Gold</div><div class="lbl">Top traffic source</div><div class="delta">gold rate today, silver</div></div>
+    </div>
+    <div class="card-body">
+      <p class="card-insight">Massive but fragile. Most traffic comes from daily gold/silver price queries — high bounce, low intent for financial products. Their 46% monthly traffic drop shows how commodity-price dependent they are. Personal finance product content is secondary. Competitors listed: moneycontrol.com.</p>
+      <div class="card-pages">
+        <span class="page-pill hot">gold rate today → millions</span>
+        <span class="page-pill">silver price today</span>
+        <span class="page-pill">FD interest rates</span>
+        <span class="page-pill">UPI credit cards (new)</span>
+      </div>
+    </div>
+    <div class="card-gaps">
+      <div class="gap-label">Where InvestingPro can win</div>
+      <div class="gap-item">GoodReturns' personal finance content is shallow — easy to outrank</div>
+      <div class="gap-item">Their credit card content is new and under-developed</div>
+      <div class="gap-item">Zero AI tools or recommendation features</div>
+    </div>
+  </div>
+
+  <!-- CLEARTAX -->
+  <div class="comp-card">
+    <div class="card-header">
+      <div class="card-logo" style="background:rgba(167,139,250,.1)">🧾</div>
+      <div>
+        <div class="card-name">ClearTax.in</div>
+        <div class="card-type">Tax filing + income tax calculator + investment guides</div>
+      </div>
+      <div class="threat-badge threat-high">High (Tax vertical)</div>
+    </div>
+    <div class="card-stats">
+      <div class="stat-cell"><div class="val">15.6M</div><div class="lbl">Monthly visits</div><div class="delta">Semrush competitor data</div></div>
+      <div class="stat-cell"><div class="val">86</div><div class="lbl">Authority Score (Semrush)</div><div class="delta">Highest in the category</div></div>
+      <div class="stat-cell"><div class="val">86.5%</div><div class="lbl">Bounce rate</div><div class="delta">High — tool-driven visits</div></div>
+      <div class="stat-cell"><div class="val">Tax</div><div class="lbl">Primary vertical</div><div class="delta">80C, ITR, old vs new regime</div></div>
+    </div>
+    <div class="card-body">
+      <p class="card-insight">Dominant in the tax filing and tax calculator space. Semrush identifies ClearTax as BankBazaar's closest competitor. Authority Score 86 is significantly higher than everyone else. But their coverage is tax-only — they don't compete in credit cards, loans, or mutual funds.</p>
+      <div class="card-pages">
+        <span class="page-pill hot">Income tax calculator → massive</span>
+        <span class="page-pill hot">Old vs new tax regime</span>
+        <span class="page-pill">Section 80C guide</span>
+        <span class="page-pill">ITR filing guide</span>
+      </div>
+    </div>
+    <div class="card-gaps">
+      <div class="gap-label">Where InvestingPro can win</div>
+      <div class="gap-item">Tax calculator + investment crosslink (80C → ELSS → MF) — unique to InvestingPro</div>
+      <div class="gap-item">ClearTax doesn't recommend products — InvestingPro does</div>
+      <div class="gap-item">No credit card or loan coverage</div>
+    </div>
+  </div>
+
+  <!-- CARDMAVEN / NICHE -->
+  <div class="comp-card">
+    <div class="card-header">
+      <div class="card-logo" style="background:rgba(244,114,182,.1)">✨</div>
+      <div>
+        <div class="card-name">CardMaven / TechnoFino / SubReddit</div>
+        <div class="card-type">Community & enthusiast sites — rapidly growing</div>
+      </div>
+      <div class="threat-badge threat-low">Niche Watch</div>
+    </div>
+    <div class="card-stats">
+      <div class="stat-cell"><div class="val">~200K</div><div class="lbl">CardMaven est. monthly</div><div class="delta up">Growing fast, strong CC SEO</div></div>
+      <div class="stat-cell"><div class="val">~100K</div><div class="lbl">TechnoFino community</div><div class="delta">Forum trust signals</div></div>
+      <div class="stat-cell"><div class="val">High</div><div class="lbl">Trust & engagement</div><div class="delta">Reddit r/CreditCardsIndia</div></div>
+      <div class="stat-cell"><div class="val">2026</div><div class="lbl">CardMaven positioning</div><div class="delta">Claims "16yr expertise"</div></div>
+    </div>
+    <div class="card-body">
+      <p class="card-insight">The new wave. CardMaven explicitly calls itself "India's leading authority on credit cards." TechnoFino is a community forum where actual enthusiasts debate cards. Reddit r/CreditCardsIndia drives significant brand queries. These sites create social proof and backlinks that move Google rankings.</p>
+      <div class="card-pages">
+        <span class="page-pill hot">Best CC India 2026 — ranking</span>
+        <span class="page-pill">UPI credit card guides</span>
+        <span class="page-pill">Community forums</span>
+      </div>
+    </div>
+    <div class="card-gaps">
+      <div class="gap-label">Where InvestingPro can win</div>
+      <div class="gap-item">These sites don't compare — InvestingPro has comparison tools</div>
+      <div class="gap-item">No cross-vertical coverage — InvestingPro has full suite</div>
+      <div class="gap-item">No apply flow — InvestingPro can convert where they can't</div>
+    </div>
+  </div>
+
+</div><!-- /comp-grid -->
+
+<!-- ══ SERP BATTLE TABLE ══ -->
+<div class="section-label">SERP Battlefield — Keyword by Keyword</div>
+<div class="battle-wrap">
+<table class="battle">
+<thead>
+<tr>
+  <th>Keyword</th>
+  <th>Est. Volume</th>
+  <th>Paisabazaar</th>
+  <th>BankBazaar</th>
+  <th>CardExpert</th>
+  <th>ClearTax</th>
+  <th>GoodReturns</th>
+  <th style="color:var(--blue)">InvestingPro Verdict</th>
+</tr>
+</thead>
+<tbody>
+<!-- CC KEYWORDS -->
+<tr>
+  <td>best credit card India 2025</td>
+  <td><div class="bar-cell"><div class="bar" style="width:90px;background:var(--blue)"></div><span class="bar-num">150K–300K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Ranked top 3</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Ranked top 3</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Ranked top 5</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Not ranked</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Not ranked</div></td>
+  <td><span class="verdict v-fight">Build now · 12–18mo</span></td>
+</tr>
+<tr>
+  <td>lifetime free credit card India</td>
+  <td><div class="bar-cell"><div class="bar" style="width:68px;background:var(--blue)"></div><span class="bar-num">60K–100K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Strong</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Strong</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Ranked</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-fight">Winnable · 9–12mo</span></td>
+</tr>
+<tr>
+  <td>best UPI credit card India</td>
+  <td><div class="bar-cell"><div class="bar" style="width:35px;background:var(--green)"></div><span class="bar-num">18K–35K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Thin page</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Thin page</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--green)"></div>Good coverage</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>New page</div></td>
+  <td><span class="verdict v-win">Win possible · 6mo</span></td>
+</tr>
+<tr>
+  <td>best credit card for OTT</td>
+  <td><div class="bar-cell"><div class="bar" style="width:18px;background:var(--green)"></div><span class="bar-num">5K–12K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-win">First mover · 3mo</span></td>
+</tr>
+<tr>
+  <td>best credit card for rent payment</td>
+  <td><div class="bar-cell"><div class="bar" style="width:20px;background:var(--green)"></div><span class="bar-num">7K–14K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-win">Near zero competition</span></td>
+</tr>
+<!-- MF -->
+<tr>
+  <td>best mutual fund for SIP 2025</td>
+  <td><div class="bar-cell"><div class="bar" style="width:88px;background:var(--green)"></div><span class="bar-num">150K–250K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Ranked top 3</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Moderate</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Present</div></td>
+  <td><span class="verdict v-fight">Hard — 18mo+</span></td>
+</tr>
+<tr>
+  <td>index fund vs active fund India</td>
+  <td><div class="bar-cell"><div class="bar" style="width:28px;background:var(--green)"></div><span class="bar-num">12K–24K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Thin</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-win">Low KD — win in 6mo</span></td>
+</tr>
+<tr>
+  <td>SWP calculator</td>
+  <td><div class="bar-cell"><div class="bar" style="width:18px;background:var(--teal)"></div><span class="bar-num">8K–18K ▲423%</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Weak tool</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-win">Build now — fast win</span></td>
+</tr>
+<!-- CALCULATORS -->
+<tr>
+  <td>SIP calculator</td>
+  <td><div class="bar-cell"><div class="bar" style="width:95px;background:var(--gold)"></div><span class="bar-num">1M–2.5M</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Top 3</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Top 3</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Present</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-fight">Invest in best UX · long game</span></td>
+</tr>
+<tr>
+  <td>income tax calculator 2025-26</td>
+  <td><div class="bar-cell"><div class="bar" style="width:82px;background:var(--gold)"></div><span class="bar-num">800K–1.5M</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Present</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Dominant</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-fight">ClearTax owns this · 18mo</span></td>
+</tr>
+<!-- TAX -->
+<tr>
+  <td>old vs new tax regime India</td>
+  <td><div class="bar-cell"><div class="bar" style="width:82px;background:var(--pink)"></div><span class="bar-num">500K–900K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Present</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Present</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Dominant</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-fight">Interactive tool differentiates</span></td>
+</tr>
+<tr>
+  <td>HRA exemption calculation</td>
+  <td><div class="bar-cell"><div class="bar" style="width:26px;background:var(--pink)"></div><span class="bar-num">15K–28K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Present</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Dominant</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-win">Calculator beats ClearTax text</span></td>
+</tr>
+<!-- LOANS -->
+<tr>
+  <td>home loan balance transfer</td>
+  <td><div class="bar-cell"><div class="bar" style="width:48px;background:var(--purple)"></div><span class="bar-num">30K–55K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Strong</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--red)"></div>Strong</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-fight">Timely — RBI cuts create demand</span></td>
+</tr>
+<tr>
+  <td>personal loan without salary slip</td>
+  <td><div class="bar-cell"><div class="bar" style="width:26px;background:var(--purple)"></div><span class="bar-num">10K–20K</span></div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--gold)"></div>Present</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><div class="bar-cell"><div class="rank-dot" style="background:var(--muted2)"></div>Absent</div></td>
+  <td><span class="verdict v-win">Low KD — 4–6mo win</span></td>
+</tr>
+</tbody>
+</table>
+</div><!-- /battle -->
+
+<!-- ══ PAGE COUNT REALITY CHECK ══ -->
+<div class="section-label">The Page Count Reality — What You're Actually Up Against</div>
+
+<div class="verdict-box">
+  <div class="vb-head">The numbers that define the gap</div>
+  <div class="vb-sub">These are confirmed figures from published SEO analyses and public Semrush/Similarweb data</div>
+  <div class="vb-grid">
+    <div class="vb-item"><div class="vb-n" style="color:var(--red)">200,000+</div><div class="vb-l">Pages indexed for BankBazaar — including 80K+ IFSC programmatic pages</div></div>
+    <div class="vb-item"><div class="vb-n" style="color:var(--red)">2.3M</div><div class="vb-l">Total keywords BankBazaar ranks for — programmatic + editorial</div></div>
+    <div class="vb-item"><div class="vb-n" style="color:var(--red)">135,000+</div><div class="vb-l">BankBazaar keywords in top-5 positions on Google</div></div>
+    <div class="vb-item"><div class="vb-n" style="color:var(--gold)">1M</div><div class="vb-l">BankBazaar backlinks from 6,500 unique domains including Reuters, Yahoo News</div></div>
+    <div class="vb-item"><div class="vb-n" style="color:var(--gold)">78</div><div class="vb-l">BankBazaar Authority Score — 17 years of domain age compound this</div></div>
+    <div class="vb-item"><div class="vb-n" style="color:var(--green)">~270</div><div class="vb-l">InvestingPro's keyword map (this doc) — editorial pages needed</div></div>
+    <div class="vb-item"><div class="vb-n" style="color:var(--green)">+IFSC</div><div class="vb-l">Programmatic opportunity: InvestingPro can build IFSC + PIN code + bank holiday pages</div></div>
+    <div class="vb-item"><div class="vb-n" style="color:var(--cyan)">6–9mo</div><div class="vb-l">Realistic window to rank for low-KD keywords with quality content + SmartAdvisor</div></div>
+  </div>
+</div>
+
+<!-- ══ STRATEGY ══ -->
+<div class="section-label">How InvestingPro Wins — The Exact Playbook</div>
+<div class="strategy-grid">
+
+  <div class="strat-card s-green">
+    <div class="strat-icon">⚡</div>
+    <div class="strat-title">Attack the empty SERPs first</div>
+    <div class="strat-body">OTT credit card, rent payment CC, best credit card for electricity bill, best CC for students, SWP calculator, index fund vs active fund — all of these have near-zero competition from the big players. These are beachhead wins: get ranked, build authority, then attack larger keywords.</div>
+    <div class="strat-metric"><span class="effort effort-low">Low effort</span><span class="timeline">Win in 3–6 months</span></div>
+  </div>
+
+  <div class="strat-card s-blue">
+    <div class="strat-icon">🔧</div>
+    <div class="strat-title">Programmatic SEO: IFSC + PIN + Bank Holidays</div>
+    <div class="strat-body">BankBazaar gets 1.29M monthly visits from IFSC code pages alone — a database-driven tool. InvestingPro can replicate this with IFSC codes (same play), PIN codes, branch locators, and Indian bank holidays. These are evergreen, zero-maintenance once built, and generate thousands of indexed pages instantly. This is the fastest path to domain authority.</div>
+    <div class="strat-metric"><span class="effort effort-med">Med effort</span><span class="timeline">Build once, traffic forever</span></div>
+  </div>
+
+  <div class="strat-card s-gold">
+    <div class="strat-icon">📋</div>
+    <div class="strat-title">60 editorial pages that cover the full map</div>
+    <div class="strat-body">BankBazaar has 6,000–7,000 word pages with live rate tables for every major loan type. InvestingPro needs 60 core editorial pages: one per vertical category (e.g., /credit-cards/cashback, /mutual-funds/large-cap, /loans/home-loan, /calculators/swp). Each page needs live data, a calculator, and a SmartAdvisor CTA. That's the MVP content floor.</div>
+    <div class="strat-metric"><span class="effort effort-med">Med effort</span><span class="timeline">Rank in 6–12 months</span></div>
+  </div>
+
+  <div class="strat-card s-purple">
+    <div class="strat-icon">🤖</div>
+    <div class="strat-title">SmartAdvisor as the SERP differentiator</div>
+    <div class="strat-body">None of the competitors have an AI recommendation tool embedded in their comparison pages. CardExpert, GoodReturns, BankBazaar, Paisabazaar — all static lists. A SmartAdvisor widget that asks "What do you mostly spend on?" and returns a personalised card is a genuine reason for Google to rank InvestingPro higher on user satisfaction signals.</div>
+    <div class="strat-metric"><span class="effort effort-high">High effort</span><span class="timeline">Long-term moat</span></div>
+  </div>
+
+  <div class="strat-card s-cyan">
+    <div class="strat-icon">🔗</div>
+    <div class="strat-title">Cross-vertical internal linking as authority accelerator</div>
+    <div class="strat-body">BankBazaar's programmatic pages link to their product pages at scale. InvestingPro's unique advantage: the product verticals genuinely overlap. A Section 80C page links to ELSS (MF), PPF (FD), NPS (Investments), and ELSS calculator — four internal links from one page. ClearTax can't do that. Paisabazaar barely does it. This is your structural edge in topical authority.</div>
+    <div class="strat-metric"><span class="effort effort-low">Low effort</span><span class="timeline">Immediate SEO lift</span></div>
+  </div>
+
+  <div class="strat-card s-orange">
+    <div class="strat-icon">📅</div>
+    <div class="strat-title">Seasonal content published 60 days early</div>
+    <div class="strat-body">Tax season (Jan–Mar) drives 3–5x traffic for ELSS, 80C, and tax calculator keywords. Budget season drives "home loan rate cut" and "FD rates" searches. InvestingPro needs to publish these pages 60 days before the spike. BankBazaar and Paisabazaar dominate because they've been doing this for a decade. InvestingPro can match this with just a content calendar.</div>
+    <div class="strat-metric"><span class="effort effort-low">Low effort</span><span class="timeline">Jan '27 tax season target</span></div>
+  </div>
+
+</div>
+
+<!-- ══ PROGRAMMATIC ══ -->
+<div class="section-label">Programmatic SEO Opportunities for InvestingPro</div>
+<div class="prog-grid">
+  <div class="prog-card">
+    <h3 style="color:var(--gold)">🏦 IFSC Code Lookup</h3>
+    <p>BankBazaar's #1 programmatic play — 80K+ pages, 1.29M visits/month. InvestingPro can build this too. Database is public (RBI publishes it). One-time dev investment, evergreen traffic forever. Every Indian who does a bank transfer searches for IFSC codes.</p>
+    <ul>
+      <li>Estimated pages: 80,000–100,000</li>
+      <li>Traffic potential: 500K–1M/month</li>
+      <li>KD: Very low (long-tail exact match)</li>
+      <li>Revenue: Banner ads, CC apply CTAs per branch</li>
+      <li>Dev effort: 2–4 weeks</li>
+    </ul>
+  </div>
+  <div class="prog-card">
+    <h3 style="color:var(--blue)">📅 Bank Holidays India</h3>
+    <p>BankBazaar's "Indian holidays" subfolder gets significant seasonal traffic for "republic day 2026," "bank holidays 2026," etc. Simple yearly data, generates dozens of pages that rank instantly for zero-competition queries.</p>
+    <ul>
+      <li>Estimated pages: 200–500/year</li>
+      <li>Traffic: 50K–200K/year seasonal</li>
+      <li>KD: Very low</li>
+      <li>Revenue: Brand awareness + return visits</li>
+      <li>Dev effort: 1 week</li>
+    </ul>
+  </div>
+  <div class="prog-card">
+    <h3 style="color:var(--green)">📍 PIN Code + Branch Finder</h3>
+    <p>Every Indian searches "SBI branch near me" or "HDFC ATM [pincode]." A branch and ATM locator powered by RBI public data creates thousands of geo-targeted pages — each ranking for "bank branch [city] [area]" queries. High local search volume, near-zero competition.</p>
+    <ul>
+      <li>Estimated pages: 50,000+</li>
+      <li>Traffic potential: 200K–500K/month</li>
+      <li>KD: Very low (hyper-local)</li>
+      <li>Revenue: Savings account + CC apply CTAs</li>
+      <li>Dev effort: 3–5 weeks</li>
+    </ul>
+  </div>
+  <div class="prog-card">
+    <h3 style="color:var(--purple)">💳 Card vs Card Comparator</h3>
+    <p>Paisabazaar has basic comparison. But "HDFC Millennia vs SBI SimplyCLICK" — a URL-driven comparison page for every card pair — is a programmatic SEO goldmine. InvestingPro already has 500+ cards. That's 125,000+ possible comparison pairs. Even ranking 1,000 of them generates 50K+/month.</p>
+    <ul>
+      <li>Estimated pages: 1,000–10,000 (prioritised pairs)</li>
+      <li>Traffic potential: 50K–200K/month</li>
+      <li>KD: Low (very specific long-tail)</li>
+      <li>Revenue: High — purchase intent is maximum at comparison stage</li>
+      <li>Dev effort: 4–6 weeks</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FINAL VERDICT -->
+<div class="section-label">Bottom Line</div>
+<div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+  <div>
+    <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px;color:var(--red)">What you're actually fighting</div>
+    <p style="font-size:12px;color:var(--muted);line-height:1.7">BankBazaar has a 17-year head start, 200K+ indexed pages, 1M backlinks, DR 74, and a programmatic SEO machine. Paisabazaar has 75 Authority Score and 9.6M monthly visits driven by CIBIL dominance. ClearTax owns tax at Authority Score 86. You cannot out-authority them in 1–2 years. That's the honest reality.</p>
+  </div>
+  <div>
+    <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px;color:var(--green)">Where you actually win</div>
+    <p style="font-size:12px;color:var(--muted);line-height:1.7">You win on the low-KD gaps they've left open (OTT CC, rent CC, SWP calculator, index vs active fund). You win with programmatic SEO (IFSC, PIN, Card vs Card) that builds index count fast. You win with cross-vertical linking they can't do (tax → ELSS → MF → SIP). You win with SmartAdvisor — the only AI recommendation tool in this space. Build in this order: gaps first → editorial pages → programmatic → authority.</p>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+</body>
+</html>

@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InvestingPro — Platform Strategy Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1B2A4A;
+  --saf: #E8871A;
+  --grn: #1A6B4A;
+  --cream: #F5F0E8;
+  --paper: #FFFDF8;
+  --mist: #EDE8DF;
+  --ash: #8A96A8;
+  --fog: #B8C0CC;
+  --red: #C0392B;
+  --sky: #1E6FBF;
+  --warn: #B45309;
+  --purple: #6B21A8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+.hdr {
+  background: var(--ink);
+  padding: 28px 40px 24px;
+  border-bottom: 3px solid var(--saf);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+  color: #F5F0E8;
+  flex-shrink: 0;
+}
+.logo span { color: var(--saf); }
+.hdr-title {
+  font-size: 12px;
+  color: rgba(245,240,232,.5);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-left: 1px solid rgba(245,240,232,.15);
+  padding-left: 20px;
+}
+.hdr-badge {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(232,135,26,.15);
+  border: 1px solid rgba(232,135,26,.3);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 11px;
+  color: rgba(245,240,232,.7);
+  font-weight: 500;
+}
+.hdr-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--saf);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(1.3); }
+}
+
+/* ── NAV TABS ── */
+.tabs {
+  background: var(--ink);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 40px;
+  border-bottom: 1px solid rgba(245,240,232,.08);
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  padding: 12px 18px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: rgba(245,240,232,.4);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.tab:hover { color: rgba(245,240,232,.75); }
+.tab.on { color: #F5F0E8; border-bottom-color: var(--saf); }
+
+/* ── PAGES ── */
+.pg { display: none; }
+.pg.on { display: block; }
+
+/* ── LAYOUT ── */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 36px 40px 60px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+/* ── CARD ── */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.card-hd {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--mist);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-hd h3 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: .04em;
+}
+.card-body { padding: 16px 18px; }
+
+/* ── SECTION HEADER ── */
+.sec-hd {
+  margin-bottom: 24px;
+}
+.kicker {
+  font-size: 9.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--saf);
+  margin-bottom: 7px;
+  font-weight: 600;
+}
+.sec-hd h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  font-style: italic;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+.sec-hd h2 em { color: var(--saf); font-style: italic; }
+.sec-hd p {
+  font-size: 12.5px;
+  color: var(--ash);
+  max-width: 560px;
+  line-height: 1.65;
+}
+
+/* ── PLATFORM CARD ── */
+.plat {
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.plat-hd {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.plat-hd:hover { background: rgba(232,135,26,.03); }
+.plat-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.plat-meta h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.plat-meta .sub {
+  font-size: 11.5px;
+  color: var(--ash);
+}
+.plat-stats {
+  display: flex;
+  gap: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.stat-n {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink);
+}
+.stat-l {
+  font-size: 10px;
+  color: var(--ash);
+  margin-top: 1px;
+}
+.plat-body {
+  border-top: 1px solid var(--mist);
+  padding: 18px 20px;
+  display: none;
+}
+.plat-body.open { display: block; }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--mist);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--mist);
+}
+.tl-item:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
+.tl-dot {
+  position: absolute;
+  left: -20px;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--paper);
+  flex-shrink: 0;
+}
+.tl-year {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--ash);
+  letter-spacing: .06em;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tl-yr-badge {
+  font-size: 9px;
+  padding: 1px 7px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.tl-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.tl-text {
+  font-size: 12px;
+  color: var(--ash);
+  line-height: 1.6;
+}
+.tl-impact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 7px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.impact-g { color: var(--grn); }
+.impact-b { color: var(--sky); }
+
+/* ── INSIGHT BOXES ── */
+.insight {
+  background: rgba(26,107,74,.05);
+  border: 1px solid rgba(26,107,74,.2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 14px;
+}
+.insight-hd {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--grn);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.insight-body {
+  font-size: 12px;
+  color: #1A3D2B;
+  line-height: 1.65;
+}
+
+.warn-box {
+  background: rgba(232,135,26,.06);
+  border: 1px solid rgba(232,135,26,.25);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 10px;
+}
+.warn-hd {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--warn);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.warn-body {
+  font-size: 12px;
+  color: #5C3A1E;
+  line-height: 1.65;
+}
+
+/* ── SOLOPRENEUR MATRIX ── */
+.matrix-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr 80px;
+  gap: 0;
+  border-bottom: 1px solid var(--mist);
+}
+.matrix-row:last-child { border: none; }
+.mx-cell {
+  padding: 11px 14px;
+  font-size: 12px;
+  border-right: 1px solid var(--mist);
+  display: flex;
+  align-items: center;
+}
+.mx-cell:last-child { border-right: none; justify-content: center; }
+.mx-hd {
+  background: var(--ink);
+  color: rgba(245,240,232,.7);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+}
+.mx-hd:last-child { justify-content: center; }
+.effort-dot {
+  display: flex;
+  gap: 3px;
+}
+.ed {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--grn);
+}
+.ed.off { background: var(--mist); }
+
+/* ── PLAYBOOK ── */
+.play-phase {
+  margin-bottom: 28px;
+}
+.phase-hd {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--mist);
+}
+.phase-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.phase-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+}
+.phase-time {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.play-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.play-item {
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  border-radius: 9px;
+  padding: 13px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 12px;
+  transition: border-color .2s;
+  cursor: default;
+}
+.play-item:hover { border-color: rgba(232,135,26,.4); }
+.pi-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.pi-who {
+  font-size: 9.5px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.pi-text {
+  font-size: 12px;
+  color: var(--ash);
+  line-height: 1.6;
+}
+.pi-claude {
+  background: rgba(26,107,74,.07);
+  border: 1px solid rgba(26,107,74,.2);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 10.5px;
+  color: #1A3D2B;
+  line-height: 1.5;
+  flex-shrink: 0;
+  width: 200px;
+}
+.pi-claude-hd {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--grn);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+/* ── AI ADVANTAGE ── */
+.ai-card {
+  background: var(--ink);
+  border-radius: 12px;
+  padding: 22px;
+  color: #F5F0E8;
+  margin-bottom: 14px;
+}
+.ai-card h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--saf);
+  margin-bottom: 10px;
+}
+.ai-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ai-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(245,240,232,.05);
+  border: 1px solid rgba(245,240,232,.08);
+  border-radius: 8px;
+}
+.ai-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 1px;
+}
+.ai-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #F5F0E8;
+  margin-bottom: 3px;
+}
+.ai-text { font-size: 11.5px; color: rgba(245,240,232,.5); line-height: 1.55; }
+.ai-badge {
+  margin-left: auto;
+  font-size: 9.5px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  white-space: nowrap;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+/* ── COMPARISON TABLE ── */
+.comp-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.comp-tbl th {
+  background: var(--ink);
+  color: rgba(245,240,232,.7);
+  padding: 10px 14px;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  text-align: left;
+}
+.comp-tbl th:first-child { border-radius: 8px 0 0 0; }
+.comp-tbl th:last-child { border-radius: 0 8px 0 0; text-align: center; }
+.comp-tbl td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--mist);
+  color: var(--ink);
+  vertical-align: middle;
+}
+.comp-tbl tr:last-child td { border: none; }
+.comp-tbl tr:hover td { background: rgba(232,135,26,.03); }
+.comp-tbl td:last-child { text-align: center; }
+.ip-row td { background: rgba(232,135,26,.04); }
+.ip-row td:first-child { font-weight: 700; color: var(--saf); }
+
+.yes { color: var(--grn); font-weight: 700; font-size: 14px; }
+.no { color: var(--fog); font-size: 14px; }
+.first {
+  background: var(--grn);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* ── REVENUE MODEL ── */
+.rev-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.rev-step {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.rev-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32px;
+  flex-shrink: 0;
+}
+.rev-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--saf);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.rev-connector {
+  width: 1px;
+  flex: 1;
+  background: var(--mist);
+  min-height: 14px;
+}
+.rev-content {
+  flex: 1;
+  padding: 0 0 16px 12px;
+}
+.rev-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.rev-text {
+  font-size: 11.5px;
+  color: var(--ash);
+  line-height: 1.6;
+}
+.rev-amount {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 15px;
+  color: var(--saf);
+  margin-top: 4px;
+}
+
+/* ── MOAT CHART ── */
+.moat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--mist);
+}
+.moat-row:last-child { border: none; }
+.moat-lbl {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink);
+  width: 160px;
+  flex-shrink: 0;
+}
+.moat-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: var(--mist);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.moat-bar {
+  height: 100%;
+  border-radius: 4px;
+}
+.moat-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.moat-who {
+  font-size: 9.5px;
+  color: var(--ash);
+  width: 140px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── KEY NUMBERS ── */
+.num-card {
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.num-n {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+.num-l {
+  font-size: 11px;
+  color: var(--ash);
+  line-height: 1.4;
+}
+
+/* ── SCROLL TO TOP ── */
+.back-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  background: var(--ink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #F5F0E8;
+  box-shadow: 0 4px 12px rgba(27,42,74,.3);
+  z-index: 200;
+  transition: background .2s;
+}
+.back-top:hover { background: var(--saf); }
+
+/* ── PRINT FRIENDLY ── */
+@media print {
+  .hdr, .tabs, .back-top { display: none; }
+  .pg { display: block !important; }
+  .wrap { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo">Investing<span>Pro</span></div>
+  <div class="hdr-title">Platform Strategy Intelligence · Solopreneur Edition</div>
+  <div class="hdr-badge">Claude Code Max Ready</div>
+</div>
+
+<div class="tabs">
+  <div class="tab on" onclick="st('overview',this)">📊 Overview</div>
+  <div class="tab" onclick="st('nw',this)">🇺🇸 NerdWallet</div>
+  <div class="tab" onclick="st('mse',this)">🇬🇧 MoneySavingExpert</div>
+  <div class="tab" onclick="st('bb',this)">🇮🇳 BankBazaar</div>
+  <div class="tab" onclick="st('pb',this)">🇮🇳 Paisabazaar</div>
+  <div class="tab" onclick="st('solo',this)">🚀 Solopreneur Playbook</div>
+  <div class="tab" onclick="st('ai',this)">🤖 Claude Code Advantage</div>
+  <div class="tab" onclick="st('moat',this)">🏰 Moat Builder</div>
+</div>
+
+<!-- ══ OVERVIEW ══ -->
+<div class="pg on" id="pg-overview">
+<div class="wrap">
+  <div class="sec-hd">
+    <div class="kicker">Platform Intelligence</div>
+    <h2>How the giants were actually <em>built</em> — and what you can steal</h2>
+    <p>Four platforms, $1B+ in combined exits, all built by 1–3 founders with no unfair advantages. The strategies they used in years 1–3 are more replicable today than ever — because you have Claude Code Max and they didn't.</p>
+  </div>
+
+  <!-- Key facts grid -->
+  <div class="grid4" style="margin-bottom:28px">
+    <div class="num-card">
+      <div class="num-n" style="color:var(--sky)">£100</div>
+      <div class="num-l">MSE's website cost.<br>Sold for £87M.</div>
+    </div>
+    <div class="num-card">
+      <div class="num-n" style="color:var(--saf)">Year 1</div>
+      <div class="num-l">NerdWallet: 500 articles,<br>zero team, one founder.</div>
+    </div>
+    <div class="num-card">
+      <div class="num-n" style="color:var(--grn)">1.29M</div>
+      <div class="num-l">BankBazaar's IFSC tool<br>monthly traffic. One idea.</div>
+    </div>
+    <div class="num-card">
+      <div class="num-n" style="color:var(--red)">73%</div>
+      <div class="num-l">NerdWallet's traffic<br>from organic/direct.</div>
+    </div>
+  </div>
+
+  <!-- Platform comparison table -->
+  <div class="card" style="margin-bottom:28px">
+    <div class="card-hd"><h3>Platform Strategy Comparison — At Peak Early Growth</h3></div>
+    <div style="overflow-x:auto">
+    <table class="comp-tbl">
+      <tr>
+        <th>Platform</th>
+        <th>Founded</th>
+        <th>Core Moat (Year 1–3)</th>
+        <th>Named Expert</th>
+        <th>Email First</th>
+        <th>Programmatic SEO</th>
+        <th>Commission Disclosed</th>
+        <th>Solopreneur-started</th>
+        <th>Exit / Valuation</th>
+      </tr>
+      <tr>
+        <td style="font-weight:600">NerdWallet</td>
+        <td>2009</td>
+        <td>Topic cluster dominance, 500 articles/mo</td>
+        <td class="no">✗</td>
+        <td class="no">✗</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="no">✗ (3 founders)</td>
+        <td style="color:var(--grn);font-weight:600">$520M IPO</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600">MoneySavingExpert</td>
+        <td>2003</td>
+        <td>Named expert trust, email list, community</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓</td>
+        <td class="no">✗</td>
+        <td class="yes">✓</td>
+        <td class="yes">✓ Martin Lewis</td>
+        <td style="color:var(--grn);font-weight:600">£87M acq.</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600">BankBazaar</td>
+        <td>2008</td>
+        <td>IFSC tool (80K+ programmatic pages)</td>
+        <td class="no">✗</td>
+        <td class="no">✗</td>
+        <td class="yes">✓</td>
+        <td class="no">✗</td>
+        <td class="no">✗ (3 founders)</td>
+        <td style="color:var(--ash)">$110M raised</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600">Paisabazaar</td>
+        <td>2014</td>
+        <td>Free CIBIL score — first in India</td>
+        <td class="no">✗</td>
+        <td class="no">✗</td>
+        <td class="yes">✓</td>
+        <td class="no">✗</td>
+        <td class="no">✗</td>
+        <td style="color:var(--ash)">Part of $5B PB Fintech</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600">Credit Karma</td>
+        <td>2007</td>
+        <td>Free credit score — built the habit loop</td>
+        <td class="no">✗</td>
+        <td class="no">✗</td>
+        <td class="no">✗</td>
+        <td class="yes">✓</td>
+        <td class="no">✗</td>
+        <td style="color:var(--grn);font-weight:600">$7.1B acq.</td>
+      </tr>
+      <tr class="ip-row">
+        <td style="font-weight:700;color:var(--saf)">InvestingPro (you)</td>
+        <td>2024</td>
+        <td><strong>All of the above + Claude Code Max</strong></td>
+        <td><span class="first">Do this</span></td>
+        <td><span class="first">Do this</span></td>
+        <td><span class="first">Do this</span></td>
+        <td><span class="first">Do this</span></td>
+        <td style="color:var(--saf);font-weight:600">✓ You alone</td>
+        <td style="color:var(--saf);font-weight:600">∞ (AI-leveraged)</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <!-- The core insight -->
+  <div style="background:var(--ink);border-radius:14px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+    <div>
+      <div style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--saf);margin-bottom:10px">The Central Insight</div>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:400;font-style:italic;color:#F5F0E8;line-height:1.3;margin-bottom:12px">Every one of these platforms was built on a <em style="color:var(--saf)">single unfair advantage</em> in Year 1.</div>
+      <div style="font-size:12.5px;color:rgba(245,240,232,.5);line-height:1.7">MSE had Martin Lewis's named trust. NerdWallet had volume. BankBazaar had one programmatic tool. You have the first AI-native build capability in Indian fintech — and none of them had that.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);border-radius:8px;padding:12px 14px">
+        <div style="font-size:10.5px;color:var(--saf);font-weight:600;margin-bottom:4px">What they needed a team of 60 to do</div>
+        <div style="font-size:12px;color:rgba(245,240,232,.6);line-height:1.55">500 articles/month, IFSC programmatic pages, interactive calculators, email newsletters, expert editorial reviews</div>
+      </div>
+      <div style="background:rgba(232,135,26,.08);border:1px solid rgba(232,135,26,.2);border-radius:8px;padding:12px 14px">
+        <div style="font-size:10.5px;color:var(--saf);font-weight:600;margin-bottom:4px">What you can do alone with Claude Code Max</div>
+        <div style="font-size:12px;color:rgba(245,240,232,.75);line-height:1.55">All of it. Plus: real-time personalisation, CIBIL simulation, AI-powered recommendations, WhatsApp integration — none of which existed when they started.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ NERDWALLET ══ -->
+<div class="pg" id="pg-nw">
+<div class="wrap">
+  <div class="sec-hd">
+    <div class="kicker">Platform Deep Dive · United States · Founded 2009</div>
+    <h2>NerdWallet: the <em>content volume</em> machine</h2>
+    <p>Tim Chen started with a spreadsheet. No team. No VC. He won by producing more high-quality content faster than anyone else — and never stopping.</p>
+  </div>
+
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-hd"><h3>Growth Timeline</h3></div>
+      <div class="card-body">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--ash)"></div>
+            <div class="tl-year">2009 <span class="tl-yr-badge" style="background:var(--mist);color:var(--ash)">Year 0</span></div>
+            <div class="tl-title">Started as a credit card Excel spreadsheet</div>
+            <div class="tl-text">Tim Chen, post-finance job, built a simple comparison tool for himself. Published it. Google found it.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--sky)"></div>
+            <div class="tl-year">2010–2011 <span class="tl-yr-badge" style="background:#EAF2FB;color:var(--sky)">Content push</span></div>
+            <div class="tl-title">Goal: 500 articles per month. No compromise.</div>
+            <div class="tl-text">Chen set a seemingly insane content target. Writers were hired at a 1% acceptance rate. Every article had to answer one specific user problem.</div>
+            <div class="tl-impact impact-g">↑ 36,000+ indexed pages by Year 3</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--saf)"></div>
+            <div class="tl-year">2012–2013 <span class="tl-yr-badge" style="background:#FEF3E2;color:var(--warn)">Link building</span></div>
+            <div class="tl-title">Data-driven stories + PR outreach as link engine</div>
+            <div class="tl-text">Built a wire service called NerdWallet Wire. Syndicated to Forbes, USA Today, Bloomberg. Each byline = 3–5 backlinks. Town government pages, Wikipedia, award campaigns.</div>
+            <div class="tl-impact impact-b">→ Outranked Capital One with zero ad budget</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--grn)"></div>
+            <div class="tl-year">2014–2015 <span class="tl-yr-badge" style="background:#E8F5EE;color:var(--grn)">Topic clusters</span></div>
+            <div class="tl-title">9 topic clusters, each with pillar + cluster pages</div>
+            <div class="tl-text">Every major financial topic got a hub page, sub-pages, calculators, and guides. Interlinking created topical authority that Google rewarded massively.</div>
+            <div class="tl-impact impact-g">↑ 1.3M keywords ranked, $84M/month traffic value</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--red)"></div>
+            <div class="tl-year">2021 <span class="tl-yr-badge" style="background:#FDECEA;color:var(--red)">IPO</span></div>
+            <div class="tl-title">$520M IPO. 73% organic traffic.</div>
+            <div class="tl-text">73% of all traffic came from organic or direct. The SEO moat was so deep no competitor could challenge it without spending hundreds of millions.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-hd"><h3>The 3 tactics that actually drove growth</h3></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
+          <div style="padding:12px;background:var(--cream);border-radius:8px;border-left:3px solid var(--sky)">
+            <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px">1. Answer one specific problem per article</div>
+            <div style="font-size:12px;color:var(--ash);line-height:1.6">"Our content strategy is writing for a consumer with a very specific problem." Not "best credit cards" — "best credit card for someone with 680 CIBIL who shops on Amazon."</div>
+          </div>
+          <div style="padding:12px;background:var(--cream);border-radius:8px;border-left:3px solid var(--saf)">
+            <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px">2. Ego bait + award campaigns for backlinks</div>
+            <div style="font-size:12px;color:var(--ash);line-height:1.6">"Best cities to start a business" → 200+ town government pages linked back. "Best banks for graduates" → universities linked back. 250+ Wikipedia citations. Zero cost.</div>
+          </div>
+          <div style="padding:12px;background:var(--cream);border-radius:8px;border-left:3px solid var(--grn)">
+            <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px">3. When something works, replicate it obsessively</div>
+            <div style="font-size:12px;color:var(--ash);line-height:1.6">One article format that earned links → 50 versions of it. One calculator that got traffic → 20 variations. Recognise patterns, then systematise.</div>
+          </div>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-hd">🇮🇳 What this means for InvestingPro</div>
+        <div class="insight-body">Claude Code Max can write and publish "best credit card for [specific use case] in [city]" articles at 50/day. NerdWallet needed a 90-person content team to hit 500/month. You can hit 500/week — with better India-specificity than any competitor. The topic cluster strategy maps directly: Credit Cards hub → Cashback → Cashback for OTT → Cashback for Airtel vs Jio → etc.</div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-hd">⚠ What NerdWallet got wrong (learn from it)</div>
+        <div class="warn-body">They built almost zero direct relationship with users. No email list. No app habit loop. Their traffic is 100% Google-dependent — and Google's AI Overviews are now hurting them. Email-first is your hedge against this exact risk.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ MSE ══ -->
+<div class="pg" id="pg-mse">
+<div class="wrap">
+  <div class="sec-hd">
+    <div class="kicker">Platform Deep Dive · United Kingdom · Founded 2003</div>
+    <h2>MoneySavingExpert: the <em>named trust</em> flywheel</h2>
+    <p>Martin Lewis built a £87M business with £100, one email list, and his own face on every page. The Martin Lewis model is the most replicable playbook for a solopreneur — and nobody has done it in India.</p>
+  </div>
+
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-hd"><h3>Growth Timeline</h3></div>
+      <div class="card-body">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--ash)"></div>
+            <div class="tl-year">2003 <span class="tl-yr-badge" style="background:var(--mist);color:var(--ash)">Day 1</span></div>
+            <div class="tl-title">£100 website. One email list. One man.</div>
+            <div class="tl-text">Martin Lewis, financial journalist, set up an email to share money tips with a small audience. By end of February 2003: 5,300 subscribers. A year later: 100,000.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--saf)"></div>
+            <div class="tl-year">2005 <span class="tl-yr-badge" style="background:#FEF3E2;color:var(--warn)">Campaign</span></div>
+            <div class="tl-title">"Reclaim bank charges" — £1 billion back to consumers</div>
+            <div class="tl-text">Martin identified one huge pain point (banks charging overdraft fees), created template letters, ran a campaign. Over £1B was reclaimed by MSE users from banks. BBC, national press, TV coverage — all free.</div>
+            <div class="tl-impact impact-g">→ Martin Lewis became a national brand. Priceless backlinks.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--sky)"></div>
+            <div class="tl-year">2007–2010 <span class="tl-yr-badge" style="background:#EAF2FB;color:var(--sky)">Media</span></div>
+            <div class="tl-title">TV, radio, BBC citations — Martin as expert anchor</div>
+            <div class="tl-text">Martin appeared on TV and radio as the "go-to" finance expert. Every appearance drove site traffic. Every BBC citation was a backlink. The expert persona and the site became mutually reinforcing.</div>
+            <div class="tl-impact impact-b">→ UK brand most recommended by consumers (YouGov)</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--grn)"></div>
+            <div class="tl-year">2012 <span class="tl-yr-badge" style="background:#E8F5EE;color:var(--grn)">Exit</span></div>
+            <div class="tl-title">Sold for £87M. Email list: 9M+ subscribers.</div>
+            <div class="tl-text">MoneySupermarket acquired MSE. The email list alone was worth tens of millions. Martin's condition: editorial independence guaranteed by iron-clad legal code. He understood trust was the product.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--red)"></div>
+            <div class="tl-year">2014 <span class="tl-yr-badge" style="background:#FDECEA;color:var(--red)">Scale</span></div>
+            <div class="tl-title">10,000,000 email subscribers. Still free.</div>
+            <div class="tl-text">"I set up an email list built around a basic homepage so anyone could get the info." The email he started for 5,300 people now had 10M. The moat was the relationship, not the content.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-hd"><h3>Martin's 4-part playbook — verbatim replicable</h3></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+          <div style="padding:11px 13px;background:var(--cream);border-radius:8px;display:flex;gap:10px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:#F5F0E8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px">Email list first — before anything else</div>
+              <div style="font-size:12px;color:var(--ash);line-height:1.6">Not the website. Not the SEO. The email. MSE's email was the business. The website supported it. Reverse this mental model immediately.</div>
+            </div>
+          </div>
+          <div style="padding:11px 13px;background:var(--cream);border-radius:8px;display:flex;gap:10px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--saf);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px">Name on everything. Photo on everything.</div>
+              <div style="font-size:12px;color:var(--ash);line-height:1.6">Trust is personal. "InvestingPro recommends" has 1/10th the power of "Shiva says." Put your name, photo, and credentials on every recommendation.</div>
+            </div>
+          </div>
+          <div style="padding:11px 13px;background:var(--cream);border-radius:8px;display:flex;gap:10px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--grn);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px">Find one campaign that helps thousands</div>
+              <div style="font-size:12px;color:var(--ash);line-height:1.6">Martin's "reclaim bank charges" was his breakthrough. In India: "How to dispute wrong CIBIL entries" or "How to waive credit card annual fees" — template letters + campaign.</div>
+            </div>
+          </div>
+          <div style="padding:11px 13px;background:var(--cream);border-radius:8px;display:flex;gap:10px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--sky);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">4</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px">Affiliate honestly — never editorially</div>
+              <div style="font-size:12px;color:var(--ash);line-height:1.6">"Find the best product. Then check if it has an affiliate program." Not the reverse. MSE's readers trust the links because they know MSE's editorial is separate from commercial.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-hd">🇮🇳 The India opportunity — nobody has done this</div>
+        <div class="insight-body">There is no Martin Lewis equivalent in India. BankBazaar, Paisabazaar — all faceless brands. You becoming "Shiva from InvestingPro, the honest financial advisor" is the single highest-ROI positioning move available. One viral Twitter/X thread from you = 10,000 email subscribers. Martin started with 5,300 and built a £87M business from there.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ BANKBAZAAR ══ -->
+<div class="pg" id="pg-bb">
+<div class="wrap">
+  <div class="sec-hd">
+    <div class="kicker">Platform Deep Dive · India · Founded 2008</div>
+    <h2>BankBazaar: the <em>programmatic SEO</em> machine</h2>
+    <p>1.29 million monthly visitors from one tool: the IFSC code lookup. 80,000+ auto-generated pages. Zero editorial effort. This is the most copy-paste-able playbook for InvestingPro.</p>
+  </div>
+
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-hd"><h3>The IFSC Strategy — Dissected</h3></div>
+      <div class="card-body">
+        <div style="background:var(--ink);border-radius:10px;padding:16px;margin-bottom:14px">
+          <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,.4);margin-bottom:8px">How 80,000 pages generate 1.29M visits/month</div>
+          <div class="rev-flow">
+            <div class="rev-step">
+              <div class="rev-line"><div class="rev-circle">1</div><div class="rev-connector"></div></div>
+              <div class="rev-content"><div class="rev-title" style="color:#F5F0E8">One database</div><div class="rev-text" style="color:rgba(245,240,232,.5)">RBI publishes IFSC codes publicly. BankBazaar imported the entire database. ~80,000 bank branches.</div></div>
+            </div>
+            <div class="rev-step">
+              <div class="rev-line"><div class="rev-circle">2</div><div class="rev-connector"></div></div>
+              <div class="rev-content"><div class="rev-title" style="color:#F5F0E8">One URL template</div><div class="rev-text" style="color:rgba(245,240,232,.5)">/ifsc-code/[bank]-[state]-[district]-[branch] — each combination = a unique indexable page.</div></div>
+            </div>
+            <div class="rev-step">
+              <div class="rev-line"><div class="rev-circle">3</div><div class="rev-connector"></div></div>
+              <div class="rev-content"><div class="rev-title" style="color:#F5F0E8">Zero content needed</div><div class="rev-text" style="color:rgba(245,240,232,.5)">Each page answers one intent: "what is the IFSC code of [branch]?" Perfect intent match = top-3 ranking.</div></div>
+            </div>
+            <div class="rev-step">
+              <div class="rev-line"><div class="rev-circle" style="background:var(--saf)">4</div><div class="rev-connector"></div></div>
+              <div class="rev-content"><div class="rev-title" style="color:var(--saf)">1.29M visits → credit card CTAs</div><div class="rev-text" style="color:rgba(245,240,232,.5)">Every IFSC page has a sidebar: "Checking your CIBIL? Apply for the right card while you're here." High-intent user + perfect moment.</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--ash);font-style:italic;text-align:center">One developer, one weekend, one database = 5% of all BankBazaar traffic</div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-hd"><h3>5 Programmatic opportunities for InvestingPro — right now</h3></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+          <div style="background:rgba(232,135,26,.05);border:1px solid rgba(232,135,26,.2);border-radius:9px;padding:12px 14px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px">
+              <div style="font-size:13px;font-weight:600;color:var(--ink)">IFSC Code Lookup</div>
+              <span style="background:#E8F5EE;color:var(--grn);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:8px">500K–1M/mo</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--ash)">Identical play to BankBazaar. RBI publishes the data. Claude Code builds the pages. Done in 2 weeks.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:12px 14px;border:1px solid var(--mist)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px">
+              <div style="font-size:13px;font-weight:600;color:var(--ink)">Bank Holidays by State + Year</div>
+              <span style="background:#EAF2FB;color:var(--sky);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:8px">50K–200K/yr</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--ash)">BankBazaar gets 14% of traffic from "bank holidays [year]" pages. 500 pages, zero effort, seasonal evergreen.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:12px 14px;border:1px solid var(--mist)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px">
+              <div style="font-size:13px;font-weight:600;color:var(--ink)">Card vs Card Comparator Pages</div>
+              <span style="background:#FEF3E2;color:var(--warn);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:8px">50K–200K/mo</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--ash)">"SBI Cashback vs HDFC Millennia" — 500 card pairs = 500 pages. All templated. All unique intent.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:12px 14px;border:1px solid var(--mist)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px">
+              <div style="font-size:13px;font-weight:600;color:var(--ink)">PIN Code → Best Branch + Products</div>
+              <span style="background:#F3EFF8;color:var(--purple);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:8px">200K–500K/mo</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--ash)">50,000+ PIN codes. Each page: nearest branches, best cards available there, local loan rates. Hyper-local intent.</div>
+          </div>
+          <div style="background:var(--cream);border-radius:9px;padding:12px 14px;border:1px solid var(--mist)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px">
+              <div style="font-size:13px;font-weight:600;color:var(--ink)">Gold Rate Today by City</div>
+              <span style="background:#E8F5EE;color:var(--grn);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:8px">Huge — GoodReturns #1</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--ash)">GoodReturns gets 23M visits from gold price pages. API-driven, auto-updating. Sidebar: "Invest in Gold ETFs instead — here's why."</div>
+          </div>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-hd">⚡ Claude Code build time estimate</div>
+        <div class="insight-body">IFSC pages: 3–5 days with Claude Code. BankBazaar took weeks with a full dev team in 2014. You can build all 5 programmatic plays in under 6 weeks alone. Each one = a permanent traffic asset compounding forever.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ PAISABAZAAR ══ -->
+<div class="pg" id="pg-pb">
+<div class="wrap">
+  <div class="sec-hd">
+    <div class="kicker">Platform Deep Dive · India · Founded 2014</div>
+    <h2>Paisabazaar: the <em>free CIBIL</em> hook</h2>
+    <p>Paisabazaar's single breakthrough was offering free CIBIL score checks before anyone else in India. One product decision built a platform worth hundreds of crores. The CIBIL Simulator is your equivalent.</p>
+  </div>
+
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-hd"><h3>The Free CIBIL Flywheel</h3></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(26,107,74,.05);border-radius:8px 8px 0 0;border:1px solid rgba(26,107,74,.15)">
+            <div style="width:36px;height:36px;background:var(--grn);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0">1</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink)">Free CIBIL check — no credit card, no login</div><div style="font-size:11.5px;color:var(--ash)">2014. Nobody in India offered this. User intent: highest possible (checking their own credit health).</div></div>
+          </div>
+          <div style="width:1px;height:16px;background:var(--grn);margin:0 17px"></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(26,107,74,.05);border-radius:0;border:1px solid rgba(26,107,74,.15)">
+            <div style="width:36px;height:36px;background:var(--grn);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0">2</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink)">Score shown → personalised product matches</div><div style="font-size:11.5px;color:var(--ash)">"Your score is 748 — here are cards you'd likely get." Immediate relevance. Immediate action.</div></div>
+          </div>
+          <div style="width:1px;height:16px;background:var(--grn);margin:0 17px"></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(26,107,74,.05);border-radius:0;border:1px solid rgba(26,107,74,.15)">
+            <div style="width:36px;height:36px;background:var(--grn);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0">3</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink)">Monthly score alerts → re-engagement engine</div><div style="font-size:11.5px;color:var(--ash)">"Your score changed. New cards available for you." Direct traffic, not search traffic. Moat building.</div></div>
+          </div>
+          <div style="width:1px;height:16px;background:var(--grn);margin:0 17px"></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(232,135,26,.08);border-radius:0 0 8px 8px;border:1px solid rgba(232,135,26,.2)">
+            <div style="width:36px;height:36px;background:var(--saf);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0">₹</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink)">Commission on every approved application</div><div style="font-size:11.5px;color:var(--ash)">High-intent user, personalised recommendation, warm relationship = 3–5x higher conversion vs cold traffic.</div></div>
+          </div>
+        </div>
+        <div class="insight" style="margin-top:14px">
+          <div class="insight-hd">Your equivalent: CIBIL Simulator (not just check)</div>
+          <div class="insight-body">Paisabazaar showed your score. You let users simulate changing it. "What if I pay off my Axis card?" is 10x more engaging than "here is your score." Nobody in India has built this. It's already in your design vision — build it first.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-hd"><h3>What Paisabazaar built that you can one-up</h3></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div style="font-size:12.5px;font-weight:600;color:var(--ink)">Free CIBIL check</div>
+              <div style="display:flex;gap:5px">
+                <span style="background:var(--mist);color:var(--ash);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">They built it</span>
+                <span style="background:#E8F5EE;color:var(--grn);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">You: + Simulator</span>
+              </div>
+            </div>
+            <div style="height:5px;background:var(--mist);border-radius:3px"><div style="height:100%;width:90%;background:var(--grn);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div style="font-size:12.5px;font-weight:600;color:var(--ink)">Score-matched product recs</div>
+              <div style="display:flex;gap:5px">
+                <span style="background:var(--mist);color:var(--ash);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">They built it</span>
+                <span style="background:#EAF2FB;color:var(--sky);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">You: + Approval %</span>
+              </div>
+            </div>
+            <div style="height:5px;background:var(--mist);border-radius:3px"><div style="height:100%;width:80%;background:var(--sky);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div style="font-size:12.5px;font-weight:600;color:var(--ink)">Score improvement tips</div>
+              <div style="display:flex;gap:5px">
+                <span style="background:var(--mist);color:var(--ash);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">Generic lists</span>
+                <span style="background:#FEF3E2;color:var(--warn);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">You: Personalised AI</span>
+              </div>
+            </div>
+            <div style="height:5px;background:var(--mist);border-radius:3px"><div style="height:100%;width:70%;background:var(--warn);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div style="font-size:12.5px;font-weight:600;color:var(--ink)">Editorial voice / named expert</div>
+              <div style="display:flex;gap:5px">
+                <span style="background:#FDECEA;color:var(--red);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">They have none</span>
+                <span style="background:#E8F5EE;color:var(--grn);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">Your biggest edge</span>
+              </div>
+            </div>
+            <div style="height:5px;background:var(--mist);border-radius:3px"><div style="height:100%;width:0%;background:var(--red);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div style="font-size:12.5px;font-weight:600;color:var(--ink)">Commission transparency</div>
+              <div style="display:flex;gap:5px">
+                <span style="background:#FDECEA;color:var(--red);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">Hidden</span>
+                <span style="background:#E8F5EE;color:var(--grn);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">Your differentiator</span>
+              </div>
+            </div>
+            <div style="height:5px;background:var(--mist);border-radius:3px"><div style="height:100%;width:0%;background:var(--red);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div style="font-size:12.5px;font-weight:600;color:var(--ink)">Email newsletter</div>
+              <div style="display:flex;gap:5px">
+                <span style="background:#FDECEA;color:var(--red);font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">Don't have one</span>
+                <span style="background:var(--saf);color:#fff;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px">MSE's #1 asset</span>
+              </div>
+            </div>
+            <div style="height:5px;background:var(--mist);border-radius:3px"><div style="height:100%;width:0%;background:var(--red);border-radius:3px"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-hd">⚠ Paisabazaar's ceiling — and your opportunity</div>
+        <div class="warn-body">Paisabazaar is a transaction machine with no editorial soul. Users come, check score, maybe apply, leave. No relationship. No trust beyond the free tool. The moment a bank builds a better free score tool, they lose that user. Your named expert + email relationship creates loyalty they cannot buy.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ SOLOPRENEUR PLAYBOOK ══ -->
+<div class="pg" id="pg-solo">
+<div class="wrap">
+  <div class="sec-hd">
+    <div class="kicker">Solopreneur Strategy · Weeks 1–52</div>
+    <h2>Your specific <em>playbook</em> — in order</h2>
+    <p>What these platforms did with teams of 60+, you do alone with Claude Code Max. Sequenced by impact-per-hour, not by difficulty.</p>
+  </div>
+
+  <!-- Matrix -->
+  <div class="card" style="margin-bottom:24px">
+    <div class="card-hd"><h3>Strategy Matrix — Solopreneur Replication Feasibility</h3></div>
+    <div>
+      <div class="matrix-row" style="border-radius:8px 8px 0 0;overflow:hidden">
+        <div class="mx-hd">Tactic (from platforms)</div>
+        <div class="mx-hd">Learned from</div>
+        <div class="mx-hd">Claude Code Max role</div>
+        <div class="mx-hd" style="text-align:center">Effort</div>
+      </div>
+      <div class="matrix-row"><div class="mx-cell" style="font-weight:600">Named expert persona</div><div class="mx-cell" style="color:var(--ash)">MSE (Martin Lewis) — £87M from one face</div><div class="mx-cell" style="color:var(--ash)">AI drafts your articles in your voice; you approve</div><div class="mx-cell"><div class="effort-dot"><div class="ed"></div><div class="ed off"></div><div class="ed off"></div></div></div></div>
+      <div class="matrix-row"><div class="mx-cell" style="font-weight:600">Weekly email newsletter</div><div class="mx-cell" style="color:var(--ash)">MSE — 10M subscribers, their biggest moat</div><div class="mx-cell" style="color:var(--ash)">Claude writes draft; 30 min your edit each Monday</div><div class="mx-cell"><div class="effort-dot"><div class="ed"></div><div class="ed off"></div><div class="ed off"></div></div></div></div>
+      <div class="matrix-row"><div class="mx-cell" style="font-weight:600">Topic cluster content</div><div class="mx-cell" style="color:var(--ash)">NerdWallet — 36,000 pages, 1.3M keywords</div><div class="mx-cell" style="color:var(--ash)">Claude generates full articles, you review/publish</div><div class="mx-cell"><div class="effort-dot"><div class="ed"></div><div class="ed"></div><div class="ed off"></div></div></div></div>
+      <div class="matrix-row"><div class="mx-cell" style="font-weight:600">IFSC / programmatic SEO</div><div class="mx-cell" style="color:var(--ash)">BankBazaar — 1.29M traffic, one idea</div><div class="mx-cell" style="color:var(--ash)">Claude Code builds entire system in 3–5 days</div><div class="mx-cell"><div class="effort-dot"><div class="ed"></div><div class="ed"></div><div class="ed off"></div></div></div></div>
+      <div class="matrix-row"><div class="mx-cell" style="font-weight:600">CIBIL Simulator tool</div><div class="mx-cell" style="color:var(--ash)">Paisabazaar CIBIL + Credit Karma (nobody in India)</div><div class="mx-cell" style="color:var(--ash)">Claude Code builds full working simulator</div><div class="mx-cell"><div class="effort-dot"><div class="ed"></div><div class="ed"></div><div class="ed off"></div></div></div></div>
+      <div class="matrix-row"><div class="mx-cell" style="font-weight:600">Approval probability rings</div><div class="mx-cell" style="color:var(--ash)">MSE/ClearScore — zero Indian platforms have it</div><div class="mx-cell" style="color:var(--ash)">Claude Code builds rule engine + UI</div><div class="mx-cell"><div class="effort-dot"><div class="ed"></div><div class="ed"></div><div class="ed off"></div></div></div></div>
+      <div class="matrix-row"><div class="mx-cell" style="font-weight:600">Data-driven PR stories</div><div class="mx-cell" style="color:var(--ash)">NerdWallet — Wikipedia links, town pages, Forbes</div><div class="mx-cell" style="color:var(--ash)">Claude analyses datasets, you pitch the story</div><div class="mx-cell"><div class="effort-dot"><div class="ed"></div><div class="ed"></div><div class="ed off"></div></div></div></div>
+      <div class="matrix-row"><div class="mx-cell" style="font-weight:600">Consumer campaign</div><div class="mx-cell" style="color:var(--ash)">MSE "reclaim bank charges" — £1B returned</div><div class="mx-cell" style="color:var(--ash)">Claude creates templates, you launch campaign</div><div class="mx-cell"><div class="effort-dot"><div class="ed"></div><div class="ed"></div><div class="ed off"></div></div></div></div>
+      <div class="matrix-row"><div class="mx-cell" style="font-weight:600">AI recommendation engine</div><div class="mx-cell" style="color:var(--ash)">No one had this — you're first in Indian fintech</div><div class="mx-cell" style="color:var(--ash)">Claude API powers SmartAdvisor in real-time</div><div class="mx-cell"><div class="effort-dot"><div class="ed"></div><div class="ed"></div><div class="ed"></div></div></div></div>
+    </div>
+  </div>
+
+  <!-- Phase playbooks -->
+  <div class="play-phase">
+    <div class="phase-hd">
+      <div class="phase-num" style="background:var(--ink)">1</div>
+      <div class="phase-title">Zero-cost trust foundations</div>
+      <div class="phase-time" style="background:#E8F5EE;color:var(--grn)">Weeks 1–4</div>
+    </div>
+    <div class="play-items">
+      <div class="play-item">
+        <div><div class="pi-title">Put your name + photo on everything <span class="pi-who" style="background:#E8F5EE;color:var(--grn)">MSE</span></div><div class="pi-text">Add "Shiva recommends" with a real photo above every ranked list. Add your CFP/CFA/PG credentials. Martin Lewis's face = MSE's most valuable asset. In India, nobody has done this. The category is yours to claim.</div></div>
+        <div class="pi-claude"><div class="pi-claude-hd">Claude Code role</div>Add author schema JSON-LD to every page. Auto-insert your byline component. Zero manual work after setup.</div>
+      </div>
+      <div class="play-item">
+        <div><div class="pi-title">Write "How we rank" + commission disclosure page <span class="pi-who" style="background:#EAF2FB;color:var(--sky)">NW + MSE</span></div><div class="pi-text">One page that explains your methodology, how you earn, and why it doesn't affect rankings. NerdWallet and MSE both do this. Zero Indian platform does. This one page alone earns more trust than 100 product pages.</div></div>
+        <div class="pi-claude"><div class="pi-claude-hd">Claude Code role</div>Draft the page. Add it to footer navigation. Add a one-liner ("Commission earned — never affects rankings") above every comparison list automatically.</div>
+      </div>
+      <div class="play-item">
+        <div><div class="pi-title">Launch InvestingPro Weekly email — day 1 <span class="pi-who" style="background:#FEF3E2;color:var(--warn)">MSE #1 asset</span></div><div class="pi-text">MSE's email is worth more than their entire website. Start collecting emails from day one. Even 500 subscribers who open every week are worth more than 50,000 monthly visitors who never return. Use Resend or Buttondown — both free under 1,000 subscribers.</div></div>
+        <div class="pi-claude"><div class="pi-claude-hd">Claude Code role</div>Build the signup widget, integrate with Resend API, auto-generate email draft from this week's RBI/SEBI news every Monday. You review and send in 30 mins.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="play-phase">
+    <div class="phase-hd">
+      <div class="phase-num" style="background:var(--saf)">2</div>
+      <div class="phase-title">Programmatic SEO — traffic assets that compound forever</div>
+      <div class="phase-time" style="background:#FEF3E2;color:var(--warn)">Weeks 5–10</div>
+    </div>
+    <div class="play-items">
+      <div class="play-item">
+        <div><div class="pi-title">Build IFSC lookup (BankBazaar's biggest play) <span class="pi-who" style="background:#E8F5EE;color:var(--grn)">BankBazaar</span></div><div class="pi-text">Download RBI's public IFSC database (free). Build a lookup tool with dynamic URLs per branch. 80,000 pages that Google loves because they answer precise queries. BankBazaar gets 1.29M visits/month from this. You should get the same.</div></div>
+        <div class="pi-claude"><div class="pi-claude-hd">Claude Code role</div>Write the Next.js dynamic route, import the CSV, generate sitemap, add sidebar CTAs to each page. Full build: 3–5 days.</div>
+      </div>
+      <div class="play-item">
+        <div><div class="pi-title">Card vs Card comparator pages <span class="pi-who" style="background:#EAF2FB;color:var(--sky)">NerdWallet</span></div><div class="pi-text">"SBI Cashback vs HDFC Millennia" — one template, 500+ card pairs. Each page targets one specific comparison query. NerdWallet does this for every US card pair. Zero Indian platform does this systematically.</div></div>
+        <div class="pi-claude"><div class="pi-claude-hd">Claude Code role</div>Generate all card pair pages from your card database. Auto-populate comparison tables. Create canonical URLs. Entire system in 1 week.</div>
+      </div>
+      <div class="play-item">
+        <div><div class="pi-title">Best cards for [specific use case] pages <span class="pi-who" style="background:#FEF3E2;color:var(--warn)">NerdWallet</span></div><div class="pi-text">"Best credit card for OTT subscriptions India" — 5K–12K searches/month, zero competition. "Best credit card for rent payment" — 7K–14K/month. Each of these is a money-printing page. You need 50 of them.</div></div>
+        <div class="pi-claude"><div class="pi-claude-hd">Claude Code role</div>Write all 50 articles using your card database + Claude API for recommendations. Publish daily. Each is a permanent ranking asset.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="play-phase">
+    <div class="phase-hd">
+      <div class="phase-num" style="background:var(--grn)">3</div>
+      <div class="phase-title">Tools that nobody in India has built</div>
+      <div class="phase-time" style="background:#E8F5EE;color:var(--grn)">Weeks 11–20</div>
+    </div>
+    <div class="play-items">
+      <div class="play-item">
+        <div><div class="pi-title">CIBIL Simulator — first in India <span class="pi-who" style="background:var(--ink);color:var(--saf)">Credit Karma model</span></div><div class="pi-text">Credit Karma built a $7.1B business on making credit visible and actionable. Their CIBIL simulator equivalent is their most-used feature. Paisabazaar shows your score. You let users ask "what if?" before they act. This is the most viral tool in Indian fintech that nobody has built.</div></div>
+        <div class="pi-claude"><div class="pi-claude-hd">Claude Code role</div>Full simulator: score input, action toggles, real-time delta calculation, product unlock preview. 1 week to build. Permanent moat thereafter.</div>
+      </div>
+      <div class="play-item">
+        <div><div class="pi-title">Indian consumer campaign — "reclaim mis-sold charges" <span class="pi-who" style="background:#EAF2FB;color:var(--sky)">MSE's breakthrough</span></div><div class="pi-text">Martin's campaign put £1B back in consumers' pockets and made MSE a national brand. Indian equivalent: "How to waive credit card annual fees (template email)" or "How to dispute wrong CIBIL entries (3-step guide with letters)." One campaign = millions of shares = thousands of backlinks.</div></div>
+        <div class="pi-claude"><div class="pi-claude-hd">Claude Code role</div>Draft the template letters, build a shareable tool where users enter their details and download personalised letters. Goes viral by design.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ AI ADVANTAGE ══ -->
+<div class="pg" id="pg-ai">
+<div class="wrap">
+  <div class="sec-hd">
+    <div class="kicker">The Asymmetric Edge</div>
+    <h2>What Claude Code Max lets you do that <em>they couldn't</em></h2>
+    <p>None of these platforms had AI when they were building their moats. You do. This isn't a marginal advantage — it changes the entire economics of the business.</p>
+  </div>
+
+  <div class="ai-card" style="margin-bottom:16px">
+    <h3>Content & SEO — NerdWallet needed 90 writers. You need one.</h3>
+    <div class="ai-items">
+      <div class="ai-item">
+        <div class="ai-icon">📝</div>
+        <div><div class="ai-title">Article factory</div><div class="ai-text">NerdWallet: 500 articles/month, 90-person team, $10M+ salary bill. You: Claude drafts 500 articles/month in your voice, you review 20 mins each. Same output. ₹0 extra cost.</div></div>
+        <div class="ai-badge" style="background:#E8F5EE;color:var(--grn)">90x leverage</div>
+      </div>
+      <div class="ai-item">
+        <div class="ai-icon">🗄️</div>
+        <div><div class="ai-title">Programmatic page generation</div><div class="ai-text">Claude Code builds the Next.js dynamic route system, imports databases (IFSC, PIN codes, gold rates), generates sitemaps, creates canonical URLs. BankBazaar's dev team took months. You: 1 week.</div></div>
+        <div class="ai-badge" style="background:#EAF2FB;color:var(--sky)">10x speed</div>
+      </div>
+      <div class="ai-item">
+        <div class="ai-icon">🔍</div>
+        <div><div class="ai-title">Keyword research & content briefs</div><div class="ai-text">Claude analyses SERP gaps, competitor sitemaps, search intent patterns. Generates 100-keyword brief with title, H2s, internal links, schema markup. In 5 minutes. Used to cost ₹50,000/month in agency fees.</div></div>
+        <div class="ai-badge" style="background:#FEF3E2;color:var(--warn)">∞ leverage</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-card" style="margin-bottom:16px">
+    <h3>Product — features that didn't exist when they started</h3>
+    <div class="ai-items">
+      <div class="ai-item">
+        <div class="ai-icon">🤖</div>
+        <div><div class="ai-title">Real-time AI product recommendations</div><div class="ai-text">SmartAdvisor powered by Claude API. User answers 3 questions → personalised card recommendation with approval probability + honest caveat. No quiz builder, no rules engine. Conversation → result. This didn't exist in 2009 when NerdWallet started.</div></div>
+        <div class="ai-badge" style="background:rgba(232,135,26,.15);color:var(--saf)">First in India</div>
+      </div>
+      <div class="ai-item">
+        <div class="ai-icon">📊</div>
+        <div><div class="ai-title">CIBIL Simulator (AI-enhanced)</div><div class="ai-text">Rule-based v1 Claude builds in a week. V2: Claude API analyses user's specific situation + generates personalised improvement roadmap with timeline. Credit Karma built this over 5 years. You: 2 weeks with Claude Code.</div></div>
+        <div class="ai-badge" style="background:rgba(232,135,26,.15);color:var(--saf)">First in India</div>
+      </div>
+      <div class="ai-item">
+        <div class="ai-icon">📧</div>
+        <div><div class="ai-title">AI-drafted personalised email newsletter</div><div class="ai-text">MSE's Martin Lewis spent hours every Monday writing his email. Claude reads this week's RBI/SEBI news, pulls your top product changes, drafts a ready-to-send newsletter in your voice. You spend 30 minutes editing. MSE took 9 years to hit 10M subscribers with this effort level.</div></div>
+        <div class="ai-badge" style="background:#E8F5EE;color:var(--grn)">30 min/week</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-card">
+    <h3>Operations — things that used to require hiring people</h3>
+    <div class="ai-items">
+      <div class="ai-item">
+        <div class="ai-icon">🔄</div>
+        <div><div class="ai-title">Rate table updates</div><div class="ai-text">BankBazaar has a team updating rate tables daily. Claude Code builds a scraper that checks bank websites every 24h, flags changes, auto-updates your tables. Zero human intervention after setup.</div></div>
+        <div class="ai-badge" style="background:#EAF2FB;color:var(--sky)">Automated</div>
+      </div>
+      <div class="ai-item">
+        <div class="ai-icon">🏷️</div>
+        <div><div class="ai-title">Schema + SEO metadata generation</div><div class="ai-text">Every article needs title tag, meta description, FAQ schema, breadcrumb schema, author schema. Claude generates all of these per-page in your CMS. NerdWallet has an SEO team of 12 doing this. You: automated.</div></div>
+        <div class="ai-badge" style="background:#E8F5EE;color:var(--grn)">Automated</div>
+      </div>
+      <div class="ai-item">
+        <div class="ai-icon">💬</div>
+        <div><div class="ai-title">Customer query triage</div><div class="ai-text">SmartAdvisor handles "which card is best for me?" queries 24/7. Claude API gives personalised answers. NerdWallet has no equivalent — users just read static content. You provide a conversation. Engagement time goes up. Bounce rate goes down. Google notices.</div></div>
+        <div class="ai-badge" style="background:rgba(232,135,26,.15);color:var(--saf)">Differentiator</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ MOAT BUILDER ══ -->
+<div class="pg" id="pg-moat">
+<div class="wrap">
+  <div class="sec-hd">
+    <div class="kicker">Competitive Moat Architecture</div>
+    <h2>Building defences they <em>can't buy</em> their way out of</h2>
+    <p>BankBazaar raised $110M. Paisabazaar has a 500-person team. These are your competitors. Here's what they cannot replicate with money alone.</div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-hd"><h3>Moat strength by tactic — current InvestingPro position vs competitors</h3></div>
+      <div class="card-body">
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);margin-bottom:12px">Where you're stronger today (or can be in 90 days)</div>
+        <div class="moat-row">
+          <div class="moat-lbl">Named expert trust</div>
+          <div class="moat-bar-wrap"><div class="moat-bar" style="width:95%;background:var(--grn)"></div></div>
+          <div class="moat-val" style="color:var(--grn)">95</div>
+          <div class="moat-who" style="color:var(--grn)">Nobody has this</div>
+        </div>
+        <div class="moat-row">
+          <div class="moat-lbl">Commission transparency</div>
+          <div class="moat-bar-wrap"><div class="moat-bar" style="width:90%;background:var(--grn)"></div></div>
+          <div class="moat-val" style="color:var(--grn)">90</div>
+          <div class="moat-who" style="color:var(--grn)">No Indian platform</div>
+        </div>
+        <div class="moat-row">
+          <div class="moat-lbl">Email list (build it)</div>
+          <div class="moat-bar-wrap"><div class="moat-bar" style="width:85%;background:var(--sky)"></div></div>
+          <div class="moat-val" style="color:var(--sky)">85</div>
+          <div class="moat-who" style="color:var(--sky)">MSE = £87M asset</div>
+        </div>
+        <div class="moat-row">
+          <div class="moat-lbl">CIBIL Simulator</div>
+          <div class="moat-bar-wrap"><div class="moat-bar" style="width:80%;background:var(--saf)"></div></div>
+          <div class="moat-val" style="color:var(--saf)">80</div>
+          <div class="moat-who" style="color:var(--saf)">First in India</div>
+        </div>
+        <div class="moat-row">
+          <div class="moat-lbl">AI product advisor</div>
+          <div class="moat-bar-wrap"><div class="moat-bar" style="width:85%;background:var(--saf)"></div></div>
+          <div class="moat-val" style="color:var(--saf)">85</div>
+          <div class="moat-who" style="color:var(--saf)">No Indian platform</div>
+        </div>
+        <div style="margin: 14px 0 10px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ash)">Where competitors are ahead today (close the gap)</div>
+        <div class="moat-row">
+          <div class="moat-lbl">Domain authority</div>
+          <div class="moat-bar-wrap"><div class="moat-bar" style="width:25%;background:var(--red)"></div></div>
+          <div class="moat-val" style="color:var(--red)">25</div>
+          <div class="moat-who" style="color:var(--ash)">BB: DR 74</div>
+        </div>
+        <div class="moat-row">
+          <div class="moat-lbl">Indexed pages</div>
+          <div class="moat-bar-wrap"><div class="moat-bar" style="width:10%;background:var(--red)"></div></div>
+          <div class="moat-val" style="color:var(--red)">10</div>
+          <div class="moat-who" style="color:var(--ash)">BB: 200K pages</div>
+        </div>
+        <div class="moat-row">
+          <div class="moat-lbl">Lender partnerships</div>
+          <div class="moat-bar-wrap"><div class="moat-bar" style="width:20%;background:var(--warn)"></div></div>
+          <div class="moat-val" style="color:var(--warn)">20</div>
+          <div class="moat-who" style="color:var(--ash)">PB: 50+ lenders</div>
+        </div>
+        <div class="moat-row">
+          <div class="moat-lbl">Traffic volume</div>
+          <div class="moat-bar-wrap"><div class="moat-bar" style="width:5%;background:var(--red)"></div></div>
+          <div class="moat-val" style="color:var(--red)">5</div>
+          <div class="moat-who" style="color:var(--ash)">BB: 22.6M/mo</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--ink);border-radius:12px;padding:22px;margin-bottom:14px">
+        <div style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--saf);margin-bottom:10px">The Solopreneur Advantage Stack</div>
+        <div style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:400;font-style:italic;color:#F5F0E8;margin-bottom:14px;line-height:1.3">The moats worth building are the ones money can't buy — and all of them are available to you right now.</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:rgba(245,240,232,.05);border-radius:7px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px">
+            <div style="color:var(--saf);font-size:14px;flex-shrink:0;margin-top:1px">→</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:#F5F0E8;margin-bottom:2px">Trust is yours alone</div><div style="font-size:11.5px;color:rgba(245,240,232,.5);line-height:1.5">BankBazaar cannot become "Adhil recommends." They're a corporate brand. Your named personal trust compounds — theirs cannot be manufactured.</div></div>
+          </div>
+          <div style="background:rgba(245,240,232,.05);border-radius:7px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px">
+            <div style="color:var(--saf);font-size:14px;flex-shrink:0;margin-top:1px">→</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:#F5F0E8;margin-bottom:2px">Speed advantage in AI-native features</div><div style="font-size:11.5px;color:rgba(245,240,232,.5);line-height:1.5">A 500-person company takes 6 months to ship one AI feature through committees. You ship in a day with Claude Code. They cannot out-iterate you at this stage.</div></div>
+          </div>
+          <div style="background:rgba(245,240,232,.05);border-radius:7px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px">
+            <div style="color:var(--saf);font-size:14px;flex-shrink:0;margin-top:1px">→</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:#F5F0E8;margin-bottom:2px">Editorial integrity is structurally impossible for them</div><div style="font-size:11.5px;color:rgba(245,240,232,.5);line-height:1.5">Paisabazaar's investors need revenue growth. They cannot publish "don't apply for a loan right now — the rates are bad." You can. That honesty is priceless and unreplicable.</div></div>
+          </div>
+          <div style="background:rgba(232,135,26,.1);border-radius:7px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px">
+            <div style="color:var(--saf);font-size:14px;flex-shrink:0;margin-top:1px">→</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:var(--saf);margin-bottom:2px">Niche-first wins every time</div><div style="font-size:11.5px;color:rgba(245,240,232,.6);line-height:1.5">NerdWallet started with credit cards only. MSE started with saving tips only. Don't try to beat BankBazaar on everything — own credit cards and CIBIL completely first, then expand.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><h3>The 90-day moat build — in priority order</h3></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--mist)">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">1</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:var(--ink)">Add your name + photo to homepage hero</div><div style="font-size:11px;color:var(--ash)">Day 1 · Zero cost · Biggest trust signal available</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--mist)">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">2</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:var(--ink)">Launch newsletter with Resend (free under 1K)</div><div style="font-size:11px;color:var(--ash)">Day 3 · The MSE moat starts on Day 1, not Day 1,000</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--mist)">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--warn);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">3</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:var(--ink)">Build CIBIL Simulator (Claude Code, 1 week)</div><div style="font-size:11px;color:var(--ash)">Week 2 · First in India · Goes viral organically</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--mist)">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--warn);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">4</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:var(--ink)">Ship IFSC lookup (Claude Code, 5 days)</div><div style="font-size:11px;color:var(--ash)">Week 4 · 500K–1M monthly visits permanently</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--mist)">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--sky);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">5</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:var(--ink)">Publish 50 "best card for X" articles</div><div style="font-size:11px;color:var(--ash)">Weeks 5–8 · Claude drafts, you review · NerdWallet play</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--grn);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">6</div>
+            <div><div style="font-size:12.5px;font-weight:600;color:var(--ink)">Launch "dispute CIBIL errors" campaign</div><div style="font-size:11px;color:var(--ash)">Week 10 · MSE campaign model · Viral backlinks</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final CTA block -->
+  <div style="background:var(--ink);border-radius:14px;padding:32px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(232,135,26,.15) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center">
+      <div>
+        <div style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--saf);margin-bottom:10px">The Summary</div>
+        <div style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:400;font-style:italic;color:#F5F0E8;margin-bottom:12px;line-height:1.3">They built $1B businesses with 60-person teams and no AI. You have Claude Code Max and 20 hours a week.</div>
+        <div style="font-size:12.5px;color:rgba(245,240,232,.5);line-height:1.7">The advantage isn't theoretical. NerdWallet's 500 articles/month was the entire editorial operation's output. Claude Code delivers that in 3 weeks. BankBazaar's IFSC tool took months to build. Claude Code: 5 days. MSE's newsletter took Martin Lewis hours each week. Claude drafts yours in 10 minutes.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);border-radius:9px;padding:14px">
+          <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,.4);margin-bottom:6px">The one thing not to do</div>
+          <div style="font-size:12.5px;color:rgba(245,240,232,.75);line-height:1.55">Don't try to be BankBazaar. Don't compete on breadth. Own the "honest advisor for credit cards and CIBIL" category completely first. That's worth more than half a product offering across everything.</div>
+        </div>
+        <div style="background:rgba(232,135,26,.08);border:1px solid rgba(232,135,26,.2);border-radius:9px;padding:14px">
+          <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--saf);margin-bottom:6px">The one thing to do today</div>
+          <div style="font-size:12.5px;color:rgba(245,240,232,.85);font-weight:500;line-height:1.55">Add your name and photo to the InvestingPro homepage. That single action — which none of your competitors have done — is the beginning of a moat they cannot replicate.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+function st(id, el) {
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('pg-' + id).classList.add('on');
+  el.classList.add('on');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
