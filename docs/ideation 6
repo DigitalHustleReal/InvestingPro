@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InvestingPro — Full Platform Scope</title>
+<style>
+:root{
+  --border-radius-lg:10px;
+  --color-border-tertiary:#E4DEDA;
+  --color-background-primary:#FFFDF8;
+  --color-text-primary:#1B2A4A;
+  --color-text-secondary:#7A8799;
+  --color-border-warning:rgba(180,83,9,.25);
+  --color-background-warning:#FEF9EC;
+  --color-text-warning:#92400E;
+  --color-border-success:rgba(26,107,74,.25);
+  --color-background-success:#F0F7F2;
+  --color-text-success:#1A4A2E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;font-size:13px;background:#F5F0E8;color:#1B2A4A;padding:20px 24px;max-width:1100px;margin:0 auto}
+h1{font-family:Georgia,serif;font-size:22px;font-style:italic;margin-bottom:18px;color:#1B2A4A}
+h1 em{color:#E8871A}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.card{border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);overflow:hidden}
+.card-hd{padding:10px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:8px}
+.card-hd h3{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.card-body{padding:12px 14px;display:flex;flex-direction:column;gap:5px}
+.item{display:flex;align-items:flex-start;gap:7px;padding:4px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:12px;color:var(--color-text-secondary)}
+.item:last-child{border:none}
+.item-name{color:var(--color-text-primary);font-weight:500;min-width:120px;flex-shrink:0}
+.item-detail{color:var(--color-text-secondary);line-height:1.4}
+.tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:500;margin-left:auto;flex-shrink:0;white-space:nowrap}
+.warn-box{border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-warning);background:var(--color-background-warning);padding:12px 16px;margin-bottom:16px}
+.warn-title{font-size:11px;font-weight:500;color:var(--color-text-warning);margin-bottom:6px}
+.warn-body{font-size:12px;color:var(--color-text-warning);line-height:1.6}
+.phase-row{display:flex;gap:0;margin-bottom:16px;border-radius:var(--border-radius-lg);overflow:hidden;border:0.5px solid var(--color-border-tertiary)}
+.phase{flex:1;padding:12px 14px;border-right:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
+.phase:last-child{border:none}
+.phase-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:5px}
+.phase-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.phase-items{font-size:11px;color:var(--color-text-secondary);line-height:1.65}
+.revenue-row{display:flex;gap:0;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;margin-bottom:16px;background:var(--color-background-primary)}
+.rev-col{flex:1;padding:12px 14px;border-right:0.5px solid var(--color-border-tertiary);text-align:center}
+.rev-col:last-child{border:none}
+.rev-n{font-size:22px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.rev-l{font-size:11px;color:var(--color-text-secondary)}
+.sec-title{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;padding-top:4px}
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr 1fr}
+  .phase-row{flex-direction:column}
+  .phase{border-right:none;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .revenue-row{flex-wrap:wrap}
+  .rev-col{min-width:33%}
+}
+@media(max-width:480px){
+  .grid,.grid2{grid-template-columns:1fr}
+  body{padding:14px 14px}
+}
+</style>
+</head>
+<body>
+
+<h1>InvestingPro — <em>Full Platform Scope</em></h1>
+
+<div class="warn-box">
+  <div class="warn-title">The honest answer to your question</div>
+  <div class="warn-body">Yes — so far we have gone deep on credit cards, SEO, and programmatic content. That is correct sequencing (fastest traffic, fastest revenue), but InvestingPro is a full personal finance platform. Below is the complete scope — every product vertical, every revenue stream, every user need, and every content type — with the build order that makes sense for one person.</div>
+</div>
+
+<div class="sec-title">Every product vertical — all 8</div>
+<div class="grid">
+
+  <div class="card" style="border-color:rgba(232,135,26,.3)">
+    <div class="card-hd"><div class="dot" style="background:#E8871A"></div><h3>Credit cards</h3><span class="tag" style="background:#FEF3E2;color:#B45309">Phase 1 — Now</span></div>
+    <div class="card-body">
+      <div class="item"><span class="item-name">Comparison</span><span class="item-detail">500+ cards, 8 criteria, approval rings</span></div>
+      <div class="item"><span class="item-name">Card vs card</span><span class="item-detail">500 comparison pairs, programmatic</span></div>
+      <div class="item"><span class="item-name">Reviews</span><span class="item-detail">Deep per-card reviews, real experience</span></div>
+      <div class="item"><span class="item-name">By use case</span><span class="item-detail">OTT, fuel, dining, travel, rent, UPI</span></div>
+      <div class="item"><span class="item-name">Revenue</span><span class="item-detail">₹800–₹3,500 CPA per approved card</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(26,107,74,.3)">
+    <div class="card-hd"><div class="dot" style="background:#1A6B4A"></div><h3>CIBIL & credit health</h3><span class="tag" style="background:#E8F5EE;color:#1A6B4A">Phase 1 — Differentiator</span></div>
+    <div class="card-body">
+      <div class="item"><span class="item-name">Free CIBIL check</span><span class="item-detail">Entry hook, no login required</span></div>
+      <div class="item"><span class="item-name">CIBIL Simulator</span><span class="item-detail">First in India — what-if scenarios</span></div>
+      <div class="item"><span class="item-name">Improvement plan</span><span class="item-detail">90-day personalised roadmap</span></div>
+      <div class="item"><span class="item-name">Dispute tool</span><span class="item-detail">RBI complaint letter generator</span></div>
+      <div class="item"><span class="item-name">Revenue</span><span class="item-detail">Indirect — converts to card/loan traffic</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(30,111,191,.3)">
+    <div class="card-hd"><div class="dot" style="background:#1E6FBF"></div><h3>Loans</h3><span class="tag" style="background:#EAF2FB;color:#1E6FBF">Phase 2 — High value</span></div>
+    <div class="card-body">
+      <div class="item"><span class="item-name">Home loans</span><span class="item-detail">Rate tables, EMI calc, DSA program</span></div>
+      <div class="item"><span class="item-name">Personal loans</span><span class="item-detail">By CIBIL score, by salary range</span></div>
+      <div class="item"><span class="item-name">Car / education</span><span class="item-detail">Comparison, eligibility checker</span></div>
+      <div class="item"><span class="item-name">Loan against</span><span class="item-detail">MF, FD, property — underserved niche</span></div>
+      <div class="item"><span class="item-name">Revenue</span><span class="item-detail">1–2% of disbursal — highest CPA</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(107,33,168,.3)">
+    <div class="card-hd"><div class="dot" style="background:#6B21A8"></div><h3>Mutual funds & SIP</h3><span class="tag" style="background:#F3EFF8;color:#6B21A8">Phase 2</span></div>
+    <div class="card-body">
+      <div class="item"><span class="item-name">Fund comparison</span><span class="item-detail">Returns, expense ratio, risk rating</span></div>
+      <div class="item"><span class="item-name">SIP calculator</span><span class="item-detail">Goal-based, inflation-adjusted</span></div>
+      <div class="item"><span class="item-name">Index vs active</span><span class="item-detail">High-traffic debate content</span></div>
+      <div class="item"><span class="item-name">SWP planner</span><span class="item-detail">Retirement withdrawal calculator</span></div>
+      <div class="item"><span class="item-name">Revenue</span><span class="item-detail">0.5–1% AUM trail — compounds forever</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(180,83,9,.3)">
+    <div class="card-hd"><div class="dot" style="background:#B45309"></div><h3>FD, savings & banking</h3><span class="tag" style="background:#FEF3E2;color:#B45309">Phase 2</span></div>
+    <div class="card-body">
+      <div class="item"><span class="item-name">FD rate table</span><span class="item-detail">All banks, daily updated, auto-scraped</span></div>
+      <div class="item"><span class="item-name">Savings accounts</span><span class="item-detail">Best interest rates, zero-balance</span></div>
+      <div class="item"><span class="item-name">FD calculator</span><span class="item-detail">Simple, compound, quarterly payout</span></div>
+      <div class="item"><span class="item-name">Small finance banks</span><span class="item-detail">7–9% rates — underserved segment</span></div>
+      <div class="item"><span class="item-name">Revenue</span><span class="item-detail">₹125–375 CPA per account opened</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(192,57,43,.3)">
+    <div class="card-hd"><div class="dot" style="background:#C0392B"></div><h3>Insurance</h3><span class="tag" style="background:#FDECEA;color:#C0392B">Phase 3</span></div>
+    <div class="card-body">
+      <div class="item"><span class="item-name">Term life</span><span class="item-detail">India's most underinsured category</span></div>
+      <div class="item"><span class="item-name">Health insurance</span><span class="item-detail">Family floater vs individual plans</span></div>
+      <div class="item"><span class="item-name">Motor insurance</span><span class="item-detail">High-volume, easy comparison</span></div>
+      <div class="item"><span class="item-name">ULIP analysis</span><span class="item-detail">Why most ULIPs are bad deals</span></div>
+      <div class="item"><span class="item-name">Revenue</span><span class="item-detail">₹500–₹2,000 per policy lead</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(13,115,119,.3)">
+    <div class="card-hd"><div class="dot" style="background:#0D7377"></div><h3>Tax & 80C planning</h3><span class="tag" style="background:#E1F5EE;color:#085041">Phase 2</span></div>
+    <div class="card-body">
+      <div class="item"><span class="item-name">80C calculator</span><span class="item-detail">Which instrument saves most tax</span></div>
+      <div class="item"><span class="item-name">Old vs new regime</span><span class="item-detail">Highest-search Indian tax query</span></div>
+      <div class="item"><span class="item-name">ELSS vs PPF vs NPS</span><span class="item-detail">Comparison content cluster</span></div>
+      <div class="item"><span class="item-name">HRA / home loan</span><span class="item-detail">Dual benefit calculators</span></div>
+      <div class="item"><span class="item-name">Revenue</span><span class="item-detail">Indirect — converts to MF/NPS traffic</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="dot" style="background:#888780"></div><h3>Programmatic SEO tools</h3><span class="tag" style="background:#F1EFE8;color:#444441">Phase 1–2 — Infrastructure</span></div>
+    <div class="card-body">
+      <div class="item"><span class="item-name">IFSC lookup</span><span class="item-detail">80K pages, 1.29M visits/mo potential</span></div>
+      <div class="item"><span class="item-name">Bank holidays</span><span class="item-detail">500 pages, bookmarked year-round</span></div>
+      <div class="item"><span class="item-name">Gold rate by city</span><span class="item-detail">100 pages, daily auto-update</span></div>
+      <div class="item"><span class="item-name">PIN code hub</span><span class="item-detail">50K pages — local financial data</span></div>
+      <div class="item"><span class="item-name">Finance glossary</span><span class="item-detail">200 terms — Investopedia India play</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(232,135,26,.2)">
+    <div class="card-hd"><div class="dot" style="background:#E8871A"></div><h3>Calculators hub</h3><span class="tag" style="background:#FEF3E2;color:#B45309">Phase 1 onwards</span></div>
+    <div class="card-body">
+      <div class="item"><span class="item-name">EMI calculator</span><span class="item-detail">Home, car, personal — all variants</span></div>
+      <div class="item"><span class="item-name">SIP / SWP / CAGR</span><span class="item-detail">Goal-based + lump sum</span></div>
+      <div class="item"><span class="item-name">Tax calculator</span><span class="item-detail">Old vs new regime, HRA, 80C</span></div>
+      <div class="item"><span class="item-name">CIBIL Simulator</span><span class="item-detail">Flagship tool — first in India</span></div>
+      <div class="item"><span class="item-name">Compound interest</span><span class="item-detail">FD, RD, PPF growth projections</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="sec-title">Revenue streams — not just affiliate commissions</div>
+<div class="revenue-row">
+  <div class="rev-col"><div class="rev-n" style="color:#E8871A">₹1,200–₹3,500</div><div class="rev-l">Credit card CPA</div></div>
+  <div class="rev-col"><div class="rev-n" style="color:#1A6B4A">1–2%</div><div class="rev-l">Home loan disbursal</div></div>
+  <div class="rev-col"><div class="rev-n" style="color:#6B21A8">0.5–1%/yr</div><div class="rev-l">MF trail (forever)</div></div>
+  <div class="rev-col"><div class="rev-n" style="color:#1E6FBF">₹500–₹2K</div><div class="rev-l">Insurance leads</div></div>
+  <div class="rev-col"><div class="rev-n" style="color:#B45309">Year 2</div><div class="rev-l">Premium tools / API</div></div>
+  <div class="rev-col"><div class="rev-n" style="color:#0D7377">Year 2</div><div class="rev-l">Data reports / B2B</div></div>
+</div>
+
+<div class="sec-title">User journeys — 6 types of person arriving at InvestingPro</div>
+<div class="grid2">
+  <div class="card">
+    <div class="card-hd"><div class="dot" style="background:#E8871A"></div><h3>The spender (22–35, salaried)</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">Arrives via "best cashback card" → compares cards → checks CIBIL → applies → later returns for loan comparison</span></div>
+      <div class="item"><span class="item-name">Content needed</span><span class="item-detail">Card comparisons, approval guides, CIBIL tips</span></div>
+      <div class="item"><span class="item-name">Tools needed</span><span class="item-detail">CIBIL Simulator, card finder, approval predictor</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="dot" style="background:#1A6B4A"></div><h3>The first-time investor (28–40)</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">Arrives via "SIP kaise start karein" → reads MF guide → uses SIP calculator → starts SIP via ARN link</span></div>
+      <div class="item"><span class="item-name">Content needed</span><span class="item-detail">MF basics, index funds, SIP guides, ELSS vs PPF</span></div>
+      <div class="item"><span class="item-name">Tools needed</span><span class="item-detail">SIP calculator, goal planner, fund comparator</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="dot" style="background:#1E6FBF"></div><h3>The home loan seeker (30–45)</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">Arrives via "home loan rates 2026" → uses EMI calc → checks CIBIL impact → compares banks → applies via DSA</span></div>
+      <div class="item"><span class="item-name">Content needed</span><span class="item-detail">Rate tables, CIBIL-to-rate guide, bank comparisons</span></div>
+      <div class="item"><span class="item-name">Tools needed</span><span class="item-detail">EMI calculator, CIBIL simulator, prepayment calc</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="dot" style="background:#B45309"></div><h3>The tax-stressed professional (25–50)</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">Arrives in Jan–March via "old vs new tax regime" → uses tax calculator → discovers 80C options → opens ELSS via MF link</span></div>
+      <div class="item"><span class="item-name">Content needed</span><span class="item-detail">Regime comparison, 80C deep dives, HRA guides</span></div>
+      <div class="item"><span class="item-name">Tools needed</span><span class="item-detail">Tax calculator, 80C planner, HRA calculator</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="dot" style="background:#C0392B"></div><h3>The FD searcher (40–65, conservative)</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">Arrives via "best FD rates today" → sees rate table → compares small finance banks → opens FD via affiliate link</span></div>
+      <div class="item"><span class="item-name">Content needed</span><span class="item-detail">Daily FD rate tables, safety ratings, SFB guides</span></div>
+      <div class="item"><span class="item-name">Tools needed</span><span class="item-detail">FD calculator, laddering planner, rate alerts</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="dot" style="background:#0D7377"></div><h3>The researcher (all ages)</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">Arrives via IFSC code or "what is CAGR" → reads glossary → bookmarks the site → returns for product decisions later</span></div>
+      <div class="item"><span class="item-name">Content needed</span><span class="item-detail">Glossary, IFSC lookup, bank holidays, how-to guides</span></div>
+      <div class="item"><span class="item-name">Tools needed</span><span class="item-detail">Search, IFSC tool, all calculators</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-title">What's genuinely missing from the plan so far</div>
+<div class="grid">
+  <div class="card" style="border-color:rgba(192,57,43,.3)">
+    <div class="card-hd"><div class="dot" style="background:#C0392B"></div><h3>Insurance — not started</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">India's biggest protection gap. "Term insurance kya hota hai" gets 450K searches/month. Most Indians are uninsured or mis-sold ULIPs. An honest comparison page with a clear "avoid ULIPs" editorial stance could generate 50K+ visits in Year 1.</span></div>
+      <div class="item"><span class="item-name">Start with</span><span class="item-detail">Term life vs ULIP guide · Health insurance floater vs individual</span></div>
+    </div>
+  </div>
+  <div class="card" style="border-color:rgba(13,115,119,.3)">
+    <div class="card-hd"><div class="dot" style="background:#0D7377"></div><h3>NPS / retirement — not started</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">NPS is underrepresented on every Indian platform. Government employees, defence personnel, and private sector workers all need NPS guidance. The "NPS vs PPF vs ELSS" article cluster could own this space. Your own defence context makes NPS especially relevant.</span></div>
+      <div class="item"><span class="item-name">Start with</span><span class="item-detail">NPS calculator · Defence pension + NPS combo guide</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="dot" style="background:#888780"></div><h3>Community / WhatsApp — not built</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">The entire strategy is SEO-first. But SEO is Google-dependent. A WhatsApp community of 500 engaged members is Google-proof. Rate alerts, weekly tips, new card launches — sent directly to people who asked for them. This is the MSE email list adapted for India.</span></div>
+      <div class="item"><span class="item-name">Start with</span><span class="item-detail">WhatsApp Business Community · Weekly rate alert broadcast</span></div>
+    </div>
+  </div>
+  <div class="card" style="border-color:rgba(107,33,168,.3)">
+    <div class="card-hd"><div class="dot" style="background:#6B21A8"></div><h3>Email list — not launched</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">This should have been Day 1. Every platform we studied — MSE, NerdWallet, Bankrate — treats email as its most valuable asset. It is Google-proof, algorithm-proof, ad-free distribution. InvestingPro Weekly needs to launch before the first article is published.</span></div>
+      <div class="item"><span class="item-name">Start with</span><span class="item-detail">Resend account · Weekly email template · Signup on every page</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="dot" style="background:#888780"></div><h3>Data / PR reports — not planned</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">NerdWallet built 250+ high-DA backlinks through original data reports. "Average credit card debt by Indian city" or "CIBIL score distribution by income bracket" — original data journalism. ET and Mint cite sources that publish original research. This is link building and brand building simultaneously.</span></div>
+      <div class="item"><span class="item-name">Start with</span><span class="item-detail">Quarterly India Finance Report · Press outreach template</span></div>
+    </div>
+  </div>
+  <div class="card" style="border-color:rgba(232,135,26,.3)">
+    <div class="card-hd"><div class="dot" style="background:#E8871A"></div><h3>Gold & sovereign bonds — not covered</h3></div>
+    <div class="card-body">
+      <div class="item"><span class="item-detail">Gold rate pages drive enormous traffic for BankBazaar and GoodReturns. "Aaj ka sone ka bhav" is searched millions of times daily. Sovereign Gold Bonds are a legitimate investment product with an affiliate angle. 100 city-level gold rate pages = 200K+ monthly visits, automated.</span></div>
+      <div class="item"><span class="item-name">Start with</span><span class="item-detail">Gold rate by city (100 pages) · SGB vs physical gold guide</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-title">The corrected build sequence — full platform view</div>
+<div class="phase-row">
+  <div class="phase">
+    <div class="phase-label" style="color:#C0392B">Now — Month 1</div>
+    <div class="phase-title">Foundation</div>
+    <div class="phase-items">Email list launch (Day 1)<br>WhatsApp community<br>Credit cards cluster<br>CIBIL Simulator v1<br>Methodology page<br>IFSC lookup build</div>
+  </div>
+  <div class="phase">
+    <div class="phase-label" style="color:#B45309">Month 2–3</div>
+    <div class="phase-title">Content volume</div>
+    <div class="phase-items">Home loan cluster<br>Tax & 80C calculator<br>FD rate tables (daily)<br>Gold rate pages<br>Bank holidays live<br>First data PR report</div>
+  </div>
+  <div class="phase">
+    <div class="phase-label" style="color:#1E6FBF">Month 4–6</div>
+    <div class="phase-title">Product depth</div>
+    <div class="phase-items">MF fund comparator<br>SIP goal planner<br>Insurance cluster<br>NISM exam + ARN<br>Card vs card 500 pairs<br>200-term glossary</div>
+  </div>
+  <div class="phase">
+    <div class="phase-label" style="color:#1A6B4A">Month 7–12</div>
+    <div class="phase-title">Authority</div>
+    <div class="phase-items">NPS / retirement hub<br>PIN code 50K pages<br>Annual India report<br>Direct bank DSA deals<br>CIBIL Simulator v3 AI<br>Premium tools (Year 2)</div>
+  </div>
+</div>
+
+<div style="border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-success);background:var(--color-background-success);padding:14px 16px">
+  <div style="font-size:12px;font-weight:500;color:var(--color-text-success);margin-bottom:6px">The one-line answer</div>
+  <div style="font-size:13px;color:var(--color-text-success);line-height:1.7">InvestingPro covers all 8 verticals — cards, CIBIL, loans, MF, FD, insurance, tax, and tools — plus email and WhatsApp as distribution. SEO is the acquisition channel, not the product. The product is honest comparison across every financial decision an Indian household makes. We started with cards because that is the fastest path to revenue. The platform is everything.</div>
+</div>
+
+</body>
+</html>
