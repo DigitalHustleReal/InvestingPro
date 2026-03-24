@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Search, Zap, LayoutGrid, Table as TableIcon } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, Zap, LayoutGrid, Table as TableIcon, BadgeCheck } from 'lucide-react';
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import Link from 'next/link';
@@ -83,15 +83,16 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                  return featuresStr.includes(t) || (asset.specs?.rewardsType || "").toLowerCase().includes(t);
             });
 
-        // NEW: Credit Score Filter
-        const scoreMatch = filters.creditScore.length === 0 || true; // Placeholder
+        // Credit Score Filter — if user set their score, filter to cards they're eligible for
+        const minCibil = asset.specs?.minCibilScore ?? asset.specs?.min_cibil_score ?? asset.features?.min_cibil_score ?? 700;
+        const scoreMatch = !userCibilScore || (userCibilScore >= (minCibil as number) - 50);
 
         // Fee logic
         const annualFeeStr = asset.specs?.annualFee || "0";
         const annualFee = parseInt(annualFeeStr.replace(/[^0-9]/g, "")) || 0;
         const feeMatch = annualFee <= filters.maxFee;
         
-        return searchMatch && issuerMatch && networkMatch && featureMatch && spendingMatch && cardTypeMatch && feeMatch && rewardsTypeMatch;
+        return searchMatch && issuerMatch && networkMatch && featureMatch && spendingMatch && cardTypeMatch && feeMatch && rewardsTypeMatch && scoreMatch;
     });
 
     // ---------------------------------------------------------
@@ -156,10 +157,43 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
         (filters.cardType.length > 0 ? 1 : 0) + 
         (filters.rewardsType.length > 0 ? 1 : 0);
 
+    // ── CIBIL Score (persisted to localStorage) ────────────────────────────────
+    const [userCibilScore, setUserCibilScore] = useState<number | undefined>(undefined);
+    const [cibilInput, setCibilInput] = useState('');
+    const [showCibilInput, setShowCibilInput] = useState(false);
+
+    useEffect(() => {
+        const saved = localStorage.getItem('userCibilScore');
+        if (saved) {
+            const parsed = parseInt(saved);
+            if (parsed >= 300 && parsed <= 900) {
+                setUserCibilScore(parsed);
+                setCibilInput(saved);
+            }
+        }
+    }, []);
+
+    const handleCibilSubmit = () => {
+        const val = parseInt(cibilInput);
+        if (val >= 300 && val <= 900) {
+            setUserCibilScore(val);
+            localStorage.setItem('userCibilScore', String(val));
+            setShowCibilInput(false);
+        }
+    };
+
+    const handleCibilClear = () => {
+        setUserCibilScore(undefined);
+        setCibilInput('');
+        localStorage.removeItem('userCibilScore');
+        setShowCibilInput(false);
+    };
+    // ──────────────────────────────────────────────────────────────────────────
+
     const [visibleCount, setVisibleCount] = useState(12);
     const displayedAssets = scoredAssets.slice(0, visibleCount);
     const hasMore = visibleCount < scoredAssets.length;
-    
+
     React.useEffect(() => {
         setVisibleCount(12);
     }, [filters, searchTerm, weights]);
@@ -200,10 +234,73 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                        />
                 </div>
 
-                <ScorePreferenceToggle 
-                    currentWeights={weights} 
-                    onWeightChange={setWeights} 
+                <ScorePreferenceToggle
+                    currentWeights={weights}
+                    onWeightChange={setWeights}
                 />
+
+                {/* CIBIL Score Widget — makes eligibility badges dynamic */}
+                <div className="mb-5 flex items-center gap-3 flex-wrap">
+                    <div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                        <BadgeCheck className="w-4 h-4 text-primary-600" />
+                        Your CIBIL Score:
+                    </div>
+                    {userCibilScore && !showCibilInput ? (
+                        <div className="flex items-center gap-2">
+                            <span className="px-3 py-1 bg-primary-50 dark:bg-primary-950/40 border border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 rounded-lg text-sm font-bold">
+                                {userCibilScore}
+                            </span>
+                            <button
+                                onClick={() => setShowCibilInput(true)}
+                                className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 underline"
+                            >
+                                Change
+                            </button>
+                            <button
+                                onClick={handleCibilClear}
+                                className="text-xs text-slate-400 hover:text-red-500 underline"
+                            >
+                                Clear
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-2">
+                            {showCibilInput || !userCibilScore ? (
+                                <>
+                                    <input
+                                        type="number"
+                                        min={300}
+                                        max={900}
+                                        placeholder="e.g. 750"
+                                        value={cibilInput}
+                                        onChange={(e) => setCibilInput(e.target.value)}
+                                        onKeyDown={(e) => e.key === 'Enter' && handleCibilSubmit()}
+                                        className="w-24 px-3 py-1 border border-slate-200 dark:border-slate-700 rounded-lg text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                    />
+                                    <button
+                                        onClick={handleCibilSubmit}
+                                        className="px-3 py-1 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-xs font-semibold"
+                                    >
+                                        Set
+                                    </button>
+                                    {showCibilInput && (
+                                        <button
+                                            onClick={() => setShowCibilInput(false)}
+                                            className="text-xs text-slate-400 hover:text-slate-600 underline"
+                                        >
+                                            Cancel
+                                        </button>
+                                    )}
+                                </>
+                            ) : null}
+                            {!showCibilInput && !userCibilScore && (
+                                <span className="text-xs text-slate-400">
+                                    Enter your score to see personalised approval odds on each card
+                                </span>
+                            )}
+                        </div>
+                    )}
+                </div>
 
                 <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[
@@ -287,13 +384,14 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                         ) : (
                             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                                 {displayedAssets.map((product) => (
-                                    <RichProductCard 
-                                        key={product.id} 
-                                        product={product} 
+                                    <RichProductCard
+                                        key={product.id}
+                                        product={product}
                                         matchScore={product.matchScore}
                                         scoreBreakdown={product.scoreBreakdown}
                                         rawScore={product.rawScore}
                                         isScored={true}
+                                        userCibilScore={userCibilScore}
                                     />
                                 ))}
                             </div>

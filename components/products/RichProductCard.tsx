@@ -30,9 +30,10 @@ interface RichProductCardProps {
     isScored?: boolean; // If true, shows the dynamic AI badge
     scoreBreakdown?: ScoreBreakdownItem[];
     rawScore?: number; // 0-10
+    userCibilScore?: number; // User's CIBIL score for dynamic eligibility badge
 }
 
-export function RichProductCard({ product, layout = 'grid', onCompare, matchScore, isScored, scoreBreakdown, rawScore }: RichProductCardProps) {
+export function RichProductCard({ product, layout = 'grid', onCompare, matchScore, isScored, scoreBreakdown, rawScore, userCibilScore }: RichProductCardProps) {
     const isList = layout === 'list';
     const { addProduct, removeProduct, isSelected } = useCompare();
     const isCompareSelected = isSelected(product.id);
@@ -268,6 +269,7 @@ export function RichProductCard({ product, layout = 'grid', onCompare, matchScor
                                 product.features?.min_cibil_score ??
                                 (product.category === 'credit_card' ? 700 : 650)
                             }
+                            userCibilScore={userCibilScore}
                             size="compact"
                             className="self-start"
                         />
