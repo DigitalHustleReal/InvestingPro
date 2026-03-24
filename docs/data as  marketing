@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>InvestingPro — Engineering as Marketing</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#03050A;--c1:#080D18;--c2:#0D1422;--c3:#121B2E;--c4:#1A2540;
+  --br:#1C2840;--br2:#243354;--br3:#2C3F68;
+  --t1:#EEF2FF;--t2:#8FA3CC;--t3:#445570;--t4:#2A3550;
+  --vi:#7C6FFF;--vi2:#6A5EE8;--vix:rgba(124,111,255,.12);--vib:rgba(124,111,255,.06);
+  --gr:#05D98A;--grx:rgba(5,217,138,.1);--grd:rgba(5,217,138,.05);
+  --am:#FFAA33;--amx:rgba(255,170,51,.1);
+  --cy:#00DCFF;--cyx:rgba(0,220,255,.09);
+  --re:#FF4D6A;--rex:rgba(255,77,106,.1);
+  --pk:#FF2D87;--pkx:rgba(255,45,135,.1);
+  --yw:#FFE566;--ywx:rgba(255,229,102,.1);
+  --r8:8px;--r10:10px;--r12:12px;--r16:16px;--r20:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--t1);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:13px;-webkit-font-smoothing:antialiased;line-height:1.6}
+
+/* ── LAYOUT ── */
+.app{display:flex;min-height:100vh}
+.sidebar{width:220px;background:var(--c1);border-right:1px solid var(--br);position:fixed;top:0;bottom:0;left:0;overflow-y:auto;scrollbar-width:none;display:flex;flex-direction:column;z-index:40}
+.sidebar::-webkit-scrollbar{display:none}
+.main{margin-left:220px;flex:1;display:flex;flex-direction:column}
+.topbar{height:52px;background:var(--c1);border-bottom:1px solid var(--br);display:flex;align-items:center;padding:0 24px;gap:12px;position:sticky;top:0;z-index:30;flex-shrink:0}
+.content-area{padding:28px 28px;flex:1}
+
+/* ── SIDEBAR ── */
+.sb-brand{padding:18px 16px 14px;border-bottom:1px solid var(--br)}
+.sb-logo{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--t1);letter-spacing:-.04em}
+.sb-logo em{color:var(--gr);font-style:normal}
+.sb-tagline{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--t3);margin-top:2px;letter-spacing:.04em}
+.sb-sect{padding:14px 14px 4px;font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--t4)}
+.sb-item{display:flex;align-items:center;gap:8px;padding:8px 13px;margin:1px 8px;border-radius:var(--r8);cursor:pointer;font-size:12px;color:var(--t3);transition:all .13s;user-select:none}
+.sb-item:hover{background:var(--c2);color:var(--t2)}
+.sb-item.active{background:var(--vix);color:var(--vi);font-weight:600}
+.sb-item-ico{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.sb-cnt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:8.5px;background:var(--c3);padding:1px 6px;border-radius:8px;color:var(--t3)}
+.sb-item.active .sb-cnt{background:var(--vix);color:var(--vi)}
+.sb-footer{margin-top:auto;padding:14px;border-top:1px solid var(--br)}
+.sb-cta{background:linear-gradient(135deg,var(--vi),var(--cy));border-radius:var(--r8);padding:10px 12px;font-size:11.5px;font-weight:700;color:#fff;cursor:pointer;text-align:center;transition:opacity .14s}
+.sb-cta:hover{opacity:.9}
+
+/* ── TOPBAR ── */
+.tb-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--t1);letter-spacing:-.04em;flex:1}
+.tb-badges{display:flex;gap:7px;align-items:center}
+.tb-badge{padding:4px 11px;border-radius:20px;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--r8);font-family:'IBM Plex Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .14s;white-space:nowrap}
+.btn-primary{background:var(--vi);color:#fff}.btn-primary:hover{background:var(--vi2);transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,111,255,.3)}
+.btn-gr{background:var(--gr);color:#000}.btn-gr:hover{opacity:.9;transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1px solid var(--br2);color:var(--t2)}.btn-ghost:hover{border-color:var(--vi);color:var(--vi)}
+.btn-sm{padding:5px 11px;font-size:11px}
+.btn-xs{padding:3px 8px;font-size:10.5px}
+
+/* ── PAGE HEADER ── */
+.pg-hd{margin-bottom:26px}
+.pg-eyebrow{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--vi);margin-bottom:7px;display:flex;align-items:center;gap:8px}
+.pg-eyebrow::before{content:'';width:20px;height:1px;background:var(--vi)}
+.pg-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--t1);letter-spacing:-.04em;line-height:1.15;margin-bottom:8px}
+.pg-title em{color:var(--gr);font-style:normal}
+.pg-sub{font-size:13.5px;color:var(--t2);max-width:600px;line-height:1.7}
+
+/* ── STATS ROW ── */
+.stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:28px}
+.stat{background:var(--c1);border:1px solid var(--br);border-radius:var(--r12);padding:14px;text-align:center;cursor:pointer;transition:all .15s}
+.stat:hover{border-color:var(--vi);transform:translateY(-1px)}
+.stat-n{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;line-height:1}
+.stat-l{font-size:10.5px;color:var(--t3);margin-top:4px;font-family:'JetBrains Mono',monospace}
+
+/* ── TOOL CARDS ── */
+.tool-grid{display:grid;gap:14px}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-2{grid-template-columns:1fr 1fr}
+
+.tool-card{background:var(--c1);border:1px solid var(--br);border-radius:var(--r16);overflow:hidden;transition:all .17s;position:relative}
+.tool-card:hover{border-color:var(--br3);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.tool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:.7}
+.tool-card.vi::before{background:linear-gradient(90deg,var(--vi),var(--cy))}
+.tool-card.gr::before{background:linear-gradient(90deg,var(--gr),var(--cy))}
+.tool-card.am::before{background:linear-gradient(90deg,var(--am),var(--yw))}
+.tool-card.cy::before{background:linear-gradient(90deg,var(--cy),var(--vi))}
+.tool-card.re::before{background:linear-gradient(90deg,var(--re),var(--pk))}
+.tool-card.pk::before{background:linear-gradient(90deg,var(--pk),var(--vi))}
+
+.tc-header{padding:16px 18px 12px;display:flex;align-items:flex-start;gap:12px}
+.tc-ico{width:44px;height:44px;border-radius:var(--r10);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.tc-ico.vi{background:var(--vix)}.tc-ico.gr{background:var(--grx)}.tc-ico.am{background:var(--amx)}.tc-ico.cy{background:var(--cyx)}.tc-ico.re{background:var(--rex)}.tc-ico.pk{background:var(--pkx)}.tc-ico.yw{background:var(--ywx)}
+.tc-info{flex:1;min-width:0}
+.tc-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--t1);margin-bottom:2px;letter-spacing:-.02em}
+.tc-category{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.tc-desc{font-size:12px;color:var(--t2);line-height:1.6}
+.tc-divider{height:1px;background:var(--br);margin:0 18px}
+.tc-body{padding:12px 18px 16px;display:flex;flex-direction:column;gap:10px}
+
+/* ── METRICS ROW ── */
+.tc-metrics{display:flex;gap:12px}
+.tc-metric{flex:1;background:var(--c2);border-radius:var(--r8);padding:8px 11px;text-align:center}
+.tc-m-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;line-height:1}
+.tc-m-lbl{font-size:9.5px;color:var(--t3);margin-top:3px;font-family:'JetBrains Mono',monospace}
+
+/* ── FEATURE LIST ── */
+.tc-features{background:var(--c2);border-radius:var(--r8);padding:10px 12px}
+.tc-feat-label{font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:7px}
+.tc-feat-item{display:flex;align-items:flex-start;gap:7px;font-size:11.5px;color:var(--t2);margin-bottom:5px;line-height:1.45}
+.tc-feat-item:last-child{margin:0}
+.feat-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+
+/* ── VIRAL / SEO SCORES ── */
+.tc-scores{display:flex;gap:8px;flex-wrap:wrap}
+.score-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700}
+.sp-vi{background:var(--vix);color:var(--vi);border:1px solid rgba(124,111,255,.2)}
+.sp-gr{background:var(--grx);color:var(--gr);border:1px solid rgba(5,217,138,.2)}
+.sp-am{background:var(--amx);color:var(--am);border:1px solid rgba(255,170,51,.2)}
+.sp-cy{background:var(--cyx);color:var(--cy);border:1px solid rgba(0,220,255,.2)}
+.sp-re{background:var(--rex);color:var(--re);border:1px solid rgba(255,77,106,.2)}
+.sp-dim{background:var(--c3);color:var(--t3);border:1px solid var(--br)}
+
+/* ── DEMO WIDGET ── */
+.demo-widget{background:var(--bg);border:1px solid var(--br2);border-radius:var(--r10);padding:14px;margin-top:4px}
+.demo-label{font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--vi);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.demo-label::before{content:'▶';font-size:8px}
+
+/* ── INPUTS ── */
+.input-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.demo-input{flex:1;padding:7px 10px;background:var(--c2);border:1px solid var(--br2);border-radius:var(--r8);font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;color:var(--t1);outline:none;transition:border-color .14s}
+.demo-input:focus{border-color:var(--vi)}
+.demo-input::placeholder{color:var(--t3)}
+.demo-input[type="range"]{padding:0;background:transparent;border:none;flex:1;accent-color:var(--vi);cursor:pointer;height:4px}
+.range-val{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--vi);min-width:60px;text-align:right;font-weight:600}
+.demo-select{padding:7px 10px;background:var(--c2);border:1px solid var(--br2);border-radius:var(--r8);font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;color:var(--t1);outline:none;cursor:pointer}
+.demo-label-text{font-size:11.5px;color:var(--t2);min-width:100px;flex-shrink:0}
+
+/* ── RESULT DISPLAY ── */
+.result-box{background:linear-gradient(135deg,var(--vix),var(--grx));border:1px solid rgba(124,111,255,.2);border-radius:var(--r10);padding:12px 14px;text-align:center;margin-top:8px}
+.result-main{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gr);line-height:1}
+.result-sub{font-size:11px;color:var(--t2);margin-top:3px}
+.result-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px}
+.result-row:last-child{border:none}
+.result-lbl{color:var(--t3)}
+.result-val{color:var(--t1);font-weight:600;font-family:'JetBrains Mono',monospace}
+
+/* ── CHART ── */
+.mini-bars{display:flex;align-items:flex-end;gap:3px;height:50px;margin-top:10px}
+.bar{flex:1;border-radius:3px 3px 0 0;transition:height .4s ease;cursor:pointer;position:relative}
+.bar:hover{filter:brightness(1.2)}
+.bar-tip{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--t2);white-space:nowrap;font-family:'JetBrains Mono',monospace;opacity:0;transition:opacity .13s}
+.bar:hover .bar-tip{opacity:1}
+
+/* ── STRATEGY SECTION ── */
+.strategy-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.strat-card{background:var(--c1);border:1px solid var(--br);border-radius:var(--r12);padding:16px;transition:all .15s}
+.strat-card:hover{border-color:var(--br3);transform:translateY(-1px)}
+.strat-ico{font-size:24px;margin-bottom:9px}
+.strat-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.strat-desc{font-size:11.5px;color:var(--t3);line-height:1.6;margin-bottom:10px}
+.strat-eg{font-size:10.5px;color:var(--vi);font-family:'JetBrains Mono',monospace}
+
+/* ── TABLE ── */
+.panel{background:var(--c1);border:1px solid var(--br);border-radius:var(--r12);overflow:hidden;margin-bottom:18px}
+.panel-hd{padding:13px 16px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--t1)}
+table{width:100%;border-collapse:collapse}
+thead th{padding:9px 14px;text-align:left;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);background:var(--c2);border-bottom:1px solid var(--br);font-family:'JetBrains Mono',monospace;font-weight:400}
+thead th:first-child{padding-left:16px}
+td{padding:11px 14px;border-bottom:1px solid var(--br);font-size:12.5px;vertical-align:middle}
+td:first-child{padding-left:16px}
+tbody tr:last-child td{border:none}
+tbody tr:hover td{background:rgba(255,255,255,.015)}
+
+/* ── NOTICE ── */
+.notice{padding:11px 14px;border-radius:var(--r8);font-size:12.5px;line-height:1.65;margin-bottom:18px;display:flex;gap:10px}
+.n-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.notice.gr{background:var(--grx);border:1px solid rgba(5,217,138,.2);color:#80FFD0}
+.notice.vi{background:var(--vix);border:1px solid rgba(124,111,255,.2);color:#C4BFFF}
+.notice.am{background:var(--amx);border:1px solid rgba(255,170,51,.2);color:#FFCB80}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:2px;background:var(--c2);border-radius:var(--r10);padding:3px;margin-bottom:22px}
+.tab{padding:7px 16px;border-radius:var(--r8);font-size:12.5px;font-weight:600;cursor:pointer;color:var(--t3);transition:all .14s;user-select:none}
+.tab:hover{color:var(--t2)}
+.tab.active{background:var(--c1);color:var(--t1);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){.grid-3{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){.sidebar{display:none}.main{margin-left:0}.stats-row{grid-template-columns:repeat(3,1fr)}.grid-3,.grid-2{grid-template-columns:1fr}.strategy-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sb">
+  <div class="sb-brand">
+    <div class="sb-logo">Investing<em>Pro</em>.in</div>
+    <div class="sb-tagline">Engineering as Marketing</div>
+  </div>
+  <div id="sb-nav"></div>
+  <div class="sb-footer">
+    <div class="sb-cta" onclick="showSection('overview')">View All 24 Tools →</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="tb-title" id="tb-title">Engineering as Marketing</div>
+    <div class="tb-badges">
+      <span class="tb-badge" style="background:var(--grx);color:var(--gr);border:1px solid rgba(5,217,138,.2)">24 Tools</span>
+      <span class="tb-badge" style="background:var(--vix);color:var(--vi);border:1px solid rgba(124,111,255,.2)">5 Strategies</span>
+      <span class="tb-badge" style="background:var(--amx);color:var(--am);border:1px solid rgba(255,170,51,.2)">3.2M+ Reach</span>
+    </div>
+  </div>
+  <div class="content-area" id="content-root"></div>
+</div>
+
+</div><!-- .app -->
+
+<script>
+/* ── NAV STRUCTURE ── */
+const NAV=[
+  {id:'overview',ico:'⚡',label:'Overview',grp:'Home'},
+  {id:'calculators',ico:'🧮',label:'Calculators',grp:'Tools',cnt:'8'},
+  {id:'simulators',ico:'🎛',label:'Simulators',grp:'Tools',cnt:'5'},
+  {id:'widgets',ico:'🔧',label:'Embeddable Widgets',grp:'Tools',cnt:'4'},
+  {id:'data-tools',ico:'📊',label:'Data Visualizations',grp:'Tools',cnt:'4'},
+  {id:'ai-tools',ico:'✦',label:'AI-Powered Tools',grp:'Tools',cnt:'3'},
+  {id:'strategy',ico:'🗺',label:'Launch Strategy',grp:'Strategy'},
+  {id:'virality',ico:'🚀',label:'Virality Mechanics',grp:'Strategy'},
+];
+
+let active='overview';
+
+function buildNav(){
+  const groups={};
+  NAV.forEach(n=>{if(!groups[n.grp])groups[n.grp]=[];groups[n.grp].push(n);});
+  let h='';
+  for(const[g,items] of Object.entries(groups)){
+    h+=`<div class="sb-sect">${g}</div>`;
+    items.forEach(n=>{
+      const badge=n.cnt?`<span class="sb-cnt">${n.cnt}</span>`:'';
+      h+=`<div class="sb-item${active===n.id?' active':''}" onclick="showSection('${n.id}')"><span class="sb-item-ico">${n.ico}</span><span>${n.label}</span>${badge}</div>`;
+    });
+  }
+  document.getElementById('sb-nav').innerHTML=h;
+}
+
+function showSection(id){
+  active=id;
+  const titles={overview:'Engineering as Marketing',calculators:'Calculators Hub',simulators:'Simulators',widgets:'Embeddable Widgets','data-tools':'Data Visualizations','ai-tools':'AI-Powered Tools',strategy:'Launch Strategy',virality:'Virality Mechanics'};
+  document.getElementById('tb-title').textContent=titles[id]||id;
+  buildNav();
+  const pages={overview:pgOverview,calculators:pgCalculators,simulators:pgSimulators,widgets:pgWidgets,'data-tools':pgDataTools,'ai-tools':pgAITools,strategy:pgStrategy,virality:pgVirality};
+  document.getElementById('content-root').innerHTML=(pages[id]||pgOverview)();
+  initDemoWidgets();
+}
+
+/* ══════════════════════════════════
+   DEMO WIDGET CALCULATORS
+══════════════════════════════════ */
+function initDemoWidgets(){
+  // EMI Calculator
+  calcEMI();
+  // SIP Calculator
+  calcSIP();
+  // Tax Calculator
+  calcTax();
+  // CIBIL Simulator
+  updateCIBIL();
+  // FD Ladder
+  calcFD();
+  // Real Return Calculator
+  calcRealReturn();
+  // Credit Card Optimizer
+  calcCard();
+}
+
+function fmt(n){return new Intl.NumberFormat('en-IN').format(Math.round(n));}
+function cr(n){return '₹'+fmt(n);}
+
+// EMI
+function calcEMI(){
+  const p=parseFloat(document.getElementById('emi-p')?.value)||5000000;
+  const r=parseFloat(document.getElementById('emi-r')?.value)||8.5;
+  const t=parseInt(document.getElementById('emi-t')?.value)||20;
+  if(!document.getElementById('emi-result'))return;
+  const mo=r/12/100, n=t*12;
+  const emi=p*mo*Math.pow(1+mo,n)/(Math.pow(1+mo,n)-1);
+  const total=emi*n, interest=total-p;
+  document.getElementById('emi-result').innerHTML=`<div class="result-main">${cr(emi)}<span style="font-size:12px;color:var(--t2)">/mo</span></div><div class="result-sub">Monthly EMI</div>`;
+  document.getElementById('emi-detail').innerHTML=`
+    <div class="result-row"><span class="result-lbl">Principal</span><span class="result-val">${cr(p)}</span></div>
+    <div class="result-row"><span class="result-lbl">Total Interest</span><span class="result-val" style="color:var(--re)">${cr(interest)}</span></div>
+    <div class="result-row"><span class="result-lbl">Total Amount</span><span class="result-val">${cr(total)}</span></div>
+    <div class="result-row"><span class="result-lbl">Interest to Principal</span><span class="result-val" style="color:var(--am)">${((interest/p)*100).toFixed(0)}%</span></div>`;
+  document.getElementById('emi-rv')&&(document.getElementById('emi-rv').textContent=cr(p));
+  document.getElementById('emi-rr')&&(document.getElementById('emi-rr').textContent=r+'%');
+  document.getElementById('emi-rt')&&(document.getElementById('emi-rt').textContent=t+' yrs');
+}
+
+// SIP
+function calcSIP(){
+  const mo=parseFloat(document.getElementById('sip-mo')?.value)||10000;
+  const r=parseFloat(document.getElementById('sip-r')?.value)||12;
+  const y=parseInt(document.getElementById('sip-y')?.value)||15;
+  if(!document.getElementById('sip-result'))return;
+  const n=y*12, mr=r/12/100;
+  const corpus=mo*(Math.pow(1+mr,n)-1)/mr*(1+mr);
+  const invested=mo*n;
+  const gains=corpus-invested;
+  document.getElementById('sip-result').innerHTML=`<div class="result-main">${cr(corpus)}</div><div class="result-sub">Final Corpus</div>`;
+  document.getElementById('sip-detail').innerHTML=`
+    <div class="result-row"><span class="result-lbl">Total Invested</span><span class="result-val">${cr(invested)}</span></div>
+    <div class="result-row"><span class="result-lbl">Returns Generated</span><span class="result-val" style="color:var(--gr)">${cr(gains)}</span></div>
+    <div class="result-row"><span class="result-lbl">Wealth Multiple</span><span class="result-val" style="color:var(--vi)">${(corpus/invested).toFixed(1)}x</span></div>`;
+  // bars chart
+  const bars=document.getElementById('sip-bars');
+  if(bars){
+    let h='';const maxV=corpus;
+    for(let i=1;i<=y;i++){
+      const c=mo*12*i*(Math.pow(1+mr,i*12)-1)/(mr*i*12)*(1+mr);
+      const pct=Math.round(c/maxV*100);
+      const inv=mo*12*i;
+      const ipct=Math.round(inv/maxV*100);
+      h+=`<div class="bar" style="height:${pct}%;background:linear-gradient(180deg,var(--vi),var(--cy))"><span class="bar-tip">Yr ${i}</span></div>`;
+    }
+    bars.innerHTML=h;
+  }
+  document.getElementById('sip-rv')&&(document.getElementById('sip-rv').textContent=cr(mo));
+  document.getElementById('sip-rr')&&(document.getElementById('sip-rr').textContent=r+'%');
+  document.getElementById('sip-ry')&&(document.getElementById('sip-ry').textContent=y+' yrs');
+}
+
+// Tax
+function calcTax(){
+  const inc=parseFloat(document.getElementById('tax-inc')?.value)||1200000;
+  const ded=parseFloat(document.getElementById('tax-ded')?.value)||150000;
+  if(!document.getElementById('tax-result'))return;
+  // New regime FY26
+  const newTax=(inc)=>{
+    if(inc<=300000)return 0;
+    if(inc<=700000)return (inc-300000)*.05;
+    if(inc<=1000000)return 20000+(inc-700000)*.10;
+    if(inc<=1200000)return 50000+(inc-1000000)*.15;
+    if(inc<=1500000)return 80000+(inc-1200000)*.20;
+    return 140000+(inc-1500000)*.30;
+  };
+  const oldTax=(inc)=>{
+    if(inc<=250000)return 0;
+    if(inc<=500000)return (inc-250000)*.05;
+    if(inc<=1000000)return 12500+(inc-500000)*.20;
+    return 112500+(inc-1000000)*.30;
+  };
+  const nt=newTax(inc)*1.04;
+  const ot=oldTax(Math.max(0,inc-ded-50000))*1.04;
+  const save=ot-nt;
+  const better=save>0?'New Regime':'Old Regime';
+  const saving=Math.abs(save);
+  document.getElementById('tax-result').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px">
+      <div style="background:var(--vix);border:1px solid rgba(124,111,255,.2);border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:9px;font-family:JetBrains Mono,monospace;color:var(--vi);letter-spacing:.1em;margin-bottom:4px">NEW REGIME</div>
+        <div style="font-family:Syne,sans-serif;font-size:18px;font-weight:800;color:var(--t1)">${cr(nt)}</div>
+      </div>
+      <div style="background:var(--amx);border:1px solid rgba(255,170,51,.2);border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:9px;font-family:JetBrains Mono,monospace;color:var(--am);letter-spacing:.1em;margin-bottom:4px">OLD REGIME</div>
+        <div style="font-family:Syne,sans-serif;font-size:18px;font-weight:800;color:var(--t1)">${cr(ot)}</div>
+      </div>
+    </div>
+    <div style="background:var(--grx);border:1px solid rgba(5,217,138,.2);border-radius:8px;padding:10px;text-align:center">
+      <div style="font-size:11px;color:var(--t2);margin-bottom:2px"><strong style="color:${save>0?'var(--gr)':'var(--am)'}">${better}</strong> saves you</div>
+      <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800;color:var(--gr)">${cr(saving)}</div>
+    </div>`;
+  document.getElementById('tax-rv')&&(document.getElementById('tax-rv').textContent=cr(inc));
+  document.getElementById('tax-rd')&&(document.getElementById('tax-rd').textContent=cr(ded));
+}
+
+// CIBIL Simulator
+let baseScore=720, deltas={};
+function toggleCIBIL(key,delta,el){
+  if(deltas[key]!==undefined){delete deltas[key];el.style.background='';el.style.borderColor='';}
+  else{deltas[key]=delta;el.style.background=delta>0?'rgba(5,217,138,.08)':'rgba(255,77,106,.08)';el.style.borderColor=delta>0?'rgba(5,217,138,.25)':'rgba(255,77,106,.25)';}
+  updateCIBIL();
+}
+function updateCIBIL(){
+  let s=baseScore;Object.values(deltas).forEach(d=>s+=d);
+  s=Math.min(900,Math.max(300,s));
+  const el=document.getElementById('cibil-score');const bar=document.getElementById('cibil-bar');const lbl=document.getElementById('cibil-label');
+  if(!el)return;
+  const pct=(s-300)/600*100;
+  const color=s>=800?'var(--gr)':s>=700?'var(--vi)':s>=650?'var(--am)':'var(--re)';
+  const label=s>=800?'Excellent':s>=750?'Very Good':s>=700?'Good':s>=650?'Fair':'Poor';
+  el.textContent=s;el.style.color=color;
+  bar.style.width=pct+'%';bar.style.background=color;
+  lbl.textContent=label;lbl.style.color=color;
+}
+
+// FD Calculator
+function calcFD(){
+  const p=parseFloat(document.getElementById('fd-p')?.value)||100000;
+  const r=parseFloat(document.getElementById('fd-r')?.value)||7.25;
+  const y=parseInt(document.getElementById('fd-y')?.value)||3;
+  const freq=parseInt(document.getElementById('fd-freq')?.value)||4;
+  if(!document.getElementById('fd-result'))return;
+  const maturity=p*Math.pow(1+r/(freq*100),freq*y);
+  const gain=maturity-p;
+  const taxable=gain*.30; // worst case
+  document.getElementById('fd-result').innerHTML=`<div class="result-main">${cr(maturity)}</div><div class="result-sub">Maturity Amount</div>`;
+  document.getElementById('fd-detail').innerHTML=`
+    <div class="result-row"><span class="result-lbl">Principal</span><span class="result-val">${cr(p)}</span></div>
+    <div class="result-row"><span class="result-lbl">Interest Earned</span><span class="result-val" style="color:var(--gr)">${cr(gain)}</span></div>
+    <div class="result-row"><span class="result-lbl">Max Tax (30%)</span><span class="result-val" style="color:var(--re)">${cr(taxable)}</span></div>
+    <div class="result-row"><span class="result-lbl">Post-tax Return</span><span class="result-val">${((gain-taxable)/p*100/y).toFixed(2)}% p.a.</span></div>`;
+}
+
+// Real Return
+function calcRealReturn(){
+  const fd=parseFloat(document.getElementById('rr-fd')?.value)||7;
+  const inf=parseFloat(document.getElementById('rr-inf')?.value)||4;
+  const tax=parseFloat(document.getElementById('rr-tax')?.value)||30;
+  if(!document.getElementById('rr-result'))return;
+  const postTax=fd*(1-tax/100);
+  const real=postTax-inf;
+  const color=real>0?'var(--gr)':real>-1?'var(--am)':'var(--re)';
+  document.getElementById('rr-result').innerHTML=`
+    <div class="result-row"><span class="result-lbl">FD Rate</span><span class="result-val">${fd}%</span></div>
+    <div class="result-row"><span class="result-lbl">After Tax (${tax}%)</span><span class="result-val">${postTax.toFixed(2)}%</span></div>
+    <div class="result-row"><span class="result-lbl">Less Inflation</span><span class="result-val" style="color:var(--re)">-${inf}%</span></div>
+    <div style="margin-top:8px;background:${real>0?'var(--grx)':'var(--rex)'};border-radius:8px;padding:8px;text-align:center">
+      <div style="font-size:9px;color:var(--t2);margin-bottom:2px">REAL RETURN</div>
+      <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800;color:${color}">${real.toFixed(2)}%</div>
+      <div style="font-size:10.5px;color:${color};margin-top:2px">${real<0?'⚠ Your money is LOSING value in real terms':'✓ Positive real return'}</div>
+    </div>`;
+}
+
+// Card optimizer
+function calcCard(){
+  const online=parseFloat(document.getElementById('cc-online')?.value)||30000;
+  const travel=parseFloat(document.getElementById('cc-travel')?.value)||10000;
+  const fuel=parseFloat(document.getElementById('cc-fuel')?.value)||5000;
+  if(!document.getElementById('cc-result'))return;
+  const total=online+travel+fuel;
+  const cards=[
+    {name:'SBI Cashback',fee:999,rewards:online*.05+total*.01,best:'Online'},
+    {name:'HDFC Millennia',fee:1000,rewards:online*.05+travel*.025+total*.01,best:'Online+Travel'},
+    {name:'Axis Ace',fee:499,rewards:total*.02+fuel*.05,best:'All-round+Fuel'},
+    {name:'HDFC Regalia',fee:2500,rewards:(online+travel)*.04+fuel*.01,best:'Premium'},
+  ];
+  cards.forEach(c=>c.net=Math.max(0,c.rewards*12-c.fee));
+  cards.sort((a,b)=>b.net-a.net);
+  const best=cards[0];
+  document.getElementById('cc-result').innerHTML=`
+    <div style="background:var(--grx);border:1px solid rgba(5,217,138,.2);border-radius:8px;padding:10px;text-align:center;margin-bottom:8px">
+      <div style="font-size:9px;color:var(--t2);margin-bottom:2px">BEST CARD FOR YOUR SPENDING</div>
+      <div style="font-family:Syne,sans-serif;font-size:16px;font-weight:800;color:var(--gr)">${best.name}</div>
+      <div style="font-size:11px;color:var(--t2);margin-top:2px">Net annual savings: <strong style="color:var(--gr)">${cr(best.net)}</strong></div>
+    </div>
+    ${cards.slice(0,3).map(c=>`<div class="result-row"><span class="result-lbl">${c.name}</span><span class="result-val" style="color:${c===best?'var(--gr)':'var(--t2)'}">${cr(c.net)}/yr</span></div>`).join('')}`;
+}
+
+/* ══════════════════════════════════
+   PAGES
+══════════════════════════════════ */
+
+function pgOverview(){return`
+  <div class="pg-hd">
+    <div class="pg-eyebrow">Strategy</div>
+    <div class="pg-title">Engineering as <em>Marketing</em></div>
+    <div class="pg-sub">The most durable growth strategy: build tools so genuinely useful that people share them, link to them, and bookmark them. Every calculator is a backlink magnet. Every widget is a distribution channel. Every API is a B2B lead.</div>
+  </div>
+
+  <div class="notice vi"><span class="n-icon">💡</span><div><strong>The core idea:</strong> NerdWallet built a $2.5B company largely on calculators and comparison tools. Bankrate's mortgage calculator alone drives 4M+ monthly visits. This isn't a content play — it's an engineering play. The tools are the product. The content is secondary.</div></div>
+
+  <div class="stats-row">
+    <div class="stat" onclick="showSection('calculators')"><div class="stat-n" style="color:var(--vi)">8</div><div class="stat-l">Calculators</div></div>
+    <div class="stat" onclick="showSection('simulators')"><div class="stat-n" style="color:var(--gr)">5</div><div class="stat-l">Simulators</div></div>
+    <div class="stat" onclick="showSection('widgets')"><div class="stat-n" style="color:var(--am)">4</div><div class="stat-l">Embeds</div></div>
+    <div class="stat" onclick="showSection('data-tools')"><div class="stat-n" style="color:var(--cy)">4</div><div class="stat-l">Data Viz</div></div>
+    <div class="stat" onclick="showSection('ai-tools')"><div class="stat-n" style="color:var(--pk)">3</div><div class="stat-l">AI Tools</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--yw)">3.2M+</div><div class="stat-l">Est. Reach</div></div>
+  </div>
+
+  <div style="margin-bottom:20px"><div style="font-family:JetBrains Mono,monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:12px">5 Engineering Marketing Strategies</div></div>
+  <div class="strategy-grid">
+    <div class="strat-card" onclick="showSection('calculators')">
+      <div class="strat-ico">🧮</div>
+      <div class="strat-title">Calculator SEO</div>
+      <div class="strat-desc">Each calculator is an SEO landing page targeting a high-intent query. Users arrive from Google, get value, bookmark, and return.</div>
+      <div class="strat-eg">→ "home loan EMI calculator" = 368K/mo</div>
+    </div>
+    <div class="strat-card" onclick="showSection('widgets')">
+      <div class="strat-ico">🔧</div>
+      <div class="strat-title">Embeddable Widgets</div>
+      <div class="strat-desc">Build widgets that other sites want to embed. Every embed is a backlink. Finance bloggers + CA websites = thousands of DA backlinks.</div>
+      <div class="strat-eg">→ Target 500 embeds in Year 1</div>
+    </div>
+    <div class="strat-card" onclick="showSection('simulators')">
+      <div class="strat-ico">🎛</div>
+      <div class="strat-title">Viral Simulators</div>
+      <div class="strat-desc">Tools with shareable results — CIBIL score simulator, tax regime comparison, wealth projection. People screenshot and share on WhatsApp.</div>
+      <div class="strat-eg">→ "Screenshot + Share" mechanic</div>
+    </div>
+    <div class="strat-card" onclick="showSection('ai-tools')">
+      <div class="strat-ico">✦</div>
+      <div class="strat-title">AI-Native Tools</div>
+      <div class="strat-desc">AI-powered tools no competitor has. First-in-India positioning. Press coverage follows. Each AI tool is a PR story waiting to be written.</div>
+      <div class="strat-eg">→ "India's first CIBIL AI Simulator"</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd"><div class="panel-title">All 24 Tools — Priority & Traffic Estimate</div></div>
+    <table>
+      <thead><tr><th>#</th><th>Tool</th><th>Type</th><th>Target Keyword</th><th>Est. Monthly Traffic</th><th>Viral Potential</th><th>Build Time</th></tr></thead>
+      <tbody>
+        ${[
+          ['01','Home Loan EMI Calculator','Calculator','home loan emi calculator','368K','🔥🔥🔥','1 day'],
+          ['02','CIBIL Score Simulator','Simulator','how to improve cibil score','220K','🔥🔥🔥🔥','3 days'],
+          ['03','Old vs New Tax Regime','Simulator','old vs new tax regime calculator','310K','🔥🔥🔥','2 days'],
+          ['04','SIP Returns Calculator','Calculator','sip calculator india','245K','🔥🔥🔥','1 day'],
+          ['05','Credit Card Rewards Optimizer','Calculator','best credit card for cashback','180K','🔥🔥🔥🔥','3 days'],
+          ['06','Real Return Calculator','Calculator','fd real return after inflation','45K','🔥🔥🔥','1 day'],
+          ['07','FD Maturity Calculator','Calculator','fd calculator','195K','🔥🔥','1 day'],
+          ['08','Loan Prepayment Saver','Calculator','home loan prepayment calculator','78K','🔥🔥🔥','2 days'],
+          ['09','Wealth Builder Timeline','Visualizer','retirement corpus calculator','95K','🔥🔥🔥🔥','3 days'],
+          ['10','Insurance Coverage Gap','Simulator','how much life insurance do i need','65K','🔥🔥🔥','2 days'],
+          ['11','Salary Tax Optimizer','Simulator','how to save income tax on salary','145K','🔥🔥🔥🔥','3 days'],
+          ['12','Rent vs Buy Calculator','Calculator','rent vs buy calculator india','55K','🔥🔥🔥','2 days'],
+          ['13','NPS vs ELSS vs PPF','Comparator','nps vs elss vs ppf','88K','🔥🔥🔥','2 days'],
+          ['14','Compound Interest Visualizer','Visualizer','compound interest calculator','125K','🔥🔥','1 day'],
+          ['15','SWP Retirement Planner','Calculator','swp calculator','42K','🔥🔥🔥','2 days'],
+          ['16','Bank Fee Audit Tool','Tool','bank charges per year','28K','🔥🔥🔥🔥','2 days'],
+          ['17','Credit Card Payoff Planner','Calculator','credit card debt payoff calculator','35K','🔥🔥🔥','2 days'],
+          ['18','FD Ladder Builder','Tool','fd ladder strategy india','22K','🔥🔥🔥🔥','2 days'],
+          ['19','CIBIL Rate Connector','Simulator','cibil score home loan interest rate','68K','🔥🔥🔥🔥','3 days'],
+          ['20','Annual Fees Waiver Tracker','Widget','credit card annual fee waiver','32K','🔥🔥🔥','2 days'],
+          ['21','SSY Calculator (Daughters)','Calculator','sukanya samriddhi calculator','88K','🔥🔥🔥🔥','1 day'],
+          ['22','Emergency Fund Checker','Tool','emergency fund calculator india','18K','🔥🔥🔥','1 day'],
+          ['23','AI Financial Health Score','AI Tool','financial health check india','40K','🔥🔥🔥🔥🔥','4 days'],
+          ['24','Portfolio Analyzer','AI Tool','portfolio review india','55K','🔥🔥🔥🔥','4 days'],
+        ].map(([n,t,tp,kw,tr,v,bt])=>`<tr>
+          <td style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--t3)">${n}</td>
+          <td><div style="font-weight:600;color:var(--t1)">${t}</div><div style="font-size:11px;color:var(--t3)">/${t.toLowerCase().replace(/\s+/g,'-')}</div></td>
+          <td><span style="background:var(--c3);border:1px solid var(--br);padding:2px 8px;border-radius:5px;font-size:10px;color:var(--t2)">${tp}</span></td>
+          <td style="font-family:JetBrains Mono,monospace;font-size:10.5px;color:var(--t2)">${kw}</td>
+          <td style="color:var(--gr);font-weight:700;font-family:JetBrains Mono,monospace">${tr}</td>
+          <td>${v}</td>
+          <td style="color:var(--am);font-family:JetBrains Mono,monospace;font-size:11.5px">${bt}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;}
+
+function pgCalculators(){return`
+  <div class="pg-hd">
+    <div class="pg-eyebrow">Tools · Calculators</div>
+    <div class="pg-title">8 Core <em>Calculators</em></div>
+    <div class="pg-sub">Each calculator is a dedicated landing page targeting a high-intent keyword. Simple math that users need. Interactive. Shareable. Live demos below — fully working.</div>
+  </div>
+  <div class="tool-grid grid-2">
+
+    <!-- EMI CALCULATOR -->
+    <div class="tool-card vi">
+      <div class="tc-header">
+        <div class="tc-ico vi">🏠</div>
+        <div class="tc-info">
+          <div class="tc-name">Home Loan EMI Calculator</div>
+          <div class="tc-category">Calculator · /calculators/home-loan-emi</div>
+          <div class="tc-desc">Not just EMI — shows total interest paid, principal vs interest split, impact of rate change, and prepayment savings. Differentiated from every other EMI calculator in India.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">368K/mo searches</span>
+          <span class="score-pill sp-vi">1–2 day build</span>
+          <span class="score-pill sp-am">High bookmark rate</span>
+        </div>
+        <div class="demo-widget">
+          <div class="demo-label">Live Demo</div>
+          <div class="input-row"><span class="demo-label-text">Loan Amount</span><input type="range" id="emi-p" min="500000" max="20000000" step="100000" value="5000000" oninput="calcEMI()"><span class="range-val" id="emi-rv">₹50L</span></div>
+          <div class="input-row"><span class="demo-label-text">Interest Rate</span><input type="range" id="emi-r" min="6" max="14" step="0.1" value="8.5" oninput="calcEMI()"><span class="range-val" id="emi-rr">8.5%</span></div>
+          <div class="input-row"><span class="demo-label-text">Tenure</span><input type="range" id="emi-t" min="5" max="30" step="1" value="20" oninput="calcEMI()"><span class="range-val" id="emi-rt">20 yrs</span></div>
+          <div id="emi-result" class="result-box"></div>
+          <div id="emi-detail" style="margin-top:8px"></div>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Differentiation — what makes this better</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Shows "Total Cost of Ownership" not just monthly EMI</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Rate comparison: what if you got a better CIBIL score? (links to CIBIL simulator)</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Prepayment impact: "paying ₹1L extra saves ₹X total"</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Shareable result card — PNG download with your numbers</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIP CALCULATOR -->
+    <div class="tool-card gr">
+      <div class="tc-header">
+        <div class="tc-ico gr">📈</div>
+        <div class="tc-info">
+          <div class="tc-name">SIP Returns Calculator</div>
+          <div class="tc-category">Calculator · /calculators/sip</div>
+          <div class="tc-desc">Goal-based and return-based SIP calculator. Enter a corpus goal — it tells you the required SIP. Includes inflation-adjusted view, Nifty 50 benchmark comparison, and fund category selector.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">245K/mo searches</span>
+          <span class="score-pill sp-vi">1 day build</span>
+          <span class="score-pill sp-cy">WhatsApp shareable</span>
+        </div>
+        <div class="demo-widget">
+          <div class="demo-label">Live Demo</div>
+          <div class="input-row"><span class="demo-label-text">Monthly SIP</span><input type="range" id="sip-mo" min="1000" max="100000" step="1000" value="10000" oninput="calcSIP()"><span class="range-val" id="sip-rv">₹10K</span></div>
+          <div class="input-row"><span class="demo-label-text">Expected Return</span><input type="range" id="sip-r" min="8" max="20" step="0.5" value="12" oninput="calcSIP()"><span class="range-val" id="sip-rr">12%</span></div>
+          <div class="input-row"><span class="demo-label-text">Time Period</span><input type="range" id="sip-y" min="1" max="30" step="1" value="15" oninput="calcSIP()"><span class="range-val" id="sip-ry">15 yrs</span></div>
+          <div id="sip-result" class="result-box"></div>
+          <div id="sip-detail" style="margin-top:8px"></div>
+          <div class="mini-bars" id="sip-bars" style="margin-top:12px"></div>
+          <div style="font-size:9px;color:var(--t3);text-align:center;margin-top:4px;font-family:JetBrains Mono,monospace">Year-by-year corpus growth</div>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Differentiation</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>Reverse mode: "I need ₹1 Cr — how much SIP?"</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>Inflation-adjusted final corpus view</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>Animated wealth growth chart</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAX CALCULATOR -->
+    <div class="tool-card am">
+      <div class="tc-header">
+        <div class="tc-ico am">🧾</div>
+        <div class="tc-info">
+          <div class="tc-name">Old vs New Tax Regime Calculator</div>
+          <div class="tc-category">Calculator · /calculators/tax-regime</div>
+          <div class="tc-desc">India's most-searched tax question. Instant side-by-side comparison. Shows exact savings, which regime wins, and why. Uses official FY2025-26 slabs. Jan–March drives 5x seasonal traffic spike.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">310K/mo searches</span>
+          <span class="score-pill sp-am">Seasonal spike Jan-Mar</span>
+          <span class="score-pill sp-vi">High share rate</span>
+        </div>
+        <div class="demo-widget">
+          <div class="demo-label">Live Demo</div>
+          <div class="input-row"><span class="demo-label-text">Annual Income</span><input type="range" id="tax-inc" min="400000" max="5000000" step="50000" value="1200000" oninput="calcTax()"><span class="range-val" id="tax-rv">₹12L</span></div>
+          <div class="input-row"><span class="demo-label-text">80C Deductions</span><input type="range" id="tax-ded" min="0" max="150000" step="10000" value="150000" oninput="calcTax()"><span class="range-val" id="tax-rd">₹1.5L</span></div>
+          <div id="tax-result" style="margin-top:8px"></div>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Differentiation</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Shows break-even income level (where regimes are equal)</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Component-wise breakdown: HRA, NPS, 80D savings</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Shareable "Tax Saving Report" PDF generation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REAL RETURN CALCULATOR -->
+    <div class="tool-card cy">
+      <div class="tc-header">
+        <div class="tc-ico cy">📊</div>
+        <div class="tc-info">
+          <div class="tc-name">Real Return Calculator</div>
+          <div class="tc-category">Calculator · /calculators/real-return</div>
+          <div class="tc-desc">The tool that makes people emotional: shows that a 7% FD at 30% tax bracket and 4% inflation gives you just 0.9% real return — your money barely grows. Compels action. High virality.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-cy">45K/mo searches</span>
+          <span class="score-pill sp-am">🔥🔥🔥🔥 viral</span>
+          <span class="score-pill sp-gr">High share rate</span>
+        </div>
+        <div class="demo-widget">
+          <div class="demo-label">Live Demo — FD Real Return After Tax + Inflation</div>
+          <div class="input-row"><span class="demo-label-text">FD Interest Rate</span><input type="range" id="rr-fd" min="4" max="10" step="0.25" value="7" oninput="calcRealReturn()"><span class="range-val">7%</span></div>
+          <div class="input-row"><span class="demo-label-text">Inflation Rate</span><input type="range" id="rr-inf" min="2" max="8" step="0.5" value="4" oninput="calcRealReturn()"><span class="range-val">4%</span></div>
+          <div class="input-row"><span class="demo-label-text">Tax Bracket</span><select class="demo-select" id="rr-tax" onchange="calcRealReturn()"><option value="0">0% (No Tax)</option><option value="5">5% Bracket</option><option value="20">20% Bracket</option><option value="30" selected>30% Bracket</option></select></div>
+          <div id="rr-result" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FD CALCULATOR -->
+    <div class="tool-card vi">
+      <div class="tc-header">
+        <div class="tc-ico vi">🏦</div>
+        <div class="tc-info">
+          <div class="tc-name">FD Maturity + Post-Tax Calculator</div>
+          <div class="tc-category">Calculator · /calculators/fd</div>
+          <div class="tc-desc">Standard FD calculator with a crucial addition: post-tax real return. Most FD calculators ignore tax. This one shows what you actually keep after tax and inflation — the honest number that compels MF consideration.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">195K/mo searches</span>
+          <span class="score-pill sp-vi">1 day build</span>
+        </div>
+        <div class="demo-widget">
+          <div class="demo-label">Live Demo</div>
+          <div class="input-row"><span class="demo-label-text">Principal (₹)</span><input type="range" id="fd-p" min="10000" max="2000000" step="10000" value="100000" oninput="calcFD()"><span class="range-val">₹1L</span></div>
+          <div class="input-row"><span class="demo-label-text">Interest Rate</span><input type="range" id="fd-r" min="4" max="9" step="0.25" value="7.25" oninput="calcFD()"><span class="range-val">7.25%</span></div>
+          <div class="input-row"><span class="demo-label-text">Tenure (yrs)</span><input type="range" id="fd-y" min="1" max="10" step="1" value="3" oninput="calcFD()"><span class="range-val">3 yrs</span></div>
+          <select class="demo-select" id="fd-freq" onchange="calcFD()" style="width:100%;margin-bottom:8px"><option value="12">Monthly compounding</option><option value="4" selected>Quarterly compounding</option><option value="2">Half-yearly</option><option value="1">Annual</option></select>
+          <div id="fd-result" class="result-box"></div>
+          <div id="fd-detail" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CREDIT CARD OPTIMIZER -->
+    <div class="tool-card pk">
+      <div class="tc-header">
+        <div class="tc-ico pk">💳</div>
+        <div class="tc-info">
+          <div class="tc-name">Credit Card Rewards Optimizer</div>
+          <div class="tc-category">Calculator · /calculators/card-optimizer</div>
+          <div class="tc-desc">Enter monthly spending by category — online, travel, fuel, groceries, dining. Tool calculates annual rewards from top 10 cards and ranks them. The affiliate conversion engine disguised as a tool.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">180K/mo searches</span>
+          <span class="score-pill sp-pk">🔥🔥🔥🔥 viral</span>
+          <span class="score-pill sp-am">Direct affiliate conversion</span>
+        </div>
+        <div class="demo-widget">
+          <div class="demo-label">Live Demo</div>
+          <div class="input-row"><span class="demo-label-text">Online spend/mo</span><input type="range" id="cc-online" min="0" max="100000" step="2000" value="30000" oninput="calcCard()"><span class="range-val">₹30K</span></div>
+          <div class="input-row"><span class="demo-label-text">Travel spend/mo</span><input type="range" id="cc-travel" min="0" max="50000" step="1000" value="10000" oninput="calcCard()"><span class="range-val">₹10K</span></div>
+          <div class="input-row"><span class="demo-label-text">Fuel spend/mo</span><input type="range" id="cc-fuel" min="0" max="20000" step="500" value="5000" oninput="calcCard()"><span class="range-val">₹5K</span></div>
+          <div id="cc-result" style="margin-top:8px"></div>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">The Conversion Path</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--pk)"></span>User enters spend → sees which card earns most → clicks Apply</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--pk)"></span>Shows annual fee vs rewards — net savings calculation</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--pk)"></span>"Your card earns ₹X/year less than the best option" — emotional trigger</div>
+        </div>
+      </div>
+    </div>
+
+  </div>`;}
+
+function pgSimulators(){return`
+  <div class="pg-hd">
+    <div class="pg-eyebrow">Tools · Simulators</div>
+    <div class="pg-title">5 <em>Simulators</em> — Interactive, Viral</div>
+    <div class="pg-sub">Simulators differ from calculators: they let users toggle scenarios and see outcomes change in real time. More engaging, higher share rate, deeper emotional connection.</div>
+  </div>
+  <div class="tool-grid grid-2">
+
+    <!-- CIBIL SIMULATOR -->
+    <div class="tool-card gr" style="grid-column:1/-1">
+      <div class="tc-header">
+        <div class="tc-ico gr">📊</div>
+        <div class="tc-info">
+          <div class="tc-name">CIBIL Score Simulator — India's First</div>
+          <div class="tc-category">Flagship Simulator · /cibil-simulator · First-in-India Positioning</div>
+          <div class="tc-desc">Toggle financial actions and see your CIBIL score change in real-time. No other Indian platform has this. Patent-pending mechanic. "What happens if I pay off my credit card?" — instant answer. This is the product that gets press coverage.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">220K/mo target searches</span>
+          <span class="score-pill sp-gr">🔥🔥🔥🔥 First in India</span>
+          <span class="score-pill sp-am">Press magnet</span>
+          <span class="score-pill sp-cy">WhatsApp shareable</span>
+          <span class="score-pill sp-vi">3-day build</span>
+        </div>
+        <div class="demo-widget">
+          <div class="demo-label">Live Demo — Toggle actions to simulate impact</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <div>
+              <div style="font-size:10.5px;color:var(--t3);margin-bottom:3px">Current Simulated Score</div>
+              <div style="display:flex;align-items:baseline;gap:8px">
+                <span id="cibil-score" style="font-family:Syne,sans-serif;font-size:42px;font-weight:800;color:var(--gr)">720</span>
+                <span id="cibil-label" style="font-size:14px;color:var(--gr);font-weight:600">Good</span>
+              </div>
+              <div style="width:200px;height:6px;background:var(--c3);border-radius:3px;margin-top:6px;overflow:hidden"><div id="cibil-bar" style="height:100%;width:70%;background:var(--gr);border-radius:3px;transition:all .4s ease"></div></div>
+              <div style="font-size:10px;color:var(--t3);margin-top:3px;font-family:JetBrains Mono,monospace">300 ←————————→ 900</div>
+            </div>
+            <div style="font-size:11px;color:var(--t2);text-align:right;max-width:160px">Toggle actions below to see real-time score impact</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            ${[
+              ['Pay card balance to ₹0','Reduces utilisation to <10%',+18,'gr'],
+              ['Apply for new credit card','Hard enquiry from bank',-12,'re'],
+              ['Pay all EMIs on time (12mo)','Consistent payment history',+22,'gr'],
+              ['Miss one EMI payment','Home or personal loan',-48,'re'],
+              ['Close oldest credit card','Reduces credit age',-15,'re'],
+              ['Increase credit limit','Improves utilisation ratio',+10,'gr'],
+            ].map(([t,s,d,c],i)=>`
+              <div onclick="toggleCIBIL('${i}',${d},this)" style="background:var(--c2);border:1px solid var(--br);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .15s;user-select:none">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
+                  <span style="font-size:12px;font-weight:600;color:var(--t1)">${t}</span>
+                  <span style="font-family:JetBrains Mono,monospace;font-size:12px;font-weight:700;color:var(--${c})">${d>0?'+':''}${d}</span>
+                </div>
+                <div style="font-size:10.5px;color:var(--t3)">${s}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Why this is the platform's most powerful tool</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>No Indian platform has interactive CIBIL simulation — first-mover advantage</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>Press coverage: "InvestingPro launches India's first CIBIL Simulator" → ET, Mint pickup</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>WhatsApp share: "My score went from 680 to 728 after I [action]" → viral loop</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>Cross-sells into home loan and credit card sections naturally</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>CIBIL score range directly connects to home loan rates → creates multi-page journey</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSURANCE COVERAGE GAP -->
+    <div class="tool-card re">
+      <div class="tc-header">
+        <div class="tc-ico re">❤️</div>
+        <div class="tc-info">
+          <div class="tc-name">Insurance Coverage Gap Calculator</div>
+          <div class="tc-category">Simulator · /calculators/insurance-gap</div>
+          <div class="tc-desc">Enter income, age, dependents, existing cover. Tool calculates actual cover needed vs what you have. Most Indians are 60-80% underinsured. The emotional "are your family protected?" moment that converts.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">65K/mo searches</span>
+          <span class="score-pill sp-re">🔥🔥🔥 High emotion</span>
+          <span class="score-pill sp-am">Insurance affiliate CPA: ₹800-2K</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">The Emotional Trigger</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--re)"></span>Shows "Your family is ₹X Cr underprotected" — powerful emotional driver</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--re)"></span>Industry rule: 10-15x annual income coverage needed</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--re)"></span>Instantly links to term insurance comparison page</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--re)"></span>WhatsApp shareable: "This is how much cover I actually need"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SALARY TAX OPTIMIZER -->
+    <div class="tool-card am">
+      <div class="tc-header">
+        <div class="tc-ico am">💼</div>
+        <div class="tc-info">
+          <div class="tc-name">Salary Structure Tax Optimizer</div>
+          <div class="tc-category">Simulator · /calculators/salary-optimizer</div>
+          <div class="tc-desc">Enter CTC → shows current tax. Then shows restructured salary (higher HRA, NPS, LTA, food coupons) that saves maximum tax. Shows exactly what to ask HR to change. Extremely shareable among salaried professionals.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">145K/mo searches</span>
+          <span class="score-pill sp-am">🔥🔥🔥🔥 High share</span>
+          <span class="score-pill sp-vi">LinkedIn viral potential</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Unique mechanism</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Shows "Before" vs "After restructuring" side by side</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Generates HR request letter template automatically</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>"You could save ₹X by changing your salary structure" → highly shareable stat</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEALTH BUILDER TIMELINE -->
+    <div class="tool-card vi">
+      <div class="tc-header">
+        <div class="tc-ico vi">🚀</div>
+        <div class="tc-info">
+          <div class="tc-name">Wealth Builder Timeline</div>
+          <div class="tc-category">Visualizer · /wealth-builder</div>
+          <div class="tc-desc">Animated projection of net worth over time. Multiple scenarios: conservative (FD only) vs moderate (60/40 MF) vs aggressive (equity). The "wow moment" that makes people screenshot and share. Built with D3 or Chart.js.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-vi">95K/mo searches</span>
+          <span class="score-pill sp-am">🔥🔥🔥🔥 Screenshot bait</span>
+          <span class="score-pill sp-gr">3 day build</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Viral mechanic</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Animated chart — wealth grows in real-time as user adjusts sliders</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>"Share your wealth projection" → generates OG image with user's specific numbers</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Side-by-side: "If you invest in FD vs index fund" — the gap is enormous</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RENT VS BUY -->
+    <div class="tool-card cy">
+      <div class="tc-header">
+        <div class="tc-ico cy">🏘️</div>
+        <div class="tc-info">
+          <div class="tc-name">Rent vs Buy — The Honest Calculator</div>
+          <div class="tc-category">Simulator · /calculators/rent-vs-buy</div>
+          <div class="tc-desc">The calculator that challenges India's "buying is always better" myth. Shows true opportunity cost of down payment, stamp duty, maintenance. Often shows renting+investing is better. Controversial = highly shareable.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-cy">55K/mo searches</span>
+          <span class="score-pill sp-pk">🔥🔥🔥🔥 Controversial</span>
+          <span class="score-pill sp-am">Twitter/LinkedIn viral</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Controversy = traffic</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--cy)"></span>Often shows "You'd be ₹X richer by renting and investing" — sparks debate</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--cy)"></span>Includes: stamp duty, registration, maintenance, opportunity cost of down payment</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--cy)"></span>Result: shareable "hot take" on social media → backlinks from finance Twitter</div>
+        </div>
+      </div>
+    </div>
+
+  </div>`;}
+
+function pgWidgets(){return`
+  <div class="pg-hd">
+    <div class="pg-eyebrow">Tools · Embeddable Widgets</div>
+    <div class="pg-title">4 <em>Embed Widgets</em> — Backlink Machines</div>
+    <div class="pg-sub">Widgets that other websites embed on their pages. Each embed = a dofollow backlink. Target: CA blogs, personal finance YouTubers, HR portals, home loan blogs. Every embed = authority signal to Google.</div>
+  </div>
+  <div class="notice am"><span class="n-icon">💡</span><div><strong>The embed strategy:</strong> Bankrate's mortgage widget is embedded on 14,000+ websites. Each generates a backlink. Build widgets that finance bloggers genuinely want — then make embedding dead-simple with a one-line script tag. The target: 500 embeds by Year 2.</div></div>
+  <div class="tool-grid grid-2">
+
+    <div class="tool-card vi">
+      <div class="tc-header">
+        <div class="tc-ico vi">💰</div>
+        <div class="tc-info">
+          <div class="tc-name">EMI Calculator Widget (Embeddable)</div>
+          <div class="tc-category">Embed Widget · embed.investingpro.in/emi</div>
+          <div class="tc-desc">Lightweight (15KB) EMI calculator that any website can embed with one script tag. White-label option with "Powered by InvestingPro" credit. CA websites, real estate blogs, home loan agents — all want this.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-vi">Target: 1000+ embeds</span>
+          <span class="score-pill sp-gr">DA backlinks</span>
+          <span class="score-pill sp-am">Brand exposure</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Embed code (what you give to websites)</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span><code style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--cy)">&lt;script src="https://embed.investingpro.in/emi.js"&gt;&lt;/script&gt;</code></div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Responsive, matches host site's colors via CSS vars</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>"Powered by InvestingPro.in" link in footer = backlink</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card gr">
+      <div class="tc-header">
+        <div class="tc-ico gr">📊</div>
+        <div class="tc-info">
+          <div class="tc-name">Live Rate Ticker (Embeddable)</div>
+          <div class="tc-category">Embed Widget · embed.investingpro.in/rates</div>
+          <div class="tc-desc">Live repo rate, top FD rates, gold price ticker. Finance blogs and news sites love live rate widgets. Every embed pulls data from InvestingPro's API — creating a dependency that builds long-term backlinks.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">Finance news sites want this</span>
+          <span class="score-pill sp-cy">Persistent backlinks</span>
+        </div>
+        <div class="demo-widget">
+          <div class="demo-label">Live Rate Preview</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+            ${[['RBI Repo','5.25%','var(--gr)'],['Best FD','7.50%','var(--vi)'],['Gold 24K','₹7,832/g','var(--am)'],['Nifty 50','23,840','var(--cy)'],['USD/INR','84.25','var(--t2)'],['CPI Infl.','2.75%','var(--gr)']].map(([l,v,c])=>`
+              <div style="background:var(--c2);border:1px solid var(--br);border-radius:7px;padding:8px;text-align:center">
+                <div style="font-size:9px;color:var(--t3);margin-bottom:2px;font-family:JetBrains Mono,monospace">${l}</div>
+                <div style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;color:${c}">${v}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card am">
+      <div class="tc-header">
+        <div class="tc-ico am">🧮</div>
+        <div class="tc-info">
+          <div class="tc-name">SIP Calculator Widget (Embeddable)</div>
+          <div class="tc-category">Embed Widget · embed.investingpro.in/sip</div>
+          <div class="tc-desc">The most-embedded widget in Indian personal finance. Every MF distributor, AMFI-registered advisor, and investment blogger needs an SIP calculator. Give it free with InvestingPro branding.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-am">MF distributors need this</span>
+          <span class="score-pill sp-gr">Target: 5000 embeds</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Target embed sites</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>AMFI-registered MF distributors (100K+ in India) — many have simple websites</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>CA firms' client portals — they need calculators for client recommendations</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Corporate HR portals (employee financial wellness programs)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card cy">
+      <div class="tc-header">
+        <div class="tc-ico cy">💳</div>
+        <div class="tc-info">
+          <div class="tc-name">Credit Card Eligibility Checker Widget</div>
+          <div class="tc-category">Embed Widget · embed.investingpro.in/eligibility</div>
+          <div class="tc-desc">3-question widget: monthly income, CIBIL range, primary use case. Returns "cards you're eligible for." Embed on any site. Clicking a card goes to InvestingPro's comparison page — affiliate conversion pipeline.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-cy">Direct affiliate conversion</span>
+          <span class="score-pill sp-am">High CTR from widget</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">The monetization funnel</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--cy)"></span>Widget embed on 3rd party site → user checks eligibility → clicks to apply on InvestingPro → affiliate commission ₹800-3500</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--cy)"></span>The widget partner earns nothing — but they get a useful feature for free</div>
+        </div>
+      </div>
+    </div>
+
+  </div>`;}
+
+function pgDataTools(){return`
+  <div class="pg-hd">
+    <div class="pg-eyebrow">Tools · Data Visualizations</div>
+    <div class="pg-title">4 <em>Data Tools</em> — Authority Builders</div>
+    <div class="pg-sub">Beautiful, interactive visualizations of public financial data that make InvestingPro the reference destination. When journalists need a chart, they link to these pages.</div>
+  </div>
+  <div class="tool-grid grid-2">
+
+    <div class="tool-card vi">
+      <div class="tc-header">
+        <div class="tc-ico vi">📉</div>
+        <div class="tc-info">
+          <div class="tc-name">RBI Rate History Interactive Chart</div>
+          <div class="tc-category">Data Visualization · /data/rbi-repo-rate</div>
+          <div class="tc-desc">20-year interactive chart of RBI repo rate, reverse repo, CRR with annotation overlays (COVID, GST, budget events). When ET/Mint journalists write about rate cuts, they link to this. Permanent link magnet.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores"><span class="score-pill sp-vi">Press link magnet</span><span class="score-pill sp-gr">Evergreen content</span><span class="score-pill sp-am">Data: RBI DBIE free</span></div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Why press links to this</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>"Chart: RBI Rate History" — journalists embed rather than create their own</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Annotation layer: "Rate cut during COVID" — educational overlay</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Embed code for media (they get the chart, you get the backlink)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card am">
+      <div class="tc-header">
+        <div class="tc-ico am">🥇</div>
+        <div class="tc-info">
+          <div class="tc-name">Gold Price History — 20 Years</div>
+          <div class="tc-category">Data Visualization · /data/gold-price-history</div>
+          <div class="tc-desc">Interactive 20-year gold price chart in INR with: inflation adjustment, SGB overlay, dollar vs rupee split. The reference chart for "should I invest in gold?" articles across the entire Indian web.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores"><span class="score-pill sp-am">Reference chart</span><span class="score-pill sp-gr">Backlink from every gold article</span></div>
+        <div class="tc-features">
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Shareable "Gold CAGR: 12% over 20 years" — data journalism that gets cited</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Gold vs Nifty 50 vs FD comparison overlay — highly shareable insight</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card gr">
+      <div class="tc-header">
+        <div class="tc-ico gr">📊</div>
+        <div class="tc-info">
+          <div class="tc-name">MF Category Returns Dashboard</div>
+          <div class="tc-category">Data Visualization · /mutual-funds/category-returns</div>
+          <div class="tc-desc">Live dashboard: 1Y/3Y/5Y returns by MF category (Large Cap, Mid Cap, Small Cap, ELSS, etc.) with data from mfapi.in. Updated daily. The reference page every "which category should I invest in?" article links to.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores"><span class="score-pill sp-gr">Daily live data</span><span class="score-pill sp-vi">MF distributor links</span><span class="score-pill sp-am">Data: mfapi.in free</span></div>
+      </div>
+    </div>
+
+    <div class="tool-card cy">
+      <div class="tc-header">
+        <div class="tc-ico cy">💳</div>
+        <div class="tc-info">
+          <div class="tc-name">India Credit Card Landscape Report</div>
+          <div class="tc-category">Annual Report · /reports/credit-card-india</div>
+          <div class="tc-desc">Annual data report: total credit cards in India, per-category spending breakdowns, reward redemption rates. Original data journalism. Published every January. ET and Mint cite this. NerdWallet built 250+ high-DA backlinks this way.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores"><span class="score-pill sp-cy">Annual press release</span><span class="score-pill sp-am">ET/Mint citation bait</span><span class="score-pill sp-vi">250+ DA backlinks target</span></div>
+      </div>
+    </div>
+
+  </div>`;}
+
+function pgAITools(){return`
+  <div class="pg-hd">
+    <div class="pg-eyebrow">Tools · AI-Powered</div>
+    <div class="pg-title">3 <em>AI Tools</em> — First-in-India</div>
+    <div class="pg-sub">AI tools that no Indian finance platform has. Each one is a press story. Each one is a moat. Build these and competitors will be scrambling to copy for 12-18 months.</div>
+  </div>
+  <div class="notice gr"><span class="n-icon">✦</span><div><strong>The PR play:</strong> "India's first AI-powered CIBIL simulator" is a story Economic Times will write. "InvestingPro launches AI financial health score" is a story YourStory will write. Each AI tool launch = free press = high-DA backlinks = SEO authority. Build the tool. Write the press release. Get cited.</div></div>
+  <div class="tool-grid grid-3">
+
+    <div class="tool-card gr">
+      <div class="tc-header">
+        <div class="tc-ico gr">🤖</div>
+        <div class="tc-info">
+          <div class="tc-name">AI Financial Health Score</div>
+          <div class="tc-category">AI Tool · /tools/financial-health-score · First-in-India</div>
+          <div class="tc-desc">User answers 12 questions about income, savings rate, debt, insurance, emergency fund, investments. AI generates a 0-100 Financial Health Score with personalized recommendations. Like a CIBIL score but for overall financial health.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-gr">🔥🔥🔥🔥🔥 First-in-India</span>
+          <span class="score-pill sp-am">Press story</span>
+          <span class="score-pill sp-vi">WhatsApp viral</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">The viral mechanic</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>"My InvestingPro Financial Health Score is 74/100 — here's my gap areas" → shareable on LinkedIn, WhatsApp</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>Score breakdown: Insurance coverage (12/20), Emergency fund (8/15), Debt ratio (18/20)…</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>Each low-score area links directly to the relevant section of InvestingPro</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--gr)"></span>Repeat usage: retake every 6 months to track progress</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card vi">
+      <div class="tc-header">
+        <div class="tc-ico vi">💬</div>
+        <div class="tc-info">
+          <div class="tc-name">AI Personal Finance Advisor Chat</div>
+          <div class="tc-category">AI Tool · /ask · GPT-4 powered</div>
+          <div class="tc-desc">Chat interface for Indian personal finance questions. "Is HDFC Regalia worth it for me?" — gets a real, personalized answer based on the user's spending profile. Not generic advice — contextual to India (CIBIL, SIP, 80C, EMI).</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-vi">Engagement loop</span>
+          <span class="score-pill sp-gr">Session duration ↑</span>
+          <span class="score-pill sp-am">Lead generation</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Why this builds authority</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>System prompt primed with all InvestingPro data: cards, rates, MF returns</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>Every answer links back to relevant pages: "See SBI Cashback vs HDFC Millennia →"</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--vi)"></span>"Ask InvestingPro" becomes a brand phrase — bookmark magnet</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card am">
+      <div class="tc-header">
+        <div class="tc-ico am">🧬</div>
+        <div class="tc-info">
+          <div class="tc-name">AI Portfolio Analyzer</div>
+          <div class="tc-category">AI Tool · /tools/portfolio-analyzer</div>
+          <div class="tc-desc">User pastes their current portfolio (or inputs manually): FDs, MFs, stocks, insurance. AI analyzes: concentration risk, overlap between funds, rebalancing suggestions, tax harvesting opportunities. Unique in India.</div>
+        </div>
+      </div>
+      <div class="tc-divider"></div>
+      <div class="tc-body">
+        <div class="tc-scores">
+          <span class="score-pill sp-am">High-value users</span>
+          <span class="score-pill sp-vi">MF trail revenue</span>
+          <span class="score-pill sp-gr">Professional-grade</span>
+        </div>
+        <div class="tc-features">
+          <div class="tc-feat-label">Monetization</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Identifies overlap in funds → recommends consolidation (affiliate)</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Shows under-allocation in equity → recommends SIP start</div>
+          <div class="tc-feat-item"><span class="feat-dot" style="background:var(--am)"></span>Premium feature in Year 2 → first SaaS revenue stream</div>
+        </div>
+      </div>
+    </div>
+
+  </div>`;}
+
+function pgStrategy(){return`
+  <div class="pg-hd">
+    <div class="pg-eyebrow">Launch Strategy</div>
+    <div class="pg-title">Engineering Marketing <em>Launch Plan</em></div>
+    <div class="pg-sub">The exact sequence to launch 24 tools for maximum impact. Front-load the viral tools. Use each launch as a PR trigger. Build the embed distribution network in parallel.</div>
+  </div>
+  <div class="panel">
+    <div class="panel-hd"><div class="panel-title">12-Month Engineering Marketing Roadmap</div></div>
+    <table>
+      <thead><tr><th>Month</th><th>Launch</th><th>PR Hook</th><th>Expected Traffic Impact</th></tr></thead>
+      <tbody>
+        ${[
+          ['Month 1','Home Loan EMI Calculator + FD Calculator + Tax Regime Calculator','3 calculators live on Day 1. Submit to FinancialExpress, ET, Mint press contacts.','Immediate: 50K organic visits/mo from calculator searches'],
+          ['Month 1','CIBIL Score Simulator (flagship)','Press release: "InvestingPro launches India\'s first CIBIL score simulator." YourStory, Inc42, FinTech focus.','Feature coverage = DA60+ backlinks. Target: 20K visits/mo from launch press alone.'],
+          ['Month 2','Real Return Calculator + Credit Card Optimizer','Publish "Your FD earns -0.9% in real terms" data story. Send to finance Twitter influencers.','High share rate. Target: 30K WhatsApp shares in first week.'],
+          ['Month 2','Embeddable EMI + SIP Widgets (v1)','Email 500 CA firms and MF distributors offering free widgets. "Add to your website free."','Target 100 embeds in Month 2 = 100 backlinks'],
+          ['Month 3','Insurance Coverage Gap Simulator','Publish "85% of Indian families are underinsured by ₹X Cr" data report. ET and Mint will cover.','Viral + press. Target: 25K visits from article shares.'],
+          ['Month 3','Salary Tax Optimizer','"Share your tax savings" social mechanic. LinkedIn finance community loves this.','LinkedIn viral. Target: 500K impressions from shares.'],
+          ['Month 4','AI Financial Health Score (flagship AI launch)','Press release: "India\'s first AI-powered financial health score." This is a genuine first.','YourStory, Inc42, ET Tech. Target: 5 media pickups = 5 DA60+ backlinks.'],
+          ['Month 5','Wealth Builder Timeline + NPS vs ELSS vs PPF','Annual "India Financial Wellness Report" — data journalism with original stats.','Quarterly report → 20+ media citations annually.'],
+          ['Month 6','AI Personal Finance Advisor Chat','"InvestingPro launches AI advisor trained on Indian personal finance." Second AI press story.','Repeat press coverage. AI novelty still drives media attention in India.'],
+          ['Month 8','RBI Rate History Chart + Gold History Chart (embeddable)','Send to financial journalists: "Here\'s a chart you can embed for free."','Target: 200+ media embeds. All are backlinks.'],
+          ['Month 10','AI Portfolio Analyzer (beta)','"Premium tool for serious investors." Waitlist creates scarcity and press coverage.','B2B lead generation. First paid product.'],
+          ['Month 12','Full widget API + developer docs','"Embed InvestingPro tools anywhere." Developer documentation launch.','5000+ embed target by end of Year 1.'],
+        ].map(([m,l,pr,tr])=>`<tr>
+          <td style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--vi);white-space:nowrap;font-weight:700">${m}</td>
+          <td><div style="font-weight:600;color:var(--t1)">${l}</div></td>
+          <td style="font-size:12px;color:var(--t2);max-width:200px">${pr}</td>
+          <td style="font-size:12px;color:var(--gr)">${tr}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;}
+
+function pgVirality(){return`
+  <div class="pg-hd">
+    <div class="pg-eyebrow">Virality Mechanics</div>
+    <div class="pg-title">How Tools <em>Spread Themselves</em></div>
+    <div class="pg-sub">Every tool needs a built-in share mechanism. The best tools are shared not because people are asked to — but because the result is so personally meaningful that sharing it feels natural.</div>
+  </div>
+  <div class="tool-grid grid-3" style="margin-bottom:24px">
+    ${[
+      {ico:'📸',title:'Result Cards (OG Image)',desc:'Every tool generates a shareable PNG card with the user\'s result. "My SIP will build ₹1.2 Cr in 15 years" — with InvestingPro branding. Shared on WhatsApp, Instagram, LinkedIn.',color:'vi'},
+      {ico:'📋',title:'WhatsApp Share Button',desc:'Pre-formatted WhatsApp message with result + link. Indian users share everything on WhatsApp. "Bhai check kar — ye calculator se pata chala mere tax mein ₹40K bach sakti hai." Free distribution.',color:'gr'},
+      {ico:'🔗',title:'"Try with your numbers" link',desc:'Every article ends with "Try this calculator with your own numbers →". Contextual CTA. Converts readers to tool users. Tool users bookmark and return.',color:'am'},
+      {ico:'🏆',title:'Comparison Score Badge',desc:'"My Financial Health Score: 74/100 — can you beat it?" Leaderboard mechanic. Social proof. Creates FOMO. Works especially well for the AI Financial Health Score.',color:'cy'},
+      {ico:'📧',title:'Email Result Feature',desc:'"Email me my results" captures email while being genuinely useful. User gets their calculation in their inbox. You get a marketing email with consent. Win-win.',color:'re'},
+      {ico:'📊',title:'Annual "How India Saves" Report',desc:'Aggregate anonymized data from tool usage. Publish: "Average Indian saves X% of income. InvestingPro users average Y%." Original data = press citations = DA60+ backlinks every year.',color:'pk'},
+    ].map(t=>`<div class="tool-card ${t.color}">
+      <div class="tc-header"><div class="tc-ico ${t.color}">${t.ico}</div><div class="tc-info"><div class="tc-name">${t.title}</div><div class="tc-desc" style="margin-top:5px">${t.desc}</div></div></div>
+    </div>`).join('')}
+  </div>
+  <div class="notice gr"><span class="n-icon">✦</span><div><strong>The compounding loop:</strong> Tool → user gets value → user shares result → new user arrives via share → new user gets value → new user shares → loop. This is how NerdWallet grew to 20M monthly visitors before spending significantly on paid acquisition. The tools ARE the marketing. Engineering IS the growth engine.</div></div>`;}
+
+/* ── INIT ── */
+buildNav();
+showSection('overview');
+</script>
+</body>
+</html>
