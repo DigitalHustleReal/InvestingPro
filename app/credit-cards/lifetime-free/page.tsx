@@ -5,6 +5,9 @@ import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 import MobileEngagementBar from '@/components/common/MobileEngagementBar';
+import MethodologyBanner from '@/components/common/MethodologyBanner';
+import DataFreshnessBar from '@/components/common/DataFreshnessBar';
+import CibilCrossLink from '@/components/common/CibilCrossLink';
 import CreditCardsClient from '../CreditCardsClient';
 import { getCreditCardsByCategory } from '@/lib/products/get-cc-by-category';
 
@@ -24,7 +27,7 @@ export default async function LifetimeFreeCardsPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <SEOHead
-                title="Best Lifetime Free Credit Cards in India (2025) — Zero Annual Fee | InvestingPro"
+                title="Best Lifetime Free Credit Cards in India (2026) — Zero Annual Fee | InvestingPro"
                 description="Get the best lifetime-free credit cards in India with zero annual fee — ever. Compare rewards, cashback, and features with no hidden charges. Apply online instantly."
                 structuredData={{
                     '@context': 'https://schema.org',
@@ -54,9 +57,18 @@ export default async function LifetimeFreeCardsPage() {
                         variant="primary"
                         className="mb-8"
                     />
-                    <div className="max-w-xl mx-auto mb-10">
+                    <MethodologyBanner vertical="credit-cards" className="mb-4" />
+                    <DataFreshnessBar
+                        verifiedAt={new Date().toISOString()}
+                        source="RBI"
+                        updateFrequency="Daily"
+                        productCount={assets.length}
+                        className="mb-4"
+                    />
+                    <div className="max-w-xl mx-auto mb-6">
                         <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="rounded-xl border border-primary-200/50" />
                     </div>
+                    <CibilCrossLink context="cards" className="mb-6" />
                 </div>
             </div>
 

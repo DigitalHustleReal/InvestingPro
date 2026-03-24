@@ -4,6 +4,9 @@ import CategoryHero from '@/components/common/CategoryHero';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
+import MethodologyBanner from '@/components/common/MethodologyBanner';
+import DataFreshnessBar from '@/components/common/DataFreshnessBar';
+import CibilCrossLink from '@/components/common/CibilCrossLink';
 import MobileEngagementBar from '@/components/common/MobileEngagementBar';
 import CreditCardsClient from '../CreditCardsClient';
 import { getCreditCardsByCategory } from '@/lib/products/get-cc-by-category';
@@ -22,7 +25,7 @@ export default async function LoungeAccessCardsPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <SEOHead
-                title="Best Credit Cards with Free Airport Lounge Access India (2025) | InvestingPro"
+                title="Best Credit Cards with Free Airport Lounge Access India (2026) | InvestingPro"
                 description="Compare credit cards with free airport lounge access in India. Get complimentary domestic and international lounge visits with Priority Pass, DreamFolks. Apply now."
                 structuredData={{
                     '@context': 'https://schema.org',
@@ -52,9 +55,18 @@ export default async function LoungeAccessCardsPage() {
                         variant="primary"
                         className="mb-8"
                     />
-                    <div className="max-w-xl mx-auto mb-10">
+                    <MethodologyBanner vertical="credit-cards" className="mb-4" />
+                    <DataFreshnessBar
+                        verifiedAt={new Date().toISOString()}
+                        source="RBI"
+                        updateFrequency="Daily"
+                        productCount={assets.length}
+                        className="mb-4"
+                    />
+                    <div className="max-w-xl mx-auto mb-6">
                         <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="rounded-xl border border-primary-200/50" />
                     </div>
+                    <CibilCrossLink context="cards" className="mb-6" />
                 </div>
             </div>
 
