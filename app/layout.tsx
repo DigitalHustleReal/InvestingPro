@@ -3,6 +3,8 @@ import { Suspense } from "react";
 import Script from "next/script";
 import "./globals.css";
 import ConditionalTopBar from "@/components/layout/ConditionalTopBar";
+import RateTickerServer from "@/components/common/RateTickerServer";
+import ConditionalRateTicker from "@/components/common/ConditionalRateTicker";
 import BottomMobileNav from "@/components/layout/BottomMobileNav";
 import AdminShell from "@/components/layout/AdminShell";
 import { cn } from "@/lib/utils";
@@ -170,6 +172,11 @@ export default async function RootLayout({
                   </a>
 
                   <AdminShell>
+                    <ConditionalRateTicker>
+                      <Suspense fallback={null}>
+                        <RateTickerServer />
+                      </Suspense>
+                    </ConditionalRateTicker>
                     <ConditionalTopBar initialConfig={navConfig} />
                     <main id="main-content" className="flex-grow pb-16 md:pb-0" tabIndex={-1}>
                       <PageErrorBoundary pageName="Root Layout">

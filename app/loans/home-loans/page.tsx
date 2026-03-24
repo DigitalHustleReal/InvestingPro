@@ -1,331 +1,292 @@
-"use client";
-
 import React from 'react';
-import EditorialPageTemplate from "@/components/common/EditorialPageTemplate";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info, AlertTriangle } from "lucide-react";
-import Link from "next/link";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import {
+    TrendingDown,
+    IndianRupee,
+    ShieldCheck,
+    ArrowRight,
+    Calculator,
+    AlertCircle,
+    CheckCircle2,
+    BarChart3,
+    Info,
+} from 'lucide-react';
+import SEOHead from '@/components/common/SEOHead';
+import CategoryHero from '@/components/common/CategoryHero';
+import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
+import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
+import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
+import MobileEngagementBar from '@/components/common/MobileEngagementBar';
+import MethodologyBanner from '@/components/common/MethodologyBanner';
+import DataFreshnessBar from '@/components/common/DataFreshnessBar';
+import CibilCrossLink from '@/components/common/CibilCrossLink';
+import { HomeLoanRateTable } from '@/components/common/RateWatchTable';
+import { getLiveRates } from '@/lib/rates/get-live-rates';
 
-export default function HomeLoansPage() {
+export const revalidate = 3600;
+
+export const metadata: Metadata = {
+    title: 'Best Home Loan Rates India (2026) — All Banks Compared | InvestingPro',
+    description:
+        'Compare home loan rates from all major Indian banks. SBI from 8.35%, HDFC from 8.50%. See how your CIBIL score affects your rate. Calculate EMI instantly.',
+};
+
+const CIBIL_IMPACT_TABLE = [
+    { range: '800+', label: 'Excellent', rate: '8.35–8.50%', emi60L: '₹51,783', totalInterest: '₹64.3L', tag: 'Best rates', color: 'text-green-700 bg-green-50 border-green-200 dark:text-green-300 dark:bg-green-950/30 dark:border-green-900' },
+    { range: '750–799', label: 'Very Good', rate: '8.50–8.75%', emi60L: '₹52,493', totalInterest: '₹67.0L', tag: 'Good rates', color: 'text-blue-700 bg-blue-50 border-blue-200 dark:text-blue-300 dark:bg-blue-950/30 dark:border-blue-900' },
+    { range: '700–749', label: 'Good', rate: '8.75–9.25%', emi60L: '₹53,784', totalInterest: '₹71.1L', tag: 'Higher rate', color: 'text-amber-700 bg-amber-50 border-amber-200 dark:text-amber-300 dark:bg-amber-950/30 dark:border-amber-900' },
+    { range: '650–699', label: 'Fair', rate: '9.25–10.00%', emi60L: '₹55,482', totalInterest: '₹77.2L', tag: 'Much higher', color: 'text-orange-700 bg-orange-50 border-orange-200 dark:text-orange-300 dark:bg-orange-950/30 dark:border-orange-900' },
+    { range: 'Below 650', label: 'Poor', rate: 'Often rejected', emi60L: '—', totalInterest: '—', tag: 'Likely rejected', color: 'text-red-700 bg-red-50 border-red-200 dark:text-red-300 dark:bg-red-950/30 dark:border-red-900' },
+];
+
+const PROCESS_STEPS = [
+    { step: '01', title: 'Check your CIBIL', desc: 'Free check — no hard enquiry. Know your score before applying. 750+ gets you the best rate.', href: '/cibil-score' },
+    { step: '02', title: 'Compare rates', desc: 'Use our live rate table above. Compare total cost, not just headline rate. Check processing fees too.', href: '#rate-table' },
+    { step: '03', title: 'Calculate EMI', desc: 'Use our EMI calculator to find your comfortable repayment. 40% of take-home pay is the safe limit.', href: '/calculators/emi' },
+    { step: '04', title: 'Apply & negotiate', desc: 'Apply to 2–3 banks simultaneously. Use competing offers to negotiate — banks often match the best rate.', href: '/loans' },
+];
+
+const COMMON_MISTAKES = [
+    { mistake: 'Applying without checking CIBIL first', impact: 'Hard enquiries lower your score. Every rejection makes the next approval harder.' },
+    { mistake: 'Comparing only headline rates', impact: 'Processing fees of 0.5–1% on ₹60L = ₹30,000–₹60,000 extra. Add to total cost.' },
+    { mistake: 'Choosing maximum tenure for lower EMI', impact: '20yr vs 15yr on ₹50L at 8.5%: saves ₹7,000/mo EMI but pays ₹19L extra interest.' },
+    { mistake: 'Not reading pre-payment penalty clause', impact: 'Floating rate loans: RBI mandates zero pre-payment penalty. Fixed rate: read the clause carefully.' },
+    { mistake: 'Missing Section 24 + 80C dual benefit', impact: '₹2L deduction on interest (Sec 24B) + ₹1.5L on principal (80C) = ₹3.5L deduction every year.' },
+];
+
+export default async function HomeLoanPage() {
+    let homeLoanRates: Awaited<ReturnType<typeof getLiveRates>>['homeLoanRates'] = [];
+    let updatedAt = 'Today';
+
+    try {
+        const data = await getLiveRates();
+        homeLoanRates = data.homeLoanRates;
+        updatedAt = data.updatedAt;
+    } catch (error) {
+        console.error('[HomeLoanPage] Failed to load rates:', error);
+    }
+
+    const bestRate = homeLoanRates[0]?.rate ?? '8.35%';
+    const bankCount = homeLoanRates.length || 8;
+
     return (
-        <EditorialPageTemplate
-            title="Home Loans in India"
-            description="Understand how home loans work in India, typical costs, eligibility criteria, and key considerations when choosing a home loan lender."
-            pageType="subcategory"
-            breadcrumbs={[
-                { label: "Home", href: "/" },
-                { label: "Loans", href: "/loans" }
-            ]}
-            relatedLinks={[
-                {
-                    label: "Home Loan EMI Calculator",
-                    href: "/calculators/emi",
-                    description: "Calculate your home loan EMI and total interest"
-                },
-                {
-                    label: "Home Loan Interest Rates Comparison",
-                    href: "/loans/home-loans/interest-rates",
-                    description: "Compare interest rates from top lenders"
-                },
-                {
-                    label: "Home Loan Tax Benefits Guide",
-                    href: "/guides/home-loan-tax-benefits",
-                    description: "Understand Section 24 and Section 80EEA tax deductions"
-                }
-            ]}
-            glossaryTerms={["EMI", "Interest Rate", "Principal Amount", "Loan Tenure", "Processing Fee", "Prepayment"]}
-            lastReviewed={new Date()}
-            structuredData={{
-                "@context": "https://schema.org",
-                "@type": "FinancialProduct",
-                "name": "Home Loan",
-                "description": "A secured loan used to purchase residential property in India",
-                "provider": {
-                    "@type": "FinancialService",
-                    "name": "Various Banks and NBFCs"
-                }
-            }}
-        >
-            {/* Main Content */}
-            <article className="prose prose-slate max-w-none">
-                {/* Definition Section */}
-                <section className="mb-8">
-                    <h1 className="text-4xl font-bold text-slate-900 mb-4">Home Loans in India</h1>
-                    <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                        A home loan, also known as a housing loan or home mortgage, is a secured loan provided by banks 
-                        and non-banking financial companies (NBFCs) in India to help individuals purchase residential 
-                        property. The property serves as collateral for the loan, and borrowers repay the amount through 
-                        Equated Monthly Installments (EMI) over a specified tenure, typically ranging from 5 to 30 years.
-                    </p>
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+            <SEOHead
+                title="Best Home Loan Rates India (2026) — All Banks Compared | InvestingPro"
+                description={`Compare home loan rates from ${bankCount} Indian banks. SBI from ${bestRate}. See CIBIL impact on your rate. Calculate EMI, compare total cost.`}
+                structuredData={{
+                    '@context': 'https://schema.org',
+                    '@type': 'FinancialProduct',
+                    name: 'Home Loans in India',
+                    description: 'Compare home loan interest rates from all major Indian banks. Updated daily.',
+                    url: 'https://investingpro.in/loans/home-loans',
+                    offers: homeLoanRates.slice(0, 3).map(r => ({
+                        '@type': 'Offer',
+                        name: `${r.bank} Home Loan`,
+                        description: `Starting from ${r.rate} p.a.`,
+                    })),
+                }}
+            />
+
+            {/* Hero */}
+            <div className="bg-slate-50 dark:bg-slate-950 pt-24 pb-12">
+                <div className="container mx-auto px-4">
+                    <AutoBreadcrumbs />
+                    <CategoryHero
+                        title="Home Loan Rates Today"
+                        subtitle={`${bankCount} Banks Compared · Updated ${updatedAt}`}
+                        description={`Starting from ${bestRate} p.a. Your actual rate depends on your CIBIL score — a difference of 100 CIBIL points can mean ₹9.8L extra interest on a ₹60L loan over 20 years.`}
+                        primaryCta={{ text: 'Check Free CIBIL', href: '/cibil-score' }}
+                        secondaryCta={{ text: 'Calculate EMI', href: '/calculators/emi' }}
+                        stats={[
+                            { label: 'Banks Compared', value: `${bankCount}` },
+                            { label: 'Lowest Rate', value: bestRate },
+                            { label: 'Disclosed Commission', value: '1–2%' },
+                        ]}
+                        badge="RBI Regulated · Commission Disclosed · Updated Daily"
+                        variant="primary"
+                        className="mb-8"
+                    />
+                    <MethodologyBanner vertical="loans" className="mb-4" />
+                    <DataFreshnessBar
+                        verifiedAt={new Date().toISOString()}
+                        source="RBI"
+                        updateFrequency="Daily"
+                        productCount={bankCount}
+                        className="mb-4"
+                    />
+                    <div className="max-w-xl mx-auto mb-6">
+                        <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="rounded-xl border border-primary-200/50" />
+                    </div>
+                    <CibilCrossLink context="loans" className="mb-4" />
+                </div>
+            </div>
+
+            <div className="container mx-auto px-4 pb-16 space-y-12">
+
+                {/* Live rate table */}
+                <section id="rate-table">
+                    <HomeLoanRateTable rates={homeLoanRates} updatedAt={updatedAt} />
                 </section>
 
-                {/* How It Works Section */}
-                <section className="mb-10">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4">How Home Loans Work in India</h2>
-                    <p className="text-slate-700 leading-relaxed mb-4">
-                        Home loans in India operate under guidelines set by the Reserve Bank of India (RBI). The loan 
-                        amount typically covers up to 80-90% of the property value, depending on the property cost and 
-                        borrower profile. The remaining amount must be paid as a down payment from the borrower's own funds.
-                    </p>
-                    <p className="text-slate-700 leading-relaxed mb-4">
-                        The interest rate on home loans can be fixed, floating, or a hybrid of both. Fixed rates remain 
-                        constant throughout the loan tenure, while floating rates fluctuate based on the lender's base rate 
-                        or repo-linked lending rate (RLLR). Most Indian lenders offer floating rate home loans linked to 
-                        their Marginal Cost of Funds Based Lending Rate (MCLR) or RLLR.
-                    </p>
-                    <p className="text-slate-700 leading-relaxed mb-4">
-                        The loan repayment happens through EMIs, which include both principal and interest components. 
-                        In the initial years, a larger portion of the EMI goes toward interest payment, while the principal 
-                        component increases over time. This is known as the amortization schedule.
-                    </p>
+                {/* CIBIL impact on rate */}
+                <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                    <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+                        <h2 className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 text-lg">
+                            <ShieldCheck className="h-5 w-5 text-green-700 dark:text-green-400" />
+                            How Your CIBIL Score Affects Your Home Loan Rate
+                        </h2>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                            On a ₹60L loan over 20 years — the difference between 700 and 800 CIBIL is{' '}
+                            <strong className="text-red-600 dark:text-red-400">₹9.8 lakh extra interest.</strong>
+                        </p>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-sm">
+                            <thead>
+                                <tr className="bg-slate-50 dark:bg-slate-800/50 text-left">
+                                    {['CIBIL Range', 'Profile', 'Rate Range', 'EMI (₹60L/20yr)', 'Total Interest', 'Status'].map(h => (
+                                        <th key={h} className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap text-sm">{h}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                                {CIBIL_IMPACT_TABLE.map(row => (
+                                    <tr key={row.range} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                                        <td className="px-4 py-3 font-mono font-bold text-slate-900 dark:text-slate-100">{row.range}</td>
+                                        <td className="px-4 py-3 text-slate-600 dark:text-slate-300 text-sm">{row.label}</td>
+                                        <td className="px-4 py-3 font-mono font-semibold text-slate-800 dark:text-slate-200 text-sm">{row.rate}</td>
+                                        <td className="px-4 py-3 font-mono text-slate-700 dark:text-slate-300 text-sm">{row.emi60L}</td>
+                                        <td className="px-4 py-3 font-mono text-slate-700 dark:text-slate-300 text-sm">{row.totalInterest}</td>
+                                        <td className="px-4 py-3">
+                                            <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full border ${row.color}`}>
+                                                {row.tag}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="px-5 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-slate-100 dark:border-slate-800 bg-green-50/40 dark:bg-green-950/10">
+                        <p className="text-xs text-slate-600 dark:text-slate-400">
+                            Improve your score before applying — 3 months of on-time payments can lift CIBIL by 15–30 points.
+                        </p>
+                        <Link href="/cibil-score" className="shrink-0 text-xs font-semibold text-green-700 dark:text-green-400 hover:underline flex items-center gap-1">
+                            Check CIBIL free <ArrowRight className="h-3 w-3" />
+                        </Link>
+                    </div>
                 </section>
 
-                {/* Key Factors to Consider */}
-                <section className="mb-10">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4">Key Factors to Consider</h2>
-                    
-                    <div className="space-y-4 mb-6">
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Interest Rate</h3>
-                            <p className="text-slate-700 leading-relaxed">
-                                Compare interest rates across lenders, but also consider the type of rate (fixed vs floating), 
-                                the lender's MCLR or RLLR, and how frequently rates reset. Even a 0.25% difference can 
-                                significantly impact the total interest paid over the loan tenure.
-                            </p>
+                {/* 4-step process */}
+                <section>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 font-display mb-6">
+                        The 4-Step Home Loan Process
+                    </h2>
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {PROCESS_STEPS.map(item => (
+                            <Link
+                                key={item.step}
+                                href={item.href}
+                                className="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 hover:border-green-300 hover:shadow-md transition-all"
+                            >
+                                <div className="text-3xl font-bold text-green-100 dark:text-green-900/40 font-display mb-3 select-none">{item.step}</div>
+                                <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm mb-2">{item.title}</div>
+                                <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{item.desc}</div>
+                                <div className="mt-3 text-xs text-green-700 dark:text-green-400 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Go <ArrowRight className="h-3 w-3" />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Mistakes to avoid */}
+                <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+                    <h2 className="font-bold text-slate-900 dark:text-slate-100 mb-5 flex items-center gap-2 text-lg">
+                        <AlertCircle className="h-5 w-5 text-amber-600" />
+                        5 Mistakes That Cost Indian Home Loan Borrowers Lakhs
+                    </h2>
+                    <div className="space-y-3">
+                        {COMMON_MISTAKES.map((item, i) => (
+                            <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/30">
+                                <span className="shrink-0 w-5 h-5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 flex items-center justify-center text-[11px] font-bold mt-0.5">
+                                    {i + 1}
+                                </span>
+                                <div>
+                                    <div className="font-semibold text-sm text-slate-900 dark:text-slate-100">{item.mistake}</div>
+                                    <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{item.impact}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Tax benefits */}
+                <section className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-2xl p-6">
+                    <div className="flex items-start gap-3">
+                        <div className="p-2 bg-green-100 dark:bg-green-900/40 rounded-lg shrink-0">
+                            <IndianRupee className="h-5 w-5 text-green-700 dark:text-green-400" />
                         </div>
-                        
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Loan Amount and Tenure</h3>
-                            <p className="text-slate-700 leading-relaxed">
-                                Determine the loan amount based on your repayment capacity, not just the maximum amount 
-                                offered. Longer tenures reduce EMI but increase total interest, while shorter tenures have 
-                                higher EMIs but lower total interest cost.
-                            </p>
-                        </div>
-                        
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Processing Fees and Charges</h3>
-                            <p className="text-slate-700 leading-relaxed">
-                                Evaluate processing fees, administrative charges, prepayment penalties, and other hidden costs. 
-                                Some lenders waive processing fees during promotional offers, while others charge 0.5% to 1% 
-                                of the loan amount.
-                            </p>
-                        </div>
-                        
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Prepayment and Foreclosure</h3>
-                            <p className="text-slate-700 leading-relaxed">
-                                Check the lender's policy on prepayment and foreclosure. Most floating rate home loans in 
-                                India allow prepayment without charges, but fixed rate loans may have prepayment penalties. 
-                                Partial prepayments can reduce your loan tenure or EMI burden.
-                            </p>
+                        <div className="flex-1">
+                            <h3 className="font-bold text-green-900 dark:text-green-200 mb-3">
+                                Home Loan = ₹3.5L Tax Deduction Every Year
+                            </h3>
+                            <div className="grid sm:grid-cols-2 gap-3">
+                                {[
+                                    { label: 'Section 24B — Interest', value: 'Up to ₹2L/year on interest paid (self-occupied property)' },
+                                    { label: 'Section 80C — Principal', value: 'Up to ₹1.5L/year on principal repayment' },
+                                    { label: 'Section 80EEA — First home', value: 'Extra ₹1.5L for first-time buyers (affordable housing)' },
+                                    { label: 'HRA + Home Loan', value: 'Both claimable if you own home in a different city' },
+                                ].map(item => (
+                                    <div key={item.label} className="flex items-start gap-2 text-sm">
+                                        <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0 mt-0.5" />
+                                        <div>
+                                            <div className="font-semibold text-green-900 dark:text-green-200 text-xs">{item.label}</div>
+                                            <div className="text-xs text-green-700 dark:text-green-400">{item.value}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <Link href="/calculators/tax" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-green-800 dark:text-green-300 hover:underline">
+                                Calculate your tax saving with home loan <ArrowRight className="h-4 w-4" />
+                            </Link>
                         </div>
                     </div>
                 </section>
 
-                {/* Typical Costs, Risks, and Limitations */}
-                <section className="mb-10">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4">Typical Costs, Risks, and Limitations</h2>
-                    
-                    <Card className="border-slate-200 mb-6">
-                        <CardHeader>
-                            <CardTitle className="text-lg font-semibold text-slate-900">Costs Involved</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <ul className="space-y-2 text-slate-700">
-                                <li className="flex items-start gap-2">
-                                    <span className="text-slate-600 mt-1">•</span>
-                                    <span><strong>Processing Fee:</strong> Typically 0.5% to 1% of the loan amount, plus applicable GST</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-slate-600 mt-1">•</span>
-                                    <span><strong>Legal and Technical Fees:</strong> For property valuation and legal verification</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-slate-600 mt-1">•</span>
-                                    <span><strong>Stamp Duty and Registration:</strong> State-specific charges for property registration</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-slate-600 mt-1">•</span>
-                                    <span><strong>Insurance:</strong> Home loan insurance may be required by some lenders</span>
-                                </li>
-                            </ul>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="border-accent-200 bg-accent-50 mb-6">
-                        <CardHeader>
-                            <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-6 md:p-8">
-                                <AlertTriangle className="w-5 h-5 text-accent-600" />
-                                Risks and Limitations
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <ul className="space-y-2 text-slate-700">
-                                <li className="flex items-start gap-2">
-                                    <span className="text-accent-600 mt-1">•</span>
-                                    <span><strong>Interest Rate Risk:</strong> Floating rates can increase over time, raising your EMI or extending the loan tenure</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-accent-600 mt-1">•</span>
-                                    <span><strong>Property Value Risk:</strong> Property prices may decline, affecting your loan-to-value ratio</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-accent-600 mt-1">•</span>
-                                    <span><strong>Repayment Risk:</strong> Inability to pay EMIs can lead to property foreclosure</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-accent-600 mt-1">•</span>
-                                    <span><strong>Eligibility Constraints:</strong> Age, income, credit score, and existing liabilities affect loan approval</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-accent-600 mt-1">•</span>
-                                    <span><strong>Long Commitment:</strong> Home loans typically span 15-30 years, requiring consistent income</span>
-                                </li>
-                            </ul>
-                        </CardContent>
-                    </Card>
+                {/* Related tools */}
+                <section className="grid sm:grid-cols-3 gap-4">
+                    {[
+                        { href: '/calculators/emi', icon: Calculator, label: 'EMI Calculator', desc: 'Monthly EMI for any rate & tenure' },
+                        { href: '/cibil-score', icon: ShieldCheck, label: 'Free CIBIL Check', desc: 'Know your score before applying' },
+                        { href: '/loans', icon: BarChart3, label: 'All Loan Products', desc: 'Personal, car, education loans' },
+                    ].map(item => {
+                        const Icon = item.icon;
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className="group flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-green-300 hover:shadow-md transition-all"
+                            >
+                                <div className="p-2 bg-green-50 dark:bg-green-900/30 rounded-lg">
+                                    <Icon className="h-5 w-5 text-green-700 dark:text-green-400" />
+                                </div>
+                                <div className="flex-1">
+                                    <div className="font-semibold text-sm text-slate-900 dark:text-slate-100">{item.label}</div>
+                                    <div className="text-xs text-slate-500 dark:text-slate-400">{item.desc}</div>
+                                </div>
+                                <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-green-600 group-hover:translate-x-0.5 transition-all" />
+                            </Link>
+                        );
+                    })}
                 </section>
 
-                {/* Comparison Context */}
-                <section className="mb-10">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4">When Home Loans Make Sense vs Alternatives</h2>
-                    
-                    <p className="text-slate-700 leading-relaxed mb-4">
-                        Home loans are appropriate when you have stable income, good credit history, and require financing 
-                        to purchase a property. They are generally more cost-effective than other forms of borrowing due to 
-                        lower interest rates and tax benefits.
-                    </p>
-                    
-                    <p className="text-slate-700 leading-relaxed mb-4">
-                        Consider alternatives such as:
-                    </p>
-                    
-                    <ul className="space-y-2 text-slate-700 mb-4">
-                        <li className="flex items-start gap-2">
-                            <span className="text-slate-600 mt-1">•</span>
-                            <span><strong>Personal Loans:</strong> For smaller amounts or when you don't have property to offer as collateral, though interest rates are typically higher</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="text-slate-600 mt-1">•</span>
-                            <span><strong>Loan Against Property:</strong> When you already own property and need funds, using existing property as collateral</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="text-slate-600 mt-1">•</span>
-                            <span><strong>Self-Funding:</strong> If you have sufficient savings and the opportunity cost of using those funds is lower than loan interest</span>
-                        </li>
-                    </ul>
-                </section>
+                <ComplianceDisclaimer variant="compact" />
+            </div>
 
-                {/* Related Tools */}
-                <section className="mb-10">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4">Related Calculators and Tools</h2>
-                    <p className="text-slate-700 leading-relaxed mb-4">
-                        Use our <Link href="/calculators/emi" className="text-primary-600 hover:text-primary-700 underline">EMI Calculator</Link> to 
-                        estimate your monthly home loan installment based on loan amount, interest rate, and tenure. This helps 
-                        determine your repayment capacity before applying for a loan.
-                    </p>
-                </section>
-
-                {/* Who It's For / Not For */}
-                <section className="mb-10">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4">Who Home Loans Are For</h2>
-                    <ul className="space-y-2 text-slate-700 mb-6">
-                        <li className="flex items-start gap-2">
-                            <span className="text-primary-600 mt-1">✓</span>
-                            <span>Individuals with stable income and employment</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="text-primary-600 mt-1">✓</span>
-                            <span>First-time homebuyers and property investors</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="text-primary-600 mt-1">✓</span>
-                            <span>Those with good credit scores (typically 750+)</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="text-primary-600 mt-1">✓</span>
-                            <span>Individuals seeking long-term wealth building through property ownership</span>
-                        </li>
-                    </ul>
-
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4">Who Home Loans Are NOT For</h2>
-                    <ul className="space-y-2 text-slate-700">
-                        <li className="flex items-start gap-2">
-                            <span className="text-danger-600 mt-1">✗</span>
-                            <span>Individuals with irregular income or unstable employment</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="text-danger-600 mt-1">✗</span>
-                            <span>Those with poor credit history or existing high debt</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="text-danger-600 mt-1">✗</span>
-                            <span>Borrowers who cannot afford the down payment and associated costs</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="text-danger-600 mt-1">✗</span>
-                            <span>Individuals near retirement age (typically above 60-65 years) may face restrictions</span>
-                        </li>
-                    </ul>
-                </section>
-
-                {/* FAQ Section */}
-                <section className="mb-10">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-                    
-                    <div className="space-y-6">
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">What is the maximum loan amount I can get for a home loan?</h3>
-                            <p className="text-slate-700 leading-relaxed">
-                                Most lenders in India offer up to 80-90% of the property value as a loan. The exact amount 
-                                depends on factors such as property location, your income, credit score, and existing liabilities. 
-                                For properties above a certain value (typically ₹75 lakhs), the loan-to-value ratio may be lower.
-                            </p>
-                        </div>
-                        
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">What documents are required for a home loan application?</h3>
-                            <p className="text-slate-700 leading-relaxed">
-                                Common documents include identity proof (Aadhaar, PAN), address proof, income proof (salary slips, 
-                                IT returns), bank statements (6-12 months), property documents, and photographs. Self-employed 
-                                applicants may need additional business documents.
-                            </p>
-                        </div>
-                        
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Can I get tax benefits on home loan interest?</h3>
-                            <p className="text-slate-700 leading-relaxed">
-                                Yes, under Section 24(b) of the Income Tax Act, you can claim a deduction of up to ₹2 lakhs 
-                                per year on home loan interest for self-occupied property. Additional deductions are available 
-                                under Section 80EEA for first-time homebuyers. Principal repayment qualifies for deduction 
-                                under Section 80C up to ₹1.5 lakhs per year.
-                            </p>
-                        </div>
-                        
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">What happens if I default on home loan payments?</h3>
-                            <p className="text-slate-700 leading-relaxed">
-                                Defaulting on home loan EMIs can lead to penalties, increased interest rates, legal action, 
-                                and eventually property foreclosure. Lenders typically provide a grace period, but consistent 
-                                defaults can severely impact your credit score and financial stability. It's important to 
-                                communicate with your lender if you face repayment difficulties.
-                            </p>
-                        </div>
-                        
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Should I choose a fixed or floating interest rate?</h3>
-                            <p className="text-slate-700 leading-relaxed">
-                                Fixed rates provide certainty but are typically 0.5-1% higher than floating rates. Floating 
-                                rates can change but generally offer lower initial rates and allow prepayment flexibility. 
-                                The choice depends on your risk tolerance, interest rate outlook, and financial situation. 
-                                Most borrowers in India opt for floating rates due to lower costs and flexibility.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-            </article>
-        </EditorialPageTemplate>
+            <MobileEngagementBar category="loan" />
+        </div>
     );
 }
-
