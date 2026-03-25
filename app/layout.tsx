@@ -59,6 +59,7 @@ import { NavigationProvider } from "@/contexts/NavigationContext";
 import { initializeEventSystem } from "@/lib/events/setup";
 import { initializeLogging } from "@/lib/logging/initialize";
 import { validateEnvOnStartup } from "@/lib/env";
+import { LanguageProvider } from "@/lib/i18n/language-context";
 import type { Metadata } from 'next';
 // Tracing is disabled - file exists as .disabled
 // import { initializeTracing } from "@/lib/tracing/opentelemetry";
@@ -147,6 +148,7 @@ export default async function RootLayout({
         "min-h-screen flex flex-col bg-background text-foreground antialiased"
       )}>
         <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
+        <LanguageProvider>
         <ThemeProvider
             attribute="class"
             defaultTheme="light"
@@ -205,6 +207,7 @@ export default async function RootLayout({
           </QueryProvider>
         </ErrorBoundaryProvider>
         </ThemeProvider>
+        </LanguageProvider>
         <CookieConsent />
         {/* Tawk.to Live Chat - Externalized for stability */}
         {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID !== 'undefined' && (
