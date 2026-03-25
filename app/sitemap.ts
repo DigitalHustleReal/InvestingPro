@@ -39,6 +39,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.7,
         });
 
+        // Scoring Matrix — transparency / trust page
+        sitemap.push({
+            url: `${baseUrl}/scoring-matrix`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        });
+
         // Free Tools Hub — Engineering as Marketing
         sitemap.push({
             url: `${baseUrl}/tools`,

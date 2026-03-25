@@ -194,10 +194,12 @@ export default function MethodologyPage() {
                         </p>
                         <div className="grid sm:grid-cols-2 gap-2">
                             {[
-                                { label: 'Credit Cards', href: '#credit-cards', desc: 'Rewards 30% · Annual Fee 25% · Features 15% · Interest 10% · Eligibility 10% · Trust 10%' },
-                                { label: 'Mutual Funds', href: '#mutual-funds', desc: 'Returns 40% · Expense Ratio 20% · Risk-Adjusted Returns 20% · AUM 10% · Manager 10%' },
-                                { label: 'Personal Loans', href: '#personal-loans', desc: 'Interest Rate 40% · Processing Fee 20% · Loan Range 15% · Eligibility 15% · Trust 10%' },
-                                { label: 'Fixed Deposits', href: '#fixed-deposits', desc: 'Interest Rate 50% · Tenure Flexibility 20% · Bank Safety 20% · Premature Penalty 10%' },
+                                { label: 'Credit Cards', href: '/scoring-matrix#credit-cards', desc: 'Travel Benefits 35% · Rewards Power 35% · Cost Efficiency (fees) 30% — user-adjustable' },
+                                { label: 'Mutual Funds', href: '/scoring-matrix#mutual-funds', desc: '3-Year Returns 50% · Expense Ratio 30% · Fund Rating 20%' },
+                                { label: 'Loans', href: '/scoring-matrix#loans', desc: 'Affordability (rate) 50% · Processing Cost 30% · Tenure Flexibility 20%' },
+                                { label: 'Fixed Deposits', href: '/scoring-matrix#fixed-deposits', desc: 'Interest Rate 50% · Tenure Range 20% · Bank Safety 20% · Early Exit Penalty 10%' },
+                                { label: 'Demat Accounts', href: '/scoring-matrix#demat-accounts', desc: 'Brokerage Cost 40% · Annual Charges 25% · Platform Quality 20% · Features 15%' },
+                                { label: 'Term Insurance', href: '/scoring-matrix#insurance', desc: 'Claim Settlement 35% · Premium Value 30% · Insurer Strength 25% · Coverage 10%' },
                             ].map(item => (
                                 <a
                                     key={item.label}
