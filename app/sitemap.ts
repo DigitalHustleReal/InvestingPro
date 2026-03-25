@@ -174,6 +174,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             'compound-interest', 'simple-interest', 'rd', 'mis', 'kvp', 'nsc',
             'scss', 'ssy', 'portfolio-rebalancing', 'home-loan-vs-sip',
             'financial-health-score',
+            // Specialist calculators (zero-competition segment)
+            'mf-overlapper', 'fire',
+            'govt-pension', 'defence-pension', 'eps95-pension', 'gratuity',
+            'nri-fd', 'gst-suite',
         ];
         // Calculators hub page
         sitemap.push({
