@@ -19,7 +19,23 @@ import MethodologyBanner from '@/components/common/MethodologyBanner';
 import DataFreshnessBar from '@/components/common/DataFreshnessBar';
 import CibilCrossLink from '@/components/common/CibilCrossLink';
 
+import type { Metadata } from 'next';
+
 export const revalidate = 3600; // ISR: Revalidate every hour
+
+export const metadata: Metadata = {
+    title: 'Best Credit Cards in India (2026) — Compare & Apply Online | InvestingPro',
+    description: 'Compare 100+ top credit cards in India. Find cards with best rewards, cashback, lounge access, and travel benefits. Check eligibility and apply online.',
+    alternates: { canonical: 'https://investingpro.in/credit-cards' },
+    openGraph: {
+        title: 'Best Credit Cards in India (2026) | InvestingPro',
+        description: 'Compare 100+ top credit cards. Best rewards, cashback & travel benefits.',
+        url: 'https://investingpro.in/credit-cards',
+        siteName: 'InvestingPro',
+        locale: 'en_IN',
+        type: 'website',
+    },
+};
 
 export default async function CreditCardsPage() {
     // SSR Fetch with Safety Fallback (Defensive Programming)

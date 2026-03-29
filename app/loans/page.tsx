@@ -11,7 +11,23 @@ import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import CategoryHero from '@/components/common/CategoryHero';
 import CibilCrossLink from '@/components/common/CibilCrossLink';
 
+import type { Metadata } from 'next';
+
 export const revalidate = 3600; // ISR: Revalidate every hour
+
+export const metadata: Metadata = {
+    title: 'Best Loans in India (2026) — Compare Interest Rates | InvestingPro',
+    description: 'Compare home loans, personal loans, car loans and business loans from 50+ lenders. Check interest rates, eligibility and apply online.',
+    alternates: { canonical: 'https://investingpro.in/loans' },
+    openGraph: {
+        title: 'Best Loans in India (2026) | InvestingPro',
+        description: 'Compare loans from 50+ lenders. Lowest interest rates & instant approval.',
+        url: 'https://investingpro.in/loans',
+        siteName: 'InvestingPro',
+        locale: 'en_IN',
+        type: 'website',
+    },
+};
 
 export default async function LoansPage() {
     // SSR Fetch

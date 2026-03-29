@@ -1,7 +1,22 @@
 // Server Component for ISR support
+import type { Metadata } from 'next';
 
 // ISR: Revalidate every 5 minutes (homepage has frequently changing content)
 export const revalidate = 300;
+
+export const metadata: Metadata = {
+    title: 'InvestingPro — Compare Credit Cards, Loans & Mutual Funds in India',
+    description: 'India\'s trusted personal finance platform. Compare credit cards, home loans, mutual funds, FDs, insurance and more. AI-powered recommendations for smarter financial decisions.',
+    alternates: { canonical: 'https://investingpro.in' },
+    openGraph: {
+        title: 'InvestingPro — Compare Credit Cards, Loans & Mutual Funds',
+        description: 'India\'s trusted personal finance platform. Compare 500+ financial products and make smarter money decisions.',
+        url: 'https://investingpro.in',
+        siteName: 'InvestingPro',
+        locale: 'en_IN',
+        type: 'website',
+    },
+};
 
 // Rebuild trigger 1
 import React, { Suspense } from 'react';
