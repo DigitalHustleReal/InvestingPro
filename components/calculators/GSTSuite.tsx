@@ -145,14 +145,14 @@ function InvoiceCalculator() {
                 </td>
                 <td className="px-3 py-2.5">
                   <input
-                    type="number" min={1} value={item.quantity}
+                    type="number" inputMode="decimal" min={1} value={item.quantity}
                     onChange={(e) => updateItem(item.id, "quantity", Number(e.target.value))}
                     className="w-16 px-2 py-1.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-500 dark:bg-slate-900 dark:border-slate-700"
                   />
                 </td>
                 <td className="px-3 py-2.5">
                   <input
-                    type="number" min={0} value={item.unitPrice}
+                    type="number" inputMode="decimal" min={0} value={item.unitPrice}
                     onChange={(e) => updateItem(item.id, "unitPrice", Number(e.target.value))}
                     className="w-28 px-2 py-1.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-500 dark:bg-slate-900 dark:border-slate-700"
                   />

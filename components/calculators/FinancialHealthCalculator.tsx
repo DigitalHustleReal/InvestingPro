@@ -192,7 +192,7 @@ export function FinancialHealthCalculator() {
                                     <Label className="text-sm font-semibold">Monthly Income (In Hand)</Label>
                                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                        <Input type="number" value={monthlyIncome} onChange={(e) => setMonthlyIncome(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                                        <Input type="number" inputMode="decimal" value={monthlyIncome} onChange={(e) => setMonthlyIncome(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                                     </div>
                                     <Slider value={[monthlyIncome]} onValueChange={(v) => setMonthlyIncome(v[0])} min={10000} max={500000} step={1000} className="py-2" />
                                 </div>
@@ -200,7 +200,7 @@ export function FinancialHealthCalculator() {
                                     <Label className="text-sm font-semibold">Monthly Expenses</Label>
                                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                        <Input type="number" value={monthlyExpenses} onChange={(e) => setMonthlyExpenses(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                                        <Input type="number" inputMode="decimal" value={monthlyExpenses} onChange={(e) => setMonthlyExpenses(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                                     </div>
                                     <Slider value={[monthlyExpenses]} onValueChange={(v) => setMonthlyExpenses(v[0])} min={5000} max={monthlyIncome} step={1000} className="py-2" />
                                 </div>
@@ -208,7 +208,7 @@ export function FinancialHealthCalculator() {
                                     <Label className="text-sm font-semibold">Monthly EMI Payments</Label>
                                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                        <Input type="number" value={monthlyDebtPayments} onChange={(e) => setMonthlyDebtPayments(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                                        <Input type="number" inputMode="decimal" value={monthlyDebtPayments} onChange={(e) => setMonthlyDebtPayments(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                                     </div>
                                 </div>
                             </div>
@@ -252,7 +252,7 @@ export function FinancialHealthCalculator() {
                                 <Label className="text-sm font-medium text-foreground">Monthly Income (In Hand)</Label>
                                 <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                     <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                    <Input type="number" value={monthlyIncome} onChange={(e) => setMonthlyIncome(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
+                                    <Input type="number" inputMode="decimal" value={monthlyIncome} onChange={(e) => setMonthlyIncome(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
                                 </div>
                                 <Slider value={[monthlyIncome]} onValueChange={(v) => setMonthlyIncome(v[0])} min={10000} max={500000} step={1000} className="py-2" />
                             </div>
@@ -260,7 +260,7 @@ export function FinancialHealthCalculator() {
                                 <Label className="text-sm font-medium text-foreground">Monthly Expenses</Label>
                                 <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                     <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                    <Input type="number" value={monthlyExpenses} onChange={(e) => setMonthlyExpenses(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
+                                    <Input type="number" inputMode="decimal" value={monthlyExpenses} onChange={(e) => setMonthlyExpenses(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
                                 </div>
                                 <Slider value={[monthlyExpenses]} onValueChange={(v) => setMonthlyExpenses(v[0])} min={5000} max={monthlyIncome} step={1000} className="py-2" />
                             </div>
@@ -268,7 +268,7 @@ export function FinancialHealthCalculator() {
                                 <Label className="text-sm font-medium text-foreground">Monthly Debt Payments (EMI)</Label>
                                 <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                     <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                    <Input type="number" value={monthlyDebtPayments} onChange={(e) => setMonthlyDebtPayments(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
+                                    <Input type="number" inputMode="decimal" value={monthlyDebtPayments} onChange={(e) => setMonthlyDebtPayments(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
                                 </div>
                             </div>
                         </div>
@@ -280,21 +280,21 @@ export function FinancialHealthCalculator() {
                                 <Label className="text-sm font-medium text-foreground">Total Liquid Savings (Cash/Bank)</Label>
                                 <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                     <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                    <Input type="number" value={totalSavings} onChange={(e) => setTotalSavings(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
+                                    <Input type="number" inputMode="decimal" value={totalSavings} onChange={(e) => setTotalSavings(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
                                 </div>
                             </div>
                             <div className="space-y-2">
                                 <Label className="text-sm font-medium text-foreground">Total Investments</Label>
                                 <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                     <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                    <Input type="number" value={investmentCorp} onChange={(e) => setInvestmentCorp(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
+                                    <Input type="number" inputMode="decimal" value={investmentCorp} onChange={(e) => setInvestmentCorp(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
                                 </div>
                             </div>
                             <div className="space-y-2">
                                 <Label className="text-sm font-medium text-foreground">Total Outstanding Debt</Label>
                                 <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                     <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                    <Input type="number" value={totalDebt} onChange={(e) => setTotalDebt(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
+                                    <Input type="number" inputMode="decimal" value={totalDebt} onChange={(e) => setTotalDebt(Number(e.target.value))} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 w-full" />
                                 </div>
                             </div>
                         </div>
@@ -376,7 +376,7 @@ export function FinancialHealthCalculator() {
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={scoreBreakdownData} layout="vertical">
                                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
-                                    <XAxis type="number" domain={[0, 20]} tick={{ fontSize: 10 }} stroke="hsl(var(--border))" tickFormatter={(v) => `${v}pt`} />
+                                    <XAxis type="number" inputMode="decimal" domain={[0, 20]} tick={{ fontSize: 10 }} stroke="hsl(var(--border))" tickFormatter={(v) => `${v}pt`} />
                                     <YAxis type="category" dataKey="component" tick={{ fontSize: 10 }} stroke="hsl(var(--border))" width={100} />
                                     <Tooltip formatter={(value: any, name: string) => [`${value}/20`, name === "score" ? "Your Score" : "Ideal"]} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
                                     <Bar dataKey="ideal" fill="hsl(var(--muted))" radius={[0, 4, 4, 0]} name="Ideal" />

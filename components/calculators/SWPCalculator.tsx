@@ -211,7 +211,7 @@ export function SWPCalculator() {
                                         <Label className="text-sm font-semibold">Initial Corpus</Label>
                                         <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                             <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                            <Input type="number" value={corpus} onChange={(e) => setCorpus(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                                            <Input type="number" inputMode="decimal" value={corpus} onChange={(e) => setCorpus(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                                         </div>
                                     </div>
                                     <Slider value={[corpus]} onValueChange={(v) => setCorpus(v[0])} min={1000000} max={100000000} step={100000} className="py-2" />
@@ -221,7 +221,7 @@ export function SWPCalculator() {
                                         <Label className="text-sm font-semibold">Monthly Withdrawal</Label>
                                         <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                             <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                            <Input type="number" value={monthlyWithdrawal} onChange={(e) => setMonthlyWithdrawal(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                                            <Input type="number" inputMode="decimal" value={monthlyWithdrawal} onChange={(e) => setMonthlyWithdrawal(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                                         </div>
                                     </div>
                                     <Slider value={[monthlyWithdrawal]} onValueChange={(v) => setMonthlyWithdrawal(v[0])} min={10000} max={500000} step={5000} className="py-2" />
@@ -286,7 +286,7 @@ export function SWPCalculator() {
                                     <Label className="text-sm text-foreground font-semibold">Initial Corpus</Label>
                                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                        <Input type="number" value={corpus} onChange={(e) => setCorpus(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
+                                        <Input type="number" inputMode="decimal" value={corpus} onChange={(e) => setCorpus(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
                                     </div>
                                 </div>
                                 <Slider value={[corpus]} onValueChange={(v) => setCorpus(v[0])} min={1000000} max={100000000} step={100000} className="py-2" />
@@ -297,7 +297,7 @@ export function SWPCalculator() {
                                     <Label className="text-sm text-foreground font-semibold">Monthly Withdrawal</Label>
                                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                        <Input type="number" value={monthlyWithdrawal} onChange={(e) => setMonthlyWithdrawal(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
+                                        <Input type="number" inputMode="decimal" value={monthlyWithdrawal} onChange={(e) => setMonthlyWithdrawal(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
                                     </div>
                                 </div>
                                 <Slider value={[monthlyWithdrawal]} onValueChange={(v) => setMonthlyWithdrawal(v[0])} min={10000} max={500000} step={5000} className="py-2" />

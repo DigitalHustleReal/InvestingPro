@@ -91,7 +91,7 @@ export default function InsuranceCoverageCalculator() {
                     <Label className="text-sm font-semibold">Monthly Income</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <span className="text-sm text-muted-foreground font-bold">₹</span>
-                        <Input type="number" value={monthlyIncome} onChange={(e) => setMonthlyIncome(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={monthlyIncome} onChange={(e) => setMonthlyIncome(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[monthlyIncome]} onValueChange={(v) => setMonthlyIncome(v[0])} min={10000} max={500000} step={5000} className="py-2" />
@@ -103,7 +103,7 @@ export default function InsuranceCoverageCalculator() {
                     <Label className="text-sm font-semibold">Monthly Expenses</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <span className="text-sm text-muted-foreground font-bold">₹</span>
-                        <Input type="number" value={monthlyExpenses} onChange={(e) => setMonthlyExpenses(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={monthlyExpenses} onChange={(e) => setMonthlyExpenses(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[monthlyExpenses]} onValueChange={(v) => setMonthlyExpenses(v[0])} min={5000} max={300000} step={2500} className="py-2" />
@@ -127,7 +127,7 @@ export default function InsuranceCoverageCalculator() {
                     <Label className="text-sm font-semibold">Outstanding Loans</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <span className="text-sm text-muted-foreground font-bold">₹</span>
-                        <Input type="number" value={existingLoans} onChange={(e) => setExistingLoans(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={existingLoans} onChange={(e) => setExistingLoans(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[existingLoans]} onValueChange={(v) => setExistingLoans(v[0])} min={0} max={10000000} step={100000} className="py-2" />
@@ -296,7 +296,7 @@ export default function InsuranceCoverageCalculator() {
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={barData} layout="vertical">
                                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
-                                    <XAxis type="number" tick={{ fontSize: 10 }} stroke="hsl(var(--border))" tickFormatter={(value) => value >= 100000 ? `${(value / 100000).toFixed(0)}L` : value} />
+                                    <XAxis type="number" inputMode="decimal" tick={{ fontSize: 10 }} stroke="hsl(var(--border))" tickFormatter={(value) => value >= 100000 ? `${(value / 100000).toFixed(0)}L` : value} />
                                     <YAxis type="category" dataKey="name" tick={{ fontSize: 10 }} stroke="hsl(var(--border))" width={110} />
                                     <Tooltip formatter={(value: number | undefined) => value !== undefined ? formatCurrency(value) : ''} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
                                     <Bar dataKey="amount" fill="#166534" name="Amount" radius={[0, 8, 8, 0]} />

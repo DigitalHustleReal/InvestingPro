@@ -124,7 +124,7 @@ export function TaxCalculator() {
                     <Label className="text-sm font-semibold">Annual Income</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={income} onChange={(e) => setIncome(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={income} onChange={(e) => setIncome(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[income]} onValueChange={(v) => setIncome(v[0])} min={300000} max={5000000} step={10000} className="py-2" />
@@ -164,7 +164,7 @@ export function TaxCalculator() {
                     </div>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={deductions} onChange={(e) => setDeductions(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={deductions} onChange={(e) => setDeductions(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[deductions]} onValueChange={(v) => setDeductions(v[0])} min={0} max={200000} step={1000} className="py-2" />

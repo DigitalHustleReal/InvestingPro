@@ -101,7 +101,7 @@ export function LumpsumCalculatorWithInflation() {
                     <Label className="text-sm font-semibold">Investment Amount</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={lumpsum} onChange={(e) => setLumpsum(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={lumpsum} onChange={(e) => setLumpsum(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[lumpsum]} onValueChange={(v) => setLumpsum(v[0])} min={10000} max={10000000} step={10000} className="py-2" />

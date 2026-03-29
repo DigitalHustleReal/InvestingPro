@@ -94,7 +94,7 @@ export function HomeLoanVsSIPCalculator() {
                     <Label className="text-sm text-foreground font-semibold">Home Price</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={homePrice} onChange={(e) => setHomePrice(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
+                        <Input type="number" inputMode="decimal" value={homePrice} onChange={(e) => setHomePrice(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
                     </div>
                 </div>
                 <Slider value={[homePrice]} onValueChange={(v) => setHomePrice(v[0])} min={1000000} max={50000000} step={500000} className="py-2" />

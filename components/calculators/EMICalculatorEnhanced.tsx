@@ -117,7 +117,7 @@ export function EMICalculatorEnhanced() {
                     <Label className="text-sm font-semibold">Loan Amount</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={emiLoan} onChange={(e) => setEmiLoan(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={emiLoan} onChange={(e) => setEmiLoan(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[emiLoan]} onValueChange={(v) => setEmiLoan(v[0])} min={100000} max={20000000} step={100000} className="py-2" />

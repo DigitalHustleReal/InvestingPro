@@ -168,7 +168,7 @@ export function NPSCalculator() {
                                         <Label className="text-sm font-semibold">Monthly Contribution</Label>
                                         <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                             <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                            <Input type="number" value={monthlyContribution} onChange={(e) => setMonthlyContribution(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                                            <Input type="number" inputMode="decimal" value={monthlyContribution} onChange={(e) => setMonthlyContribution(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                                         </div>
                                     </div>
                                     <Slider value={[monthlyContribution]} onValueChange={(v) => setMonthlyContribution(v[0])} min={500} max={50000} step={500} className="py-2" />
@@ -244,7 +244,7 @@ export function NPSCalculator() {
                                 <Label className="text-sm text-foreground font-semibold">Monthly Contribution</Label>
                                 <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                     <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                    <Input type="number" value={monthlyContribution} onChange={(e) => setMonthlyContribution(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                                    <Input type="number" inputMode="decimal" value={monthlyContribution} onChange={(e) => setMonthlyContribution(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                                 </div>
                             </div>
                             <Slider value={[monthlyContribution]} onValueChange={(v) => setMonthlyContribution(v[0])} min={500} max={50000} step={500} className="py-2" />

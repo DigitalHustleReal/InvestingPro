@@ -102,9 +102,13 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
     const rows = getComparisonRows();
 
     return (
-        <div className="w-full overflow-x-auto pb-4">
-             {/* Min width to force horizontal layout on mobile */}
-            <div className="bg-card dark:bg-slate-900 rounded-xl shadow-lg border border-border dark:border-slate-800 overflow-hidden min-w-[800px]">
+        {/* Mobile scroll hint — visible on small screens only */}
+        <p className="flex items-center gap-1.5 text-xs text-slate-500 mb-2 sm:hidden">
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h8M8 12h8m-8 5h4" /></svg>
+            Scroll right to compare all products
+        </p>
+        <div className="w-full overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div className="bg-card dark:bg-slate-900 rounded-xl shadow-lg border border-border dark:border-slate-800 overflow-hidden min-w-[640px] sm:min-w-[800px]">
                 {/* Header Row */}
                 <div className="grid grid-cols-4 bg-muted/50 border-b border-border">
                     <div className="p-6 font-bold text-card-foreground border-r border-border">
