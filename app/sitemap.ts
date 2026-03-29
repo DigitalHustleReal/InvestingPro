@@ -336,6 +336,52 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             logger.error('Error fetching products for sitemap', error as Error);
         }
 
+        // Discovery tools (missing from sitemap — flagged by audit)
+        sitemap.push({ url: `${baseUrl}/credit-cards/find-your-card`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 });
+        sitemap.push({ url: `${baseUrl}/mutual-funds/find-your-fund`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 });
+
+        // Authors hub
+        sitemap.push({ url: `${baseUrl}/authors`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 });
+
+        // Dynamic author pages
+        try {
+            const { data: authors } = await supabase
+                .from('authors')
+                .select('slug, updated_at')
+                .eq('is_active', true)
+                .limit(500);
+            if (authors) {
+                for (const author of authors) {
+                    sitemap.push({
+                        url: `${baseUrl}/authors/${author.slug}`,
+                        lastModified: author.updated_at ? new Date(author.updated_at) : new Date(),
+                        changeFrequency: 'monthly',
+                        priority: 0.65,
+                    });
+                }
+            }
+        } catch { /* authors table may not exist yet */ }
+
+        // Data studies
+        sitemap.push({ url: `${baseUrl}/data-studies`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 });
+        try {
+            const { data: studies } = await supabase
+                .from('data_studies')
+                .select('slug, updated_at')
+                .eq('status', 'published')
+                .limit(200);
+            if (studies) {
+                for (const study of studies) {
+                    sitemap.push({
+                        url: `${baseUrl}/data-studies/${study.slug}`,
+                        lastModified: study.updated_at ? new Date(study.updated_at) : new Date(),
+                        changeFrequency: 'monthly',
+                        priority: 0.7,
+                    });
+                }
+            }
+        } catch { /* data_studies table may not exist yet */ }
+
         // Static utility pages
         const staticPages = [
             { path: '/blog', priority: 0.8, frequency: 'weekly' as const },

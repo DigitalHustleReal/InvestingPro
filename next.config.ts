@@ -13,6 +13,19 @@ const nextConfig: NextConfig = {
   },
   // Satisfy Next 16 when webpack is used via --webpack flag (avoids Turbopack/webpack conflict message)
   turbopack: {},
+
+  async redirects() {
+    return [
+      // Canonical URL redirects — eliminate duplicate content SEO penalties
+      { source: '/article/:slug', destination: '/articles/:slug', permanent: true },
+      { source: '/author/:slug', destination: '/authors/:slug', permanent: true },
+      { source: '/privacy', destination: '/privacy-policy', permanent: true },
+      { source: '/terms', destination: '/terms-of-service', permanent: true },
+      // Catch-all for old /credit-cards/compare/:category route (redirects to main list)
+      { source: '/credit-cards/compare/:category', destination: '/credit-cards', permanent: true },
+    ];
+  },
+
   images: {
     unoptimized: false,
     remotePatterns: [
