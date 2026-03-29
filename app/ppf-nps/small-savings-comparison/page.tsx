@@ -8,7 +8,7 @@ import {
 import SEOHead from '@/components/common/SEOHead';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
-export const revalidate = 86400 * 7; // weekly (rates change quarterly)
+export const revalidate = 604800; // weekly (rates change quarterly)
 
 export const metadata: Metadata = {
   title: 'Small Savings Schemes Comparison 2025-26 — PPF vs SSY vs SCSS vs NSC | InvestingPro',

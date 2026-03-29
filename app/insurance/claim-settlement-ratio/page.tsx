@@ -8,7 +8,7 @@ import {
 import SEOHead from '@/components/common/SEOHead';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
-export const revalidate = 86400 * 30; // monthly (annual data)
+export const revalidate = 2592000; // monthly (annual data)
 
 export const metadata: Metadata = {
   title: 'Claim Settlement Ratio 2023-24 — Life & Health Insurance | InvestingPro',

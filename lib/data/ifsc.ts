@@ -101,7 +101,7 @@ export const BANK_INFO: Record<string, BankInfo> = {
         customerCare: '1860 266 2666',
         headquarters: 'Mumbai, Maharashtra',
         foundedYear: 2003,
-        tagline: 'Let's Make Money Simple',
+        tagline: "Let's Make Money Simple",
         productSlugs: { fd: 'kotak-fd', creditCard: 'kotak-811' },
     },
     PUNB: {

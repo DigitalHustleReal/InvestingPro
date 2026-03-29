@@ -8,7 +8,7 @@ import {
 import SEOHead from '@/components/common/SEOHead';
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 
-export const revalidate = 86400 * 7;
+export const revalidate = 604800; // weekly
 
 export const metadata: Metadata = {
   title: 'NPS Returns 2025 — Fund Manager Comparison | InvestingPro',
