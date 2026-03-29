@@ -66,9 +66,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const amountNum = parseInt(amount) || 0;
     const formattedAmount = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amountNum);
 
+    const canonical = `https://investingpro.in/credit-cards/recommendations/${category}/${amount}`;
     return {
         title: `Best Credit Cards for ${categoryLabel} - Spend ${formattedAmount}/Month | InvestingPro`,
         description: `Find the best credit cards if you spend ${formattedAmount}/month on ${categoryLabel.toLowerCase()}. Compare rewards, fees, and features. Apply instantly.`,
+        alternates: { canonical },
         openGraph: {
             title: `Best Credit Cards for ${categoryLabel} - ${formattedAmount}/Month`,
             description: `Get personalized credit card recommendations based on your ${categoryLabel.toLowerCase()} spending. Maximize your rewards.`,

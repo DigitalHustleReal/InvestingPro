@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import {
   CreditCard, CheckCircle2, XCircle, ArrowRight,
   Minus, Trophy, ShieldCheck, AlertCircle,
@@ -60,6 +60,12 @@ export async function generateStaticParams() {
   return POPULAR_PAIRS.map(([a, b]) => ({ pair: buildPairSlug(a, b) }));
 }
 
+/** Canonical pair slug: always sort slugs alphabetically to prevent a-vs-b / b-vs-a duplicates */
+function canonicalPair(slugA: string, slugB: string): string {
+  const [first, second] = [slugA, slugB].sort();
+  return buildPairSlug(first, second);
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const parsed = parsePairSlug(params.pair);
   if (!parsed) return {};
@@ -67,9 +73,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cardA = getCardBySlug(slugA);
   const cardB = getCardBySlug(slugB);
   if (!cardA || !cardB) return {};
+  const canonical = `https://investingpro.in/credit-cards/vs/${canonicalPair(slugA, slugB)}`;
   return {
     title: `${cardA.name} vs ${cardB.name} — Which is Better? | InvestingPro`,
     description: `${cardA.name} vs ${cardB.name} — detailed comparison of annual fee, rewards, lounge access, eligibility. Find out which credit card wins for you.`,
+    alternates: { canonical },
   };
 }
 
@@ -84,6 +92,12 @@ export default async function CardVsCardPage({ params }: Props) {
   if (!parsed) notFound();
 
   const [slugA, slugB] = parsed;
+
+  // 301 redirect non-canonical slug order (b-vs-a → a-vs-b)
+  const canonical = canonicalPair(slugA, slugB);
+  if (params.pair !== canonical) {
+    redirect(`/credit-cards/vs/${canonical}`);
+  }
   const [cardA, cardB] = await Promise.all([fetchCard(slugA), fetchCard(slugB)]);
   if (!cardA || !cardB) notFound();
 

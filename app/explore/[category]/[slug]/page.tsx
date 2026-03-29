@@ -1,7 +1,9 @@
 
+
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { NAVIGATION_CONFIG } from '@/lib/navigation/config';
 import { getCategoryBySlug, getSubcategoryBySlug } from '@/lib/navigation/categories';
 import { fetchSubcategoryPageData } from '@/lib/pillar/subcategory-data-fetcher';
@@ -13,6 +15,35 @@ import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 // Type definitions
 interface PageProps {
     params: Promise<{ category: string; slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { category, slug } = await params;
+    const canonical = `https://investingpro.in/explore/${category}/${slug}`;
+
+    // Intent page
+    const categoryConfig = NAVIGATION_CONFIG.find(cat => cat.slug === category);
+    const intent = categoryConfig?.intents.find(int => int.slug === slug);
+    if (intent) {
+        const cat = getCategoryBySlug(category);
+        return {
+            title: `${intent.name} ${cat?.name || ''} | InvestingPro`,
+            description: intent.description,
+            alternates: { canonical },
+        };
+    }
+
+    // Subcategory page
+    const subcategory = getSubcategoryBySlug(category, slug);
+    if (subcategory) {
+        return {
+            title: `${subcategory.name} | InvestingPro`,
+            description: subcategory.description,
+            alternates: { canonical },
+        };
+    }
+
+    return { alternates: { canonical } };
 }
 
 // Intent Page Content Component

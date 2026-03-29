@@ -281,7 +281,6 @@ const config: Config = {
             },
         },
         extend: {
-        extend: {
             // Keep font/spacing/shadow extensions
             fontFamily: {
                 sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'sans-serif'],

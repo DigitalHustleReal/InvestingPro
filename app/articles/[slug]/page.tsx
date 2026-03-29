@@ -38,7 +38,7 @@ import './article-content.css'
 
 export const revalidate = 3600 // Revalidate every hour
 
-// Pre-build the top 100 most-viewed articles at deploy time
+// Pre-build the top 500 most-viewed articles at deploy time
 export async function generateStaticParams() {
   try {
     const supabase = createServiceClient()
@@ -47,7 +47,7 @@ export async function generateStaticParams() {
       .select('slug')
       .eq('status', 'published')
       .order('views', { ascending: false })
-      .limit(100)
+      .limit(500)
     return (data || []).map((a) => ({ slug: a.slug }))
   } catch {
     return []
@@ -305,7 +305,7 @@ export default async function ArticlePage({
               {/* Related articles + newsletter */}
               <div className="mt-14 space-y-10">
                 <Suspense fallback={null}>
-                  <RelatedArticles articleId={article.id} />
+                  <RelatedArticles articleId={article.id} limit={8} variant="list" title="You Might Also Like" />
                 </Suspense>
               </div>
 
