@@ -1,7 +1,15 @@
 /**
- * i18n Configuration
- * Multi-language support for InvestingPro
- * Language is controlled via the LanguageSwitcher — no URL routing.
+ * i18n Configuration — UI-ONLY language switcher (NOT URL-based routing)
+ *
+ * IMPORTANT: This controls the client-side language toggle only.
+ * There are NO separate URL routes per language (/hi/..., /ta/...).
+ * Therefore: NO hreflang tags should be generated — they would be misleading
+ * to Google (hreflang requires distinct canonical URLs per language).
+ *
+ * When to add hreflang:
+ *   Phase 2 — when content is translated and served at locale-prefixed URLs
+ *   e.g., /hi/credit-cards, /ta/calculators/sip
+ *   Until then, keep this as UI-only locale switching.
  */
 
 export const locales = ['en','hi','te','ta','kn','ml','mr','bn','gu'] as const;
