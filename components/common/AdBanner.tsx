@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import DOMPurify from 'isomorphic-dompurify';
 import { api } from "@/lib/api";
 import { X } from "lucide-react";
 import { logger } from "@/lib/logger";
@@ -112,7 +113,7 @@ export default function AdBanner({ position, pageName }: AdBannerProps) {
             <div
                 onClick={handleClick}
                 className="cursor-pointer p-4 hover:opacity-95 transition-opacity"
-                dangerouslySetInnerHTML={{ __html: ad.ad_content }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(ad.ad_content) }}
             />
 
             {ad.advertiser && (

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import DOMPurify from 'isomorphic-dompurify';
 import { X } from 'lucide-react';
 import { apiClient as api } from '@/lib/api-client';
 import { logger } from '@/lib/logger';
@@ -163,7 +164,7 @@ export default function LimitedAdSlot({
             <div
                 onClick={handleClick}
                 className="cursor-pointer p-4 hover:opacity-95 transition-opacity"
-                dangerouslySetInnerHTML={{ __html: ad.ad_content }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(ad.ad_content) }}
             />
 
             {/* Advertiser info */}
