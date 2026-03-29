@@ -563,5 +563,61 @@ These are workflows missing from the current 38-section admin panel:
 
 ---
 
+## 17. Competitive Intelligence — InvestingPro vs Rivals
+
+> Source: Competitive brief March 2026. Use this to prioritize features and guide messaging.
+
+### Head-to-Head: InvestingPro vs NerdWallet
+
+NerdWallet ($836.6M revenue 2025, 18M monthly organic visits) is the global benchmark. Key learnings:
+
+1. **SEO Topic Clusters** — NerdWallet builds pillar pages + 50-100 supporting articles, all interlinked. InvestingPro must build 7 pillar pages (one per product category) with 20+ supporting articles each. Admin `pillar-pages` section already exists.
+2. **Proprietary Rating** — "NerdWallet Score" drives trust and becomes a search query itself. InvestingPro's `lib/scoring/` system is the foundation — make "InvestingPro Score" the centerpiece of every comparison.
+3. **App as Retention Loop** — NerdWallet app turns one-time visitors into daily users (credit score monitoring, budgets, alerts). Build PWA first: SIP tracker + EMI reminders + rate alerts.
+4. **Revenue Diversification** — Insurance alone = $74M (+246% YoY) for NerdWallet. Beyond affiliate: premium calculator PDF reports, API/B2B, insurance lead gen.
+
+**Where InvestingPro already beats NerdWallet:** India-native (CIBIL, SEBI, RBI, Indian tax), broader categories (PPF/NPS/demat), multi-LLM AI (NerdWallet has none), dark mode, embeddable calculators (B2B distribution).
+
+### Indian Competitor Battlecards
+
+| Competitor | Their Moat | Our Counter | Their Gap |
+|---|---|---|---|
+| **Paisabazaar** | Free CIBIL score, 5.7Cr users, 7 languages | AI across ALL products (not just credit), 25 calculators, editorial independence | No MF/demat comparison, PB Assist = credit only |
+| **BankBazaar** | 10M+ users, pre-approval, 50+ bank partnerships | No paid rankings pledge, 7 categories, embeddable widgets | No MF/demat, 3-5 calculators |
+| **PolicyBazaar** | 86M users, 50+ insurers, public company | No phone spam, calculator-led education, cross-category (not just insurance) | 15-40% commission = bias, no loans/MF/cards depth |
+| **Groww** | 10M active, zero-commission direct MF, best mobile UX | We COMPARE, they TRANSACT — different jobs; credit cards/loans/insurance/FDs none of theirs | Investment-only, no editorial analysis, 3 calculators |
+| **Credit Karma (Intuit)** | 140M members, Intuit ecosystem (TurboTax), AI agents | India-native: CIBIL/SEBI/INR/Section 80C; already live; no parent company bias | US-only, no PPF/NPS/demat equivalents |
+
+### InvestingPro's Defensible Position (The Moat)
+```
+✅ ONLY Indian platform with ALL product categories
+✅ ONLY Indian platform claiming editorial independence ("No paid rankings")
+✅ MOST calculators of any Indian finance platform (25+)
+✅ ONLY platform with embeddable calculator widgets (B2B)
+✅ AI recommendations across ALL products (multi-LLM)
+✅ Dark mode (no Indian competitor has this)
+
+❌ Must build: Free CIBIL/credit score simulator
+❌ Must build: Mobile app (PWA first)
+❌ Must build: Hindi/regional language support (Year 2)
+❌ Must fix: Full conversion funnel (affiliate links on all CTAs)
+```
+
+### Brand Messaging Pillars (Use in Copy)
+
+1. **"Compare Everything, Not Just One Thing"** — Exploits every competitor being a vertical specialist. Use on: Homepage hero, social ads, email.
+2. **"No Paid Rankings. Ever."** — Exploits Paisabazaar/BankBazaar paid placements. Use on: About page, comparison pages, trust badges.
+3. **"Calculate First. Compare Second. Apply Third."** — No Indian competitor has 25 calculators. Use on: Homepage, calculator hub, SEO pages.
+4. **"India's Money, India's Platform"** — No US clone, no bank's marketing tool. Use on: About page, PR, media kits.
+5. **"AI That Works For You, Not Banks"** — PB Assist = credit only; NerdWallet has no AI. Use on: AI Studio page, recommendation results.
+
+### High-Value Campaign Headlines
+- Credit card page: *"The Best Credit Card Isn't Always the One With the Biggest Ad Budget"*
+- Calculator landing: *"Calculate First. Apply Second."*
+- Social ad: *"Paisabazaar compares loans. PolicyBazaar compares insurance. We compare everything."*
+- Email subject: *"Your credit card may be costing you ₹12,000/year more than it should"*
+
+---
+
 *This file is the single source of truth for Claude Code sessions on InvestingPro.in*
 *Update this file whenever major changes are made to architecture, stack, or design decisions.*
