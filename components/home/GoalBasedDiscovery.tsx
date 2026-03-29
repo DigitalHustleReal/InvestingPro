@@ -64,7 +64,7 @@ const goals = [
         description: "Compare savings accounts, FDs, and RDs for best returns",
         color: "text-secondary-600",
         bg: "bg-secondary-50",
-        border: "border-cyan-200",
+        border: "border-primary-200",
         href: "/banking",
         cta: "Compare Rates",
         features: ["FD Calculator", "Interest Rates", "Tax Benefits"]

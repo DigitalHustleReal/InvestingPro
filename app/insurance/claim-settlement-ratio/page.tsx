@@ -84,20 +84,20 @@ export default function ClaimSettlementRatioPage() {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-teal-900 via-teal-800 to-green-900 pt-24 pb-14">
+      <section className="relative overflow-hidden bg-gradient-to-br from-green-900 via-green-800 to-green-700 pt-24 pb-14">
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,.15) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
 
         <div className="relative container mx-auto px-4">
-          <AutoBreadcrumbs className="mb-4 [&_*]:text-teal-200 [&_a]:text-teal-300" />
-          <div className="inline-flex items-center gap-2 bg-teal-400/20 border border-teal-400/30 text-teal-200 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
+          <AutoBreadcrumbs className="mb-4 [&_*]:text-green-200 [&_a]:text-green-300" />
+          <div className="inline-flex items-center gap-2 bg-green-400/20 border border-green-400/30 text-green-200 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
             <ShieldCheck className="h-3.5 w-3.5" />
             Source: IRDAI Annual Report 2023-24 · Official data
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-white font-display mb-3">
             Claim Settlement Ratio
           </h1>
-          <p className="text-teal-100 text-lg max-w-xl mb-7">
+          <p className="text-green-100 text-lg max-w-xl mb-7">
             The single most important number when choosing insurance. An insurer with 98% CSR settles 98 out of 100 claims. Compare before you buy.
           </p>
 
@@ -108,7 +108,7 @@ export default function ClaimSettlementRatioPage() {
               { label: 'Best Health Insurance CSR', co: bestHealth.company, csr: bestHealth.csr },
             ].map(item => (
               <div key={item.co} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
-                <div className="text-xs text-teal-200 font-semibold mb-1">{item.label}</div>
+                <div className="text-xs text-green-200 font-semibold mb-1">{item.label}</div>
                 <div className="font-bold text-white">{item.co}</div>
                 <div className="text-3xl font-bold text-green-300 font-display">{item.csr}%</div>
               </div>
@@ -130,15 +130,15 @@ export default function ClaimSettlementRatioPage() {
         {/* Life Insurance CSR table */}
         <section>
           <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 font-display mb-5 flex items-center gap-2">
-            <ShieldCheck className="h-6 w-6 text-teal-700" />
+            <ShieldCheck className="h-6 w-6 text-green-700" />
             Life Insurance — Claim Settlement Ratio 2023-24
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 text-sm">
-              <thead className="bg-teal-50 dark:bg-teal-900/20">
+              <thead className="bg-green-50 dark:bg-green-900/20">
                 <tr>
                   <th className="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300">Insurer</th>
-                  <th className="text-right py-3 px-4 font-semibold text-teal-700">CSR %</th>
+                  <th className="text-right py-3 px-4 font-semibold text-green-700">CSR %</th>
                   <th className="text-right py-3 px-4 font-semibold text-slate-700 dark:text-slate-300">Claims Settled</th>
                   <th className="text-right py-3 px-4 font-semibold text-slate-700 dark:text-slate-300">Avg Days</th>
                   <th className="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300">Type</th>
@@ -179,15 +179,15 @@ export default function ClaimSettlementRatioPage() {
         {/* Health Insurance CSR */}
         <section>
           <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 font-display mb-5 flex items-center gap-2">
-            <BarChart3 className="h-6 w-6 text-teal-700" />
+            <BarChart3 className="h-6 w-6 text-green-700" />
             Health Insurance — Claim Settlement Ratio 2023-24
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 text-sm">
-              <thead className="bg-teal-50 dark:bg-teal-900/20">
+              <thead className="bg-green-50 dark:bg-green-900/20">
                 <tr>
                   <th className="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300">Insurer</th>
-                  <th className="text-right py-3 px-4 font-semibold text-teal-700">CSR %</th>
+                  <th className="text-right py-3 px-4 font-semibold text-green-700">CSR %</th>
                   <th className="text-right py-3 px-4 font-semibold text-slate-700 dark:text-slate-300">Claims Settled</th>
                   <th className="text-right py-3 px-4 font-semibold text-slate-700 dark:text-slate-300">Network Hospitals</th>
                   <th className="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300">Rating</th>
@@ -276,12 +276,12 @@ export default function ClaimSettlementRatioPage() {
             { href: '/credit-cards', title: 'Credit Card Insurance', desc: 'Cards with complimentary health cover' },
           ].map(t => (
             <Link key={t.href} href={t.href}
-              className="group flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-teal-300 hover:shadow-md transition-all">
+              className="group flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-green-300 hover:shadow-md transition-all">
               <div className="flex-1">
                 <div className="font-semibold text-sm text-slate-900 dark:text-slate-100">{t.title}</div>
                 <div className="text-xs text-slate-500 mt-0.5">{t.desc}</div>
               </div>
-              <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-teal-600 group-hover:translate-x-1 transition-all shrink-0" />
+              <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-green-600 group-hover:translate-x-1 transition-all shrink-0" />
             </Link>
           ))}
         </section>

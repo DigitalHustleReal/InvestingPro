@@ -42,7 +42,7 @@ const REGULATORY_CONFIG: Record<RegulatorySource, RegulatoryConfig> = {
   PFRDA: {
     label: 'PFRDA',
     description: 'PFRDA-regulated pension schemes',
-    badgeColor: 'bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-950/40 dark:text-teal-300 dark:border-teal-900/50',
+    badgeColor: 'bg-green-50 text-green-700 border-green-100 dark:bg-green-950/40 dark:text-green-300 dark:border-green-900/50',
   },
   DICGC: {
     label: 'DICGC',
