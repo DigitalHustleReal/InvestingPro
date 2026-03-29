@@ -158,8 +158,8 @@ export function Footer() {
                     
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="text-center md:text-left max-w-xl">
-                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">Master Your Money</h3>
-                            <p className="text-slate-600 dark:text-slate-400 text-lg">Join 25,000+ investors getting the best IPO insights delivered weekly.</p>
+                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">InvestingPro Weekly</h3>
+                            <p className="text-slate-600 dark:text-slate-400 text-lg">5 actionable finance tips every Monday — rate changes, card offers, SIP ideas, tax moves. Free.</p>
                         </div>
                         <div className="w-full md:w-auto min-w-[340px] bg-white/10 p-1.5 rounded-xl backdrop-blur-sm border border-white/20">
                             <NewsletterWidget variant="minimal" className="w-full" />
