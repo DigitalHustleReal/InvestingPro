@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import SEOHead from "@/components/common/SEOHead";
+import { CalculatorResultCTA } from '@/components/calculators/CalculatorResultCTA';
 import { EMICalculatorEnhanced } from "@/components/calculators/EMICalculatorEnhanced";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info, TrendingUp, Zap, CheckCircle2 } from "lucide-react";
@@ -78,6 +79,7 @@ export default function EMICalculatorPage() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <EMICalculatorEnhanced />
+                <CalculatorResultCTA calculatorType="emi" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">

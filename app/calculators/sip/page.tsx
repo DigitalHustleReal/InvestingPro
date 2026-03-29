@@ -1,4 +1,5 @@
 import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import { CalculatorResultCTA } from '@/components/calculators/CalculatorResultCTA';
 import React from 'react';
 
 import type { Metadata } from 'next';
@@ -189,6 +190,7 @@ export default function SIPCalculatorPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <FinancialDisclaimer variant="compact" className="mb-6" />
                 <SIPCalculatorWithInflation />
+                <CalculatorResultCTA calculatorType="sip" />
             </div>
 
 

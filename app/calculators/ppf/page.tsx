@@ -1,4 +1,5 @@
 "use client";
+import { CalculatorResultCTA } from '@/components/calculators/CalculatorResultCTA';
 
 import React from 'react';
 import SEOHead from "@/components/common/SEOHead";
@@ -74,6 +75,7 @@ export default function PPFCalculatorPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <FinancialDisclaimer variant="compact" className="mb-6" />
                 <PPFCalculator />
+                <CalculatorResultCTA calculatorType="ppf" />
             </div>
 
 
