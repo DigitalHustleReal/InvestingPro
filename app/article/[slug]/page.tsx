@@ -138,7 +138,8 @@ export default function ArticleDetail() {
             "datePublished": article.published_date,
             "publisher": {
                 "@type": "Organization",
-                "name": "InvestingPro.in"
+                "name": "InvestingPro",
+                "url": "https://investingpro.in"
             }
         }
     ];

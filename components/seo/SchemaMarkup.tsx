@@ -9,26 +9,11 @@ interface FAQSchemaProps {
   faqs: FAQItem[];
 }
 
-export function FAQSchema({ faqs }: FAQSchemaProps) {
-  const schemaMarkup = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer
-      }
-    }))
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
-    />
-  );
+// FAQSchema REMOVED — Google restricted FAQPage schema to government/healthcare
+// sites in August 2023. Using it on finance/comparison sites risks a penalty.
+// Export kept as no-op to avoid import errors in pages that reference it.
+export function FAQSchema({ faqs: _faqs }: FAQSchemaProps) {
+  return null;
 }
 
 interface CalculatorSchemaProps {

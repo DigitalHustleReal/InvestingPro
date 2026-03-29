@@ -95,18 +95,7 @@ export default function SIPCalculatorPage() {
         relatedCalculators: ['lumpsum', 'retirement'],
     };
 
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": seoContent.sip.faqs.map(faq => ({
-            "@type": "Question",
-            "name": faq.q,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.a
-            }
-        }))
-    };
+    // FAQPage schema removed — Google restricted to govt/healthcare Aug 2023
 
     const howToSchema = {
         "@context": "https://schema.org",
@@ -134,10 +123,6 @@ export default function SIPCalculatorPage() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
             <script
                 type="application/ld+json"

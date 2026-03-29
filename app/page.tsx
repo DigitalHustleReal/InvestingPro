@@ -94,10 +94,39 @@ export default function Home() {
         }
     };
 
+    // WebSite schema — enables Google Sitelinks Search Box in SERPs (+5-10% CTR)
+    // Must be server-side injected (not client useEffect) for Google to process quickly
+    const websiteSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "InvestingPro",
+        "alternateName": "InvestingPro.in",
+        "url": "https://investingpro.in",
+        "inLanguage": "en-IN",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://investingpro.in/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        }
+    };
+
     return (
         <>
             {/* Phase 3 Optimizations: Performance, Accessibility, Conversion Tracking */}
             <HomepageOptimizations />
+
+            {/* Server-side structured data — visible on first crawl, no useEffect delay */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+            />
 
             <main
                 className="flex flex-col min-h-screen bg-background"
@@ -105,11 +134,6 @@ export default function Home() {
                 aria-label="InvestingPro homepage"
                 id="main-content"
             >
-            <SEOHead
-                title="InvestingPro - Compare Credit Cards, Loans & Mutual Funds | India's Trusted Platform"
-                description="Compare 500+ credit cards, mutual funds, loans, and insurance products. Free calculators, independent rankings, and AI-powered recommendations. No paid rankings."
-                structuredData={structuredData}
-            />
 
             {/* 1. Hero — Value prop, search, trust signals */}
             <CommandCenterSection name="Hero">

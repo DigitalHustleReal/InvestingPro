@@ -162,8 +162,12 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                         </NavigationMenu>
                     </div>
 
-                    {/* Utility Area - Search, Login, CTA */}
+                    {/* Utility Area - Language, Search, Login, CTA */}
                     <div className="flex items-center gap-3">
+                        {/* Language Switcher — desktop only, compact Globe dropdown */}
+                        <div className="hidden lg:block">
+                            <LanguageSwitcher />
+                        </div>
                         <div className="hidden lg:block">
                             <ThemeToggle />
                         </div>
