@@ -10,13 +10,11 @@ import {
   formatReturn, returnColor,
 } from '@/lib/data/mf-nav';
 
-export const revalidate = 86400;
+// Dynamic: calls external API (mfapi.in) per request — don't pre-build at deploy time
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 interface Props { params: { schemeCode: string } }
-
-export async function generateStaticParams() {
-  return FEATURED_SCHEMES.map(s => ({ schemeCode: String(s.schemeCode) }));
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const code = parseInt(params.schemeCode, 10);

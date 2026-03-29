@@ -23,10 +23,14 @@ const nextConfig: NextConfig = {
     ],
   },
   webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      'isomorphic-dompurify': require.resolve('isomorphic-dompurify'),
-    };
+    try {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'isomorphic-dompurify': require.resolve('isomorphic-dompurify'),
+      };
+    } catch {
+      // isomorphic-dompurify not installed — skip alias (SSR will use server DOMPurify)
+    }
     return config;
   },
 };

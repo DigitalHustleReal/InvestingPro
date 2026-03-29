@@ -168,40 +168,8 @@ export default async function Page({ params }: PageProps) {
     );
 }
 
-// Generate static params for both intents and subcategories
-export async function generateStaticParams() {
-    const params: Array<{ category: string; slug: string }> = [];
-    
-    // Add Intent params
-    for (const category of NAVIGATION_CONFIG) {
-        for (const intent of category.intents) {
-            params.push({
-                category: category.slug,
-                slug: intent.slug,
-            });
-        }
-    }
+// No generateStaticParams — pages are force-dynamic (rendered on demand)
 
-    // Add Subcategory params
-    // Note: We need to import NAVIGATION_CATEGORIES dynamically if it's not available in NAVIGATION_CONFIG
-    // Assuming NAVIGATION_CATEGORIES structure matches what was in subcategory/page.tsx
-    const { NAVIGATION_CATEGORIES } = await import('@/lib/navigation/categories');
-    
-    for (const category of NAVIGATION_CATEGORIES) {
-        for (const subcategory of category.subcategories) {
-            // Avoid duplicates if an intent and subcategory have the same slug (shouldn't happen ideally)
-            if (!params.some(p => p.category === category.slug && p.slug === subcategory.slug)) {
-                params.push({
-                    category: category.slug,
-                    slug: subcategory.slug,
-                });
-            }
-        }
-    }
-    
-    return params;
-}
-
-// Force static generation
-export const dynamic = 'force-static';
-export const revalidate = 3600; // Revalidate every hour
+// Dynamic: render on demand to avoid pre-building 100s of pages at deploy time
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
