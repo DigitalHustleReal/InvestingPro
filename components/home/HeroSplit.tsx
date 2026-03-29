@@ -39,7 +39,7 @@ const TRUST_SIGNALS = [
 
 export default function HeroSplit() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-green-50/80 via-white to-white dark:from-[#0A1F14] dark:via-[#0A1F14] dark:to-[#0D1B1A] pt-24 pb-12 lg:pt-32 lg:pb-20">
+    <section className="relative overflow-hidden bg-gradient-to-b from-green-50/80 via-white to-white dark:from-[#0A1F14] dark:via-[#0A1F14] dark:to-[#0D1B1A] pt-16 pb-8 lg:pt-20 lg:pb-12">
       {/* Subtle background — single gradient, no blobs/noise/grid */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-green-100/40 to-transparent dark:from-green-900/15 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4" />
@@ -77,7 +77,7 @@ export default function HeroSplit() {
             {/* Three benefit checkmarks */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 text-sm">
               {[
-                "500+ financial products tracked",
+                "7 product categories covered",
                 "Zero ads, fully transparent",
                 "AI-powered recommendations"
               ].map((benefit, i) => (
@@ -131,10 +131,10 @@ export default function HeroSplit() {
             <div className="flex items-center justify-center lg:justify-start gap-4 pt-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-500">
               <span className="flex items-center gap-1">
                 <FileText className="w-3 h-3" />
-                Tracking 500+ products
+                Curated selection
               </span>
               <span className="w-px h-4 bg-slate-300 dark:bg-slate-700" />
-              <span>23 data points each</span>
+              <span>23 data points per product</span>
               <span className="w-px h-4 bg-slate-300 dark:bg-slate-700" />
               <span>Verified daily</span>
             </div>

@@ -49,7 +49,7 @@ const categories = [
     {
         slug: 'credit-cards',
         title: 'Credit Cards',
-        shortDesc: 'Compare 50+ cards',
+        shortDesc: 'Best cards, ranked honestly',
         icon: CreditCard,
         gradient: 'from-blue-500 to-indigo-500',
         lightBg: 'bg-blue-50 dark:bg-blue-900/20',

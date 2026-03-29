@@ -4,7 +4,7 @@
  */
 
 import { formatLargeNumber } from "@/lib/utils/currency";
-import { TrendingUp, Users, Building2, Shield } from "lucide-react";
+import { TrendingUp, Building2, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface StatItemProps {
@@ -39,27 +39,27 @@ export function StatsBar() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <StatItem
-            icon={TrendingUp}
-            value={formatLargeNumber(50000000) + '+'}
-            label="Amount Compared"
+            icon={Building2}
+            value="7"
+            label="Product Categories"
             iconColor="bg-primary-600"
           />
           <StatItem
-            icon={Users}
-            value="10,000+"
-            label="Happy Users"
+            icon={TrendingUp}
+            value="25+"
+            label="Free Calculators"
             iconColor="bg-success-600"
           />
           <StatItem
-            icon={Building2}
-            value="500+"
-            label="Products Listed"
+            icon={Shield}
+            value="23"
+            label="Data Points Per Product"
             iconColor="bg-accent-600"
           />
           <StatItem
             icon={Shield}
             value="100%"
-            label="Independent Reviews"
+            label="Independent, No Paid Rankings"
             iconColor="bg-secondary-600"
           />
         </div>

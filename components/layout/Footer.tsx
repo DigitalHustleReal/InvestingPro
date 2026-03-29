@@ -178,7 +178,7 @@ export function Footer() {
                             />
                         </div>
                         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-                            India's most trusted platform for investment research and comparison.
+                            Independent research and comparison for Indian investors.
                         </p>
                         
                         {/* Social links removed - will be added when accounts are created */}
@@ -314,7 +314,7 @@ export function Footer() {
                         {/* Comprehensive Disclaimer */}
                         <div className="bg-slate-100 dark:bg-slate-900/50 rounded-lg p-6 border border-slate-200 dark:border-slate-800/50">
                             <h5 className="text-slate-900 dark:text-white font-semibold text-sm mb-3 flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 bg-warning-500 rounded-full"></span>
+                                <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
                                 Important Legal Disclaimer
                             </h5>
                             <div className={`space-y-3 text-xs text-slate-600 dark:text-slate-400 leading-relaxed ${!disclaimerExpanded ? 'line-clamp-3' : ''}`}>
@@ -368,13 +368,8 @@ export function Footer() {
                                 </div>
                             </div>
                             
-                            <p className="text-[11px] text-slate-600 text-center max-w-3xl mx-auto leading-relaxed">
-                                InvestingPro.in is an independent research platform. We are not a SEBI registered investment advisor. 
-                                <br className="hidden md:block" />
-                                All content is for educational purposes only.
-                            </p>
-                            <p className="text-[10px] text-slate-700 text-center max-w-3xl mx-auto mt-2 leading-relaxed">
-                                InvestingPro.in is an independent platform owned and operated in India. It is not affiliated with, endorsed by, or associated in any way with Investing.com or its parent companies.
+                            <p className="text-[10px] text-slate-500 text-center max-w-3xl mx-auto leading-relaxed">
+                                Not affiliated with, endorsed by, or associated in any way with Investing.com or its parent companies.
                             </p>
                         </div>
                     </div>
