@@ -76,25 +76,25 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
     };
 
     return (
-         <div className="w-full bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden flex flex-col h-full max-h-[calc(100vh-120px)] sticky top-28">
+         <div className="w-full bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
             {/* Header */}
-            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900 z-10">
-                <h3 className="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                    <Filter className="w-4 h-4 text-primary-500" />
+            <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white z-10">
+                <h3 className="font-semibold text-gray-900 flex items-center gap-2 text-sm">
+                    <Filter className="w-4 h-4 text-green-600" />
                     Filters
                 </h3>
-                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-slate-500 hover:text-primary-600">
+                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-gray-500 hover:text-green-600">
                     <RotateCcw className="w-3 h-3 mr-1" /> Reset
                 </Button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-5 scrollbar-hide space-y-8">
+            <div className="p-5 space-y-6">
                 
                 {/* 1. Credit Score (NEW - High Priority) */}
                 <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center gap-2">
+                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
                         Eligibilty (Score)
-                        <Badge variant="outline" className="text-[9px] h-4 px-1 border-primary-200 text-primary-600">New</Badge>
+                        <Badge variant="outline" className="text-[9px] h-4 px-1 border-green-200 text-green-600">New</Badge>
                     </label>
                     <div className="space-y-2">
                         {CREDIT_SCORES.map((score) => (
@@ -104,7 +104,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                     checked={filters.creditScore.includes(score.value)}
                                     onCheckedChange={() => toggleArrayItem('creditScore', score.value)}
                                 />
-                                <Label htmlFor={`score-${score.value}`} className="text-sm font-medium text-slate-600 dark:text-slate-300 cursor-pointer">
+                                <Label htmlFor={`score-${score.value}`} className="text-sm font-medium text-gray-600 cursor-pointer">
                                     {score.label}
                                 </Label>
                             </div>
@@ -112,20 +112,20 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                     </div>
                 </div>
 
-                <div className="w-full h-px bg-slate-100 dark:bg-slate-800" />
+                <div className="w-full h-px bg-gray-100" />
 
                 {/* 2. Card Type (NEW) */}
                  <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Card Category</label>
+                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Card Category</label>
                     <div className="flex flex-wrap gap-2">
                         {CARD_TYPES.map(type => (
                             <button
                                 key={type}
                                 onClick={() => toggleArrayItem('cardType', type)}
-                                className={`text-xs px-3 py-1.5 rounded-lg border transition-all font-semibold ${
+                                className={`text-xs px-3.5 py-2 rounded-lg border transition-all font-semibold cursor-pointer ${
                                     filters.cardType.includes(type)
-                                        ? 'bg-primary-600 text-white border-primary-600 shadow-lg shadow-primary-500/20'
-                                        : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
+                                        ? 'bg-green-600 text-white border-green-600'
+                                        : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
                                 }`}
                             >
                                 {type}
@@ -134,13 +134,13 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                     </div>
                 </div>
 
-                <div className="w-full h-px bg-slate-100 dark:bg-slate-800" />
+                <div className="w-full h-px bg-gray-100" />
 
                 {/* 3. Annual Fee Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Max Annual Fee</label>
-                         <span className="text-sm font-bold text-slate-900 dark:text-white">₹{filters.maxFee}</span>
+                         <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Max Annual Fee</label>
+                         <span className="text-sm font-bold text-gray-900">₹{filters.maxFee}</span>
                     </div>
                     <Slider
                         defaultValue={[filters.maxFee]}
@@ -152,7 +152,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
                 {/* 4. Issuer Bank (Expanded) */}
                 <div className="space-y-3">
-                     <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Issuer Bank</label>
+                     <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Issuer Bank</label>
                      <div className="space-y-2">
                         {displayedIssuers.map((issuer) => (
                              <div className="flex items-center space-x-2" key={issuer}>
@@ -161,36 +161,37 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                     checked={filters.issuers.includes(issuer)}
                                     onCheckedChange={() => toggleArrayItem('issuers', issuer)}
                                 />
-                                <Label htmlFor={`issuer-${issuer}`} className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
+                                <Label htmlFor={`issuer-${issuer}`} className="text-sm text-gray-600 cursor-pointer">
                                     {issuer} Bank
                                 </Label>
                             </div>
                         ))}
-                        <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            className="h-6 text-xs text-primary-600 p-0 hover:bg-transparent hover:text-primary-700"
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 text-xs text-green-600 p-0 hover:bg-transparent hover:text-green-700 cursor-pointer"
                             onClick={() => setShowAllBanks(!showAllBanks)}
+                            aria-expanded={showAllBanks}
                         >
                             {showAllBanks ? "Show Less" : `See All Banks (${ISSUERS.length - 6}+)`}
                         </Button>
                     </div>
                 </div>
 
-                 <div className="w-full h-px bg-slate-100 dark:bg-slate-800" />
+                 <div className="w-full h-px bg-gray-100" />
 
                  {/* 5. Rewards Type (NEW) */}
                  <div className="space-y-3">
-                     <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Rewards Type</label>
+                     <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Rewards Type</label>
                      <div className="flex flex-wrap gap-2">
                          {REWARDS_TYPES.map(type => (
                              <button
                                 key={type}
                                 onClick={() => toggleArrayItem('rewardsType', type)}
-                                className={`text-xs px-3 py-1 rounded-full border transition-all ${
+                                className={`text-xs px-3.5 py-2 rounded-full border transition-all cursor-pointer ${
                                     filters.rewardsType.includes(type)
-                                        ? 'bg-slate-900 text-white border-slate-900'
-                                        : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
+                                        ? 'bg-gray-900 text-white border-gray-900'
+                                        : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
                                 }`}
                              >
                                  {type}
@@ -201,7 +202,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
                 {/* 6. Spending Categories */}
                  <div className="space-y-3">
-                     <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Best For Spending</label>
+                     <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Best For Spending</label>
                      <div className="space-y-2">
                          {SPENDING_CATEGORIES.map((category) => (
                              <div className="flex items-center space-x-2" key={category.value}>
@@ -210,8 +211,8 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                      checked={filters.spendingCategories.includes(category.value)}
                                      onCheckedChange={() => toggleArrayItem('spendingCategories', category.value)}
                                  />
-                                 <Label htmlFor={`spending-${category.value}`} className="text-sm font-medium text-slate-600 dark:text-slate-300 cursor-pointer flex items-center gap-2">
-                                     <category.icon className="w-4 h-4 text-primary-500" />
+                                 <Label htmlFor={`spending-${category.value}`} className="text-sm font-medium text-gray-600 cursor-pointer flex items-center gap-2">
+                                     <category.icon className="w-4 h-4 text-green-500" />
                                      {category.label}
                                  </Label>
                              </div>
@@ -221,7 +222,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                  
                    {/* 7. Premium Features */}
                 <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Features</label>
+                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Features</label>
                     <div className="space-y-2">
                         {FEATURES.map((feat) => (
                             <div className="flex items-center space-x-2" key={feat}>
@@ -230,7 +231,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                                     checked={filters.features.includes(feat)}
                                     onCheckedChange={() => toggleArrayItem('features', feat)}
                                 />
-                                <Label htmlFor={`feat-${feat}`} className="text-sm font-medium text-slate-600 dark:text-slate-300 cursor-pointer">
+                                <Label htmlFor={`feat-${feat}`} className="text-sm font-medium text-gray-600 cursor-pointer">
                                     {feat}
                                 </Label>
                             </div>

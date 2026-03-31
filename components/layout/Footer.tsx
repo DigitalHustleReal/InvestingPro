@@ -2,392 +2,328 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { 
-    Heart,
-    ArrowUp,
-} from "lucide-react";
+import { ArrowUp, ChevronDown, Lock, ShieldCheck, Award, Smartphone, Bell, TrendingUp, Calculator, Star } from 'lucide-react';
 import Logo from "@/components/common/Logo";
-import NewsletterWidget from "@/components/engagement/NewsletterWidget";
-import { NAVIGATION_CATEGORIES } from '@/lib/navigation/categories';
-import { SecurityBadgeGroup } from '@/components/compliance/SecurityBadge';
-import { getFooterLinks, getComparisonPages } from '@/lib/navigation/utils';
+import { getFooterLinks } from '@/lib/navigation/utils';
 
-// Helper to replace createPageUrl
-const getHref = (pageName: string) => {
-    const map: Record<string, string> = {
-        Home: '/',
-        MutualFunds: '/mutual-funds',
-        Stocks: '/stocks',
-        FixedDeposits: '/fixed-deposits',
-        PPFandNPS: '/ppf-nps',
-        Insurance: '/insurance',
-        Calculators: '/calculators',
-        Blog: '/blog',
-        About: '/about',
-        Methodology: '/methodology',
-        EditorialPolicy: '/editorial-policy',
-        Disclosure: '/how-we-make-money', // Fixed: was '/disclosure', now '/how-we-make-money'
-        Privacy: '/privacy',
-        Terms: '/terms',
-        Disclaimer: '/disclaimer',
-        Accessibility: '/accessibility',
-        AlphaTerminal: '/terminal',
-        Glossary: '/glossary',
-        Guides: '/guides'
-    };
-    return map[pageName] || '/';
-};
+/* Trust badges for dark bg */
+function FooterBadge({ icon, text }: { icon: 'lock' | 'shield' | 'award'; text: string }) {
+    const Icon = icon === 'lock' ? Lock : icon === 'shield' ? ShieldCheck : Award;
+    return (
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[.06] border border-white/[.08]">
+            <Icon size={11} className="text-green-400" />
+            <span className="text-[10px] text-slate-400 font-medium">{text}</span>
+        </div>
+    );
+}
 
-const footerLinks = {
-    products: [
-        { name: "Mutual Funds", page: "MutualFunds" },
+const PRODUCTS = [
+    { name: "Credit Cards", href: "/credit-cards" },
+    { name: "Mutual Funds", href: "/mutual-funds" },
+    { name: "Loans", href: "/loans" },
+    { name: "Fixed Deposits", href: "/fixed-deposits" },
+    { name: "Insurance", href: "/insurance" },
+    { name: "PPF & NPS", href: "/ppf-nps" },
+    { name: "Demat Accounts", href: "/demat-accounts" },
+];
 
-        { name: "Fixed Deposits", page: "FixedDeposits" },
-        { name: "PPF & NPS", page: "PPFandNPS" },
-        { name: "Insurance", page: "Insurance" },
-    ],
-    tools: [
-        { name: "SIP Calculator", page: "Calculators" },
-        { name: "EMI Calculator", page: "Calculators" },
-        { name: "FD Calculator", page: "Calculators" },
-        { name: "GST Calculator", page: "Calculators" },
-        { name: "Compare Funds", page: "MutualFunds" },
-        { name: "Tax Calculator", page: "Calculators" },
-        { name: "Financial Tools", page: "Calculators" },
-    ],
-    resources: [
-        { name: "Glossary", page: "Glossary" },
-        { name: "Guides", page: "Guides" },
-    ],
-    legal: [
-        { name: "Terms of Service", href: "/terms-of-service" },
-        { name: "Privacy Policy", href: "/privacy-policy" },
-        { name: "Cookie Policy", href: "/cookie-policy" },
-        { name: "Disclaimer", href: "/disclaimer" },
-        { name: "Affiliate Disclosure", href: "/affiliate-disclosure" },
-        { name: "Accessibility", href: "/accessibility" },
-    ],
-    company: [
-        { name: "About Us", page: "About" },
-        { name: "Pricing — Pro Plan", href: "/pricing" },
-        { name: "Contact Support", href: "/contact-us" },
-        { name: "How We Make Money", page: "Disclosure" },
-        { name: "Methodology", page: "Methodology" },
-        { name: "Editorial Policy", page: "EditorialPolicy" },
-    ]
-};
+const COMPANY = [
+    { name: "About Us", href: "/about" },
+    { name: "How We Make Money", href: "/how-we-make-money" },
+    { name: "Methodology", href: "/methodology" },
+    { name: "Editorial Policy", href: "/editorial-policy" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Contact", href: "/contact-us" },
+    { name: "Blog", href: "/blog" },
+];
+
+const LEGAL = [
+    { name: "Terms of Service", href: "/terms-of-service" },
+    { name: "Privacy Policy", href: "/privacy-policy" },
+    { name: "Cookie Policy", href: "/cookie-policy" },
+    { name: "Disclaimer", href: "/disclaimer" },
+    { name: "Affiliate Disclosure", href: "/affiliate-disclosure" },
+    { name: "Accessibility", href: "/accessibility" },
+    { name: "Sitemap", href: "/sitemap.xml" },
+];
 
 export function Footer() {
     const [showScrollTop, setShowScrollTop] = React.useState(false);
     const [disclaimerExpanded, setDisclaimerExpanded] = React.useState(false);
 
-    // Get footer links from NAVIGATION_CONFIG (memoized for performance)
     const footerData = React.useMemo(() => getFooterLinks(), []);
-    const comparisonPages = React.useMemo(() => getComparisonPages(), []);
-    
-    // Limit calculators and comparisons for display (can be adjusted)
-    const displayCalculators = React.useMemo(() => footerData.calculators.slice(0, 10), [footerData.calculators]);
-    const displayComparisons = React.useMemo(() => comparisonPages.slice(0, 8), [comparisonPages]);
+    const displayCalculators = React.useMemo(() => {
+        const calcs = footerData.calculators.slice(0, 6);
+        return [...calcs, { name: "Compare Products", href: "/compare" }];
+    }, [footerData.calculators]);
 
     React.useEffect(() => {
-        const toggleVisibility = () => {
-            if (window.scrollY > 300) setShowScrollTop(true);
-            else setShowScrollTop(false);
-        };
-        window.addEventListener('scroll', toggleVisibility, { passive: true });
-        return () => {
-            window.removeEventListener('scroll', toggleVisibility);
-        };
+        const toggle = () => setShowScrollTop(window.scrollY > 300);
+        window.addEventListener('scroll', toggle, { passive: true });
+        return () => window.removeEventListener('scroll', toggle);
     }, []);
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    const linkClass = "text-[13px] text-slate-400 hover:text-green-400 transition-colors";
+    const headingClass = "text-[11px] font-semibold text-white/70 uppercase tracking-wider mb-4";
 
     return (
-        <footer className="bg-slate-50 dark:bg-[#071410] text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-green-900/30">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                {/* PROMINENT Trust & Transparency Banner - FTC Compliance */}
-                <div className="mb-16 p-8 rounded-xl border-2 border-green-600/20 bg-gradient-to-r from-green-50/50 via-slate-50/50 to-slate-50/30 dark:from-green-950/30 dark:via-slate-900/50 dark:to-slate-900/30 relative overflow-hidden">
-                    {/* Decorative Element */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/5 blur-[100px] rounded-full" />
+        <footer className="relative bg-[#0A1F14] dark:bg-[#071410] overflow-hidden" role="contentinfo">
+            {/* Grid texture */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    backgroundImage: 'linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px)',
+                    backgroundSize: '80px 80px',
+                }}
+            />
 
-                    <div className="relative z-10">
-                        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                            {/* Left: Trust Message */}
-                            <div className="text-center md:text-left max-w-xl">
-                                <div className="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/40 border border-green-600/30 rounded-full px-4 py-1.5 mb-4">
-                                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                                    <span className="text-green-800 dark:text-green-300 text-xs font-bold uppercase tracking-widest">100% Independent</span>
-                                </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                                    Zero Ads. Zero BS. <br className="hidden md:block" />
-                                    <span className="text-green-700 dark:text-green-400">100% Honest</span>
-                                </h3>
-                                <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
-                                    We only make money through affiliate partnerships when you apply for products. 
-                                    <strong className="text-slate-900 dark:text-white"> Our editorial team has ZERO access to commercial deals.</strong>
-                                </p>
+            <div className="relative z-10 max-w-[1200px] mx-auto px-4 lg:px-8">
+
+                {/* ── App teaser — distinct bg from main footer ── */}
+                <div className="py-12 lg:py-14 -mx-4 lg:-mx-8 px-4 lg:px-8 bg-[#0F2B1C] border-b border-white/[.06]">
+                    <div className="lg:grid lg:grid-cols-[1fr_340px] lg:gap-14 lg:items-center">
+                        {/* Left — copy + features */}
+                        <div className="mb-10 lg:mb-0">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/[.06] border border-white/[.08] rounded-full mb-4">
+                                <Smartphone size={11} className="text-green-400" />
+                                <span className="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Coming Soon</span>
                             </div>
 
-                            {/* Right: Disclosure Links */}
-                            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                                <Link 
-                                    href="/how-we-make-money"
-                                    className="px-6 py-3 bg-white/50 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 border border-slate-200 dark:border-white/20 rounded-xl text-slate-700 dark:text-white font-semibold text-sm transition-all flex items-center gap-2 justify-center group"
+                            <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight mb-3">
+                                Track, compare, and save — <span className="text-green-400">one app</span>
+                            </h3>
+                            <p className="text-[14px] text-white/40 leading-relaxed mb-6 max-w-md">
+                                Monitor your net worth across mutual funds, FDs, and PPF. Get instant rate alerts. Run calculators on the go.
+                            </p>
+
+                            <div className="grid grid-cols-2 gap-3 mb-6 max-w-sm">
+                                {[
+                                    { icon: TrendingUp, label: 'Net worth tracker' },
+                                    { icon: Bell, label: 'Rate alerts' },
+                                    { icon: Calculator, label: '25+ calculators' },
+                                    { icon: Star, label: 'Saved comparisons' },
+                                ].map((f) => (
+                                    <div key={f.label} className="flex items-center gap-2">
+                                        <div className="w-7 h-7 rounded-lg bg-white/[.05] border border-white/[.06] flex items-center justify-center flex-shrink-0">
+                                            <f.icon size={13} className="text-green-400" />
+                                        </div>
+                                        <span className="text-[12px] text-white/60">{f.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="flex gap-2.5">
+                                <button
+                                    onClick={() => {
+                                        if (typeof window !== 'undefined' && (window as any).__pwaInstallPrompt) {
+                                            (window as any).__pwaInstallPrompt.prompt();
+                                            return;
+                                        }
+                                        window.location.href = '/app';
+                                    }}
+                                    className="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-xl transition-colors"
                                 >
-                                    <span>How We Make Money</span>
-                                    <ArrowUp className="w-4 h-4 rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                                </Link>
+                                    Install Web App
+                                </button>
                                 <Link
-                                    href="/methodology"
-                                    className="px-6 py-3 bg-green-50 dark:bg-green-900/30 hover:bg-green-100 dark:hover:bg-green-900/40 border border-green-200 dark:border-green-700/50 rounded-xl text-green-800 dark:text-green-300 font-semibold text-sm transition-all flex items-center gap-2 justify-center group"
+                                    href="/app"
+                                    className="px-5 py-2.5 bg-white/[.05] hover:bg-white/[.08] border border-white/[.08] text-white/70 text-sm font-medium rounded-xl transition-colors"
                                 >
-                                    <span>Our Methodology</span>
-                                    <ArrowUp className="w-4 h-4 rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                    Join waitlist
                                 </Link>
+                            </div>
+                        </div>
+
+                        {/* Right — phone mockup */}
+                        <div className="hidden lg:block">
+                            <div className="relative w-[320px]">
+                                <div className="absolute -inset-8 bg-green-500/[.04] rounded-[60px] blur-[30px] pointer-events-none" />
+                                <div className="relative rounded-[42px] bg-gradient-to-b from-[#2A2A2E] to-[#1A1A1E] p-[5px] shadow-2xl shadow-black/40">
+                                    <div className="rounded-[37px] overflow-hidden bg-white">
+                                        {/* Dynamic island */}
+                                        <div className="flex justify-center pt-2 bg-[#0A1F14]">
+                                            <div className="w-[90px] h-[24px] bg-black rounded-full" />
+                                        </div>
+                                        {/* Header */}
+                                        <div className="bg-[#0A1F14] px-5 pb-4 pt-2.5">
+                                            <div className="flex items-center justify-between">
+                                                <div>
+                                                    <p className="text-[14px] text-white font-bold tracking-tight">InvestingPro</p>
+                                                    <p className="text-[10px] text-white/30 mt-0.5">Your finances at a glance</p>
+                                                </div>
+                                                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                                                    <Bell size={14} className="text-green-400" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Net worth */}
+                                        <div className="mx-4 mt-4 p-4 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 rounded-2xl">
+                                            <p className="text-[9px] text-green-600 font-semibold uppercase tracking-wider">Net Worth</p>
+                                            <p className="text-[22px] font-black text-gray-900 tracking-tight mt-0.5">₹24,85,200</p>
+                                            <div className="flex items-center gap-1 mt-1">
+                                                <TrendingUp size={11} className="text-green-600" />
+                                                <span className="text-[10px] font-semibold text-green-600">+₹1,89,400 (+8.2%)</span>
+                                            </div>
+                                            {/* Area chart — net worth growth */}
+                                            <div className="mt-3 -mx-1">
+                                                <svg viewBox="0 0 260 60" className="w-full h-auto" preserveAspectRatio="none">
+                                                    <defs>
+                                                        <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                                                            <stop offset="0%" stopColor="#16a34a" stopOpacity="0.25" />
+                                                            <stop offset="100%" stopColor="#16a34a" stopOpacity="0.02" />
+                                                        </linearGradient>
+                                                    </defs>
+                                                    {/* Area fill */}
+                                                    <path
+                                                        d="M0,48 C20,44 40,40 65,35 C90,30 110,28 130,22 C150,18 170,16 195,12 C220,9 240,6 260,4 L260,60 L0,60 Z"
+                                                        fill="url(#areaFill)"
+                                                    />
+                                                    {/* Line */}
+                                                    <path
+                                                        d="M0,48 C20,44 40,40 65,35 C90,30 110,28 130,22 C150,18 170,16 195,12 C220,9 240,6 260,4"
+                                                        fill="none"
+                                                        stroke="#16a34a"
+                                                        strokeWidth="2"
+                                                        strokeLinecap="round"
+                                                    />
+                                                    {/* Current dot */}
+                                                    <circle cx="260" cy="4" r="3" fill="#16a34a" />
+                                                    <circle cx="260" cy="4" r="5" fill="#16a34a" opacity="0.2" />
+                                                </svg>
+                                                <div className="flex justify-between px-1 mt-0.5">
+                                                    <span className="text-[7px] text-green-600/50">Jan</span>
+                                                    <span className="text-[7px] text-green-600/50">Jun</span>
+                                                    <span className="text-[7px] text-green-600/80 font-semibold">Now</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex gap-3 mt-3 pt-3 border-t border-green-200/50">
+                                                {[
+                                                    { l: 'Mutual Funds', v: '₹14.2L', p: 57 },
+                                                    { l: 'Fixed Deposits', v: '₹6.8L', p: 27 },
+                                                    { l: 'PPF + NPS', v: '₹3.7L', p: 16 },
+                                                ].map((a) => (
+                                                    <div key={a.l} className="flex-1">
+                                                        <p className="text-[8px] text-green-700/50">{a.l}</p>
+                                                        <p className="text-[10px] font-bold text-gray-900">{a.v}</p>
+                                                        <div className="mt-1 h-1.5 bg-green-200 rounded-full overflow-hidden">
+                                                            <div className="h-full bg-green-500 rounded-full" style={{ width: `${a.p}%` }} />
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        {/* Rate alerts */}
+                                        <div className="mx-4 mt-3 p-3.5 border border-gray-100 rounded-2xl">
+                                            <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Rate Alerts</p>
+                                            {[
+                                                { b: 'SBI', t: 'FD 1yr', r: '6.90%', d: '↓', c: 'text-red-500' },
+                                                { b: 'HDFC', t: 'Home Loan', r: '8.50%', d: '—', c: 'text-gray-300' },
+                                                { b: 'Axis', t: 'Savings', r: '3.50%', d: '↑', c: 'text-green-600' },
+                                            ].map((r) => (
+                                                <div key={r.b} className="flex items-center justify-between py-1.5 border-t border-gray-50">
+                                                    <span className="text-[10px] text-gray-600"><span className="font-semibold text-gray-900">{r.b}</span> {r.t}</span>
+                                                    <span className="text-[11px] font-bold text-gray-900">{r.r} <span className={r.c}>{r.d}</span></span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="h-4" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {/* Newsletter - Pre-Footer */}
-                {/* Newsletter - Theme-Aligned Card */}
-                <div className="relative mb-20 p-8 md:p-12 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 shadow-xl">
-                    <div className="absolute inset-0 bg-gradient-to-br from-green-100/10 dark:from-green-900/10 via-slate-100/0 dark:via-slate-900/0 to-slate-100/0 dark:to-slate-900/0" />
-                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-500/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
-                    
-                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                        <div className="text-center md:text-left max-w-xl">
-                            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3">Master Your Money</h3>
-                            <p className="text-slate-600 dark:text-slate-400 text-lg">Join 25,000+ investors getting the best IPO insights delivered weekly.</p>
-                        </div>
-                        <div className="w-full md:w-auto min-w-[340px] bg-white/10 p-1.5 rounded-xl backdrop-blur-sm border border-white/20">
-                            <NewsletterWidget variant="minimal" className="w-full" />
-                        </div>
+
+                {/* ── 5-column link grid ── */}
+                <div className="py-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
+                    <div className="col-span-2 sm:col-span-3 lg:col-span-1">
+                        <Logo variant="light" size="md" showText />
+                        <p className="mt-4 text-[13px] text-slate-400 leading-relaxed max-w-[240px]">
+                            Independent financial product research and comparison for India.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 className={headingClass}>Products</h4>
+                        <ul className="space-y-2">
+                            {PRODUCTS.map((l) => <li key={l.href}><Link href={l.href} className={linkClass}>{l.name}</Link></li>)}
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className={headingClass}>Tools</h4>
+                        <ul className="space-y-2">
+                            {displayCalculators.map((l, i) => <li key={i}><Link href={l.href} className={linkClass}>{l.name}</Link></li>)}
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className={headingClass}>Company</h4>
+                        <ul className="space-y-2">
+                            {COMPANY.map((l) => <li key={l.href}><Link href={l.href} className={linkClass}>{l.name}</Link></li>)}
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className={headingClass}>Legal</h4>
+                        <ul className="space-y-2">
+                            {LEGAL.map((l) => <li key={l.href}><Link href={l.href} className={linkClass}>{l.name}</Link></li>)}
+                        </ul>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-12">
-                    {/* Brand & Contact */}
-                    <div className="space-y-6 max-w-xs mx-auto md:mx-0">
-                        <div>
-                            <Logo 
-                                variant="default"
-                                size="md"
-                                showText={true}
-                            />
-                        </div>
-                        <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-                            India's most trusted platform for investment research and comparison.
-                        </p>
-                        
-                        {/* Social links removed - will be added when accounts are created */}
-                        {/* <div className="flex gap-3">Social links here</div> */}
-
-                        {/* Get in Touch Removed - Pre-footer handles this now */}
-                    </div>
-
-                    {/* FAT COLUMN 1: All Financial Products */}
-                    <div className="max-w-xs mx-auto md:mx-0">
-                        <div className="mb-8">
-                            <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Credit Cards</h4>
-                            <ul className="space-y-2">
-                                {[
-                                    { name: "Best Credit Cards", href: "/credit-cards" },
-                                    { name: "Rewards Cards", href: "/credit-cards?filter=rewards" },
-                                    { name: "Travel Cards", href: "/credit-cards?filter=travel" },
-                                ].map((link, i) => (
-                                    <li key={i}>
-                                        <Link href={link.href} className="text-sm md:text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className="mb-8">
-                            <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Loans</h4>
-                            <ul className="space-y-2">
-                                {[
-                                    { name: "Personal Loans", href: "/loans?type=personal" },
-                                    { name: "Home Loans", href: "/loans?type=home" },
-                                    { name: "Check Eligibility", href: "/loans/calculators/eligibility" },
-                                ].map((link, i) => (
-                                    <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Investing</h4>
-                            <ul className="space-y-2">
-                                {[
-                                    { name: "Mutual Funds", href: "/mutual-funds" },
-
-                                    { name: "Fixed Deposits", href: "/fixed-deposits" },
-                                ].map((link, i) => (
-                                    <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className="mt-8">
-                            <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Business & Taxes</h4>
-                            <ul className="space-y-2">
-                                {[
-                                    { name: "Income Tax Hub", href: "/taxes" },
-                                    { name: "Small Business Finance", href: "/small-business" },
-                                ].map((link, i) => (
-                                    <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-
-                    {/* FAT COLUMN 2: Tools & Knowledge */}
-                    <div className="max-w-xs mx-auto md:mx-0">
-                        <div className="mb-8">
-                            <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Calculators</h4>
-                            <ul className="space-y-2">
-                                {displayCalculators.map((link, i) => (
-                                    <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        {displayComparisons.length > 0 && (
-                            <div className="mb-8">
-                                <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Comparisons</h4>
-                                <ul className="space-y-2">
-                                    {displayComparisons.map((link, i) => (
-                                        <li key={i}>
-                                            <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
-                                        </li>
-                                    ))}
-                                </ul>
+                {/* ── Disclaimer ── */}
+                <div className="py-5 border-t border-white/[.06]">
+                    <div className="rounded-lg bg-white/[.03] border border-white/[.06] px-5 py-3.5">
+                        <button
+                            onClick={() => setDisclaimerExpanded(!disclaimerExpanded)}
+                            className="w-full flex items-center justify-between gap-4 text-left"
+                        >
+                            <span className="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full flex-shrink-0" />
+                                Important Disclaimer — Not investment advice
+                            </span>
+                            <ChevronDown size={14} className={`text-slate-500 transition-transform flex-shrink-0 ${disclaimerExpanded ? 'rotate-180' : ''}`} />
+                        </button>
+                        {disclaimerExpanded && (
+                            <div className="mt-3 pt-3 border-t border-white/[.06] space-y-2 text-xs text-slate-400 leading-relaxed">
+                                <p><strong className="text-slate-300">InvestingPro.in is NOT a SEBI registered investment advisor, financial advisor, or stockbroker.</strong> We are an independent research, education, and discovery platform. Content, tools, and comparisons are for informational and educational purposes only.</p>
+                                <p>Nothing on this website constitutes a recommendation to buy, sell, or hold any security or financial product. Past performance does not guarantee future results. Consult a SEBI-registered financial advisor before making investment decisions.</p>
+                                <Link href="/disclaimer" className="inline-block text-green-400 hover:text-green-300 font-medium mt-1">Read full disclaimer →</Link>
                             </div>
                         )}
-                        <div>
-                            <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Resources</h4>
-                            <ul className="space-y-2">
-                                {footerData.resources.map((link, i) => (
-                                    <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-
-                    {/* FAT COLUMN 3: Corporate & Legal */}
-                    <div className="max-w-xs mx-auto md:mx-0">
-                        <div className="mb-8">
-                            <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Company</h4>
-                            <ul className="space-y-2">
-                                {footerLinks.company.map((link, i) => (
-                                    <li key={i}>
-                                    <Link href={link.href || getHref(link.page)} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="text-slate-900 dark:text-white font-bold tracking-wide mb-4">Legal</h4>
-                            <ul className="space-y-2">
-                                {footerLinks.legal.map((link, i) => (
-                                    <li key={i}>
-                                        <Link href={link.href} className="text-sm text-slate-600 dark:text-slate-400 hover:text-green-700 dark:hover:text-green-400 transition-colors">{link.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
                     </div>
                 </div>
 
-
-
-                <div className="mt-12">
-                    <div className="flex flex-col gap-6">
-                        {/* Comprehensive Disclaimer */}
-                        <div className="bg-slate-100 dark:bg-slate-900/50 rounded-lg p-6 border border-slate-200 dark:border-slate-800/50">
-                            <h5 className="text-slate-900 dark:text-white font-semibold text-sm mb-3 flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 bg-warning-500 rounded-full"></span>
-                                Important Legal Disclaimer
-                            </h5>
-                            <div className={`space-y-3 text-xs text-slate-600 dark:text-slate-400 leading-relaxed ${!disclaimerExpanded ? 'line-clamp-3' : ''}`}>
-                                <p>
-                                    <strong className="text-slate-800 dark:text-slate-300">InvestingPro.in is NOT a SEBI registered investment advisor, financial advisor, or stockbroker.</strong> We are an independent research, education, and discovery platform. Our content, tools, calculators, and product comparisons are provided for informational and educational purposes only.
-                                </p>
-                                {disclaimerExpanded && (
-                                    <>
-                                        <p>
-                                            <strong className="text-slate-800 dark:text-slate-300">We do NOT provide:</strong> Investment advice, buy/sell/hold recommendations, personalized financial planning, or any form of financial advisory services. All information on this platform is for research, education, and discovery purposes to help you make informed decisions.
-                                        </p>
-                                        <p>
-                                            <strong className="text-slate-800 dark:text-slate-300">Not Investment Advice:</strong> Nothing on this website constitutes a recommendation to buy, sell, or hold any security, financial product, or investment. Past performance does not guarantee future results. All investments carry risk of loss. You should conduct your own research and consult with a qualified, SEBI-registered financial advisor before making any investment decisions.
-                                        </p>
-                                        <p>
-
-                                        </p>
-                                    </>
-                                )}
-                            </div>
-                            <button
-                                onClick={() => setDisclaimerExpanded(!disclaimerExpanded)}
-                                className="text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 text-sm mt-3 font-medium flex items-center gap-1"
-                            >
-                                {disclaimerExpanded ? 'Show Less' : 'Read Full Disclaimer'}
-                                <ArrowUp className={`w-3 h-3 transition-transform ${disclaimerExpanded ? 'rotate-180' : ''}`} />
-                            </button>
-                            <p className="pt-3 border-t border-slate-200 dark:border-slate-700/50 mt-3">
-                                <Link href="/disclaimer" className="text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 underline font-medium text-xs">
-                                    Read complete terms of service
-                                </Link>
-                            </p>
+                {/* ── Copyright ── */}
+                <div className="py-5 border-t border-white/[.06]">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-3">
+                        <p className="text-[11px] text-slate-500 order-2 md:order-1">© {new Date().getFullYear()} InvestingPro.in. All rights reserved.</p>
+                        <div className="order-1 md:order-2 flex items-center gap-2 px-3 py-1 rounded-full bg-white/[.04] border border-white/[.06]">
+                            <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                                Made with{' '}
+                                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 inline-block" fill="#ef4444" aria-hidden="true">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                                {' '}in India
+                            </span>
                         </div>
-
-                        {/* Copyright & Compliance */}
-                        <div className="flex flex-col gap-6 pt-2">
-                            <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
-                                <p className="text-sm text-slate-500 order-2 md:order-1">
-                                    © {new Date().getFullYear()} InvestingPro.in. All rights reserved.
-                                </p>
-
-                                {/* Centered India Badge - The Heart of the App */}
-                                <div className="order-1 md:order-2 flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800/50 cursor-default">
-                                    <span className="text-xs font-medium text-green-800 dark:text-green-300 flex items-center gap-1.5">
-                                        Made with <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" /> in India
-                                    </span>
-                                </div>
-
-                                <div className="order-3 flex items-center gap-4">
-                                     <SecurityBadgeGroup />
-                                </div>
-                            </div>
-                            
-                            <p className="text-[11px] text-slate-600 text-center max-w-3xl mx-auto leading-relaxed">
-                                InvestingPro.in is an independent research platform. We are not a SEBI registered investment advisor. 
-                                <br className="hidden md:block" />
-                                All content is for educational purposes only.
-                            </p>
-                            <p className="text-[10px] text-slate-700 text-center max-w-3xl mx-auto mt-2 leading-relaxed">
-                                InvestingPro.in is an independent platform owned and operated in India. It is not affiliated with, endorsed by, or associated in any way with Investing.com or its parent companies.
-                            </p>
+                        <div className="order-3 flex items-center gap-2">
+                            <FooterBadge icon="lock" text="Secure" />
+                            <FooterBadge icon="shield" text="Data Protected" />
+                            <FooterBadge icon="award" text="RBI Compliant" />
                         </div>
                     </div>
+                    <p className="text-[10px] text-slate-500 text-center mt-4 leading-relaxed max-w-2xl mx-auto">
+                        Independent research platform · Not a SEBI registered advisor · Educational purposes only
+                        <span className="mx-2 text-slate-700">|</span>
+                        Owned &amp; operated in India · Not affiliated with Investing.com
+                    </p>
                 </div>
             </div>
 
-            {/* Floating Scroll Top Button */}
-            <button 
-                onClick={scrollToTop}
+            <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 aria-label="Back to top"
-                className={`fixed bottom-20 md:bottom-8 right-4 md:right-8 z-40 p-3 rounded-full bg-green-700 text-white shadow-xl shadow-green-700/20 hover:bg-green-800 transition-all duration-300 transform ${showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+                className={`fixed bottom-20 md:bottom-8 right-4 md:right-8 z-40 p-3 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 transition-all duration-300 ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}
             >
-                <ArrowUp className="w-5 h-5" strokeWidth={2} />
+                <ArrowUp className="w-4 h-4" strokeWidth={2.5} />
             </button>
         </footer>
     );

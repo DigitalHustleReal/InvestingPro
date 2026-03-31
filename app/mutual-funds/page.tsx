@@ -1,543 +1,258 @@
-"use client";
-
-import React, { useState, useEffect } from 'react';
-import { apiClient as api } from '@/lib/api-client';
-import SEOHead from "@/components/common/SEOHead";
-import LoadingSpinner from "@/components/common/LoadingSpinner";
-import Pagination from "@/components/common/Pagination";
-import PageErrorBoundary from "@/components/common/PageErrorBoundary";
-import EmptyState from "@/components/common/EmptyState";
-import { logger } from "@/lib/logger";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import {
-    Search,
-    Star,
-    TrendingUp,
-    TrendingDown,
-    ArrowUpRight,
-    ShieldCheck,
-    Building2,
-    PieChart,
-    LayoutGrid,
-    List,
-    ArrowRight,
-    Sparkles
-} from "lucide-react";
+import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
-import { FilterSidebar } from "@/components/mutual-funds/FilterSidebar";
-import { FundTable } from "@/components/mutual-funds/FundTable";
-import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
-import { SIPCalculator } from "@/components/calculators/SIPCalculator";
-import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
+import { ChevronRight, Shield, CalendarDays, TrendingUp, BarChart3, PiggyBank, Layers, ArrowRight } from 'lucide-react';
+import MutualFundsClient from './MutualFundsClient';
 
-const FUND_CATEGORIES = ["All", "Equity", "Debt", "Hybrid", "ELSS", "Index"];
+export const revalidate = 3600;
 
-const riskColors: Record<string, string> = {
-    "Low": "bg-success-50 text-success-700 border-success-100",
-    "Low to Moderate": "bg-primary-50 text-primary-700 border-primary-100",
-    "Moderate": "bg-secondary-50 text-secondary-700 border-secondary-100",
-    "Moderately High": "bg-accent-50 text-accent-700 border-accent-100",
-    "High": "bg-accent-50 text-accent-700 border-accent-100",
-    "Very High": "bg-danger-50 text-danger-700 border-danger-100",
+export const metadata: Metadata = {
+  title: 'Best Mutual Funds in India (2026) — Compare & Invest | InvestingPro',
+  description: 'Compare 2,000+ mutual funds across equity, debt, hybrid, and index categories. Track NAV, returns, expense ratios. Independent ratings — no paid placements.',
+  openGraph: { title: 'Best Mutual Funds in India (2026)', description: 'Compare 2,000+ mutual funds. Independent research.', url: 'https://investingpro.in/mutual-funds' },
 };
 
-import CategoryHero from '@/components/common/CategoryHero';
-import UniversalSidebar from '@/components/common/UniversalSidebar';
-import MobileEngagementBar from '@/components/common/MobileEngagementBar';
-import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
-import DecisionCTA from '@/components/common/DecisionCTA';
-import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
-
 export default function MutualFundsPage() {
-    const [viewMode, setViewMode] = useState<'grid' | 'table'>('table'); // Default to table for Pro users
+  const structuredData = [
+    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Best Mutual Funds in India 2026', url: 'https://investingpro.in/mutual-funds' },
+    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
+      { '@type': 'Question', name: 'What is the best mutual fund to invest in India?', acceptedAnswer: { '@type': 'Answer', text: 'For long-term wealth, Nifty 50 index funds have averaged 12% returns. For tax saving, ELSS funds offer 80C deduction up to ₹1.5L.' } },
+      { '@type': 'Question', name: 'Is SIP better than lump sum?', acceptedAnswer: { '@type': 'Answer', text: 'SIP reduces timing risk through rupee cost averaging. Lump sum works better in rising markets. For most investors, SIP is recommended.' } },
+      { '@type': 'Question', name: 'How are mutual funds taxed in India?', acceptedAnswer: { '@type': 'Answer', text: 'Equity: LTCG above ₹1.25L taxed at 12.5% (held >1yr). Debt: taxed at slab rate. ELSS qualifies for 80C.' } },
+    ] },
+  ];
 
-    // Data State
-    const [funds, setFunds] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("All");
-    const [sortBy, setSortBy] = useState("returns_3y");
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 8;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-    // Enhanced Filter State
-    const [filters, setFilters] = useState<any>({
-        minReturns: 0,
-        maxExpenseRatio: 2.5,
-        minAum: 0,
-        riskLevels: [],
-        categories: [],
-        amcs: [],
-        rating: 0
-    });
-
-    const activeFiltersCount = 
-        (filters.riskLevels.length > 0 ? 1 : 0) + 
-        (filters.categories.length > 0 ? 1 : 0) +
-        (filters.amcs.length > 0 ? 1 : 0);
-
-    const [totalCount, setTotalCount] = useState(0);
-
-    // Reset to page 1 whenever filters/search/sort change
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [sortBy, searchTerm, selectedCategory, filters]);
-
-    useEffect(() => {
-        loadFunds();
-    }, [currentPage, sortBy, searchTerm, selectedCategory]);
-
-    const loadFunds = async () => {
-        setLoading(true);
-        try {
-            const response = await api.entities.MutualFund.list({
-                page: currentPage,
-                limit: itemsPerPage, // Note: Pagination logic in API might need this
-                categoryType: selectedCategory,
-                sortBy: `${sortBy}:desc`,
-                searchTerm: searchTerm
-            });
-            
-            const data = response?.data;
-            const count = response?.count;
-
-            if (Array.isArray(data) && data.length > 0) {
-                // Normalize UI keys from API keys (Double-check property names match)
-                const normalizedFunds = data.map((p: any) => {
-                    return {
-                        id: p.id || p.slug,
-                        name: p.name || "Unknown Fund",
-                        category: p.category || 'Equity',
-                        type: p.type || 'Equity', 
-                        aum: p.aum || 'N/A',
-                        returns_1y: p.returns1Y ?? 0,
-                        returns_3y: p.returns3Y ?? 0,
-                        returns_5y: p.returns5Y ?? 0,
-                        rating: p.rating ?? 0,
-                        risk: p.riskLevel || "Moderate",
-                        expense_ratio: p.expenseRatio ?? 0,
-                        min_investment: p.minInvestment || "₹500",
-                        fund_house: p.providerName || "Unknown"
-                    };
-                });
-                setFunds(normalizedFunds);
-                setTotalCount(count || 0);
-            } else {
-                setFunds([]);
-                setTotalCount(0);
-                logger.warn('[MutualFunds] No funds found or invalid data format');
-            }
-        } catch (error) {
-            logger.error('[MutualFunds] Critical Error loading funds', error as Error);
-            setFunds([]);
-            setTotalCount(0);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // Sidebar filters applied client-side (search/category/sort are handled server-side)
-    const filteredFunds = (Array.isArray(funds) ? funds : []).filter(fund => {
-        // Risk Filter (sidebar)
-        const matchesRisk = filters.riskLevels.length === 0 ||
-            filters.riskLevels.includes(fund.risk || "");
-
-        // Returns Filter — min 3Y threshold (sidebar slider)
-        const matchesReturns = (fund.returns_3y || 0) >= filters.minReturns;
-
-        // Expense Ratio Filter (sidebar slider)
-        const matchesExpense = (fund.expense_ratio || 0) <= filters.maxExpenseRatio;
-
-        return matchesRisk && matchesReturns && matchesExpense;
-    });
-
-    const totalPages = Math.ceil(totalCount / itemsPerPage);
-
-    const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "itemListElement": filteredFunds.slice(0, 5).map((fund, idx) => ({
-            "@type": "ListItem",
-            "position": idx + 1,
-            "item": {
-                "@type": "InvestmentFund",
-                "name": fund.name,
-                "description": fund.category,
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": fund.rating || 4,
-                    "bestRating": 5
-                }
-            }
-        }))
-    };
-
-    return (
-        <PageErrorBoundary pageName="Mutual Funds Page">
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20 transition-colors duration-300">
-                <SEOHead
-                    title="Top Mutual Funds India 2025 - Compare & Start SIP | InvestingPro"
-                    description="Invest in best mutual funds in India. Compare returns, expense ratios, and ratings. Start SIP from ₹500/month. Zero commission, expert advice."
-                    structuredData={structuredData}
-                />
-
-
-
-            {/* Carousel Hero Section */}
-            <div className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 pt-28 pb-12 relative overflow-hidden">
-                <div className="container mx-auto px-4">
-                     <AutoBreadcrumbs />
-                     
-                     {/* Premium Authoritative Hero */}
-                     <CategoryHero
-                         title={`Compare ${totalCount > 0 ? `${totalCount}+` : ''} Mutual Funds`}
-                         subtitle="Make Smart Investment Decisions"
-                         description="Get personalized fund recommendations based on your investment goals, risk profile, and timeline. Compare funds side-by-side and start SIP instantly with our affiliate partners."
-                         primaryCta={{
-                             text: "Find Your Perfect Fund",
-                             href: "/mutual-funds/find-your-fund"
-                         }}
-                         secondaryCta={{
-                             text: "Compare All Funds",
-                             href: "#compare"
-                         }}
-                         stats={[
-                             { label: "Funds Compared", value: totalCount > 0 ? `${totalCount}+` : "—" },
-                             { label: "Goal-Based Matching", value: "Yes" },
-                             { label: "Instant SIP Setup", value: "Active" }
-                         ]}
-                         badge="Helps You Decide • Goal-Based • Instant SIP"
-                         variant="secondary"
-                         className="mb-8"
-                     />
-
-                     {/* Pre-Launch Critical: Affiliate Disclosure above the fold */}
-                     <div className="max-w-xl mx-auto mb-10">
-                        <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="rounded-xl border border-primary-200/50" />
-                     </div>
-
-                     <div className="relative group max-w-xl mx-auto mb-12 z-20">
-                        <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                            <Search className="h-5 w-5 text-slate-600 group-focus-within:text-primary- transition-colors" />
-                        </div>
-                        <Input
-                            placeholder="Search funds (e.g. 'HDFC Equity', 'Large Cap')..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-600 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-all shadow-xl"
-                            value={searchTerm}
-                            onChange={(e) => {
-                                setSearchTerm(e.target.value);
-                                setCurrentPage(1);
-                            }}
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {/* Main Content Area */}
-            <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
-                <div className="flex flex-col lg:flex-row gap-8 items-start">
-
-                    {/* Left: Professional Filter Panel */}
-                    <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
-                         <FilterSidebar filters={filters} setFilters={setFilters} />
-                         
-                         {/* Marketing Widgets in Sidebar (Desktop only - Mobile uses MobileEngagementBar) */}
-                         <div className="mt-8">
-                            <UniversalSidebar category="mutual_fund" />
-                         </div>
-                    </ResponsiveFilterContainer>
-
-                    {/* Right: Results Ledger */}
-                    <div className="flex-1 space-y-6">
-                        
-                        {/* Toolbar */}
-                        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                            <div className="text-sm text-slate-500 font-medium">
-                                Showing <span className="font-bold text-slate-900 dark:text-white">{funds.length}</span> of <span className="font-bold text-slate-900 dark:text-white">{totalCount}</span> Funds
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
-                                    <button 
-                                        onClick={() => setViewMode('grid')}
-                                        className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white dark:bg-slate-700 shadow text-primary-600 dark:text-primary-400' : 'text-slate-600 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-600'}`}
-                                    >
-                                        <LayoutGrid className="w-4 h-4" />
-                                    </button>
-                                    <button 
-                                        onClick={() => setViewMode('table')}
-                                        className={`p-2 rounded-md transition-all ${viewMode === 'table' ? 'bg-white dark:bg-slate-700 shadow text-primary-600' : 'text-slate-600 hover:text-slate-600'}`}
-                                    >
-                                        <List className="w-4 h-4" />
-                                    </button>
-                                </div>
-                                <Select value={sortBy} onValueChange={(val: string) => {
-                                    setSortBy(val);
-                                    setCurrentPage(1);
-                                }}>
-                                    <SelectTrigger className="w-[180px] h-10 border-slate-200 dark:border-slate-700">
-                                        <SelectValue placeholder="Sort By" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="returns_3y">Highest 3Y Returns</SelectItem>
-                                        <SelectItem value="rating">Best Rated</SelectItem>
-                                        <SelectItem value="low_risk">Lowest Risk</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </div>
-
-                        {loading ? (
-                            <div className="py-20 flex flex-col items-center gap-4">
-                                <LoadingSpinner text="Decrypting fund performance metrics..." />
-                            </div>
-                        ) : filteredFunds.length === 0 ? (
-                            <EmptyState 
-                                title="No Funds Found" 
-                                description="Adjust your filters to broaden your search." 
-                                actionLabel="Clear Filters"
-                                onAction={() => setFilters({
-                                    minReturns: 0,
-                                    maxExpenseRatio: 2.5,
-                                    minAum: 0,
-                                    riskLevels: [],
-                                    categories: [],
-                                    amcs: [],
-                                    rating: 0
-                                })}
-                            />
-                        ) : (
-                             viewMode === 'table' ? (
-                                <FundTable funds={filteredFunds} />
-                            ) : (
-                                <div className="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
-                                     {filteredFunds.map((fund, index) => (
-                                         <Card
-                                            key={index}
-                                            className="rounded-[2.5rem] border-0 shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 bg-white dark:bg-slate-800 overflow-hidden hover:shadow-2xl transition-all duration-300 group/card relative"
-                                        >
-                                             {/* Compare Checkbox for Grid is handled via RichProductCard logic usually, 
-                                                but here we are using a custom Card. 
-                                                I'll remove the manual checkbox and suggest using RichProductCard later or update this one. */}
-
-                                            <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-slate-50">
-                                                {/* Primary Identity */}
-                                                <div className="p-8 flex-1">
-                                                    <div className="flex items-start gap-4 mb-6">
-                                                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary-500/10 to-primary-/10 border border-primary-/10 flex items-center justify-center text-primary- font-bold text-xl group-hover/card:scale-110 transition-transform">
-                                                            {(fund.name || "A").substring(0, 1)}
-                                                        </div>
-                                                        <div className="space-y-1">
-                                                            <div className="flex items-center gap-2">
-                                                                <Badge className="bg-slate-900/5 text-slate-600 border-0 text-[10px] font-semibold uppercase tracking-st px-2 py-0.5">
-                                                                    {fund.category}
-                                                                </Badge>
-                                                                <div className="flex gap-0.5 grayscale group-hover/card:grayscale-0 transition-all">
-                                                                    {[...Array(5)].map((_, i) => (
-                                                                        <Star
-                                                                            key={i}
-                                                                            className={`w-3 h-3 ${i < (fund.rating || 4) ? 'text-accent-400 fill-accent-400' : 'text-slate-200'}`}
-                                                                        />
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-                                                            <Link href={`/mutual-funds/${fund.id}`}>
-                                                                <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight group-hover/card:text-primary-600 dark:group-hover/card:text-primary-400 transition-colors">
-                                                                    {fund.name}
-                                                                </h3>
-                                                            </Link>
-                                                            <p className="text-xs font-bold text-slate-600 flex items-center gap-1.5 uppercase tracking-widest">
-                                                                <Building2 className="w-3 h-3" />
-                                                                {fund.fund_house}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="flex flex-wrap gap-2">
-                                                        <Badge className={`${riskColors[fund.risk] || riskColors["Moderate"]} border text-[10px] uppercase font-bold tracking-widest px-3`}>
-                                                            {fund.risk || "MODERATE"} RISK
-                                                        </Badge>
-                                                        <Badge variant="outline" className="border-slate-100 text-slate-600 text-[10px] uppercase font-bold tracking-widest px-3">
-                                                            AUM: {fund.aum || "N/A"}
-                                                        </Badge>
-                                                    </div>
-                                                </div>
-
-                                                {/* Yield Analytics */}
-                                                <div className="p-8 lg:w-72 bg-slate-50/50 group-hover/card:bg-primary-/30 transition-colors flex items-center justify-between lg:justify-center">
-                                                    <div className="grid grid-cols-3 lg:grid-cols-1 gap-6 text-center w-full lg:w-auto">
-                                                        {[
-                                                            { label: "1Y Yield", value: fund.returns_1y, trend: fund.returns_1y > 0 },
-                                                            { label: "3Y Yield", value: fund.returns_3y, trend: fund.returns_3y > 0 },
-                                                            { label: "5Y Yield", value: fund.returns_5y, trend: fund.returns_5y > 0 }
-                                                        ].map((ret, i) => (
-                                                            <div key={i} className="space-y-1">
-                                                                <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-st">{ret.label}</p>
-                                                                <div className="flex items-center justify-center gap-1">
-                                                                    <p className={`text-xl font-bold ${ret.trend ? 'text-primary-600 dark:text-primary-400' : 'text-slate-900 dark:text-white'}`}>{ret.value}%</p>
-                                                                    {ret.trend ? <TrendingUp className="w-4 h-4 text-primary-500" /> : <TrendingDown className="w-4 h-4 text-slate-600" />}
-                                                                </div>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-
-                                                {/* Action Hub */}
-                                                <div className="p-8 lg:w-48 flex flex-row lg:flex-col items-center justify-center gap-4">
-                                                    <Link href={`/mutual-funds/${fund.id}`} className="w-full">
-                                                        <Button variant="outline" className="w-full h-12 rounded-2xl border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-900 dark:text-white font-extrabold text-[11px] uppercase tracking-[0.2em]">
-                                                            Verify
-                                                        </Button>
-                                                    </Link>
-                                                    <Link href={`/mutual-funds/${fund.id}`} className="w-full">
-                                                        <Button className="w-full h-12 rounded-2xl bg-primary-600 hover:bg-secondary-600 dark:bg-primary-500 dark:hover:bg-secondary-500 text-white font-extrabold text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-primary-500/20 transition-all">
-                                                            Allocate
-                                                            <ArrowUpRight className="w-4 h-4 ml-2" />
-                                                        </Button>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </Card>
-                                     ))
-                                }
-                                </div>
-                            )
-                        )}
-
-                        {/* Pagination Integration */}
-                        {!loading && totalCount > itemsPerPage && (
-                            <div className="pt-10">
-                                <Pagination
-                                    currentPage={currentPage}
-                                    totalPages={totalPages}
-                                    onPageChange={(page) => {
-                                        setCurrentPage(page);
-                                        window.scrollTo({ top: 300, behavior: 'smooth' });
-                                    }}
-                                    totalItems={filteredFunds.length}
-                                    itemsPerPage={itemsPerPage}
-                                />
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
-
-            {/* --- SIP CALCULATOR SECTION --- */}
-            <div className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 border-y border-slate-200 dark:border-slate-800 py-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-8">
-                        <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-200">Interactive Tool</Badge>
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                            Plan Your SIP Journey
-                        </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            Calculate how much your systematic investment can grow over time
-                        </p>
-                    </div>
-                    <SIPCalculator />
-                </div>
-            </div>
-
-            {/* --- EDUCATIONAL CONTENT HUB --- */}
-            <div className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    
-                    {/* Section Header */}
-                    <div className="text-center mb-16">
-                        <Badge className="mb-4 bg-primary- text-primary- border-primary-">Investor's Guide</Badge>
-                        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Wealth Creation Made Simple</h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            You don't need to be an expert to beat inflation. Understand the basics of asset allocation.
-                        </p>
-                    </div>
-
-                    {/* 1. Types of Funds Grid */}
-                    <div className="grid md:grid-cols-3 gap-8 mb-24">
-                        {[
-                            { title: "Equity Funds", desc: "Invests in stocks. High risk, high reward (12-15% avg returns). Ideal for long-term goals (>5 years).", icon: TrendingUp },
-                            { title: "Debt Funds", desc: "Invests in bonds and government securities. Low risk, stable returns (6-8%). Better alternative to FDs.", icon: ShieldCheck },
-                            { title: "ELSS Funds", desc: "Equity Linked Savings Scheme. Saves tax under Sec 80C. Lock-in period of 3 years. Best tax-saving option.", icon: PieChart }
-                        ].map((item, i) => (
-                            <div key={i} className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
-                                <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                                    <item.icon className="w-6 h-6 text-primary-" />
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* 2. Visual Guide Placeholder (Canva) */}
-                    <div className="bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 rounded-[3rem] overflow-hidden relative mb-24 text-white shadow-2xl shadow-primary-500/20">
-                        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
-                        <div className="flex flex-col md:flex-row items-center">
-                            <div className="p-12 md:p-20 md:w-1/2 relative z-10">
-                                <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">Power of Compounding</Badge>
-                                <h3 className="text-4xl font-bold mb-6">Start Early to Retire Rich</h3>
-                                <p className="text-white/90 text-lg mb-8 leading-relaxed">
-                                    Investing ₹5,000/month for 20 years can turn into ₹50 Lakhs. 
-                                    Delaying by just 5 years can cost you over ₹25 Lakhs in returns.
-                                </p>
-                                <Button className="bg-white hover:bg-secondary-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
-                                    Start SIP Calculator
-                                </Button>
-                            </div>
-                            <div className="md:w-1/2 bg-white/10 backdrop-blur-sm h-[400px] md:h-full flex items-center justify-center border-l border-white/20 border-dashed">
-                                {/* PLACEHOLDER FOR CANVA IMAGE */}
-                                <div className="text-center p-8">
-                                    <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-white/40">
-                                        <span className="text-xs text-white/60 font-mono">IMAGE</span>
-                                    </div>
-                                    <p className="text-white/60 font-mono text-sm">Use Content Injection<br/>"SIP Growth Chart"</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* 3. FAQ Accordion */}
-                    <div className="max-w-3xl mx-auto">
-                        <h3 className="text-2xl font-bold text-center mb-10 text-slate-900 dark:text-white">Common Questions</h3>
-                        <div className="space-y-4">
-                            {[
-                                { q: "Is it safe to invest in Mutual Funds?", a: "Mutual funds are subject to market risks, but they are regulated by SEBI. Choosing distinct fund houses and staying invested for the long term significantly reduces risk." },
-                                { q: "What is Expense Ratio?", a: "The yearly fee charged by the fund house to manage money. Direct plans (like on InvestingPro) have lower expense ratios (0.5-1%) compared to Regular plans (1.5-2%)." },
-                                { q: "Can I stop my SIP anytime?", a: "Yes, you can stop, pause, or increase your SIP amount at any time without penalty. However, exit loads may apply if you withdraw funds within 1 year." }
-                            ].map((faq, i) => (
-                                <details key={i} className="group bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 cursor-pointer">
-                                    <summary className="font-bold text-slate-900 dark:text-white flex justify-between items-center list-none">
-                                        {faq.q}
-                                        <ArrowRight className="w-4 h-4 text-slate-600 group-open:rotate-90 transition-transform" />
-                                    </summary>
-                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
-                                </details>
-                            ))}
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            {/* Compliance Disclaimer */}
-            <div className="container mx-auto px-4 pb-8">
-                <ComplianceDisclaimer variant="compact" />
-            </div>
-
-            {/* Mobile Engagement Bar - Shows contextual widgets on mobile */}
-            <MobileEngagementBar category="mutual_fund" />
-
+      {/* ── Asset ticker — multi-asset context bar ── */}
+      <div className="bg-[--v2-ink] text-white">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-2 flex items-center gap-6 overflow-x-auto scrollbar-hide text-[12px]">
+          <span className="text-white/40 font-medium flex-shrink-0">Rates</span>
+          {[
+            { name: 'Nifty 50', value: '23,842', change: '+0.45%', up: true },
+            { name: 'Gold', value: '₹87,450/10g', change: '+1.2%', up: true },
+            { name: 'Crude Oil', value: '$74.30', change: '-0.8%', up: false },
+            { name: 'USD/INR', value: '₹84.12', change: '+0.05%', up: true },
+            { name: 'SBI FD 1yr', value: '6.90%', change: '-0.15%', up: false },
+          ].map((idx) => (
+            <span key={idx.name} className="flex items-center gap-2 flex-shrink-0">
+              <span className="text-white/60 font-medium">{idx.name}</span>
+              <span className="font-semibold tabular-nums">{idx.value}</span>
+              <span className={`font-semibold tabular-nums ${idx.up ? 'text-green-400' : 'text-red-400'}`}>{idx.change}</span>
+            </span>
+          ))}
         </div>
-        </PageErrorBoundary>
-    );
+      </div>
+
+      {/* ── Hero ── */}
+      <section className="bg-white border-b border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pt-6 pb-8">
+          <nav aria-label="Breadcrumb" className="mb-5">
+            <ol className="flex items-center gap-1.5 text-[13px] text-gray-400">
+              <li><Link href="/" className="hover:text-green-600 transition-colors">Home</Link></li>
+              <li><ChevronRight size={12} /></li>
+              <li className="text-gray-700 font-medium">Mutual Funds</li>
+            </ol>
+          </nav>
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">Best Mutual Funds in India</h1>
+              <p className="text-[15px] text-gray-500 mt-2 max-w-xl leading-relaxed">
+                Compare 2,000+ funds by returns, expense ratio, and risk grade. Ranked by real performance — not what pays us most.
+              </p>
+            </div>
+            <div className="flex items-center gap-5 text-[12px] text-gray-500 flex-shrink-0 mt-1">
+              <span className="flex items-center gap-1.5"><Shield size={13} className="text-green-600" />Independent ratings</span>
+              <span className="flex items-center gap-1.5"><CalendarDays size={13} className="text-green-600" />NAV updated daily</span>
+            </div>
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+            {['All Funds','Equity','Debt','Hybrid','Index','ELSS','Large Cap','Mid Cap','Small Cap','Flexi Cap'].map((p, i) => (
+              <Link key={p} href={i === 0 ? '/mutual-funds' : `/mutual-funds?type=${p.toLowerCase().replace(' ', '-')}`} className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${i === 0 ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>{p}</Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Category highlights — Groww/ET Money pattern ── */}
+      <section className="bg-white border-b border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { icon: TrendingUp, label: 'Equity Funds', sub: 'Higher returns, higher risk', href: '/mutual-funds?type=equity', color: 'text-blue-600 bg-blue-50' },
+              { icon: PiggyBank, label: 'Debt Funds', sub: 'Stable returns, lower risk', href: '/mutual-funds?type=debt', color: 'text-green-600 bg-green-50' },
+              { icon: Layers, label: 'Hybrid Funds', sub: 'Mix of equity + debt', href: '/mutual-funds?type=hybrid', color: 'text-purple-600 bg-purple-50' },
+              { icon: BarChart3, label: 'Index Funds', sub: 'Low cost, market returns', href: '/mutual-funds?type=index', color: 'text-amber-600 bg-amber-50' },
+            ].map((cat) => {
+              const Icon = cat.icon;
+              return (
+                <Link key={cat.label} href={cat.href} className="flex items-center gap-3 p-3.5 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group">
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${cat.color}`}>
+                    <Icon size={18} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{cat.label}</p>
+                    <p className="text-[11px] text-gray-500">{cat.sub}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Main content ── */}
+      <section className="bg-gray-50 min-h-screen">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8">
+          <MutualFundsClient />
+        </div>
+      </section>
+
+      {/* ── Portfolio Overlap Checker — unique differentiator ── */}
+      <section className="bg-white border-t border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-green-100 rounded-full text-[10px] font-bold text-green-700 uppercase tracking-wider mb-2">
+                Free Tool
+              </div>
+              <h3 className="text-lg font-bold text-[--v2-ink] mb-1">Mutual Fund Overlap Checker</h3>
+              <p className="text-sm text-gray-500 leading-relaxed max-w-md">
+                Holding 3+ funds? Check if they're investing in the same stocks. Avoid paying multiple expense ratios for the same exposure. Paste your funds — see the overlap instantly.
+              </p>
+            </div>
+            <Link
+              href="/mutual-funds/overlap-checker"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-xl transition-colors flex-shrink-0"
+            >
+              Check Overlap
+              <ArrowRight size={15} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Related Tools ── */}
+      <section className="bg-white">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pb-10">
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Related Tools</h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            {[
+              { label: 'SIP Calculator', desc: 'See how ₹10K/month grows', href: '/calculators/sip' },
+              { label: 'Compare Funds', desc: 'Side-by-side comparison', href: '/mutual-funds/compare' },
+              { label: 'Goal Planner', desc: 'SIP needed for your goal', href: '/mutual-funds/goal-planner' },
+              { label: 'Find Your Fund', desc: 'Personalized pick', href: '/mutual-funds/find-your-fund' },
+              { label: 'Overlap Checker', desc: 'Portfolio duplication', href: '/mutual-funds/overlap-checker' },
+            ].map((t) => (
+              <Link key={t.href} href={t.href} className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group">
+                <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{t.label}</p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">{t.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Popular comparisons — MF specific ── */}
+      <section className="bg-gray-50 border-t border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Popular Fund Comparisons</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {[
+              { title: 'Index Funds vs Active Funds', desc: '10 years of data — when does active actually win?', href: '/mutual-funds/compare/index-vs-active' },
+              { title: 'ELSS vs PPF vs NPS', desc: 'Best tax-saving investment under 80C', href: '/mutual-funds/compare/elss-vs-ppf-vs-nps' },
+              { title: 'Large Cap vs Flexi Cap', desc: 'Stability vs growth — which to choose?', href: '/mutual-funds/compare/large-cap-vs-flexi-cap' },
+              { title: 'Direct vs Regular Plans', desc: 'How much do distributor fees actually cost you?', href: '/mutual-funds/compare/direct-vs-regular' },
+              { title: 'SIP vs Lump Sum', desc: 'Timing the market vs time in the market', href: '/mutual-funds/compare/sip-vs-lumpsum' },
+              { title: 'Debt Funds vs FDs', desc: 'After-tax returns compared across tenures', href: '/mutual-funds/compare/debt-vs-fd' },
+            ].map((comp) => (
+              <Link key={comp.href} href={comp.href} className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group">
+                <span className="text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded mt-0.5 flex-shrink-0">VS</span>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{comp.title}</p>
+                  <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{comp.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── How We Rate ── */}
+      <section className="bg-white border-t border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">How We Rate Mutual Funds</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            {[
+              { num: '2,000+', label: 'Funds tracked', desc: 'Across equity, debt, hybrid, and thematic categories' },
+              { num: '5', label: 'Return periods', desc: '1yr, 3yr, 5yr, 7yr, and 10yr returns compared' },
+              { num: 'Daily', label: 'NAV updates', desc: 'Net Asset Value refreshed every market day' },
+              { num: '₹0', label: 'Paid placements', desc: 'No AMC pays for higher ranking. Editorial is independent.' },
+            ].map((stat) => (
+              <div key={stat.label} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                <p className="text-2xl font-black text-green-600">{stat.num}</p>
+                <p className="text-sm font-semibold text-gray-900 mt-1">{stat.label}</p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">{stat.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-sm text-gray-500 leading-relaxed max-w-2xl">
+            We evaluate funds on returns (1-10yr), expense ratio, Sharpe ratio, fund manager consistency, AUM stability, and category rank.
+            When you invest through our links, we may earn a commission. This never influences ratings.{' '}
+            <Link href="/methodology" className="text-green-600 font-medium hover:text-green-700">Our methodology</Link> ·{' '}
+            <Link href="/how-we-make-money" className="text-green-600 font-medium hover:text-green-700">How we make money</Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ── FAQs ── */}
+      <section className="bg-gray-50 border-t border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Mutual Fund FAQs</h2>
+          <div className="space-y-2">
+            {[
+              { q: 'What is the best mutual fund to invest in India?', a: 'It depends on your goals and risk tolerance. For long-term wealth creation, index funds tracking Nifty 50 have averaged 12% annual returns. For tax saving, ELSS funds offer Section 80C deduction up to ₹1.5L. For stability, debt funds or hybrid funds are better.' },
+              { q: 'Is SIP better than lump sum investment?', a: 'SIP reduces timing risk through rupee cost averaging — you buy more units when prices are low. Lump sum works better in consistently rising markets. For most investors, monthly SIP is the recommended approach as it builds discipline.' },
+              { q: 'How are mutual funds taxed in India?', a: 'Equity funds held >1 year: LTCG above ₹1.25L taxed at 12.5%. Short-term (<1yr): 20%. Debt funds: taxed at your income tax slab rate regardless of holding period. ELSS qualifies for 80C deduction up to ₹1.5L with a 3-year lock-in.' },
+              { q: 'What is expense ratio and why does it matter?', a: 'Expense ratio is the annual fee charged by the fund house for managing your money. A 1% vs 0.1% difference means lakhs over 20 years. Index funds typically have the lowest ratios (0.1-0.5%). Always compare expense ratios within the same category.' },
+              { q: 'How do I choose between direct and regular plans?', a: 'Direct plans have 0.5-1% lower expense ratios (no distributor commission) and deliver higher returns over time. Regular plans include distributor fees. The fund itself is identical — only the fee structure differs. We always recommend direct plans.' },
+              { q: 'What does "risk grade" mean for mutual funds?', a: 'SEBI mandates risk labels: Low, Low to Moderate, Moderate, Moderately High, High, Very High. This is based on the fund\'s portfolio volatility. Equity funds are typically High/Very High. Debt funds range from Low to Moderate. Match your risk grade to your investment horizon.' },
+              { q: 'How does InvestingPro rate mutual funds?', a: 'We evaluate funds on returns across 5 time periods (1yr to 10yr), expense ratio, risk-adjusted performance (Sharpe ratio), fund manager track record, and AUM stability. Ratings update daily with NAV changes. No AMC pays for higher placement.' },
+            ].map((f, i) => (
+              <details key={i} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
+                  {f.q}
+                  <ChevronRight size={16} className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4" />
+                </summary>
+                <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">{f.a}</div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Next steps ── */}
+      <section className="bg-white border-t border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Not sure where to start?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <Link href="/calculators/sip" className="p-5 bg-green-50 border border-green-200 rounded-xl hover:bg-green-100 transition-colors text-center">
+              <p className="text-sm font-semibold text-green-800">Try the SIP Calculator</p>
+              <p className="text-xs text-green-600 mt-1">See how ₹10K/month grows</p>
+            </Link>
+            <Link href="/mutual-funds/compare" className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors text-center">
+              <p className="text-sm font-semibold text-gray-900">Compare Funds Side-by-Side</p>
+              <p className="text-xs text-gray-500 mt-1">Pick 2-3 funds and see the difference</p>
+            </Link>
+            <Link href="/mutual-funds/find-your-fund" className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors text-center">
+              <p className="text-sm font-semibold text-gray-900">Find Your Fund</p>
+              <p className="text-xs text-gray-500 mt-1">Personalized recommendation quiz</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }

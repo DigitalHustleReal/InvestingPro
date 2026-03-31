@@ -29,7 +29,7 @@ export default function CookieConsent() {
         zIndex: 9999,
       }}
       buttonStyle={{
-        background: 'linear-gradient(135deg, #0d9488 0%, #14b8a6 100%)',
+        background: '#166534',
         color: '#ffffff',
         fontSize: '14px',
         fontWeight: '600',
@@ -37,7 +37,7 @@ export default function CookieConsent() {
         padding: '12px 28px',
         border: 'none',
         cursor: 'pointer',
-        boxShadow: '0 4px 6px -1px rgba(13, 148, 136, 0.3)',
+        boxShadow: '0 4px 6px -1px rgba(22, 101, 52, 0.3)',
         transition: 'all 0.2s ease',
       }}
       declineButtonStyle={{
