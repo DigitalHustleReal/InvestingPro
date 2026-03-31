@@ -225,26 +225,24 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                             <button
                                 onClick={() => setViewMode('table')}
                                 aria-pressed={viewMode === 'table'}
-                                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition-all cursor-pointer ${
+                                className={`p-2 rounded-md transition-all cursor-pointer ${
                                     viewMode === 'table'
                                         ? 'bg-green-600 text-white'
                                         : 'text-gray-500 hover:text-gray-900'
                                 }`}
                             >
                                 <TableIcon className="w-4 h-4" />
-                                <span className="hidden sm:inline">Table</span>
                             </button>
                             <button
                                 onClick={() => setViewMode('grid')}
                                 aria-pressed={viewMode === 'grid'}
-                                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition-all cursor-pointer ${
+                                className={`p-2 rounded-md transition-all cursor-pointer ${
                                     viewMode === 'grid'
                                         ? 'bg-green-600 text-white'
                                         : 'text-gray-500 hover:text-gray-900'
                                 }`}
                             >
                                 <LayoutGrid className="w-4 h-4" />
-                                <span className="hidden sm:inline">Cards</span>
                             </button>
                         </div>
                     </div>
@@ -274,18 +272,10 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                         )}
 
                         {hasMore && (
-                            <div className="mt-12 text-center">
-                                <Button
-                                    onClick={() => setVisibleCount(prev => prev + 6)}
-                                    size="lg"
-                                    variant="outline"
-                                    className="bg-white border-gray-200 hover:bg-gray-50 hover:border-green-500 min-w-[240px] rounded-xl"
-                                >
-                                    Show More Cards ({filteredAssets.length - visibleCount} remaining)
-                                </Button>
-                                <p className="text-xs text-gray-500 mt-2">
-                                    Showing {visibleCount} of {filteredAssets.length} cards
-                                </p>
+                            <div className="pt-6 text-center">
+                                <button onClick={() => setVisibleCount(prev => prev + 6)} className="px-5 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:border-green-500 hover:text-green-700 transition-colors cursor-pointer">
+                                    Show more
+                                </button>
                             </div>
                         )}
                     </>

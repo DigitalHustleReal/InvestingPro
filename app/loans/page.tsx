@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ChevronRight, Shield, CalendarDays } from 'lucide-react';
 import { getLoansServer } from '@/lib/products/get-loans-server';
 import LoansClient from './LoansClient';
+import CIBILSimulator from '@/components/tools/CIBILSimulator';
 
 export const revalidate = 3600;
 
@@ -60,11 +61,35 @@ export default async function LoansPage() {
           </div>
         </div>
       </section>
+      {/* Loan type cards — BankBazaar pattern */}
+      <section className="bg-white border-b border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+            {[
+              { label: 'Personal Loan', rate: '10.5% onwards', href: '/loans?type=personal' },
+              { label: 'Home Loan', rate: '8.5% onwards', href: '/loans?type=home' },
+              { label: 'Car Loan', rate: '8.7% onwards', href: '/loans?type=car' },
+              { label: 'Education Loan', rate: '7.5% onwards', href: '/loans?type=education' },
+              { label: 'Gold Loan', rate: '7.0% onwards', href: '/loans?type=gold' },
+              { label: 'Business Loan', rate: '11% onwards', href: '/loans?type=business' },
+            ].map((t) => (
+              <Link key={t.label} href={t.href} className="p-3 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group text-center">
+                <p className="text-xs font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{t.label}</p>
+                <p className="text-[11px] text-green-600 font-medium mt-0.5">{t.rate}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-gray-50 min-h-screen">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8">
           <LoansClient initialLoans={loans} />
         </div>
       </section>
+      {/* ── CIBIL Score Simulator ── */}
+      <CIBILSimulator />
+
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Related Tools</h2>
@@ -80,6 +105,39 @@ export default async function LoansPage() {
       </section>
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Popular Loan Comparisons</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
+            {[
+              { title: 'Personal Loan vs Credit Card Loan', desc: 'Which costs less for short-term borrowing?', href: '/loans/compare/personal-vs-credit-card' },
+              { title: 'SBI vs HDFC Home Loan', desc: 'Rate, processing fee, and prepayment compared', href: '/loans/compare/sbi-vs-hdfc-home' },
+              { title: 'Home Loan Prepayment vs SIP', desc: 'Should you prepay or invest the extra EMI?', href: '/calculators/home-loan-vs-sip' },
+              { title: 'Gold Loan vs Personal Loan', desc: 'Secured vs unsecured — which is cheaper?', href: '/loans/compare/gold-vs-personal' },
+              { title: 'Bank vs NBFC Loans', desc: 'Bajaj, Tata Capital vs SBI, HDFC — pros and cons', href: '/loans/compare/bank-vs-nbfc' },
+              { title: 'Fixed vs Floating Rate', desc: 'When to lock your rate and when to float', href: '/loans/guides/fixed-vs-floating' },
+            ].map((comp) => (
+              <Link key={comp.href} href={comp.href} className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group">
+                <span className="text-[11px] font-bold text-red-600 bg-red-50 px-2 py-1 rounded mt-0.5 flex-shrink-0">VS</span>
+                <div><p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{comp.title}</p><p className="text-xs text-gray-500 mt-0.5">{comp.desc}</p></div>
+              </Link>
+            ))}
+          </div>
+
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">How We Compare Loans</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
+            {[
+              { num: '18', label: 'Data points per loan', desc: 'Rate, fee, tenure, prepayment, eligibility, and more' },
+              { num: '60+', label: 'Lenders tracked', desc: 'Banks, NBFCs, and fintech lenders compared' },
+              { num: 'Daily', label: 'Rate updates', desc: 'Scraped from bank websites and RBI data' },
+              { num: '₹0', label: 'Paid placements', desc: 'No lender pays for higher ranking' },
+            ].map((s) => (
+              <div key={s.label} className="p-4 bg-white rounded-xl border border-gray-100">
+                <p className="text-2xl font-black text-green-600">{s.num}</p>
+                <p className="text-sm font-semibold text-gray-900 mt-1">{s.label}</p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Loan FAQs</h2>
           <div className="space-y-2">
             {[

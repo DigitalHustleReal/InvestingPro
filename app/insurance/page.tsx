@@ -51,7 +51,42 @@ export default function InsurancePage() {
           ))}
         </div>
       </div></section>
+
+      {/* Popular comparisons */}
       <section className="bg-gray-50 border-t border-gray-200"><div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Popular Insurance Comparisons</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
+          {[
+            { title: 'Term vs Whole Life Insurance', desc: 'Pure protection vs savings — what makes sense at your age?', href: '/insurance/compare/term-vs-whole-life' },
+            { title: 'LIC vs HDFC Life Term Plan', desc: 'CSR, premium, and claim speed compared head-to-head', href: '/insurance/compare/lic-vs-hdfc-life' },
+            { title: 'Health Insurance: Star vs ICICI Lombard', desc: 'Network hospitals, room limits, and no-claim bonus', href: '/insurance/compare/star-vs-icici-lombard' },
+            { title: 'Individual vs Family Floater', desc: 'When a family plan saves money — and when it doesn\'t', href: '/insurance/compare/individual-vs-floater' },
+            { title: 'Company Insurance vs Own Policy', desc: 'Why employer cover alone isn\'t enough', href: '/insurance/guides/company-vs-own' },
+            { title: 'ULIPs vs Term + Mutual Fund', desc: 'Insurance + investment combo vs buying separately', href: '/insurance/compare/ulip-vs-term-mf' },
+          ].map((comp) => (
+            <Link key={comp.href} href={comp.href} className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group">
+              <span className="text-[11px] font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded mt-0.5 flex-shrink-0">VS</span>
+              <div><p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{comp.title}</p><p className="text-xs text-gray-500 mt-0.5">{comp.desc}</p></div>
+            </Link>
+          ))}
+        </div>
+
+        <h2 className="text-lg font-bold text-[--v2-ink] mb-5">How We Compare Insurance</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
+          {[
+            { num: '98%+', label: 'CSR threshold', desc: 'We highlight plans with excellent claim settlement ratios' },
+            { num: '20+', label: 'Insurers tracked', desc: 'IRDAI-regulated companies with public claims data' },
+            { num: 'Quarterly', label: 'Data refresh', desc: 'CSR, network hospitals, and premiums updated from IRDAI filings' },
+            { num: '₹0', label: 'Paid placements', desc: 'No insurer pays for higher ranking. CSR and claims data drive all rankings.' },
+          ].map((s) => (
+            <div key={s.label} className="p-4 bg-white rounded-xl border border-gray-100">
+              <p className="text-2xl font-black text-green-600">{s.num}</p>
+              <p className="text-sm font-semibold text-gray-900 mt-1">{s.label}</p>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+
         <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Insurance FAQs</h2>
         <div className="space-y-2">
           {[

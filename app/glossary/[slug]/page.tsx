@@ -5,6 +5,7 @@ import { api } from '@/lib/api';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";
 import Link from 'next/link';
+import SEOHead from '@/components/common/SEOHead';
 import { 
     BookOpen, 
     Share2, 
@@ -121,12 +122,52 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
         );
     }
 
+    const seoTitle =
+        termData.seo_title ||
+        `${termData.term} Meaning, Definition & Examples`;
+    const seoDescription =
+        termData.seo_description ||
+        termData.definition.slice(0, 155);
+
+    const structuredData = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'DefinedTerm',
+            'name': termData.term,
+            'description': termData.definition,
+            'inDefinedTermSet': 'https://investingpro.in/glossary',
+            'url': `https://investingpro.in/glossary/${slug}`,
+            'category': termData.category,
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': [
+                {
+                    '@type': 'Question',
+                    'name': `Why is ${termData.term} important?`,
+                    'acceptedAnswer': {
+                        '@type': 'Answer',
+                        'text':
+                            termData.why_it_matters?.split('\n')[0] ||
+                            `Understanding ${termData.term} helps you make better ${termData.category.replace(/-/g, ' ')} decisions.`,
+                    },
+                },
+            ],
+        },
+    ];
+
     const keyTakeaways = termData.why_it_matters 
         ? termData.why_it_matters.split('\n').filter(line => line.trim()).slice(0, 4)
         : [];
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+            <SEOHead
+                title={seoTitle}
+                description={seoDescription}
+                structuredData={structuredData}
+            />
             {/* Breadcrumbs */}
             <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
