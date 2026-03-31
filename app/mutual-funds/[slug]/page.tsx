@@ -247,16 +247,16 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-green-800 to-green-900 text-white">
+      <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-[13px] text-white/40">
-              <li><Link href="/" className="hover:text-white/70 transition-colors">Home</Link></li>
-              <li className="text-white/30">/</li>
-              <li><Link href="/mutual-funds" className="hover:text-white/70 transition-colors">Mutual Funds</Link></li>
-              <li className="text-white/30">/</li>
-              <li className="text-white/70">{fund.name}</li>
+            <ol className="flex items-center gap-1.5 text-[13px] text-gray-400">
+              <li><Link href="/" className="hover:text-gray-700 transition-colors">Home</Link></li>
+              <li className="text-gray-300">/</li>
+              <li><Link href="/mutual-funds" className="hover:text-gray-700 transition-colors">Mutual Funds</Link></li>
+              <li className="text-gray-300">/</li>
+              <li className="text-gray-700">{fund.name}</li>
             </ol>
           </nav>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -266,23 +266,23 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
                 <PieChart className="w-5 h-5" />
                 <span className="text-sm font-semibold uppercase">{fund.amc}</span>
               </div>
-              <h1 className="text-4xl font-bold mb-4">{fund.name}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{fund.name}</h1>
                
                {/* Pre-Launch Critical: Affiliate Disclosure above the fold */}
                <div className="mb-6">
-                 <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="bg-white/10 border-white/20 text-white rounded-lg p-3 max-w-fit" />
+                 <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="bg-gray-50 border-gray-200 text-gray-700 rounded-lg p-3 max-w-fit" />
                </div>
 
                <p className="text-lg text-green-600 mb-4">{fund.description}</p>
               
               {/* Category & Rating */}
               <div className="flex flex-wrap items-center gap-4 mb-6">
-                <div className="bg-green-600/50 px-4 py-2 rounded-lg">
+                <div className="bg-green-50 px-4 py-2 rounded-lg">
                   <span className="text-sm text-green-600">Category: </span>
                   <span className="font-semibold">{fund.subCategory}</span>
                 </div>
                 <div className="flex items-center gap-2 bg-amber-500 px-4 py-2 rounded-lg">
-                  <Star className="w-5 h-5 fill-white text-white" />
+                  <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
                   <span className="font-bold">{fund.rating}/5</span>
                 </div>
                 <div className={`px-4 py-2 rounded-lg border ${getRiskColor(fund.riskLevel)}`}>
@@ -293,9 +293,9 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
               {/* Returns */}
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {Object.entries(fund.returns).map(([period, value]) => (
-                  <div key={period} className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+                  <div key={period} className="bg-gray-50 rounded-lg p-3 text-center">
                     <p className="text-sm text-green-600 mb-1">{period === 'sinceInception' ? 'Since Inception' : period}</p>
-                    <p className={`text-2xl font-bold ${value >= 15 ? 'text-green-600' : 'text-white'}`}>
+                    <p className={`text-2xl font-bold ${value >= 15 ? 'text-green-600' : 'text-gray-900'}`}>
                       {value}%
                     </p>
                   </div>
@@ -305,7 +305,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
             
             {/* Right: Invest Card */}
             <div className="lg:col-span-1">
-              <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+              <Card className="bg-gray-50 border border-gray-200">
                 <CardContent className="p-6">
                   <div className="mb-4">
                     <p className="text-sm text-green-600">Current NAV</p>
@@ -454,7 +454,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
             
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-green-600 bg-green-600/30">
+              <Card className="border-green-600 bg-green-50">
                 <CardHeader>
                   <CardTitle className="text-green-600 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
@@ -553,7 +553,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
 
             {/* Invest CTA (Sticky) */}
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-green-700 to-green-700 text-white">
+              <Card className="bg-white border-b border-gray-200">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Start Investing</h3>
                   <p className="text-sm text-green-600 mb-4">SIP from ₹{fund.sipMinInvestment}/month</p>
@@ -709,7 +709,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
       </div>
 
       {/* Bottom CTA */}
-      <div className="bg-green-800 text-white py-12">
+      <div className="bg-gray-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Start Your Investment Journey with {fund.name}</h2>
           <p className="text-green-600 mb-8">Build wealth systematically through SIP or invest lumpsum</p>

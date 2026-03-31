@@ -127,13 +127,13 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-green-800 to-green-900 text-white">
+      <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-green-600/20 text-green-600 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                <span className="bg-green-50 text-green-600 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                   <InsuranceIcon className="w-4 h-4" />
                   {insurance.insuranceType}
                 </span>
@@ -149,7 +149,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
               <p className="text-lg text-green-600 mb-8 max-w-2xl">{insurance.description}</p>
               
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 rounded-xl p-4">
                 <div>
                   <p className="text-sm text-green-600">Cover Amount</p>
                   <p className="text-xl font-bold">{insurance.coverAmount}</p>
@@ -171,7 +171,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
             
             {/* Right: Apply Card */}
             <div className="lg:col-span-1">
-              <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+              <Card className="bg-gray-50 border border-gray-200">
                 <CardContent className="p-6">
                   <p className="text-sm text-green-600 mb-4">Get covered in minutes</p>
                   <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
@@ -300,7 +300,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
           {/* Right Column - Sidebar */}
           <div className="space-y-6">
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-purple-600 to-violet-600 text-white">
+              <Card className="bg-gradient-to-br from-green-600 to-green-700 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Protect Your Family</h3>
                   <p className="text-sm text-green-600 mb-4">Get instant quotes now</p>
@@ -378,7 +378,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
       </div>
 
       {/* Bottom CTA */}
-      <div className="bg-gray-100 text-white py-12">
+      <div className="bg-gray-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Secure Your Future with {insurance.name}</h2>
           <p className="text-gray-500 mb-8">Get comprehensive coverage at the best rates!</p>

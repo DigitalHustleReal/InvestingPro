@@ -106,7 +106,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-amber-800 to-orange-700 text-white">
+      <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
@@ -128,7 +128,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
               <p className="text-lg text-amber-100 mb-8 max-w-2xl">{scheme.description}</p>
               
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 rounded-xl p-4">
                 <div>
                   <p className="text-sm text-amber-200">Interest Rate</p>
                   <p className="text-xl font-bold">{scheme.interestRate}</p>
@@ -150,7 +150,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
             
             {/* Right: Apply Card */}
             <div className="lg:col-span-1">
-              <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+              <Card className="bg-gray-50 border border-gray-200">
                 <CardContent className="p-6">
                   <p className="text-sm text-amber-200 mb-4">Start your tax-saving journey</p>
                   <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
@@ -285,7 +285,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
           {/* Right Column - Sidebar */}
           <div className="space-y-6">
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-amber-600 to-orange-600 text-white">
+              <Card className="bg-gradient-to-br from-green-600 to-green-700 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Save Tax Today</h3>
                   <p className="text-sm text-amber-100 mb-4">Up to ₹46,800 tax savings</p>
@@ -363,7 +363,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
       </div>
 
       {/* Bottom CTA */}
-      <div className="bg-gray-100 text-white py-12">
+      <div className="bg-gray-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Start Your {scheme.name} Today</h2>
           <p className="text-gray-500 mb-8">Build wealth while saving taxes!</p>

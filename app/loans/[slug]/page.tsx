@@ -172,7 +172,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-green-800 to-green-900 text-white">
+      <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Loan Info */}
@@ -181,14 +181,14 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
                 <IndianRupee className="w-5 h-5" />
                 <span className="text-sm font-semibold uppercase">{loan.provider} • {loan.loanType}</span>
               </div>
-              <h1 className="text-4xl font-bold mb-4">{loan.name}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{loan.name}</h1>
               <p className="text-lg text-green-600 mb-6">{loan.description}</p>
               <AuthorByline className="text-green-600 border-green-100/20 mb-6" />
               
               {/* Rating */}
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex items-center gap-2 bg-amber-500 px-4 py-2 rounded-lg">
-                  <Star className="w-5 h-5 fill-white text-white" />
+                  <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
                   <span className="font-bold text-lg">{loan.rating}/5</span>
                 </div>
                 <span className="text-green-600">Trusted by 10 Lakh+ Customers</span>
@@ -217,7 +217,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
             
             {/* Right: Apply Card */}
             <div className="lg:col-span-1">
-              <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+              <Card className="bg-gray-50 border border-gray-200">
                 <CardContent className="p-6">
                   <p className="text-sm text-green-600 mb-4">Get instant approval</p>
                   <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
@@ -225,7 +225,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
                       Apply Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <div className="bg-green-600/30 border border-green-500/50 rounded-lg p-3 text-center">
+                  <div className="bg-green-50 border border-green-500/50 rounded-lg p-3 text-center">
                     <Clock className="w-5 h-5 mx-auto mb-1 text-green-600" />
                     <p className="text-sm text-green-600 font-semibold">Disbursal in 48 hours</p>
                   </div>
@@ -324,7 +324,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
             
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-green-200 bg-green-600/30">
+              <Card className="border-green-200 bg-green-50">
                 <CardHeader>
                   <CardTitle className="text-green-600 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
@@ -504,7 +504,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
       </div>
 
       {/* Bottom CTA */}
-      <div className="bg-green-600 text-white py-12">
+      <div className="bg-gray-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Apply for {loan.name} in Minutes</h2>
           <p className="text-green-600 mb-8">100% digital process • Quick approval • Instant disbursal</p>
