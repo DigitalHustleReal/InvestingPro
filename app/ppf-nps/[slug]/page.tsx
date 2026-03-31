@@ -104,7 +104,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
   }
   
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-amber-800 to-orange-700 text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -341,6 +341,27 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
         </div>
       </div>
       
+
+      {/* FAQ */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <h2 className="text-lg font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+        <div className="space-y-2">
+          {[
+            { q: 'What is the current PPF interest rate?', a: 'PPF rate is 7.1% per annum (Q1 FY2026-27), compounded annually. The rate is reviewed every quarter by the Ministry of Finance.' },
+            { q: 'Can I withdraw from PPF before 15 years?', a: 'Partial withdrawal is allowed from year 7 (up to 50% of balance at end of year 4). Premature closure is only allowed after 5 years for medical emergencies or higher education.' },
+            { q: 'Is NPS better than PPF?', a: 'NPS offers higher potential returns (10-12% in equity) with additional ₹50K 80CCD(1B) deduction. PPF gives guaranteed 7.1% with fully tax-free maturity (EEE). NPS is better for higher returns; PPF for guaranteed safety.' },
+            { q: 'What is the maximum investment in PPF per year?', a: '₹1.5L per financial year. Minimum is ₹500/year. Deposits can be made in up to 12 installments per year.' },
+            { q: 'Can I have a PPF account and NPS account both?', a: 'Yes. Both accounts can be held simultaneously. Combined 80C deduction is ₹1.5L, but NPS gives additional ₹50K under 80CCD(1B) — total ₹2L tax benefit.' },
+            { q: 'What happens to PPF at maturity?', a: 'After 15 years, you can either withdraw the full amount (tax-free) or extend in blocks of 5 years with or without further contributions. The extension earns the prevailing interest rate.' },
+          ].map((f, i) => (
+            <details key={i} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">{f.q}<span className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4">›</span></summary>
+              <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">{f.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+
       {/* Bottom CTA */}
       <div className="bg-gray-100 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">

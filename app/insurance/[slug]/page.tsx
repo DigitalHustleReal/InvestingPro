@@ -125,9 +125,9 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
   const InsuranceIcon = getInsuranceIcon();
   
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-purple-900 to-violet-800 text-white">
+      <div className="bg-gradient-to-br from-green-800 to-green-900 text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
@@ -356,6 +356,27 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
         </div>
       </div>
       
+
+      {/* FAQ */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <h2 className="text-lg font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+        <div className="space-y-2">
+          {[
+            { q: 'What is claim settlement ratio and why does it matter?', a: 'CSR is the percentage of claims an insurer pays out of total claims received. Higher CSR (>95%) means the insurer is reliable. We track this data for every insurer.' },
+            { q: 'How much health insurance cover do I need?', a: 'Minimum ₹10L for individuals, ₹25L+ for families in metros. Medical inflation runs at 14% annually — what costs ₹5L today will cost ₹20L in 10 years.' },
+            { q: 'What is the waiting period for pre-existing conditions?', a: 'Most health insurance plans have a 2-4 year waiting period for pre-existing conditions. Some plans offer lower waiting periods at higher premiums.' },
+            { q: 'Is the premium tax deductible?', a: 'Yes. Health insurance premiums qualify for deduction under Section 80D — up to ₹25,000 for self (₹50,000 for senior citizens), plus ₹25,000-₹50,000 for parents.' },
+            { q: 'Can I switch my insurance provider?', a: 'Yes, health insurance is portable from the 2nd year. Your waiting periods carry over to the new insurer. File portability request 45 days before renewal.' },
+            { q: 'What documents are needed to file a claim?', a: 'Typically: hospital bills, discharge summary, doctor prescriptions, policy copy, ID proof. Cashless claims need pre-authorization from the TPA/insurer.' },
+          ].map((f, i) => (
+            <details key={i} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">{f.q}<span className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4">›</span></summary>
+              <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">{f.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+
       {/* Bottom CTA */}
       <div className="bg-gray-100 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">

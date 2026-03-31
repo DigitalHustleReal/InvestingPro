@@ -236,11 +236,29 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
     notFound()
   }
   
+  // SIP calculator helper
+  const calcSIP = (monthly: number, rate: number, years: number) => {
+    const r = rate / 12 / 100;
+    const n = years * 12;
+    if (r === 0) return monthly * n;
+    return Math.round(monthly * ((Math.pow(1 + r, n) - 1) / r) * (1 + r));
+  };
+
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-green-700 to-green-700 text-white">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="bg-gradient-to-br from-green-800 to-green-900 text-white">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          {/* Breadcrumbs */}
+          <nav aria-label="Breadcrumb" className="mb-5">
+            <ol className="flex items-center gap-1.5 text-[13px] text-white/40">
+              <li><Link href="/" className="hover:text-white/70 transition-colors">Home</Link></li>
+              <li className="text-white/30">/</li>
+              <li><Link href="/mutual-funds" className="hover:text-white/70 transition-colors">Mutual Funds</Link></li>
+              <li className="text-white/30">/</li>
+              <li className="text-white/70">{fund.name}</li>
+            </ol>
+          </nav>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left: Fund Info */}
             <div className="lg:col-span-2">
@@ -589,8 +607,109 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
         </div>
       </div>
       
+      {/* Returns vs Benchmark */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <Card>
+          <CardHeader><CardTitle className="flex items-center gap-2"><TrendingUp className="w-5 h-5 text-green-600" /> Returns vs Benchmark ({fund.benchmarkName})</CardTitle></CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead><tr className="border-b border-gray-100">
+                  <th className="text-left py-3 px-4 text-gray-500 font-medium">Period</th>
+                  <th className="text-right py-3 px-4 text-gray-500 font-medium">{fund.name}</th>
+                  <th className="text-right py-3 px-4 text-gray-500 font-medium">{fund.benchmarkName}</th>
+                  <th className="text-right py-3 px-4 text-gray-500 font-medium">Difference</th>
+                </tr></thead>
+                <tbody>
+                  {(['1Y', '3Y', '5Y'] as const).map((period) => {
+                    const fundReturn = fund.returns[period];
+                    const benchReturn = fund.benchmarkReturns[period];
+                    const diff = fundReturn - benchReturn;
+                    return (
+                      <tr key={period} className="border-b border-gray-50">
+                        <td className="py-3 px-4 font-medium text-gray-900">{period}</td>
+                        <td className={`py-3 px-4 text-right font-bold tabular-nums ${fundReturn >= 0 ? 'text-green-600' : 'text-red-500'}`}>{fundReturn}%</td>
+                        <td className="py-3 px-4 text-right text-gray-600 tabular-nums">{benchReturn}%</td>
+                        <td className={`py-3 px-4 text-right font-semibold tabular-nums ${diff >= 0 ? 'text-green-600' : 'text-red-500'}`}>{diff >= 0 ? '+' : ''}{diff.toFixed(1)}%</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* SIP Projection */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <Card className="bg-green-50 border-green-200">
+          <CardHeader><CardTitle className="flex items-center gap-2 text-green-800"><IndianRupee className="w-5 h-5" /> SIP Projection</CardTitle></CardHeader>
+          <CardContent>
+            <p className="text-sm text-gray-600 mb-4">If you invested monthly via SIP in this fund (based on {fund.returns['3Y']}% 3-year returns):</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: '₹5,000/mo for 5yr', value: calcSIP(5000, fund.returns['3Y'], 5) },
+                { label: '₹10,000/mo for 10yr', value: calcSIP(10000, fund.returns['3Y'], 10) },
+                { label: '₹15,000/mo for 15yr', value: calcSIP(15000, fund.returns['3Y'], 15) },
+                { label: '₹25,000/mo for 20yr', value: calcSIP(25000, fund.returns['3Y'], 20) },
+              ].map((proj) => (
+                <div key={proj.label} className="bg-white rounded-xl p-4 border border-green-100 text-center">
+                  <p className="text-xs text-gray-500 mb-1">{proj.label}</p>
+                  <p className="text-xl font-black text-green-700 tabular-nums">₹{(proj.value / 100000).toFixed(1)}L</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[11px] text-gray-400 mt-3">Projections based on past 3Y returns. Actual returns may vary. Past performance is not indicative of future results.</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* How to Invest */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <Card>
+          <CardHeader><CardTitle>How to Invest in {fund.name}</CardTitle></CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+              {[
+                { step: '1', title: 'Complete KYC', desc: 'PAN + Aadhaar verification (one-time, 2 min)' },
+                { step: '2', title: 'Choose Plan', desc: 'Direct plan recommended (lower expense ratio)' },
+                { step: '3', title: 'Set SIP Amount', desc: `Minimum ₹${fund.sipMinInvestment}/month` },
+                { step: '4', title: 'Start Investing', desc: 'Auto-debit from bank account every month' },
+              ].map((s) => (
+                <div key={s.step} className="text-center">
+                  <div className="w-8 h-8 rounded-full bg-green-600 text-white font-bold text-sm flex items-center justify-center mx-auto mb-2">{s.step}</div>
+                  <p className="text-sm font-semibold text-gray-900">{s.title}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* FAQ */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <h2 className="text-lg font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+        <div className="space-y-2">
+          {[
+            { q: `Is ${fund.name} a good investment?`, a: `${fund.name} has delivered ${fund.returns['3Y']}% returns over 3 years with a ${fund.riskLevel} risk profile. It's rated ${fund.rating}/5. Whether it's good for you depends on your investment horizon (we recommend 5+ years for equity funds) and risk tolerance.` },
+            { q: `What is the minimum SIP amount for ${fund.name}?`, a: `The minimum SIP amount is ₹${fund.sipMinInvestment}/month. For lumpsum investment, the minimum is ₹${fund.minInvestment.toLocaleString()}.` },
+            { q: `What is the expense ratio of ${fund.name}?`, a: `The expense ratio is ${fund.expenseRatio}%. This is the annual fee charged by ${fund.amc} for managing the fund. We recommend comparing with similar funds in the ${fund.category} category.` },
+            { q: 'Should I choose Direct or Regular plan?', a: 'Direct plans have 0.5-1% lower expense ratios (no distributor commission). Over 10+ years, this difference compounds to lakhs. We always recommend Direct plans for informed investors.' },
+            { q: `Can I withdraw from ${fund.name} anytime?`, a: `Yes, you can redeem your investment anytime. Exit load: ${fund.exitLoad}. Redemption amount is typically credited within 1-3 business days.` },
+            { q: 'How are returns taxed?', a: fund.taxBenefits || 'Equity funds: LTCG above ₹1.25L taxed at 12.5% (held >1yr). Short-term (<1yr): 20%. Debt funds: taxed at slab rate.' },
+          ].map((f, i) => (
+            <details key={i} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">{f.q}<span className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4">›</span></summary>
+              <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">{f.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+
       {/* Bottom CTA */}
-      <div className="bg-green-600 text-white py-12">
+      <div className="bg-green-800 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Start Your Investment Journey with {fund.name}</h2>
           <p className="text-green-600 mb-8">Build wealth systematically through SIP or invest lumpsum</p>

@@ -100,7 +100,7 @@ export default async function FixedDepositDetailPage({ params }: { params: Promi
   }
   
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-green-600 to-green-600 text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -327,6 +327,27 @@ export default async function FixedDepositDetailPage({ params }: { params: Promi
         </div>
       </div>
       
+
+      {/* FAQ */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <h2 className="text-lg font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+        <div className="space-y-2">
+          {[
+            { q: 'Is FD interest taxable?', a: 'Yes. FD interest is added to your taxable income. TDS of 10% is deducted if interest exceeds ₹40,000/year (₹50,000 for seniors). Submit Form 15G/15H to avoid TDS if income is below taxable limit.' },
+            { q: 'What happens if I break my FD early?', a: 'Most banks charge a penalty of 0.5-1% on the applicable rate. The interest is recalculated at the rate applicable for the actual period held, minus the penalty.' },
+            { q: 'Are FDs safe? What if the bank fails?', a: 'Bank FDs up to ₹5L per depositor per bank are insured by DICGC (a subsidiary of RBI). Corporate FDs are not covered by DICGC — check the credit rating before investing.' },
+            { q: 'What is the difference between cumulative and non-cumulative FD?', a: 'Cumulative FDs pay interest at maturity (compounding). Non-cumulative FDs pay interest monthly/quarterly/annually. Cumulative gives higher effective returns.' },
+            { q: 'Can NRIs open FDs in India?', a: 'Yes. NRIs can open NRE FDs (tax-free, repatriable) or NRO FDs (taxable in India). Interest rates and terms may differ from resident FDs.' },
+            { q: 'What is a tax-saving FD?', a: 'A 5-year FD that qualifies for Section 80C deduction up to ₹1.5L/year. It has a 5-year lock-in — premature withdrawal is not allowed.' },
+          ].map((f, i) => (
+            <details key={i} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">{f.q}<span className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4">›</span></summary>
+              <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">{f.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+
       {/* Bottom CTA */}
       <div className="bg-gray-100 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
