@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import {
   CreditCard, TrendingUp, Landmark, Shield, Calculator,
-  Briefcase, Receipt, Wallet, ChevronDown, ChevronRight,
+  Building2, BarChart3, ChevronDown, ChevronRight,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import MegaMenu from './MegaMenu';
@@ -29,17 +29,15 @@ const MOBILE_SECTIONS: MobileSection[] = [
       { label: 'Cashback Cards', href: '/credit-cards?filter=cashback' },
       { label: 'Travel Cards', href: '/credit-cards?filter=travel' },
       { label: 'Compare Cards', href: '/credit-cards/compare' },
-      { label: 'Find Your Card', href: '/credit-cards/find-your-card' },
     ],
   },
   {
-    label: 'Investing', icon: TrendingUp, href: '/investing',
+    label: 'Banking', icon: Building2, href: '/banking',
     sub: [
-      { label: 'Mutual Funds', href: '/mutual-funds' },
+      { label: 'Savings Accounts', href: '/banking?type=savings' },
       { label: 'Fixed Deposits', href: '/fixed-deposits' },
-      { label: 'PPF & NPS', href: '/ppf-nps' },
-      { label: 'Demat Accounts', href: '/demat-accounts' },
-      { label: 'Stocks & IPOs', href: '/stocks' },
+      { label: 'Recurring Deposits', href: '/banking?type=rd' },
+      { label: 'FD Calculator', href: '/calculators/fd' },
     ],
   },
   {
@@ -53,6 +51,15 @@ const MOBILE_SECTIONS: MobileSection[] = [
     ],
   },
   {
+    label: 'Investing', icon: TrendingUp, href: '/investing',
+    sub: [
+      { label: 'Mutual Funds', href: '/mutual-funds' },
+      { label: 'PPF & NPS', href: '/ppf-nps' },
+      { label: 'Stocks & IPOs', href: '/stocks' },
+      { label: 'SIP Calculator', href: '/calculators/sip' },
+    ],
+  },
+  {
     label: 'Insurance', icon: Shield, href: '/insurance',
     sub: [
       { label: 'Term Insurance', href: '/insurance?type=term' },
@@ -62,18 +69,13 @@ const MOBILE_SECTIONS: MobileSection[] = [
     ],
   },
   {
-    label: 'Calculators', icon: Calculator, href: '/calculators',
+    label: 'Demat Accounts', icon: BarChart3, href: '/demat-accounts',
     sub: [
-      { label: 'SIP Calculator', href: '/calculators/sip' },
-      { label: 'EMI Calculator', href: '/calculators/emi' },
-      { label: 'FD Calculator', href: '/calculators/fd' },
-      { label: 'Tax Calculator', href: '/calculators/tax' },
-      { label: 'All 25 Calculators', href: '/calculators' },
+      { label: 'Best Demat Accounts', href: '/demat-accounts' },
+      { label: 'Discount Brokers', href: '/demat-accounts?type=discount' },
+      { label: 'Compare Brokers', href: '/demat-accounts/compare' },
     ],
   },
-  { label: 'Small Business', icon: Briefcase, href: '/small-business' },
-  { label: 'Taxes', icon: Receipt, href: '/taxes' },
-  { label: 'Personal Finance', icon: Wallet, href: '/personal-finance' },
 ];
 
 /* ─── Navbar ─── */
@@ -199,11 +201,11 @@ export default function Navbar() {
 
             {/* Bottom actions */}
             <div className="mt-4 pt-4 border-t border-gray-200 space-y-2 px-1">
+              <Link href="/calculators" onClick={() => setMobileOpen(false)} className="block px-3 py-3 text-[15px] font-medium text-gray-700 hover:bg-gray-50 rounded-lg">
+                All Calculators
+              </Link>
               <Link href="/compare" onClick={() => setMobileOpen(false)} className="block px-3 py-3 text-[15px] font-medium text-gray-700 hover:bg-gray-50 rounded-lg">
                 Compare Products
-              </Link>
-              <Link href="/methodology" onClick={() => setMobileOpen(false)} className="block px-3 py-3 text-[15px] font-medium text-green-700 hover:bg-green-50 rounded-lg">
-                How We Rate Products
               </Link>
             </div>
           </div>

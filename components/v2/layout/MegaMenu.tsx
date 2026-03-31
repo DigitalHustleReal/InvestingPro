@@ -64,6 +64,7 @@ function Badge({ type }: { type: 'popular' | 'trending' | 'new' }) {
 /* ─── Menu data ─── */
 
 const MENU: MenuCategory[] = [
+  // 1. Credit Cards — highest search + revenue
   {
     label: 'Credit Cards',
     href: '/credit-cards',
@@ -103,45 +104,47 @@ const MENU: MenuCategory[] = [
       },
     ],
   },
+  // 2. Banking — user journey stage 1 (everyone needs a bank)
   {
-    label: 'Investing',
-    href: '/investing',
-    icon: TrendingUp,
+    label: 'Banking',
+    href: '/banking',
+    icon: Building2,
     color: 'text-blue-600',
     colorBg: 'bg-blue-50',
-    desc: 'Mutual funds, FDs, PPF, demat — all compared independently',
+    desc: 'Savings accounts, FDs, RDs — best rates from top banks',
     featured: {
-      label: 'SIP Calculator',
-      href: '/calculators/sip',
-      desc: 'See how ₹10K/month grows with inflation-adjusted projections.',
-      stat: '2,000+',
-      statLabel: 'funds tracked',
+      label: 'FD Calculator',
+      href: '/calculators/fd',
+      desc: 'Calculate maturity amount for any FD tenure and rate.',
+      stat: '50+',
+      statLabel: 'banks compared',
     },
     columns: [
       {
-        heading: 'Products',
-        icon: TrendingUp,
+        heading: 'Bank Products',
+        icon: Building2,
         links: [
-          { label: 'Mutual Funds', href: '/mutual-funds', icon: TrendingUp, badge: 'popular' },
-          { label: 'Fixed Deposits', href: '/fixed-deposits', icon: PiggyBank },
-          { label: 'PPF & NPS', href: '/ppf-nps', icon: Building2 },
-          { label: 'Demat Accounts', href: '/demat-accounts', icon: BarChart3 },
-          { label: 'Stocks & IPOs', href: '/stocks', badge: 'trending' },
+          { label: 'Savings Accounts', href: '/banking?type=savings', badge: 'popular' },
+          { label: 'Fixed Deposits', href: '/fixed-deposits', icon: PiggyBank, badge: 'popular' },
+          { label: 'Recurring Deposits', href: '/banking?type=rd' },
+          { label: 'Current Accounts', href: '/banking?type=current' },
+          { label: 'Senior Citizen FDs', href: '/fixed-deposits?filter=senior' },
+          { label: 'Tax-Saving FDs', href: '/fixed-deposits?filter=tax-saving' },
         ],
       },
       {
-        heading: 'Calculators',
+        heading: 'Tools & Compare',
         icon: Calculator,
         links: [
-          { label: 'SIP Calculator', href: '/calculators/sip', badge: 'popular' },
-          { label: 'FD Calculator', href: '/calculators/fd' },
-          { label: 'PPF Calculator', href: '/calculators/ppf' },
-          { label: 'Retirement Planner', href: '/calculators/retirement' },
-          { label: 'Compare Funds', href: '/mutual-funds/compare' },
+          { label: 'FD Calculator', href: '/calculators/fd', badge: 'popular' },
+          { label: 'RD Calculator', href: '/calculators/rd' },
+          { label: 'Compare FD Rates', href: '/fixed-deposits/compare' },
+          { label: 'Banking Guide', href: '/banking/guides' },
         ],
       },
     ],
   },
+  // 3. Loans — high revenue + search
   {
     label: 'Loans',
     href: '/loans',
@@ -176,11 +179,52 @@ const MENU: MenuCategory[] = [
           { label: 'EMI Calculator', href: '/calculators/emi', badge: 'popular' },
           { label: 'Eligibility Checker', href: '/loans/eligibility-checker', badge: 'new' },
           { label: 'Home Loan vs SIP', href: '/calculators/home-loan-vs-sip' },
-          { label: 'Loan Comparison', href: '/loans/compare' },
+          { label: 'CIBIL Score Simulator', href: '/loans#cibil-simulator' },
         ],
       },
     ],
   },
+  // 4. Investing — wealth building (MFs, PPF, Stocks)
+  {
+    label: 'Investing',
+    href: '/investing',
+    icon: TrendingUp,
+    color: 'text-green-600',
+    colorBg: 'bg-green-50',
+    desc: 'Mutual funds, PPF, NPS, stocks — build wealth independently',
+    featured: {
+      label: 'SIP Calculator',
+      href: '/calculators/sip',
+      desc: 'See how ₹10K/month grows with inflation-adjusted projections.',
+      stat: '2,000+',
+      statLabel: 'funds tracked',
+    },
+    columns: [
+      {
+        heading: 'Investment Products',
+        icon: TrendingUp,
+        links: [
+          { label: 'Mutual Funds', href: '/mutual-funds', icon: TrendingUp, badge: 'popular' },
+          { label: 'PPF & NPS', href: '/ppf-nps', icon: Building2 },
+          { label: 'ELSS Tax Saving', href: '/mutual-funds?type=elss' },
+          { label: 'Stocks & IPOs', href: '/stocks', badge: 'trending' },
+          { label: 'Index Funds', href: '/mutual-funds?type=index' },
+        ],
+      },
+      {
+        heading: 'Tools & Compare',
+        icon: Calculator,
+        links: [
+          { label: 'SIP Calculator', href: '/calculators/sip', badge: 'popular' },
+          { label: 'PPF Calculator', href: '/calculators/ppf' },
+          { label: 'Retirement Planner', href: '/calculators/retirement' },
+          { label: 'Compare Funds', href: '/mutual-funds/compare' },
+          { label: 'Overlap Checker', href: '/mutual-funds/overlap-checker', badge: 'new' },
+        ],
+      },
+    ],
+  },
+  // 5. Insurance — protection
   {
     label: 'Insurance',
     href: '/insurance',
@@ -213,58 +257,51 @@ const MENU: MenuCategory[] = [
         links: [
           { label: 'Coverage Calculator', href: '/calculators/insurance' },
           { label: 'Compare Plans', href: '/insurance/compare' },
-          { label: 'Insurance Guide', href: '/insurance/guides' },
           { label: 'Claim Settlement Data', href: '/insurance/claims', badge: 'new' },
+          { label: 'Insurance Guide', href: '/insurance/guides' },
         ],
       },
     ],
   },
+  // 6. Demat Accounts — high commission, active trading
   {
-    label: 'Tools',
-    href: '/calculators',
-    icon: Calculator,
-    color: 'text-green-600',
-    colorBg: 'bg-green-50',
-    desc: '25 free financial calculators — no sign-up needed',
+    label: 'Demat Accounts',
+    href: '/demat-accounts',
+    icon: BarChart3,
+    color: 'text-purple-600',
+    colorBg: 'bg-purple-50',
+    desc: 'Compare brokers — brokerage, platforms, charges',
     featured: {
-      label: 'Tax Calculator',
-      href: '/calculators/tax',
-      desc: 'Old vs New regime. Updated for Budget 2026.',
-      stat: '25',
-      statLabel: 'free calculators',
+      label: 'Open Demat Account',
+      href: '/demat-accounts',
+      desc: 'Compare discount and full-service brokers. Zero brokerage on delivery.',
+      stat: '15+',
+      statLabel: 'brokers compared',
     },
     columns: [
       {
-        heading: 'Popular Calculators',
-        icon: Flame,
+        heading: 'Broker Types',
+        icon: BarChart3,
         links: [
-          { label: 'SIP Calculator', href: '/calculators/sip', badge: 'popular' },
-          { label: 'EMI Calculator', href: '/calculators/emi', badge: 'popular' },
-          { label: 'FD Calculator', href: '/calculators/fd' },
-          { label: 'Tax Calculator', href: '/calculators/tax', badge: 'trending' },
-          { label: 'PPF Calculator', href: '/calculators/ppf' },
-          { label: 'NPS Calculator', href: '/calculators/nps' },
+          { label: 'Best Demat Accounts', href: '/demat-accounts', badge: 'popular' },
+          { label: 'Discount Brokers', href: '/demat-accounts?type=discount', badge: 'trending' },
+          { label: 'Full Service Brokers', href: '/demat-accounts?type=full-service' },
+          { label: 'Zero Brokerage', href: '/demat-accounts?type=zero-brokerage' },
+          { label: 'Best for Beginners', href: '/demat-accounts?type=beginners' },
         ],
       },
       {
-        heading: 'Planning Tools',
-        icon: Sparkles,
+        heading: 'Tools & Compare',
+        icon: Calculator,
         links: [
-          { label: 'Retirement Planner', href: '/calculators/retirement' },
-          { label: 'Goal Planning', href: '/calculators/goal-planning' },
-          { label: 'Portfolio Rebalancer', href: '/calculators/portfolio-rebalancing' },
-          { label: 'Compare Products', href: '/compare' },
-          { label: 'All 25 Calculators →', href: '/calculators' },
+          { label: 'Brokerage Calculator', href: '/calculators/brokerage' },
+          { label: 'Compare Brokers', href: '/demat-accounts/compare' },
+          { label: 'IPO Calendar', href: '/stocks/ipo' },
+          { label: 'Demat Guide', href: '/demat-accounts/guide' },
         ],
       },
     ],
   },
-];
-
-const MORE_LINKS: { label: string; href: string; icon: LucideIcon; desc: string }[] = [
-  { label: 'Small Business', href: '/small-business', icon: Briefcase, desc: 'Loans, cards, GST for MSMEs' },
-  { label: 'Taxes', href: '/taxes', icon: Receipt, desc: 'Income tax, GST, TDS guides' },
-  { label: 'Personal Finance', href: '/personal-finance', icon: Wallet, desc: 'Budgeting, debt, retirement' },
 ];
 
 /* ─── Component ─── */
@@ -290,8 +327,9 @@ export default function MegaMenu() {
   }, []);
 
   const isActive = (href: string) => {
-    if (href === '/calculators') return pathname?.startsWith('/calculators') || pathname?.startsWith('/compare');
-    if (href === '/investing') return ['/mutual-funds', '/fixed-deposits', '/ppf-nps', '/demat-accounts', '/stocks', '/investing'].some(p => pathname?.startsWith(p));
+    if (href === '/banking') return ['/banking', '/fixed-deposits'].some(p => pathname?.startsWith(p));
+    if (href === '/investing') return ['/mutual-funds', '/ppf-nps', '/stocks', '/investing'].some(p => pathname?.startsWith(p));
+    if (href === '/demat-accounts') return pathname?.startsWith('/demat-accounts');
     return pathname?.startsWith(href);
   };
 
@@ -326,48 +364,7 @@ export default function MegaMenu() {
         </div>
       ))}
 
-      {/* More trigger */}
-      <div
-        onMouseEnter={() => openMenu(MENU.length)}
-        onMouseLeave={closeMenu}
-        className="relative"
-      >
-        <button
-          aria-expanded={openIndex === MENU.length}
-          className="px-3 py-2.5 text-[13px] font-medium rounded-md text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
-        >
-          More
-        </button>
-        {openIndex === MENU.length && (
-          <div
-            className="absolute top-full right-0 pt-2 z-50"
-            onMouseEnter={keepOpen}
-            onMouseLeave={closeMenu}
-          >
-            <div className="w-[260px] bg-white border border-gray-200 rounded-xl shadow-xl shadow-black/[.08] py-2">
-              {MORE_LINKS.map((link) => {
-                const MIcon = link.icon;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpenIndex(null)}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors group"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-gray-50 group-hover:bg-green-50 flex items-center justify-center flex-shrink-0 transition-colors">
-                      <MIcon size={15} className="text-gray-400 group-hover:text-green-600 transition-colors" />
-                    </div>
-                    <div>
-                      <p className="text-[13px] font-medium text-gray-800">{link.label}</p>
-                      <p className="text-[11px] text-gray-400">{link.desc}</p>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
+      {/* "More" removed — Small Business, Taxes, Personal Finance accessible via footer + search */}
 
       {/* ─── Scrim overlay ─── */}
       {showPanel && (
