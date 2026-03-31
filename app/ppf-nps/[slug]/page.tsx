@@ -104,10 +104,10 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
   }
   
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 min-h-screen">
+    <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-amber-800 to-orange-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
             <div className="lg:col-span-2">
@@ -154,7 +154,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
                 <CardContent className="p-6">
                   <p className="text-sm text-amber-200 mb-4">Start your tax-saving journey</p>
                   <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
+                    <Button className="w-full bg-green-600 hover:bg-green-600 text-white font-semibold py-6 text-lg mb-3">
                       Open Account <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
@@ -170,14 +170,14 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
             {/* Tax Benefits */}
-            <Card className="border-success-200 dark:border-success-800">
-              <CardHeader className="bg-success-50 dark:bg-success-900/20">
-                <CardTitle className="flex items-center gap-2 text-success-700 dark:text-success-400">
+            <Card className="border-success-200">
+              <CardHeader className="bg-green-100">
+                <CardTitle className="flex items-center gap-2 text-green-600">
                   <Calculator className="w-5 h-5" />
                   Tax Benefits
                 </CardTitle>
@@ -186,8 +186,8 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
                 <ul className="space-y-3">
                   {scheme.taxBenefits.map((benefit, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-success-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-slate-700 dark:text-slate-300">{benefit}</span>
+                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-600">{benefit}</span>
                     </li>
                   ))}
                 </ul>
@@ -198,7 +198,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-primary-600" />
+                  <TrendingUp className="w-5 h-5 text-green-600" />
                   Key Features
                 </CardTitle>
               </CardHeader>
@@ -206,8 +206,8 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
                 <ul className="space-y-3">
                   {scheme.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-slate-700 dark:text-slate-300">{feature}</span>
+                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-600">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -218,22 +218,22 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Wallet className="w-5 h-5 text-primary-600" />
+                  <Wallet className="w-5 h-5 text-green-600" />
                   Investment Details
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
-                    <p className="text-sm text-slate-500 mb-1">Minimum</p>
+                  <div className="bg-gray-100 p-4 rounded-lg">
+                    <p className="text-sm text-gray-500 mb-1">Minimum</p>
                     <p className="font-bold text-lg">{scheme.minInvestment}</p>
                   </div>
-                  <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
-                    <p className="text-sm text-slate-500 mb-1">Maximum</p>
+                  <div className="bg-gray-100 p-4 rounded-lg">
+                    <p className="text-sm text-gray-500 mb-1">Maximum</p>
                     <p className="font-bold text-lg">{scheme.maxInvestment}</p>
                   </div>
-                  <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
-                    <p className="text-sm text-slate-500 mb-1">Lock-in Period</p>
+                  <div className="bg-gray-100 p-4 rounded-lg">
+                    <p className="text-sm text-gray-500 mb-1">Lock-in Period</p>
                     <p className="font-bold text-lg">{scheme.lockInPeriod}</p>
                   </div>
                 </div>
@@ -242,9 +242,9 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-success-200 dark:border-success-800">
-                <CardHeader className="bg-success-50 dark:bg-success-900/20">
-                  <CardTitle className="text-success-700 dark:text-success-400 flex items-center gap-2">
+              <Card className="border-success-200">
+                <CardHeader className="bg-green-100">
+                  <CardTitle className="text-green-600 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
                   </CardTitle>
@@ -253,7 +253,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
                   <ul className="space-y-2">
                     {scheme.pros.map((pro, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <CheckCircle2 className="w-4 h-4 text-success-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
                         <span>{pro}</span>
                       </li>
                     ))}
@@ -261,9 +261,9 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
                 </CardContent>
               </Card>
               
-              <Card className="border-danger-200 dark:border-danger-800">
-                <CardHeader className="bg-danger-50 dark:bg-danger-900/20">
-                  <CardTitle className="text-danger-700 dark:text-danger-400 flex items-center gap-2">
+              <Card className="border-danger-200">
+                <CardHeader className="bg-red-100">
+                  <CardTitle className="text-red-600 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -272,7 +272,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
                   <ul className="space-y-2">
                     {scheme.cons.map((con, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <XCircle className="w-4 h-4 text-danger-500 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
                         <span>{con}</span>
                       </li>
                     ))}
@@ -301,21 +301,21 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
               <Card className="mt-6">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-primary-600" />
+                    <ShieldCheck className="w-5 h-5 text-green-600" />
                     Eligibility
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm space-y-3">
                   <div>
-                    <p className="text-slate-500">Age Requirement</p>
+                    <p className="text-gray-500">Age Requirement</p>
                     <p className="font-semibold">{scheme.eligibility.minAge} - {scheme.eligibility.maxAge} years</p>
                   </div>
                   <div className="pt-3 border-t">
                     <p className="font-medium mb-2">Required Documents:</p>
                     <ul className="space-y-1.5">
                       {scheme.eligibility.requiredDocuments.map((doc, index) => (
-                        <li key={index} className="text-slate-600 dark:text-slate-400 text-xs flex items-start gap-2">
-                          <CheckCircle2 className="w-3 h-3 text-primary-500 flex-shrink-0 mt-0.5" />
+                        <li key={index} className="text-gray-600 text-xs flex items-start gap-2">
+                          <CheckCircle2 className="w-3 h-3 text-green-600 flex-shrink-0 mt-0.5" />
                           {doc}
                         </li>
                       ))}
@@ -325,11 +325,11 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
               </Card>
               
               {/* Government Notice */}
-              <Card className="mt-6 bg-secondary-50 dark:bg-secondary-900/20 border-secondary-200 dark:border-secondary-800">
+              <Card className="mt-6 bg-blue-100 border-secondary-200">
                 <CardContent className="p-4">
                   <div className="flex gap-3">
-                    <ShieldCheck className="w-5 h-5 text-secondary-600 flex-shrink-0" />
-                    <div className="text-xs text-secondary-800 dark:text-secondary-200">
+                    <ShieldCheck className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                    <div className="text-xs text-blue-600">
                       <p className="font-semibold mb-1">Government Backed</p>
                       <p>This is a sovereign scheme backed by Government of India. Your investment is 100% safe.</p>
                     </div>
@@ -342,12 +342,12 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
       </div>
       
       {/* Bottom CTA */}
-      <div className="bg-slate-900 text-white py-12">
+      <div className="bg-gray-100 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Start Your {scheme.name} Today</h2>
-          <p className="text-slate-300 mb-8">Build wealth while saving taxes!</p>
+          <p className="text-gray-500 mb-8">Build wealth while saving taxes!</p>
           <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-green-600 hover:bg-green-600 text-white font-semibold px-12 py-6 text-lg">
               Open Account <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>
