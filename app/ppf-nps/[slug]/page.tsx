@@ -175,7 +175,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
             {/* Tax Benefits */}
-            <Card className="border-success-200">
+            <Card className="border-green-600">
               <CardHeader className="bg-green-100">
                 <CardTitle className="flex items-center gap-2 text-green-600">
                   <Calculator className="w-5 h-5" />
@@ -242,7 +242,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-success-200">
+              <Card className="border-green-600">
                 <CardHeader className="bg-green-100">
                   <CardTitle className="text-green-600 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
@@ -261,7 +261,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
                 </CardContent>
               </Card>
               
-              <Card className="border-danger-200">
+              <Card className="border-red-200">
                 <CardHeader className="bg-red-100">
                   <CardTitle className="text-red-600 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
@@ -325,7 +325,7 @@ export default async function PPFNPSDetailPage({ params }: { params: Promise<{ s
               </Card>
               
               {/* Government Notice */}
-              <Card className="mt-6 bg-blue-100 border-secondary-200">
+              <Card className="mt-6 bg-blue-100 border-blue-600">
                 <CardContent className="p-4">
                   <div className="flex gap-3">
                     <ShieldCheck className="w-5 h-5 text-blue-600 flex-shrink-0" />

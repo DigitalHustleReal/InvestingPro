@@ -102,7 +102,7 @@ export default async function FixedDepositDetailPage({ params }: { params: Promi
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-success-900 to-primary-800 text-white">
+      <div className="bg-gradient-to-br from-green-600 to-green-600 text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
@@ -228,7 +228,7 @@ export default async function FixedDepositDetailPage({ params }: { params: Promi
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-success-200">
+              <Card className="border-green-600">
                 <CardHeader className="bg-green-100">
                   <CardTitle className="text-green-600 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
@@ -247,7 +247,7 @@ export default async function FixedDepositDetailPage({ params }: { params: Promi
                 </CardContent>
               </Card>
               
-              <Card className="border-danger-200">
+              <Card className="border-red-200">
                 <CardHeader className="bg-red-100">
                   <CardTitle className="text-red-600 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
@@ -271,7 +271,7 @@ export default async function FixedDepositDetailPage({ params }: { params: Promi
           {/* Right Column - Sidebar */}
           <div className="space-y-6">
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-success-600 to-primary-600 text-white">
+              <Card className="bg-gradient-to-br from-green-600 to-green-600 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Start Earning Today</h3>
                   <p className="text-sm text-green-600 mb-4">Guaranteed returns with zero risk</p>
@@ -311,7 +311,7 @@ export default async function FixedDepositDetailPage({ params }: { params: Promi
               </Card>
               
               {/* Safety Notice */}
-              <Card className="mt-6 bg-blue-100 border-secondary-200">
+              <Card className="mt-6 bg-blue-100 border-blue-600">
                 <CardContent className="p-4">
                   <div className="flex gap-3">
                     <ShieldCheck className="w-5 h-5 text-blue-600 flex-shrink-0" />

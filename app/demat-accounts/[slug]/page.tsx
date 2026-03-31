@@ -104,7 +104,7 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-secondary-900 to-secondary-800 text-white">
+      <div className="bg-gradient-to-br from-blue-600 to-blue-600 text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
@@ -243,7 +243,7 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-success-200">
+              <Card className="border-green-600">
                 <CardHeader className="bg-green-100">
                   <CardTitle className="text-green-600 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
@@ -262,7 +262,7 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
                 </CardContent>
               </Card>
               
-              <Card className="border-danger-200">
+              <Card className="border-red-200">
                 <CardHeader className="bg-red-100">
                   <CardTitle className="text-red-600 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
@@ -287,7 +287,7 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
           <div className="space-y-6">
             {/* Sticky CTA */}
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-secondary-600 to-secondary-700 text-white">
+              <Card className="bg-gradient-to-br from-blue-600 to-blue-600 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Ready to Start Trading?</h3>
                   <p className="text-sm text-blue-600 mb-4">Open your account in minutes</p>

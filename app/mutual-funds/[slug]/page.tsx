@@ -213,10 +213,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const getRiskColor = (risk: string) => {
   switch (risk) {
-    case 'low': return 'bg-green-100 text-green-600 border-success-200'
-    case 'moderate': return 'bg-amber-100 text-amber-600 border-accent-200'
-    case 'high': return 'bg-amber-100 text-amber-600 border-accent-200'
-    case 'very_high': return 'bg-red-100 text-red-600 border-danger-200'
+    case 'low': return 'bg-green-100 text-green-600 border-green-600'
+    case 'moderate': return 'bg-amber-100 text-amber-600 border-amber-600'
+    case 'high': return 'bg-amber-100 text-amber-600 border-amber-600'
+    case 'very_high': return 'bg-red-100 text-red-600 border-red-200'
     default: return 'bg-gray-100 text-gray-700 border-gray-200'
   }
 }
@@ -239,7 +239,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-indigo-900 to-indigo-800 text-white">
+      <div className="bg-gradient-to-br from-green-700 to-green-700 text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left: Fund Info */}
@@ -436,7 +436,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
             
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-primary-200 bg-green-600/30">
+              <Card className="border-green-600 bg-green-600/30">
                 <CardHeader>
                   <CardTitle className="text-green-600 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
@@ -455,7 +455,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
                 </CardContent>
               </Card>
               
-              <Card className="border-danger-200 bg-red-100/30">
+              <Card className="border-red-200 bg-red-100/30">
                 <CardHeader>
                   <CardTitle className="text-red-600 flex items-center gap-6 md:p-8">
                     <XCircle className="w-5 h-5" />
@@ -535,7 +535,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
 
             {/* Invest CTA (Sticky) */}
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white">
+              <Card className="bg-gradient-to-br from-green-700 to-green-700 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Start Investing</h3>
                   <p className="text-sm text-green-600 mb-4">SIP from ₹{fund.sipMinInvestment}/month</p>
@@ -572,7 +572,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
               
               {/* Tax Benefits */}
               {fund.taxBenefits && (
-                <Card className="bg-blue-100 border-secondary-200">
+                <Card className="bg-blue-100 border-blue-600">
                   <CardHeader>
                     <CardTitle className="text-base text-blue-600">Tax Information</CardTitle>
                   </CardHeader>

@@ -257,7 +257,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-success-200">
+              <Card className="border-green-600">
                 <CardHeader className="bg-green-100">
                   <CardTitle className="text-green-600 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
@@ -276,7 +276,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
                 </CardContent>
               </Card>
               
-              <Card className="border-danger-200">
+              <Card className="border-red-200">
                 <CardHeader className="bg-red-100">
                   <CardTitle className="text-red-600 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />

@@ -172,7 +172,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-success-900 to-success-800 text-white">
+      <div className="bg-gradient-to-br from-green-800 to-green-900 text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Loan Info */}
@@ -183,7 +183,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
               </div>
               <h1 className="text-4xl font-bold mb-4">{loan.name}</h1>
               <p className="text-lg text-green-600 mb-6">{loan.description}</p>
-              <AuthorByline className="text-green-600 border-primary-100/20 mb-6" />
+              <AuthorByline className="text-green-600 border-green-100/20 mb-6" />
               
               {/* Rating */}
               <div className="flex items-center gap-4 mb-6">
@@ -225,7 +225,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
                       Apply Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <div className="bg-green-600/30 border border-primary-500/50 rounded-lg p-3 text-center">
+                  <div className="bg-green-600/30 border border-green-500/50 rounded-lg p-3 text-center">
                     <Clock className="w-5 h-5 mx-auto mb-1 text-green-600" />
                     <p className="text-sm text-green-600 font-semibold">Disbursal in 48 hours</p>
                   </div>
@@ -242,7 +242,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
           {/* Left Column: Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* EMI Calculator Example */}
-            <Card className="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white">
+            <Card className="bg-gradient-to-br from-green-700 to-green-800 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8 text-white">
                   <Calculator className="w-6 h-6" />
@@ -265,7 +265,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
                   </div>
                   <div>
                     <p className="text-sm text-green-600">Monthly EMI</p>
-                    <p className="text-2xl font-bold text-amber-600">₹{loan.emiExample.emi.toLocaleString()}</p>
+                    <p className="text-2xl font-bold text-green-400">₹{loan.emiExample.emi.toLocaleString()}</p>
                   </div>
                 </div>
                 <div className="bg-white/10 rounded-lg p-3">
@@ -315,7 +315,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
                 
                 {loan.specialOffers && (
                   <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-4">
-                    <p className="text-sm font-semibold text-amber-900 mb-1">🎁 Special Offer</p>
+                    <p className="text-sm font-semibold text-amber-800 mb-1">Special Offer</p>
                     <p className="text-sm text-amber-800">{loan.specialOffers}</p>
                   </div>
                 )}
@@ -324,7 +324,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
             
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-primary-200 bg-green-600/30">
+              <Card className="border-green-200 bg-green-600/30">
                 <CardHeader>
                   <CardTitle className="text-green-600 flex items-center gap-6 md:p-8">
                     <CheckCircle2 className="w-5 h-5" />
@@ -343,7 +343,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
                 </CardContent>
               </Card>
               
-              <Card className="border-danger-200 bg-red-100/30">
+              <Card className="border-red-200 bg-red-100/30">
                 <CardHeader>
                   <CardTitle className="text-red-600 flex items-center gap-6 md:p-8">
                     <XCircle className="w-5 h-5" />
@@ -418,7 +418,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
 
             {/* Apply CTA (Sticky) */}
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-success-600 to-success-700 text-white">
+              <Card className="bg-gradient-to-br from-green-600 to-green-700 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Get Instant Loan</h3>
                   <p className="text-sm text-green-600 mb-4">Approval in 10 seconds</p>
@@ -478,7 +478,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ slu
               </Card>
               
               {/* Important Notice */}
-              <Card className="bg-red-100 border-danger-200">
+              <Card className="bg-red-100 border-red-200">
                 <CardContent className="p-6 md:p-8">
                   <div className="flex gap-3">
                     <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
