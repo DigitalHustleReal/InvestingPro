@@ -1,413 +1,90 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import {
-    Search,
-    LayoutGrid,
-    Table as TableIcon,
-    ChevronDown
-} from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Search, LayoutGrid, List, ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import Link from 'next/link';
 import { RichProductCard } from "@/components/products/RichProductCard";
 import { RichProduct } from "@/types/rich-product";
-import { LoanFilterSidebar, LoanFilterState } from "@/components/loans/FilterSidebar";
-import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
-import { LoansTable } from "@/components/loans/LoansTable";
-import { EMICalculatorEnhanced } from '@/components/calculators/EMICalculatorEnhanced';
-import UniversalSidebar from '@/components/common/UniversalSidebar';
-import MobileEngagementBar from '@/components/common/MobileEngagementBar';
-import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
-import { InlineEligibilityWidget } from '@/components/loans/InlineEligibilityWidget';
-import CategoryHero from '@/components/common/CategoryHero';
-import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
-import {
-    Wallet,
-    Home,
-    Car,
-    CheckCircle2,
-    ArrowRight,
-    Calculator
-} from "lucide-react";
-import Link from 'next/link';
+import { LoanFilterSidebar as FilterSidebar, LoanFilterState } from '@/components/loans/FilterSidebar';
+import { ResponsiveFilterContainer } from '@/components/products/ResponsiveFilterContainer';
 
 interface LoansClientProps {
     initialLoans: RichProduct[];
 }
 
 export default function LoansClient({ initialLoans }: LoansClientProps) {
-    // Calculator State
-    const [amount, setAmount] = useState(500000);
-    const [tenure, setTenure] = useState(3); // Years
-    const [rate, setRate] = useState(10.5);
-    const [emi, setEmi] = useState(0);
-    
-    // Product State
     const [assets] = useState<RichProduct[]>(initialLoans);
     const [searchTerm, setSearchTerm] = useState("");
+    const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
+    const [visibleCount, setVisibleCount] = useState(6);
 
-    // Filter State
     const [filters, setFilters] = useState<LoanFilterState>({
         maxRate: 15,
         maxProcessingFee: 2,
         loanTypes: [],
-        banks: []
+        banks: [],
     });
 
-    const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
-    
-    // View Mode State
-    const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
-    
-    // Pagination State
-    const [visibleCount, setVisibleCount] = useState(12);
-    const LOAD_INCREMENT = 12;
-
-    useEffect(() => {
-        // EMI Calculation: P * r * (1+r)^n / ((1+r)^n - 1)
-        const r = rate / 12 / 100;
-        const n = tenure * 12;
-        const e = amount * r * (Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1));
-        setEmi(Math.round(e));
-    }, [amount, tenure, rate]);
-
-    const handleCompareToggle = (id: string) => {
-        setSelectedForCompare(prev => 
-            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-        );
-    };
-
-    const formatRupee = (num: number) => {
-        return new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR',
-            maximumFractionDigits: 0
-        }).format(num);
-    };
-
-    // Filter Logic
-    const filteredAssets = assets.filter(asset => {
+    const filteredAssets = assets.filter((asset) => {
         const name = (asset.name || "").toLowerCase();
         const provider = (asset.provider_name || "").toLowerCase();
         const searchMatch = name.includes(searchTerm.toLowerCase()) || provider.includes(searchTerm.toLowerCase());
-        
-        // Bank Filter
-        const bankMatch = filters.banks.length === 0 || 
-            filters.banks.some(b => provider.includes(b.toLowerCase()) || name.includes(b.toLowerCase()));
-
-        // Type Filter (metadata.type or from features)
-        const type = (asset.specs?.type || 'Personal Loan').toLowerCase();
-        const typeMatch = filters.loanTypes.length === 0 ||
-            filters.loanTypes.some(t => type.includes(t.toLowerCase()));
-
+        const bankMatch = filters.banks.length === 0 || filters.banks.some((b) => provider.includes(b.toLowerCase()));
+        const type = (asset.specs?.type || '').toLowerCase();
+        const typeMatch = filters.loanTypes.length === 0 || filters.loanTypes.some((t) => type.includes(t.toLowerCase()));
         return searchMatch && bankMatch && typeMatch;
     });
 
-    // Reset visible count when filters change
-    useEffect(() => {
-        setVisibleCount(LOAD_INCREMENT);
-    }, [searchTerm, filters]);
+    useEffect(() => { setVisibleCount(6); }, [searchTerm, filters]);
 
-    // Pagination Logic
     const visibleAssets = filteredAssets.slice(0, visibleCount);
     const hasMore = visibleCount < filteredAssets.length;
-
-    // Count active filters for mobile badge
-    const activeFiltersCount = 
-        (filters.loanTypes.length > 0 ? 1 : 0) + 
-        (filters.banks.length > 0 ? 1 : 0) +
-        (filters.maxRate < 15 ? 1 : 0);
+    const activeFiltersCount = (filters.loanTypes.length > 0 ? 1 : 0) + (filters.banks.length > 0 ? 1 : 0) + (filters.maxRate < 15 ? 1 : 0);
 
     return (
-        <>
-            <div className="bg-slate-50 dark:bg-slate-950 pt-16 pb-8">
-                <div className="container mx-auto px-4">
-                    <AutoBreadcrumbs />
-                    
-                    {/* Hero Section */}
-                    <div className="mt-4 mb-8">
-                        <CategoryHero
-                            title="Compare Best Loans in India"
-                            subtitle="Lowest Interest Rates. Instant Approval."
-                            description="Compare 30+ lenders for Personal, Home, and Car loans. Get digital approval in 5 minutes with lowest interest rates starting from 8.50%."
-                            primaryCta={{
-                                text: "Compare Loans",
-                                href: "#compare"
-                            }}
-                            secondaryCta={{
-                                text: "Calculate EMI",
-                                href: "#emi-calculator"
-                            }}
-                            stats={[
-                                { label: "Lenders", value: "30+" },
-                                { label: "Starting ROI", value: "8.50%" },
-                                { label: "Disbursal", value: "24hrs" }
-                            ]}
-                            badge="Lowest Interest Rates • Instant Approval • Digital Process"
-                            variant="primary"
-                            className="w-full"
-                        />
-                    </div>
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
+            <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
+                <FilterSidebar filters={filters} setFilters={setFilters} />
+            </ResponsiveFilterContainer>
 
-                    {/* Integrated Search Bar */}
-                    <div className="max-w-3xl mx-auto relative group z-20">
-                        <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                            <Search className="h-5 w-5 text-stone-400 group-focus-within:text-primary-600 transition-colors" />
+            <div className="flex-1 w-full space-y-4">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div className="relative flex-1 max-w-sm">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Input placeholder="Search loans..." className="pl-10 h-11 bg-white border-gray-200 rounded-lg text-sm" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} aria-label="Search loans" />
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-1">
+                            <button onClick={() => setViewMode('grid')} aria-pressed={viewMode === 'grid'} className={`p-2 rounded-md transition-all cursor-pointer ${viewMode === 'grid' ? 'bg-green-600 text-white' : 'text-gray-500 hover:text-gray-900'}`}><LayoutGrid className="w-4 h-4" /></button>
+                            <button onClick={() => setViewMode('table')} aria-pressed={viewMode === 'table'} className={`p-2 rounded-md transition-all cursor-pointer ${viewMode === 'table' ? 'bg-green-600 text-white' : 'text-gray-500 hover:text-gray-900'}`}><List className="w-4 h-4" /></button>
                         </div>
-                        <Input
-                            placeholder="Search lenders (e.g. 'HDFC', 'SBI Home Loan')..."
-                            className="w-full h-14 pl-14 pr-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-600 focus:border-primary-500 shadow-lg"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            aria-label="Search loans by lender name"
-                        />
                     </div>
                 </div>
-            </div>
 
-            {/* --- MAIN CONTENT SCRENER --- */}
-            <div id="compare" className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 mt-12 relative z-20 pb-20">
-                <div className="flex flex-col lg:flex-row gap-8 items-start">
-                    
-                    {/* Filter Sidebar */}
-                    <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
-                         <LoanFilterSidebar filters={filters} setFilters={setFilters} />
-                         
-                         {/* Marketing Widgets in Sidebar (Desktop only - Mobile uses MobileEngagementBar) */}
-                         <div className="mt-8 space-y-6">
-                            {/* Simple Sidebar EMI Calculator */}
-                            <Card className="hidden lg:block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden">
-                                <div className="h-1.5 w-full bg-gradient-to-r from-success-400 via-primary-500 to-secondary-500" />
-                                <CardContent className="p-6">
-                                    <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                                        <Calculator className="w-4 h-4 text-primary-500" />
-                                        Quick EMI
-                                    </h3>
-                                    
-                                    <div className="space-y-4 mb-6">
-                                        <div>
-                                            <div className="flex justify-between text-xs font-semibold text-slate-500 mb-2">
-                                                <span>Amount</span>
-                                                <span className="text-slate-900 dark:text-white">{formatRupee(amount)}</span>
-                                            </div>
-                                            <input type="range" min="50000" max="5000000" step="10000" value={amount} onChange={(e) => setAmount(Number(e.target.value))} className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-success-500" />
-                                        </div>
-                                        <div>
-                                            <div className="flex justify-between text-xs font-semibold text-slate-500 mb-2">
-                                                <span>Tenure</span>
-                                                <span className="text-slate-900 dark:text-white">{tenure} Yrs</span>
-                                            </div>
-                                            <input type="range" min="1" max="30" step="1" value={tenure} onChange={(e) => setTenure(Number(e.target.value))} className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-secondary-500" />
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 text-center">
-                                        <div className="text-[10px] uppercase font-bold text-slate-500 mb-1">Monthly Approx EMI</div>
-                                        <div className="text-2xl font-black text-slate-900 dark:text-white">{formatRupee(emi)}</div>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                <p className="text-sm text-gray-500">Showing <span className="font-semibold text-gray-900">{visibleAssets.length}</span> of <span className="font-semibold text-gray-900">{filteredAssets.length}</span> loans</p>
 
-                            {/* Documents Checklist Widget */}
-                            <Card className="hidden lg:block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem]">
-                                <CardContent className="p-6">
-                                    <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Required Documents</h3>
-                                    <ul className="space-y-3">
-                                        {['PAN Card', 'Aadhaar Card', 'Last 3 Months Salary Slips', '6 Months Bank Statement'].map((doc, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                                <div className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
-                                                    <span className="text-xs font-bold text-slate-500">{i+1}</span>
-                                                </div>
-                                                {doc}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </CardContent>
-                            </Card>
-
-                            {/* Universal Sidebar with lazy-loaded widgets */}
-                            <UniversalSidebar category="loans" />
-                         </div>
-                    </ResponsiveFilterContainer>
-
-                    {/* Results Grid */}
-                    <div className="flex-1">
-                        
-                        {/* Status Bar with View Toggle */}
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                                Top Loan Offers <span className="text-slate-600 font-medium text-sm ml-2">({filteredAssets.length})</span>
-                            </h2>
-                            
-                            {/* View Toggle */}
-                            <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-1">
-                                <button
-                                    onClick={() => setViewMode('table')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
-                                        viewMode === 'table'
-                                            ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                                    }`}
-                                    aria-label="Switch to table view"
-                                >
-                                    <TableIcon className="w-4 h-4" />
-                                    <span className="hidden sm:inline">Table</span>
-                                </button>
-                                <button
-                                    onClick={() => setViewMode('grid')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
-                                        viewMode === 'grid'
-                                            ? 'bg-primary-600 text-white'
-                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                                    }`}
-                                    aria-label="Switch to grid view"
-                                >
-                                    <LayoutGrid className="w-4 h-4" />
-                                    <span className="hidden sm:inline">Cards</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {filteredAssets.length === 0 ? (
-                            <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
-                                <Search className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                                <p className="text-slate-500 font-medium">No loans match your filters.</p>
-                            </div>
-                        ) : (
-                            <>
-                                {viewMode === 'table' ? (
-                                    <LoansTable loans={visibleAssets} />
-                                ) : (
-                                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                                        {visibleAssets.map((product) => (
-                                            <RichProductCard key={product.id} product={product} onCompare={handleCompareToggle} />
-                                        ))}
-                                    </div>
-                                )}
-                                
-                                {/* Load More Button */}
-                                {hasMore && (
-                                    <div className="relative z-50 py-12 flex justify-center w-full">
-                                        <Button
-                                            onClick={() => setVisibleCount(prev => prev + LOAD_INCREMENT)}
-                                            variant="outline"
-                                            className="min-w-[200px] h-12 rounded-full border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold gap-2 shadow-sm hover:shadow-md transition-all"
-                                        >
-                                            Show More Loans
-                                            <ChevronDown className="w-4 h-4" />
-                                        </Button>
-                                    </div>
-                                )}
-                            </>
-                        )}
+                {filteredAssets.length === 0 ? (
+                    <div className="py-16 text-center bg-white rounded-xl border border-gray-200">
+                        <p className="text-gray-500 font-medium">No loans match your filters.</p>
                     </div>
-                </div>
-            </div>
-
-            {/* --- EMI CALCULATOR SECTION --- */}
-            <div className="container mx-auto px-4 pb-16 pt-8">
-                <div className="text-center mb-8">
-                    <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-200">Advanced EMI Tool</Badge>
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                        Complete EMI Calculator with Amortization
-                    </h2>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                        Calculate your loan EMI with detailed month-by-month and year-by-year payment breakdown
-                    </p>
-                </div>
-                <EMICalculatorEnhanced />
-            </div>
-
-            {/* --- EDUCATIONAL CONTENT HUB --- */}
-            <div className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    
-                    {/* Section Header */}
-                    <div className="text-center mb-16">
-                        <Badge className="mb-4 bg-primary-50 text-primary-700 border-primary-100">Loan Knowledge Base</Badge>
-                        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Everything You Need to Know About Loans</h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            Don't just sign the papers. Understand the fine print, interest calculations, and hidden charges.
-                        </p>
-                    </div>
-
-                    {/* 1. Types of Loans Grid */}
-                    <div className="grid md:grid-cols-3 gap-8 mb-24">
-                        {[
-                            { title: "Personal Loans", desc: "Unsecured loans for any purpose. Higher interest rates (10-18%). Best for emergencies or consolidation.", icon: Wallet },
-                            { title: "Home Loans", desc: "Secured against property. Lowest rates (8.5-9.5%). Tax benefits under Sec 24(b) and 80C.", icon: Home },
-                            { title: "Car Loans", desc: "Hypothecated to the bank until repaid. Fixed or floating rates. Tenure up to 7 years.", icon: Car }
-                        ].map((item, i) => (
-                            <div key={i} className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
-                                <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                                    <item.icon className="w-6 h-6 text-primary-600" />
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
-                            </div>
+                ) : (
+                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                        {visibleAssets.map((product) => (
+                            <RichProductCard key={product.id} product={product} />
                         ))}
                     </div>
+                )}
 
-                    {/* 2. Visual Guide Placeholder (Canva) */}
-                    <div className="bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-500 dark:to-secondary-500 rounded-[3rem] overflow-hidden relative mb-24 text-white shadow-2xl shadow-primary-500/20">
-                        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
-                        <div className="flex flex-col md:flex-row items-center">
-                            <div className="p-12 md:p-20 md:w-1/2 relative z-10">
-                                <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">Step-by-Step Guide</Badge>
-                                <h3 className="text-4xl font-bold mb-6">How to Get Approved Instantly</h3>
-                                <ul className="space-y-4 mb-8">
-                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Check your CIBIL Score (750+ is ideal)</li>
-                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Keep Salary Slips & Bank Statements ready</li>
-                                    <li className="flex items-center gap-3"><CheckCircle2 className="text-white/90" /> Compare ROI across top 3 lenders</li>
-                                </ul>
-                                <Button className="bg-white hover:bg-secondary-50 text-primary-600 font-bold h-12 px-8 rounded-xl shadow-lg transition-all">
-                                    Check My CIBIL Score
-                                </Button>
-                            </div>
-                            <div className="md:w-1/2 bg-white/10 backdrop-blur-sm h-[400px] md:h-full flex items-center justify-center border-l border-white/20 border-dashed">
-                                {/* PLACEHOLDER FOR CANVA IMAGE */}
-                                <div className="text-center p-8">
-                                    <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-white/40">
-                                        <span className="text-xs text-white/60 font-mono">IMAGE</span>
-                                    </div>
-                                    <p className="text-white/60 font-mono text-sm">Use Content Injection<br/>"Loan Approval Process Infographic"</p>
-                                </div>
-                            </div>
-                        </div>
+                {hasMore && (
+                    <div className="pt-6 text-center">
+                        <Button onClick={() => setVisibleCount((p) => p + 6)} variant="outline" className="bg-white border-gray-200 hover:border-green-500 rounded-xl min-w-[200px]">
+                            Show More ({filteredAssets.length - visibleCount} remaining)
+                        </Button>
                     </div>
-
-                    {/* 3. FAQ Accordion (Simplified) */}
-                    <div className="max-w-3xl mx-auto">
-                        <h3 className="text-2xl font-bold text-center mb-10 text-slate-900 dark:text-white">Frequently Asked Questions</h3>
-                        <div className="space-y-4">
-                            {[
-                                { q: "What is the minimum credit score for a personal loan?", a: "Most banks require a CIBIL score of 750+. However, some fintech lenders offer loans to scores as low as 650 with higher interest rates." },
-                                { q: "Is interest rate negotiable?", a: "Yes. If you have a high credit score and a stable income, you can negotiate with the relationship manager for a 0.25-0.5% reduction." },
-                                { q: "What are foreclosure charges?", a: "Fees charged if you repay the loan before the tenure ends. Typically 2-4% of the outstanding principal. Choose lenders with zero foreclosure charges." }
-                            ].map((faq, i) => (
-                                <details key={i} className="group bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 cursor-pointer">
-                                    <summary className="font-bold text-slate-900 dark:text-white flex justify-between items-center list-none">
-                                        {faq.q}
-                                        <ArrowRight className="w-4 h-4 text-slate-600 group-open:rotate-90 transition-transform" />
-                                    </summary>
-                                    <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed pl-0">{faq.a}</p>
-                                </details>
-                            ))}
-                        </div>
-                    </div>
-
-                </div>
+                )}
             </div>
-
-            {/* Compliance Disclaimer */}
-            <div className="container mx-auto px-4 pb-8">
-                <ComplianceDisclaimer variant="compact" />
-            </div>
-
-            {/* Mobile Engagement Bar - Shows contextual widgets on mobile */}
-            <MobileEngagementBar category="loans" />
-        </>
+        </div>
     );
 }
