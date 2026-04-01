@@ -72,3 +72,9 @@ coverage/
 # Screenshots (don't commit to repo)
 /*.jpeg
 /*.png
+
+# Claude Code worktrees
+.claude/worktrees/
+
+# Playwright MCP screenshots
+.playwright-mcp/
