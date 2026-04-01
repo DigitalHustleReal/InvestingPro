@@ -176,7 +176,7 @@ export default function Navbar() {
                               key={link.href}
                               href={link.href}
                               onClick={() => setMobileOpen(false)}
-                              className="block px-3 py-2.5 text-[14px] text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors"
+                              className="block px-3 py-3 text-[14px] text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors"
                             >
                               {link.label}
                             </Link>

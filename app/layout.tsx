@@ -161,7 +161,7 @@ export default async function RootLayout({
 
                   <AdminShell>
                     <ConditionalTopBarV2 />
-                    <main id="main-content" className="flex-grow pb-16 md:pb-0" tabIndex={-1}>
+                    <main id="main-content" className="flex-grow pb-20 md:pb-0" tabIndex={-1}>
                       <PageErrorBoundary pageName="Root Layout">
                         <ConditionalPublicElements>
                           {children}
