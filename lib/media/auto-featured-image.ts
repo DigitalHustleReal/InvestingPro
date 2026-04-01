@@ -184,7 +184,7 @@ export class AutoFeaturedImageService {
                 if (results.length === 0) continue;
 
                 // Randomize selection
-                const availableResults = results.filter(r => !recentlyUsedImages.has(r.publicUrl));
+                const availableResults = results.filter((r: any) => !recentlyUsedImages.has(r.publicUrl));
                 if (availableResults.length === 0) continue;
 
                 const randomIndex = Math.floor(Math.random() * availableResults.length);

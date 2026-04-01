@@ -172,7 +172,7 @@ export async function distributeContent(articleId: string): Promise<ContentDistr
                     // Could add distributed_at field to track when distributed
                 })
                 .eq('id', articleId);
-        } catch (error) {
+        } catch (error: any) {
             // Non-critical, continue
             logger.warn('Failed to update article distribution timestamp', error);
         }

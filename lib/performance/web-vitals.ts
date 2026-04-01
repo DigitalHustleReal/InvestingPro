@@ -117,7 +117,7 @@ export async function getWebVitalsMetrics(
             poor: 10
         };
 
-    } catch (error) {
+    } catch (error: any) {
         logger.error('Error getting Web Vitals metrics', error);
         throw error;
     }

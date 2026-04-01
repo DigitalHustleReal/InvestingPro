@@ -246,7 +246,7 @@ function buildVideoScriptPrompt(params: {
     }
     
     prompt += `SCRIPT STRUCTURE:\n`;
-    platformSpec.structure.forEach((section, i) => {
+    platformSpec.structure.forEach((section: any, i: any) => {
         prompt += `${i + 1}. ${section}\n`;
     });
     prompt += `\n`;
@@ -263,7 +263,7 @@ function buildVideoScriptPrompt(params: {
     prompt += `\n`;
     
     prompt += `WRITING REQUIREMENTS:\n`;
-    platformSpec.engagementTips.forEach(tip => {
+    platformSpec.engagementTips.forEach((tip: any) => {
         prompt += `- ${tip}\n`;
     });
     prompt += `- ${tone} tone throughout\n`;

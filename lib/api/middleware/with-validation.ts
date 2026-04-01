@@ -28,7 +28,7 @@ export function withValidation<T>(schema: z.ZodSchema<T>) {
           return NextResponse.json(
             {
               error: 'Validation failed',
-              details: error.errors.map(err => ({
+              details: error.errors.map((err: any) => ({
                 field: err.path.join('.'),
                 message: err.message
               }))
@@ -63,7 +63,7 @@ export function withQueryValidation<T>(schema: z.ZodSchema<T>) {
           return NextResponse.json(
             {
               error: 'Invalid query parameters',
-              details: error.errors.map(err => ({
+              details: error.errors.map((err: any) => ({
                 field: err.path.join('.'),
                 message: err.message
               }))

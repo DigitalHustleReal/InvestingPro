@@ -83,7 +83,7 @@ export async function getRelatedArticles(
     }
 
     // Score each candidate
-    const scoredArticles: RelatedArticle[] = candidates.map(candidate => {
+    const scoredArticles: RelatedArticle[] = candidates.map((candidate: any) => {
         let score = 0;
         const matchReasons: string[] = [];
 
@@ -189,7 +189,7 @@ export async function getRelatedByCategory(
         return [];
     }
 
-    return (data || []).map(article => ({
+    return (data || []).map((article: any) => ({
         ...article,
         relevanceScore: 1,
         matchReason: ['Same category']
@@ -218,7 +218,7 @@ export async function getTrendingArticles(limit: number = 5): Promise<RelatedArt
         return [];
     }
 
-    return (data || []).map(article => ({
+    return (data || []).map((article: any) => ({
         ...article,
         relevanceScore: 1,
         matchReason: ['Trending']
@@ -249,7 +249,7 @@ export async function getArticlesByTag(
         return [];
     }
 
-    return (data || []).map(article => ({
+    return (data || []).map((article: any) => ({
         ...article,
         relevanceScore: 1,
         matchReason: [`Tagged: ${tag}`]

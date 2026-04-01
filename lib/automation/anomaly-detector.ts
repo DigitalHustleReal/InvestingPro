@@ -377,7 +377,7 @@ export class AnomalyDetector {
 
       if (authorArticles && authorArticles.length >= 5) {
         const avgScore = authorArticles.reduce(
-          (sum, a) => sum + (a.quality_score || 0),
+          (sum: any, a: any) => sum + (a.quality_score || 0),
           0
         ) / authorArticles.length;
 

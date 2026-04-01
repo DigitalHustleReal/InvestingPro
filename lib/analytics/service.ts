@@ -98,11 +98,11 @@ class AnalyticsService {
             }
 
             const totalArticles = articles.length;
-            const totalViews = articles.reduce((sum, a) => sum + (a.views || 0), 0);
+            const totalViews = articles.reduce((sum: any, a: any) => sum + (a.views || 0), 0);
             const avgViewsPerArticle = totalArticles > 0 ? Math.round(totalViews / totalArticles) : 0;
 
             // Top 5 performers
-            const topPerformers = articles.slice(0, 5).map(a => ({
+            const topPerformers = articles.slice(0, 5).map((a: any) => ({
                 id: a.id,
                 title: a.title,
                 slug: a.slug,
@@ -115,9 +115,9 @@ class AnalyticsService {
             const weekAgo = new Date();
             weekAgo.setDate(weekAgo.getDate() - 7);
             const recentArticles = articles
-                .filter(a => a.published_at && new Date(a.published_at) > weekAgo)
+                .filter((a: any) => a.published_at && new Date(a.published_at) > weekAgo)
                 .slice(0, 5)
-                .map(a => ({
+                .map((a: any) => ({
                     id: a.id,
                     title: a.title,
                     slug: a.slug,
@@ -128,7 +128,7 @@ class AnalyticsService {
 
             // Category breakdown
             const categoryMap = new Map<string, { count: number; views: number }>();
-            articles.forEach(a => {
+            articles.forEach((a: any) => {
                 const cat = a.category || 'uncategorized';
                 const existing = categoryMap.get(cat) || { count: 0, views: 0 };
                 categoryMap.set(cat, {

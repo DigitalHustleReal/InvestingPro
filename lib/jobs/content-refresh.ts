@@ -24,7 +24,7 @@ export const contentRefreshJob = inngest.createFunction(
         description: 'Refreshes old articles with new product data (rates, offers, etc.)'
     },
     { cron: '0 3 * * 0' }, // Every Sunday at 3 AM
-    async ({ step }) => {
+    async ({ step }: any) => {
         const results = {
             creditCards: { refreshed: 0, failed: 0, errors: [] as string[] },
             mutualFunds: { refreshed: 0, failed: 0, errors: [] as string[] }
@@ -37,10 +37,10 @@ export const contentRefreshJob = inngest.createFunction(
             try {
                 const refreshResults = await refreshBothCategories(90, 15);
                 
-                results.creditCards.refreshed = refreshResults['credit-cards'].filter(r => r.success).length;
-                results.creditCards.failed = refreshResults['credit-cards'].filter(r => !r.success).length;
+                results.creditCards.refreshed = refreshResults['credit-cards'].filter((r: any) => r.success).length;
+                results.creditCards.failed = refreshResults['credit-cards'].filter((r: any) => !r.success).length;
                 
-                refreshResults['credit-cards'].forEach(result => {
+                refreshResults['credit-cards'].forEach((result: any) => {
                     if (!result.success && result.error) {
                         results.creditCards.errors.push(`${result.article_title}: ${result.error}`);
                     }
@@ -60,10 +60,10 @@ export const contentRefreshJob = inngest.createFunction(
             try {
                 const refreshResults = await refreshBothCategories(90, 15);
                 
-                results.mutualFunds.refreshed = refreshResults['mutual-funds'].filter(r => r.success).length;
-                results.mutualFunds.failed = refreshResults['mutual-funds'].filter(r => !r.success).length;
+                results.mutualFunds.refreshed = refreshResults['mutual-funds'].filter((r: any) => r.success).length;
+                results.mutualFunds.failed = refreshResults['mutual-funds'].filter((r: any) => !r.success).length;
                 
-                refreshResults['mutual-funds'].forEach(result => {
+                refreshResults['mutual-funds'].forEach((result: any) => {
                     if (!result.success && result.error) {
                         results.mutualFunds.errors.push(`${result.article_title}: ${result.error}`);
                     }

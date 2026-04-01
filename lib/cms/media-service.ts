@@ -66,7 +66,7 @@ export class MediaService {
             throw error;
         }
 
-        return data.map(file => {
+        return data.map((file: any) => {
             const path = `${folder}/${file.name}`;
             const { data: { publicUrl } } = this.supabase.storage.from(this.bucket).getPublicUrl(path);
             

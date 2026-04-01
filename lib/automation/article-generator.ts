@@ -99,7 +99,7 @@ async function getArticlePrompt(
             systemPrompt: dynamicPrompt.systemPrompt,
             userPrompt: userPrompt
         };
-    } catch (error) {
+    } catch (error: any) {
         // Fallback to old system if dynamic builder fails
         logger.warn('Dynamic prompt builder failed, falling back to legacy system:', error);
     }
@@ -508,7 +508,7 @@ export async function generateArticleCore(
                 jobId // Added jobId here
             }
         });
-    } catch (error) {
+    } catch (error: any) {
         // Don't fail generation if event publishing fails
         logFn('⚠️ Failed to publish generation started event');
     }
@@ -601,7 +601,7 @@ export async function generateArticleCore(
             } catch (diffError) {
                 logFn('   ⚠️ Difficulty scoring unavailable, using default.');
             }
-        } catch (e) {
+        } catch (e: any) {
             logFn('   ⚠️ Research failed, proceeding with standard generation.');
         }
 
@@ -657,7 +657,7 @@ export async function generateArticleCore(
              } else {
                  logFn('   ⚠️ AI returned raw HTML/Text instead of JSON. Proceeding with raw content.');
              }
-        } catch (e) {
+        } catch (e: any) {
              logFn('   ⚠️ Error parsing AI response. Falling back to raw content.');
         }
 
@@ -876,7 +876,7 @@ export async function generateArticleCore(
                 } else {
                     logFn('   ⚠️ No users found. Publishing without Author ID.');
                 }
-            } catch (e) {
+            } catch (e: any) {
                 logFn('   ⚠️ Could not fetch users. Defaulting to null author.');
             }
         } else {

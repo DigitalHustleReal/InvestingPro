@@ -105,7 +105,7 @@ export async function trackKeywordRanking(
             trackedAt: new Date().toISOString()
         };
 
-    } catch (error) {
+    } catch (error: any) {
         logger.error('Error tracking keyword ranking', error, { keyword });
         throw error;
     }
@@ -127,7 +127,7 @@ async function getCurrentRanking(keyword: string, targetUrl?: string): Promise<n
     if (process.env.SERPAPI_API_KEY) {
         try {
             return await getRankingViaSerpApi(keyword, url);
-        } catch (error) {
+        } catch (error: any) {
             logger.warn('SerpApi failed, falling back to manual', error);
         }
     }
@@ -136,7 +136,7 @@ async function getCurrentRanking(keyword: string, targetUrl?: string): Promise<n
     if (process.env.GOOGLE_SEARCH_CONSOLE_CLIENT_ID) {
         try {
             return await getRankingViaGSC(keyword, url);
-        } catch (error) {
+        } catch (error: any) {
             logger.warn('Google Search Console failed', error);
         }
     }
@@ -167,7 +167,7 @@ async function getRankingViaSerpApi(keyword: string, targetUrl: string): Promise
         }
 
         return null; // Not in top 100
-    } catch (error) {
+    } catch (error: any) {
         logger.error('SerpApi error', error);
         throw error;
     }
@@ -192,7 +192,7 @@ async function getRankingViaGSC(keyword: string, targetUrl: string): Promise<num
 
         return matchingRanking?.position || null;
 
-    } catch (error) {
+    } catch (error: any) {
         logger.warn('Google Search Console API failed', { error, keyword });
         return null;
     }
@@ -214,7 +214,7 @@ export async function trackMultipleKeywords(
             
             // Rate limiting (1 second between requests)
             await new Promise(resolve => setTimeout(resolve, 1000));
-        } catch (error) {
+        } catch (error: any) {
             logger.error('Failed to track keyword', error, { keyword });
             results.push({
                 keyword,
@@ -269,7 +269,7 @@ export async function getRankingHistory(
 
         return rankings;
 
-    } catch (error) {
+    } catch (error: any) {
         logger.error('Error getting ranking history', error, { keyword });
         throw error;
     }
@@ -345,7 +345,7 @@ export async function getAllTrackedKeywords(): Promise<Array<{
 
         return results;
 
-    } catch (error) {
+    } catch (error: any) {
         logger.error('Error getting all tracked keywords', error);
         throw error;
     }

@@ -367,7 +367,7 @@ function buildSocialMediaPostPrompt(params: {
     prompt += `\n`;
     
     prompt += `WRITING REQUIREMENTS:\n`;
-    platformSpec.engagementTips.forEach(tip => {
+    platformSpec.engagementTips.forEach((tip: any) => {
         prompt += `- ${tip}\n`;
     });
     prompt += `- Make it engaging and shareable\n`;

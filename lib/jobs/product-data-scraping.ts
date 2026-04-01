@@ -25,7 +25,7 @@ export const productDataScrapingJob = inngest.createFunction(
         description: 'Scrapes and updates product data for Credit Cards and Mutual Funds'
     },
     { cron: '0 3 * * 3' }, // Every Wednesday at 3 AM
-    async ({ step }) => {
+    async ({ step }: any) => {
         const results = {
             creditCards: { scraped: 0, updated: 0, failed: 0, errors: [] as string[] },
             mutualFunds: { updated: 0, failed: 0, errors: [] as string[] },
@@ -126,7 +126,7 @@ export const productDataScrapingJob = inngest.createFunction(
                 const { error } = await supabase
                     .from('affiliate_products')
                     .update({ updated_at: new Date().toISOString() })
-                    .in('id', existingInsurance.map(i => i.id));
+                    .in('id', existingInsurance.map((i: any) => i.id));
 
                 if (error) {
                     logger.error('Error updating insurance', { error });
@@ -167,7 +167,7 @@ export const productDataScrapingJob = inngest.createFunction(
                 const { error } = await supabase
                     .from('products')
                     .update({ last_updated_at: new Date().toISOString() })
-                    .in('id', existingLoans.map(l => l.id));
+                    .in('id', existingLoans.map((l: any) => l.id));
 
                 if (error) {
                     logger.error('Error updating loans', { error });

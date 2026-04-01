@@ -121,7 +121,7 @@ class ApprovalQueue {
 
       if (!data) return [];
 
-      return data.map(d => this.mapToApprovalRequest(d));
+      return data.map((d: any) => this.mapToApprovalRequest(d));
     } catch (error) {
       logger.error('Error getting pending approvals', error as Error);
       return [];
@@ -342,14 +342,14 @@ class ApprovalQueue {
       }
 
       const stats = {
-        pending: data.filter(d => d.status === 'pending').length,
-        approved: data.filter(d => d.status === 'approved').length,
-        rejected: data.filter(d => d.status === 'rejected').length,
+        pending: data.filter((d: any) => d.status === 'pending').length,
+        approved: data.filter((d: any) => d.status === 'approved').length,
+        rejected: data.filter((d: any) => d.status === 'rejected').length,
         byType: {} as Record<ApprovalType, number>
       };
 
       // Count by type
-      data.forEach(d => {
+      data.forEach((d: any) => {
         stats.byType[d.type as ApprovalType] = (stats.byType[d.type as ApprovalType] || 0) + 1;
       });
 

@@ -106,7 +106,7 @@ export async function checkStaleContentTriggers(
             return [];
         }
 
-        const triggers: RefreshTrigger[] = articles.map(article => ({
+        const triggers: RefreshTrigger[] = articles.map((article: any) => ({
             articleId: article.id,
             articleSlug: article.slug,
             triggerReason: 'stale_content',

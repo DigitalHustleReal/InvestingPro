@@ -181,7 +181,7 @@ export async function getScheduledArticles(
             return [];
         }
 
-        return (data || []).map(article => ({
+        return (data || []).map((article: any) => ({
             articleId: article.id,
             title: article.title || '',
             slug: article.slug || '',

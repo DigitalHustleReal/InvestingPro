@@ -84,17 +84,17 @@ export function zodToOpenAPI(schema: z.ZodTypeAny): OpenAPISchema {
 
         if (schema._def.checks) {
             for (const check of schema._def.checks) {
-                if (check.kind === 'min') {
+                if ((check as any).kind === 'min') {
                     openApiSchema.minLength = check.value;
-                } else if (check.kind === 'max') {
+                } else if ((check as any).kind === 'max') {
                     openApiSchema.maxLength = check.value;
-                } else if (check.kind === 'email') {
+                } else if ((check as any).kind === 'email') {
                     openApiSchema.format = 'email';
-                } else if (check.kind === 'uuid') {
+                } else if ((check as any).kind === 'uuid') {
                     openApiSchema.format = 'uuid';
-                } else if (check.kind === 'url') {
+                } else if ((check as any).kind === 'url') {
                     openApiSchema.format = 'uri';
-                } else if (check.kind === 'regex') {
+                } else if ((check as any).kind === 'regex') {
                     openApiSchema.pattern = check.regex.source;
                 }
             }
@@ -110,11 +110,11 @@ export function zodToOpenAPI(schema: z.ZodTypeAny): OpenAPISchema {
 
         if (schema._def.checks) {
             for (const check of schema._def.checks) {
-                if (check.kind === 'min') {
+                if ((check as any).kind === 'min') {
                     openApiSchema.minimum = check.value;
-                } else if (check.kind === 'max') {
+                } else if ((check as any).kind === 'max') {
                     openApiSchema.maximum = check.value;
-                } else if (check.kind === 'int') {
+                } else if ((check as any).kind === 'int') {
                     openApiSchema.type = 'integer';
                 }
             }

@@ -195,7 +195,7 @@ export function WhatIfSimulatorComponent({ cards, initialProfile }: WhatIfSimula
                   <Label>Category</Label>
                   <Select
                     value={spendingScenario.category}
-                    onValueChange={(value) => setSpendingScenario(prev => ({ ...prev, category: value }))}
+                    onValueChange={(value: any) => setSpendingScenario(prev => ({ ...prev, category: value }))}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -310,7 +310,7 @@ export function WhatIfSimulatorComponent({ cards, initialProfile }: WhatIfSimula
                 <Label>Select Card</Label>
                 <Select
                   value={newCardScenario.cardId}
-                  onValueChange={(value) => setNewCardScenario({ cardId: value })}
+                  onValueChange={(value: any) => setNewCardScenario({ cardId: value })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Choose a card" />

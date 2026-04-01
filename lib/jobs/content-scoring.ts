@@ -15,7 +15,7 @@ export const contentScoringJob = inngest.createFunction(
     name: 'Content Scoring Job',
   },
   { cron: '0 2 * * *' }, // Daily at 2 AM
-  async ({ step }) => {
+  async ({ step }: any) => {
     await step.run('score-all-articles', async () => {
       logger.info('Starting content scoring job');
       

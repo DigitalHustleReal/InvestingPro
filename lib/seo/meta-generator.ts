@@ -61,7 +61,7 @@ Meta description:`;
     if (generated.length > 0) {
       return validateMetaDescription(generated, keyword);
     }
-  } catch (error) {
+  } catch (error: any) {
     logger.warn('AI generation failed, using fallback:', error);
   }
   

@@ -63,7 +63,7 @@ export default function ContextualNewsWidget({ category, title }: ContextualNews
         const supabase = createClient();
         const channel = supabase
             .channel('public:articles')
-            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'articles' }, (payload) => {
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'articles' }, (payload: any) => {
                 const newArticle = payload.new as any;
                 setNews(prev => [{
                     id: newArticle.id,
