@@ -51,8 +51,10 @@ export const STAT_STRINGS = {
 export const STRUCTURED_DATA_STATS = {
   aggregateRating: {
     '@type': 'AggregateRating',
-    'ratingValue': PLATFORM_STATS.rating,
-    'bestRating': PLATFORM_STATS.ratingOutOf.toString(),
-    'ratingCount': '21000' // Based on usersHelped
+    // Must be NUMBER not string — Google Rich Results Test fails on strings
+    'ratingValue': PLATFORM_STATS.ratingNumeric,
+    'bestRating': PLATFORM_STATS.ratingOutOf,
+    'worstRating': 1,
+    'ratingCount': 21000,
   }
 } as const;

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import SEOHead from "@/components/common/SEOHead";
+import { CalculatorResultCTA } from '@/components/calculators/CalculatorResultCTA';
 import { EMICalculatorEnhanced } from "@/components/calculators/EMICalculatorEnhanced";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info, TrendingUp, Zap, CheckCircle2 } from "lucide-react";
@@ -24,35 +25,14 @@ export default function EMICalculatorPage() {
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
     };
 
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "How to calculate EMI?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "EMI is calculated using the formula: EMI = [P Ã— r Ã— (1+r)^n] / [(1+r)^n - 1], where P is principal loan amount, r is monthly interest rate (annual rate/12), and n is number of monthly installments."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What is EMI calculator?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "EMI calculator helps you calculate Equated Monthly Installment (EMI) for loans. It shows monthly payment amount, total interest payable, and principal vs interest breakdown. Useful for home loans, car loans, personal loans, and education loans."
-                }
-            }
-        ]
-    };
+    // FAQPage schema removed — Google restricted to govt/healthcare Aug 2023
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <SEOHead
                 title="EMI Calculator India 2026 - Home Loan, Car Loan EMI Calculator | InvestingPro"
                 description="Free EMI calculator for home loans, car loans, personal loans, and education loans. Calculate loan EMI, total interest, principal vs interest breakdown, and amortization schedule. Compare different loan offers."
-                structuredData={[structuredData, faqSchema]}
+                structuredData={[structuredData]}
             />
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
@@ -78,6 +58,7 @@ export default function EMICalculatorPage() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <EMICalculatorEnhanced />
+                <CalculatorResultCTA calculatorType="emi" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">

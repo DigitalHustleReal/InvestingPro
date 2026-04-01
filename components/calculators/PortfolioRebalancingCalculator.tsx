@@ -141,7 +141,7 @@ export default function PortfolioRebalancingCalculator() {
                                     </div>
                                     <div className="flex items-center gap-2 bg-muted rounded-lg px-3 py-1.5">
                                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                        <Input type="number" value={asset.currentValue} onChange={(e) => handleValueChange(index, e.target.value)} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                                        <Input type="number" inputMode="decimal" value={asset.currentValue} onChange={(e) => handleValueChange(index, e.target.value)} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                                     </div>
                                 </div>
                             ))}
@@ -192,7 +192,7 @@ export default function PortfolioRebalancingCalculator() {
                                         <label className="text-xs text-muted-foreground mb-1 block">Current Value (₹)</label>
                                         <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                                             <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                                            <Input type="number" value={asset.currentValue} onChange={(e) => handleValueChange(index, e.target.value)} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                                            <Input type="number" inputMode="decimal" value={asset.currentValue} onChange={(e) => handleValueChange(index, e.target.value)} className="border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                                         </div>
                                     </div>
                                     <div>

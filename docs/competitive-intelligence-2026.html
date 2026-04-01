@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>InvestingPro.in — Competitive Intelligence Report 2026</title>
+<style>
+:root{--bg:#070b12;--panel:#0d1420;--surface:#121d2b;--border:#1a2744;--txt:#e2e8f0;--dim:#64748b;--blue:#60a5fa;--cyan:#22d3ee;--grn:#34d399;--gld:#fbbf24;--org:#fb923c;--red:#f87171;--pur:#a78bfa;--pnk:#f472b6;--teal:#2dd4bf}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;display:flex;min-height:100vh}
+a{color:var(--blue);text-decoration:none}
+
+/* Sidebar */
+.sidebar{width:260px;background:var(--panel);border-right:1px solid var(--border);padding:1.5rem 1rem;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:10}
+.sidebar h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);margin:1.2rem 0 .5rem;font-weight:600}
+.sidebar a{display:block;padding:.35rem .75rem;border-radius:6px;font-size:.85rem;color:var(--txt);opacity:.75;transition:.15s}
+.sidebar a:hover{opacity:1;background:rgba(96,165,250,.1)}
+.sidebar .logo{font-size:1.1rem;font-weight:700;color:var(--grn);margin-bottom:1.5rem;display:block}
+
+/* Main */
+.main{margin-left:260px;padding:2.5rem 3rem;max-width:1100px;width:100%}
+h1{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,var(--grn),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.subtitle{color:var(--dim);font-size:1rem;margin-bottom:2.5rem}
+h2{font-size:1.5rem;font-weight:700;margin:2.5rem 0 1rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+h3{font-size:1.15rem;font-weight:600;margin:1.5rem 0 .75rem;color:var(--cyan)}
+h4{font-size:.95rem;font-weight:600;color:var(--gld);margin:.75rem 0 .4rem}
+
+/* Cards */
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:1rem 0}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.card-header h3{margin:0;color:var(--txt)}
+.badge{display:inline-block;padding:.15rem .6rem;border-radius:99px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.b-grn{background:rgba(52,211,153,.15);color:var(--grn)}
+.b-blue{background:rgba(96,165,250,.15);color:var(--blue)}
+.b-gld{background:rgba(251,191,36,.15);color:var(--gld)}
+.b-red{background:rgba(248,113,113,.15);color:var(--red)}
+.b-pur{background:rgba(167,139,250,.15);color:var(--pur)}
+.b-org{background:rgba(251,146,60,.15);color:var(--org)}
+.b-cyan{background:rgba(34,211,238,.15);color:var(--cyan)}
+.b-pnk{background:rgba(244,114,182,.15);color:var(--pnk)}
+
+.stat-row{display:flex;gap:1.5rem;flex-wrap:wrap;margin:.75rem 0}
+.stat{display:flex;flex-direction:column}
+.stat-val{font-size:1.1rem;font-weight:700;color:var(--grn)}
+.stat-label{font-size:.7rem;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+
+.kv{display:grid;grid-template-columns:140px 1fr;gap:.3rem .75rem;font-size:.85rem;margin:.5rem 0}
+.kv dt{color:var(--dim);font-weight:500}
+.kv dd{color:var(--txt)}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:.85rem;margin:1rem 0}
+th{text-align:left;padding:.6rem .75rem;background:var(--surface);color:var(--dim);font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)}
+td{padding:.6rem .75rem;border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(96,165,250,.03)}
+
+/* Insight boxes */
+.insight{background:rgba(52,211,153,.06);border-left:3px solid var(--grn);padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin:1rem 0;font-size:.9rem}
+.insight.warn{background:rgba(251,191,36,.06);border-left-color:var(--gld)}
+.insight.danger{background:rgba(248,113,113,.06);border-left-color:var(--red)}
+.insight strong{color:var(--grn)}
+.insight.warn strong{color:var(--gld)}
+.insight.danger strong{color:var(--red)}
+
+/* Lists */
+ul,ol{padding-left:1.5rem;margin:.5rem 0}
+li{margin:.3rem 0;font-size:.9rem}
+
+/* Grid */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+
+/* Task list */
+.task{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem .75rem;border-bottom:1px solid var(--border);font-size:.85rem}
+.task-phase{min-width:48px;font-weight:700;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em}
+.task-desc{flex:1}
+.task-priority{min-width:36px;text-align:center}
+
+p{margin:.5rem 0;font-size:.9rem}
+
+@media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:1.5rem}.grid-2,.grid-3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="sidebar">
+<span class="logo">InvestingPro Intel</span>
+<h2>Overview</h2>
+<a href="#exec">Executive Summary</a>
+<a href="#matrix">Feature Matrix</a>
+<h2>Indian Platforms</h2>
+<a href="#india-mega">Mega (10M+ visits)</a>
+<a href="#india-mid">Mid (1-10M visits)</a>
+<a href="#india-small">Small (&lt;1M visits)</a>
+<h2>Global Platforms</h2>
+<a href="#global-mega">Mega (10M+ visits)</a>
+<a href="#global-mid">Mid (1-10M visits)</a>
+<a href="#global-small">Small (&lt;1M visits)</a>
+<h2>Analysis</h2>
+<a href="#gaps">Market Gaps</a>
+<a href="#verdict">Copy / Adapt / Skip</a>
+<a href="#tasks">Master Task List</a>
+</nav>
+
+<main class="main">
+<h1>Competitive Intelligence Report</h1>
+<p class="subtitle">35 platforms analyzed — 18 Indian, 17 Global — March 2026</p>
+
+<!-- ═══════════════ EXECUTIVE SUMMARY ═══════════════ -->
+<section id="exec">
+<h2>Executive Summary</h2>
+<div class="grid-3">
+<div class="card"><div class="stat"><span class="stat-val">₹0</span><span class="stat-label">Cost to replicate top 5 trust features</span></div></div>
+<div class="card"><div class="stat"><span class="stat-val">11</span><span class="stat-label">Features no Indian platform has</span></div></div>
+<div class="card"><div class="stat"><span class="stat-val">3</span><span class="stat-label">Revenue streams beyond affiliate</span></div></div>
+</div>
+
+<div class="insight">
+<strong>The 3 moves that matter most:</strong><br>
+1. <b>Newsletter</b> — MSE has 17M subscribers. Zero Indian platform has a trusted weekly email. Start InvestingPro Weekly NOW.<br>
+2. <b>Approval Predictor</b> — Credit Karma's #1 feature. No Indian platform shows ML-powered approval odds before applying.<br>
+3. <b>Awards Program</b> — Canstar earns B2B licensing revenue from banks. "InvestingPro Best Credit Card 2026" badge = recurring B2B income.
+</div>
+
+<div class="insight warn">
+<strong>Key competitive reality:</strong> BankBazaar has 200K+ indexed pages, 8.5M visits/mo, DR74, 17-year head start. Paisabazaar has 9.6M visits/mo. InvestingPro cannot outspend them — must out-trust and out-feature them.
+</div>
+</section>
+
+<!-- ═══════════════ FEATURE MATRIX ═══════════════ -->
+<section id="matrix">
+<h2>Feature Matrix — Who Has What</h2>
+<div style="overflow-x:auto">
+<table>
+<thead>
+<tr><th>Feature</th><th>PaisaBzr</th><th>BankBzr</th><th>PolicyBzr</th><th>Groww</th><th>CardExp</th><th>NerdWlt</th><th>CreditKarma</th><th>MSE</th><th>Canstar</th><th style="color:var(--grn)">InvPro</th></tr>
+</thead>
+<tbody>
+<tr><td>Credit Card Compare</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+<tr><td>Loan Compare</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+<tr><td>MF / Demat Compare</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td></tr>
+<tr><td>FD Compare</td><td>—</td><td>✓</td><td>—</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td></tr>
+<tr><td>Insurance Compare</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td><td>—</td></tr>
+<tr><td>Financial Calculators</td><td>✓</td><td>✓</td><td>—</td><td>✓</td><td>—</td><td>✓</td><td>—</td><td>—</td><td>—</td><td style="color:var(--grn)"><b>22</b></td></tr>
+<tr><td>Free Credit Score</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>ML Approval Odds</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td style="color:var(--grn)"><b>✓</b></td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Credit Score Simulator</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>AI Recommendations</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td><td style="color:var(--grn)"><b>✓</b></td></tr>
+<tr><td>Proprietary Scoring</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td><td style="color:var(--grn)"><b>✓</b></td><td>—</td></tr>
+<tr><td>Newsletter (Weekly)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>~</td><td>~</td><td style="color:var(--grn)"><b>17M</b></td><td>—</td><td>—</td></tr>
+<tr><td>Forum / Community</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td><td style="color:var(--grn)"><b>✓</b></td><td>—</td><td>—</td></tr>
+<tr><td>Awards Program (B2B)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td style="color:var(--grn)"><b>✓</b></td><td>—</td></tr>
+<tr><td>Cross-Vertical Linking</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>✓</td><td>—</td><td style="color:var(--grn)"><b>✓</b></td></tr>
+<tr><td>Hindi Content</td><td>~</td><td>~</td><td>~</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Points Valuation</td><td>—</td><td>—</td><td>—</td><td>—</td><td>~</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Lifestyle Rewards</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td style="color:var(--grn)"><b>✓</b></td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:.75rem;color:var(--dim)">✓ = has feature, ~ = partial/basic, — = absent, <b style="color:var(--grn)">bold</b> = best-in-class</p>
+</section>
+
+<!-- ═══════════════ INDIAN MEGA PLATFORMS ═══════════════ -->
+<section id="india-mega">
+<h2>Indian Mega Platforms <span class="badge b-red">10M+ visits/mo</span></h2>
+
+<div class="card">
+<div class="card-header"><h3>Paisabazaar.com <span class="badge b-red">Danger</span></h3><span class="badge b-grn">9.6M visits/mo</span></div>
+<div class="stat-row"><div class="stat"><span class="stat-val">9.6M</span><span class="stat-label">Monthly visits</span></div><div class="stat"><span class="stat-val">75</span><span class="stat-label">Auth Score</span></div><div class="stat"><span class="stat-val">CIBIL</span><span class="stat-label">#1 traffic driver</span></div></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>Free CIBIL Score</b> — Their #1 traffic driver. 2M–5M searches/mo. Soft-pull credit score with report. Biggest consumer acquisition hook in Indian fintech.</li>
+<li><b>Multi-lender loan marketplace</b> — Apply once, get offers from 20+ banks. True marketplace model where lenders bid for customers.</li>
+<li><b>Credit health improvement tips</b> — Basic CIBIL coaching (not as deep as ClearScore but functional).</li>
+<li><b>EMI Calculator + Loan Eligibility</b> — Deeply integrated into loan funnel.</li>
+<li><b>Pre-approved offers</b> — Partners with banks to show pre-approved loan/card offers per user profile.</li>
+</ul>
+<h4>Revenue Model</h4>
+<p>CPA from banks/NBFCs on loan disbursal + credit card approvals. Credit score as lead magnet → product cross-sell.</p>
+<h4>Biggest Weaknesses</h4>
+<ul><li>No MF/Demat coverage — purely credit/insurance play</li><li>SWP calculator is basic; AI tools absent</li><li>No newsletter or community</li><li>Loan-heavy, not investment-aware</li></ul>
+<div class="insight warn"><strong>InvestingPro counter:</strong> SWP Calculator (+423% YoY, near-zero competition) + SmartAdvisor AI. Cross-vertical linking: CIBIL → credit card → ELSS tax-saving → SIP. Paisabazaar can't do this — they don't cover investments.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>BankBazaar.com <span class="badge b-red">Danger</span></h3><span class="badge b-grn">8.5M visits/mo</span></div>
+<div class="stat-row"><div class="stat"><span class="stat-val">8.5M</span><span class="stat-label">Monthly visits</span></div><div class="stat"><span class="stat-val">74</span><span class="stat-label">DR</span></div><div class="stat"><span class="stat-val">200K+</span><span class="stat-label">Indexed pages</span></div><div class="stat"><span class="stat-val">17yr</span><span class="stat-label">Head start</span></div></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>IFSC Code Lookup</b> — 80K+ auto-generated pages from RBI public data. 1.29M visits/month from this alone. Pure programmatic SEO.</li>
+<li><b>Credit Score (free)</b> — CIBIL via their own data partnership.</li>
+<li><b>FD rate comparison</b> — Covers most major banks; updated regularly.</li>
+<li><b>Paperless loan + card application</b> — End-to-end digital application flow with bank integrations.</li>
+<li><b>PIN Code + Branch Finder</b> — Another programmatic SEO play generating large organic traffic.</li>
+</ul>
+<h4>Revenue Model</h4>
+<p>CPA on loan + credit card approvals. Programmatic SEO generates traffic at near-zero marginal cost.</p>
+<h4>Biggest Weaknesses</h4>
+<ul><li>Weak MF/investment coverage</li><li>No AI recommendations</li><li>Design feels dated (2018 era UI)</li><li>No editorial voice — purely transactional</li></ul>
+<div class="insight warn"><strong>InvestingPro counter:</strong> IFSC lookup + Bank Holidays + PIN Finder are copy-paste from RBI data. One sprint to build = 500K–1M visits/month potential. BankBazaar owns this traffic — InvestingPro needs to capture it too.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>PolicyBazaar.com <span class="badge b-org">Monitor</span></h3><span class="badge b-grn">12M+ visits/mo</span></div>
+<div class="stat-row"><div class="stat"><span class="stat-val">12M+</span><span class="stat-label">Monthly visits</span></div><div class="stat"><span class="stat-val">NSE listed</span><span class="stat-label">PB Fintech</span></div></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>Insurance marketplace</b> — Dominates term life, health, car, two-wheeler insurance comparison. 50+ insurer integrations.</li>
+<li><b>PaisaBazaar (sister brand)</b> — Credit under same parent (PB Fintech).</li>
+<li><b>Docprime</b> — Health services integration.</li>
+<li><b>AI-powered premium calculator</b> — Real-time quote engine with underwriting parameters.</li>
+</ul>
+<h4>Revenue Model</h4>
+<p>Commission from insurers (15–30% of first-year premium for life insurance). Listed company — significant marketing budget.</p>
+<h4>Biggest Weaknesses</h4>
+<ul><li>Insurance-only — no credit cards, loans, MF</li><li>Aggressive sales tactics — low consumer trust score in independent reviews</li><li>No editorial content depth</li></ul>
+<div class="insight"><strong>InvestingPro counter:</strong> Insurance comparison is a P1 feature — add term life + health comparison via IRDAI POSP model. PolicyGenius (US) model: human agent guidance alongside comparison. PolicyBazaar is transactional; InvestingPro can be advisory.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Groww.in <span class="badge b-org">Monitor</span></h3><span class="badge b-grn">15M+ visits/mo</span></div>
+<div class="stat-row"><div class="stat"><span class="stat-val">15M+</span><span class="stat-label">Monthly visits</span></div><div class="stat"><span class="stat-val">$3B</span><span class="stat-label">Valuation</span></div><div class="stat"><span class="stat-val">10M+</span><span class="stat-label">Registered users</span></div></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>Direct MF investing</b> — Zero-commission mutual fund investing. No comparison, direct execution.</li>
+<li><b>Stocks + IPO</b> — SEBI-registered broker. Full demat + trading.</li>
+<li><b>Calculators</b> — SIP, FD, PPF, NPS calculators well-designed.</li>
+<li><b>App-first</b> — One of India's most-downloaded finance apps. 4.5+ Play Store rating.</li>
+</ul>
+<h4>Revenue Model</h4>
+<p>F&O trading commissions + mutual fund trail commissions + demat charges. VC-funded growth phase.</p>
+<h4>Biggest Weaknesses</h4>
+<ul><li>Not a comparison platform — they execute, not recommend across providers</li><li>No credit card, loan, or insurance comparison</li><li>No editorial content strategy</li></ul>
+<div class="insight"><strong>InvestingPro counter:</strong> Groww is execution; InvestingPro is decision-making. "Which demat account should I choose? Groww vs Zerodha vs Upstox" — InvestingPro owns the pre-decision moment. Deep demat comparison page with honest analysis.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>ClearTax.in <span class="badge b-org">Monitor</span></h3><span class="badge b-grn">5M+ visits/mo</span></div>
+<div class="stat-row"><div class="stat"><span class="stat-val">86</span><span class="stat-label">Auth Score</span></div><div class="stat"><span class="stat-val">Tax filing</span><span class="stat-label">#1 position</span></div></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>ITR filing</b> — Dominant in online tax filing. 6M+ returns filed.</li>
+<li><b>Old vs New Regime Calculator</b> — High-traffic content (500K–900K/mo).</li>
+<li><b>GST Software</b> — B2B SaaS for CA firms.</li>
+<li><b>Section 80C guide</b> — Top-ranking content piece (300K–600K/mo).</li>
+</ul>
+<h4>Biggest Weaknesses</h4>
+<ul><li>Tax-only — no product comparison beyond tax-saving instruments</li><li>No credit card, loan, or insurance comparison</li><li>Cross-sell to investment products is weak</li></ul>
+<div class="insight"><strong>InvestingPro counter:</strong> DO NOT compete in tax filing. Capture the moment AFTER ClearTax: "You've calculated your tax — now here's how to save with Section 80C → ELSS → SIP → Demat." Own the post-tax-calculation conversion.</div>
+</div>
+</section>
+
+<!-- ═══════════════ INDIAN MID PLATFORMS ═══════════════ -->
+<section id="india-mid">
+<h2>Indian Mid Platforms <span class="badge b-org">1M–10M visits/mo</span></h2>
+
+<div class="grid-2">
+<div class="card">
+<div class="card-header"><h3>CardExpert.in <span class="badge b-red">Direct Rival</span></h3><span class="badge b-org">679K visits/mo</span></div>
+<ul>
+<li><b>Deep CC editorial</b> — 7:31 avg session (extraordinary). Single-founder, card-obsessed.</li>
+<li><b>Forum community</b> — Active card discussion forum. Users share experiences, tips, lounge tricks.</li>
+<li><b>Card comparisons</b> — "HDFC Regalia vs Infinia" type pages ranking top 3.</li>
+<li><b>Lounge tracker</b> — Which cards give which airport lounge access.</li>
+</ul>
+<div class="insight warn"><strong>Counter:</strong> CC-only. No loans, MF, FD, insurance. InvestingPro cross-vertical angle: "HDFC Regalia gives you lounge access AND here's the SIP you should start with the fee savings." CardExpert can't make that connection.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>GoodReturns.in <span class="badge b-org">Monitor</span></h3><span class="badge b-org">2M+ visits/mo</span></div>
+<ul>
+<li><b>Gold/silver live prices</b> — Real-time commodity prices generate recurring daily visits.</li>
+<li><b>FD rate tracker</b> — Frequently updated FD rate tables across banks.</li>
+<li><b>News + market data</b> — Finance news with calculators.</li>
+<li><b>Personal finance articles</b> — Thin coverage, easy to beat with depth.</li>
+</ul>
+<div class="insight"><strong>Counter:</strong> GoodReturns is weak on MF, CC, loans. Beat every category page with depth. Their FD rate table can be outranked with fresher data + better UX.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>ETMoney (now 1Finance)</h3><span class="badge b-blue">Acquired</span></div>
+<ul>
+<li>Mutual fund app — direct MF investment like Groww. Acquired by 1Finance.</li>
+<li>Strong SIP/MF calculator UX.</li>
+<li>Insurance + loans added post-acquisition.</li>
+</ul>
+<div class="insight"><strong>Counter:</strong> Post-acquisition confusion creates opening. Own "ETMoney vs Groww vs Kuvera" comparison page now.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Finshots.in <span class="badge b-pur">Content Moat</span></h3><span class="badge b-pur">500K subs</span></div>
+<ul>
+<li><b>Daily newsletter</b> — 500K+ subscribers. Financial news explained simply. India's closest MSE equivalent for content.</li>
+<li><b>No product comparison</b> — Pure editorial, no affiliate revenue visible.</li>
+<li><b>Young audience</b> — 22–32yo urban professional niche.</li>
+</ul>
+<div class="insight warn"><strong>Counter:</strong> Finshots owns educational content. InvestingPro must own decision-making content ("which card is best for me"). Cross-promote rather than compete. Could partner on co-branded newsletters.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>TechnoFino</h3><span class="badge b-cyan">Niche Power</span></div>
+<ul>
+<li><b>CC rewards deep dives</b> — Most detailed reward-points analysis in India.</li>
+<li><b>Strong Twitter/X following</b> — Creator-led, not editorial-led.</li>
+<li><b>Points valuation attempts</b> — Inconsistent but closest India has to The Points Guy.</li>
+</ul>
+<div class="insight"><strong>Counter:</strong> Build systematic monthly points valuation report. "InvestingPro Rewards Report: HDFC points = ₹0.25, Amex MR = ₹0.50" — becomes the industry reference. TechnoFino does this ad hoc; make it systematic.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Ditto Insurance</h3><span class="badge b-grn">Trust Model</span></div>
+<ul>
+<li><b>Nithin Kamath (Zerodha) backed</b> — Trust by association with India's most respected founder.</li>
+<li><b>Human advisors + comparison</b> — Book a call, get genuine advice, then buy. PolicyGenius model for India.</li>
+<li><b>Insurance-only</b> — Term life, health. No credit or investment products.</li>
+</ul>
+<div class="insight"><strong>Counter:</strong> Ditto proves the human-advisory model works in India. InvestingPro should add IRDAI POSP model for insurance — "Talk to an advisor" alongside comparison results.</div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════ INDIAN SMALL PLATFORMS ═══════════════ -->
+<section id="india-small">
+<h2>Indian Small Platforms <span class="badge b-blue">&lt;500K visits/mo</span></h2>
+<div class="grid-2">
+<div class="card">
+<div class="card-header"><h3>StableMoney.in</h3><span class="badge b-blue">FD Niche</span></div>
+<ul><li>FD comparison specialist — best FD rate aggregation in India</li><li>Covers small finance banks, NBFCs, co-operative banks — places BankBazaar misses</li><li>Simple but effective UX; growing fast</li></ul>
+<div class="insight warn"><strong>Counter:</strong> InvestingPro's FD section needs to match StableMoney's depth. They cover 80+ institutions. InvestingPro must cover the same universe or link to them as a data source.</div>
+</div>
+<div class="card">
+<div class="card-header"><h3>FreeFincal</h3><span class="badge b-pur">Long-form</span></div>
+<ul><li>Deeply researched personal finance articles — 3,000–8,000 words each</li><li>Creator-led (Prof M Pattabiraman, IIT Madras)</li><li>Strong NPS/PPF/direct MF advocacy</li><li>No product comparison — purely educational</li></ul>
+<div class="insight"><strong>Counter:</strong> InvestingPro should link out to FreeFincal for deep research, own the "now act on this research" conversion layer. Not a competitor — a referral source.</div>
+</div>
+<div class="card">
+<div class="card-header"><h3>Kuvera.in</h3><span class="badge b-blue">Direct MF</span></div>
+<ul><li>Zero-commission direct MF platform — SEBI-registered</li><li>Clean UI, FP-first approach</li><li>Goal-based investing</li><li>No comparison — direct investment only</li></ul>
+</div>
+<div class="card">
+<div class="card-header"><h3>Jagoinvestor</h3><span class="badge b-pur">Education</span></div>
+<ul><li>Long-form financial education blog — 15+ year archive</li><li>Strong on insurance, tax planning, MF basics</li><li>No product comparison — advisory/coaching model</li></ul>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════ GLOBAL MEGA PLATFORMS ═══════════════ -->
+<section id="global-mega">
+<h2>Global Mega Platforms <span class="badge b-red">10M+ visits/mo</span></h2>
+
+<div class="card">
+<div class="card-header"><h3>NerdWallet.com (US) <span class="badge b-grn">Copy This</span></h3><span class="badge b-grn">22M visits/mo</span></div>
+<div class="stat-row"><div class="stat"><span class="stat-val">$837M</span><span class="stat-label">2025 Revenue</span></div><div class="stat"><span class="stat-val">20M+</span><span class="stat-label">Registered users</span></div><div class="stat"><span class="stat-val">~91</span><span class="stat-label">Domain Authority</span></div></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>My NerdWallet Dashboard</b> — Account aggregation (spending, cash flow, net worth, credit score). Replaced Mint after it died. This is the financial health hub model.</li>
+<li><b>NerdWallet Star Ratings</b> — Proprietary 0–5 star methodology published publicly. Credit card ratings weight: rewards rate, annual fee, sign-up bonus, redemption, perks. Most trusted product ratings in US personal finance.</li>
+<li><b>CardMatch Tool</b> — Soft-pull pre-qualification. See which cards you're likely approved for WITHOUT a hard credit pull.</li>
+<li><b>NerdWallet Plus</b> — $49/year subscription with real cashback offers + premium tools.</li>
+<li><b>Best-of Lists</b> — "NerdWallet's Best Credit Cards 2026" dominate Google. Refreshed monthly.</li>
+</ul>
+<h4>AI Strategy</h4>
+<p>Feb 2024: Laid off 140 employees (9%) explicitly citing AI-driven efficiency. AI writes content, updates rate tables, handles personalization. "NerdWallet AI" in development.</p>
+<h4>Biggest Weakness</h4>
+<p>Zero community features. Entirely editorial/tool-driven. No UGC moat. 100% Google-SEO dependent.</p>
+<div class="insight"><strong>Copy for InvestingPro:</strong><br>1. <b>InvestingPro Score</b> (0–5 stars per product, methodology published)<br>2. <b>Financial Health Dashboard</b> via India's Account Aggregator framework<br>3. <b>InvestingPro Plus</b> ₹499/year subscription tier<br>4. Best-of lists refreshed monthly for SEO dominance</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>MoneySavingExpert.com (UK — Martin Lewis) <span class="badge b-grn">Copy This</span></h3><span class="badge b-grn">22M visits/mo</span></div>
+<div class="stat-row"><div class="stat"><span class="stat-val">17M</span><span class="stat-label">Newsletter subscribers</span></div><div class="stat"><span class="stat-val">£87M</span><span class="stat-label">Acquisition price (2012)</span></div></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>Martin Lewis Weekly Email</b> — 17M subscribers. Largest personal finance newsletter in Europe. Single biggest moat. Cannot be replicated quickly — start NOW.</li>
+<li><b>MSE Eligibility Calculator</b> — Soft-search (no credit score impact) for cards/loans. Tells users approval chances before applying. No Indian platform has this properly.</li>
+<li><b>MSE Forums</b> — One of UK's largest personal finance communities. Decades of archived Q&A. "Debt-Free Wannabe" thread has millions of posts.</li>
+<li><b>Consumer Advocacy Positioning</b> — "We fight for the consumer." Martin Lewis lobbies Parliament. He's killed bad financial products via his newsletter. This trust moat is unique globally.</li>
+<li><b>Cheap Energy Club</b> — Personalized deal alerts when better energy deals appear.</li>
+</ul>
+<h4>Revenue Model</h4>
+<p>100% transparent affiliate — every commission disclosed. Editorial is genuinely independent. Trust IS the revenue model.</p>
+<div class="insight"><strong>Copy for InvestingPro:</strong><br>1. <b>InvestingPro Weekly</b> — Start immediately. Sunday 9am, genuine advice not promotions<br>2. <b>Soft-pull eligibility check</b> — Partner with CIBIL/Experian for pre-qualification<br>3. <b>Consumer advocacy voice</b> — "This credit card's ₹4,999 fee isn't worth it for most people" — take editorial stances<br>4. <b>Named expert face</b> — "India's Martin Lewis" — InvestingPro needs a trusted expert personality</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>MoneySuperMarket.com (UK) <span class="badge b-gld">Adapt</span></h3><span class="badge b-grn">20M+ visits/mo</span></div>
+<div class="stat-row"><div class="stat"><span class="stat-val">£375M+</span><span class="stat-label">Annual Revenue</span></div><div class="stat"><span class="stat-val">Millions</span><span class="stat-label">Meerkat members</span></div></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>Meerkat Rewards</b> — THE differentiator. Compare insurance via MSM → get 2-for-1 cinema tickets and coffees via Meerkat app. Makes comparison habitual, not one-time. Tens of millions of Meerkat members stay engaged between comparison moments.</li>
+<li><b>Money Dashboard</b> — Open Banking account aggregation; spending categorization; financial health.</li>
+<li><b>Energy/Insurance/Telco</b> — Full household comparison beyond finance.</li>
+</ul>
+<div class="insight"><strong>The #1 idea to steal globally:</strong> Build <b>InvestingPro Rewards</b> — compare insurance/FD/loan → earn BookMyShow tickets, Zomato credits, Swiggy vouchers. Makes comparison habitual. India's WhatsApp penetration makes this distributable. This is the Meerkat model for India. Requires commercial partnerships but would be a massive moat.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Bankrate.com (US) <span class="badge b-gld">Adapt</span></h3><span class="badge b-grn">30M visits/mo</span></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>Daily Rate Authority</b> — Bankrate publishes the definitive daily US mortgage rate. Banks reference Bankrate rates in their own marketing. Media quotes Bankrate data. This data authority is their unique asset — creates virtuous flywheel.</li>
+<li><b>Bankrate Awards</b> — Star ratings for banks/lenders. Lenders use "Bankrate Award" in their marketing. B2B marketing revenue.</li>
+<li><b>Rate Alert Emails</b> — Mortgage rate moved? Email goes out immediately.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong><br>1. <b>Rate Authority</b> — Publish InvestingPro Daily FD Rate, Weekly Home Loan Rate. Become what media quotes.<br>2. <b>InvestingPro Awards</b> — Banks pay to license "Best FD 2026" badge. B2B revenue stream.<br>3. <b>Rate alert emails</b> — "SBI raised 3yr FD to 7.5% — here's how it compares."</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Credit Karma (US — Intuit) <span class="badge b-grn">Copy This</span></h3><span class="badge b-grn">140M+ members</span></div>
+<div class="stat-row"><div class="stat"><span class="stat-val">140M+</span><span class="stat-label">Registered members</span></div><div class="stat"><span class="stat-val">4.8★</span><span class="stat-label">App rating (7.5M reviews)</span></div></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>Approval Odds</b> — THE most important feature to copy. ML model trained on actual approval/denial outcomes of 140M users. Before CK: you applied and hoped. After CK: you see "Your approval odds for this card: Very Good" BEFORE applying. Reduced abandonment, increased conversion. First in India = massive first-mover advantage.</li>
+<li><b>Free Credit Score</b> — Disrupted credit monitoring industry. MyFICO charged $30/month; CK made it free.</li>
+<li><b>Identity Monitoring</b> — Dark web monitoring, SSN monitoring, breach alerts — all free.</li>
+<li><b>Credit Karma Money</b> — Became a neobank (checking + savings).</li>
+<li><b>Intuit Assist AI</b> — AI answers "Should I pay off debt or invest?" using actual user financial data.</li>
+</ul>
+<div class="insight"><strong>Highest priority feature to build for India:</strong><br><b>InvestingPro Approval Predictor</b> — Partner with CIBIL/Experian India. Show: "Your approval odds for HDFC Regalia: High | SBI SimplyCLICK: Very High." No Indian platform does this with ML. BankBazaar has basic eligibility but not ML-powered odds. First-mover window open.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Finder.com (Australia/Global) <span class="badge b-gld">Adapt</span></h3><span class="badge b-grn">10M+ visits/mo</span></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>Finder Score</b> — Proprietary 0–10 product rating. Can be personalized by spending profile: "Best card for someone who spends ₹X/month on fuel."</li>
+<li><b>Global localization</b> — 15+ markets with genuine local products, not just translation.</li>
+<li><b>Non-finance categories</b> — Utilities, telco alongside finance. Full household comparison.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> Finder Score concept as "InvestingPro Score" — personalized based on spending category. "Best for frequent flyers | Best for fuel | Best for groceries."</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Canstar.com.au (Australia) <span class="badge b-grn">Copy This</span></h3><span class="badge b-grn">5M visits/mo</span></div>
+<h4>Signature Features</h4>
+<ul>
+<li><b>Star Rating System</b> — 5-star methodology considering 200+ data points. Published transparently. Banks spend significant marketing budget around "Canstar 5-Star Award" badges.</li>
+<li><b>Award Logo Licensing</b> — Financial institutions PAY ongoing licensing fees to feature Canstar award logos in their marketing. This is B2B RECURRING revenue hidden inside a consumer-facing comparison site.</li>
+<li><b>Canstar Blue</b> — Separate brand for customer satisfaction surveys.</li>
+</ul>
+<div class="insight"><strong>BIGGEST REVENUE OPPORTUNITY to copy:</strong> InvestingPro Awards Program.<br>"Best Credit Card 2026 — InvestingPro Award" (annual/quarterly). Banks + NBFCs pay licensing fees to use the badge in their marketing. Creates B2B recurring revenue independent of click traffic. Partner with ET/Mint for award announcement = earned media. Start with quarterly awards, move to annual gala.</div>
+</div>
+</section>
+
+<!-- ═══════════════ GLOBAL MID PLATFORMS ═══════════════ -->
+<section id="global-mid">
+<h2>Global Mid Platforms <span class="badge b-org">1M–10M visits/mo</span></h2>
+<div class="grid-2">
+
+<div class="card">
+<div class="card-header"><h3>ClearScore (UK/India) <span class="badge b-red">Direct Rival in India</span></h3></div>
+<ul>
+<li><b>Already operating in India</b> — partnered with Experian India. Direct competitor for credit monitoring.</li>
+<li><b>Credit coaching</b> — Not just score display, but "here's exactly what to do to improve by 50 points."</li>
+<li><b>Timeline view</b> — Credit history as visual story.</li>
+<li><b>Dojo</b> — Credit-building for thin-file (no credit history) users.</li>
+<li><b>Predictive eligibility</b> — "90% likely to be approved for this card."</li>
+</ul>
+<div class="insight warn"><strong>Counter:</strong> ClearScore is IN India already. InvestingPro's edge: pair credit monitoring with multi-vertical product recommendations. "Your CIBIL is 720 → these 8 premium cards qualify for you AND here's the SIP to start" — ClearScore can't do the investment half.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>The Points Guy (US) <span class="badge b-gld">Adapt</span></h3></div>
+<ul>
+<li><b>Monthly Points Valuations</b> — TPG publishes what every reward currency is worth in cents. Industry standard reference. Enormous SEO traffic from this monthly publication.</li>
+<li><b>Breaking Deal Alerts</b> — Email subscribers notified of limited-time offers within hours.</li>
+<li><b>Specialist authors</b> — Each writer owns a loyalty program vertically.</li>
+<li><b>Acquired by Red Ventures for ~$300M</b></li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> Monthly InvestingPro Rewards Report: "HDFC Reward Point = ₹0.25 | Amex MR Point = ₹0.50 | IndiGo 6E = ₹0.18" — No Indian platform does this systematically. Becomes the reference. Media quotes it.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>PolicyGenius (US) <span class="badge b-gld">Adapt</span></h3></div>
+<ul>
+<li><b>Licensed agent model</b> — Employs real insurance agents who help users select AND complete applications. Bridges the trust gap in insurance.</li>
+<li><b>Multi-insurer comparison + human guidance</b> — Compare quotes, then agent helps through underwriting.</li>
+<li><b>Higher commission</b> — Because they close the sale (not just refer), commission rates are higher.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> Insurance advisory via IRDAI POSP model. "Talk to an advisor" CTA alongside comparison results. Ditto Insurance proves this works in India. Most Indians still don't trust online-only insurance for term life — human guidance converts.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Wealthsimple (Canada) <span class="badge b-gld">Adapt</span></h3></div>
+<ul>
+<li><b>Wealthsimple Magazine</b> — Editorial content that humanizes finance. "Money Diaries" series with celebrities discussing financial vulnerabilities. Goes viral. Content marketing at highest level.</li>
+<li><b>Halal investing portfolios</b> — Specifically for Islamic finance compliance. First major platform to offer this prominently.</li>
+<li><b>Membership tiers</b> — Higher interest/lower fees for larger balances. Gamifies accumulation.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong><br>1. <b>Halal MF filter</b> — 200M+ Muslim Indians. No comparison platform highlights this. Massive gap.<br>2. <b>Financial Diaries India</b> — "How a ₹40K/month Bengaluru engineer manages her money." Real stories, viral content.<br>3. <b>Membership tiers</b> — "InvestingPro Plus" with better rates on partner FDs.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>LendingTree (US) <span class="badge b-gld">Adapt</span></h3></div>
+<ul>
+<li><b>"When banks compete, you win"</b> — Single loan application, multiple lenders bid simultaneously.</li>
+<li><b>DepositAccounts.com</b> (subsidiary) — Most comprehensive CD/savings rate aggregation in US. Tracks thousands of institutions including tiny credit unions.</li>
+<li>Revenue $1B+ in 2025.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> "InvestingPro FD Tracker" — comprehensive FD rates from every bank, NBFC, small finance bank, credit society in India. StableMoney does this partially. InvestingPro should own the definitive FD rate database. 80+ institutions, updated weekly.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>CompareHero / iMoney / RinggitPlus (SEA) <span class="badge b-blue">India-relevant</span></h3></div>
+<ul>
+<li><b>Exclusive sign-up bonuses</b> — "Compare via us and get RM450 TNG gift" — exclusive offers not available direct.</li>
+<li><b>Islamic finance filtering</b> — Critical for Malaysia's Muslim majority. Same need exists for India.</li>
+<li><b>Bilingual content</b> — Malay + English. Both SEO streams.</li>
+<li><b>WhatsApp-first customer service</b> — India's WhatsApp penetration makes this essential.</li>
+<li><b>Living articles with freshness signals</b> — "FD rates updated weekly" — SEO freshness strategy.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong><br>1. <b>Exclusive deals</b> — "Apply for HDFC Regalia via InvestingPro → ₹1,000 Amazon voucher" not available direct.<br>2. <b>Hindi content at scale</b> — "क्रेडिट कार्ड की तुलना करें" — virtually unclaimed SEO territory.<br>3. <b>WhatsApp-first support</b> — WhatsApp Business API for India.<br>4. <b>Date-stamped freshness</b> — "FD rates verified March 20, 2026."</div>
+</div>
+
+</div>
+</section>
+
+<!-- ═══════════════ GLOBAL SMALL PLATFORMS ═══════════════ -->
+<section id="global-small">
+<h2>Global Small Platforms <span class="badge b-blue">Under 1M visits/mo — High Insight Value</span></h2>
+<div class="grid-2">
+
+<div class="card">
+<div class="card-header"><h3>Doctor of Credit (US) <span class="badge b-pur">Trust Model</span></h3></div>
+<ul>
+<li><b>Affiliate-free model</b> — "We don't use financial product affiliate links." Monetizes via Amazon/eBay only. Extreme trust signal.</li>
+<li><b>Community deal reporting</b> — Readers submit deals; comments have 500+ data points per post.</li>
+<li><b>Daily email digest</b> — Every post from that day in one email. High open rates.</li>
+<li><b>Hat-tip culture</b> — Credits readers who find deals. Creates contributor motivation.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> Daily "InvestingPro Deals Digest" email — every new CC offer, FD rate change, insurance deal in one daily email. Reader deal submission with attribution.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>MyFICO (US) <span class="badge b-gld">Subscription Model</span></h3></div>
+<ul>
+<li><b>Multi-bureau scores</b> — Only place to get all 3 bureau FICO scores simultaneously. Industry-specific versions.</li>
+<li><b>Score Simulator</b> — "Pay off this loan → your FICO goes from 680 to 720."</li>
+<li><b>Subscription</b> — $19.95–$39.95/month. Rare subscription revenue in this space.</li>
+<li><b>4.8★ app rating, 22,700 reviews.</b></li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> "InvestingPro Credit Pro" subscription (₹199/month) — CIBIL score via API + monthly updates + score simulator + coaching. India's polished myFICO equivalent doesn't exist.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Monevator (UK) <span class="badge b-pur">Newsletter Moat</span></h3></div>
+<ul>
+<li><b>"Get Rich Slow" philosophy</b> — Anti-hype passive investing builds extremely loyal niche audience.</li>
+<li><b>3 emails per week</b> — High frequency = top of mind. Membership tiers.</li>
+<li><b>17+ year content archive</b> — Evergreen SEO moat. Definitive UK broker comparison table.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> Multi-frequency email: "Tuesday FD rate update | Thursday CC deals | Weekend deep dive." InvestingPro Membership ₹499/month for premium tools + ad-free.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>AskSebby (US) <span class="badge b-pnk">Creator Model</span></h3></div>
+<ul>
+<li><b>Founder voice on every recommendation</b> — "Sebby's take" — personal, opinionated. Drives trust.</li>
+<li><b>"Is this card worth the annual fee?"</b> — Interactive calculator: input your spend → outputs real annual value in dollars.</li>
+<li><b>YouTube + Instagram integration</b> — Creator-platform hybrid.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> "Is this card worth the annual fee?" calculator for Indian cards. Named expert with personal take on every recommendation. Creator partnerships with Indian finance YouTubers/Instagram accounts.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Be Clever With Your Cash (UK) <span class="badge b-gld">List Growth</span></h3></div>
+<ul>
+<li><b>85K email subscribers</b> with cashback incentive to subscribe.</li>
+<li><b>Newsletter incentive</b> — "Subscribe and get Quidco welcome bonus."</li>
+<li><b>YouTube Live Q&A</b> — Weekly live sessions on current deals. Drives YouTube subscribers.</li>
+<li><b>Facebook Group community</b> alongside content.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> Newsletter incentive: "Subscribe to InvestingPro Weekly → get ₹100 cashback on next FD application." YouTube Live monthly Q&A on best current deals.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><h3>Miles to Memories (US) <span class="badge b-pur">Community Revenue</span></h3></div>
+<ul>
+<li><b>Patreon/Slack premium community</b> — "Diamond Slack" for core audience. Monthly recurring community revenue.</li>
+<li><b>Multiple podcasts</b> driving audience depth.</li>
+<li><b>Merchandise</b> for brand loyalty beyond digital.</li>
+</ul>
+<div class="insight"><strong>Copy for InvestingPro:</strong> Premium Telegram/WhatsApp community ₹299/month — exclusive deals, advance notice, expert Q&A, community with fellow investors. Community revenue independent of traffic.</div>
+</div>
+
+</div>
+</section>
+
+<!-- ═══════════════ MARKET GAPS ═══════════════ -->
+<section id="gaps">
+<h2>Market Gaps — Features No Indian Platform Has</h2>
+<table>
+<thead><tr><th>Feature</th><th>Who Does It (Global)</th><th>India Status</th><th>Priority</th><th>Revenue Model</th></tr></thead>
+<tbody>
+<tr><td><b>ML Approval Odds</b></td><td>Credit Karma</td><td style="color:var(--red)">Nobody</td><td><span class="badge b-red">P0</span></td><td>Partner with CIBIL API; drives card applications</td></tr>
+<tr><td><b>Lifestyle Rewards for Comparison</b></td><td>MoneySuperMarket Meerkat</td><td style="color:var(--red)">Nobody</td><td><span class="badge b-red">P0</span></td><td>BookMyShow/Zomato partnership; affiliate on comparison act</td></tr>
+<tr><td><b>Trusted Weekly Newsletter</b></td><td>MSE (17M subs)</td><td style="color:var(--org)">Finshots (edu only)</td><td><span class="badge b-red">P0</span></td><td>Long-term: ad slots in email; short-term: trust + retention</td></tr>
+<tr><td><b>Award Logo Licensing (B2B)</b></td><td>Canstar, Bankrate</td><td style="color:var(--red)">Nobody</td><td><span class="badge b-red">P0</span></td><td>Banks pay ₹2–10L/year to use award badge in marketing</td></tr>
+<tr><td><b>Proprietary Points Valuation</b></td><td>The Points Guy</td><td style="color:var(--org)">TechnoFino (ad hoc)</td><td><span class="badge b-grn">P1</span></td><td>Monthly publication drives SEO + newsletter opens</td></tr>
+<tr><td><b>Soft-Pull Eligibility Check</b></td><td>MSE Eligibility Calculator</td><td style="color:var(--red)">Nobody properly</td><td><span class="badge b-grn">P1</span></td><td>Protects CIBIL; increases application conversion</td></tr>
+<tr><td><b>Credit Score Simulator</b></td><td>NerdWallet, MyFICO</td><td style="color:var(--red)">Nobody</td><td><span class="badge b-grn">P1</span></td><td>Drives repeat visits; subscription upsell</td></tr>
+<tr><td><b>Programmatic IFSC/PIN Pages</b></td><td>BankBazaar (partially)</td><td style="color:var(--org)">BankBazaar owns it</td><td><span class="badge b-grn">P1</span></td><td>1M+ organic visits/month; ad revenue</td></tr>
+<tr><td><b>Hindi-language Content at Scale</b></td><td>—</td><td style="color:var(--red)">Nobody at scale</td><td><span class="badge b-grn">P1</span></td><td>Unclaimed SEO territory; reaches Bharat audience</td></tr>
+<tr><td><b>Financial Health Dashboard (AA)</b></td><td>NerdWallet, Mint</td><td style="color:var(--red)">Nobody has cracked UX</td><td><span class="badge b-org">P2</span></td><td>India's AA framework is live; account aggregation drives retention</td></tr>
+<tr><td><b>Halal/Shariah Investment Filter</b></td><td>Wealthsimple</td><td style="color:var(--red)">Nobody</td><td><span class="badge b-org">P2</span></td><td>200M+ Muslim Indians; zero competition</td></tr>
+<tr><td><b>Consumer Advocacy Journalism</b></td><td>Martin Lewis / MSE</td><td style="color:var(--red)">Nobody</td><td><span class="badge b-org">P2</span></td><td>Trust moat; not direct revenue but powers all conversions</td></tr>
+<tr><td><b>Exclusive Bank Deals</b></td><td>CompareHero (SEA)</td><td style="color:var(--red)">Nobody</td><td><span class="badge b-grn">P1</span></td><td>"Apply via InvestingPro → ₹1,000 exclusive cashback" = higher CPL from banks</td></tr>
+<tr><td><b>Subscription Tier (Premium Tools)</b></td><td>MyFICO, Monevator</td><td style="color:var(--red)">Nobody</td><td><span class="badge b-org">P2</span></td><td>₹199–499/month recurring revenue independent of traffic</td></tr>
+<tr><td><b>Original Primary Research</b></td><td>Credit Karma, ValuePenguin</td><td style="color:var(--red)">Nobody</td><td><span class="badge b-org">P2</span></td><td>Media coverage → backlinks → domain authority</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ═══════════════ COPY / ADAPT / SKIP ═══════════════ -->
+<section id="verdict">
+<h2>Verdict — Copy / Adapt / Skip</h2>
+
+<h3 style="color:var(--grn)">COPY Immediately (exact feature, proven in India context)</h3>
+<table>
+<thead><tr><th>Feature</th><th>From</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Weekly email newsletter (genuine advice, not promotions)</td><td>MoneySavingExpert</td><td>Launch InvestingPro Weekly — use Resend (already in stack). Sunday 9am IST.</td></tr>
+<tr><td>Transparent product scoring rubric</td><td>NerdWallet Star Ratings</td><td>Publish InvestingPro Score methodology for each category. 0–5 stars with criteria listed.</td></tr>
+<tr><td>Monthly reward points valuation</td><td>The Points Guy</td><td>Monthly "InvestingPro Rewards Report" — 10 major Indian card programs valued in ₹/point.</td></tr>
+<tr><td>Award logo licensing program</td><td>Canstar</td><td>"InvestingPro Best Credit Card Award 2026" — quarterly. Sell badge license to winning banks.</td></tr>
+<tr><td>Rate alert emails</td><td>Bankrate</td><td>When any tracked FD rate changes by ±0.25%, trigger email to subscribers who compared.</td></tr>
+<tr><td>Date-stamped freshness signals</td><td>SEA platforms (RinggitPlus)</td><td>"Rates verified March 20, 2026" on every product listing and rate table.</td></tr>
+<tr><td>Editorial independence page</td><td>NerdWallet / Doctor of Credit</td><td>"How We Rank" page explaining methodology + disclosure. Zero cost. Build now.</td></tr>
+</tbody>
+</table>
+
+<h3 style="color:var(--gld)">ADAPT for India (concept valid, execution needs localization)</h3>
+<table>
+<thead><tr><th>Feature</th><th>Original</th><th>India Adaptation</th></tr></thead>
+<tbody>
+<tr><td>ML Approval Odds</td><td>Credit Karma (US credit bureaus)</td><td>Partner with CIBIL/Experian India API. Train on Indian card approval patterns. Show "High/Medium/Low" odds per card.</td></tr>
+<tr><td>Lifestyle Rewards for comparison</td><td>Meerkat (cinema tickets)</td><td>BookMyShow 2-for-1, Zomato/Swiggy credits. "Compare loan → get a free movie." India's WhatsApp makes distribution easy.</td></tr>
+<tr><td>Soft-pull eligibility check</td><td>MSE Eligibility Calculator</td><td>Pre-qualification before applying. Protects CIBIL score from hard enquiries. CIBIL soft-pull API required.</td></tr>
+<tr><td>Credit Score Simulator</td><td>NerdWallet / MyFICO</td><td>CIBIL-specific version. "Pay off this loan → CIBIL goes from 680 to 720." India scale 300–900.</td></tr>
+<tr><td>Financial Diaries content</td><td>Wealthsimple Magazine</td><td>"How a ₹40K/month Bengaluru engineer manages her money" — real Indian financial stories. Hindi + English.</td></tr>
+<tr><td>Premium community subscription</td><td>Miles to Memories Patreon</td><td>InvestingPro Premium Telegram/WhatsApp group ₹299/month — exclusive deals, expert Q&A.</td></tr>
+<tr><td>Halal investment filter</td><td>Wealthsimple (Canada)</td><td>Filter MFs/FDs for Shariah compliance. 200M+ Muslim Indians, zero competition currently.</td></tr>
+<tr><td>Named expert personality</td><td>Martin Lewis (UK)</td><td>InvestingPro needs India's "Martin Lewis" — a credible, named advisor face on all content.</td></tr>
+<tr><td>Consumer advocacy journalism</td><td>MoneySavingExpert</td><td>"This HDFC card's ₹4,999 fee isn't worth it for most people." Take editorial stances Indians trust.</td></tr>
+<tr><td>Exclusive bank deals</td><td>CompareHero (Malaysia)</td><td>Negotiate "Apply via InvestingPro → get ₹500 exclusive cashback" with partner banks. Higher CPL = more revenue.</td></tr>
+</tbody>
+</table>
+
+<h3 style="color:var(--red)">SKIP (wrong for India now)</h3>
+<table>
+<thead><tr><th>Feature</th><th>Why Skip</th></tr></thead>
+<tbody>
+<tr><td>Full robo-advisory</td><td>Requires SEBI registration as Investment Advisor. Regulatory burden not worth it now.</td></tr>
+<tr><td>Tax filing integration</td><td>ClearTax has 86 Auth Score, 6M+ returns filed. Too entrenched. Own the pre/post-tax moments instead.</td></tr>
+<tr><td>Crypto comparison</td><td>Regulatory uncertainty in India. Brand risk outweighs traffic opportunity.</td></tr>
+<tr><td>International market expansion</td><td>Stay India-first until all P0 keyword pages are live and ranking.</td></tr>
+<tr><td>B2B SaaS / white-label CMS</td><td>Multi-platform vision only after InvestingPro.in is dominant. See CLAUDE.md §16.</td></tr>
+<tr><td>Ultra-HNI wealth management</td><td>Wrong audience. InvestingPro is for ₹25K–2L/month salaried Indians.</td></tr>
+<tr><td>Podcast (standalone)</td><td>Low ROI relative to newsletter. Build newsletter first; add podcast when 50K+ subscribers.</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ═══════════════ MASTER TASK LIST ═══════════════ -->
+<section id="tasks">
+<h2>Master Task List — Prioritized Roadmap</h2>
+
+<h3>Phase 0 — This Week (Zero Cost, Zero Code)</h3>
+<div class="card">
+<div class="task"><span class="task-phase" style="color:var(--red)">P0</span><span class="task-desc"><b>Create "How We Rank" editorial independence page</b> — Explain exactly how InvestingPro scores products. One-liner disclosure on every product list: "We earn a commission if you apply — this doesn't affect our ranking." NerdWallet/Doctor of Credit model. Zero cost. Own "honest platform" position.</span><span class="task-priority">📝</span></div>
+<div class="task"><span class="task-phase" style="color:var(--red)">P0</span><span class="task-desc"><b>Add "Last verified: [date]" to all rate tables and product listings</b> — RinggitPlus SEO freshness model. Tells Google content is maintained. Tells users data is current. Update date each time rates are checked.</span><span class="task-priority">📝</span></div>
+<div class="task"><span class="task-phase" style="color:var(--red)">P0</span><span class="task-desc"><b>Add named author photos + credentials to every article</b> — NerdWallet E-E-A-T model. "Written by [Name], Certified Financial Planner." Google E-E-A-T signal. Direct ranking factor for YMYL (Your Money, Your Life) content.</span><span class="task-priority">📝</span></div>
+<div class="task"><span class="task-phase" style="color:var(--red)">P0</span><span class="task-desc"><b>Remove quiz gates from all category pages</b> — Show products first, filter inline. Users should see card listings immediately, not be quizzed before access. NerdWallet model: products visible, filters on the side.</span><span class="task-priority">📝</span></div>
+<div class="task"><span class="task-phase" style="color:var(--red)">P0</span><span class="task-desc"><b>Publish InvestingPro Scoring Rubric</b> — For each category: what factors are scored, what weight each factor gets. "Credit cards: rewards rate (30%) + annual fee (25%) + sign-up bonus (20%) + perks (15%) + approval ease (10%)." Builds trust. Competitors won't publish theirs.</span><span class="task-priority">📝</span></div>
+</div>
+
+<h3>Phase 1 — Month 1 (Quick Wins, High Impact)</h3>
+<div class="card">
+<div class="task"><span class="task-phase" style="color:var(--org)">P0</span><span class="task-desc"><b>Launch InvestingPro Weekly newsletter</b> — Resend is already in stack. Build simple template: 3 financial tips this week, 1 rate change alert, 1 featured product comparison, 1 "InvestingPro says" editorial take. Send every Sunday 9am IST. MSE took 20 years to reach 17M — start now. Target: 1K subscribers by end of month 1.</span><span class="task-priority">✉️</span></div>
+<div class="task"><span class="task-phase" style="color:var(--org)">P0</span><span class="task-desc"><b>Build InvestingPro Awards Program</b> — Annual/quarterly. "Best Credit Card 2026 — InvestingPro Award." Create award badge (SVG). Announce winners via press release + email. Pitch badge licensing to winning banks at ₹2–5L/year. Canstar model. First B2B revenue stream beyond affiliate.</span><span class="task-priority">🏆</span></div>
+<div class="task"><span class="task-phase" style="color:var(--org)">P0</span><span class="task-desc"><b>FD Rate Tracker — comprehensive database</b> — Cover 80+ institutions: public banks, private banks, small finance banks, NBFCs, credit unions. StableMoney does this best in India. InvestingPro must match or exceed. Update weekly. Become THE FD rate reference that media quotes. DepositAccounts.com model for India.</span><span class="task-priority">📊</span></div>
+<div class="task"><span class="task-phase" style="color:var(--org)">P1</span><span class="task-desc"><b>Launch monthly "InvestingPro Rewards Report"</b> — Value every major Indian credit card reward point in ₹: HDFC SmartBuy points, Amex Membership Rewards, SBI Points, ICICI Payback, IndusInd points, Axis eDGE, IDFC First Reward, etc. Publish first Monday of every month. The Points Guy model. No Indian platform does this systematically. Becomes the industry reference.</span><span class="task-priority">💎</span></div>
+<div class="task"><span class="task-phase" style="color:var(--org)">P1</span><span class="task-desc"><b>Hindi-language content category</b> — "क्रेडिट कार्ड की तुलना करें" keyword cluster is virtually unclaimed by any major platform. Start with 10 core pages: best CC Hindi, SIP calculator Hindi, FD rates Hindi. SEA platforms prove bilingual = double the SEO surface area. Bharat audience is enormous.</span><span class="task-priority">🇮🇳</span></div>
+<div class="task"><span class="task-phase" style="color:var(--org)">P1</span><span class="task-desc"><b>FD Rate Alert email system</b> — When any tracked FD rate changes by ±0.25%, send email to users who compared that FD category. Bankrate model. Event-triggered emails have 40–60% open rates vs 20% for newsletters. Drives re-engagement without requiring new content.</span><span class="task-priority">🔔</span></div>
+<div class="task"><span class="task-phase" style="color:var(--org)">P1</span><span class="task-desc"><b>Build P0 credit card category pages</b> — Cashback (/credit-cards/cashback, 90K–150K/mo), Travel (/credit-cards/travel, 80K–120K/mo), Lifetime Free (/credit-cards/lifetime-free, 60K–100K/mo), OTT Subscriptions (zero competition — build now), Rent Payment (zero competition), Electricity Bill (zero competition). These 3 zero-competition pages alone could own fast-win traffic.</span><span class="task-priority">📄</span></div>
+<div class="task"><span class="task-phase" style="color:var(--org)">P1</span><span class="task-desc"><b>Negotiate exclusive bank deals</b> — Partner with 2–3 banks for "Apply via InvestingPro → ₹500–1,000 exclusive cashback/voucher not available direct." CompareHero/Malaysia model. Increases CPL from banks (they pay more for exclusive referrals). Creates compelling reason to choose InvestingPro over BankBazaar.</span><span class="task-priority">🤝</span></div>
+</div>
+
+<h3>Phase 2 — Month 2–4 (Moat Building)</h3>
+<div class="card">
+<div class="task"><span class="task-phase" style="color:var(--blue)">P0</span><span class="task-desc"><b>Approval Predictor (CIBIL-powered)</b> — Partner with TransUnion CIBIL API or Experian India for soft-pull pre-qualification. Show users "Your approval odds: High / Medium / Low" for each card BEFORE applying. Credit Karma's #1 feature. No Indian platform does this with ML. Protects users' CIBIL from hard enquiries. Highest-value feature to build in India right now.</span><span class="task-priority">🎯</span></div>
+<div class="task"><span class="task-phase" style="color:var(--blue)">P1</span><span class="task-desc"><b>Programmatic SEO: IFSC Code Lookup</b> — RBI publishes the complete IFSC database publicly. Build 80K+ auto-generated pages (/ifsc/[bank]/[branch]). BankBazaar gets 1.29M visits/month from this. One-time build, evergreen traffic. Potential: 500K–1M visits/month for InvestingPro.</span><span class="task-priority">⚙️</span></div>
+<div class="task"><span class="task-phase" style="color:var(--blue)">P1</span><span class="task-desc"><b>Programmatic SEO: Bank Holidays + PIN Code Finder</b> — Simple yearly data, dozens of pages, zero competition. PIN Code + Branch Finder from RBI data = 50K+ hyper-local pages. 200K–500K visits/month potential. Low development cost, perpetual organic traffic.</span><span class="task-priority">⚙️</span></div>
+<div class="task"><span class="task-phase" style="color:var(--blue)">P1</span><span class="task-desc"><b>Card vs Card Comparator pages</b> — "HDFC Regalia vs Infinia" type pages. CardExpert ranks top 3 on these. 1,000 card pairs ranked = 50K+/month. Highest purchase intent traffic. Build a template that auto-generates comparison pages from product database. Programmatic SEO at scale.</span><span class="task-priority">📊</span></div>
+<div class="task"><span class="task-phase" style="color:var(--blue)">P1</span><span class="task-desc"><b>SWP Calculator</b> — +423% YoY search growth, near-zero competition. Paisabazaar's is weak. No one owns this yet. Build with InvestingPro brand UI. Cross-link to MF comparisons. "Here's what SWP means for your retirement → here's which MF to use for it."</span><span class="task-priority">🧮</span></div>
+<div class="task"><span class="task-phase" style="color:var(--blue)">P1</span><span class="task-desc"><b>CIBIL Score Simulator</b> — "What happens to my CIBIL if I pay off this loan? Close this card? Open a new one?" Credit Karma / MyFICO model. No Indian platform has built this properly. Drives repeat engagement — users come back after taking action to see if score improved. Direct upsell to credit monitoring subscription.</span><span class="task-priority">📈</span></div>
+<div class="task"><span class="task-phase" style="color:var(--blue)">P2</span><span class="task-desc"><b>InvestingPro Premium Community</b> — WhatsApp/Telegram group ₹299/month. Exclusive deals first, expert Q&A, advance notice of rate changes. Miles to Memories Patreon model. Recurring revenue independent of traffic. Start with 100 founding members at ₹99/month to validate.</span><span class="task-priority">👥</span></div>
+<div class="task"><span class="task-phase" style="color:var(--blue)">P2</span><span class="task-desc"><b>Halal / Shariah investment filter</b> — Filter MF/FD/stocks for Shariah compliance. 200M+ Muslim Indians. Zero Indian comparison platform highlights this. Wealthsimple proved it drives significant engagement in Canada. Partner with a Shariah-certification body for credibility.</span><span class="task-priority">☪️</span></div>
+</div>
+
+<h3>Phase 3 — Month 5–9 (Platform Expansion)</h3>
+<div class="card">
+<div class="task"><span class="task-phase" style="color:var(--pur)">P1</span><span class="task-desc"><b>InvestingPro Subscription Tier</b> — "InvestingPro Plus" ₹199–499/month. Includes: CIBIL score via API, monthly updates, score simulator, identity monitoring, ad-free experience, premium tools. MyFICO / Monevator model. First recurring revenue stream for InvestingPro beyond affiliate commissions.</span><span class="task-priority">💳</span></div>
+<div class="task"><span class="task-phase" style="color:var(--pur)">P1</span><span class="task-desc"><b>Account Aggregator (AA) Financial Dashboard</b> — India's AA framework is live. Link bank accounts, categorize spending, show net worth, cash flow, CIBIL. NerdWallet's "My NerdWallet" dashboard model. No Indian comparison platform has cracked this UX. Requires AA consent framework integration.</span><span class="task-priority">🏦</span></div>
+<div class="task"><span class="task-phase" style="color:var(--pur)">P1</span><span class="task-desc"><b>InvestingPro Rewards Program</b> — Compare + apply → earn points → redeem for BookMyShow / Zomato / Swiggy vouchers. MoneySuperMarket Meerkat model for India. Makes comparison habitual (not just one-time). Requires commercial partnerships — start with 1–2 brands. Proof of concept first.</span><span class="task-priority">🎁</span></div>
+<div class="task"><span class="task-phase" style="color:var(--pur)">P1</span><span class="task-desc"><b>Insurance comparison via POSP model</b> — Add term life + health + car insurance comparison. Partner with IRDAI-registered POSP agents for "Talk to an advisor" option alongside comparison. PolicyGenius + Ditto Insurance model. PolicyBazaar is transactional; InvestingPro is advisory. Higher trust = higher conversion.</span><span class="task-priority">🛡️</span></div>
+<div class="task"><span class="task-phase" style="color:var(--pur)">P2</span><span class="task-desc"><b>"Financial Diaries India" content series</b> — Real stories of Indians with different income levels managing money. "How a ₹40K/month engineer in Bengaluru allocates her salary." Wealthsimple Magazine model. Goes viral. Drives SEO through engagement and shares. Builds emotional connection with brand beyond product comparison.</span><span class="task-priority">📖</span></div>
+<div class="task"><span class="task-phase" style="color:var(--pur)">P2</span><span class="task-desc"><b>Original research publications</b> — "InvestingPro India Financial Health Report 2026: 67% of Indians don't know their CIBIL score." Credit Karma / ValuePenguin model. Use anonymized aggregate user data. Send to ET, Livemint, Mint as press release. Media coverage = backlinks = domain authority growth.</span><span class="task-priority">📋</span></div>
+<div class="task"><span class="task-phase" style="color:var(--pur)">P2</span><span class="task-desc"><b>Named expert personality ("India's Martin Lewis")</b> — A credible, named InvestingPro advisor face. Personal takes on every recommendation. Consumer advocacy positioning: "We fight for the Indian investor." TV/podcast/social media presence. Martin Lewis-style — takes editorial stances, calls out bad products publicly.</span><span class="task-priority">👤</span></div>
+</div>
+
+<h3>Phase 4 — Year 2+ (Platform Transformation)</h3>
+<div class="card">
+<div class="task"><span class="task-phase" style="color:var(--cyan)">P2</span><span class="task-desc"><b>SEBI RIA registration for investment advice</b> — Enables legally compliant robo-advisory and personalised investment recommendations. Currently limited to comparison and general education. Required before goal-based planning engine.</span><span class="task-priority">⚖️</span></div>
+<div class="task"><span class="task-phase" style="color:var(--cyan)">P2</span><span class="task-desc"><b>Goal-based planning engine</b> — "Buy house in 5 years" → SIP amount needed + CIBIL target + home loan eligibility path. Cross-vertical linking at its maximum. Requires Account Aggregator integration + credit monitoring + product comparison all working together.</span><span class="task-priority">🎯</span></div>
+<div class="task"><span class="task-phase" style="color:var(--cyan)">P2</span><span class="task-desc"><b>InvestingPro Masterclass</b> — 8 free short finance education videos, each with product CTA. "How to choose a credit card" → end with comparison tool CTA. "How CIBIL score works" → end with free credit check CTA. Drives qualified traffic that converts higher.</span><span class="task-priority">🎓</span></div>
+<div class="task"><span class="task-phase" style="color:var(--cyan)">P2</span><span class="task-desc"><b>Multi-platform CMS (white-label)</b> — Only after InvestingPro.in is dominant + newsletter 10K+ + CIBIL Simulator live + Programmatic SEO live. See CLAUDE.md §16 for full architecture. Tenant-based comparison platform for other markets.</span><span class="task-priority">🌐</span></div>
+</div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div style="margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);color:var(--dim);font-size:.8rem">
+<p>InvestingPro.in — Competitive Intelligence Report 2026</p>
+<p>35 platforms analyzed: 18 Indian (5 mega, 7 mid, 6 small) + 17 Global (7 mega, 6 mid, 4 small)</p>
+<p>Generated: March 23, 2026 | Branch: claude/audit-investingpro-YfE2r</p>
+</div>
+
+</main>
+</body>
+</html>

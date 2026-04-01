@@ -79,7 +79,7 @@ export function SCSSCalculator() {
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
                         <Input
-                            type="number"
+                            type="number" inputMode="decimal"
                             value={investment}
                             onChange={(e) => setInvestment(Math.min(Number(e.target.value), 3000000))}
                             className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground"

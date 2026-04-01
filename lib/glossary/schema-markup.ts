@@ -89,28 +89,15 @@ export function generateSchemaMarkup(term: GlossaryTerm): Record<string, any> {
 }
 
 /**
- * Generate FAQPage schema if term has FAQs
+ * generateFAQSchema — DISABLED
+ * FAQPage schema restricted to government/healthcare since August 2023.
+ * Kept as no-op to avoid breaking imports.
  */
 export function generateFAQSchema(
-    term: string,
-    slug: string,
-    faqs: Array<{ question: string; answer: string }>
-): Record<string, any> {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://investingpro.in';
-    const termUrl = `${baseUrl}/glossary/${slug}`;
-
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: faqs.map(faq => ({
-            '@type': 'Question',
-            name: faq.question,
-            acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.answer,
-            },
-        })),
-        url: termUrl,
-    };
+    _term: string,
+    _slug: string,
+    _faqs: Array<{ question: string; answer: string }>
+): null {
+    return null;
 }
 

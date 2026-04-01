@@ -1,7 +1,9 @@
 
+
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { NAVIGATION_CONFIG } from '@/lib/navigation/config';
 import { getCategoryBySlug, getSubcategoryBySlug } from '@/lib/navigation/categories';
 import { fetchSubcategoryPageData } from '@/lib/pillar/subcategory-data-fetcher';
@@ -13,6 +15,35 @@ import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 // Type definitions
 interface PageProps {
     params: Promise<{ category: string; slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { category, slug } = await params;
+    const canonical = `https://investingpro.in/explore/${category}/${slug}`;
+
+    // Intent page
+    const categoryConfig = NAVIGATION_CONFIG.find(cat => cat.slug === category);
+    const intent = categoryConfig?.intents.find(int => int.slug === slug);
+    if (intent) {
+        const cat = getCategoryBySlug(category);
+        return {
+            title: `${intent.name} ${cat?.name || ''} | InvestingPro`,
+            description: intent.description,
+            alternates: { canonical },
+        };
+    }
+
+    // Subcategory page
+    const subcategory = getSubcategoryBySlug(category, slug);
+    if (subcategory) {
+        return {
+            title: `${subcategory.name} | InvestingPro`,
+            description: subcategory.description,
+            alternates: { canonical },
+        };
+    }
+
+    return { alternates: { canonical } };
 }
 
 // Intent Page Content Component
@@ -168,40 +199,8 @@ export default async function Page({ params }: PageProps) {
     );
 }
 
-// Generate static params for both intents and subcategories
-export async function generateStaticParams() {
-    const params: Array<{ category: string; slug: string }> = [];
-    
-    // Add Intent params
-    for (const category of NAVIGATION_CONFIG) {
-        for (const intent of category.intents) {
-            params.push({
-                category: category.slug,
-                slug: intent.slug,
-            });
-        }
-    }
+// No generateStaticParams — pages are force-dynamic (rendered on demand)
 
-    // Add Subcategory params
-    // Note: We need to import NAVIGATION_CATEGORIES dynamically if it's not available in NAVIGATION_CONFIG
-    // Assuming NAVIGATION_CATEGORIES structure matches what was in subcategory/page.tsx
-    const { NAVIGATION_CATEGORIES } = await import('@/lib/navigation/categories');
-    
-    for (const category of NAVIGATION_CATEGORIES) {
-        for (const subcategory of category.subcategories) {
-            // Avoid duplicates if an intent and subcategory have the same slug (shouldn't happen ideally)
-            if (!params.some(p => p.category === category.slug && p.slug === subcategory.slug)) {
-                params.push({
-                    category: category.slug,
-                    slug: subcategory.slug,
-                });
-            }
-        }
-    }
-    
-    return params;
-}
-
-// Force static generation
-export const dynamic = 'force-static';
-export const revalidate = 3600; // Revalidate every hour
+// Dynamic: render on demand to avoid pre-building 100s of pages at deploy time
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600;

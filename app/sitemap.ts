@@ -23,6 +23,107 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1.0,
         });
 
+        // IFSC lookup tool
+        sitemap.push({
+            url: `${baseUrl}/ifsc`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        });
+
+        // Newsletter landing page
+        sitemap.push({
+            url: `${baseUrl}/newsletter`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        });
+
+        // Scoring Matrix — transparency / trust page
+        sitemap.push({
+            url: `${baseUrl}/scoring-matrix`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        });
+
+        // Free Tools Hub — Engineering as Marketing
+        sitemap.push({
+            url: `${baseUrl}/tools`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.85,
+        });
+
+        // Gold Rate — hub + 50 city pages
+        sitemap.push({
+            url: `${baseUrl}/gold-rate`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.85,
+        });
+        const { GOLD_RATE_CITIES } = await import('@/lib/data/gold-rate');
+        for (const city of GOLD_RATE_CITIES) {
+            sitemap.push({
+                url: `${baseUrl}/gold-rate/${city.slug}`,
+                lastModified: new Date(),
+                changeFrequency: 'daily',
+                priority: 0.8,
+            });
+        }
+
+        // Bank Holidays — hub + 25 state pages
+        sitemap.push({
+            url: `${baseUrl}/bank-holidays`,
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 0.8,
+        });
+        const { STATES } = await import('@/lib/data/bank-holidays');
+        for (const state of STATES) {
+            sitemap.push({
+                url: `${baseUrl}/bank-holidays/${state.slug}`,
+                lastModified: new Date(),
+                changeFrequency: 'yearly',
+                priority: 0.75,
+            });
+        }
+
+        // RBI Rates Dashboard
+        sitemap.push({
+            url: `${baseUrl}/rbi-rates`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.8,
+        });
+
+        // Phase 1 data intelligence pages
+        const phase1Routes = [
+            { url: '/taxes/old-vs-new-regime', freq: 'yearly' as const, p: 0.9 },
+            { url: '/mutual-funds/nav', freq: 'daily' as const, p: 0.85 },
+            { url: '/ppf-nps/small-savings-comparison', freq: 'monthly' as const, p: 0.8 },
+            { url: '/ppf-nps/nps-returns', freq: 'monthly' as const, p: 0.8 },
+            { url: '/insurance/claim-settlement-ratio', freq: 'yearly' as const, p: 0.8 },
+            { url: '/credit-cards/ai-subscriptions', freq: 'weekly' as const, p: 0.85 },
+        ];
+        for (const r of phase1Routes) {
+            sitemap.push({
+                url: `${baseUrl}${r.url}`,
+                lastModified: new Date(),
+                changeFrequency: r.freq,
+                priority: r.p,
+            });
+        }
+        const { FEATURED_SCHEMES } = await import('@/lib/data/mf-nav');
+        for (const scheme of FEATURED_SCHEMES) {
+            sitemap.push({
+                url: `${baseUrl}/mutual-funds/nav/${scheme.schemeCode}`,
+                lastModified: new Date(),
+                changeFrequency: 'daily',
+                priority: 0.75,
+            });
+        }
+
         // Pillar pages (from NAVIGATION_CATEGORIES)
         for (const category of NAVIGATION_CATEGORIES) {
             sitemap.push({
@@ -81,6 +182,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             'compound-interest', 'simple-interest', 'rd', 'mis', 'kvp', 'nsc',
             'scss', 'ssy', 'portfolio-rebalancing', 'home-loan-vs-sip',
             'financial-health-score',
+            // Specialist calculators (zero-competition segment)
+            'mf-overlapper', 'fire',
+            'govt-pension', 'defence-pension', 'eps95-pension', 'gratuity',
+            'nri-fd', 'gst-suite',
         ];
         // Calculators hub page
         sitemap.push({
@@ -157,6 +262,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             logger.error('Error fetching articles for sitemap', error as Error);
         }
 
+        // Card vs Card Comparison Pages (Programmatic SEO)
+        sitemap.push({
+            url: `${baseUrl}/credit-cards/vs`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.85,
+        });
+        const { POPULAR_PAIRS, buildPairSlug } = await import('@/lib/data/card-vs-card');
+        for (const [a, b] of POPULAR_PAIRS) {
+            sitemap.push({
+                url: `${baseUrl}/credit-cards/vs/${buildPairSlug(a, b)}`,
+                lastModified: new Date(),
+                changeFrequency: 'weekly',
+                priority: 0.8,
+            });
+        }
+
+        // SGB Series Tracker + Currency Converter
+        sitemap.push({
+            url: `${baseUrl}/gold-rate/sgb`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        });
+        sitemap.push({
+            url: `${baseUrl}/tools/currency-converter`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.85,
+        });
+
         // Versus Comparison Pages (Programmatic SEO)
         try {
             const { data: versusPages } = await supabase
@@ -199,6 +335,52 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         } catch (error) {
             logger.error('Error fetching products for sitemap', error as Error);
         }
+
+        // Discovery tools (missing from sitemap — flagged by audit)
+        sitemap.push({ url: `${baseUrl}/credit-cards/find-your-card`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 });
+        sitemap.push({ url: `${baseUrl}/mutual-funds/find-your-fund`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 });
+
+        // Authors hub
+        sitemap.push({ url: `${baseUrl}/authors`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 });
+
+        // Dynamic author pages
+        try {
+            const { data: authors } = await supabase
+                .from('authors')
+                .select('slug, updated_at')
+                .eq('is_active', true)
+                .limit(500);
+            if (authors) {
+                for (const author of authors) {
+                    sitemap.push({
+                        url: `${baseUrl}/authors/${author.slug}`,
+                        lastModified: author.updated_at ? new Date(author.updated_at) : new Date(),
+                        changeFrequency: 'monthly',
+                        priority: 0.65,
+                    });
+                }
+            }
+        } catch { /* authors table may not exist yet */ }
+
+        // Data studies
+        sitemap.push({ url: `${baseUrl}/data-studies`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 });
+        try {
+            const { data: studies } = await supabase
+                .from('data_studies')
+                .select('slug, updated_at')
+                .eq('status', 'published')
+                .limit(200);
+            if (studies) {
+                for (const study of studies) {
+                    sitemap.push({
+                        url: `${baseUrl}/data-studies/${study.slug}`,
+                        lastModified: study.updated_at ? new Date(study.updated_at) : new Date(),
+                        changeFrequency: 'monthly',
+                        priority: 0.7,
+                    });
+                }
+            }
+        } catch { /* data_studies table may not exist yet */ }
 
         // Static utility pages
         const staticPages = [

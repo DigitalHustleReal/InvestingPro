@@ -40,7 +40,9 @@ import {
     Workflow,
     Bot,
     Database,
-    LineChart
+    LineChart,
+    Percent,
+    Target,
 } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 
@@ -131,6 +133,7 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
             { label: 'Metrics', href: '/admin/metrics', icon: Activity },
             { label: 'SEO Health', href: '/admin/seo', icon: Activity },
             { label: 'SEO Rankings', href: '/admin/seo/rankings', icon: BarChart3 },
+            { label: 'SEO Inline Editor', href: '/admin/seo-editor', icon: Target },
             { label: 'Experiments', href: '/admin/seo/experiments', icon: FlaskConical },
         ],
     },
@@ -140,6 +143,7 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
             { label: 'Revenue Dashboard', href: '/admin/revenue', icon: DollarSign },
             { label: 'Revenue Intelligence', href: '/admin/revenue/intelligence', icon: TrendingUp },
             { label: 'Product Catalog', href: '/admin/products', icon: Package },
+            { label: 'Rate Table Manager', href: '/admin/rate-manager', icon: Percent },
             { label: 'Product Analytics', href: '/admin/product-analytics', icon: BarChart3 },
             { label: 'Affiliates', href: '/admin/affiliates', icon: DollarSign },
             { label: 'Ads', href: '/admin/ads', icon: Megaphone },
@@ -152,6 +156,7 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
             { label: 'Autonomy', href: '/admin/autonomy', icon: Bot },
             { label: 'Design System', href: '/admin/design-system', icon: Palette },
             { label: 'Editorial QA', href: '/admin/editorial-qa', icon: UserCheck },
+            { label: 'Newsletter Builder', href: '/admin/newsletter-builder', icon: Mail },
             { label: 'Email Dashboard', href: '/admin/email-dashboard', icon: Mail },
             { label: 'Growth Dashboard', href: '/admin/growth-dashboard', icon: TrendingUp },
             { label: 'Performance', href: '/admin/performance-dashboard', icon: Activity },
@@ -213,6 +218,7 @@ export const CATEGORIES: Category[] = [
             '/admin/seo',
             '/admin/seo/experiments',
             '/admin/seo/rankings',
+            '/admin/seo-editor',
         ],
     },
     {
@@ -225,6 +231,7 @@ export const CATEGORIES: Category[] = [
             '/admin/revenue',
             '/admin/revenue/intelligence',
             '/admin/products',
+            '/admin/rate-manager',
             '/admin/product-analytics',
             '/admin/affiliates',
             '/admin/ads',
@@ -242,6 +249,7 @@ export const CATEGORIES: Category[] = [
             '/admin/autonomy/settings',
             '/admin/design-system',
             '/admin/editorial-qa',
+            '/admin/newsletter-builder',
             '/admin/email-dashboard',
             '/admin/growth-dashboard',
             '/admin/performance-dashboard',

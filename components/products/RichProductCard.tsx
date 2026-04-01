@@ -20,6 +20,7 @@ import { getProductUrl, getAffiliateUrl } from '@/lib/utils/product-urls';
 import { getCategoryImageConfig, getCategoryImageSizes, type ProductCategory } from '@/lib/images/category-image-config';
 
 import ScoreExplanation, { ScoreBreakdownItem } from './ScoreExplanation';
+import EligibilityBadge from '@/components/common/EligibilityBadge';
 
 interface RichProductCardProps {
     product: RichProduct;
@@ -29,9 +30,10 @@ interface RichProductCardProps {
     isScored?: boolean; // If true, shows the dynamic AI badge
     scoreBreakdown?: ScoreBreakdownItem[];
     rawScore?: number; // 0-10
+    userCibilScore?: number; // User's CIBIL score for dynamic eligibility badge
 }
 
-export function RichProductCard({ product, layout = 'grid', onCompare, matchScore, isScored, scoreBreakdown, rawScore }: RichProductCardProps) {
+export function RichProductCard({ product, layout = 'grid', onCompare, matchScore, isScored, scoreBreakdown, rawScore, userCibilScore }: RichProductCardProps) {
     const isList = layout === 'list';
     const { addProduct, removeProduct, isSelected } = useCompare();
     const isCompareSelected = isSelected(product.id);
@@ -258,6 +260,20 @@ export function RichProductCard({ product, layout = 'grid', onCompare, matchScor
                 </CardContent>
 
                 <CardFooter className="pt-0 gap-3 border-t border-slate-50 p-4 bg-slate-50/30 flex-col items-stretch">
+                    {/* Eligibility Badge — credit cards and loans only */}
+                    {(product.category === 'credit_card' || product.category === 'loan') && (
+                        <EligibilityBadge
+                            minCibilScore={
+                                product.specs?.minCibilScore ??
+                                product.specs?.min_cibil_score ??
+                                product.features?.min_cibil_score ??
+                                (product.category === 'credit_card' ? 700 : 650)
+                            }
+                            userCibilScore={userCibilScore}
+                            size="compact"
+                            className="self-start"
+                        />
+                    )}
                     {/* Decision-Focused CTA Buttons */}
                     <div className="flex gap-3">
                         <DecisionCTA

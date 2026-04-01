@@ -1,7 +1,22 @@
 // Server Component for ISR support
+import type { Metadata } from 'next';
 
 // ISR: Revalidate every 5 minutes (homepage has frequently changing content)
 export const revalidate = 300;
+
+export const metadata: Metadata = {
+    title: 'InvestingPro — Compare Credit Cards, Loans & Mutual Funds in India',
+    description: 'India\'s trusted personal finance platform. Compare credit cards, home loans, mutual funds, FDs, insurance and more. AI-powered recommendations for smarter financial decisions.',
+    alternates: { canonical: 'https://investingpro.in' },
+    openGraph: {
+        title: 'InvestingPro — Compare Credit Cards, Loans & Mutual Funds',
+        description: 'India\'s trusted personal finance platform. Compare 500+ financial products and make smarter money decisions.',
+        url: 'https://investingpro.in',
+        siteName: 'InvestingPro',
+        locale: 'en_IN',
+        type: 'website',
+    },
+};
 
 // Rebuild trigger 1
 import React, { Suspense } from 'react';
@@ -17,6 +32,7 @@ import { STRUCTURED_DATA_STATS } from "@/lib/constants/platform-stats";
 
 // Lazy load heavy components below the fold for better initial load performance
 import StickyMobileCTA from "@/components/home/StickyMobileCTA";
+import NewsletterSubscribe from "@/components/common/NewsletterSubscribe";
 
 /**
  * Section wrapper that provides isolation.
@@ -78,10 +94,39 @@ export default function Home() {
         }
     };
 
+    // WebSite schema — enables Google Sitelinks Search Box in SERPs (+5-10% CTR)
+    // Must be server-side injected (not client useEffect) for Google to process quickly
+    const websiteSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "InvestingPro",
+        "alternateName": "InvestingPro.in",
+        "url": "https://investingpro.in",
+        "inLanguage": "en-IN",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://investingpro.in/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        }
+    };
+
     return (
         <>
             {/* Phase 3 Optimizations: Performance, Accessibility, Conversion Tracking */}
             <HomepageOptimizations />
+
+            {/* Server-side structured data — visible on first crawl, no useEffect delay */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+            />
 
             <main
                 className="flex flex-col min-h-screen bg-background"
@@ -89,11 +134,6 @@ export default function Home() {
                 aria-label="InvestingPro homepage"
                 id="main-content"
             >
-            <SEOHead
-                title="InvestingPro - Compare Credit Cards, Loans & Mutual Funds | India's Trusted Platform"
-                description="Compare 500+ credit cards, mutual funds, loans, and insurance products. Free calculators, independent rankings, and AI-powered recommendations. No paid rankings."
-                structuredData={structuredData}
-            />
 
             {/* 1. Hero — Value prop, search, trust signals */}
             <CommandCenterSection name="Hero">
@@ -127,6 +167,17 @@ export default function Home() {
             <CommandCenterSection name="Latest Insights">
                 <section data-section-name="Latest Insights" aria-label="Latest financial insights and articles">
                     <LatestInsights />
+                </section>
+            </CommandCenterSection>
+
+            {/* 6. Newsletter — InvestingPro Weekly subscribe */}
+            <CommandCenterSection name="Newsletter">
+                <section
+                    data-section-name="Newsletter"
+                    aria-label="Subscribe to InvestingPro Weekly newsletter"
+                    className="py-12 px-4 max-w-3xl mx-auto w-full"
+                >
+                    <NewsletterSubscribe variant="section" />
                 </section>
             </CommandCenterSection>
 

@@ -43,7 +43,7 @@ export default function DematAccountsPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <SEOHead
-                title="Best Demat Accounts in India 2024 - Compare Brokers | InvestingPro"
+                title="Best Demat Accounts in India 2026 - Compare Brokers | InvestingPro"
                 description="Compare top stock brokers in India. side-by-side analysis of Zerodha, Groww, Upstox and more. Find the best demat account for your trading needs."
             />
 
@@ -58,7 +58,7 @@ export default function DematAccountsPage() {
                     <AutoBreadcrumbs />
                     <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 mb-8 border border-white/10">
                         <Trophy className="w-4 h-4 text-accent-400" />
-                        <span className="text-white font-bold text-xs uppercase tracking-[0.2em]">2024 Broker Awards</span>
+                        <span className="text-white font-bold text-xs uppercase tracking-[0.2em]">2026 Broker Awards</span>
                     </div>
                     <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
                         Begin Your <span className="text-secondary-400">Wealth Journey</span>

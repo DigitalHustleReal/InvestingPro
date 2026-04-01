@@ -135,23 +135,23 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
 
     return (
         <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0A1F14]/80 border-b border-slate-200/50 dark:border-green-900/30 backdrop-blur-md transition-all duration-300 shadow-sm dark:shadow-green-950/10 supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-[#0A1F14]/60">
-            <nav className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-14 lg:h-[72px]">
-                    {/* Logo */}
+            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-[auto_1fr_auto] items-center h-14 lg:h-[72px] gap-4">
+                    {/* Logo — left */}
                     <div className="flex-shrink-0">
-                        <Logo 
+                        <Logo
                             variant="default"
                             size="md"
                             showText={true}
                         />
                     </div>
 
-                    {/* Desktop Navigation - Hidden on mobile/tablet */}
-                    <div className="hidden lg:flex items-center gap-4 xl:gap-6 ml-auto">
+                    {/* Desktop Navigation — centered */}
+                    <div className="hidden lg:flex justify-center">
                         <NavigationMenu>
                             <NavigationMenuList>
                                 {navigationCategories.map((category) => (
-                                    <NavbarDesktopItem 
+                                    <NavbarDesktopItem
                                         key={category.slug}
                                         category={category}
                                         pathname={pathname}
@@ -162,70 +162,50 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                         </NavigationMenu>
                     </div>
 
-                    {/* Utility Area - Search, Login, CTA */}
-                    <div className="flex items-center gap-3">
-                        <div className="hidden lg:block">
+                    {/* Utility Area — right col: desktop search+login+cta / mobile search+menu */}
+                    <div className="flex items-center gap-2">
+                        {/* Desktop only */}
+                        <SearchButton variant="desktop" />
+                        <div className="hidden lg:flex items-center gap-2">
                             <ThemeToggle />
-                        </div>
-                        
-                        {/* Icon-only Search Button - Removed (redundant with search bar) */}
-                        {/* <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            onClick={openSearch}
-                            className="hidden lg:flex text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded-xl"
-                            aria-label="Search products and guides"
-                        >
-                            <Search className="w-5 h-5" />
-                        </Button> */}
-
-                        {/* CTA Button - Hidden on mobile/tablet */}
-                        <div className="hidden lg:flex items-center gap-3 ml-2">
-                            {/* Icon-only Login Button */}
                             <Link href="/login" className="inline-flex items-center justify-center">
-                                <Button 
-                                    variant="ghost" 
-                                    size="icon" 
-                                    className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded-xl"
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
                                     aria-label="Sign In"
                                     title="Sign In"
                                 >
                                     <User className="w-5 h-5" />
                                 </Button>
                             </Link>
-                            
-                            <Button asChild variant="default" className="bg-green-700 hover:bg-green-800 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-green-900/20 transition-all duration-200 h-10 px-5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
-                                <Link href="/compare">
-                                    Get Started
-                                </Link>
+                            <Button asChild variant="default" className="bg-green-700 hover:bg-green-800 text-white font-semibold h-9 px-4 rounded-xl shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
+                                <Link href="/compare">Compare</Link>
                             </Button>
                         </div>
-                    </div>
 
-                    <div className="lg:hidden flex items-center gap-3 ml-1">
-                        <ThemeToggle />
-                        
-                        {/* Direct Mobile Search Icon */}
-                        <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            onClick={openSearch}
-                            className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 rounded-xl"
-                            aria-label="Search"
-                        >
-                            <Search className="w-5 h-5" />
-                        </Button>
-
-                        <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="text-green-700 hover:bg-green-50 hover:text-green-800 dark:text-green-400"
-                            aria-label="Open menu"
-                            onClick={() => setIsOpen(true)}
-                        >
-                            <Menu className="w-6 h-6" />
-                        </Button>
-                        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                        {/* Mobile only */}
+                        <div className="lg:hidden flex items-center gap-2">
+                            <ThemeToggle />
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={openSearch}
+                                className="text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all rounded-xl"
+                                aria-label="Search"
+                            >
+                                <Search className="w-5 h-5" />
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="text-green-700 hover:bg-green-50 hover:text-green-800 dark:text-green-400"
+                                aria-label="Open menu"
+                                onClick={() => setIsOpen(true)}
+                            >
+                                <Menu className="w-6 h-6" />
+                            </Button>
+                            <Sheet open={isOpen} onOpenChange={setIsOpen}>
                             <SheetContent side="right" className="w-full sm:w-96 p-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl flex flex-col h-full border-l border-slate-200/60 dark:border-slate-800/60 shadow-2xl">
                                 <div className="flex flex-col h-full overflow-hidden">
                                     {/* Mobile Menu Header */}

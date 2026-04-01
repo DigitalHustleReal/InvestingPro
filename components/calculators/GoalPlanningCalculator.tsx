@@ -136,7 +136,7 @@ export function GoalPlanningCalculator() {
                     <Label className="text-sm text-foreground font-semibold">Goal Amount</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={goalAmount} onChange={(e) => setGoalAmount(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
+                        <Input type="number" inputMode="decimal" value={goalAmount} onChange={(e) => setGoalAmount(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
                     </div>
                 </div>
                 <Slider value={[goalAmount]} onValueChange={(v) => setGoalAmount(v[0])} min={100000} max={100000000} step={100000} className="py-2" />
@@ -169,7 +169,7 @@ export function GoalPlanningCalculator() {
                     <Label className="text-sm text-foreground font-semibold">Current Savings (Optional)</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={currentSavings} onChange={(e) => setCurrentSavings(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
+                        <Input type="number" inputMode="decimal" value={currentSavings} onChange={(e) => setCurrentSavings(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
                     </div>
                 </div>
                 <Slider value={[currentSavings]} onValueChange={(v) => setCurrentSavings(v[0])} min={0} max={5000000} step={50000} className="py-2" />

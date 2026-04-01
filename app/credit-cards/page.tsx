@@ -15,8 +15,27 @@ import { getCreditCardsServer } from '@/lib/products/get-credit-cards-server';
 import CreditCardsClient from './CreditCardsClient';
 import SEOContentBlock from '@/components/common/SEOContentBlock';
 import { CREDIT_CARD_SEO_CONTENT } from '@/lib/content/seo-content';
+import MethodologyBanner from '@/components/common/MethodologyBanner';
+import DataFreshnessBar from '@/components/common/DataFreshnessBar';
+import CibilCrossLink from '@/components/common/CibilCrossLink';
+
+import type { Metadata } from 'next';
 
 export const revalidate = 3600; // ISR: Revalidate every hour
+
+export const metadata: Metadata = {
+    title: 'Best Credit Cards in India (2026) — Compare & Apply Online | InvestingPro',
+    description: 'Compare 100+ top credit cards in India. Find cards with best rewards, cashback, lounge access, and travel benefits. Check eligibility and apply online.',
+    alternates: { canonical: 'https://investingpro.in/credit-cards' },
+    openGraph: {
+        title: 'Best Credit Cards in India (2026) | InvestingPro',
+        description: 'Compare 100+ top credit cards. Best rewards, cashback & travel benefits.',
+        url: 'https://investingpro.in/credit-cards',
+        siteName: 'InvestingPro',
+        locale: 'en_IN',
+        type: 'website',
+    },
+};
 
 export default async function CreditCardsPage() {
     // SSR Fetch with Safety Fallback (Defensive Programming)
@@ -33,7 +52,7 @@ export default async function CreditCardsPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
-                title="Best Credit Cards in India (2025) - Compare & Apply Online | InvestingPro"
+                title="Best Credit Cards in India (2026) - Compare & Apply Online | InvestingPro"
                 description="Compare 100+ top credit cards in India. Get instant approval, check eligibility, and find cards with best rewards, cashback, and travel benefits. Apply now!"
                 structuredData={{
                     "@context": "https://schema.org",
@@ -73,8 +92,19 @@ export default async function CreditCardsPage() {
                       />
 
                       {/* Pre-Launch Critical: Affiliate Disclosure above the fold */}
-                      <div className="max-w-xl mx-auto mb-10">
+                      <div className="max-w-xl mx-auto mb-6">
                          <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="rounded-xl border border-primary-200/50" />
+                      </div>
+
+                      {/* Authority Signals */}
+                      <div className="max-w-3xl mx-auto space-y-3 mb-10">
+                        <DataFreshnessBar
+                          source="RBI"
+                          updateFrequency="Daily"
+                          productCount={assets.length}
+                        />
+                        <MethodologyBanner vertical="credit-cards" />
+                        <CibilCrossLink context="cards" />
                       </div>
 
                       {/* Search Bar - Visual Only (Real search is in Client Component below or needs Refactoring to use URL params) 

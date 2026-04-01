@@ -1,35 +1,35 @@
 /* Admin-Only Theme Scope: SaaS Professional */
 .admin-wealth-trust {
-  /* Brand Colors - Primary: Sky-500 #0ea5e9 */
-  --primary: 199 89% 48%;                     
-  --primary-foreground: 0 0% 100%;            
-  --primary-dark: 200 98% 39%;                /* Sky-700 #0369a1 */
-  
+  /* Brand Colors - Primary: Forest Green #166534 (aligned with public site) */
+  --primary: 142 76% 29%;                      /* Forest Green #166534 */
+  --primary-foreground: 0 0% 100%;
+  --primary-dark: 142 72% 23%;                /* Deep Green #14532D */
+
   /* Semantic Colors */
-  --success: 151 76% 53%;                     /* Emerald-500 #10b981 */
-  --warning: 45 93% 47%;                      /* Amber-500 #f59e0b */
-  --error: 0 84% 60%;                         /* Red-500 #ef4444 */
-  --info: 188 86% 53%;                        /* Cyan-500 #06b6d4 */
+  --success: 142 69% 40%;                      /* Emerald #16A34A */
+  --warning: 38 92% 43%;                       /* Amber #D97706 */
+  --error: 0 72% 51%;                          /* Red #DC2626 */
+  --info: 217 91% 60%;                         /* Blue #3B82F6 */
 
   /* Text Colors */
-  --text-primary: 217 33% 17%;                /* Gray-900 #111827 - High Contrast */
-  --text-secondary: 215 25% 27%;              /* Gray-700 #374151 */
-  --text-tertiary: 215 16% 47%;               /* Gray-500 #6b7280 */
-  
+  --text-primary: 217 33% 17%;                 /* Gray-900 #111827 */
+  --text-secondary: 215 25% 27%;               /* Gray-700 #374151 */
+  --text-tertiary: 215 16% 47%;                /* Gray-500 #6b7280 */
+
   /* UI Surfaces */
-  --surface: 0 0% 100%;                       /* White */
-  --surface-hover: 210 40% 96%;               /* Gray-50/100 Mix */
-  --border: 214 32% 91%;                      /* Gray-200 #e5e7eb */
-  
+  --surface: 0 0% 100%;                        /* White */
+  --surface-hover: 141 79% 96%;                /* Green-50 — on-brand hover */
+  --border: 214 32% 91%;                       /* Gray-200 #e5e7eb */
+
   /* Legacy/Compatibility Mapping */
-  --accent: 199 89% 48%;                      
-  --accent-foreground: 0 0% 100%;             
+  --accent: 38 92% 43%;                        /* Gold accent */
+  --accent-foreground: 0 0% 100%;
 }
 
 .admin-wealth-trust.dark {
     /* Dark Mode Adjustments */
-    --primary: 199 89% 48%;
-    --primary-dark: 200 98% 39%;
+    --primary: 142 69% 40%;                    /* Emerald in dark */
+    --primary-dark: 142 76% 29%;
     --text-primary: 210 40% 98%;
     --text-secondary: 215 20% 65%;
     --surface: 222 47% 11%;
@@ -43,8 +43,8 @@
 
 .admin-wealth-trust .card:hover {
     @apply shadow-md ring-1 translate-y-[-2px];
-    border-color: #0ea5e9; /* Sky-500 */
-    --tw-ring-color: rgba(14, 165, 233, 0.2);
+    border-color: #166534; /* Forest Green */
+    --tw-ring-color: rgba(22, 101, 52, 0.2);
 }
 
 /* Glassmorphism Tokens - Refined for Premium Visuals */
@@ -62,23 +62,23 @@
 
 .admin-wealth-trust .glass-surface {
     @apply backdrop-blur-sm;
-    background-color: rgb(248 250 252 / 0.5); /* slate-50 / 0.5 */
+    background-color: rgb(240 253 244 / 0.5); /* green-50 / 0.5 */
     border-width: 1px;
-    border-color: rgb(229 231 235 / 0.5);
+    border-color: rgb(187 247 208 / 0.5);     /* green-200 / 0.5 */
 }
 .admin-wealth-trust.dark .glass-surface {
-    background-color: rgb(15 23 42 / 0.5);
+    background-color: rgb(5 46 22 / 0.5);     /* green-950 / 0.5 */
     border-color: rgb(255 255 255 / 0.05);
 }
-  
+
 .admin-wealth-trust .glass-hover {
     @apply transition-all duration-200;
 }
 .admin-wealth-trust .glass-hover:hover {
-    background-color: #f0f9ff; /* sky-50 */
+    background-color: #f0fdf4; /* green-50 */
 }
 .admin-wealth-trust.dark .glass-hover:hover {
-    background-color: rgb(12 74 110 / 0.2); /* sky-900 / 0.2 */
+    background-color: rgb(5 46 22 / 0.2); /* green-950 / 0.2 */
 }
 
 /* Standardized Admin Prose */
@@ -90,21 +90,6 @@
     @apply font-bold tracking-tight text-slate-900 dark:text-white;
 }
 
-.admin-wealth-trust .prose-admin p {
-    @apply text-slate-700 dark:text-slate-300 leading-relaxed;
-}
-
 .admin-wealth-trust .prose-admin a {
-    color: hsl(var(--primary));
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-}
-
-.admin-wealth-trust .prose-admin a:hover {
-    color: hsl(var(--primary-dark));
-}
-
-.admin-wealth-trust .prose-admin img {
-    @apply rounded-xl shadow-md border border-slate-200 dark:border-slate-700;
+    @apply text-green-700 dark:text-green-400 no-underline hover:underline font-medium;
 }

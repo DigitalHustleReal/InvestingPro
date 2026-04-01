@@ -68,14 +68,14 @@ export async function getRelatedArticles(
 
     // Get all published articles (excluding source and any excluded)
     const allExcluded = [articleId, ...excludeIds];
-    
+
     const { data: candidates, error: candidatesError } = await supabase
         .from('articles')
         .select('id, title, slug, excerpt, category, tags, featured_image, published_date, read_time, author_name, author_id, primary_keyword, secondary_keywords')
         .eq('status', 'published')
         .not('id', 'in', `(${allExcluded.map(id => `"${id}"`).join(',')})`)
         .order('published_date', { ascending: false })
-        .limit(100); // Get a pool to score
+        .limit(250); // Larger pool → better internal linking coverage
 
     if (candidatesError || !candidates) {
         logger.error('Failed to fetch candidate articles', candidatesError);

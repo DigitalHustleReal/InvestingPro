@@ -156,7 +156,7 @@ export function FDCalculator() {
                     <Label className="text-sm font-semibold">Principal Amount</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={principal} onChange={(e) => setPrincipal(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={principal} onChange={(e) => setPrincipal(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[principal]} onValueChange={(v) => setPrincipal(v[0])} min={1000} max={10000000} step={1000} className="py-2" />
@@ -205,7 +205,7 @@ export function FDCalculator() {
                     <div className="flex items-center gap-2">
                         <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                             <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
-                            <Input type="number" value={tenure} onChange={(e) => setTenure(Number(e.target.value))} className="w-16 border-0 bg-transparent p-0 text-center text-sm font-bold focus-visible:ring-0 text-foreground" />
+                            <Input type="number" inputMode="decimal" value={tenure} onChange={(e) => setTenure(Number(e.target.value))} className="w-16 border-0 bg-transparent p-0 text-center text-sm font-bold focus-visible:ring-0 text-foreground" />
                         </div>
                         <select value={tenureType} onChange={(e) => setTenureType(e.target.value as 'years' | 'months')} className="px-2 py-1.5 rounded-lg border border-border bg-card text-xs font-semibold text-foreground hover:bg-muted transition-colors">
                             <option value="years">Years</option>

@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { getCategoryBySlug } from '@/lib/navigation/categories';
 import { fetchPillarPageData } from '@/lib/pillar/data-fetcher';
 import PillarPageTemplate from '@/components/pillar/PillarPageTemplate';
@@ -7,6 +8,18 @@ import LoadingSpinner from '@/components/common/LoadingSpinner';
 
 interface PillarPageProps {
     params: Promise<{ category: string }>;
+}
+
+export async function generateMetadata({ params }: PillarPageProps): Promise<Metadata> {
+    const { category } = await params;
+    const cat = getCategoryBySlug(category);
+    if (!cat) return {};
+    const canonical = `https://investingpro.in/explore/${category}`;
+    return {
+        title: `${cat.name} | InvestingPro`,
+        description: cat.description,
+        alternates: { canonical },
+    };
 }
 
 async function PillarPageContent({ categorySlug }: { categorySlug: string }) {

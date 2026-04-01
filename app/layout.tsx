@@ -3,6 +3,8 @@ import { Suspense } from "react";
 import Script from "next/script";
 import "./globals.css";
 import ConditionalTopBar from "@/components/layout/ConditionalTopBar";
+import RateTickerServer from "@/components/common/RateTickerServer";
+import ConditionalRateTicker from "@/components/common/ConditionalRateTicker";
 import BottomMobileNav from "@/components/layout/BottomMobileNav";
 import AdminShell from "@/components/layout/AdminShell";
 import { cn } from "@/lib/utils";
@@ -57,6 +59,7 @@ import { NavigationProvider } from "@/contexts/NavigationContext";
 import { initializeEventSystem } from "@/lib/events/setup";
 import { initializeLogging } from "@/lib/logging/initialize";
 import { validateEnvOnStartup } from "@/lib/env";
+import { LanguageProvider } from "@/lib/i18n/language-context";
 import type { Metadata } from 'next';
 // Tracing is disabled - file exists as .disabled
 // import { initializeTracing } from "@/lib/tracing/opentelemetry";
@@ -145,6 +148,7 @@ export default async function RootLayout({
         "min-h-screen flex flex-col bg-background text-foreground antialiased"
       )}>
         <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
+        <LanguageProvider>
         <ThemeProvider
             attribute="class"
             defaultTheme="light"
@@ -170,6 +174,11 @@ export default async function RootLayout({
                   </a>
 
                   <AdminShell>
+                    <ConditionalRateTicker>
+                      <Suspense fallback={null}>
+                        <RateTickerServer />
+                      </Suspense>
+                    </ConditionalRateTicker>
                     <ConditionalTopBar initialConfig={navConfig} />
                     <main id="main-content" className="flex-grow pb-16 md:pb-0" tabIndex={-1}>
                       <PageErrorBoundary pageName="Root Layout">
@@ -198,6 +207,7 @@ export default async function RootLayout({
           </QueryProvider>
         </ErrorBoundaryProvider>
         </ThemeProvider>
+        </LanguageProvider>
         <CookieConsent />
         {/* Tawk.to Live Chat - Externalized for stability */}
         {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID !== 'undefined' && (

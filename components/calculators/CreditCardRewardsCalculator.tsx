@@ -163,7 +163,7 @@ export default function CreditCardRewardsCalculator() {
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-bold">₹</span>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       value={spending[cat.key]}
                       onChange={(e) => updateSpending(cat.key, Number(e.target.value))}
                       className="w-full pl-8 pr-4 py-3 rounded-xl border border-border bg-input text-foreground font-semibold focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"

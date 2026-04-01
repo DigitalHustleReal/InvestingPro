@@ -84,7 +84,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
               />
               <div className="flex items-center gap-2">
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={monthlyInvestment}
                   onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
                   className="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-lg font-mono text-lg font-semibold focus:ring-2 focus:ring-primary-600 focus:border-transparent"
@@ -112,7 +112,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
               />
               <div className="flex items-center gap-2">
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={years}
                   onChange={(e) => setYears(Number(e.target.value))}
                   min="1"
@@ -143,7 +143,7 @@ export function SIPCalculator({ className }: SIPCalculatorProps) {
               />
               <div className="flex items-center gap-2">
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={expectedReturn}
                   onChange={(e) => setExpectedReturn(Number(e.target.value))}
                   min="1"

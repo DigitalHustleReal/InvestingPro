@@ -58,6 +58,8 @@ import MobileEngagementBar from '@/components/common/MobileEngagementBar';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import DecisionCTA from '@/components/common/DecisionCTA';
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
+import MethodologyBanner from '@/components/common/MethodologyBanner';
+import DataFreshnessBar from '@/components/common/DataFreshnessBar';
 
 export default function MutualFundsPage() {
     const [viewMode, setViewMode] = useState<'grid' | 'table'>('table'); // Default to table for Pro users
@@ -187,7 +189,7 @@ export default function MutualFundsPage() {
         <PageErrorBoundary pageName="Mutual Funds Page">
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20 transition-colors duration-300">
                 <SEOHead
-                    title="Top Mutual Funds India 2025 - Compare & Start SIP | InvestingPro"
+                    title="Top Mutual Funds India 2026 - Compare & Start SIP | InvestingPro"
                     description="Invest in best mutual funds in India. Compare returns, expense ratios, and ratings. Start SIP from ₹500/month. Zero commission, expert advice."
                     structuredData={structuredData}
                 />
@@ -223,8 +225,18 @@ export default function MutualFundsPage() {
                      />
 
                      {/* Pre-Launch Critical: Affiliate Disclosure above the fold */}
-                     <div className="max-w-xl mx-auto mb-10">
+                     <div className="max-w-xl mx-auto mb-6">
                         <AffiliateDisclosure variant="inline" hasAffiliateLink={true} className="rounded-xl border border-primary-200/50" />
+                     </div>
+
+                     {/* Authority Signals */}
+                     <div className="max-w-3xl mx-auto space-y-3 mb-8">
+                        <DataFreshnessBar
+                            source="AMFI"
+                            updateFrequency="Daily"
+                            productCount={totalCount || undefined}
+                        />
+                        <MethodologyBanner vertical="mutual-funds" />
                      </div>
 
                      <div className="relative group max-w-xl mx-auto mb-12 z-20">

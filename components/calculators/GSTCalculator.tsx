@@ -153,7 +153,7 @@ export function GSTCalculator() {
                                         <IndianRupee className="w-4 h-4" />
                                         {calculationType === 'exclusive' ? 'Base Amount' : 'Total Amount (Incl. GST)'}
                                     </Label>
-                                    <Input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value) || 0)} className="h-10 text-base font-semibold" min="0" step="0.01" />
+                                    <Input type="number" inputMode="decimal" value={amount} onChange={(e) => setAmount(Number(e.target.value) || 0)} className="h-10 text-base font-semibold" min="0" step="0.01" />
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="text-sm font-semibold text-foreground flex items-center gap-2">
@@ -237,7 +237,7 @@ export function GSTCalculator() {
                                 <IndianRupee className="w-4 h-4" />
                                 {calculationType === 'exclusive' ? 'Base Amount' : 'Total Amount (Including GST)'}
                             </Label>
-                            <Input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value) || 0)} className="h-12 text-lg font-semibold" min="0" step="0.01" />
+                            <Input type="number" inputMode="decimal" value={amount} onChange={(e) => setAmount(Number(e.target.value) || 0)} className="h-12 text-lg font-semibold" min="0" step="0.01" />
                         </div>
 
                         <div className="space-y-2">

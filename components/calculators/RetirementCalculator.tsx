@@ -130,7 +130,7 @@ export function RetirementCalculator() {
                     <Label className="text-sm font-semibold">Monthly SIP</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={monthlySIP} onChange={(e) => setMonthlySIP(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={monthlySIP} onChange={(e) => setMonthlySIP(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[monthlySIP]} onValueChange={(v) => setMonthlySIP(v[0])} min={1000} max={200000} step={1000} className="py-2" />
@@ -142,7 +142,7 @@ export function RetirementCalculator() {
                     <Label className="text-sm font-semibold">Current Savings</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={currentSavings} onChange={(e) => setCurrentSavings(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={currentSavings} onChange={(e) => setCurrentSavings(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[currentSavings]} onValueChange={(v) => setCurrentSavings(v[0])} min={0} max={10000000} step={50000} className="py-2" />
@@ -154,7 +154,7 @@ export function RetirementCalculator() {
                     <Label className="text-sm font-semibold">Monthly Expenses (Today)</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={retirementExpenses} onChange={(e) => setRetirementExpenses(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
+                        <Input type="number" inputMode="decimal" value={retirementExpenses} onChange={(e) => setRetirementExpenses(Number(e.target.value))} className="w-24 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0" />
                     </div>
                 </div>
                 <Slider value={[retirementExpenses]} onValueChange={(v) => setRetirementExpenses(v[0])} min={20000} max={200000} step={5000} className="py-2" />

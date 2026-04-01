@@ -32,6 +32,8 @@ import {
 } from "lucide-react";
 import Link from 'next/link';
 import { useQuery } from "@tanstack/react-query";
+import MethodologyBanner from '@/components/common/MethodologyBanner';
+import DataFreshnessBar from '@/components/common/DataFreshnessBar';
 
 const tenures = ["1 Year", "2 Years", "3 Years", "5 Years"];
 
@@ -65,7 +67,7 @@ export default function FixedDepositsPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <SEOHead
-                title="Best Fixed Deposit Rates in India 2024 - Compare Banks & NBFCs | InvestingPro"
+                title="Best Fixed Deposit Rates in India 2026 - Compare Banks & NBFCs | InvestingPro"
                 description="Compare FD interest rates from top Indian banks and NBFCs. Get the highest returns on your savings with 100% safety and DICGC insurance."
             />
 
@@ -126,6 +128,16 @@ export default function FixedDepositsPage() {
                         </Card>
                     ))}
                 </div>
+            </div>
+
+            {/* Authority Signals */}
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-3">
+                <DataFreshnessBar
+                    source="RBI"
+                    updateFrequency="Daily"
+                    productCount={safeRates.length || undefined}
+                />
+                <MethodologyBanner vertical="fixed-deposits" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

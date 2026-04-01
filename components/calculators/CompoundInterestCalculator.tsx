@@ -99,7 +99,7 @@ export function CompoundInterestCalculator() {
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
                         <Input
-                            type="number"
+                            type="number" inputMode="decimal"
                             value={principal}
                             onChange={(e) => setPrincipal(Number(e.target.value))}
                             className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground"
@@ -119,7 +119,7 @@ export function CompoundInterestCalculator() {
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <Percent className="w-3.5 h-3.5 text-muted-foreground" />
                         <Input
-                            type="number"
+                            type="number" inputMode="decimal"
                             value={rate}
                             onChange={(e) => setRate(Number(e.target.value))}
                             className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground"
@@ -139,7 +139,7 @@ export function CompoundInterestCalculator() {
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
                         <Input
-                            type="number"
+                            type="number" inputMode="decimal"
                             value={time}
                             onChange={(e) => setTime(Number(e.target.value))}
                             className="w-20 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground"

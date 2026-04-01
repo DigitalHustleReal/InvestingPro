@@ -21,27 +21,12 @@ interface FAQAccordionProps {
 }
 
 export default function FAQAccordion({ title = "Frequently Asked Questions", items, className }: FAQAccordionProps) {
-  
-  // JSON-LD Schema Generation
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": items.map(item => ({
-      "@type": "Question",
-      "name": item.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.answer
-      }
-    }))
-  };
+  // NOTE: FAQPage schema removed — Google restricted it to government/healthcare
+  // sites in August 2023. Finance/comparison sites must not use it.
+  // HTML FAQ content below still benefits UX and may appear in featured snippets.
 
   return (
     <section className={className}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       
       <div className="flex items-center gap-3 mb-6">
         <HelpCircle className="w-6 h-6 text-primary-600" />

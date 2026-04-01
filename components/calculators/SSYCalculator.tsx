@@ -147,7 +147,7 @@ export function SSYCalculator() {
                     <Label className="text-sm text-foreground font-semibold">Annual Investment</Label>
                     <div className="flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5">
                         <IndianRupee className="w-3.5 h-3.5 text-muted-foreground" />
-                        <Input type="number" value={annualContribution} onChange={(e) => setAnnualContribution(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
+                        <Input type="number" inputMode="decimal" value={annualContribution} onChange={(e) => setAnnualContribution(Number(e.target.value))} className="w-28 border-0 bg-transparent p-0 text-right text-sm font-bold focus-visible:ring-0 text-foreground" />
                     </div>
                 </div>
                 <Slider value={[annualContribution]} onValueChange={(v) => setAnnualContribution(v[0])} min={250} max={150000} step={250} className="py-2" />

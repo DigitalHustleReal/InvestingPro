@@ -2,10 +2,11 @@
 
 import { CreditCard, Loan, MutualFund } from "@/types";
 import { Button } from "@/components/ui/Button";
-import { X, Check, Minus, Star, TrendingUp, Trophy } from "lucide-react";
+import { X, Check, Minus, Star, TrendingUp, Trophy, ArrowUpRight } from "lucide-react";
 import { formatCurrency, formatPercentage } from "@/lib/utils";
 import { calculateProductScore } from "@/lib/products/scoring-rules";
 import { FinancialProduct } from "@/types";
+import { getAffiliateUrl } from "@/lib/utils/product-urls";
 
 interface ComparisonTableProps {
     products: (CreditCard | Loan | MutualFund)[];
@@ -102,9 +103,14 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
     const rows = getComparisonRows();
 
     return (
-        <div className="w-full overflow-x-auto pb-4">
-             {/* Min width to force horizontal layout on mobile */}
-            <div className="bg-card dark:bg-slate-900 rounded-xl shadow-lg border border-border dark:border-slate-800 overflow-hidden min-w-[800px]">
+        <>
+        {/* Mobile scroll hint — visible on small screens only */}
+        <p className="flex items-center gap-1.5 text-xs text-slate-500 mb-2 sm:hidden">
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h8M8 12h8m-8 5h4" /></svg>
+            Scroll right to compare all products
+        </p>
+        <div className="w-full overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div className="bg-card dark:bg-slate-900 rounded-xl shadow-lg border border-border dark:border-slate-800 overflow-hidden min-w-[640px] sm:min-w-[800px]">
                 {/* Header Row */}
                 <div className="grid grid-cols-4 bg-muted/50 border-b border-border">
                     <div className="p-6 font-bold text-card-foreground border-r border-border">
@@ -226,17 +232,38 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
 
                 {/* Action Row */}
                 <div className="grid grid-cols-4 bg-muted/30">
-                    <div className="p-4 border-r border-border"></div>
-                    {products.map((product) => (
-                        <div key={product.id} className="p-4 border-r border-slate-100 dark:border-slate-800 last:border-r-0">
-                            <Button className="w-full bg-primary-700 hover:bg-primary-800 text-white font-bold shadow-md hover:shadow-lg transition-all h-10">
-                                Apply Now
-                            </Button>
-                        </div>
-                    ))}
+                    <div className="p-4 border-r border-border flex items-center">
+                        <span className="text-xs font-semibold text-muted-foreground">Get Started</span>
+                    </div>
+                    {products.map((product) => {
+                        const affiliateUrl = getAffiliateUrl({
+                            id: product.id,
+                            slug: (product as any).slug,
+                            category: product.category,
+                            affiliate_link: (product as any).affiliate_link,
+                            applyLink: (product as any).applyLink,
+                        });
+                        const isExternal = affiliateUrl.startsWith('http');
+                        return (
+                            <div key={product.id} className="p-4 border-r border-slate-100 dark:border-slate-800 last:border-r-0">
+                                <a
+                                    href={affiliateUrl}
+                                    target={isExternal ? "_blank" : undefined}
+                                    rel={isExternal ? "noopener noreferrer" : undefined}
+                                    className="block w-full"
+                                >
+                                    <Button className="w-full bg-green-800 hover:bg-green-900 text-white font-bold shadow-md hover:shadow-lg transition-all h-10 gap-1.5">
+                                        Apply Now
+                                        <ArrowUpRight className="w-3.5 h-3.5" />
+                                    </Button>
+                                </a>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

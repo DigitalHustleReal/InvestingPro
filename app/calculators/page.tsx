@@ -84,7 +84,7 @@ export default function CalculatorsPage() {
                         {/* Badge */}
                         <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 px-4 py-2 uppercase tracking-widest text-xs font-bold inline-flex items-center gap-2">
                             <CalculatorIcon className="w-3 h-3" />
-                            22 Free Tools
+                            30 Free Tools
                         </Badge>
 
                         {/* Title */}
@@ -103,7 +103,7 @@ export default function CalculatorsPage() {
                         {/* Stats */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
                             {[
-                                { label: "Calculators", value: "22+", icon: <CalculatorIcon className="w-5 h-5" /> },
+                                { label: "Calculators", value: "30+", icon: <CalculatorIcon className="w-5 h-5" /> },
                                 { label: "Inflation Adjusted", value: "All", icon: <Percent className="w-5 h-5" /> },
                                 { label: "Free Forever", value: "100%", icon: <CheckCircle2 className="w-5 h-5" /> },
                                 { label: "Updated Daily", value: "24/7", icon: <Clock className="w-5 h-5" /> }
@@ -153,15 +153,45 @@ export default function CalculatorsPage() {
             </div>
             */}
 
+            {/* Specialist Calculators — Zero-Competition Tools */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
+                <div className="mb-6">
+                    <Badge className="mb-3 bg-amber-50 text-amber-700 border-amber-200 px-3 py-1 text-xs font-bold uppercase tracking-widest">
+                        Specialist Tools — Unique to InvestingPro
+                    </Badge>
+                    <h2 className="text-2xl font-bold text-foreground mb-1">Specialist Calculators</h2>
+                    <p className="text-muted-foreground text-sm">Deep-dive tools for govt employees, NRIs, and small businesses. Not available on any other Indian platform.</p>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
+                    {[
+                        { name: "Govt Pension (OPS vs NPS)", desc: "Central govt employees — OPS vs NPS side-by-side", url: "/calculators/govt-pension", icon: "🏛️" },
+                        { name: "Defence Pension + OROP", desc: "Army, Navy, Air Force — disability & gallantry", url: "/calculators/defence-pension", icon: "⭐" },
+                        { name: "EPS-95 Pension", desc: "Private sector EPFO — higher pension option", url: "/calculators/eps95-pension", icon: "🏭" },
+                        { name: "Gratuity + Leave Encashment", desc: "All employment types — tax exemption breakdown", url: "/calculators/gratuity", icon: "🎁" },
+                        { name: "Pension Commutation Advisor", desc: "Should you commute? 30-year projection + PensionSmart score", url: "/calculators/pension-commutation", icon: "📊" },
+                        { name: "NRI FD: FCNR vs NRE vs NRO", desc: "6 currencies, DTAA benefit, currency risk", url: "/calculators/nri-fd", icon: "🌐" },
+                        { name: "GST Suite for Small Business", desc: "Invoice + GSTR-3B estimator + Composition check", url: "/calculators/gst-suite", icon: "🧾" },
+                        { name: "MF Overlapper", desc: "Detect portfolio overlap across mutual funds", url: "/calculators/mf-overlapper", icon: "🔍" },
+                    ].map((tool) => (
+                        <Link key={tool.url} href={tool.url}
+                            className="group p-4 bg-card border border-border rounded-xl hover:border-primary/40 hover:shadow-md transition-all">
+                            <div className="text-2xl mb-2">{tool.icon}</div>
+                            <p className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors leading-tight mb-1">{tool.name}</p>
+                            <p className="text-xs text-muted-foreground leading-snug">{tool.desc}</p>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+
             {/* Calculators */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 {/* Breadcrumb */}
-                <Breadcrumb 
+                <Breadcrumb
                     items={[
                         { label: "Calculators" }
-                    ]} 
+                    ]}
                 />
-                
+
                 <Tabs defaultValue="sip" className="space-y-8">
                     <div className="mb-8">
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">All Calculators</h2>

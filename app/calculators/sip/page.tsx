@@ -1,4 +1,5 @@
 import FinancialDisclaimer from '@/components/legal/FinancialDisclaimer';
+import { CalculatorResultCTA } from '@/components/calculators/CalculatorResultCTA';
 import React from 'react';
 
 import type { Metadata } from 'next';
@@ -94,18 +95,7 @@ export default function SIPCalculatorPage() {
         relatedCalculators: ['lumpsum', 'retirement'],
     };
 
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": seoContent.sip.faqs.map(faq => ({
-            "@type": "Question",
-            "name": faq.q,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.a
-            }
-        }))
-    };
+    // FAQPage schema removed — Google restricted to govt/healthcare Aug 2023
 
     const howToSchema = {
         "@context": "https://schema.org",
@@ -133,10 +123,6 @@ export default function SIPCalculatorPage() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
             <script
                 type="application/ld+json"
@@ -189,6 +175,7 @@ export default function SIPCalculatorPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <FinancialDisclaimer variant="compact" className="mb-6" />
                 <SIPCalculatorWithInflation />
+                <CalculatorResultCTA calculatorType="sip" />
             </div>
 
 

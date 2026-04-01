@@ -219,7 +219,7 @@ export default function ExitIntentPopup({
                     {variant === 'wizard' && (
                         <div className="md:grid md:grid-cols-5 h-full">
                              {/* Visual Side */}
-                              <div className="hidden md:flex md:col-span-2 bg-gradient-to-br from-indigo-600 to-purple-700 items-center justify-center p-6 text-white text-center">
+                              <div className="hidden md:flex md:col-span-2 bg-gradient-to-br from-green-800 to-green-600 items-center justify-center p-6 text-white text-center">
                                  <div>
                                     <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-md">
                                        <Sparkles className="w-8 h-8 text-yellow-300" />

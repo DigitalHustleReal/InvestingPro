@@ -9,12 +9,31 @@ export const metadata: Metadata = {
     description: 'Get in touch with the InvestingPro team for support, feedback, or business inquiries.',
 };
 
+const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact InvestingPro",
+    "url": "https://investingpro.in/contact-us",
+    "description": "Contact InvestingPro for support, feedback, or business inquiries.",
+    "mainEntity": {
+        "@type": "Organization",
+        "name": "InvestingPro",
+        "url": "https://investingpro.in",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "availableLanguage": ["English", "Hindi"],
+            "areaServed": "IN",
+        }
+    }
+};
+
 export default function ContactPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-            <SEOHead 
-                title="Contact Us | InvestingPro Support" 
-                description="We are here to help. Reach out to us for any queries related to our tools, products, or content." 
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
             />
 
             <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pt-24 pb-12">
