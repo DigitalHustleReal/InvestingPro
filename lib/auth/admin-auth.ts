@@ -17,7 +17,7 @@ export const isAdmin = cache(async (userId: string): Promise<boolean> => {
   if (!userId) return false;
 
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     
     const { data, error } = await supabase
       .from('user_roles')
@@ -44,7 +44,7 @@ export const isEditor = cache(async (userId: string): Promise<boolean> => {
   if (!userId) return false;
 
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     
     const { data, error } = await supabase
       .from('user_roles')
@@ -66,7 +66,7 @@ export const isEditor = cache(async (userId: string): Promise<boolean> => {
  * Use in server components and API routes
  */
 export async function requireAdmin() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: { user }, error } = await supabase.auth.getUser();
 
   if (error || !user) {
@@ -87,7 +87,7 @@ export async function requireAdmin() {
  * Use for content management features
  */
 export async function requireEditor() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: { user }, error } = await supabase.auth.getUser();
 
   if (error || !user) {
@@ -109,7 +109,7 @@ export async function requireEditor() {
  */
 export async function getCurrentUserWithRole() {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data: { user }, error } = await supabase.auth.getUser();
 
     if (error || !user) {

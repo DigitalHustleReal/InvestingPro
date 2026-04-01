@@ -13,7 +13,26 @@ export const metadata: Metadata = {
 
 export default function FixedDepositsPage() {
   const structuredData = [
-    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Best FD Rates India 2026', url: 'https://investingpro.in/fixed-deposits' },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Best FD Rates India 2026',
+      description: 'Compare FD interest rates from 50+ banks and NBFCs. Find highest rates for regular and senior citizens. Tax-saving FDs, short-term, and corporate FDs.',
+      url: 'https://investingpro.in/fixed-deposits',
+      publisher: {
+        '@type': 'Organization',
+        name: 'InvestingPro',
+        url: 'https://investingpro.in',
+        logo: { '@type': 'ImageObject', url: 'https://investingpro.in/logo.png' },
+      },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://investingpro.in' },
+          { '@type': 'ListItem', position: 2, name: 'Fixed Deposits', item: 'https://investingpro.in/fixed-deposits' },
+        ],
+      },
+    },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
       { '@type': 'Question', name: 'Which bank gives the highest FD rate in India?', acceptedAnswer: { '@type': 'Answer', text: 'Small finance banks and NBFCs like Shriram Finance (8.35%), Unity SFB (8.25%) offer the highest rates. Among large banks, SBI offers up to 7.10%.' } },
       { '@type': 'Question', name: 'Is FD interest taxable?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. FD interest is taxed at your income tax slab rate. TDS of 10% is deducted if annual interest exceeds ₹40,000 (₹50,000 for seniors).' } },

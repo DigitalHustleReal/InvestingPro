@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 /**
  * Environment Variable Validation
  * Production Safety: Fail fast on missing required environment variables

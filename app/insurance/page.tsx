@@ -13,7 +13,26 @@ export const metadata: Metadata = {
 
 export default function InsurancePage() {
   const structuredData = [
-    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Best Insurance Plans India 2026', url: 'https://investingpro.in/insurance' },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Best Insurance Plans India 2026',
+      description: 'Compare term life, health, car, and travel insurance from 20+ insurers. Check claim settlement ratios. Independent ratings — no paid placements.',
+      url: 'https://investingpro.in/insurance',
+      publisher: {
+        '@type': 'Organization',
+        name: 'InvestingPro',
+        url: 'https://investingpro.in',
+        logo: { '@type': 'ImageObject', url: 'https://investingpro.in/logo.png' },
+      },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://investingpro.in' },
+          { '@type': 'ListItem', position: 2, name: 'Insurance', item: 'https://investingpro.in/insurance' },
+        ],
+      },
+    },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
       { '@type': 'Question', name: 'What is the best term insurance plan in India?', acceptedAnswer: { '@type': 'Answer', text: 'Plans with high claim settlement ratios (>98%) and low premiums. LIC, HDFC Life, and ICICI Prudential consistently rank well.' } },
       { '@type': 'Question', name: 'How much health insurance cover do I need?', acceptedAnswer: { '@type': 'Answer', text: 'Minimum ₹10L for individuals, ₹25L for families in metros. Factor in medical inflation of 14% annually.' } },

@@ -24,7 +24,27 @@ export default async function LoansPage() {
   const count = loans.length > 0 ? loans.length : 60;
 
   const structuredData = [
-    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Best Loans in India 2026', url: 'https://investingpro.in/loans', numberOfItems: count },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Best Loans in India 2026',
+      description: 'Compare personal loans, home loans, car loans, and education loans from 60+ lenders. Lowest interest rates, instant eligibility check, EMI calculator.',
+      url: 'https://investingpro.in/loans',
+      numberOfItems: count,
+      publisher: {
+        '@type': 'Organization',
+        name: 'InvestingPro',
+        url: 'https://investingpro.in',
+        logo: { '@type': 'ImageObject', url: 'https://investingpro.in/logo.png' },
+      },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://investingpro.in' },
+          { '@type': 'ListItem', position: 2, name: 'Loans', item: 'https://investingpro.in/loans' },
+        ],
+      },
+    },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
       { '@type': 'Question', name: 'What is the lowest home loan interest rate in India?', acceptedAnswer: { '@type': 'Answer', text: 'As of 2026, SBI offers home loans starting at 8.50%. Rates vary by lender, loan amount, and credit score.' } },
       { '@type': 'Question', name: 'How is EMI calculated?', acceptedAnswer: { '@type': 'Answer', text: 'EMI = P × r × (1+r)^n / ((1+r)^n - 1), where P is principal, r is monthly interest rate, and n is tenure in months.' } },

@@ -19,12 +19,12 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Image URL required' }, { status: 400 });
         }
 
-        logger.info('🖼️ Generating alt text for:', imageUrl);
+        logger.info('🖼️ Generating alt text for:', { value: imageUrl });
 
         // Generate alt text with context
         const altText = await generateAltText(imageUrl, context);
         
-        logger.info('✅ Generated alt text:', altText);
+        logger.info('✅ Generated alt text:', { value: altText });
 
         return NextResponse.json({
             altText,
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        logger.error('Alt text generation error:', error);
+        logger.error('Alt text generation error:', { value: error });
         
         // Fallback to context-based
         const { context = '', imageUrl = '' } = await request.json();
@@ -98,7 +98,7 @@ Respond with ONLY the alt text, nothing else.`
         return altText || generateFallbackAltText(imageUrl, context);
 
     } catch (error) {
-        logger.error('AI vision failed:', error);
+        logger.error('AI vision failed:', { value: error });
         return generateFallbackAltText(imageUrl, context);
     }
 }

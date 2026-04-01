@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
                 });
             }
         } catch (error) {
-            logger.warn('Content-aware recommendation failed, falling back to basic search:', error);
+            logger.warn('Content-aware recommendation failed, falling back to basic search:', error as Record<string, any>);
         }
 
         // FALLBACK: Basic Media Library Search

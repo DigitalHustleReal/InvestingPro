@@ -13,7 +13,26 @@ export const metadata: Metadata = {
 
 export default function PPFNPSPage() {
   const structuredData = [
-    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'PPF NPS Government Schemes India 2026', url: 'https://investingpro.in/ppf-nps' },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'PPF NPS Government Schemes India 2026',
+      description: 'Compare PPF, NPS, Sukanya Samriddhi, SCSS, KVP, and NSC. Current rates, tax benefits, lock-in periods. Free calculators for every scheme.',
+      url: 'https://investingpro.in/ppf-nps',
+      publisher: {
+        '@type': 'Organization',
+        name: 'InvestingPro',
+        url: 'https://investingpro.in',
+        logo: { '@type': 'ImageObject', url: 'https://investingpro.in/logo.png' },
+      },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://investingpro.in' },
+          { '@type': 'ListItem', position: 2, name: 'PPF & NPS', item: 'https://investingpro.in/ppf-nps' },
+        ],
+      },
+    },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
       { '@type': 'Question', name: 'What is the current PPF interest rate?', acceptedAnswer: { '@type': 'Answer', text: 'PPF rate is 7.1% per annum (Q1 FY2026-27), compounded annually. Reviewed quarterly by the government.' } },
       { '@type': 'Question', name: 'Is NPS better than PPF for retirement?', acceptedAnswer: { '@type': 'Answer', text: 'NPS offers market-linked returns (10-12% historical) with additional ₹50K 80CCD(1B) deduction. PPF gives guaranteed 7.1% with full tax-free maturity. NPS is better for higher returns, PPF for safety.' } },

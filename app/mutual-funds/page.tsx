@@ -14,7 +14,26 @@ export const metadata: Metadata = {
 
 export default function MutualFundsPage() {
   const structuredData = [
-    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Best Mutual Funds in India 2026', url: 'https://investingpro.in/mutual-funds' },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Best Mutual Funds in India 2026',
+      description: 'Compare 2,000+ mutual funds across equity, debt, hybrid, and index categories. Track NAV, returns, expense ratios. Independent ratings — no paid placements.',
+      url: 'https://investingpro.in/mutual-funds',
+      publisher: {
+        '@type': 'Organization',
+        name: 'InvestingPro',
+        url: 'https://investingpro.in',
+        logo: { '@type': 'ImageObject', url: 'https://investingpro.in/logo.png' },
+      },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://investingpro.in' },
+          { '@type': 'ListItem', position: 2, name: 'Mutual Funds', item: 'https://investingpro.in/mutual-funds' },
+        ],
+      },
+    },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
       { '@type': 'Question', name: 'What is the best mutual fund to invest in India?', acceptedAnswer: { '@type': 'Answer', text: 'For long-term wealth, Nifty 50 index funds have averaged 12% returns. For tax saving, ELSS funds offer 80C deduction up to ₹1.5L.' } },
       { '@type': 'Question', name: 'Is SIP better than lump sum?', acceptedAnswer: { '@type': 'Answer', text: 'SIP reduces timing risk through rupee cost averaging. Lump sum works better in rising markets. For most investors, SIP is recommended.' } },

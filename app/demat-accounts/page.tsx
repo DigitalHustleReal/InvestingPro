@@ -13,7 +13,38 @@ export const metadata: Metadata = {
 
 export default function DematAccountsPage() {
   const structuredData = [
-    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Best Demat Accounts India 2026', url: 'https://investingpro.in/demat-accounts' },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Best Demat Accounts India 2026',
+      description: 'Compare demat accounts from discount and full-service brokers. Brokerage charges, platform features, AMC fees. Independent ratings — no paid placements.',
+      url: 'https://investingpro.in/demat-accounts',
+      publisher: {
+        '@type': 'Organization',
+        name: 'InvestingPro',
+        url: 'https://investingpro.in',
+        logo: { '@type': 'ImageObject', url: 'https://investingpro.in/logo.png' },
+      },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://investingpro.in' },
+          { '@type': 'ListItem', position: 2, name: 'Demat Accounts', item: 'https://investingpro.in/demat-accounts' },
+        ],
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'What is a demat account?', acceptedAnswer: { '@type': 'Answer', text: 'A demat (dematerialized) account holds your shares and securities in electronic form. You need one to buy stocks, mutual funds, bonds, and ETFs in India.' } },
+        { '@type': 'Question', name: 'What is the difference between discount and full-service brokers?', acceptedAnswer: { '@type': 'Answer', text: 'Discount brokers (Zerodha, Groww) charge flat ₹20/trade or zero brokerage. Full-service brokers (ICICI Direct, HDFC Securities) charge percentage-based fees but offer research and advisory.' } },
+        { '@type': 'Question', name: 'How much does a demat account cost?', acceptedAnswer: { '@type': 'Answer', text: 'Account opening is free at most brokers. Annual AMC (maintenance charge) ranges from ₹0 to ₹750. Trading charges vary — ₹0 to ₹20 per trade for delivery.' } },
+        { '@type': 'Question', name: 'Can I have multiple demat accounts?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. You can have demat accounts with multiple brokers. There is no legal limit. Some investors use different brokers for trading vs long-term investing.' } },
+        { '@type': 'Question', name: 'What documents do I need to open a demat account?', acceptedAnswer: { '@type': 'Answer', text: 'PAN card, Aadhaar (for eKYC), bank account details, and a recent photograph. Most brokers offer instant digital account opening.' } },
+        { '@type': 'Question', name: 'How does InvestingPro compare demat accounts?', acceptedAnswer: { '@type': 'Answer', text: 'We evaluate brokerage charges, AMC fees, platform features, mobile app quality, research tools, and customer support. No broker pays for higher placement.' } },
+      ],
+    },
   ];
   return (
     <>

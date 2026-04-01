@@ -113,7 +113,7 @@ class AlertManager {
         // Check workflow_instances table for workflows running > thresholdMinutes
         try {
             const { createClient } = await import('../supabase/server');
-            const supabase = createClient();
+            const supabase = await createClient();
             
             const thresholdTime = new Date(Date.now() - thresholdMinutes * 60 * 1000);
             
@@ -142,7 +142,7 @@ class AlertManager {
         // Check system_settings for budget usage
         try {
             const { createClient } = await import('../supabase/server');
-            const supabase = createClient();
+            const supabase = await createClient();
             
             const { data, error } = await supabase
                 .from('system_settings')

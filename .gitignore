@@ -68,3 +68,7 @@ coverage/
 .cache/
 
 .vercel
+
+# Screenshots (don't commit to repo)
+/*.jpeg
+/*.png

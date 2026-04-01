@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 /**
  * Analytics Tracking Service
  * Lightweight event tracking for product views, comparisons, and conversions

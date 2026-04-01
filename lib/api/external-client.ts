@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 interface CircuitBreakerState {
     status: 'CLOSED' | 'OPEN' | 'HALF_OPEN';
     failureCount: number;

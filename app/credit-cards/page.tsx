@@ -34,9 +34,22 @@ export default async function CreditCardsPage() {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: 'Best Credit Cards in India 2026',
-      description: 'Compare and apply for the best credit cards in India.',
+      description: 'Compare and apply for the best credit cards in India. Filter by rewards, cashback, travel, annual fee, and network. Independent ratings — no paid placements.',
       url: 'https://investingpro.in/credit-cards',
       numberOfItems: cardCount,
+      publisher: {
+        '@type': 'Organization',
+        name: 'InvestingPro',
+        url: 'https://investingpro.in',
+        logo: { '@type': 'ImageObject', url: 'https://investingpro.in/logo.png' },
+      },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://investingpro.in' },
+          { '@type': 'ListItem', position: 2, name: 'Credit Cards', item: 'https://investingpro.in/credit-cards' },
+        ],
+      },
     },
     {
       '@context': 'https://schema.org',
