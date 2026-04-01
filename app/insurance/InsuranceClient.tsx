@@ -152,7 +152,7 @@ export default function InsuranceClient() {
                                             <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors leading-tight">{plan.name}</p>
                                             <p className="text-[11px] text-gray-500 mt-0.5">{plan.provider_name || plan.providerName}</p>
                                         </div>
-                                        <Badge className="text-[9px] bg-teal-50 text-teal-700 border-teal-200">{plan.category || plan.type || 'Health'}</Badge>
+                                        <Badge className="text-[9px] bg-green-50 text-green-700 border-green-200">{plan.category || plan.type || 'Health'}</Badge>
                                     </div>
                                     <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-3">
                                         <div><p className="text-[9px] text-gray-400 uppercase font-medium">Premium</p><p className="text-sm font-bold text-gray-900">{plan.specs?.premium || plan.premium || 'Get Quote'}<span className="text-[10px] font-normal text-gray-500">/yr</span></p></div>

@@ -84,7 +84,7 @@ export default function InsurancePage() {
             { title: 'ULIPs vs Term + Mutual Fund', desc: 'Insurance + investment combo vs buying separately', href: '/insurance/compare/ulip-vs-term-mf' },
           ].map((comp) => (
             <Link key={comp.href} href={comp.href} className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group">
-              <span className="text-[11px] font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded mt-0.5 flex-shrink-0">VS</span>
+              <span className="text-[11px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded mt-0.5 flex-shrink-0">VS</span>
               <div><p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{comp.title}</p><p className="text-xs text-gray-500 mt-0.5">{comp.desc}</p></div>
             </Link>
           ))}

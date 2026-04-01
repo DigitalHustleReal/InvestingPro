@@ -209,14 +209,14 @@ export default function LoanEligibilityPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+        <div className="min-h-screen bg-white">
             <SEOHead
                 title="Loan Eligibility Checker | InvestingPro"
                 description="Check your loan eligibility instantly. Get personalized approval probability for Personal, Home, and Car loans from 30+ lenders."
             />
 
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-600 text-white pt-28 pb-16">
+            <div className="bg-white border-b border-gray-200 text-white pt-28 pb-16">
                 <div className="container mx-auto px-4">
                     <AutoBreadcrumbs className="mb-6 text-white/70" />
                     
@@ -251,7 +251,7 @@ export default function LoanEligibilityPage() {
                                 <div className="space-y-3">
                                     <Label className="text-base font-semibold">Loan Amount Required</Label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">₹</span>
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 font-bold">₹</span>
                                         <Input
                                             type="number"
                                             value={loanAmount}
@@ -268,7 +268,7 @@ export default function LoanEligibilityPage() {
                                                     "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
                                                     loanAmount === amt
                                                         ? "bg-primary-600 text-white"
-                                                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                                 )}
                                             >
                                                 {formatCurrency(amt)}
@@ -281,7 +281,7 @@ export default function LoanEligibilityPage() {
                                 <div className="space-y-3">
                                     <Label className="text-base font-semibold">Monthly Income (Net)</Label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">₹</span>
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 font-bold">₹</span>
                                         <Input
                                             type="number"
                                             value={monthlyIncome}
@@ -305,12 +305,12 @@ export default function LoanEligibilityPage() {
                                                         "p-4 rounded-xl border-2 text-center transition-all",
                                                         employment === type.id
                                                             ? "border-primary-500 bg-primary-50"
-                                                            : "border-slate-200 hover:border-primary-300"
+                                                            : "border-gray-200 hover:border-primary-300"
                                                     )}
                                                 >
                                                     <Icon className={cn(
                                                         "w-6 h-6 mx-auto mb-2",
-                                                        employment === type.id ? "text-primary-600" : "text-slate-600"
+                                                        employment === type.id ? "text-primary-600" : "text-gray-600"
                                                     )} />
                                                     <p className="text-sm font-semibold">{type.label}</p>
                                                 </button>
@@ -329,7 +329,7 @@ export default function LoanEligibilityPage() {
                                             max="900"
                                             value={creditScore}
                                             onChange={(e) => setCreditScore(Number(e.target.value))}
-                                            className="flex-1 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                                            className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
                                         />
                                         <span className={cn(
                                             "text-2xl font-bold w-20 text-center",
@@ -339,7 +339,7 @@ export default function LoanEligibilityPage() {
                                             {creditScore}
                                         </span>
                                     </div>
-                                    <p className="text-sm text-slate-500">
+                                    <p className="text-sm text-gray-500">
                                         {creditScore >= 750 ? 'Excellent' : creditScore >= 700 ? 'Good' : creditScore >= 650 ? 'Fair' : 'Needs Improvement'}
                                     </p>
                                 </div>
@@ -378,7 +378,7 @@ export default function LoanEligibilityPage() {
                                     <ChevronRight className="w-5 h-5 ml-2" />
                                 </Button>
 
-                                <p className="text-xs text-center text-slate-600">
+                                <p className="text-xs text-center text-gray-600">
                                     This check does not impact your credit score
                                 </p>
                             </CardContent>
@@ -415,31 +415,31 @@ export default function LoanEligibilityPage() {
                             <CardContent className="p-6">
                                 <h3 className="font-bold text-lg mb-4">Your Profile Strength</h3>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                                         {getFactorIcon(results[0]?.factors.income || 'neutral')}
                                         <div>
-                                            <p className="text-xs text-slate-500">Income</p>
+                                            <p className="text-xs text-gray-500">Income</p>
                                             <p className="font-semibold">{formatCurrency(monthlyIncome)}</p>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                                         {getFactorIcon(results[0]?.factors.creditScore || 'neutral')}
                                         <div>
-                                            <p className="text-xs text-slate-500">Credit Score</p>
+                                            <p className="text-xs text-gray-500">Credit Score</p>
                                             <p className="font-semibold">{creditScore}</p>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                                         {getFactorIcon(results[0]?.factors.employment || 'neutral')}
                                         <div>
-                                            <p className="text-xs text-slate-500">Employment</p>
+                                            <p className="text-xs text-gray-500">Employment</p>
                                             <p className="font-semibold capitalize">{employment.replace('_', ' ')}</p>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                                         {getFactorIcon(results[0]?.factors.age || 'neutral')}
                                         <div>
-                                            <p className="text-xs text-slate-500">Age</p>
+                                            <p className="text-xs text-gray-500">Age</p>
                                             <p className="font-semibold">{age} years</p>
                                         </div>
                                     </div>
@@ -449,14 +449,14 @@ export default function LoanEligibilityPage() {
 
                         {/* Loan Results */}
                         <div className="space-y-4">
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                                 Matching Loans ({results.filter(r => r.probability >= 50).length} High Probability)
                             </h3>
                             
                             {results.slice(0, 10).map((result, index) => (
                                 <Card key={result.loanId} className={cn(
                                     "rounded-2xl border transition-shadow hover:shadow-lg",
-                                    result.probability >= 70 ? "border-green-200" : "border-slate-200"
+                                    result.probability >= 70 ? "border-green-200" : "border-gray-200"
                                 )}>
                                     <CardContent className="p-6">
                                         <div className="flex flex-col md:flex-row md:items-center gap-6">
@@ -473,10 +473,10 @@ export default function LoanEligibilityPage() {
                                             <div className="flex-1">
                                                 <div className="flex items-start justify-between gap-4">
                                                     <div>
-                                                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                                                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
                                                             {result.provider}
                                                         </p>
-                                                        <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                                                        <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                                                             {result.loanName}
                                                         </h4>
                                                         <ProductScoreBadges
@@ -488,17 +488,17 @@ export default function LoanEligibilityPage() {
                                                 </div>
 
                                                 {/* Key Metrics */}
-                                                <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-slate-100">
+                                                <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-gray-100">
                                                     <div>
-                                                        <p className="text-xs text-slate-500">Interest Rate</p>
+                                                        <p className="text-xs text-gray-500">Interest Rate</p>
                                                         <p className="text-lg font-bold text-primary-600">{result.interestRate}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-xs text-slate-500">Max Amount</p>
-                                                        <p className="text-lg font-bold text-slate-700">{formatCurrency(result.maxAmount)}</p>
+                                                        <p className="text-xs text-gray-500">Max Amount</p>
+                                                        <p className="text-lg font-bold text-gray-700">{formatCurrency(result.maxAmount)}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-xs text-slate-500">Status</p>
+                                                        <p className="text-xs text-gray-500">Status</p>
                                                         <p className={cn(
                                                             "text-lg font-bold",
                                                             result.probability >= 70 ? "text-green-600" :
@@ -513,7 +513,7 @@ export default function LoanEligibilityPage() {
                                                 {/* Reasons */}
                                                 <div className="mt-4 flex flex-wrap gap-2">
                                                     {result.reasons.slice(0, 3).map((reason, i) => (
-                                                        <div key={i} className="flex items-center gap-1.5 text-xs text-slate-600">
+                                                        <div key={i} className="flex items-center gap-1.5 text-xs text-gray-600">
                                                             <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
                                                             {reason}
                                                         </div>
@@ -528,7 +528,7 @@ export default function LoanEligibilityPage() {
                                                         "h-12 px-6 rounded-xl",
                                                         result.probability >= 70 
                                                             ? "bg-emerald-600 hover:bg-emerald-700" 
-                                                            : "bg-slate-600 hover:bg-slate-700"
+                                                            : "bg-gray-600 hover:bg-gray-700"
                                                     )}>
                                                         Apply Now
                                                         <ChevronRight className="w-4 h-4 ml-1" />

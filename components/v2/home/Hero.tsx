@@ -6,7 +6,7 @@ const CATEGORIES: { label: string; sub: string; href: string; icon: LucideIcon; 
   { label: 'Credit Cards', sub: '500+ cards', href: '/credit-cards', icon: CreditCard, color: 'text-green-600' },
   { label: 'Mutual Funds', sub: '2,000+ funds', href: '/mutual-funds', icon: TrendingUp, color: 'text-blue-600' },
   { label: 'Loans', sub: '30+ lenders', href: '/loans', icon: Landmark, color: 'text-red-600' },
-  { label: 'Insurance', sub: '20+ insurers', href: '/insurance', icon: Shield, color: 'text-teal-600' },
+  { label: 'Insurance', sub: '20+ insurers', href: '/insurance', icon: Shield, color: 'text-green-600' },
   { label: 'Fixed Deposits', sub: '50+ banks', href: '/fixed-deposits', icon: Building2, color: 'text-amber-600' },
   { label: 'Calculators', sub: '25 free tools', href: '/calculators', icon: Calculator, color: 'text-green-600' },
 ];

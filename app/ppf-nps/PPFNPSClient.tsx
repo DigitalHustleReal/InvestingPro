@@ -12,7 +12,7 @@ const SCHEMES = [
     { id: 'scss', name: 'Senior Citizen Savings Scheme', rate: '8.2%', tenure: '5 years', tax: 'Taxable', minInvest: '₹1,000', maxInvest: '₹30L', lock: '5 years', section: '80C', icon: Clock, risk: 'Zero Risk', color: 'bg-amber-50 text-amber-700' },
     { id: 'kvp', name: 'Kisan Vikas Patra (KVP)', rate: '7.5%', tenure: '115 months (doubles)', tax: 'Taxable', minInvest: '₹1,000', maxInvest: 'No limit', lock: '30 months', section: 'None', icon: TrendingUp, risk: 'Zero Risk', color: 'bg-green-50 text-green-700' },
     { id: 'nsc', name: 'National Savings Certificate (NSC)', rate: '7.7%', tenure: '5 years', tax: 'Taxable (reinvested interest deductible)', minInvest: '₹1,000', maxInvest: 'No limit', lock: '5 years', section: '80C', icon: Landmark, risk: 'Zero Risk', color: 'bg-purple-50 text-purple-700' },
-    { id: 'mis', name: 'Post Office Monthly Income Scheme', rate: '7.4%', tenure: '5 years', tax: 'Taxable', minInvest: '₹1,000', maxInvest: '₹9L (single) / ₹15L (joint)', lock: '5 years (partial from 1yr)', section: 'None', icon: Calculator, risk: 'Zero Risk', color: 'bg-teal-50 text-teal-700' },
+    { id: 'mis', name: 'Post Office Monthly Income Scheme', rate: '7.4%', tenure: '5 years', tax: 'Taxable', minInvest: '₹1,000', maxInvest: '₹9L (single) / ₹15L (joint)', lock: '5 years (partial from 1yr)', section: 'None', icon: Calculator, risk: 'Zero Risk', color: 'bg-green-50 text-green-700' },
 ];
 
 export default function PPFNPSClient() {

@@ -80,14 +80,14 @@ export default function FindYourCardPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <SEOHead
                 title="Find Your Perfect Credit Card - Spending-Based Recommendations | InvestingPro"
                 description="Get personalized credit card recommendations based on your spending pattern, lifestyle, and eligibility. Compare and apply instantly."
             />
 
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-primary-600 to-primary-500 text-white py-16">
+            <div className="bg-white border-b border-gray-200 py-16">
                 <div className="container mx-auto px-6">
                     <div className="max-w-3xl mx-auto text-center">
                         <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -239,11 +239,11 @@ export default function FindYourCardPage() {
                                                     <div className="flex items-center gap-3 mb-2">
                                                         <span className="text-2xl font-bold text-primary-600">#{idx + 1}</span>
                                                         <h3 className="text-xl font-bold">{rec.card.name}</h3>
-                                                        <span className="text-sm text-slate-500">by {rec.card.bank}</span>
+                                                        <span className="text-sm text-gray-500">by {rec.card.bank}</span>
                                                     </div>
                                                     <div className="space-y-2 mb-4">
                                                         {rec.reasons.map((reason, i) => (
-                                                            <div key={i} className="flex items-center gap-2 text-slate-600">
+                                                            <div key={i} className="flex items-center gap-2 text-gray-600">
                                                                 <CheckCircle2 className="w-4 h-4 text-green-600" />
                                                                 <span>{reason}</span>
                                                             </div>
@@ -251,13 +251,13 @@ export default function FindYourCardPage() {
                                                     </div>
                                                     <div className="flex items-center gap-6 text-sm">
                                                         <div>
-                                                            <span className="text-slate-500">Estimated Monthly Rewards: </span>
+                                                            <span className="text-gray-500">Estimated Monthly Rewards: </span>
                                                             <span className="font-semibold text-green-600">
                                                                 {formatCurrency(rec.estimatedRewards)}
                                                             </span>
                                                         </div>
                                                         <div>
-                                                            <span className="text-slate-500">Eligibility: </span>
+                                                            <span className="text-gray-500">Eligibility: </span>
                                                             <span className="font-semibold">
                                                                 {rec.eligibilityProbability}%
                                                             </span>
@@ -328,11 +328,11 @@ export default function FindYourCardPage() {
                                                     <div className="flex items-center gap-3 mb-2">
                                                         <span className="text-2xl font-bold text-primary-600">#{idx + 1}</span>
                                                         <h3 className="text-xl font-bold">{rec.card.name}</h3>
-                                                        <span className="text-sm text-slate-500">by {rec.card.bank}</span>
+                                                        <span className="text-sm text-gray-500">by {rec.card.bank}</span>
                                                     </div>
                                                     <div className="space-y-2">
                                                         {rec.reasons.map((reason, i) => (
-                                                            <div key={i} className="flex items-center gap-2 text-slate-600">
+                                                            <div key={i} className="flex items-center gap-2 text-gray-600">
                                                                 <CheckCircle2 className="w-4 h-4 text-green-600" />
                                                                 <span>{reason}</span>
                                                             </div>
@@ -420,7 +420,7 @@ export default function FindYourCardPage() {
                                                 <div className="flex items-center justify-between">
                                                     <div>
                                                         <h3 className="font-semibold">{result.card.name}</h3>
-                                                        <p className="text-sm text-slate-500">{result.card.bank}</p>
+                                                        <p className="text-sm text-gray-500">{result.card.bank}</p>
                                                     </div>
                                                     <div className="flex items-center gap-4">
                                                         <div className="text-right">
@@ -430,7 +430,7 @@ export default function FindYourCardPage() {
                                                             }`}>
                                                                 {result.probability}%
                                                             </div>
-                                                            <div className="text-xs text-slate-500">Approval Chance</div>
+                                                            <div className="text-xs text-gray-500">Approval Chance</div>
                                                         </div>
                                                         <AffiliateLink
                                                             productId={result.card.id}

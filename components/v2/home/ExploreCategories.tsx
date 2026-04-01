@@ -126,8 +126,8 @@ const CATEGORIES: Category[] = [
     label: 'Insurance',
     href: '/insurance',
     icon: Shield,
-    color: 'bg-teal-50',
-    colorText: 'text-teal-600',
+    color: 'bg-green-50',
+    colorText: 'text-green-600',
     headline: 'Understand your insurance options clearly',
     description:
       'Term life, health, motor, and travel insurance compared on premium, coverage, and claim settlement ratio. We break down policy jargon so you can decide with confidence.',

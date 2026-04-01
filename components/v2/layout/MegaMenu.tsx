@@ -229,8 +229,8 @@ const MENU: MenuCategory[] = [
     label: 'Insurance',
     href: '/insurance',
     icon: Shield,
-    color: 'text-teal-600',
-    colorBg: 'bg-teal-50',
+    color: 'text-green-600',
+    colorBg: 'bg-green-50',
     desc: 'Term, health, life, car insurance — claims data that matters',
     featured: {
       label: 'Coverage Calculator',

@@ -305,7 +305,7 @@ export default function SmartComparePage() {
       </div>
 
       {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-gradient-to-r from-primary/10 via-purple-500/10 to-pink-500/10 rounded-2xl text-center">
+      <div className="mt-12 p-8 bg-green-50 rounded-2xl text-center">
         <Sparkles className="h-8 w-8 mx-auto mb-4 text-primary" />
         <h2 className="text-2xl font-bold mb-2">Ready to Apply?</h2>
         <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
