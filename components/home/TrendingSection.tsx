@@ -23,35 +23,35 @@ interface TrendingItem {
 const mockTrendingItems: TrendingItem[] = [
     {
         id: '1',
-        title: 'RBI Rate Cut Expected in April - Lock 7.5% Home Loan Now?',
-        description: 'Market analysts predict RBI may cut rates by 0.25% next month. Refinance window may close soon.',
+        title: 'Home Loan Checkup: Fixed vs Floating EMIs',
+        description: 'Understand how a small change in interest rates can affect your EMI and total repayment over time.',
         category: 'Loans',
         impact: 'high',
         actionUrl: '/loans/home-loan',
         actionText: 'Compare Home Loans',
-        urgency: '31 days left',
+        urgency: undefined,
         icon: '📰'
     },
     {
         id: '2',
-        title: 'Tax Planning Window Closing (31 Days Left)',
-        description: 'Last chance to invest in tax-saving instruments for FY 2025-26. Save up to ₹45,000 in taxes.',
+        title: 'Simple Guide to Tax-Saving Investments',
+        description: 'Walk through Section 80C basics and see how ELSS, PPF, and EPF fit into your plan.',
         category: 'Taxes',
         impact: 'high',
         actionUrl: '/calculators/tax',
-        actionText: 'See Tax Funds',
-        urgency: '31 days left',
+        actionText: 'Estimate Your Tax',
+        urgency: undefined,
         icon: '📈'
     },
     {
         id: '3',
-        title: 'Best Cashback Cards This Month - RBI Festival Coming',
-        description: 'New offers launched with 5% cashback on online spends. Limited time offers from top banks.',
+        title: 'Cashback vs Rewards: Which Card Fits You?',
+        description: 'Learn the trade-offs between flat cashback and points, and when each makes sense.',
         category: 'Credit Cards',
         impact: 'medium',
         actionUrl: '/credit-cards',
         actionText: 'Compare Cards',
-        urgency: 'Limited time',
+        urgency: undefined,
         icon: '💳'
     }
 ];
@@ -101,7 +101,7 @@ export default function TrendingSection() {
                     </div>
                     <Badge variant="outline" className="border-orange-200 dark:border-orange-800 text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20">
                         <Sparkles className="w-3 h-3 mr-1.5" />
-                        Live Updates
+                        Editor&apos;s Picks
                     </Badge>
                 </div>
 

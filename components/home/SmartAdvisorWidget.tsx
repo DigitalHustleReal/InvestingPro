@@ -66,7 +66,7 @@ export default function SmartAdvisorWidget() {
     const [lifeStage, setLifeStage] = useState<LifeStage>(null);
     const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
     const [currentProductIndex, setCurrentProductIndex] = useState(0);
-    const [displayedCount, setDisplayedCount] = useState(0);
+    const [displayedCount, setDisplayedCount] = useState(0); // kept for now, but UI no longer shows large user counts
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -75,31 +75,16 @@ export default function SmartAdvisorWidget() {
         return () => clearInterval(interval);
     }, []);
 
+    // keep internal state for future use; currently we don't surface big user-count claims in UI
     useEffect(() => {
-        const target = 52847;
-        const duration = 2000;
-        const steps = 60;
-        const increment = target / steps;
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                setDisplayedCount(target);
-                clearInterval(timer);
-            } else {
-                setDisplayedCount(Math.floor(current));
-            }
-        }, duration / steps);
-
-        return () => clearInterval(timer);
+        setDisplayedCount(0);
     }, []);
 
     const goals = [
-        { id: 'build_wealth' as GoalType, label: 'Build Wealth', icon: TrendingUp, desc: 'Grow capital through smart investments', colorClass: 'text-primary-600 dark:text-primary-400', bgClass: 'bg-primary-100 dark:bg-primary-500/20' },
-        { id: 'save_money' as GoalType, label: 'Save Money', icon: PiggyBank, desc: 'Maximize savings with best rates', colorClass: 'text-secondary-600 dark:text-secondary-400', bgClass: 'bg-secondary-100 dark:bg-secondary-500/20' },
-        { id: 'protect_family' as GoalType, label: 'Protect Family', icon: Shield, desc: 'Secure loved ones with insurance', colorClass: 'text-accent-600 dark:text-accent-400', bgClass: 'bg-accent-100 dark:bg-accent-500/20' },
-        { id: 'improve_credit' as GoalType, label: 'Improve Credit', icon: CreditCard, desc: 'Boost your credit score fast', colorClass: 'text-success-600 dark:text-success-400', bgClass: 'bg-success-100 dark:bg-success-500/20' },
+        { id: 'build_wealth' as GoalType, label: 'Build Wealth', icon: TrendingUp, desc: 'Grow your money steadily over time', colorClass: 'text-primary-600 dark:text-primary-400', bgClass: 'bg-primary-100 dark:bg-primary-500/20' },
+        { id: 'save_money' as GoalType, label: 'Save Money', icon: PiggyBank, desc: 'Make the most of your savings', colorClass: 'text-secondary-600 dark:text-secondary-400', bgClass: 'bg-secondary-100 dark:bg-secondary-500/20' },
+        { id: 'protect_family' as GoalType, label: 'Protect Family', icon: Shield, desc: 'Cover your family with the right insurance', colorClass: 'text-accent-600 dark:text-accent-400', bgClass: 'bg-accent-100 dark:bg-accent-500/20' },
+        { id: 'improve_credit' as GoalType, label: 'Improve Credit', icon: CreditCard, desc: 'Build a stronger credit profile', colorClass: 'text-success-600 dark:text-success-400', bgClass: 'bg-success-100 dark:bg-success-500/20' },
     ];
 
     const lifeStages = [
@@ -126,46 +111,46 @@ export default function SmartAdvisorWidget() {
         if (goal === 'build_wealth') {
             recs.push({
                 category: 'Mutual Funds',
-                title: 'Axis Bluechip Fund',
-                description: 'Large-cap equity fund with consistent 15%+ CAGR.',
+                title: 'Large-cap Equity Fund',
+                description: 'Example long-term fund with a strong track record across market cycles.',
                 link: '/mutual-funds',
                 icon: <TrendingUp className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
                 priority: 'high',
                 matchScore: 98,
-                features: ['Low Expense Ratio', 'SIP from ₹500', '5-Star Rated']
+                features: ['Diversified portfolio', 'SIP-friendly', 'Long-term focus']
             });
         } else if (goal === 'improve_credit') {
              recs.push({
                 category: 'Credit Cards',
-                title: 'HDFC Millennia Card',
-                description: '5% cashback on online spends, easy approval.',
+                title: 'Entry-level Rewards Card',
+                description: 'Beginner-friendly card for everyday spends with simple rewards.',
                 link: '/credit-cards',
                 icon: <CreditCard className="w-5 h-5 text-secondary-600 dark:text-secondary-400" />,
                 priority: 'high',
                 matchScore: 95,
-                features: ['No Annual Fee Y1', '5% Cashback', 'Lounge Access']
+                features: ['Lower joining fee', 'Rewards on essentials', 'Helps build credit']
             });
         } else if (goal === 'protect_family') {
             recs.push({
                 category: 'Term Insurance',
-                title: 'ICICI iProtect Smart',
-                description: '₹1 Crore cover at just ₹490/month.',
+                title: 'Sample Term Plan',
+                description: 'High-cover pure protection plan for your family’s key goals.',
                 link: '/insurance',
                 icon: <Shield className="w-5 h-5 text-accent-600 dark:text-accent-400" />,
                 priority: 'high',
                 matchScore: 96,
-                features: ['₹1Cr Cover', 'Critical Illness', 'Tax Benefit']
+                features: ['High life cover', 'Optional riders', 'Tax benefits']
             });
         } else {
              recs.push({
                 category: 'Savings Account',
-                title: 'Jupiter Pro Savings',
-                description: 'Earn up to 7% interest with zero balance.',
+                title: 'Digital Savings Account',
+                description: 'Convenient online account with competitive interest and full UPI support.',
                 link: '/banking',
                 icon: <PiggyBank className="w-5 h-5 text-success-600 dark:text-success-400" />,
                 priority: 'high',
                 matchScore: 92,
-                features: ['7% Interest', 'Zero Balance', 'Instant UPI']
+                features: ['No minimum balance', 'UPI & card payments', 'Easy app access']
             });
         }
         setRecommendations(recs);
@@ -270,14 +255,8 @@ export default function SmartAdvisorWidget() {
                                                     </motion.div>
                                                 ))}
                                             </div>
-                                            <div className="text-sm">
-                                                <div className="flex items-center gap-1.5">
-                                                    <span className="font-bold text-foreground text-lg tabular-nums">
-                                                        {displayedCount.toLocaleString()}+
-                                                    </span>
-                                                    <BadgeCheck className="w-4 h-4 text-primary-500" />
-                                                </div>
-                                                <span className="text-muted-foreground">users found their match</span>
+                                            <div className="text-sm text-muted-foreground max-w-xs">
+                                                Built for Indian users who want clear, no-jargon suggestions before choosing a card, loan, fund, or insurance plan.
                                             </div>
                                         </div>
 
@@ -613,7 +592,7 @@ export default function SmartAdvisorWidget() {
                                         >
                                             <div className="flex items-center gap-2">
                                                 <BarChart3 className="w-4 h-4 text-success-500" />
-                                                <span className="text-sm text-foreground font-bold">15% Returns</span>
+                                                <span className="text-sm text-foreground font-bold">Track performance</span>
                                             </div>
                                         </motion.div>
 
@@ -624,7 +603,7 @@ export default function SmartAdvisorWidget() {
                                         >
                                             <div className="flex items-center gap-2">
                                                 <Percent className="w-4 h-4 text-accent-500" />
-                                                <span className="text-sm text-foreground font-bold">Save ₹12K/yr</span>
+                                                <span className="text-sm text-foreground font-bold">Cut unnecessary fees</span>
                                             </div>
                                         </motion.div>
                                     </motion.div>

@@ -24,27 +24,27 @@ const categories = [
         color: "text-primary-500",
         bg: "bg-primary-500/5",
         href: "/credit-cards",
-        tag: "Best Rewards",
+        tag: "Top picks",
         subcategories: ["Rewards", "Cashback", "Travel", "Fuel", "Shopping"]
     },
     {
         name: "Loans",
-        description: "Personal, home, car, education, gold, and business loans with lowest rates.",
+        description: "Personal, home, car, education, gold, and business loans with competitive rates.",
         icon: Wallet,
         color: "text-primary-500",
         bg: "bg-primary-500/5",
         href: "/loans",
-        tag: "Low Rates",
+        tag: "Compare rates",
         subcategories: ["Personal", "Home", "Car", "Education", "Gold", "Business"]
     },
     {
         name: "Banking",
-        description: "Savings accounts, fixed deposits, recurring deposits with best interest rates.",
+        description: "Savings accounts, fixed deposits, and recurring deposits to match your needs.",
         icon: PiggyBank,
         color: "text-primary-500",
         bg: "bg-primary-500/5",
         href: "/banking",
-        tag: "Up to 9.5%",
+        tag: "Best interest",
         subcategories: ["Savings", "FD", "RD", "Current"]
     },
     {
@@ -54,7 +54,7 @@ const categories = [
         color: "text-primary-500",
         bg: "bg-primary-500/5",
         href: "/investing",
-        tag: "15% Avg Yield",
+        tag: "Long-term",
         subcategories: ["Mutual Funds", "Stocks", "PPF & NPS", "ELSS", "Gold", "Demat"]
     },
     {
@@ -86,11 +86,11 @@ export default function CategoryGrid() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
                     <div className="max-w-2xl">
                         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-6">
-                            Asset <span className="text-slate-600">Inventory</span>
+                            Browse by <span className="text-slate-600">category</span>
                         </h2>
                         <p className="text-lg text-slate-500 dark:text-slate-600 font-medium leading-relaxed">
-                            Navigate the Indian financial landscape with precision instrumentation.
-                            Our inventory scans 10,000+ data points daily for asymmetric yield.
+                            Explore all major money products in one place. We track thousands of options from Indian banks,
+                            brokers and insurers so you can quickly find what fits your goals.
                         </p>
                     </div>
                 </div>
@@ -121,7 +121,7 @@ export default function CategoryGrid() {
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-1 text-[10px] font-semibold text-primary-500/0 group-hover:text-primary-500 transition-all uppercase tracking-st">
-                                    Analyze Inventory <ArrowUpRight size={12} />
+                                    View options <ArrowUpRight size={12} />
                                 </div>
                             </div>
                         </Link>

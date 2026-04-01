@@ -74,6 +74,33 @@
     --input: 214 32% 91%;
     --ring: 142 76% 29%;                        /* Green focus ring */
 
+    /* =====================================================================
+       V2 DESIGN SYSTEM TOKENS (March 2026 Redesign)
+       Green primary + Saffron accent + White base + Indian identity
+       ===================================================================== */
+
+    /* V2: Named colors for direct use */
+    --v2-ink: #1B2A4A;
+    --v2-green: #16A34A;
+    --v2-green-dark: #166534;
+    --v2-green-light: #f0fdf4;
+    --v2-saffron: #E8871A;
+    --v2-saffron-dark: #B45309;
+    --v2-saffron-glow: rgba(232, 135, 26, 0.06);
+    --v2-cream: #F5F0E8;
+    --v2-cream-border: #EDE8DF;
+    --v2-red: #DC2626;
+    --v2-blue: #2563EB;
+
+    /* V2: Typography */
+    --font-display: Georgia, 'Times New Roman', serif;
+    --font-body: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
+    --font-mono: var(--font-dm-mono), 'JetBrains Mono', monospace;
+
+    /* V2: Spacing scale */
+    --max-w: 1200px;
+    --nav-h: 56px;
+
     /* Legacy aliases — map to semantic tokens */
     --wt-nav: var(--background);
     --wt-gold: var(--accent);
