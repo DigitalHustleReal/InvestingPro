@@ -2,9 +2,9 @@ name: Lighthouse CI
 
 on:
   push:
-    branches: [master, main]
+    branches: [main, master, main]
   pull_request:
-    branches: [master, main]
+    branches: [main, master, main]
   schedule:
     # Run weekly on Monday at 9 AM UTC
     - cron: '0 9 * * 1'

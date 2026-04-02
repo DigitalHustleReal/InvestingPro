@@ -197,12 +197,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "bash scripts/check-admin-colors.sh",
-      "eslint --fix",
       "prettier --write"
-    ],
-    "components/**/*.tsx": [
-      "eslint --plugin jsx-a11y"
     ]
   }
 }

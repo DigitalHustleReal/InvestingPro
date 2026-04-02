@@ -28,7 +28,11 @@
       "mcp__ef347c82-e00a-4bcb-bc1c-f955a42d737f__get_deployment_build_logs",
       "Bash(npx next:*)",
       "Bash(where gh:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "mcp__plugin_playwright_playwright__browser_resize",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_evaluate"
     ]
   }
 }
