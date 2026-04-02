@@ -26,15 +26,14 @@ export function ConditionalPublicElements({ children }: { children: React.ReactN
         return <>{children}</>;
     }
 
-    // Public pages: Include all trust/email capture elements
+    // Public pages: Include footer + cookie consent (no popups per design preference)
     return (
-        <LeadCaptureProvider>
+        <>
             {children}
             <PageErrorBoundary pageName="Footer">
                 <Footer />
             </PageErrorBoundary>
             <CookieConsent />
-            <ExitIntentPopup />
-        </LeadCaptureProvider>
+        </>
     );
 }

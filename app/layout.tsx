@@ -190,8 +190,10 @@ export default async function RootLayout({
                   */}
                   {/* <script async src="https://cuelinks.com/js/..." /> */}
                   <Toaster />
-                  <ExitIntentPopup variant="wizard" />
-                  <OnboardingTrigger />
+                  {/* Disabled per design preference: no popups */}
+                  {/* <ExitIntentPopup variant="wizard" /> */}
+                  {/* Disabled per design preference: no popups/modals on page load */}
+                  {/* <OnboardingTrigger /> */}
                 </NavigationProvider>
               </CompareProvider>
             </SearchProvider>

@@ -17,8 +17,6 @@ import {
   AlertCircle,
   ExternalLink,
   ArrowRight,
-  UtensilsCrossed,
-  ShoppingCart,
   Sparkles,
   MessageCircle,
   Users,
@@ -151,28 +149,28 @@ async function getCreditCardData(slug: string, useServiceClient: boolean = false
     applyLink: card.apply_link || card.source_url || '#',
     updatedAt: card.updated_at || null,
 
-    keyFeatures: card.pros || [],
+    keyFeatures: card.rewards || card.pros || [],
     rewardProgram: {
       name: `${card.name} Rewards`,
-      pointsPerRupee: 2, // Default
+      pointsPerRupee: 2,
       redemptionValue: 'Variable',
-      categories: [
-        { name: 'General Spends', rate: '2 points/₹150' },
-        { name: 'Accelerated', rate: '5x - 10x points' }
-      ]
+      categories: (card.rewards || []).map((reward: string, i: number) => ({
+        name: reward.split('—')[0]?.split('on ')?.pop()?.trim() || `Benefit ${i + 1}`,
+        rate: reward,
+      }))
     },
     benefits: [
       {
-        category: 'Core Benefits',
-        items: card.pros || ['Reward Points', 'Fuel Surcharge Waiver']
+        category: 'Rewards & Cashback',
+        items: card.rewards || ['Reward Points', 'Fuel Surcharge Waiver']
       },
       {
-        category: isTravel ? 'Travel' : (isShopping ? 'Shopping' : 'Lifestyle'),
-        items: isTravel 
-          ? ['Airport Lounge Access', 'Travel Insurance'] 
-          : (isShopping 
-              ? ['Cashback on Spends', 'Discount Vouchers'] 
-              : ['Dining Discounts', 'Movie Offers'])
+        category: 'Highlights',
+        items: card.pros || (isTravel
+          ? ['Airport Lounge Access', 'Travel Insurance']
+          : (isShopping
+              ? ['Cashback on Spends', 'Discount Vouchers']
+              : ['Dining Discounts', 'Movie Offers']))
       }
     ],
     eligibility: {
@@ -219,9 +217,7 @@ export async function generateStaticParams() {
   }
 }
 
-// Force static generation with ISR (Incremental Static Regeneration)
-export const dynamic = 'force-static';
-// Revalidate every hour to keep data fresh while maintaining static benefits
+// ISR: Revalidate every hour to keep data fresh while maintaining static benefits
 export const revalidate = 3600; // 1 hour
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -688,24 +684,13 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                 <Gift className="w-6 h-6 text-green-700 dark:text-green-500" />
                 Rewards Program
               </h2>
-              <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-xl p-6 mb-6">
-                 <h3 className="font-bold text-xl mb-2 text-slate-900 dark:text-white">{card.rewardProgram.name}</h3>
-                 <p className="text-slate-600 dark:text-slate-400">
-                   Earn <strong className="text-green-700 dark:text-green-400">{card.rewardProgram.pointsPerRupee} points per ₹150</strong> spent.
-                   Redemption value: {card.rewardProgram.redemptionValue}
-                 </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid gap-3">
                 {card.rewardProgram.categories.map((cat, index) => (
-                  <div key={index} className="flex flex-col p-4 border border-slate-100 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                    <div className="flex justify-between items-start mb-2">
-                        <span className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">{cat.name}</span>
-                        {cat.name.includes("Dining") && <div className="flex gap-1"><UtensilsCrossed className="w-4 h-4 text-orange-500" /></div>}
-                        {cat.name.includes("Travel") && <div className="flex gap-1"><Plane className="w-4 h-4 text-green-700" /></div>}
-                        {cat.name.includes("Online") && <div className="flex gap-1"><ShoppingCart className="w-4 h-4 text-[#FF9900]" /></div>}
+                  <div key={index} className="flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-green-200 dark:hover:border-green-800 transition-colors">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-700 dark:text-green-400 font-bold text-sm mt-0.5">
+                      {index + 1}
                     </div>
-                    <span className="text-green-700 dark:text-green-400 font-bold text-lg">{cat.rate}</span>
+                    <p className="text-slate-700 dark:text-slate-300 font-medium leading-relaxed">{cat.rate}</p>
                   </div>
                 ))}
               </div>
