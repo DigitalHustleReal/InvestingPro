@@ -12,8 +12,8 @@ interface AuthorBylineProps {
 }
 
 export default function AuthorByline({
-  authorName = "InvestingPro Research Team",
-  authorRole = "Data-Driven Financial Analysis",
+  authorName = "InvestingPro",
+  authorRole = "Research & Analysis",
   lastUpdated,
   verified = true,
   className,

@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep:*)",
+      "mcp__plugin_supabase_supabase__get_project",
+      "mcp__plugin_supabase_supabase__list_projects",
+      "Bash(cmd.exe /c 'if not exist C:\\\\Users\\\\shivp\\\\.claude\\\\commands mkdir C:\\\\Users\\\\shivp\\\\.claude\\\\commands')",
+      "Bash(cmd.exe /c 'copy C:\\\\Users\\\\shivp\\\\Desktop\\\\InvestingPro_App\\\\.claude\\\\commands\\\\india-nerdwallet.md C:\\\\Users\\\\shivp\\\\.claude\\\\commands\\\\india-nerdwallet.md')",
+      "WebSearch",
+      "WebFetch(domain:www.bankbazaar.com)",
+      "WebFetch(domain:www.paisabazaar.com)",
+      "WebFetch(domain:www.nerdwallet.com)",
+      "WebFetch(domain:cardinsider.com)",
+      "WebFetch(domain:cardmaven.in)",
+      "WebFetch(domain:www.cuelinks.com)",
+      "WebFetch(domain:gromo.in)",
+      "WebFetch(domain:www.extrape.com)",
+      "WebFetch(domain:investingpro.in)",
+      "Bash(ls /c/Users/shivp/Desktop/InvestingPro_App/.claude/worktrees/interesting-kapitsa/app/credit-cards/[slug])",
+      "Bash(cat /c/Users/shivp/Desktop/InvestingPro_App/.claude/worktrees/interesting-kapitsa/app/credit-cards/[slug]/page.tsx)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\({''''crons'''': d.get\\(''''crons'''', []\\)[:10], ''''headers_count'''': len\\(d.get\\(''''headers'''', []\\)\\), ''''rewrites_count'''': len\\(d.get\\(''''rewrites'''', []\\)\\)}, indent=2\\)\\)\")",
+      "Bash(test -f /c/Users/shivp/Desktop/InvestingPro_App/app/credit-cards/[slug]/page.tsx)",
+      "Bash(ls -la /c/Users/shivp/Desktop/InvestingPro_App/app/credit-cards/[slug]/)",
+      "Bash(grep -l \"credit_cards\" /c/Users/shivp/Desktop/InvestingPro_App/.claude/worktrees/interesting-kapitsa/supabase/migrations/*.sql)",
+      "Bash(xargs head:*)",
+      "mcp__plugin_supabase_supabase__execute_sql",
+      "mcp__plugin_supabase_supabase__list_tables",
+      "mcp__ef347c82-e00a-4bcb-bc1c-f955a42d737f__get_deployment_build_logs",
+      "Bash(npx next:*)",
+      "Bash(where gh:*)",
+      "Bash(npx tsc:*)"
+    ]
+  }
+}
