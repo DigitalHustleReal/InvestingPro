@@ -59,6 +59,7 @@ import { CreditCardSchema } from '@/components/seo/SchemaMarkup'
 import DataFreshnessIndicator from '@/components/common/DataFreshnessIndicator'
 import CreditCardVisual from '@/components/common/CreditCardVisual'
 import RelatedPages from '@/components/common/RelatedPages'
+import InlineSignup from '@/components/engagement/InlineSignup'
 
 interface CreditCardDetail {
   id: string
@@ -843,6 +844,12 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                   </div>
                 </div>
             </section>
+
+            {/* ─── Frictionless Lead Gen: Card Alerts (NerdWallet-style) ─── */}
+            <InlineSignup
+              variant="card-alerts"
+              cardName={card.name}
+            />
 
             {/* ─── Dynamic Compare Links ─── */}
             <section className="scroll-mt-28 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none p-6 sm:p-8">

@@ -12,6 +12,7 @@ import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import MobileEngagementBar from '@/components/common/MobileEngagementBar';
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 import { Card } from '@/components/ui/card';
+import InlineSignup from '@/components/engagement/InlineSignup';
 
 import { getCreditCardsServer } from '@/lib/products/get-credit-cards-server';
 import CreditCardsClient from './CreditCardsClient';
@@ -95,6 +96,11 @@ export default async function CreditCardsPage() {
                 {/* Interactive Client Section (Filters, List, Search) */}
                 <CreditCardsClient initialAssets={assets as any} />
              
+            </div>
+
+            {/* Weekly Picks — Frictionless inline signup */}
+            <div className="container mx-auto px-4 pb-8">
+              <InlineSignup variant="weekly-picks" category="Credit" />
             </div>
 
             {/* Browse by Category — Internal Link Hub */}

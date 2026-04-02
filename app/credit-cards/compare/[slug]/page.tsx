@@ -12,6 +12,7 @@ import AffiliateDisclosure from '@/components/common/AffiliateDisclosure'
 import CreditCardVisual from '@/components/common/CreditCardVisual'
 import FAQAccordion from '@/components/common/FAQAccordion'
 import AuthorByline from '@/components/common/AuthorByline'
+import InlineSignup from '@/components/engagement/InlineSignup'
 import { VersusSchema } from '@/components/seo/SchemaMarkup'
 import {
   ArrowRight,
@@ -717,6 +718,11 @@ export default async function CreditCardVersusPage(props: { params: Promise<{ sl
             title={`${card1.name} vs ${card2.name} - FAQs`}
             items={faqs}
           />
+        </div>
+
+        {/* Save Results — Frictionless inline signup */}
+        <div className="mt-8">
+          <InlineSignup variant="save-results" />
         </div>
 
         {/* Back to comparisons */}
