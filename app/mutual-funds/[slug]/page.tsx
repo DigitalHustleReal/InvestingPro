@@ -27,6 +27,8 @@ import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer'
 import TableOfContents from '@/components/content/TableOfContents'
 import NAVChart from '@/components/mutual-funds/NAVChart'
 import SIPCalculatorWidget from '@/components/mutual-funds/SIPCalculatorWidget'
+import CompareSimilarFunds from '@/components/mutual-funds/CompareSimilarFunds'
+import FundStructuredData from '@/components/mutual-funds/FundStructuredData'
 import Link from 'next/link'
 
 interface MutualFundDetail {
@@ -219,6 +221,44 @@ async function getMutualFundData(slug: string): Promise<MutualFundDetail | null>
         return [];
       }
     })(),
+    // Fetch similar funds from same category
+    __similarFunds: await (async () => {
+      try {
+        const { data: similar } = await supabase
+          .from('products')
+          .select('slug, name, provider_name, features')
+          .eq('category', 'mutual_fund')
+          .eq('is_active', true)
+          .neq('slug', slug)
+          .limit(100);
+
+        if (!similar) return [];
+
+        // Filter to same fund category and sort by 3Y returns
+        return similar
+          .filter((s: any) => {
+            const sf = s.features || {};
+            return sf.category === category;
+          })
+          .map((s: any) => {
+            const sf = s.features || {};
+            return {
+              slug: s.slug,
+              name: s.name,
+              provider: s.provider_name || sf.fund_house || '',
+              returns1Y: sf.returns_1y != null ? Number(sf.returns_1y) : null,
+              returns3Y: sf.returns_3y != null ? Number(sf.returns_3y) : null,
+              nav: Number(sf.nav) || 0,
+              riskLevel: sf.risk_level || '',
+              category: sf.category || '',
+            };
+          })
+          .sort((a: any, b: any) => (b.returns3Y || 0) - (a.returns3Y || 0))
+          .slice(0, 10);
+      } catch {
+        return [];
+      }
+    })(),
   } as MutualFundDetail;
 }
 
@@ -311,6 +351,18 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      {/* JSON-LD Structured Data for SEO */}
+      <FundStructuredData
+        fund={fund}
+        slug={slug}
+        faqs={[
+          { question: `Is ${fund.name} a good investment?`, answer: `${fund.name} has delivered ${fund.returns['3Y']}% returns over 3 years with a ${fund.riskLevel} risk profile. It's rated ${fund.rating}/5.` },
+          { question: `What is the minimum SIP amount for ${fund.name}?`, answer: `The minimum SIP amount is ₹${fund.sipMinInvestment}/month. For lumpsum investment, the minimum is ₹${fund.minInvestment.toLocaleString()}.` },
+          { question: `What is the expense ratio of ${fund.name}?`, answer: `The expense ratio is ${fund.expenseRatio}%. This is the annual fee charged by ${fund.amc} for managing the fund.` },
+          { question: 'Should I choose Direct or Regular plan?', answer: 'Direct plans have 0.5-1% lower expense ratios (no distributor commission). Over 10+ years, this difference compounds significantly. InvestingPro recommends Direct plans.' },
+          { question: `How are returns from ${fund.name} taxed?`, answer: fund.taxBenefits || 'Equity funds: LTCG above ₹1.25L taxed at 12.5% (held >1yr). Short-term (<1yr): 20%.' },
+        ]}
+      />
       {/* Hero Section */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -606,6 +658,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
               { id: 'portfolio-holdings', text: 'Portfolio Holdings', level: 2 },
               { id: 'pros-cons', text: 'Strengths & Limitations', level: 2 },
               { id: 'fund-details', text: 'Fund Details', level: 2 },
+              { id: 'compare-funds', text: 'Compare Similar Funds', level: 2 },
             ]} />
 
             {/* Differentiation Score Card */}
@@ -835,6 +888,19 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Compare Similar Funds */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <CompareSimilarFunds
+          currentFund={{
+            name: fund.name,
+            slug: slug,
+            returns1Y: fund.returns['1Y'],
+            returns3Y: fund.returns['3Y'],
+          }}
+          similarFunds={(fund as any).__similarFunds || []}
+        />
       </div>
 
       {/* FAQ */}
