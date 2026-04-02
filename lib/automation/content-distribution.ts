@@ -155,7 +155,10 @@ export async function distributeContent(articleId: string): Promise<ContentDistr
                     }
                 });
 
-                messagingResult = messagingSendResult;
+                messagingResult = {
+                    telegram: { ...messagingResult.telegram, ...messagingSendResult.telegram },
+                    whatsapp: { ...messagingResult.whatsapp, ...messagingSendResult.whatsapp }
+                };
             }
         } catch (error: any) {
             logger.error('Error sending messaging notification', error, { articleId });

@@ -130,12 +130,14 @@ export default async function ArticlePage({
   // Increment view count asynchronously (fire & forget — doesn't block render)
   if (!isPreview) {
     const supabase = createServiceClient()
-    supabase
-      .from('articles')
-      .update({ views: (article.views || 0) + 1 })
-      .eq('id', article.id)
-      .then(() => {})
-      .catch(() => {})
+    try {
+      await supabase
+        .from('articles')
+        .update({ views: (article.views || 0) + 1 })
+        .eq('id', article.id)
+    } catch {
+      // Silently ignore view count errors
+    }
   }
 
   const breadcrumbs = [
@@ -186,7 +188,7 @@ export default async function ArticlePage({
         )}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <AutoBreadcrumbs items={breadcrumbs} />
+          <AutoBreadcrumbs />
 
           {/* Draggable TOC (client component) */}
           <DraggableTableOfContents />

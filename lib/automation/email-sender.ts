@@ -96,7 +96,7 @@ export async function sendNewArticleEmail(params: NewArticleEmailParams): Promis
                         subject: `📈 ${params.title}`,
                         html: emailHtml,
                         // Add reply-to if configured
-                        reply_to: process.env.RESEND_REPLY_TO || undefined
+                        replyTo: process.env.RESEND_REPLY_TO || undefined
                     });
 
                     if (result.data) {

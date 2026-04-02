@@ -171,7 +171,7 @@ Return ONLY valid JSON. No markdown, no code blocks, no explanations.`;
 
         try {
             // Convert structured content to markdown
-            const markdownContent = this.structuredToMarkdown(structructuredContent);
+            const markdownContent = structuredToMarkdown(structuredContent);
 
             // Map category if category_mapping provided
             let categoryId = null;

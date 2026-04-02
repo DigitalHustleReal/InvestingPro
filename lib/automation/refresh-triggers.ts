@@ -63,7 +63,7 @@ export async function checkRankingDropTriggers(
                 details: {
                     keyword: alert.keyword,
                     previousPosition: alert.previousPosition,
-                    currentPosition: alert.currentPosition,
+                    currentPosition: alert.currentPosition ?? undefined,
                     change: alert.change,
                     message: alert.message
                 },

@@ -175,7 +175,7 @@ Return JSON:
     /**
      * Parse assessment from AI response
      */
-    private parseAssessment(response: string): Partial<RiskAssessment> {
+    private parseAssessment(response: string): Pick<RiskAssessment, 'riskScore' | 'riskLevel' | 'flags'> {
         try {
             // Try to extract JSON from response
             const jsonMatch = response.match(/\{[\s\S]*\}/);

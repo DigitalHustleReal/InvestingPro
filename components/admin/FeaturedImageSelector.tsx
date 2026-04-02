@@ -182,9 +182,6 @@ export default function FeaturedImageSelector({
                         <div className="flex-1 overflow-hidden relative z-0">
                             <MediaLibrary
                                 onSelect={handleMediaSelect}
-                                // Pass the state here
-                                initialView={initialView}
-                                selectionMode={true}
                             />
                         </div>
                     </div>

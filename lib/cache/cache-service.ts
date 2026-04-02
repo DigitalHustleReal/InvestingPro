@@ -126,7 +126,7 @@ export class CacheService {
       
       if (options?.tags && options.tags.length > 0) {
         // Store tags for invalidation
-        await this.redis.sadd(`cache:tags:${key}`, ...options.tags);
+        await this.redis.sadd(`cache:tags:${key}`, ...(options.tags as [string, ...string[]]));
       }
 
       await this.redis.setex(key, ttl, value);

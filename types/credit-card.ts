@@ -20,4 +20,10 @@ export interface CreditCard {
     rating: number;
     image_url?: string;
     apply_link?: string;
+
+    provider?: string;
+    loungeAccess?: string;
+    minCreditScore?: number;
+    welcomeBonus?: string;
+    features?: string[];
 }

@@ -61,18 +61,18 @@ export class KeywordAgent extends BaseAgent {
                     // Calculate opportunity score
                     const opportunityScore = this.calculateOpportunityScore(
                         difficultyResult.difficulty,
-                        research?.searchVolume || 0
+                        0 // Search volume not available from KeywordResearchResult
                     );
-                    
+
                     keywordResults.push({
                         keyword: primaryKeyword,
-                        searchVolume: research?.searchVolume,
+                        searchVolume: undefined,
                         difficulty: difficultyResult.difficulty,
                         difficultyLevel: difficultyResult.level,
-                        longTailVariations: research?.longTailKeywords || [],
-                        semanticKeywords: research?.semanticKeywords || [],
-                        lsiKeywords: research?.lsiKeywords || [],
-                        titleVariations: research?.titleVariations || [],
+                        longTailVariations: research?.long_tail_keywords?.map(k => k.keyword_text) || [],
+                        semanticKeywords: research?.semantic_keywords?.map(k => k.keyword_text) || [],
+                        lsiKeywords: research?.lsi_keywords?.map(k => k.keyword_text) || [],
+                        titleVariations: research?.alternative_keywords?.map(k => k.keyword_text) || [],
                         relevanceScore: trend.relevanceScore,
                         opportunityScore
                     });

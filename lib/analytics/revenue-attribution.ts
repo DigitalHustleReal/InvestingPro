@@ -531,14 +531,19 @@ export async function calculateArticleRevenue(
     for (const conv of conversions || []) {
       if (!conv.article_id) continue;
 
+      // affiliate_links comes from an inner join - extract first element if array
+      const affLink: any = Array.isArray(conv.affiliate_links)
+        ? conv.affiliate_links[0]
+        : conv.affiliate_links;
+
       const conversion: Conversion = {
         id: conv.id,
-        affiliateId: conv.affiliate_links?.partner_id || '',
-        affiliateName: conv.affiliate_links?.affiliate_partners?.name || '',
-        revenue: conv.affiliate_links?.revenue || 0,
+        affiliateId: affLink?.partner_id || '',
+        affiliateName: affLink?.affiliate_partners?.name || '',
+        revenue: affLink?.revenue || 0,
         timestamp: new Date(conv.clicked_at),
         sessionId: '', // Would need to join session data
-        productCategory: conv.affiliate_links?.affiliate_partners?.category || '',
+        productCategory: affLink?.affiliate_partners?.category || '',
       };
 
       // For direct attribution (article-to-conversion), use last touch

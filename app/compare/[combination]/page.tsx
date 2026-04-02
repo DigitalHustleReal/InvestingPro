@@ -86,12 +86,14 @@ export default async function ComparisonPage({
     verdict = versusPage.verdict
 
     // Update view count (fire & forget)
-    supabase
-      .from('versus_pages')
-      .update({ view_count: (versusPage.view_count || 0) + 1, last_viewed_at: new Date().toISOString() })
-      .eq('id', versusPage.id)
-      .then(() => {})
-      .catch(() => {})
+    try {
+      await supabase
+        .from('versus_pages')
+        .update({ view_count: (versusPage.view_count || 0) + 1, last_viewed_at: new Date().toISOString() })
+        .eq('id', versusPage.id)
+    } catch {
+      // Silently ignore view count errors
+    }
   } else {
     ;[p1, p2] = await Promise.all([
       productService.getProductBySlug(parts[0]),

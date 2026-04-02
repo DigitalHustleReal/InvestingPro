@@ -151,7 +151,9 @@ export default function SocialDistributionPanel({
                                                     className="h-6 w-6 p-0"
                                                     onClick={() => copyToClipboard(tweet, `tweet-${idx}`)}
                                                     icon={copiedId === `tweet-${idx}` ? Check : Copy}
-                                                />
+                                                >
+                                                    <span className="sr-only">Copy</span>
+                                                </ActionButton>
                                             </div>
                                             <p className="text-wt-navy-900/80 text-sm leading-relaxed pr-12">{tweet}</p>
                                         </div>

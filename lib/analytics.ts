@@ -108,7 +108,7 @@ class AnalyticsService {
 
         // Log in development
         if (process.env.NODE_ENV === 'development') {
-            logger.info('[Analytics]', event, properties);
+            logger.info('[Analytics]', { event, properties });
         }
     }
 

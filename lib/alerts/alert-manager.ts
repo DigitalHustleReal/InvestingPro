@@ -187,32 +187,66 @@ class AlertManager {
     }
 
     /**
-     * Trigger alert and send notifications
+     * Trigger alert and send notifications.
+     *
+     * Supports three calling patterns:
+     * 1. triggerAlert(rule: AlertRule) — internal, from evaluateRule
+     * 2. triggerAlert(name: string, details: object) — from database-monitor etc.
+     * 3. triggerAlert({ ruleId, severity, message, metadata }) — from cost-alerts etc.
      */
-    private async triggerAlert(rule: AlertRule): Promise<void> {
-        const alert: Alert = {
-            id: `${rule.id}-${Date.now()}`,
-            ruleId: rule.id,
-            severity: rule.severity,
-            message: `${rule.name}: ${rule.description}`,
-            details: {
-                rule: rule.name,
-                condition: rule.condition,
-            },
-            timestamp: new Date(),
-        };
+    async triggerAlert(
+        ruleOrNameOrDescriptor: AlertRule | string | { ruleId: string; severity: string; message: string; metadata?: Record<string, any> },
+        details?: Record<string, any>
+    ): Promise<void> {
+        let alert: Alert;
 
-        // Store alert
-        this.alerts.set(alert.id, alert);
-        rule.lastTriggered = new Date();
-
-        // Send notifications
-        await this.sendNotifications(rule, alert);
+        if (typeof ruleOrNameOrDescriptor === 'string') {
+            // Pattern 2: triggerAlert('slow_query', { ... })
+            const name = ruleOrNameOrDescriptor;
+            alert = {
+                id: `${name}-${Date.now()}`,
+                ruleId: name,
+                severity: 'warning' as AlertSeverity,
+                message: `Alert: ${name}`,
+                details: details || {},
+                timestamp: new Date(),
+            };
+            this.alerts.set(alert.id, alert);
+        } else if ('condition' in ruleOrNameOrDescriptor && 'notificationChannels' in ruleOrNameOrDescriptor) {
+            // Pattern 1: triggerAlert(rule: AlertRule)
+            const rule = ruleOrNameOrDescriptor as AlertRule;
+            alert = {
+                id: `${rule.id}-${Date.now()}`,
+                ruleId: rule.id,
+                severity: rule.severity,
+                message: `${rule.name}: ${rule.description}`,
+                details: {
+                    rule: rule.name,
+                    condition: rule.condition,
+                },
+                timestamp: new Date(),
+            };
+            this.alerts.set(alert.id, alert);
+            rule.lastTriggered = new Date();
+            await this.sendNotifications(rule, alert);
+        } else {
+            // Pattern 3: triggerAlert({ ruleId, severity, message, metadata })
+            const desc = ruleOrNameOrDescriptor as { ruleId: string; severity: string; message: string; metadata?: Record<string, any> };
+            alert = {
+                id: `${desc.ruleId}-${Date.now()}`,
+                ruleId: desc.ruleId,
+                severity: desc.severity as AlertSeverity,
+                message: desc.message,
+                details: desc.metadata || {},
+                timestamp: new Date(),
+            };
+            this.alerts.set(alert.id, alert);
+        }
 
         logger.warn('Alert triggered', {
             alertId: alert.id,
-            ruleId: rule.id,
-            severity: rule.severity,
+            ruleId: alert.ruleId,
+            severity: alert.severity,
             message: alert.message,
         });
     }

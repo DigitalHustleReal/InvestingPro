@@ -138,7 +138,7 @@ export class TrackingAgent extends BaseAgent {
         const startTime = Date.now();
         
         try {
-            await this.trackArticle(context.articleId);
+            await this.trackArticle(context.articleId ?? '');
             
             return {
                 success: true,

@@ -257,7 +257,7 @@ export async function getWatchlistRateAlerts(
   // For each product, check if there was a material rate change
   const alerts: RateChange[] = []
 
-  for (const { product_id, products } of watchlist as Array<{ product_id: string; products: { name: string } | null }>) {
+  for (const { product_id, products } of watchlist as unknown as Array<{ product_id: string; products: { name: string } | null }>) {
     const { data: recentRates } = await supabase
       .from('product_rates_history')
       .select('rate_value, rate_type, effective_date')

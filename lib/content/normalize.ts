@@ -153,9 +153,7 @@ function markdownToHTML(markdown: string): string {
         marked.setOptions({
             breaks: false,
             gfm: true,
-            headerIds: false,
-            mangle: false,
-        });
+        } as Record<string, unknown>);
 
         const html = marked.parse(markdown) as string;
         return html || '';
@@ -230,7 +228,7 @@ function cleanHTML(html: string): string {
         
         // Step 2: Remove invalid elements (replace with content or remove)
         // IMPORTANT: Don't remove divs that have allowed classes
-        cleaned = cleaned.replace(/<div([^>]*)>(.*?)<\/div>/gis, (match, attrs, content) => {
+        cleaned = cleaned.replace(/<div([^>]*)>(.*?)<\/div>/gi, (match, attrs, content) => {
             // Check if this div has an allowed class
             const hasAllowedClass = ALLOWED_CLASSES.some(cls => attrs.includes(`class="${cls}"`) || attrs.includes(`class='${cls}'`));
             if (hasAllowedClass) {
@@ -240,7 +238,7 @@ function cleanHTML(html: string): string {
         });
         
         // Replace span with their content
-        cleaned = cleaned.replace(/<span[^>]*>(.*?)<\/span>/gis, '$1');
+        cleaned = cleaned.replace(/<span[^>]*>(.*?)<\/span>/gi, '$1');
         
         // Remove other invalid elements but keep content
         const invalidTagPattern = new RegExp(

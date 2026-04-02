@@ -17,6 +17,8 @@ import { getCategoryImageConfig, type ProductCategory } from '@/lib/images/categ
 export default function ProductCard({ product }: { product: Product }) {
     const { addProduct, removeProduct, isSelected } = useCompare();
     const selected = isSelected(product.id);
+    // Cast Product to the RichProduct shape expected by CompareContext
+    const richProduct = product as unknown as Parameters<typeof addProduct>[0];
 
     // Get category-specific image config
     const imageConfig = getCategoryImageConfig((product.category || 'mutual_fund') as ProductCategory);
@@ -32,7 +34,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 <Checkbox 
                     id={`compare-${product.id}`}
                     checked={selected}
-                    onCheckedChange={(c) => c ? addProduct(product) : removeProduct(product.id)}
+                    onCheckedChange={(c) => c ? addProduct(richProduct) : removeProduct(product.id)}
                     className="data-[state=checked]:bg-primary-700 data-[state=checked]:border-primary-700"
                 />
                 <label htmlFor={`compare-${product.id}`} className="text-xs font-medium text-slate-700 cursor-pointer select-none">
@@ -66,7 +68,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     </Badge>
                     <div className="flex items-center text-accent-500 text-xs font-bold gap-0.5 ml-auto">
                         <Star className="w-3 h-3 fill-current" />
-                        {product.rating}
+                        {typeof product.rating === 'object' ? product.rating.overall : product.rating}
                     </div>
                 </div>
                 
@@ -127,7 +129,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 
                 {/* Last Updated Timestamp */}
                 <div className="w-full pt-2 border-t border-slate-100 flex items-center justify-between">
-                    <LastUpdated productId={product.id} />
+                    <LastUpdated variant="subtle" />
                     <Link href="/editorial-policy" className="text-[10px] text-slate-600 hover:text-primary-600 transition-colors">
                         How we rate
                     </Link>

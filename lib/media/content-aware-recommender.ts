@@ -79,7 +79,7 @@ export class ContentAwareImageRecommender {
         
         // Extract from content if available
         if (params.articleContent) {
-            const contentWords = this.extractSignificantWords(params.content);
+            const contentWords = this.extractSignificantWords(params.articleContent);
             concepts.push(...contentWords);
         }
         

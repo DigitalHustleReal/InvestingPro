@@ -1,9 +1,8 @@
 import * as cheerio from 'cheerio';
 import { logger } from '@/lib/logger';
 import { createServiceClient } from '@/lib/supabase/service';
-import { Database } from '@/lib/database.types';
-
-type ProductInsert = Database['public']['Tables']['products']['Insert'];
+// Database types not yet generated — using any for product inserts
+type ProductInsert = Record<string, any>;
 
 /**
  * TypeScript Product Scraper Service

@@ -209,7 +209,7 @@ function buildVideoScriptPrompt(params: {
     keyPoints: string[];
     statistics: Array<{ label: string; value: string }>;
     platform: string;
-    platformSpec: typeof PLATFORM_SPECS[string];
+    platformSpec: (typeof PLATFORM_SPECS)[keyof typeof PLATFORM_SPECS];
     videoType: string;
     videoDuration: number;
     hook: string;

@@ -129,7 +129,7 @@ export class RepurposeAgent extends BaseAgent {
         const startTime = Date.now();
         
         try {
-            const repurposed = await this.repurposeArticle(context.articleId);
+            const repurposed = await this.repurposeArticle(context.articleId ?? '');
             
             return {
                 success: true,

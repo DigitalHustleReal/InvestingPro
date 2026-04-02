@@ -203,10 +203,10 @@ async function generateExplainerLinks(context: LinkingContext, count: number): P
 
     try {
         // Fetch explainer articles from the same category
-        const articles = await api.entities.Article.filter({
+        const articles = await (api as any).entities?.Article?.filter?.({
             category: context.category || 'investing-basics',
             status: 'published',
-        });
+        }) || [];
 
         // Sort by relevance (views, recency)
         const sorted = articles
@@ -243,7 +243,7 @@ async function generateGlossaryLinks(context: LinkingContext, count: number): Pr
     // This prevents error spam when the table hasn't been set up yet
     try {
         // Quick check: try to fetch one term to see if table exists
-        const testQuery = await api.entities.Glossary.list(undefined, 1);
+        const testQuery = await (api as any).entities?.Glossary?.list?.();
         if (!testQuery || testQuery.length === 0) {
             // Table might not exist or be empty - return empty links silently
             return links;
@@ -258,7 +258,7 @@ async function generateGlossaryLinks(context: LinkingContext, count: number): Pr
         if (context.relatedTerms && context.relatedTerms.length > 0) {
             for (const term of context.relatedTerms.slice(0, count)) {
                 try {
-                    const glossaryTerm = await api.entities.Glossary.getBySlug(term);
+                    const glossaryTerm = await (api as any).entities?.Glossary?.getBySlug?.(term);
                     if (glossaryTerm) {
                         links.push({
                             text: glossaryTerm.term,
@@ -277,7 +277,7 @@ async function generateGlossaryLinks(context: LinkingContext, count: number): Pr
         // Fill remaining slots with category-relevant terms
         if (links.length < count) {
             try {
-                const terms = await api.entities.Glossary.getByCategory(context.category || 'Investing');
+                const terms = await (api as any).entities?.Glossary?.getByCategory?.(context.category || 'Investing') || [];
                 const filtered = terms
                     .filter((t: any) => !context.relatedTerms?.includes(t.slug))
                     .slice(0, count - links.length);

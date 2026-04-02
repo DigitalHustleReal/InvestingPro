@@ -217,31 +217,32 @@ export function mapAMFIToProduct(fund: AMFIFund) {
   else if (simpleCat.includes('Liquid') || simpleCat.includes('Overnight')) riskLevel = 'Low';
   else if (isHybrid) riskLevel = simpleCat.includes('Aggressive') ? 'Moderately High' : 'Moderate';
 
+  // Use columns that match the current PostgREST schema cache
+  // Store all mutual fund-specific data in the `features` JSONB column
   return {
     slug,
     name: fund.schemeName,
-    product_type: 'mutual_fund',
+    category: 'mutual_fund',
     provider_name: fund.fundHouse,
-    provider_slug: fund.fundHouse
-      .toLowerCase()
-      .replace(/\s+mutual\s+fund$/i, '')
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-'),
     description: `${fund.schemeName} is a ${simpleCat} fund managed by ${fund.fundHouse}. Current NAV: ₹${fund.nav.toFixed(4)} as of ${fund.navDate}.`,
-    short_description: `${simpleCat} fund | NAV: ₹${fund.nav.toFixed(2)}`,
     features: {
       scheme_code: fund.schemeCode,
       isin: fund.isinGrowth || fund.isinDivReinvest,
       fund_house: fund.fundHouse,
+      provider_slug: fund.fundHouse
+        .toLowerCase()
+        .replace(/\s+mutual\s+fund$/i, '')
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-'),
       category: simpleCat,
       sub_category: fund.category,
+      short_description: `${simpleCat} fund | NAV: ₹${fund.nav.toFixed(2)}`,
       nav: fund.nav,
       nav_date: fund.navDate,
       risk_level: riskLevel,
       plan_type: fund.planType,
       option_type: fund.optionType,
-      // These fields will be enriched later from other sources
       aum_crores: null,
       expense_ratio: null,
       returns_1y: null,
@@ -253,6 +254,18 @@ export function mapAMFIToProduct(fund: AMFIFund) {
       min_sip: 500,
       min_lumpsum: 5000,
       exit_load: null,
+      key_features: [
+        `Category: ${simpleCat}`,
+        `Risk: ${riskLevel}`,
+        `NAV: ₹${fund.nav.toFixed(2)}`,
+        `Plan: ${fund.planType} ${fund.optionType}`,
+      ],
+      tags: [
+        simpleCat.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        riskLevel.toLowerCase().replace(/\s+/g, '-'),
+        fund.planType.toLowerCase(),
+        isEquity ? 'equity' : isDebt ? 'debt' : 'hybrid',
+      ].filter(Boolean),
     },
     pros: isEquity
       ? ['Market-linked growth potential', 'Professional fund management', 'Diversified portfolio']
@@ -264,21 +277,7 @@ export function mapAMFIToProduct(fund: AMFIFund) {
       : isDebt
       ? ['Lower returns than equity in long term', 'Interest rate risk', 'Credit risk in some categories']
       : ['Moderate returns compared to pure equity', 'Still has market risk', 'Tax treatment varies'],
-    key_features: [
-      `Category: ${simpleCat}`,
-      `Risk: ${riskLevel}`,
-      `NAV: ₹${fund.nav.toFixed(2)}`,
-      `Plan: ${fund.planType} ${fund.optionType}`,
-    ],
-    tags: [
-      simpleCat.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
-      riskLevel.toLowerCase().replace(/\s+/g, '-'),
-      fund.planType.toLowerCase(),
-      isEquity ? 'equity' : isDebt ? 'debt' : 'hybrid',
-    ].filter(Boolean),
     is_active: true,
-    is_featured: false,
-    data_source: 'amfi_api',
-    last_data_refresh: new Date().toISOString(),
+    best_for: simpleCat,
   };
 }

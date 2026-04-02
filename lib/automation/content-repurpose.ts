@@ -10,6 +10,8 @@ export interface RepurposedContent {
     linkedinPost: string;
     instagramCaption: string;
     twitterPost: string; // Single tweet (if article is short)
+    emailNewsletter?: string;
+    youtubeScript?: string;
 }
 
 /**

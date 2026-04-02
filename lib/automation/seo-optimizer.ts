@@ -287,8 +287,7 @@ export async function generateAISEOMetadata(
 
         const result = await api.integrations.Core.InvokeLLM({
             prompt,
-            operation: 'generate_seo_metadata',
-            persona: 'arjun' // Use Arjun for helpful, clicking-inducing tone
+            operation: 'generate_seo_metadata'
         });
 
         const parsed = extractJSON(result.content);

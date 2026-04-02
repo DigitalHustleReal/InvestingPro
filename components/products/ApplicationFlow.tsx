@@ -14,7 +14,7 @@ interface ApplicationFlowProps {
     affiliateLink: string;
     isOpen: boolean;
     onClose: () => void;
-    onConversion?: (event: { type: string; productId: string }) => void;
+    onConversion?: (event: { type: string; productId?: string }) => void;
 }
 
 /**

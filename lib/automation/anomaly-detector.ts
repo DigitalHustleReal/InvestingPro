@@ -766,7 +766,7 @@ export class AnomalyDetector {
       'xxx', 'porn', 'nude',
     ];
 
-    const category = article.category || '';
+    const category = (article.category || '') as string;
     if (category !== 'crypto' && category !== 'investing') {
       for (const word of inappropriateWords.slice(0, 4)) {
         if (content.includes(word)) {

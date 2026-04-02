@@ -14,6 +14,12 @@
 
 import { getBrandColorSet, getCategoryAccent, getThemePalette } from '../theme/brand-theme';
 
+/** Extract a color palette array from a CategoryAccent */
+function getCategoryPalette(categorySlug: string): string[] {
+    const accent = getCategoryAccent(categorySlug);
+    return [accent.accent, accent.accentLight, accent.accentDark];
+}
+
 export interface ImagePromptOptions {
     articleTitle: string;
     category: string;
@@ -55,7 +61,7 @@ const CATEGORY_THEMES: Record<string, {
             'asset allocation pie charts',
             'compound interest visualization'
         ],
-        colorPalette: getCategoryAccent('mutual-funds').palette, // Growth green accent
+        colorPalette: getCategoryPalette('mutual-funds'), // Growth green accent
         style: 'professional infographic',
         metaphors: ['growth', 'diversification', 'wealth building', 'long-term planning']
     },
@@ -69,7 +75,7 @@ const CATEGORY_THEMES: Record<string, {
             'reward points accumulation',
             'cashback benefits illustration'
         ],
-        colorPalette: getCategoryAccent('credit-cards').palette, // Trust blue accent
+        colorPalette: getCategoryPalette('credit-cards'), // Trust blue accent
         style: 'modern minimalist',
         metaphors: ['convenience', 'rewards', 'financial freedom', 'smart spending']
     },
@@ -83,7 +89,7 @@ const CATEGORY_THEMES: Record<string, {
             'debt management charts',
             'EMI calculation graphics'
         ],
-        colorPalette: getCategoryAccent('loans').palette, // Assurance purple
+        colorPalette: getCategoryPalette('loans'), // Assurance purple
         style: 'trustworthy professional',
         metaphors: ['security', 'achievement', 'financial goals', 'responsible borrowing']
     },
@@ -97,7 +103,7 @@ const CATEGORY_THEMES: Record<string, {
             'life insurance concepts',
             'risk mitigation graphics'
         ],
-        colorPalette: getCategoryAccent('insurance').palette, // Shield blue
+        colorPalette: getCategoryPalette('insurance'), // Shield blue
         style: 'protective trustworthy',
         metaphors: ['protection', 'security', 'peace of mind', 'safety net']
     },
@@ -111,7 +117,7 @@ const CATEGORY_THEMES: Record<string, {
             'deduction concepts',
             'compliance symbols'
         ],
-        colorPalette: getCategoryAccent('tax-planning').palette, // Precision amber
+        colorPalette: getCategoryPalette('tax-planning'), // Precision amber
         style: 'precise professional',
         metaphors: ['optimization', 'savings', 'compliance', 'financial planning']
     },
@@ -125,7 +131,7 @@ const CATEGORY_THEMES: Record<string, {
             'financial independence symbols',
             'nest egg concepts'
         ],
-        colorPalette: getCategoryAccent('retirement').palette, // Sunset orange
+        colorPalette: getCategoryPalette('retirement'), // Sunset orange
         style: 'warm professional',
         metaphors: ['security', 'freedom', 'preparation', 'peaceful future']
     },
@@ -139,7 +145,7 @@ const CATEGORY_THEMES: Record<string, {
             'financial literacy symbols',
             'investment journey maps'
         ],
-        colorPalette: getCategoryAccent('investing-basics').palette, // Fresh teal
+        colorPalette: getCategoryPalette('investing-basics'), // Fresh teal
         style: 'educational approachable',
         metaphors: ['learning', 'growth', 'empowerment', 'knowledge']
     },
@@ -153,7 +159,7 @@ const CATEGORY_THEMES: Record<string, {
             'market analysis graphics',
             'equity investment concepts'
         ],
-        colorPalette: getCategoryAccent('stocks').palette, // Market red accent
+        colorPalette: getCategoryPalette('stocks'), // Market red accent
         style: 'dynamic professional',
         metaphors: ['growth', 'volatility', 'opportunity', 'market dynamics']
     }

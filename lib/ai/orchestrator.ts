@@ -368,7 +368,7 @@ async function logAIUsage(response: AIResponse, taskType: TaskType) {
             latency_ms: response.latencyMs,
             quality_score: response.quality_score,
             timestamp: response.timestamp
-        });
+        } as any);
     } catch (error) {
         logger.error('Failed to log AI usage:', error);
     }
@@ -478,7 +478,7 @@ export class AIOrchestrator {
         }
         
         const { data, error } = await query;
-        
+
         if (error || !data) {
             return {
                 totalCost: 0,
@@ -487,12 +487,13 @@ export class AIOrchestrator {
                 byProvider: {} as any
             };
         }
-        
-        const totalCost = data.reduce((sum, item) => sum + item.cost_usd, 0);
-        const totalTokens = data.reduce((sum, item) => sum + item.tokens_used, 0);
-        
+
+        const rows = data as Array<{ provider: string; cost_usd: number; tokens_used: number }>;
+        const totalCost = rows.reduce((sum, item) => sum + item.cost_usd, 0);
+        const totalTokens = rows.reduce((sum, item) => sum + item.tokens_used, 0);
+
         const byProvider: Record<string, { count: number; cost: number }> = {};
-        data.forEach(item => {
+        rows.forEach(item => {
             if (!byProvider[item.provider]) {
                 byProvider[item.provider] = { count: 0, cost: 0 };
             }

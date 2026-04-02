@@ -110,6 +110,7 @@ export const productDataScrapingJob = inngest.createFunction(
             
             try {
                 // Get existing insurance products that need updates
+                const supabase = createServiceClient();
                 const { data: existingInsurance } = await supabase
                     .from('affiliate_products')
                     .select('id, name')
@@ -151,6 +152,7 @@ export const productDataScrapingJob = inngest.createFunction(
             
             try {
                 // Get existing loans that need updates
+                const supabase = createServiceClient();
                 const { data: existingLoans } = await supabase
                     .from('products')
                     .select('id, name')

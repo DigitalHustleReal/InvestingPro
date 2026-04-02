@@ -21,7 +21,7 @@ export default function TopPicksSidebar({ category }: { category: string }) {
         const fetchProducts = async () => {
             try {
                 // We use the service directly which works on client if initialized with public key
-                const data = await productService.getProducts(productCat);
+                const data = await productService.getProducts({ category: productCat });
                 setProducts(data.slice(0, 3));
             } catch (error) {
                 console.error("Sidebar fetch error:", error);
@@ -72,7 +72,7 @@ export default function TopPicksSidebar({ category }: { category: string }) {
                                 </h4>
                                 <div className="flex items-center gap-1 text-accent-500 text-[10px] font-bold mt-1">
                                     <Star className="w-3 h-3 fill-current" />
-                                    {p.rating} • {p.provider_name}
+                                    {typeof p.rating === 'number' ? p.rating : p.rating?.overall ?? 0} • {p.provider_name}
                                 </div>
                             </div>
                         </div>

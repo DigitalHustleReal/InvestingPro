@@ -53,14 +53,15 @@ export async function sendEmail(options: SendEmailOptions) {
     if (!resend) {
       return { success: false, error: 'Resend client not initialized' };
     }
-    const { data, error } = await resend.emails.send({
+    const emailPayload: Record<string, unknown> = {
       from: options.from || 'InvestingPro <noreply@investingpro.in>',
       to: options.to,
       subject: options.subject,
-      html: options.html,
-      text: options.text,
-      replyTo: options.replyTo,
-    });
+    };
+    if (options.html) emailPayload.html = options.html;
+    if (options.text) emailPayload.text = options.text;
+    if (options.replyTo) emailPayload.replyTo = options.replyTo;
+    const { data, error } = await resend.emails.send(emailPayload as any);
 
     if (error) {
       logger.error('[EMAIL] Failed to send:', error);

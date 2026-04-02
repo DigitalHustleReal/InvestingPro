@@ -1,6 +1,6 @@
 /**
  * Lazy Loading Utilities
- * 
+ *
  * Provides utilities for lazy loading components and code splitting
  */
 
@@ -16,7 +16,7 @@ export function lazyLoad<T extends ComponentType<any>>(
     fallback?: ReactNode
 ) {
     const LazyComponent = lazy(importFn);
-    
+
     return function LazyWrapper(props: any) {
         const defaultFallback = React.createElement(LoadingSpinner, { text: "Loading..." });
         return React.createElement(
@@ -30,11 +30,6 @@ export function lazyLoad<T extends ComponentType<any>>(
 /**
  * Lazy load admin components (heavy, not needed on public pages)
  */
-export const LazyAdminDashboard = lazyLoad(
-    () => import('@/components/admin/Dashboard'),
-    React.createElement(LoadingSpinner, { text: "Loading admin dashboard..." })
-);
-
 export const LazyArticleEditor = lazyLoad(
     () => import('@/components/admin/ArticleEditor'),
     React.createElement(LoadingSpinner, { text: "Loading editor..." })
@@ -45,58 +40,27 @@ export const LazyAIContentGenerator = lazyLoad(
     React.createElement(LoadingSpinner, { text: "Loading AI generator..." })
 );
 
-export const LazyWorkflowManager = lazyLoad(
-    () => import('@/components/admin/WorkflowManager'),
-    React.createElement(LoadingSpinner, { text: "Loading workflows..." })
-);
-
 /**
  * Lazy load calculator components (heavy, only needed on calculator pages)
  */
 export const LazySIPCalculator = lazyLoad(
-    () => import('@/components/calculators/SIPCalculator'),
-    React.createElement(LoadingSpinner, { text: "Loading calculator..." })
-);
-
-export const LazyEMICalculator = lazyLoad(
-    () => import('@/components/calculators/EMICalculator'),
+    () => import('@/components/calculators/SIPCalculator').then(m => ({ default: m.SIPCalculator as any })),
     React.createElement(LoadingSpinner, { text: "Loading calculator..." })
 );
 
 export const LazyFDCalculator = lazyLoad(
-    () => import('@/components/calculators/FDCalculator'),
+    () => import('@/components/calculators/FDCalculator').then(m => ({ default: m.FDCalculator as any })),
     React.createElement(LoadingSpinner, { text: "Loading calculator..." })
 );
 
 export const LazyTaxCalculator = lazyLoad(
-    () => import('@/components/calculators/TaxCalculator'),
+    () => import('@/components/calculators/TaxCalculator').then(m => ({ default: m.TaxCalculator as any })),
     React.createElement(LoadingSpinner, { text: "Loading calculator..." })
 );
 
 export const LazyRetirementCalculator = lazyLoad(
-    () => import('@/components/calculators/RetirementCalculator'),
+    () => import('@/components/calculators/RetirementCalculator').then(m => ({ default: m.RetirementCalculator as any })),
     React.createElement(LoadingSpinner, { text: "Loading calculator..." })
-);
-
-/**
- * Lazy load chart/visualization components (heavy libraries)
- */
-export const LazyChart = lazyLoad(
-    () => import('@/components/charts/Chart'),
-    React.createElement('div', { className: "h-64 bg-slate-100 animate-pulse rounded" })
-);
-
-export const LazyDataTable = lazyLoad(
-    () => import('@/components/common/DataTable'),
-    React.createElement(LoadingSpinner, { text: "Loading table..." })
-);
-
-/**
- * Lazy load markdown renderer (heavy library)
- */
-export const LazyMarkdownRenderer = lazyLoad(
-    () => import('@/components/common/MarkdownRenderer'),
-    React.createElement(LoadingSpinner, { text: "Loading content..." })
 );
 
 /**

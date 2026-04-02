@@ -771,8 +771,8 @@ export async function generateArticleCore(
         const imageResult = await imageService.getFeaturedImage(aiImageKeywords, category);
 
 
-        const imageUrl = imageResult.url;
-        logFn(`   ✅ Image (${imageResult.source}): ${imageUrl}`);
+        const imageUrl = imageResult?.url ?? '';
+        logFn(`   ✅ Image (${imageResult?.source ?? 'none'}): ${imageUrl}`);
 
         // 5b. Quality Verification
         logFn('5️⃣b Verifying content quality...');

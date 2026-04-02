@@ -342,9 +342,9 @@ export async function buildDynamicPrompt(
     );
     
     // 1. Get Writer Prompt (Highest Priority)
-    const writer = params.writerId 
-        ? getAuthorForCategory(params.category) // Use provided writer or default for category
-        : getAuthorForCategory(params.category);
+    const writer = params.writerId
+        ? getAuthorForCategory(params.category as unknown as Parameters<typeof getAuthorForCategory>[0])
+        : getAuthorForCategory(params.category as unknown as Parameters<typeof getAuthorForCategory>[0]);
     const writerPrompt = getAuthorSystemPrompt(writer.id);
     
     // 2. Get Category Prompt
@@ -363,7 +363,6 @@ export async function buildDynamicPrompt(
     // 5. Combine System Prompts with Priority: Writer > Tone > Subcategory > Category > Content-Type
     const systemPrompt = combineSystemPrompts({
         writer: writerPrompt,
-        tone: toneInstructions,
         subcategory: subcategoryPrompt,
         category: categorySystemPrompt,
         contentType: contentTypePrompt

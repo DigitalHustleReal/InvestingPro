@@ -75,6 +75,7 @@ export interface OpenAPISecurity {
 
 /**
  * Convert Zod schema to OpenAPI schema
+ * Compatible with Zod v4 API
  */
 export function zodToOpenAPI(schema: z.ZodTypeAny): OpenAPISchema {
     if (schema instanceof z.ZodString) {
@@ -82,23 +83,13 @@ export function zodToOpenAPI(schema: z.ZodTypeAny): OpenAPISchema {
             type: 'string',
         };
 
-        if (schema._def.checks) {
-            for (const check of schema._def.checks) {
-                if ((check as any).kind === 'min') {
-                    openApiSchema.minLength = check.value;
-                } else if ((check as any).kind === 'max') {
-                    openApiSchema.maxLength = check.value;
-                } else if ((check as any).kind === 'email') {
-                    openApiSchema.format = 'email';
-                } else if ((check as any).kind === 'uuid') {
-                    openApiSchema.format = 'uuid';
-                } else if ((check as any).kind === 'url') {
-                    openApiSchema.format = 'uri';
-                } else if ((check as any).kind === 'regex') {
-                    openApiSchema.pattern = check.regex.source;
-                }
-            }
-        }
+        // Zod v4: properties are directly on the schema instance
+        const s = schema as any;
+        if (s.minLength != null) openApiSchema.minLength = s.minLength;
+        if (s.maxLength != null) openApiSchema.maxLength = s.maxLength;
+        if (s.format === 'email') openApiSchema.format = 'email';
+        if (s.format === 'uuid') openApiSchema.format = 'uuid';
+        if (s.format === 'url') openApiSchema.format = 'uri';
 
         return openApiSchema;
     }
@@ -108,17 +99,11 @@ export function zodToOpenAPI(schema: z.ZodTypeAny): OpenAPISchema {
             type: 'number',
         };
 
-        if (schema._def.checks) {
-            for (const check of schema._def.checks) {
-                if ((check as any).kind === 'min') {
-                    openApiSchema.minimum = check.value;
-                } else if ((check as any).kind === 'max') {
-                    openApiSchema.maximum = check.value;
-                } else if ((check as any).kind === 'int') {
-                    openApiSchema.type = 'integer';
-                }
-            }
-        }
+        // Zod v4: properties are directly on the schema instance
+        const n = schema as any;
+        if (n.minValue != null) openApiSchema.minimum = n.minValue;
+        if (n.maxValue != null) openApiSchema.maximum = n.maxValue;
+        if (n.isInt) openApiSchema.type = 'integer';
 
         return openApiSchema;
     }
@@ -134,14 +119,16 @@ export function zodToOpenAPI(schema: z.ZodTypeAny): OpenAPISchema {
     if (schema instanceof z.ZodEnum) {
         return {
             type: 'string',
-            enum: schema._def.values,
+            // Zod v4: use .options instead of _def.values
+            enum: (schema as any).options ?? Object.values((schema as any)._def.entries ?? {}),
         };
     }
 
     if (schema instanceof z.ZodArray) {
         return {
             type: 'array',
-            items: zodToOpenAPI(schema._def.type),
+            // Zod v4: use _def.element instead of _def.type
+            items: zodToOpenAPI(schema._def.element as z.ZodTypeAny),
         };
     }
 
@@ -150,10 +137,11 @@ export function zodToOpenAPI(schema: z.ZodTypeAny): OpenAPISchema {
         const required: string[] = [];
 
         for (const [key, value] of Object.entries(schema.shape)) {
-            properties[key] = zodToOpenAPI(value as z.ZodTypeAny);
-            
-            // Check if field is required
-            if (!(value as z.ZodTypeAny)._def.typeName === 'ZodOptional') {
+            const zodValue = value as z.ZodTypeAny;
+            properties[key] = zodToOpenAPI(zodValue);
+
+            // Zod v4: check _def.type string instead of typeName
+            if (zodValue._def.type !== 'optional') {
                 required.push(key);
             }
         }
@@ -166,15 +154,15 @@ export function zodToOpenAPI(schema: z.ZodTypeAny): OpenAPISchema {
     }
 
     if (schema instanceof z.ZodOptional) {
-        return zodToOpenAPI(schema._def.innerType);
+        return zodToOpenAPI((schema as any).unwrap() as z.ZodTypeAny);
     }
 
     if (schema instanceof z.ZodNullable) {
-        return zodToOpenAPI(schema._def.innerType);
+        return zodToOpenAPI((schema as any).unwrap() as z.ZodTypeAny);
     }
 
     if (schema instanceof z.ZodDefault) {
-        return zodToOpenAPI(schema._def.innerType);
+        return zodToOpenAPI(schema._def.innerType as z.ZodTypeAny);
     }
 
     // Fallback

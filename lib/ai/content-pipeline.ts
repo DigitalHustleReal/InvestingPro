@@ -135,9 +135,10 @@ export class ContentPipeline {
                         operation_type: 'pipeline_generate'
                     }
                 }).catch((error) => {
-                    logger.warn('Failed to log AI cost after article creation', error as Error, { 
-                        articleId: result.id, 
-                        provider: articleContent.provider 
+                    logger.warn('Failed to log AI cost after article creation', {
+                        articleId: result.id,
+                        provider: articleContent.provider,
+                        error: (error as Error)?.message
                     });
                 });
             }

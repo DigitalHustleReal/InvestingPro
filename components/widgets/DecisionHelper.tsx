@@ -95,7 +95,7 @@ const categoryTools = {
 };
 
 // Combine all tools for 'all' category
-categoryTools.all = [
+(categoryTools.all as typeof categoryTools.credit_card) = [
     ...categoryTools.credit_card.slice(0, 1),
     ...categoryTools.loan.slice(0, 1),
     ...categoryTools.mutual_fund.slice(0, 1),

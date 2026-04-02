@@ -93,10 +93,10 @@ export async function POST(request: NextRequest) {
 
         // Revalidate the specific article + listing pages
         revalidatePath(`/articles/${slug}`);
-        revalidateTag(`conduit-article-${slug}`);
+        revalidateTag(`conduit-article-${slug}`, 'default');
         revalidatePath('/articles');
         revalidatePath('/blog');
-        revalidateTag('conduit-content');
+        revalidateTag('conduit-content', 'default');
         revalidatedPaths.push(`/articles/${slug}`, '/articles', '/blog');
         break;
       }
@@ -120,15 +120,15 @@ export async function POST(request: NextRequest) {
         }
 
         revalidatePath(`/articles/${slug}`);
-        revalidateTag(`conduit-article-${slug}`);
+        revalidateTag(`conduit-article-${slug}`, 'default');
         revalidatePath('/articles');
-        revalidateTag('conduit-content');
+        revalidateTag('conduit-content', 'default');
         revalidatedPaths.push(`/articles/${slug}`, '/articles');
         break;
       }
 
       default:
-        revalidateTag('conduit-content');
+        revalidateTag('conduit-content', 'default');
         revalidatedPaths.push('conduit-content tag');
     }
 

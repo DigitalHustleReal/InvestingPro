@@ -76,24 +76,16 @@ export class ContentAgent extends BaseAgent {
                 targetKeywords: enhancedKeywords,
                 targetAudience: 'general',
                 contentLength: 'comprehensive',
-                wordCount: enhancedWordCount,
-                // Pass SERP insights to generator
-                serpInsights: serpBrief ? {
-                    contentGaps,
-                    uniqueAngle,
-                    questionsToAnswer: serpBrief.questions_to_answer,
-                    keyStatistics: serpBrief.key_statistics,
-                    avgCompetitorWordCount: serpBrief.avg_word_count
-                } : undefined
+                wordCount: enhancedWordCount
             });
             
             if (!article || !article.title) {
                 throw new Error('Article generation failed - no content returned');
             }
             
-            // Add SERP metadata to article
+            // Add SERP metadata to article's ai_metadata
             if (serpBrief) {
-                article.serp_analysis = {
+                (article as any).serp_analysis = {
                     gaps_addressed: contentGaps.slice(0, 5),
                     unique_angle: uniqueAngle,
                     competitor_word_count: serpBrief.avg_word_count,

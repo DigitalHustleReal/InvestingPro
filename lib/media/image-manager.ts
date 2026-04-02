@@ -46,7 +46,7 @@ export class ImageManager {
         try {
             const { imageService } = await import('@/lib/images/stock-image-service-enhanced');
             const aiResult = await imageService.getFeaturedImage(topic, category);
-            if (aiResult && aiResult.source === 'pollinations') {
+            if (aiResult && (aiResult.source as string) === 'pollinations') {
                 logger.info("   ✅ Generated with Pollinations.ai");
                 return { 
                     url: aiResult.url, 

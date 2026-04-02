@@ -105,10 +105,14 @@ export class DatabaseMonitor {
 
                 // Trigger alert for very slow queries (>5s)
                 if (metrics.executionTimeMs > 5000) {
-                    await alertManager.triggerAlert('slow_query', {
-                        queryHash: metrics.queryHash,
-                        executionTimeMs: metrics.executionTimeMs,
-                        tableName: metrics.tableName,
+                    await alertManager.triggerAlert({
+                        id: 'slow_query',
+                        name: 'Slow Query',
+                        description: `Query took ${metrics.executionTimeMs}ms (table: ${metrics.tableName || 'unknown'})`,
+                        severity: 'warning',
+                        enabled: true,
+                        condition: { type: 'custom', threshold: 5000, windowMinutes: 5 },
+                        notificationChannels: [],
                     });
                 }
             }
@@ -173,10 +177,14 @@ export class DatabaseMonitor {
 
             // Trigger alert if connection pool usage is high
             if (connectionStats.connectionUsagePercent >= this.connectionPoolThresholdPercent) {
-                await alertManager.triggerAlert('connection_pool_high', {
-                    usagePercent: connectionStats.connectionUsagePercent,
-                    activeConnections: connectionStats.activeConnections,
-                    maxConnections: connectionStats.maxConnections,
+                await alertManager.triggerAlert({
+                    id: 'connection_pool_high',
+                    name: 'Connection Pool High',
+                    description: `Connection pool at ${connectionStats.connectionUsagePercent}% (${connectionStats.activeConnections}/${connectionStats.maxConnections})`,
+                    severity: 'warning',
+                    enabled: true,
+                    condition: { type: 'custom', threshold: this.connectionPoolThresholdPercent, windowMinutes: 5 },
+                    notificationChannels: [],
                 });
             }
 
@@ -254,10 +262,14 @@ export class DatabaseMonitor {
             // Trigger alerts for tables with high growth
             for (const tableGrowth of growth) {
                 if (tableGrowth.growthPercent >= this.tableGrowthThresholdPercent) {
-                    await alertManager.triggerAlert('table_size_growth', {
-                        tableName: tableGrowth.tableName,
-                        growthPercent: tableGrowth.growthPercent,
-                        growthBytes: tableGrowth.growthBytes,
+                    await alertManager.triggerAlert({
+                        id: 'table_size_growth',
+                        name: 'Table Size Growth',
+                        description: `Table ${tableGrowth.tableName} grew ${tableGrowth.growthPercent}% (${tableGrowth.growthBytes} bytes)`,
+                        severity: 'warning',
+                        enabled: true,
+                        condition: { type: 'custom', threshold: this.tableGrowthThresholdPercent, windowMinutes: 5 },
+                        notificationChannels: [],
                     });
                 }
             }

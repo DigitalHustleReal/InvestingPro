@@ -378,7 +378,7 @@ export function FinancialHealthCalculator() {
                                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
                                     <XAxis type="number" domain={[0, 20]} tick={{ fontSize: 10 }} stroke="hsl(var(--border))" tickFormatter={(v) => `${v}pt`} />
                                     <YAxis type="category" dataKey="component" tick={{ fontSize: 10 }} stroke="hsl(var(--border))" width={100} />
-                                    <Tooltip formatter={(value: any, name: string) => [`${value}/20`, name === "score" ? "Your Score" : "Ideal"]} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
+                                    <Tooltip formatter={(value: number | string | undefined) => [`${value ?? 0}/20`]} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
                                     <Bar dataKey="ideal" fill="hsl(var(--muted))" radius={[0, 4, 4, 0]} name="Ideal" />
                                     <Bar dataKey="score" radius={[0, 4, 4, 0]} name="Your Score">
                                         {scoreBreakdownData.map((entry, index) => (

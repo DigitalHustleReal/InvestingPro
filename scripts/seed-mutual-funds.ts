@@ -12,6 +12,9 @@
  * Requires: SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in .env.local
  */
 
+import { config } from 'dotenv';
+config({ path: '.env.local' });
+
 import { createClient } from '@supabase/supabase-js';
 import {
   fetchAMFIData,
@@ -110,12 +113,8 @@ async function seedMutualFunds() {
     const batch = toSeed.slice(i, i + batchSize);
     const records = batch.map((fund) => {
       const product = mapAMFIToProduct(fund);
-      const isTopHouse = TOP_FUND_HOUSES.some((h) =>
-        fund.fundHouse.toLowerCase().includes(h.toLowerCase().replace(' mutual fund', ''))
-      );
       return {
         ...product,
-        is_featured: isTopHouse && PRIORITY_CATEGORIES.includes(product.features.category),
         updated_at: new Date().toISOString(),
       };
     });
@@ -153,7 +152,7 @@ async function seedMutualFunds() {
   const byCat: Record<string, number> = {};
   toSeed.forEach((f) => {
     const product = mapAMFIToProduct(f);
-    const cat = product.features.category;
+    const cat = product.features.category as string;
     byCat[cat] = (byCat[cat] || 0) + 1;
   });
 

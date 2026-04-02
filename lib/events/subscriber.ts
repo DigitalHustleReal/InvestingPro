@@ -2,7 +2,7 @@
  * Event Subscriber
  * Helper utilities for subscribing to events
  */
-import { EventPublisherImpl, eventPublisher } from './publisher';
+import { type EventPublisher, eventPublisher } from './publisher';
 import { EventType, type BaseEvent } from './types';
 import { logger } from '@/lib/logger';
 
@@ -11,11 +11,11 @@ export interface EventHandler<T extends BaseEvent = BaseEvent> {
 }
 
 export class EventSubscriber {
-    private publisher: EventPublisherImpl;
+    private publisher: EventPublisher;
     private unsubscribers: Array<() => void> = [];
 
-    constructor(publisher: EventPublisherImpl = eventPublisher) {
-        this.publisher = publisher;
+    constructor(publisher?: EventPublisher) {
+        this.publisher = publisher || eventPublisher;
     }
 
     /**

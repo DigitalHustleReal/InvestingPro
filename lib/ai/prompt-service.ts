@@ -105,7 +105,7 @@ class PromptService {
      * Record usage of a prompt
      */
     private async recordUsage(slug: string) {
-        await this.getSupabase().rpc('get_prompt', { prompt_slug: slug });
+        await (this.getSupabase()!.rpc as any)('get_prompt', { prompt_slug: slug });
     }
 }
 

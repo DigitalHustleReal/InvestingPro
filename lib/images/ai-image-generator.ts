@@ -110,7 +110,7 @@ async function getCachedGeneration(prompt: string): Promise<AIImageResult | null
         if (error || !data) return null;
 
         logger.info(`✅ AI image cache HIT for prompt`);
-        return { ...data.result, cached: true };
+        return { ...(data as CachedGeneration).result, cached: true };
     } catch (error) {
         return null;
     }
@@ -123,9 +123,9 @@ async function cacheGeneration(prompt: string, result: AIImageResult): Promise<v
 
         await supabase.from('ai_image_cache').upsert({
             prompt: cacheKey,
-            result: result,
+            result: result as unknown as Record<string, unknown>,
             cached_at: new Date().toISOString()
-        }, { onConflict: 'prompt' });
+        } as any, { onConflict: 'prompt' });
 
         logger.info(`💾 Cached AI image generation`);
     } catch (error) {
@@ -164,7 +164,7 @@ function optimizePrompt(
     
     // Add brand guidelines if requested
     if (brandGuidelines) {
-        optimized = `${optimized}, color palette: brand teal ${BRAND_COLORS.primary}, deep teal ${BRAND_COLORS.primaryStrong}, info blue ${BRAND_COLORS.info}, amber accent ${BRAND_COLORS.accent}, modern fintech aesthetic, professional branding`;
+        optimized = `${optimized}, color palette: brand teal ${BRAND_COLORS.primary}, deep teal ${BRAND_COLORS.primaryStrong}, secondary ${BRAND_COLORS.secondary}, amber accent ${BRAND_COLORS.accent}, modern fintech aesthetic, professional branding`;
     }
     
     // Financial content optimization
@@ -210,7 +210,7 @@ async function generateWithDALLE3(options: GenerationOptions): Promise<AIImageRe
             response_format: 'url'
         });
 
-        const image = response.data[0];
+        const image = response.data![0];
         
         // Calculate dimensions from size
         const [width, height] = (options.size || '1792x1024').split('x').map(Number);

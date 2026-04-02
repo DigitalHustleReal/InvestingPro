@@ -5,7 +5,7 @@
  * WITHOUT affecting rankings or user experience
  */
 
-import { api } from '@/lib/api';
+import { analyticsAPI } from '@/lib/api/client';
 import { logger } from '@/lib/logger';
 
 export interface ClickTrackingData {
@@ -31,16 +31,9 @@ export interface ConversionTrackingData {
  */
 export async function trackAffiliateClick(data: ClickTrackingData): Promise<string | null> {
     try {
-        const click = await api.entities.AffiliateClick.create({
-            product_id: data.productId,
-            product_type: data.productType,
-            article_id: data.articleId,
-            user_agent: data.userAgent,
-            referrer: data.referrer,
-            converted: false,
-        });
+        const response = await analyticsAPI.trackAffiliateClick(data.productId, data.articleId);
 
-        return click?.id || null;
+        return (response as any)?.data?.id || null;
     } catch (error) {
         logger.error('Error tracking affiliate click', error as Error, { data });
         return null;
@@ -52,7 +45,8 @@ export async function trackAffiliateClick(data: ClickTrackingData): Promise<stri
  */
 export async function trackConversion(data: ConversionTrackingData): Promise<boolean> {
     try {
-        await api.entities.AffiliateClick.update(data.clickId, {
+        await analyticsAPI.track('affiliate_conversion', {
+            click_id: data.clickId,
             converted: true,
             conversion_date: new Date().toISOString(),
             commission_earned: data.commissionEarned || 0,
@@ -78,13 +72,16 @@ export async function getMonetizationAnalytics(filters?: {
     try {
         // This would typically be an admin-only endpoint
         // For now, return aggregated data
-        const clicks = await api.entities.AffiliateClick.filter({
+        // Fetch clicks via analytics API
+        const response = await analyticsAPI.track('get_monetization_analytics', {
             ...filters,
         });
 
+        const clicks: any[] = (response as any)?.data || [];
+
         const totalClicks = clicks.length;
         const conversions = clicks.filter((c: any) => c.converted).length;
-        const totalCommission = clicks.reduce((sum: number, c: any) => 
+        const totalCommission = clicks.reduce((sum: number, c: any) =>
             sum + (c.commission_earned || 0), 0
         );
 

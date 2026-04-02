@@ -445,9 +445,9 @@ export class RevenuePredictor {
     }
 
     // Search intent
-    if (draft.search_intent === 'transactional') {
+    if ((draft as ArticleDraft & { search_intent?: string }).search_intent === 'transactional') {
       multiplier += 0.25;
-    } else if (draft.search_intent === 'commercial') {
+    } else if ((draft as ArticleDraft & { search_intent?: string }).search_intent === 'commercial') {
       multiplier += 0.15;
     }
 

@@ -190,7 +190,7 @@ Add these columns to your Notion database:
 ${template.columns.map((col, index) => `
 ${index + 1}. **${col.name}**
    - Type: ${mapColumnTypeToNotion(col.type)}
-   - ${col.description || 'No description'}
+   - ${col.format || 'No description'}
 `).join('')}
 
 ## Step 3: Import Sample Data
