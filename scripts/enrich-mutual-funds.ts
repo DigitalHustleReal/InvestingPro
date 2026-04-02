@@ -71,10 +71,12 @@ async function main() {
   console.log('\n📊 InvestingPro Mutual Fund Enrichment\n');
 
   // Get all mutual funds from DB
+  const skipEnriched = args.includes('--force') ? '' : "AND (features->>'last_enriched' IS NULL)";
   const result = await executeSql(
     `SELECT slug, name, features->>'scheme_code' as scheme_code
      FROM public.products
      WHERE category = 'mutual_fund' AND features->>'scheme_code' IS NOT NULL
+     ${skipEnriched}
      ORDER BY name
      LIMIT ${limit}`
   );
