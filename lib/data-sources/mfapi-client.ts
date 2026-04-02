@@ -196,7 +196,7 @@ export function calculateReturns(history: NAVPoint[]): FundReturns {
     ? Math.round(calculateCAGR(first.nav, latest.nav, totalYears) * 100) / 100
     : null;
 
-  return returns as FundReturns;
+  return returns as unknown as FundReturns;
 }
 
 /**

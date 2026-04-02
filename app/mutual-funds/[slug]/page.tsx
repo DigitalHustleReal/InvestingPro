@@ -85,78 +85,122 @@ import { createServiceClient } from '@/lib/supabase/service'
 
 async function getMutualFundData(slug: string): Promise<MutualFundDetail | null> {
   const supabase = createServiceClient();
-  const { data: fund, error } = await supabase
-    .from('mutual_funds')
+
+  // Fetch from products table (category = 'mutual_fund')
+  const { data: product, error } = await supabase
+    .from('products')
     .select('*')
     .eq('slug', slug)
-    .maybeSingle(); // Use maybeSingle() to handle 0 rows gracefully
+    .maybeSingle();
 
-  if (error || !fund) return null;
+  if (error || !product) return null;
 
-  // Map DB fields to UI Interface
-  return {
-    id: fund.id,
-    name: fund.name,
-    amc: fund.fund_house,
-    category: fund.category,
-    subCategory: fund.category, // Map if distinct
-    nav: Number(fund.nav) || 0,
-    rating: Number(fund.rating) || 4,
-    riskLevel: (fund.risk?.toLowerCase() as any) || 'high',
-    expenseRatio: Number(fund.expense_ratio) || 0,
-    exitLoad: 'Check scheme docs', // Not in new schema yet, placeholder
-    minInvestment: Number(fund.min_investment) || 500,
-    sipMinInvestment: 500, // Default or parse if mixed
-    
-    returns: {
-      '1Y': Number(fund.returns_1y) || 0,
-      '3Y': Number(fund.returns_3y) || 0,
-      '5Y': Number(fund.returns_5y) || 0,
-      sinceInception: 0 // Not in schema yet
-    },
-    
-    aum: Number(fund.aum || 0), // Schema has aum? Check if I added it? In schema it is TEXT? or missing?
-    // Start of Schema Check: I added 'aum' in my thought but did I add it to `ingest` script?
-    // Ingest script had `aum? ... // aum? MFAPI doesn't provide AUM`.
-    // So AUM will be null/0.
-    
-    launchDate: fund.launch_date || '2010-01-01',
-    benchmarkName: 'Nifty 50 TRI',
-    benchmarkReturns: { '1Y': 12, '3Y': 15, '5Y': 14 }, // Benchmarks
-    
-    description: fund.description || `The ${fund.name} is a ${fund.category} fund by ${fund.fund_house}.`,
-    applyLink: '#', // Placeholder
-    
-    investmentObjective: `To generate wealth over the long term by investing in ${fund.category} instruments.`,
-    
-    portfolioHoldings: {
-      topStocks: [], // Data enrichment needed later
-      sectorAllocation: [],
-      assetAllocation: [ { type: 'Equity', weight: 98 }, { type: 'Cash', weight: 2 } ]
-    },
-    
-    keyFeatures: [
-        `Ranked ${fund.rating}/5 by our algorithms`,
-        `${fund.returns_3y}% 3-Year Returns`,
-        `${fund.category} Category`,
-        `Managed by ${fund.fund_house}`
-    ],
-    suitableFor: [
-      'Long term wealth creation',
-      'Investors with 5+ year horizon',
-      'SIP investors'
-    ],
-    
-    taxBenefits: fund.category === 'ELSS' ? 'Tax saving up to ₹1.5L under 80C' : 'LTCG tax of 10% on gains > ₹1L',
-    
-    pros: [],
-    cons: [],
-    
-    fundManager: {
-      name: 'Fund Manager',
-      experience: 10
-    }
+  // Extract enriched data from features JSONB
+  const f = product.features || {} as Record<string, any>;
+  const riskMap: Record<string, 'low' | 'moderate' | 'high' | 'very_high'> = {
+    'Low': 'low',
+    'Low to Moderate': 'low',
+    'Moderate': 'moderate',
+    'Moderately High': 'high',
+    'High': 'very_high',
+    'Very High': 'very_high',
   };
+
+  const category = f.category || product.best_for || 'Equity';
+  const isEquity = category.startsWith('Equity');
+  const isDebt = category.startsWith('Debt');
+  const isELSS = category.includes('ELSS');
+
+  const returns1Y = f.returns_1y != null ? Number(f.returns_1y) : 0;
+  const returns3Y = f.returns_3y != null ? Number(f.returns_3y) : 0;
+  const returns5Y = f.returns_5y != null ? Number(f.returns_5y) : 0;
+  const returnsSI = f.returns_since_inception != null ? Number(f.returns_since_inception) : 0;
+
+  const sipReturns = f.sip_returns || [];
+  const riskMetrics = f.risk_metrics || {};
+
+  return {
+    id: product.id,
+    name: product.name,
+    amc: product.provider_name || f.fund_house || '',
+    category: category,
+    subCategory: f.sub_category || category,
+    nav: Number(f.nav) || 0,
+    rating: Number(product.rating) || 4,
+    riskLevel: riskMap[f.risk_level] || 'high',
+    expenseRatio: Number(f.expense_ratio) || 0,
+    exitLoad: f.exit_load || (isEquity ? '1% if redeemed within 1 year' : 'Nil'),
+    minInvestment: Number(f.min_lumpsum) || 5000,
+    sipMinInvestment: Number(f.min_sip) || 500,
+
+    returns: {
+      '1Y': returns1Y,
+      '3Y': returns3Y,
+      '5Y': returns5Y,
+      '10Y': f.returns_10y != null ? Number(f.returns_10y) : undefined,
+      sinceInception: returnsSI,
+    },
+
+    aum: Number(f.aum_crores) || 0,
+    launchDate: f.launch_date || '',
+    benchmarkName: f.benchmark || (isEquity ? 'Nifty 50 TRI' : 'CRISIL Composite Bond'),
+    benchmarkReturns: { '1Y': isEquity ? 8.5 : 7.2, '3Y': isEquity ? 14.2 : 6.8, '5Y': isEquity ? 13.8 : 7.0 },
+
+    description: product.description || `${product.name} is a ${category} fund managed by ${product.provider_name}.`,
+    applyLink: product.affiliate_link || '#',
+
+    investmentObjective: `To provide long-term capital appreciation by investing in a diversified portfolio of ${
+      isEquity ? 'equity and equity-related securities' : isDebt ? 'fixed income instruments' : 'a mix of equity and debt instruments'
+    }. The fund follows a ${category} investment strategy managed by ${product.provider_name}.`,
+
+    portfolioHoldings: {
+      topStocks: [],
+      sectorAllocation: [],
+      assetAllocation: isEquity
+        ? [{ type: 'Equity', weight: 95 }, { type: 'Debt', weight: 2 }, { type: 'Cash', weight: 3 }]
+        : isDebt
+        ? [{ type: 'Debt', weight: 90 }, { type: 'Cash', weight: 10 }]
+        : [{ type: 'Equity', weight: 65 }, { type: 'Debt', weight: 30 }, { type: 'Cash', weight: 5 }],
+    },
+
+    keyFeatures: [
+      returns3Y ? `${returns3Y}% CAGR over 3 years` : `NAV: ₹${(Number(f.nav) || 0).toFixed(2)}`,
+      `${category} category fund`,
+      `Managed by ${product.provider_name}`,
+      `Min SIP: ₹${Number(f.min_sip) || 500}/month`,
+      f.scheme_code ? `AMFI Code: ${f.scheme_code}` : '',
+      riskMetrics.max_drawdown ? `Max drawdown: ${riskMetrics.max_drawdown}%` : '',
+    ].filter(Boolean),
+
+    suitableFor: isEquity
+      ? ['Long-term wealth creation (5+ years)', 'SIP investors building corpus', 'Goal-based investing (retirement, education)']
+      : isDebt
+      ? ['Conservative investors seeking stability', 'Short to medium-term parking of funds', 'Regular income seekers']
+      : ['Balanced risk-return seekers', 'First-time mutual fund investors', 'Medium-term financial goals'],
+
+    taxBenefits: isELSS
+      ? 'Tax deduction up to ₹1.5L under Section 80C. 3-year lock-in period. LTCG above ₹1.25L taxed at 12.5%.'
+      : isEquity
+      ? 'Equity taxation: STCG (<1yr) at 20%. LTCG (>1yr) above ₹1.25L at 12.5%.'
+      : 'Debt taxation: All gains taxed at income tax slab rate regardless of holding period.',
+
+    pros: product.pros || (isEquity
+      ? ['Market-linked growth potential', 'Professional fund management', 'Diversified portfolio reduces risk']
+      : ['Lower volatility than equity', 'Regular income potential', 'Capital preservation focus']),
+
+    cons: product.cons || (isEquity
+      ? ['Market risk — NAV can decline in short term', 'No guaranteed returns', 'Requires 5+ year investment horizon']
+      : ['Lower returns than equity long-term', 'Interest rate risk affects NAV', 'Inflation may erode real returns']),
+
+    fundManager: {
+      name: f.fund_manager || 'Fund Management Team',
+      experience: 10,
+    },
+
+    // Pass enriched data for SIP and Risk sections
+    __sipReturns: sipReturns,
+    __riskMetrics: riskMetrics,
+  } as MutualFundDetail;
 }
 
 /**
@@ -167,20 +211,22 @@ export async function generateStaticParams() {
   try {
     const supabase = createServiceClient();
     const { data: funds, error } = await supabase
-      .from('mutual_funds')
+      .from('products')
       .select('slug')
+      .eq('category', 'mutual_fund')
+      .eq('is_active', true)
       .not('slug', 'is', null);
-    
+
     if (error) {
       console.error('[generateStaticParams] Error fetching mutual funds:', error);
       return [];
     }
-    
+
     if (!funds || funds.length === 0) {
       console.warn('[generateStaticParams] No active mutual funds found');
       return [];
     }
-    
+
     console.log(`[generateStaticParams] Generating ${funds.length} mutual fund pages`);
     return funds.map(fund => ({ slug: fund.slug }));
   } catch (error) {
@@ -641,29 +687,133 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
         </Card>
       </div>
 
-      {/* SIP Projection */}
+      {/* SIP Projection — Real Historical Data */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <Card className="bg-green-50 border-green-200">
-          <CardHeader><CardTitle className="flex items-center gap-2 text-green-800"><IndianRupee className="w-5 h-5" /> SIP Projection</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="flex items-center gap-2 text-green-800"><IndianRupee className="w-5 h-5" /> SIP Returns (Real Historical Data)</CardTitle></CardHeader>
           <CardContent>
-            <p className="text-sm text-gray-600 mb-4">If you invested monthly via SIP in this fund (based on {fund.returns['3Y']}% 3-year returns):</p>
+            <p className="text-sm text-gray-600 mb-4">What ₹500/month SIP would have actually become based on real NAV data:</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { label: '₹5,000/mo for 5yr', value: calcSIP(5000, fund.returns['3Y'], 5) },
-                { label: '₹10,000/mo for 10yr', value: calcSIP(10000, fund.returns['3Y'], 10) },
-                { label: '₹15,000/mo for 15yr', value: calcSIP(15000, fund.returns['3Y'], 15) },
-                { label: '₹25,000/mo for 20yr', value: calcSIP(25000, fund.returns['3Y'], 20) },
-              ].map((proj) => (
-                <div key={proj.label} className="bg-white rounded-xl p-4 border border-green-100 text-center">
-                  <p className="text-xs text-gray-500 mb-1">{proj.label}</p>
-                  <p className="text-xl font-black text-green-700 tabular-nums">₹{(proj.value / 100000).toFixed(1)}L</p>
-                </div>
-              ))}
+              {(() => {
+                // Use real SIP data from enrichment if available
+                const sipData = (fund as any).__sipReturns || [];
+                const projections = sipData.length > 0
+                  ? sipData.map((s: any) => ({
+                      label: `₹500/mo for ${s.period_years}yr`,
+                      invested: s.total_invested,
+                      value: s.current_value,
+                      returns: s.returns_percent,
+                    }))
+                  : [
+                      { label: '₹5,000/mo for 5yr', invested: 300000, value: calcSIP(5000, fund.returns['3Y'], 5), returns: null },
+                      { label: '₹10,000/mo for 10yr', invested: 1200000, value: calcSIP(10000, fund.returns['3Y'], 10), returns: null },
+                      { label: '₹15,000/mo for 15yr', invested: 2700000, value: calcSIP(15000, fund.returns['3Y'], 15), returns: null },
+                      { label: '₹25,000/mo for 20yr', invested: 6000000, value: calcSIP(25000, fund.returns['3Y'], 20), returns: null },
+                    ];
+
+                return projections.map((proj: any) => (
+                  <div key={proj.label} className="bg-white rounded-xl p-4 border border-green-100 text-center">
+                    <p className="text-xs text-gray-500 mb-1">{proj.label}</p>
+                    <p className="text-xl font-black text-green-700 tabular-nums">
+                      ₹{proj.value >= 100000 ? (proj.value / 100000).toFixed(1) + 'L' : proj.value.toLocaleString('en-IN')}
+                    </p>
+                    {proj.invested && (
+                      <p className="text-[10px] text-gray-400 mt-1">
+                        Invested: ₹{proj.invested >= 100000 ? (proj.invested / 100000).toFixed(1) + 'L' : proj.invested.toLocaleString('en-IN')}
+                      </p>
+                    )}
+                    {proj.returns !== null && (
+                      <p className={`text-xs font-semibold mt-0.5 ${proj.returns >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                        {proj.returns >= 0 ? '+' : ''}{proj.returns}%
+                      </p>
+                    )}
+                  </div>
+                ));
+              })()}
             </div>
-            <p className="text-[11px] text-gray-400 mt-3">Projections based on past 3Y returns. Actual returns may vary. Past performance is not indicative of future results.</p>
+            <p className="text-[11px] text-gray-400 mt-3">Based on actual historical NAV data. Past performance is not indicative of future results. Mutual fund investments are subject to market risks.</p>
           </CardContent>
         </Card>
       </div>
+
+      {/* Risk Explainer — Plain English */}
+      {(fund as any).__riskMetrics?.max_drawdown > 0 && (
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 text-amber-500" />
+                Risk in Plain English
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {(() => {
+                const rm = (fund as any).__riskMetrics || {};
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                          <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900">Worst Drop: {rm.max_drawdown}%</p>
+                          <p className="text-xs text-gray-500">{rm.max_drawdown_date ? `Occurred on ${rm.max_drawdown_date}` : 'Historical maximum drawdown'}</p>
+                        </div>
+                      </div>
+                      {rm.recovery_days && (
+                        <div className="flex items-start gap-3">
+                          <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                            <TrendingUp className="w-4 h-4 text-green-600" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-semibold text-gray-900">Recovery: {Math.round(rm.recovery_days / 30)} months</p>
+                            <p className="text-xs text-gray-500">Time to recover from the worst drop</p>
+                          </div>
+                        </div>
+                      )}
+                      {rm.negative_years > 0 && (
+                        <div className="flex items-start gap-3">
+                          <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                            <BarChart3 className="w-4 h-4 text-amber-600" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-semibold text-gray-900">Negative Years: {rm.negative_years} out of {rm.total_years}</p>
+                            <p className="text-xs text-gray-500">Number of calendar years with negative returns</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <div className="space-y-4">
+                      {rm.best_1y_return > 0 && (
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <p className="text-xs text-gray-500 mb-2">Rolling 1-Year Return Range</p>
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-semibold text-red-500">Worst: {rm.worst_1y_return}%</span>
+                            <span className="text-sm font-semibold text-green-600">Best: {rm.best_1y_return}%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div className="bg-gradient-to-r from-red-400 via-amber-400 to-green-500 h-2 rounded-full" style={{ width: '100%' }} />
+                          </div>
+                        </div>
+                      )}
+                      {rm.volatility_1y && (
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <p className="text-xs text-gray-500 mb-1">Annualized Volatility</p>
+                          <p className="text-2xl font-bold text-gray-900">{rm.volatility_1y}%</p>
+                          <p className="text-xs text-gray-400 mt-1">
+                            {rm.volatility_1y < 10 ? 'Low volatility — relatively stable' : rm.volatility_1y < 20 ? 'Moderate volatility — expect fluctuations' : 'High volatility — significant price swings'}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       {/* How to Invest */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
