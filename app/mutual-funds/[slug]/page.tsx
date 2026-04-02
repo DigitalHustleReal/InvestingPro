@@ -25,6 +25,8 @@ import DecisionCTA from '@/components/common/DecisionCTA'
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure'
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer'
 import TableOfContents from '@/components/content/TableOfContents'
+import NAVChart from '@/components/mutual-funds/NAVChart'
+import SIPCalculatorWidget from '@/components/mutual-funds/SIPCalculatorWidget'
 import Link from 'next/link'
 
 interface MutualFundDetail {
@@ -83,6 +85,7 @@ interface MutualFundDetail {
 }
 
 import { createServiceClient } from '@/lib/supabase/service'
+import { fetchFundHistory, parseNAVHistory } from '@/lib/data-sources/mfapi-client'
 
 async function getMutualFundData(slug: string): Promise<MutualFundDetail | null> {
   const supabase = createServiceClient();
@@ -198,9 +201,24 @@ async function getMutualFundData(slug: string): Promise<MutualFundDetail | null>
       experience: 10,
     },
 
-    // Pass enriched data for SIP and Risk sections
+    // Pass enriched data for SIP, Risk, and Chart sections
     __sipReturns: sipReturns,
     __riskMetrics: riskMetrics,
+    __navHistory: await (async () => {
+      // Fetch NAV history for chart from mfapi.in (cached via ISR)
+      const schemeCode = f.scheme_code;
+      if (!schemeCode) return [];
+      try {
+        const apiData = await fetchFundHistory(schemeCode);
+        const history = parseNAVHistory(apiData.data);
+        // Return last 5 years of data for the chart
+        const fiveYearsAgo = new Date();
+        fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5);
+        return history.filter(p => p.date >= fiveYearsAgo);
+      } catch {
+        return [];
+      }
+    })(),
   } as MutualFundDetail;
 }
 
@@ -388,6 +406,15 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
         </div>
       </div>
       
+      {/* NAV Chart — Interactive */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <NAVChart
+          fundName={fund.name}
+          navHistory={((fund as any).__navHistory || []).map((p: any) => ({ date: p.dateStr || p.date, nav: p.nav }))}
+          currentNAV={fund.nav}
+        />
+      </div>
+
       {/* Decision Framework */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
         <DecisionFramework
@@ -697,53 +724,15 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
         </Card>
       </div>
 
-      {/* SIP Projection — Real Historical Data */}
+      {/* Interactive SIP Calculator */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        <Card className="bg-green-50 border-green-200">
-          <CardHeader><CardTitle className="flex items-center gap-2 text-green-800"><IndianRupee className="w-5 h-5" /> SIP Returns (Real Historical Data)</CardTitle></CardHeader>
-          <CardContent>
-            <p className="text-sm text-gray-600 mb-4">What ₹500/month SIP would have actually become based on real NAV data:</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {(() => {
-                // Use real SIP data from enrichment if available
-                const sipData = (fund as any).__sipReturns || [];
-                const projections = sipData.length > 0
-                  ? sipData.map((s: any) => ({
-                      label: `₹500/mo for ${s.period_years}yr`,
-                      invested: s.total_invested,
-                      value: s.current_value,
-                      returns: s.returns_percent,
-                    }))
-                  : [
-                      { label: '₹5,000/mo for 5yr', invested: 300000, value: calcSIP(5000, fund.returns['3Y'], 5), returns: null },
-                      { label: '₹10,000/mo for 10yr', invested: 1200000, value: calcSIP(10000, fund.returns['3Y'], 10), returns: null },
-                      { label: '₹15,000/mo for 15yr', invested: 2700000, value: calcSIP(15000, fund.returns['3Y'], 15), returns: null },
-                      { label: '₹25,000/mo for 20yr', invested: 6000000, value: calcSIP(25000, fund.returns['3Y'], 20), returns: null },
-                    ];
-
-                return projections.map((proj: any) => (
-                  <div key={proj.label} className="bg-white rounded-xl p-4 border border-green-100 text-center">
-                    <p className="text-xs text-gray-500 mb-1">{proj.label}</p>
-                    <p className="text-xl font-black text-green-700 tabular-nums">
-                      ₹{proj.value >= 100000 ? (proj.value / 100000).toFixed(1) + 'L' : proj.value.toLocaleString('en-IN')}
-                    </p>
-                    {proj.invested && (
-                      <p className="text-[10px] text-gray-400 mt-1">
-                        Invested: ₹{proj.invested >= 100000 ? (proj.invested / 100000).toFixed(1) + 'L' : proj.invested.toLocaleString('en-IN')}
-                      </p>
-                    )}
-                    {proj.returns !== null && (
-                      <p className={`text-xs font-semibold mt-0.5 ${proj.returns >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                        {proj.returns >= 0 ? '+' : ''}{proj.returns}%
-                      </p>
-                    )}
-                  </div>
-                ));
-              })()}
-            </div>
-            <p className="text-[11px] text-gray-400 mt-3">Based on actual historical NAV data. Past performance is not indicative of future results. Mutual fund investments are subject to market risks.</p>
-          </CardContent>
-        </Card>
+        <SIPCalculatorWidget
+          fundName={fund.name}
+          returns3Y={fund.returns['3Y']}
+          returns5Y={fund.returns['5Y'] || 0}
+          minSIP={fund.sipMinInvestment}
+          historicalSIPReturns={(fund as any).__sipReturns}
+        />
       </div>
 
       {/* Risk Explainer — Plain English */}
