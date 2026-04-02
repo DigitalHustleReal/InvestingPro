@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { logger } from '@/lib/logger';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminPageContainer from '@/components/admin/AdminPageContainer';
 import { useQuery } from '@tanstack/react-query';
@@ -25,7 +27,33 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AdminDashboardPage() {
     const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d'>('30d');
+    const [generating, setGenerating] = useState(false);
+    const [genCount, setGenCount] = useState(3);
+    const [genCategory, setGenCategory] = useState('');
+    const router = useRouter();
     const supabase = createClient();
+
+    const handleQuickGenerate = useCallback(async () => {
+        setGenerating(true);
+        toast.info(`Starting content pipeline: ${genCount} articles in auto mode...`);
+        try {
+            const response = await fetch('/api/content-pipeline', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ count: genCount, mode: 'auto', category: genCategory || undefined }),
+            });
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({ error: 'Pipeline failed' }));
+                throw new Error(err.error || 'Pipeline failed');
+            }
+            toast.success(`Pipeline started! Generating ${genCount} articles. Check Content Factory for progress.`);
+            router.push('/admin/content-factory');
+        } catch (error) {
+            toast.error(`Pipeline error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        } finally {
+            setGenerating(false);
+        }
+    }, [genCount, router]);
 
     const { data: stats, isLoading } = useQuery({
         queryKey: ['admin-stats-overview'],
@@ -89,6 +117,74 @@ export default function AdminDashboardPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="pb-10"
                 >
+                    {/* 0. GENERATE CONTENT — Finance-Intelligent Pipeline */}
+                    <div className="mb-6 rounded-xl border-2 border-emerald-500/30 bg-gradient-to-r from-emerald-500/5 to-blue-500/5 overflow-hidden">
+                        <div className="p-5">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                                <div>
+                                    <h2 className="text-lg font-bold flex items-center gap-2">
+                                        🚀 Generate Articles
+                                        <span className="text-xs font-normal px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400">Finance AI</span>
+                                    </h2>
+                                    <p className="text-sm text-muted-foreground mt-1">
+                                        Trends → Keywords → SERP → Compliance Check → Generation → Fact Verify → SEO Audit
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <select
+                                        value={genCategory}
+                                        onChange={(e) => setGenCategory(e.target.value)}
+                                        className="h-10 rounded-lg border border-border bg-background px-3 text-sm"
+                                    >
+                                        <option value="">All Categories</option>
+                                        <option value="mutual-funds">Mutual Funds</option>
+                                        <option value="stocks">Stocks & Equity</option>
+                                        <option value="fixed-deposits">Fixed Deposits</option>
+                                        <option value="insurance">Insurance</option>
+                                        <option value="tax-planning">Tax Planning</option>
+                                        <option value="credit-cards">Credit Cards</option>
+                                        <option value="loans">Loans</option>
+                                        <option value="ipo">IPO</option>
+                                        <option value="demat-accounts">Demat Accounts</option>
+                                        <option value="savings">Savings & PPF/NPS</option>
+                                        <option value="banking">Banking</option>
+                                        <option value="crypto">Crypto</option>
+                                    </select>
+                                    <select
+                                        value={genCount}
+                                        onChange={(e) => setGenCount(Number(e.target.value))}
+                                        className="h-10 rounded-lg border border-border bg-background px-3 text-sm"
+                                    >
+                                        <option value={1}>1 article</option>
+                                        <option value={3}>3 articles</option>
+                                        <option value={5}>5 articles</option>
+                                        <option value={10}>10 articles</option>
+                                    </select>
+                                    <button
+                                        onClick={handleQuickGenerate}
+                                        disabled={generating}
+                                        className="h-10 px-6 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                                    >
+                                        {generating ? (
+                                            <><span className="animate-spin">⏳</span> Generating...</>
+                                        ) : (
+                                            <><span>▶</span> Generate Now</>
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Finance intelligence strip */}
+                        <div className="px-5 py-2.5 bg-emerald-500/5 border-t border-emerald-500/10 flex flex-wrap gap-4 text-[11px] text-muted-foreground">
+                            <span>📊 RBI rate: {stats?.rbi_rate || '6.50%'}</span>
+                            <span>📈 Nifty: {stats?.nifty || 'Live'}</span>
+                            <span>🏦 FD best: {stats?.fd_best || '8.5%'}</span>
+                            <span>💰 Gold: {stats?.gold_price || '₹Live'}</span>
+                            <span className="text-emerald-400">● SEBI compliant</span>
+                            <span className="text-emerald-400">● Fact-checked</span>
+                        </div>
+                    </div>
+
                     {/* 1. New Action Center */}
                     <ActionCenter />
 

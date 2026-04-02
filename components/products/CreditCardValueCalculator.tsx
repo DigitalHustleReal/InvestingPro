@@ -47,19 +47,19 @@ export default function CreditCardValueCalculator({
     const finalNetInfo = annualRewards - finalFee;
 
     return (
-        <Card className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-900/50 border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+        <Card className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-900/50 border-gray-200 dark:border-gray-800 p-6 shadow-sm">
             <div className="flex items-center gap-2 mb-6">
                 <div className="p-2 bg-emerald-100 dark:bg-emerald-900/20 rounded-lg">
                     <TrendingUp className="w-5 h-5 text-emerald-600 dark:text-emerald-500" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Is It Worth It? <span className="text-slate-500 font-normal text-sm ml-2">(Quick Math)</span></h3>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">Is It Worth It? <span className="text-gray-500 font-normal text-sm ml-2">(Quick Math)</span></h3>
             </div>
 
             <div className="space-y-8">
                 {/* Input Slider */}
                 <div>
                     <div className="flex justify-between items-end mb-4">
-                        <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Monthly Spend</label>
+                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Monthly Spend</label>
                         <div className="flex items-center text-2xl font-bold text-primary-600 dark:text-primary-400">
                            <IndianRupee className="w-5 h-5 mr-0.5" />
                            {monthlySpend.toLocaleString('en-IN')}
@@ -73,30 +73,30 @@ export default function CreditCardValueCalculator({
                         onValueChange={(val) => setMonthlySpend(val[0])}
                         className="py-2"
                     />
-                    <div className="flex justify-between text-xs text-slate-600 mt-2">
+                    <div className="flex justify-between text-xs text-gray-600 mt-2">
                         <span>₹5k</span>
                         <span>₹2L</span>
                     </div>
                 </div>
 
                 {/* Calculation Breakdown */}
-                <div className="bg-white dark:bg-black/20 rounded-xl border border-slate-100 dark:border-slate-800 p-4 space-y-3">
+                <div className="bg-white dark:bg-black/20 rounded-xl border border-gray-100 dark:border-gray-800 p-4 space-y-3">
                     <div className="flex justify-between text-sm">
-                        <span className="text-slate-600 dark:text-slate-400">Annual Rewards (~{displayRate.toFixed(1)}%)</span>
+                        <span className="text-gray-600 dark:text-gray-400">Annual Rewards (~{displayRate.toFixed(1)}%)</span>
                         <span className="font-semibold text-emerald-600">+ ₹{annualRewards.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                        <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                        <span className="text-gray-600 dark:text-gray-400 flex items-center gap-1">
                             Annual Fee 
                              {pointsWaiver && <span className="text-[10px] bg-success-100 text-success-700 px-1 rounded ml-1">WAIVED</span>}
                         </span>
-                        <span className={`font-semibold ${pointsWaiver ? 'text-slate-600 line-through' : 'text-rose-500'}`}>
+                        <span className={`font-semibold ${pointsWaiver ? 'text-gray-600 line-through' : 'text-rose-500'}`}>
                             - ₹{annualFee.toLocaleString('en-IN')}
                         </span>
                     </div>
                     
-                    <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex justify-between items-center">
-                        <span className="font-bold text-slate-900 dark:text-white">Net Benefit</span>
+                    <div className="border-t border-gray-100 dark:border-gray-800 pt-3 flex justify-between items-center">
+                        <span className="font-bold text-gray-900 dark:text-white">Net Benefit</span>
                         <span className={`text-xl font-bold ${finalNetInfo > 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-500'}`}>
                             {finalNetInfo > 0 ? '+' : ''} ₹{finalNetInfo.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                         </span>

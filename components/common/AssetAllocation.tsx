@@ -39,7 +39,7 @@ export default function AssetAllocation({ holdings }: AssetAllocationProps) {
                 <CardHeader>
                     <CardTitle>Asset Allocation</CardTitle>
                 </CardHeader>
-                <CardContent className="h-64 flex items-center justify-center text-slate-500 dark:text-slate-600">
+                <CardContent className="h-64 flex items-center justify-center text-gray-500 dark:text-gray-600">
                     No data available
                 </CardContent>
             </Card>
@@ -78,9 +78,9 @@ export default function AssetAllocation({ holdings }: AssetAllocationProps) {
                         <div key={item.name} className="flex items-center justify-between text-sm">
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded" style={{ backgroundColor: getColorForCategory(item.name) }} />
-                                <span className="text-slate-700 dark:text-slate-300">{item.name}</span>
+                                <span className="text-gray-700 dark:text-gray-300">{item.name}</span>
                             </div>
-                            <span className="font-semibold text-slate-900 dark:text-white">
+                            <span className="font-semibold text-gray-900 dark:text-white">
                                 ₹{item.value.toLocaleString('en-IN')} ({totalValue > 0 ? ((item.value / totalValue) * 100).toFixed(1) : 0}%)
                             </span>
                         </div>

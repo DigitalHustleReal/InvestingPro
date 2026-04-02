@@ -25,7 +25,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
 
             <article className="min-h-screen bg-white">
                 {/* Hero Section */}
-                <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-16">
+                <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-16">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center gap-3 mb-4">
                             <BookOpen className="w-8 h-8 text-primary-400" />
@@ -34,22 +34,22 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                         <h1 className="text-4xl md:text-5xl font-bold mb-4">
                             {sections.definition.term}
                             {sections.definition.full_form && (
-                                <span className="text-2xl text-slate-600 ml-3">({sections.definition.full_form})</span>
+                                <span className="text-2xl text-gray-600 ml-3">({sections.definition.full_form})</span>
                             )}
                         </h1>
                         {sections.definition.pronunciation && (
-                            <p className="text-slate-300 text-lg mb-6">Pronunciation: {sections.definition.pronunciation}</p>
+                            <p className="text-gray-300 text-lg mb-6">Pronunciation: {sections.definition.pronunciation}</p>
                         )}
-                        <p className="text-xl text-slate-300 leading-relaxed">{sections.definition.definition}</p>
+                        <p className="text-xl text-gray-300 leading-relaxed">{sections.definition.definition}</p>
                     </div>
                 </section>
 
                 {/* Detailed Explanation */}
-                <section className="py-16 bg-slate-50">
+                <section className="py-16 bg-gray-50">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-6">Detailed Explanation</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-6">Detailed Explanation</h2>
                         <div className="prose prose-lg max-w-none">
-                            <p className="text-slate-700 leading-relaxed">{sections.detailed_explanation.content}</p>
+                            <p className="text-gray-700 leading-relaxed">{sections.detailed_explanation.content}</p>
                         </div>
                     </div>
                 </section>
@@ -57,16 +57,16 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                 {/* Examples Section */}
                 <section className="py-16">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-8">Examples</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-8">Examples</h2>
                         <div className="space-y-6">
                             {sections.examples.examples.map((example, idx) => (
-                                <Card key={idx} className="border border-slate-200">
+                                <Card key={idx} className="border border-gray-200">
                                     <CardContent className="p-6">
                                         <div className="flex items-start gap-4">
                                             <div className="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-bold shrink-0">
                                                 {idx + 1}
                                             </div>
-                                            <p className="text-slate-700 leading-relaxed">{example.example}</p>
+                                            <p className="text-gray-700 leading-relaxed">{example.example}</p>
                                         </div>
                                     </CardContent>
                                 </Card>
@@ -77,18 +77,18 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
 
                 {/* Formula Section */}
                 {sections.formula && (
-                    <section className="py-16 bg-slate-50">
+                    <section className="py-16 bg-gray-50">
                         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                                 <Calculator className="w-6 h-6 text-primary-600" />
                                 Formula
                             </h2>
                             <Card className="border-0 shadow-lg bg-white">
                                 <CardContent className="p-6">
-                                    <div className="bg-slate-50 p-6 md:p-8 rounded-lg mb-4">
-                                        <code className="text-lg font-mono text-slate-900">{sections.formula.formula}</code>
+                                    <div className="bg-gray-50 p-6 md:p-8 rounded-lg mb-4">
+                                        <code className="text-lg font-mono text-gray-900">{sections.formula.formula}</code>
                                     </div>
-                                    <p className="text-slate-600">{sections.formula.explanation}</p>
+                                    <p className="text-gray-600">{sections.formula.explanation}</p>
                                 </CardContent>
                             </Card>
                         </div>
@@ -98,7 +98,7 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
                 {/* Related Terms */}
                 <section className="py-16">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-8">Related Terms</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-8">Related Terms</h2>
                         <div className="flex flex-wrap gap-3">
                             {sections.related_terms.terms.map((term, idx) => (
                                 <Link
@@ -115,9 +115,9 @@ export default function GlossaryPageTemplate({ content }: GlossaryPageTemplatePr
 
                 {/* Internal Links */}
                 {internal_links.length > 0 && (
-                    <section className="py-16 md:py-24 bg-slate-50 border-t border-slate-200">
+                    <section className="py-16 md:py-24 bg-gray-50 border-t border-gray-200">
                         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-xl font-bold text-slate-900 mb-6">Learn More</h2>
+                            <h2 className="text-xl font-bold text-gray-900 mb-6">Learn More</h2>
                             <div className="flex flex-wrap gap-3">
                                 {internal_links.map((link, idx) => (
                                     <Link

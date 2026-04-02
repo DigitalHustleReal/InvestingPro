@@ -65,7 +65,7 @@ export default function ActivityTimeline({ activities = [] }: { activities: Acti
                                             {formatDistanceToNow(new Date(item.updated_at), { addSuffix: true })}
                                         </span>
                                     </div>
-                                    <p className="text-[13px] text-slate-300 font-medium overflow-hidden text-ellipsis whitespace-nowrap mt-0.5">
+                                    <p className="text-[13px] text-gray-300 font-medium overflow-hidden text-ellipsis whitespace-nowrap mt-0.5">
                                         {item.title}
                                     </p>
                                 </div>
@@ -75,10 +75,10 @@ export default function ActivityTimeline({ activities = [] }: { activities: Acti
                 ) : (
                     <div className="flex flex-col items-center justify-center text-center py-10 opacity-40">
                         <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3">
-                            <Clock className="w-6 h-6 text-slate-400" />
+                            <Clock className="w-6 h-6 text-gray-400" />
                         </div>
-                        <p className="text-sm font-bold text-slate-300">No recent activity</p>
-                        <p className="text-[11px] text-slate-500 mt-1">Sync your pipeline to see updates here.</p>
+                        <p className="text-sm font-bold text-gray-300">No recent activity</p>
+                        <p className="text-[11px] text-gray-500 mt-1">Sync your pipeline to see updates here.</p>
                     </div>
                 )}
             </div>

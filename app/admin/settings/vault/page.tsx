@@ -33,13 +33,13 @@ export default function CredentialVaultPage() {
                         <Shield className="w-8 h-8" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900">Secure Vault</h1>
+                        <h1 className="text-2xl font-bold text-gray-900">Secure Vault</h1>
                         <p className="text-muted-foreground/70 dark:text-muted-foreground/70">Private notepad for API keys and credentials. (Stored Locally)</p>
                     </div>
                 </div>
 
-                <div className="bg-surface-darkest dark:bg-surface-darkest rounded-xl overflow-hidden shadow-2xl border border-slate-800">
-                    <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-surface-darker/50 dark:bg-surface-darker/50">
+                <div className="bg-surface-darkest dark:bg-surface-darkest rounded-xl overflow-hidden shadow-2xl border border-gray-800">
+                    <div className="p-4 border-b border-gray-800 flex items-center justify-between bg-surface-darker/50 dark:bg-surface-darker/50">
                         <div className="flex items-center gap-2 text-muted-foreground dark:text-muted-foreground">
                             <Key className="w-4 h-4" />
                             <span className="text-sm font-mono tracking-wider">CREDENTIAL_STORE.txt</span>

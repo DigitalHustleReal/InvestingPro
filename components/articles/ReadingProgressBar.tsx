@@ -73,7 +73,7 @@ export function ReadingProgressBar({
 
   return (
     <div 
-      className="fixed top-0 left-0 right-0 z-50 bg-slate-200/50 dark:bg-slate-800/50"
+      className="fixed top-0 left-0 right-0 z-50 bg-gray-200/50 dark:bg-gray-800/50"
       style={{ height: `${height}px` }}
       role="progressbar"
       aria-valuenow={progress}

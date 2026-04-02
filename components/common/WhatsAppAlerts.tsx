@@ -84,21 +84,21 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
 
           {!subscribed ? (
             <div className="p-8 space-y-6">
-              <p className="text-slate-500 dark:text-slate-600 text-sm leading-relaxed">
+              <p className="text-gray-500 dark:text-gray-600 text-sm leading-relaxed">
                 Be the first to know about interest rate changes, new card launches, and exclusive offers for 
-                <span className="font-bold text-slate-900 dark:text-white"> {productName || 'top financial products'}</span>.
+                <span className="font-bold text-gray-900 dark:text-white"> {productName || 'top financial products'}</span>.
               </p>
 
               <form onSubmit={handleSubscribe} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="whatsapp-phone" className="text-[10px] font-black uppercase text-slate-600 tracking-widest px-1">WhatsApp Number</Label>
+                  <Label htmlFor="whatsapp-phone" className="text-[10px] font-black uppercase text-gray-600 tracking-widest px-1">WhatsApp Number</Label>
                   <div className="relative group">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-600">+91</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-gray-600">+91</span>
                     <Input
                       id="whatsapp-phone"
                       type="tel"
                       placeholder="9876543210"
-                      className="pl-14 h-14 bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-800 rounded-xl focus:ring-success-500 font-bold text-lg transition-all"
+                      className="pl-14 h-14 bg-gray-50 dark:bg-gray-900 border-gray-100 dark:border-gray-800 rounded-xl focus:ring-success-500 font-bold text-lg transition-all"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       required
@@ -118,10 +118,10 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
               <div className="flex items-center gap-3 pt-2">
                 <div className="flex -space-x-2">
                   {[1, 2, 3].map(i => (
-                    <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-slate-900 bg-slate-200" />
+                    <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 bg-gray-200" />
                   ))}
                 </div>
-                <p className="text-[10px] text-slate-600 font-bold uppercase tracking-tight">
+                <p className="text-[10px] text-gray-600 font-bold uppercase tracking-tight">
                   <span className="text-success-600">4.9/5</span> Rated by Active Users
                 </p>
               </div>
@@ -131,30 +131,30 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
               <div className="mx-auto w-20 h-20 bg-success-50 dark:bg-success-900/20 rounded-full flex items-center justify-center text-success-600 mb-6">
                 <CheckCircle2 size={40} />
               </div>
-              <h3 className="text-xl font-black text-slate-900 dark:text-white mb-2 underline decoration-success-500 decoration-4 underline-offset-4">
+              <h3 className="text-xl font-black text-gray-900 dark:text-white mb-2 underline decoration-success-500 decoration-4 underline-offset-4">
                 You're In!
               </h3>
-              <p className="text-slate-500 dark:text-slate-600 text-sm mb-8 leading-relaxed">
-                We've activated your WhatsApp alerts for <span className="font-bold text-slate-900 dark:text-white">{productName || 'financial products'}</span>. 
+              <p className="text-gray-500 dark:text-gray-600 text-sm mb-8 leading-relaxed">
+                We've activated your WhatsApp alerts for <span className="font-bold text-gray-900 dark:text-white">{productName || 'financial products'}</span>. 
                 Expect high-value updates twice a week. No Spam. Guaranteed.
               </p>
               <Button 
                 onClick={() => setOpen(false)}
-                className="w-full h-14 bg-slate-900 dark:bg-slate-800 text-white font-black rounded-xl"
+                className="w-full h-14 bg-gray-900 dark:bg-gray-800 text-white font-black rounded-xl"
               >
                 Return to Dashboard
               </Button>
             </div>
           )}
 
-          <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex justify-center gap-6">
+          <div className="p-4 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800 flex justify-center gap-6">
             <div className="flex items-center gap-1.5 opacity-60">
               <ShieldCheck size={12} className="text-success-600" />
-              <span className="text-[10px] font-bold uppercase text-slate-500">End-to-End Encrypted</span>
+              <span className="text-[10px] font-bold uppercase text-gray-500">End-to-End Encrypted</span>
             </div>
             <div className="flex items-center gap-1.5 opacity-60">
               <Sparkles size={12} className="text-primary-600" />
-              <span className="text-[10px] font-bold uppercase text-slate-500">Opt-out Anytime</span>
+              <span className="text-[10px] font-bold uppercase text-gray-500">Opt-out Anytime</span>
             </div>
           </div>
         </DialogContent>

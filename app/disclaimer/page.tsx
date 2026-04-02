@@ -12,9 +12,9 @@ export default function DisclaimerPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex items-center gap-3 mb-6">
           <AlertTriangle className="w-10 h-10 text-danger-600" />
-          <h1 className="text-4xl font-bold text-slate-900">Disclaimer</h1>
+          <h1 className="text-4xl font-bold text-gray-900">Disclaimer</h1>
         </div>
-        <p className="text-sm text-slate-600 mb-8">Last Updated: December 31, 2025</p>
+        <p className="text-sm text-gray-600 mb-8">Last Updated: April 2, 2026</p>
 
         <div className="prose prose-slate max-w-none">
           {/* Critical Notice */}
@@ -32,14 +32,14 @@ export default function DisclaimerPage() {
           </div>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">1. General Disclaimer</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">1. General Disclaimer</h2>
+            <p className="text-gray-700 mb-4">
               InvestingPro provides financial product comparison and educational content for informational purposes only. We do not offer personalized financial advice, tax planning, investment recommendations, or portfolio management services.
             </p>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               <strong>We are not:</strong>
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>SEBI-registered investment advisors (RIA)</li>
               <li>Mutual fund distributors</li>
               <li>Insurance brokers (IRDAI-registered)</li>
@@ -70,97 +70,97 @@ export default function DisclaimerPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">3. Credit Product Disclaimer (Loans & Credit Cards)</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Credit Product Disclaimer (Loans & Credit Cards)</h2>
+            <p className="text-gray-700 mb-4">
               Credit approval is subject to lender criteria and underwriting policies. Interest rates, fees, and terms shown on InvestingPro are indicative and may vary based on:
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>Credit score (CIBIL, Experian, Equifax, CRIF)</li>
               <li>Income level and employment status</li>
               <li>Debt-to-income ratio</li>
               <li>Lender's internal risk assessment</li>
               <li>Market conditions and RBI policy changes</li>
             </ul>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               <strong>Important:</strong> Borrowing involves legal obligations. Failure to repay may result in penalty charges, credit score damage, and legal action.
             </p>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               <strong>RBI Guidelines:</strong> Borrow responsibly. Do not over-leverage. Ensure EMI payments fit within your budget.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">4. Insurance Product Disclaimer</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Insurance Product Disclaimer</h2>
+            <p className="text-gray-700 mb-4">
               Insurance information is for comparison purposes only. Policy terms, coverage, exclusions, and premiums may vary by insurer.
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>Read the policy document carefully before purchasing</li>
               <li>Understand exclusions, waiting periods, and claim procedures</li>
               <li>Declare pre-existing conditions honestly to avoid claim rejection</li>
               <li>Premium rates depend on age, health status, and coverage selected</li>
             </ul>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               <strong>IRDAI Disclaimer:</strong> Insurance is the subject matter of solicitation. For product details, benefits, and exclusions, refer to the policy document.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">5. Calculator Disclaimer</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Calculator Disclaimer</h2>
+            <p className="text-gray-700 mb-4">
               Our financial calculators (SIP, EMI, Tax, FD, etc.) provide ESTIMATES based on inputs you provide. Actual results may vary due to:
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>Market fluctuations and volatility</li>
               <li>Changes in interest rates, tax laws, or regulations</li>
               <li>Entry/exit loads, expense ratios, and processing fees</li>
               <li>Rounding errors and compounding frequency differences</li>
             </ul>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               Calculator results should NOT be solely relied upon for financial decisions. Consult a financial advisor for accurate projections.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">6. Product Information Accuracy</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Product Information Accuracy</h2>
+            <p className="text-gray-700 mb-4">
               We strive to provide accurate and up-to-date product information, but:
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>Interest rates, fees, and features change frequently</li>
               <li>Information shown may not reflect the latest updates</li>
               <li>Product availability varies by location and customer profile</li>
               <li>Promotional offers and discounts are time-limited</li>
             </ul>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               <strong>Always verify details with the financial institution before applying.</strong> InvestingPro is not responsible for outdated or inaccurate information.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">7. Affiliate Commission Disclosure</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Affiliate Commission Disclosure</h2>
+            <p className="text-gray-700 mb-4">
               InvestingPro earns commission from financial institutions when you:
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>Click on "Apply Now" buttons and complete applications</li>
               <li>Are approved for credit cards, loans, or other products</li>
               <li>Open investment accounts or purchase financial products</li>
             </ul>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               <strong>Editorial Independence:</strong> Affiliate relationships do NOT influence our ratings, rankings, or editorial content. Our reviews are based on objective criteria such as features, fees, customer reviews, and product quality.
             </p>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               For full transparency, see: <a href="/how-we-make-money" className="text-primary-600 hover:text-primary-700 underline">How We Make Money</a>
             </p>
           </section>
 
-          <section className="mb-8 bg-slate-50 border border-slate-300 p-6 rounded-lg">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">8. No Liability for Financial Losses</h2>
-            <p className="text-slate-700 mb-4">
+          <section className="mb-8 bg-gray-50 border border-gray-300 p-6 rounded-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">8. No Liability for Financial Losses</h2>
+            <p className="text-gray-700 mb-4">
               InvestingPro and its affiliates SHALL NOT be held liable for:
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>Financial losses arising from investment decisions</li>
               <li>Rejected loan/credit card applications</li>
               <li>Inaccurate product information or outdated data</li>
@@ -168,17 +168,17 @@ export default function DisclaimerPage() {
               <li>Third-party actions (banks, AMCs, insurers, etc.)</li>
               <li>Market fluctuations or economic downturns</li>
             </ul>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               <strong>User Responsibility:</strong> You acknowledge that all financial decisions are made at your own risk and discretion.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">9. Third-Party Links and Services</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Third-Party Links and Services</h2>
+            <p className="text-gray-700 mb-4">
               When you click "Apply Now" or external links, you are redirected to third-party websites (banks, NBFCs, AMCs, insurance companies):
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>We do not control third-party websites or their practices</li>
               <li>Your interactions are governed by THEIR terms and privacy policies</li>
               <li>We are not responsible for application rejections or approval delays</li>
@@ -187,36 +187,36 @@ export default function DisclaimerPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">10. Tax Implications</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">10. Tax Implications</h2>
+            <p className="text-gray-700 mb-4">
               Tax calculators and information are for reference only. Tax laws in India are complex and subject to change:
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>Income tax rates and deductions vary by income slab</li>
               <li>Capital gains tax depends on holding period and asset class</li>
               <li>TDS (Tax Deducted at Source) applies to certain investments</li>
               <li>Exemptions under Section 80C, 80D, 10(10D), etc. have limits and conditions</li>
             </ul>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               <strong>Consult a certified tax professional or CA (Chartered Accountant)</strong> for personalized tax advice.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">11. Regulatory Compliance</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">11. Regulatory Compliance</h2>
+            <p className="text-gray-700 mb-4">
               InvestingPro complies with applicable Indian laws, including:
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>Digital Personal Data Protection Act (DPDP), 2023</li>
               <li>Information Technology Act, 2000</li>
               <li>Consumer Protection Act, 2019</li>
               <li>Advertising Standards Council of India (ASCI) guidelines</li>
             </ul>
-            <p className="text-slate-700 mb-4">
+            <p className="text-gray-700 mb-4">
               We are NOT regulated by:
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>SEBI (Securities and Exchange Board of India)</li>
               <li>IRDAI (Insurance Regulatory and Development Authority of India)</li>
               <li>RBI (Reserve Bank of India)</li>
@@ -225,11 +225,11 @@ export default function DisclaimerPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">12. User Reviews and Ratings</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">12. User Reviews and Ratings</h2>
+            <p className="text-gray-700 mb-4">
               User-submitted reviews reflect individual opinions and experiences:
             </p>
-            <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-4">
               <li>Reviews are NOT verified financial advice</li>
               <li>Ratings are subjective and may not reflect your experience</li>
               <li>We moderate reviews for spam but cannot guarantee accuracy</li>
@@ -254,14 +254,14 @@ export default function DisclaimerPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">14. Contact for Queries</h2>
-            <p className="text-slate-700 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">14. Contact for Queries</h2>
+            <p className="text-gray-700 mb-4">
               If you have questions or concerns about this disclaimer or our services:
             </p>
-            <div className="bg-slate-50 p-6 rounded-lg">
-              <p className="text-slate-700 mb-2">Email: <a href="mailto:support@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">support@investingpro.in</a></p>
-              <p className="text-slate-700 mb-2">Legal: <a href="mailto:legal@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">legal@investingpro.in</a></p>
-              <p className="text-slate-700">Address: Bangalore, Karnataka, India</p>
+            <div className="bg-gray-50 p-6 rounded-lg">
+              <p className="text-gray-700 mb-2">Email: <a href="mailto:support@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">support@investingpro.in</a></p>
+              <p className="text-gray-700 mb-2">Legal: <a href="mailto:legal@investingpro.in" className="text-primary-600 hover:text-primary-700 underline">legal@investingpro.in</a></p>
+              <p className="text-gray-700">Address: Bangalore, Karnataka, India</p>
             </div>
           </section>
 

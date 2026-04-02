@@ -37,7 +37,7 @@ export default function EditorialPageTemplate({
     };
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-gray-50">
             <SEOHead
                 title={title}
                 description={description}
@@ -48,7 +48,7 @@ export default function EditorialPageTemplate({
             {/* Breadcrumbs */}
             {breadcrumbs && breadcrumbs.length > 0 && (
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
-                    <nav className="flex items-center gap-2 text-sm text-slate-600">
+                    <nav className="flex items-center gap-2 text-sm text-gray-600">
                         {breadcrumbs.map((crumb, idx) => (
                             <React.Fragment key={idx}>
                                 <Link href={crumb.href} className="hover:text-primary-600 transition-colors">
@@ -57,7 +57,7 @@ export default function EditorialPageTemplate({
                                 {idx < breadcrumbs.length - 1 && <span>/</span>}
                             </React.Fragment>
                         ))}
-                        <span className="text-slate-900 font-medium">{title}</span>
+                        <span className="text-gray-900 font-medium">{title}</span>
                     </nav>
                 </div>
             )}
@@ -70,9 +70,9 @@ export default function EditorialPageTemplate({
             {/* Related Links Section */}
             {relatedLinks.length > 0 && (
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl">
+                    <Card className="border-gray-200 dark:border-gray-700 shadow-sm rounded-xl">
                         <CardHeader>
-                            <CardTitle className="text-xl font-bold text-slate-900">Related Reading</CardTitle>
+                            <CardTitle className="text-xl font-bold text-gray-900">Related Reading</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
@@ -80,13 +80,13 @@ export default function EditorialPageTemplate({
                                     <Link
                                         key={idx}
                                         href={link.href}
-                                        className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200"
+                                        className="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-200"
                                     >
-                                        <ChevronRight className="w-5 h-5 text-slate-600 flex-shrink-0 mt-0.5" />
+                                        <ChevronRight className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
                                         <div>
-                                            <p className="font-semibold text-slate-900">{link.label}</p>
+                                            <p className="font-semibold text-gray-900">{link.label}</p>
                                             {link.description && (
-                                                <p className="text-sm text-slate-600 mt-1">{link.description}</p>
+                                                <p className="text-sm text-gray-600 mt-1">{link.description}</p>
                                             )}
                                         </div>
                                     </Link>
@@ -100,9 +100,9 @@ export default function EditorialPageTemplate({
             {/* Glossary Terms */}
             {glossaryTerms.length > 0 && (
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <Card className="border-slate-200 dark:border-slate-700 shadow-sm rounded-xl bg-secondary-50 dark:bg-secondary-900/20">
+                    <Card className="border-gray-200 dark:border-gray-700 shadow-sm rounded-xl bg-secondary-50 dark:bg-secondary-900/20">
                         <CardHeader>
-                            <CardTitle className="text-lg font-bold text-slate-900 flex items-center gap-6 md:p-8">
+                            <CardTitle className="text-lg font-bold text-gray-900 flex items-center gap-6 md:p-8">
                                 <Info className="w-5 h-5 text-primary-600" />
                                 Key Terms
                             </CardTitle>
@@ -126,7 +126,7 @@ export default function EditorialPageTemplate({
 
             {/* Last Reviewed */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="text-center text-sm text-slate-500 flex items-center justify-center gap-2">
+                <div className="text-center text-sm text-gray-500 flex items-center justify-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <span>Last reviewed: {lastReviewed.toLocaleDateString('en-IN', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>

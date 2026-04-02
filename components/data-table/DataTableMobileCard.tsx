@@ -48,7 +48,7 @@ export function DataTableMobileCard<T>({
           )}
           <div className="flex-1">
             {primaryColumn && (
-              <div className="font-semibold text-slate-900 dark:text-white text-base">
+              <div className="font-semibold text-gray-900 dark:text-white text-base">
                 {primaryColumn.accessor(row)}
               </div>
             )}
@@ -57,13 +57,13 @@ export function DataTableMobileCard<T>({
 
         {/* Secondary info grid */}
         {secondaryColumns.length > 0 && (
-          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100 dark:border-gray-800">
             {secondaryColumns.map((column) => (
               <div key={column.key}>
-                <div className="text-xs text-slate-500 dark:text-slate-600 font-medium mb-1">
+                <div className="text-xs text-gray-500 dark:text-gray-600 font-medium mb-1">
                   {column.header}
                 </div>
-                <div className="text-sm text-slate-900 dark:text-white font-medium">
+                <div className="text-sm text-gray-900 dark:text-white font-medium">
                   {column.accessor(row)}
                 </div>
               </div>

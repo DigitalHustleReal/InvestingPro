@@ -31,7 +31,7 @@ export default function CMSHealthPage() {
             case 'healthy': return 'bg-primary-500/10 text-primary-400 border-primary-500/20';
             case 'degraded': return 'bg-accent-500/10 text-accent-400 border-accent-500/20';
             case 'unhealthy': return 'bg-danger-500/10 text-danger-400 border-danger-500/20';
-            default: return 'bg-slate-500/10 text-muted-foreground dark:text-muted-foreground border-slate-500/20';
+            default: return 'bg-gray-500/10 text-muted-foreground dark:text-muted-foreground border-gray-500/20';
         }
     };
 

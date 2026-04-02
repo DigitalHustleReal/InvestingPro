@@ -124,19 +124,19 @@ export default function BudgetGovernorPanel() {
     // Show loading state
     if (isLoading) {
         return (
-            <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+            <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 rounded-xl shadow-sm">
                 <CardContent className="p-8">
-                    <div className="text-center text-slate-500 dark:text-slate-400">Loading budget data...</div>
+                    <div className="text-center text-gray-500 dark:text-gray-400">Loading budget data...</div>
                 </CardContent>
             </Card>
         );
     }
     
     return (
-        <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
-            <CardHeader className="border-b border-slate-200 dark:border-slate-800 px-8 py-6">
+        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 rounded-xl shadow-sm">
+            <CardHeader className="border-b border-gray-200 dark:border-gray-800 px-8 py-6">
                 <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                    <CardTitle className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-3">
                         <DollarSign className="w-5 h-5 text-sky-500" />
                         Budget Governor
                     </CardTitle>
@@ -161,12 +161,12 @@ export default function BudgetGovernorPanel() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm text-slate-500 dark:text-slate-400">Tokens</span>
-                                <span className="text-sm font-medium text-slate-900 dark:text-white">
+                                <span className="text-sm text-gray-500 dark:text-gray-400">Tokens</span>
+                                <span className="text-sm font-medium text-gray-900 dark:text-white">
                                     {tokensUsed.toLocaleString()} / {maxTokens.toLocaleString()}
                                 </span>
                             </div>
-                            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                            <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2 overflow-hidden">
                                 <div 
                                     className={`h-2 rounded-full transition-all duration-500 ${
                                         tokensPercent >= 90 ? 'bg-rose-500' :
@@ -176,19 +176,19 @@ export default function BudgetGovernorPanel() {
                                     style={{ width: `${Math.min(100, tokensPercent)}%` }}
                                 />
                             </div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                 {tokensRemaining.toLocaleString()} remaining
                             </p>
                         </div>
                         
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm text-slate-500 dark:text-slate-400">Images</span>
-                                <span className="text-sm font-medium text-slate-900 dark:text-white">
+                                <span className="text-sm text-gray-500 dark:text-gray-400">Images</span>
+                                <span className="text-sm font-medium text-gray-900 dark:text-white">
                                     {imagesUsed} / {maxImages}
                                 </span>
                             </div>
-                            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                            <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2 overflow-hidden">
                                 <div 
                                     className={`h-2 rounded-full transition-all duration-500 ${
                                         imagesPercent >= 90 ? 'bg-rose-500' :
@@ -198,19 +198,19 @@ export default function BudgetGovernorPanel() {
                                     style={{ width: `${Math.min(100, imagesPercent)}%` }}
                                 />
                             </div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                 {imagesRemaining.toLocaleString()} remaining
                             </p>
                         </div>
                         
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm text-slate-500 dark:text-slate-400">Cost (USD)</span>
-                                <span className="text-sm font-medium text-slate-900 dark:text-white">
+                                <span className="text-sm text-gray-500 dark:text-gray-400">Cost (USD)</span>
+                                <span className="text-sm font-medium text-gray-900 dark:text-white">
                                     ${costSpent.toFixed(2)} / ${maxCost.toFixed(2)}
                                 </span>
                             </div>
-                            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                            <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2 overflow-hidden">
                                 <div 
                                     className={`h-2 rounded-full transition-all duration-500 ${
                                         costPercent >= 90 ? 'bg-rose-500' :
@@ -220,42 +220,42 @@ export default function BudgetGovernorPanel() {
                                     style={{ width: `${Math.min(100, costPercent)}%` }}
                                 />
                             </div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                 ${costRemaining.toFixed(2)} remaining
                             </p>
                         </div>
                     </div>
                     
                     {/* Set Budget */}
-                    <div className="border-t border-slate-200 dark:border-slate-800 pt-6">
-                        <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Set Daily Limits</h4>
+                    <div className="border-t border-gray-200 dark:border-gray-800 pt-6">
+                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">Set Daily Limits</h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                             <div>
-                                <label className="block text-sm text-slate-500 dark:text-slate-400 mb-2">Max Tokens</label>
+                                <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">Max Tokens</label>
                                 <input
                                     type="number"
                                     value={maxTokensInput}
                                     onChange={(e) => setMaxTokensInput(parseInt(e.target.value) || 0)}
-                                    className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+                                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-500 dark:text-slate-400 mb-2">Max Images</label>
+                                <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">Max Images</label>
                                 <input
                                     type="number"
                                     value={maxImagesInput}
                                     onChange={(e) => setMaxImagesInput(parseInt(e.target.value) || 0)}
-                                    className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+                                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-500 dark:text-slate-400 mb-2">Max Cost (USD)</label>
+                                <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">Max Cost (USD)</label>
                                 <input
                                     type="number"
                                     step="0.01"
                                     value={maxCostInput}
                                     onChange={(e) => setMaxCostInput(parseFloat(e.target.value) || 0)}
-                                    className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+                                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
                                 />
                             </div>
                         </div>

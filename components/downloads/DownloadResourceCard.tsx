@@ -134,7 +134,7 @@ export default function DownloadResourceCard({ resource, onDownload }: DownloadR
                             placeholder="Your name (optional)"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800"
+                            className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
                         />
                         <input
                             type="email"
@@ -142,7 +142,7 @@ export default function DownloadResourceCard({ resource, onDownload }: DownloadR
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800"
+                            className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
                         />
                         <div className="flex gap-2">
                             <Button
@@ -173,13 +173,13 @@ export default function DownloadResourceCard({ resource, onDownload }: DownloadR
                                 Cancel
                             </Button>
                         </div>
-                        <p className="text-xs text-slate-500">
+                        <p className="text-xs text-gray-500">
                             We'll send you the download link and add you to our newsletter
                         </p>
                     </div>
                 ) : (
                     <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                             <Download className="w-4 h-4" />
                             <span>{resource.downloadCount || 0} downloads</span>
                         </div>
@@ -201,7 +201,7 @@ export default function DownloadResourceCard({ resource, onDownload }: DownloadR
                             )}
                         </Button>
                         {resource.requiresEmail && (
-                            <p className="text-xs text-slate-500 text-center">
+                            <p className="text-xs text-gray-500 text-center">
                                 <Mail className="w-3 h-3 inline mr-1" />
                                 Email required for download
                             </p>

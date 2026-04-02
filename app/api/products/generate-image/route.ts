@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
         metadata: { productName: product.name }
       });
     } catch (costErr) {
-      logger.warn('⚠️ Failed to log image cost:', costErr);
+      logger.warn('⚠️ Failed to log image cost:', costErr as Record<string, any>);
     }
     
     // Update product in database

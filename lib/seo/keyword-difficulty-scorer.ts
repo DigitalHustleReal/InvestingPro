@@ -57,8 +57,9 @@ export async function scoreKeywordDifficulty(
             try {
                 // Lazy load serpAnalyzer to avoid API key requirement at module load
                 const { serpAnalyzer } = await import('@/lib/research/serp-analyzer');
-                const serpResults = await serpAnalyzer.getTopResults(keyword);
-                competitors = serpResults.map(analyzeCompetitorStrength);
+                const serpBrief = await serpAnalyzer(keyword);
+                const serpResults = serpBrief.top_results || [];
+                competitors = serpResults.map((r: any) => analyzeCompetitorStrength({ url: r.link, title: r.title }));
                 confidence = 0.9; // High confidence with real data
             } catch (error) {
                 logger.warn('SERP API unavailable, using heuristic', { keyword });

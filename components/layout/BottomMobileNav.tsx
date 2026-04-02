@@ -63,7 +63,7 @@ export default function BottomMobileNav() {
         // Safe area for notched phones
         "pb-safe",
         // Light mode surface
-        "bg-white/95 backdrop-blur-xl border-t border-slate-200",
+        "bg-white/95 backdrop-blur-xl border-t border-gray-200",
         // Dark mode surface
         "dark:bg-[#0A1F14]/95 dark:border-green-900/40"
       )}
@@ -84,7 +84,7 @@ export default function BottomMobileNav() {
                 "min-w-0 rounded-xl py-1",
                 active
                   ? "text-primary dark:text-green-400"
-                  : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               )}
               aria-current={active ? 'page' : undefined}
             >

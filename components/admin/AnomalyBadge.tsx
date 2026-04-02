@@ -84,7 +84,7 @@ const ANOMALY_LABELS: Record<AnomalyType, string> = {
 
 // Severity colors
 const SEVERITY_COLORS: Record<AnomalySeverity, string> = {
-    low: 'bg-wt-surface-hover text-wt-text-dim border-slate-500/30',
+    low: 'bg-wt-surface-hover text-wt-text-dim border-gray-500/30',
     medium: 'bg-warning-500/20 text-warning-400 border-warning-500/30',
     high: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
     critical: 'bg-wt-danger/20 text-wt-danger border-danger-500/30',

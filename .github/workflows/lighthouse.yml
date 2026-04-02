@@ -2,9 +2,9 @@ name: Lighthouse CI
 
 on:
   push:
-    branches: [master, main]
+    branches: [main, master, main]
   pull_request:
-    branches: [master, main]
+    branches: [main, master, main]
   schedule:
     # Run weekly on Monday at 9 AM UTC
     - cron: '0 9 * * 1'
@@ -24,6 +24,10 @@ jobs:
             https://investingpro.in/credit-cards
             https://investingpro.in/mutual-funds
             https://investingpro.in/calculators/sip
+            https://investingpro.in/compare
+            https://investingpro.in/compare/parag-parikh-flexi-cap-fund-vs-mirae-asset-large-cap-fund
+            https://investingpro.in/glossary
+            https://investingpro.in/blog
           uploadArtifacts: true
           temporaryPublicStorage: true
         continue-on-error: true

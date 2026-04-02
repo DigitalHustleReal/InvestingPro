@@ -14,7 +14,7 @@ import { detectInteractiveContent, renderDetectedContent, type DetectedContent }
 import TweetableQuote from '@/components/content/TweetableQuote';
 import SharableStatCard from '@/components/content/SharableStatCard';
 import SharableComparisonCard from '@/components/content/SharableComparisonCard';
-import { ComparisonTable } from '@/components/content/ComparisonTable';
+import ComparisonTable from '@/components/content/ComparisonTable';
 
 export interface IntelligentRendererProps {
     /**

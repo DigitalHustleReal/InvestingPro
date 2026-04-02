@@ -99,7 +99,7 @@ export default function AIPersonaDashboard() {
         if (rank === 1) return 'bg-success-500/20 text-success-400 border-success-500/50';
         if (rank === 2) return 'bg-primary-500/20 text-primary-400 border-primary-500/50';
         if (rank === 3) return 'bg-accent-500/20 text-accent-400 border-accent-500/50';
-        return 'bg-slate-500/20 text-muted-foreground dark:text-muted-foreground border-slate-500/50';
+        return 'bg-gray-500/20 text-muted-foreground dark:text-muted-foreground border-gray-500/50';
     };
 
     const getRankIcon = (rank: number) => {

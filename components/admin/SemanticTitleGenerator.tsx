@@ -91,7 +91,7 @@ export default function SemanticTitleGenerator({
             case 'power-word':
                 return 'bg-accent-100 text-accent-800 dark:bg-accent-900 dark:text-accent-200';
             default:
-                return 'bg-wt-card text-slate-800 bg-wt-card text-wt-text';
+                return 'bg-wt-card text-gray-800 bg-wt-card text-wt-text';
         }
     };
 

@@ -45,7 +45,7 @@ const SEED_KEYWORDS = {
     ]
 };
 
-interface DiscoveredKeyword {
+export interface DiscoveredKeyword {
     keyword: string;
     category: 'credit-cards' | 'mutual-funds';
     difficulty: number;

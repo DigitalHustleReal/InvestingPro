@@ -21,11 +21,11 @@ export default function PillarPagesPage() {
     const pillarPages = articles.filter((a: any) => a.content_type === 'pillar');
     const categoryPages = articles.filter((a: any) => a.content_type === 'category-page');
 
-    const getStatusVariant = (status: string): 'default' | 'success' | 'warning' | 'danger' => {
+    const getStatusVariant = (status: string): 'neutral' | 'completed' | 'processing' | 'warning' | 'error' => {
         switch (status) {
-            case 'published': return 'success';
+            case 'published': return 'completed';
             case 'review': return 'warning';
-            default: return 'default';
+            default: return 'neutral';
         }
     };
 
@@ -86,7 +86,7 @@ export default function PillarPagesPage() {
                                                 <h3 className="text-lg font-semibold text-foreground dark:text-foreground">
                                                     {article.title || 'Untitled'}
                                                 </h3>
-                                                <StatusBadge variant={getStatusVariant(article.status || 'draft')}>
+                                                <StatusBadge status={getStatusVariant(article.status || 'draft')}>
                                                     {article.status || 'draft'}
                                                 </StatusBadge>
                                                 <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${

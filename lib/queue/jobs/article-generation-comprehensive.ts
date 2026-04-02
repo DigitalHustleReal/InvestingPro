@@ -85,10 +85,10 @@ export const generateComprehensiveArticleJob = inngest.createFunction(
       
       // Store completed status
       await storeJobStatus(
-        jobId, 
-        'completed', 
-        null, 
-        'article-generation', 
+        jobId,
+        'completed',
+        undefined,
+        'article-generation',
         articleResponse
       );
       
@@ -101,11 +101,11 @@ export const generateComprehensiveArticleJob = inngest.createFunction(
       
       // Store failed status
       await storeJobStatus(
-        jobId, 
-        'failed', 
-        null, 
-        'article-generation', 
-        null, 
+        jobId,
+        'failed',
+        undefined,
+        'article-generation',
+        undefined,
         errorMessage
       );
       

@@ -68,14 +68,14 @@ export default function RelatedCalculators({ category, className }: RelatedCalcu
   const calculators = CALCULATOR_MAP[category] || CALCULATOR_MAP.credit_card;
 
   return (
-    <div className={cn("bg-gradient-to-br from-primary-50 to-white dark:from-primary-950/20 dark:to-slate-900 border border-primary-200 dark:border-primary-800/30 rounded-2xl p-6", className)}>
+    <div className={cn("bg-gradient-to-br from-primary-50 to-white dark:from-primary-950/20 dark:to-gray-900 border border-primary-200 dark:border-primary-800/30 rounded-2xl p-6", className)}>
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         <Calculator className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-        <h3 className="font-bold text-slate-900 dark:text-white">Related Calculators</h3>
+        <h3 className="font-bold text-gray-900 dark:text-white">Related Calculators</h3>
       </div>
 
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
         Make informed decisions with our financial calculators
       </p>
 
@@ -83,14 +83,14 @@ export default function RelatedCalculators({ category, className }: RelatedCalcu
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {calculators.map((calc) => (
           <Link key={calc.id} href={calc.href}>
-            <div className="group bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-4 hover:border-primary-500 dark:hover:border-primary-600 hover:shadow-lg transition-all cursor-pointer">
+            <div className="group bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-primary-500 dark:hover:border-primary-600 hover:shadow-lg transition-all cursor-pointer">
               <div className="flex items-start justify-between mb-2">
-                <h4 className="font-semibold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                   {calc.name}
                 </h4>
-                <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-primary-600 dark:group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="w-4 h-4 text-gray-600 group-hover:text-primary-600 dark:group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400">
+              <p className="text-xs text-gray-600 dark:text-gray-400">
                 {calc.description}
               </p>
             </div>
@@ -99,7 +99,7 @@ export default function RelatedCalculators({ category, className }: RelatedCalcu
       </div>
 
       {/* View All Link */}
-      <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
         <Link href="/calculators">
           <Button variant="ghost" className="w-full text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950/30">
             View All Calculators

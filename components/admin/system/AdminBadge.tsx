@@ -12,7 +12,7 @@ const STATUS_CLASSES = {
   warning: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
   error: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
   info: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-  neutral: 'bg-slate-500/10 text-slate-300 border-slate-500/20',
+  neutral: 'bg-gray-500/10 text-gray-300 border-gray-500/20',
 };
 
 export const AdminBadge: React.FC<AdminBadgeProps> = ({ status, children, className }) => {

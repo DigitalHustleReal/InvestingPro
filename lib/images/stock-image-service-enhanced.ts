@@ -115,7 +115,7 @@ async function getCachedResults(query: string): Promise<ImageResult[] | null> {
         if (error || !data) return null;
 
         logger.info(`✅ Image cache HIT for "${query}"`);
-        return data.results as ImageResult[];
+        return (data as any).results as ImageResult[];
     } catch (error) {
         return null;
     }
@@ -130,7 +130,7 @@ async function cacheResults(query: string, results: ImageResult[]): Promise<void
             query: cacheKey,
             results: results,
             cached_at: new Date().toISOString()
-        }, { onConflict: 'query' });
+        } as any, { onConflict: 'query' });
 
         logger.info(`💾 Cached image results for "${query}"`);
     } catch (error) {

@@ -2,7 +2,7 @@
  * Event System Test Utilities
  * Utilities for testing event flow and persistence
  */
-import { eventPublisher, EventType } from './index';
+import { eventPublisher, EventType, type ArticleCreatedEvent } from './index';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 
@@ -15,7 +15,7 @@ export async function testEventPublishing(): Promise<{
     error?: string;
 }> {
     try {
-        const testEvent = await eventPublisher.publish({
+        const testEvent = await eventPublisher.publish<ArticleCreatedEvent>({
             type: EventType.ARTICLE_CREATED,
             source: 'TestUtility',
             payload: {

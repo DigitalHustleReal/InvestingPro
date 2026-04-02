@@ -97,7 +97,7 @@ export default function BookmarkButton({
                     "rounded-xl flex items-center justify-center transition-all",
                     isBookmarked 
                         ? "bg-primary-500/10 text-primary-500 hover:bg-primary-500/20" 
-                        : "bg-slate-100 dark:bg-white/5 text-slate-600 hover:text-primary-500 hover:bg-slate-200 dark:hover:bg-white/10",
+                        : "bg-gray-100 dark:bg-white/5 text-gray-600 hover:text-primary-500 hover:bg-gray-200 dark:hover:bg-white/10",
                     sizeStyles[size],
                     className
                 )}
@@ -147,7 +147,7 @@ export default function BookmarkButton({
                 "inline-flex items-center gap-1.5 text-sm font-medium transition-colors",
                 isBookmarked 
                     ? "text-primary-600 dark:text-primary-400" 
-                    : "text-slate-500 hover:text-primary-600 dark:hover:text-primary-400",
+                    : "text-gray-500 hover:text-primary-600 dark:hover:text-primary-400",
                 className
             )}
         >

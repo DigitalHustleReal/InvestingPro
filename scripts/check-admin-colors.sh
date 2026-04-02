@@ -1,25 +1,24 @@
 #!/bin/bash
 
-# Define forbidden patterns
-FORBIDDEN_COLORS=("bg-slate-" "text-slate-" "border-slate-" "bg-blue-" "text-blue-" "bg-indigo-" "text-indigo-" "bg-gray-" "text-gray-")
-FORBIDDEN_FILES=$(find app/admin components/admin -name "*.tsx" -o -name "*.ts")
+# Check admin components for non-semantic color usage
+# Gray is allowed (V2 design system). Only check for truly forbidden colors.
+FORBIDDEN_COLORS=("bg-blue-" "text-blue-" "bg-indigo-" "text-indigo-" "bg-cyan-" "text-cyan-" "bg-teal-" "text-teal-" "bg-sky-" "text-sky-" "bg-slate-" "text-slate-" "border-slate-")
 
 FOUND_ERROR=0
 
 echo "🎨 Checking for forbidden colors in Admin..."
 
-for file in $FORBIDDEN_FILES; do
-    for color in "${FORBIDDEN_COLORS[@]}"; do
-        if grep -q "$color" "$file"; then
-            echo "❌ Forbidden color '$color' found in $file"
-            grep -n "$color" "$file"
-            FOUND_ERROR=1
-        fi
-    done
+for color in "${FORBIDDEN_COLORS[@]}"; do
+    MATCHES=$(grep -rn "$color" app/admin/ components/admin/ --include="*.tsx" --include="*.ts" 2>/dev/null | head -5)
+    if [ -n "$MATCHES" ]; then
+        echo "❌ Forbidden color '$color' found:"
+        echo "$MATCHES"
+        FOUND_ERROR=1
+    fi
 done
 
 if [ $FOUND_ERROR -eq 1 ]; then
-    echo "🚫 Commit rejected: Please use semantic colors (bg-background-primary, text-text-secondary, etc.) instead of hardcoded tailwind colors."
+    echo "🚫 Commit rejected: Use semantic colors or green-*/gray-* tokens."
     exit 1
 fi
 

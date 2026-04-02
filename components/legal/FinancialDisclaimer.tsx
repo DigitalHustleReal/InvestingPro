@@ -16,7 +16,7 @@ export default function FinancialDisclaimer({
 }: FinancialDisclaimerProps) {
   if (variant === 'inline') {
     return (
-      <p className={`text-xs text-slate-500 dark:text-slate-600 ${className}`}>
+      <p className={`text-xs text-gray-500 dark:text-gray-600 ${className}`}>
         Not financial advice. See{' '}
         <Link href="/disclaimer" className="underline hover:text-primary-600 transition-colors">
           disclaimer
@@ -67,17 +67,17 @@ export default function FinancialDisclaimer({
 
   // Full variant
   return (
-    <div className={`bg-slate-100 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 ${className}`}>
+    <div className={`bg-gray-100 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 ${className}`}>
       <div className="flex items-start gap-3 mb-4">
         {showIcon && <AlertTriangle className="w-6 h-6 text-amber-600 dark:text-amber-400 flex-shrink-0" />}
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
           Important Financial Disclaimer
         </h3>
       </div>
       
-      <div className="space-y-3 text-sm text-slate-700 dark:text-slate-300">
+      <div className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
         <div>
-          <p className="font-semibold text-slate-900 dark:text-white mb-1">
+          <p className="font-semibold text-gray-900 dark:text-white mb-1">
             📋 Not Financial Advice
           </p>
           <p>
@@ -87,7 +87,7 @@ export default function FinancialDisclaimer({
         </div>
 
         <div>
-          <p className="font-semibold text-slate-900 dark:text-white mb-1">
+          <p className="font-semibold text-gray-900 dark:text-white mb-1">
             👤 No Personalized Advice
           </p>
           <p>
@@ -97,7 +97,7 @@ export default function FinancialDisclaimer({
         </div>
 
         <div>
-          <p className="font-semibold text-slate-900 dark:text-white mb-1">
+          <p className="font-semibold text-gray-900 dark:text-white mb-1">
             🎓 Consult Professionals
           </p>
           <p>
@@ -107,7 +107,7 @@ export default function FinancialDisclaimer({
         </div>
 
         <div>
-          <p className="font-semibold text-slate-900 dark:text-white mb-1">
+          <p className="font-semibold text-gray-900 dark:text-white mb-1">
             ⚠️ Investment Risks
           </p>
           <p>
@@ -117,7 +117,7 @@ export default function FinancialDisclaimer({
         </div>
 
         <div>
-          <p className="font-semibold text-slate-900 dark:text-white mb-1">
+          <p className="font-semibold text-gray-900 dark:text-white mb-1">
             🤝 Affiliate Relationships
           </p>
           <p>
@@ -131,7 +131,7 @@ export default function FinancialDisclaimer({
         </div>
 
         <div>
-          <p className="font-semibold text-slate-900 dark:text-white mb-1">
+          <p className="font-semibold text-gray-900 dark:text-white mb-1">
             🏛️ SEBI Compliance
           </p>
           <p>
@@ -141,7 +141,7 @@ export default function FinancialDisclaimer({
         </div>
 
         <div>
-          <p className="font-semibold text-slate-900 dark:text-white mb-1">
+          <p className="font-semibold text-gray-900 dark:text-white mb-1">
             📊 Data Accuracy
           </p>
           <p>
@@ -150,7 +150,7 @@ export default function FinancialDisclaimer({
           </p>
         </div>
 
-        <div className="pt-3 border-t border-slate-300 dark:border-slate-600">
+        <div className="pt-3 border-t border-gray-300 dark:border-gray-600">
           <Link 
             href="/disclaimer" 
             className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline font-medium transition-colors"

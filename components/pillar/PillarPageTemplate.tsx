@@ -53,15 +53,15 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 <ContextualProducts categorySlug={category.slug} />
 
                 {/* What It Is Section */}
-                <section className="py-16 bg-slate-50">
+                <section className="py-16 bg-gray-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                                 <CheckCircle2 className="w-8 h-8 text-primary-600" />
                                 What Are {category.name}?
                             </h2>
                             <div className="prose prose-lg max-w-none">
-                                <p className="text-slate-700 leading-relaxed text-lg">
+                                <p className="text-gray-700 leading-relaxed text-lg">
                                     {whatItIs}
                                 </p>
                             </div>
@@ -73,13 +73,13 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 <section className="py-16">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                                 <Users className="w-8 h-8 text-primary-600" />
                                 Who Are {category.name} For?
                             </h2>
                             <Card className="border-0 shadow-lg bg-primary-50">
                                 <CardContent className="p-8">
-                                    <p className="text-slate-700 leading-relaxed text-lg">
+                                    <p className="text-gray-700 leading-relaxed text-lg">
                                         {whoItIsFor}
                                     </p>
                                 </CardContent>
@@ -89,10 +89,10 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 </section>
 
                 {/* Product Comparison Summary */}
-                <section className="py-16 bg-slate-50">
+                <section className="py-16 bg-gray-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
                                 <BarChart3 className="w-8 h-8 text-primary-600" />
                                 Product Comparison
                             </h2>
@@ -112,10 +112,10 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                                         >
                                             <Card className="border-0 shadow-lg hover:shadow-xl transition-all h-full">
                                                 <CardContent className="p-6">
-                                                    <h3 className="text-xl font-bold text-slate-900 mb-2">
+                                                    <h3 className="text-xl font-bold text-gray-900 mb-2">
                                                         {product.name}
                                                     </h3>
-                                                    <p className="text-sm text-slate-600 mb-4">
+                                                    <p className="text-sm text-gray-600 mb-4">
                                                         {product.provider || 'Provider'}
                                                     </p>
                                                     <div className="flex items-center gap-2 text-primary-600 font-medium text-sm">
@@ -130,12 +130,12 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
 
                                 <Card className="border-0 shadow-lg bg-white">
                                     <CardContent className="p-6">
-                                        <h3 className="text-lg font-bold text-slate-900 mb-4">Key Comparison Points</h3>
+                                        <h3 className="text-lg font-bold text-gray-900 mb-4">Key Comparison Points</h3>
                                         <div className="grid md:grid-cols-2 gap-3">
                                             {productComparison.comparisonPoints.map((point, idx) => (
                                                 <div key={idx} className="flex items-center gap-2">
                                                     <CheckCircle2 className="w-5 h-5 text-primary-600 shrink-0" />
-                                                    <span className="text-slate-700">{point}</span>
+                                                    <span className="text-gray-700">{point}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -155,7 +155,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 {relatedCalculators.length > 0 && (
                     <section className="py-16">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
                                 <Calculator className="w-8 h-8 text-primary-600" />
                                 Related Calculators
                             </h2>
@@ -172,11 +172,11 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                                                     <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
                                                         <Calculator className="w-6 h-6 text-primary-600" />
                                                     </div>
-                                                    <h3 className="text-lg font-bold text-slate-900">
+                                                    <h3 className="text-lg font-bold text-gray-900">
                                                         {calc.name}
                                                     </h3>
                                                 </div>
-                                                <p className="text-slate-600 text-sm">{calc.description}</p>
+                                                <p className="text-gray-600 text-sm">{calc.description}</p>
                                             </CardContent>
                                         </Card>
                                     </Link>
@@ -188,9 +188,9 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
 
                 {/* Latest Guides */}
                 {latestGuides.length > 0 && (
-                    <section className="py-16 bg-slate-50">
+                    <section className="py-16 bg-gray-50">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
                                 <FileText className="w-8 h-8 text-primary-600" />
                                 Latest Guides
                             </h2>
@@ -203,16 +203,16 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                                     >
                                         <Card className="border-0 shadow-lg hover:shadow-xl transition-all h-full">
                                             <CardContent className="p-6">
-                                                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                                                <h3 className="text-lg font-bold text-gray-900 mb-2">
                                                     {guide.title}
                                                 </h3>
                                                 {guide.excerpt && (
-                                                    <p className="text-slate-600 text-sm mb-3 line-clamp-2">
+                                                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
                                                         {guide.excerpt}
                                                     </p>
                                                 )}
                                                 {guide.published_date && (
-                                                    <p className="text-xs text-slate-600">
+                                                    <p className="text-xs text-gray-600">
                                                         {new Date(guide.published_date).toLocaleDateString()}
                                                     </p>
                                                 )}
@@ -229,7 +229,7 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                 {glossaryHighlights.length > 0 && (
                     <section className="py-16">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
                                 <BookOpen className="w-8 h-8 text-primary-600" />
                                 Key Terms to Know
                             </h2>
@@ -242,10 +242,10 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                                     >
                                         <Card className="border-0 shadow-lg hover:shadow-xl transition-all h-full">
                                             <CardContent className="p-6">
-                                                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                                                <h3 className="text-lg font-bold text-gray-900 mb-2">
                                                     {term.term}
                                                 </h3>
-                                                <p className="text-slate-600 text-sm line-clamp-2">
+                                                <p className="text-gray-600 text-sm line-clamp-2">
                                                     {term.definition}
                                                 </p>
                                             </CardContent>
@@ -259,9 +259,9 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
 
                 {/* Subcategories */}
                 {category.subcategories.length > 0 && (
-                    <section className="py-16 bg-slate-50 border-t border-slate-200">
+                    <section className="py-16 bg-gray-50 border-t border-gray-200">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-8">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-8">
                                 Explore {category.name} Types
                             </h2>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -273,10 +273,10 @@ export default function PillarPageTemplate({ data }: PillarPageTemplateProps) {
                                     >
                                         <Card className="border-0 shadow-lg hover:shadow-xl transition-all h-full">
                                             <CardContent className="p-6">
-                                                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                                                <h3 className="text-lg font-bold text-gray-900 mb-2">
                                                     {subcat.name}
                                                 </h3>
-                                                <p className="text-slate-600 text-sm mb-4">
+                                                <p className="text-gray-600 text-sm mb-4">
                                                     {subcat.description}
                                                 </p>
                                                 <div className="flex items-center gap-2 text-primary-600 font-medium text-sm">

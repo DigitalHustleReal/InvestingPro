@@ -13,11 +13,11 @@ export function StatCardSkeleton() {
     return (
         <Card className="animate-pulse">
             <CardHeader>
-                <div className="h-4 bg-slate-700 rounded w-24 mb-2" />
+                <div className="h-4 bg-gray-700 rounded w-24 mb-2" />
             </CardHeader>
             <CardContent>
-                <div className="h-8 bg-slate-700 rounded w-32 mb-2" />
-                <div className="h-3 bg-slate-700 rounded w-20" />
+                <div className="h-8 bg-gray-700 rounded w-32 mb-2" />
+                <div className="h-3 bg-gray-700 rounded w-20" />
             </CardContent>
         </Card>
     );

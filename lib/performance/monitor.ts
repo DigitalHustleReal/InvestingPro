@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 /**
  * Performance Monitoring
  * 
@@ -32,7 +33,7 @@ export function monitorWebVitals(onPerfEntry?: (metric: PerformanceMetric) => vo
                 });
             }
         });
-    } catch (e) {
+    } catch (e: any) {
         // Ignore errors
     }
 
@@ -49,7 +50,7 @@ export function monitorWebVitals(onPerfEntry?: (metric: PerformanceMetric) => vo
             });
         });
         observer.observe({ entryTypes: ['largest-contentful-paint'] });
-    } catch (e) {
+    } catch (e: any) {
         // Ignore errors
     }
 
@@ -70,7 +71,7 @@ export function monitorWebVitals(onPerfEntry?: (metric: PerformanceMetric) => vo
             });
         });
         observer.observe({ entryTypes: ['layout-shift'] });
-    } catch (e) {
+    } catch (e: any) {
         // Ignore errors
     }
 
@@ -93,7 +94,7 @@ export function monitorWebVitals(onPerfEntry?: (metric: PerformanceMetric) => vo
             }
         });
         observer.observe({ entryTypes: ['longtask'] });
-    } catch (e) {
+    } catch (e: any) {
         // Ignore errors
     }
 }
@@ -147,7 +148,7 @@ export async function reportPerformanceMetrics(metrics: PerformanceMetric[]) {
             },
             body: JSON.stringify({ metrics }),
         });
-    } catch (error) {
+    } catch (error: any) {
         // Ignore errors in reporting
         logger.warn('Failed to report performance metrics', error);
     }

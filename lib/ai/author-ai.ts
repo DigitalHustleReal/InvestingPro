@@ -33,7 +33,7 @@ export class AuthorAI {
 
 **Indian Market Focus:**
 - Reference actual Indian banks (HDFC, SBI, ICICI, Axis, Kotak)
-- Use current Indian tax slabs and regulations (FY 2025-26)
+- Use current Indian tax slabs and regulations (FY 2026-27)
 - Cite RBI/SEBI/IRDAI guidelines when relevant
 - Use Indian cultural context (festivals, life stages, family situations)
 

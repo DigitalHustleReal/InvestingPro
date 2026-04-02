@@ -1,4 +1,7 @@
-import { FAQItem } from '@/components/common/FAQAccordion';
+interface FAQItem {
+  question: string;
+  answer: string;
+}
 
 // Credit Cards FAQs
 export const CREDIT_CARD_FAQS: FAQItem[] = [

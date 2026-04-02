@@ -76,7 +76,7 @@ export default function GrowthDashboard() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Growth Dashboard</h1>
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground dark:text-foreground">Growth Dashboard</h1>
                         <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Track acquisition, retention, and revenue metrics
                         </p>
@@ -185,7 +185,7 @@ export default function GrowthDashboard() {
                                                     idx === 0 ? "bg-primary-600" :
                                                     idx === 1 ? "bg-secondary-600" :
                                                     idx === 2 ? "bg-success-600" :
-                                                    "bg-slate-400"
+                                                    "bg-gray-400"
                                                 )} />
                                                 <span className="font-medium capitalize">{source.source}</span>
                                             </div>
@@ -193,14 +193,14 @@ export default function GrowthDashboard() {
                                                 <span className="text-sm text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground">
                                                     {source.count.toLocaleString()} ({source.percentage.toFixed(1)}%)
                                                 </span>
-                                                <div className="w-32 bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                                <div className="w-32 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                                     <div
                                                         className={cn(
                                                             "h-2 rounded-full",
                                                             idx === 0 ? "bg-primary-600" :
                                                             idx === 1 ? "bg-secondary-600" :
                                                             idx === 2 ? "bg-success-600" :
-                                                            "bg-slate-400"
+                                                            "bg-gray-400"
                                                         )}
                                                         style={{ width: `${source.percentage}%` }}
                                                     />
@@ -230,7 +230,7 @@ export default function GrowthDashboard() {
                                                 </span>
                                                 <div className="flex items-center gap-4">
                                                     <span className="font-medium">{day.visitors.toLocaleString()}</span>
-                                                    <div className="w-24 bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                                    <div className="w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                                         <div
                                                             className="bg-primary-600 h-2 rounded-full"
                                                             style={{ 
@@ -261,7 +261,7 @@ export default function GrowthDashboard() {
                                                 </span>
                                                 <div className="flex items-center gap-4">
                                                     <span className="font-medium">₹{day.revenue.toLocaleString()}</span>
-                                                    <div className="w-24 bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                                    <div className="w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                                         <div
                                                             className="bg-success-600 h-2 rounded-full"
                                                             style={{ 

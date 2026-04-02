@@ -13,8 +13,8 @@ interface ComparisonTableProps {
 export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
     if (products.length === 0) {
         return (
-            <div className="bg-slate-50 rounded-xl p-12 text-center border-2 border-dashed border-slate-300">
-                <p className="text-slate-500 text-lg">Select products to compare</p>
+            <div className="bg-gray-50 rounded-xl p-12 text-center border-2 border-dashed border-gray-300">
+                <p className="text-gray-500 text-lg">Select products to compare</p>
             </div>
         );
     }
@@ -56,18 +56,18 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
     const rows = getComparisonRows();
 
     return (
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
             {/* Header Row */}
-            <div className="grid grid-cols-1 md:grid-cols-4 bg-slate-50 border-b border-slate-200">
-                <div className="p-6 font-bold text-slate-900 border-r border-slate-200">
+            <div className="grid grid-cols-1 md:grid-cols-4 bg-gray-50 border-b border-gray-200">
+                <div className="p-6 font-bold text-gray-900 border-r border-gray-200">
                     Compare Features
                 </div>
                 {products.map((product) => (
-                    <div key={product.id} className="p-6 relative border-r border-slate-200 last:border-r-0">
+                    <div key={product.id} className="p-6 relative border-r border-gray-200 last:border-r-0">
                         {onRemove && (
                             <button
                                 onClick={() => onRemove(product.id)}
-                                className="absolute top-2 right-2 p-1 rounded-full bg-slate-200 hover:bg-danger-100 text-slate-600 hover:text-danger-600 transition-colors"
+                                className="absolute top-2 right-2 p-1 rounded-full bg-gray-200 hover:bg-danger-100 text-gray-600 hover:text-danger-600 transition-colors"
                             >
                                 <X className="w-4 h-4" />
                             </button>
@@ -82,8 +82,8 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                                 </span>
                             )}
                         </div>
-                        <h3 className="font-bold text-slate-900 mb-1">{product.name}</h3>
-                        <p className="text-xs text-slate-500">{product.provider}</p>
+                        <h3 className="font-bold text-gray-900 mb-1">{product.name}</h3>
+                        <p className="text-xs text-gray-500">{product.provider}</p>
                     </div>
                 ))}
             </div>
@@ -92,10 +92,10 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
             {rows.map((row, idx) => (
                 <div
                     key={row.label}
-                    className={`grid grid-cols-1 md:grid-cols-4 border-b border-slate-100 last:border-b-0 ${row.highlight ? 'bg-success-50/30' : idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'
+                    className={`grid grid-cols-1 md:grid-cols-4 border-b border-gray-100 last:border-b-0 ${row.highlight ? 'bg-success-50/30' : idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'
                         }`}
                 >
-                    <div className="p-4 font-semibold text-slate-700 text-sm border-r border-slate-200 flex items-center">
+                    <div className="p-4 font-semibold text-gray-700 text-sm border-r border-gray-200 flex items-center">
                         {row.label}
                     </div>
                     {products.map((product) => {
@@ -104,13 +104,13 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                             : (product as any)[row.key];
 
                         return (
-                            <div key={product.id} className="p-4 text-sm text-slate-900 border-r border-slate-200 last:border-r-0 flex items-center">
+                            <div key={product.id} className="p-4 text-sm text-gray-900 border-r border-gray-200 last:border-r-0 flex items-center">
                                 {value !== undefined && value !== null ? (
                                     <span className={row.highlight ? 'font-bold text-success-600 text-base' : ''}>
                                         {value}
                                     </span>
                                 ) : (
-                                    <span className="text-slate-600 italic">Not specified</span>
+                                    <span className="text-gray-600 italic">Not specified</span>
                                 )}
                             </div>
                         );
@@ -121,12 +121,12 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
             {/* Pros/Cons Section (for Credit Cards) */}
             {productType === 'credit_card' && (
                 <>
-                    <div className="grid grid-cols-1 md:grid-cols-4 border-b border-slate-200 bg-success-50/30">
-                        <div className="p-4 font-semibold text-slate-700 text-sm border-r border-slate-200">
+                    <div className="grid grid-cols-1 md:grid-cols-4 border-b border-gray-200 bg-success-50/30">
+                        <div className="p-4 font-semibold text-gray-700 text-sm border-r border-gray-200">
                             ✅ Pros
                         </div>
                         {products.map((product) => (
-                            <div key={product.id} className="p-4 text-xs text-slate-700 border-r border-slate-200 last:border-r-0">
+                            <div key={product.id} className="p-4 text-xs text-gray-700 border-r border-gray-200 last:border-r-0">
                                 <ul className="space-y-1">
                                     {(product as CreditCard).pros?.slice(0, 3).map((pro, i) => (
                                         <li key={i} className="flex items-start gap-1">
@@ -139,11 +139,11 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
                         ))}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 bg-danger-50/30">
-                        <div className="p-4 font-semibold text-slate-700 text-sm border-r border-slate-200">
+                        <div className="p-4 font-semibold text-gray-700 text-sm border-r border-gray-200">
                             ⚠️ Cons
                         </div>
                         {products.map((product) => (
-                            <div key={product.id} className="p-4 text-xs text-slate-700 border-r border-slate-200 last:border-r-0">
+                            <div key={product.id} className="p-4 text-xs text-gray-700 border-r border-gray-200 last:border-r-0">
                                 <ul className="space-y-1">
                                     {(product as CreditCard).cons?.slice(0, 2).map((con, i) => (
                                         <li key={i} className="flex items-start gap-1">
@@ -159,10 +159,10 @@ export function ComparisonTable({ products, onRemove }: ComparisonTableProps) {
             )}
 
             {/* Action Row */}
-            <div className="grid grid-cols-1 md:grid-cols-4 bg-slate-50">
-                <div className="p-4 border-r border-slate-200"></div>
+            <div className="grid grid-cols-1 md:grid-cols-4 bg-gray-50">
+                <div className="p-4 border-r border-gray-200"></div>
                 {products.map((product) => (
-                    <div key={product.id} className="p-4 border-r border-slate-200 last:border-r-0">
+                    <div key={product.id} className="p-4 border-r border-gray-200 last:border-r-0">
                         <Button className="w-full bg-secondary-600 hover:bg-secondary-700 text-white font-semibold">
                             Apply Now
                         </Button>

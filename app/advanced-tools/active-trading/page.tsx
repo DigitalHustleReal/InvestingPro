@@ -32,20 +32,20 @@ export default function ActiveTradingPage() {
             <Zap className="w-4 h-4" />
             Advanced Tools
           </div>
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Tools for Active Traders
           </h1>
-          <p className="text-xl text-slate-600 leading-relaxed">
+          <p className="text-xl text-gray-600 leading-relaxed">
             You've mastered the fundamentals. Now you need <strong>speed, precision, and real-time action</strong>.
           </p>
         </div>
 
         {/* The Transition */}
-        <div className="bg-slate-50 rounded-2xl p-8 mb-12 border border-slate-200">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-4">
+        <div className="bg-gray-50 rounded-2xl p-8 mb-12 border border-gray-200">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
             From Education to Execution
           </h2>
-          <p className="text-slate-700 leading-relaxed mb-6">
+          <p className="text-gray-700 leading-relaxed mb-6">
             Educational platforms teach you <em>what</em> to invest in and <em>why</em>. 
             But when you're ready to act in real-time—monitoring live prices, executing trades 
             within seconds, analyzing intraday patterns—you need execution-focused tools.
@@ -55,57 +55,57 @@ export default function ActiveTradingPage() {
               <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-3">
                 <TrendingUp className="w-6 h-6 text-primary-600" />
               </div>
-              <h3 className="font-semibold text-slate-900 mb-1">Education</h3>
-              <p className="text-sm text-slate-600">Learn strategies</p>
+              <h3 className="font-semibold text-gray-900 mb-1">Education</h3>
+              <p className="text-sm text-gray-600">Learn strategies</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-secondary-100 flex items-center justify-center mx-auto mb-3">
                 <BarChart3 className="w-6 h-6 text-primary-600" />
               </div>
-              <h3 className="font-semibold text-slate-900 mb-1">Comparison</h3>
-              <p className="text-sm text-slate-600">Choose brokers</p>
+              <h3 className="font-semibold text-gray-900 mb-1">Comparison</h3>
+              <p className="text-sm text-gray-600">Choose brokers</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-3">
                 <Zap className="w-6 h-6 text-primary-600" />
               </div>
-              <h3 className="font-semibold text-slate-900 mb-1">Execution</h3>
-              <p className="text-sm text-slate-600">Trade in real-time</p>
+              <h3 className="font-semibold text-gray-900 mb-1">Execution</h3>
+              <p className="text-sm text-gray-600">Trade in real-time</p>
             </div>
           </div>
         </div>
 
         {/* What SwingTrader Offers */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-4">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
             What Execution Platforms Provide
           </h2>
           <div className="space-y-4">
-            <div className="flex gap-4 p-6 bg-white rounded-xl border border-slate-200">
+            <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-200">
               <Clock className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-semibold text-slate-900 mb-2">Real-Time Market Data</h3>
-                <p className="text-slate-600 text-sm">
+                <h3 className="font-semibold text-gray-900 mb-2">Real-Time Market Data</h3>
+                <p className="text-gray-600 text-sm">
                   Live prices, order book depth, bid-ask spreads updated in milliseconds. 
                   Not historical analysis—actual market conditions as they happen.
                 </p>
               </div>
             </div>
-            <div className="flex gap-4 p-6 bg-white rounded-xl border border-slate-200">
+            <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-200">
               <Zap className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-semibold text-slate-900 mb-2">Instant Execution</h3>
-                <p className="text-slate-600 text-sm">
+                <h3 className="font-semibold text-gray-900 mb-2">Instant Execution</h3>
+                <p className="text-gray-600 text-sm">
                   One-click trading, bracket orders, stop-loss triggers. When market conditions 
                   change, you need to act immediately, not navigate through educational content.
                 </p>
               </div>
             </div>
-            <div className="flex gap-4 p-6 bg-white rounded-xl border border-slate-200">
+            <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-200">
               <BarChart3 className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-semibold text-slate-900 mb-2">Advanced Charting</h3>
-                <p className="text-slate-600 text-sm">
+                <h3 className="font-semibold text-gray-900 mb-2">Advanced Charting</h3>
+                <p className="text-gray-600 text-sm">
                   Technical indicators, pattern recognition, multi-timeframe analysis. 
                   Tools built for traders who already understand the fundamentals.
                 </p>
@@ -116,13 +116,13 @@ export default function ActiveTradingPage() {
 
         {/* When to Use */}
         <div className="bg-accent-50 rounded-2xl p-8 mb-12 border border-accent-200">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-4">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
             Are You Ready for Active Trading?
           </h2>
-          <p className="text-slate-700 mb-4">
+          <p className="text-gray-700 mb-4">
             Active trading platforms are for users who:
           </p>
-          <ul className="space-y-3 text-slate-700">
+          <ul className="space-y-3 text-gray-700">
             <li className="flex items-start gap-3">
               <span className="text-accent-600 font-bold">→</span>
               <span>Already understand investment fundamentals</span>
@@ -145,7 +145,7 @@ export default function ActiveTradingPage() {
             </li>
           </ul>
           <div className="mt-6 p-4 bg-white rounded-lg border border-accent-200">
-            <p className="text-sm text-slate-700">
+            <p className="text-sm text-gray-700">
               <strong>Not sure?</strong> If you're still learning about mutual funds, 
               stocks, or investment strategies, stay on <Link href="/" className="text-primary-600 hover:underline">InvestingPro.in</Link> 
               {' '}to build your foundation first.
@@ -154,9 +154,9 @@ export default function ActiveTradingPage() {
         </div>
 
         {/* CTA - Professional, not promotional */}
-        <div className="text-center bg-slate-50 rounded-2xl p-12 border border-slate-200">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-4">Next Step: Execution Platform</h2>
-          <p className="text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        <div className="text-center bg-gray-50 rounded-2xl p-12 border border-gray-200">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Next Step: Execution Platform</h2>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
             For real-time market data, advanced charting, and execution tools, 
             access our dedicated trading research platform.
           </p>
@@ -164,7 +164,7 @@ export default function ActiveTradingPage() {
             href="https://swingtrader.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 font-medium transition-colors"
+            className="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900 font-medium transition-colors"
           >
             <span>Access Trading Platform</span>
             <ArrowRight className="w-4 h-4" />
@@ -175,7 +175,7 @@ export default function ActiveTradingPage() {
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
+            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
           >
             ← Back to InvestingPro.in
           </Link>

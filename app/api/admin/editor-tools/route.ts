@@ -30,11 +30,14 @@ export async function POST(req: NextRequest) {
             const { imageService } = await import('@/lib/images/stock-image-service-enhanced');
             const imageResult = await imageService.getFeaturedImage(keyword);
             
-            return NextResponse.json({ 
-                success: true, 
-                url: imageResult.url, 
-                alt: imageResult.alt,
-                source: imageResult.source 
+            if (!imageResult) {
+                return NextResponse.json({ success: false, error: 'No image found' }, { status: 404 });
+            }
+            return NextResponse.json({
+                success: true,
+                url: imageResult.url,
+                alt: imageResult.alt_text,
+                source: imageResult.source
             });
         }
 

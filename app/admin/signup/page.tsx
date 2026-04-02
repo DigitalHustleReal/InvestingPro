@@ -220,7 +220,7 @@ export default function AdminSignupPage() {
           <button
             onClick={handleGoogleSignup}
             disabled={googleLoading}
-            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-muted dark:bg-muted hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-foreground dark:text-foreground font-medium rounded-xl transition-all duration-200 mb-4 disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-muted dark:bg-muted hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-foreground dark:text-foreground font-medium rounded-xl transition-all duration-200 mb-4 disabled:opacity-50"
           >
             {googleLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />

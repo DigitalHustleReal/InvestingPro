@@ -111,7 +111,7 @@ export default function LumpsumCalculatorPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
             <SEOHead
                 title="Lumpsum Calculator India 2026 - Calculate One-Time Investment Returns | InvestingPro"
                 description="Free lumpsum investment calculator with inflation adjustment. Calculate returns on one-time investments in mutual funds. Compare lumpsum vs SIP returns."
@@ -133,10 +133,10 @@ export default function LumpsumCalculatorPage() {
                 />
 
                 <div className="text-center mb-8 mt-6">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                         Lumpsum Investment Calculator
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
                         Calculate returns on one-time lumpsum investments with inflation adjustment. Plan your investment goals with accurate projections.
                     </p>
                 </div>
@@ -150,9 +150,9 @@ export default function LumpsumCalculatorPage() {
             {/* Comprehensive Content Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-12">
                 {/* What is Lumpsum Section */}
-                <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-slate-900">
+                <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-gray-900">
                     <CardHeader>
-                        <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">What is Lumpsum Investment?</CardTitle>
+                        <CardTitle className="text-3xl font-bold text-gray-900 dark:text-white">What is Lumpsum Investment?</CardTitle>
                     </CardHeader>
                     <CardContent className="prose prose-slate dark:prose-invert max-w-none">
                         <p className="text-lg leading-relaxed">
@@ -166,7 +166,7 @@ export default function LumpsumCalculatorPage() {
 
                 {/* Key Benefits Grid */}
                 <div className="grid md:grid-cols-3 gap-6">
-                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                 <TrendingUp className="w-5 h-5" />
@@ -174,12 +174,12 @@ export default function LumpsumCalculatorPage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-slate-600 dark:text-slate-300">
+                            <p className="text-gray-600 dark:text-gray-300">
                                 Your entire capital starts earning returns from the very first day. Over 10-15 years, this head start can create a massive difference in final corpus value.
                             </p>
                         </CardContent>
                     </Card>
-                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                 <Zap className="w-5 h-5" />
@@ -187,12 +187,12 @@ export default function LumpsumCalculatorPage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-slate-600 dark:text-slate-300">
+                            <p className="text-gray-600 dark:text-gray-300">
                                 It's a one-time transaction. You don't need to worry about maintaining monthly bank balances or tracking mandated deduction dates like in SIPs.
                             </p>
                         </CardContent>
                     </Card>
-                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
+                    <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-gray-800 dark:to-gray-900">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                 <CheckCircle2 className="w-5 h-5" />
@@ -200,7 +200,7 @@ export default function LumpsumCalculatorPage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-slate-600 dark:text-slate-300">
+                            <p className="text-gray-600 dark:text-gray-300">
                                 Best way to deploy annual bonuses, gifts, or maturity proceeds from other investments to ensure they don't get spent on unnecessary expenses.
                             </p>
                         </CardContent>
@@ -208,38 +208,38 @@ export default function LumpsumCalculatorPage() {
                 </div>
 
                 {/* Lumpsum vs SIP Comparison Table */}
-                <Card className="border border-slate-200 shadow-sm rounded-2xl bg-white dark:bg-slate-900">
+                <Card className="border border-gray-200 shadow-sm rounded-2xl bg-white dark:bg-gray-900">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">Lumpsum vs SIP: Which is Better?</CardTitle>
+                        <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">Lumpsum vs SIP: Which is Better?</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="overflow-x-auto">
                             <table className="w-full text-left border-collapse">
                                 <thead>
-                                    <tr className="border-b border-slate-200 dark:border-slate-800">
-                                        <th className="p-4 font-bold text-slate-900 dark:text-white w-1/3">Feature</th>
+                                    <tr className="border-b border-gray-200 dark:border-gray-800">
+                                        <th className="p-4 font-bold text-gray-900 dark:text-white w-1/3">Feature</th>
                                         <th className="p-4 font-bold text-primary-700 dark:text-primary-400 w-1/3">Lumpsum Investment</th>
                                         <th className="p-4 font-bold text-primary-700 dark:text-primary-400 w-1/3">SIP Investment</th>
                                     </tr>
                                 </thead>
-                                <tbody className="text-slate-600 dark:text-slate-300">
-                                    <tr className="border-b border-slate-100 dark:border-slate-800">
-                                        <td className="p-4 font-medium text-slate-900 dark:text-white">Market Timing</td>
+                                <tbody className="text-gray-600 dark:text-gray-300">
+                                    <tr className="border-b border-gray-100 dark:border-gray-800">
+                                        <td className="p-4 font-medium text-gray-900 dark:text-white">Market Timing</td>
                                         <td className="p-4">Crucial. Best done when markets are low.</td>
                                         <td className="p-4">Not relevant. Works in all market conditions.</td>
                                     </tr>
-                                    <tr className="border-b border-slate-100 dark:border-slate-800">
-                                        <td className="p-4 font-medium text-slate-900 dark:text-white">Risk Profile</td>
+                                    <tr className="border-b border-gray-100 dark:border-gray-800">
+                                        <td className="p-4 font-medium text-gray-900 dark:text-white">Risk Profile</td>
                                         <td className="p-4">Higher short-term risk due to market volatility.</td>
                                         <td className="p-4">Lower risk due to Rupee Cost Averaging.</td>
                                     </tr>
-                                    <tr className="border-b border-slate-100 dark:border-slate-800">
-                                        <td className="p-4 font-medium text-slate-900 dark:text-white">Ideal For</td>
+                                    <tr className="border-b border-gray-100 dark:border-gray-800">
+                                        <td className="p-4 font-medium text-gray-900 dark:text-white">Ideal For</td>
                                         <td className="p-4">Investors with large surplus cash.</td>
                                         <td className="p-4">Salaried individuals with monthly savings.</td>
                                     </tr>
                                     <tr>
-                                        <td className="p-4 font-medium text-slate-900 dark:text-white">Performance</td>
+                                        <td className="p-4 font-medium text-gray-900 dark:text-white">Performance</td>
                                         <td className="p-4">Can outperform SIP in rising markets.</td>
                                         <td className="p-4">Performs well in volatile/falling markets.</td>
                                     </tr>
@@ -252,9 +252,9 @@ export default function LumpsumCalculatorPage() {
 
             {/* FAQ Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                <Card className="border-0 shadow-lg rounded-2xl dark:bg-slate-900 dark:border dark:border-slate-800">
+                <Card className="border-0 shadow-lg rounded-2xl dark:bg-gray-900 dark:border dark:border-gray-800">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                        <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
                             <Info className="w-6 h-6 text-primary-600" />
                             Lumpsum Calculator - Frequently Asked Questions
                         </CardTitle>
@@ -262,12 +262,12 @@ export default function LumpsumCalculatorPage() {
                     <CardContent>
                         <div className="space-y-6">
                             {faqs.map((faq, idx) => (
-                                <div key={idx} className="border-b border-slate-200 dark:border-slate-800 pb-6 last:border-0">
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2 text-lg flex items-start gap-3">
+                                <div key={idx} className="border-b border-gray-200 dark:border-gray-800 pb-6 last:border-0">
+                                    <h3 className="font-bold text-gray-900 dark:text-white mb-2 text-lg flex items-start gap-3">
                                         <span className="text-primary-600 font-bold">Q{idx + 1}.</span>
                                         <span>{faq.question}</span>
                                     </h3>
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed ml-8">
+                                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed ml-8">
                                         {faq.answer}
                                     </p>
                                 </div>

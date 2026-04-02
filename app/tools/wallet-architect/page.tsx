@@ -74,13 +74,13 @@ export default function WalletArchitectPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
              <SEOHead
                 title="Wallet Architect - Credit Card Combo Optimizer | InvestingPro"
                 description="Mathematically optimize your wallet. Find the perfect credit card combination to maximize rewards based on your monthly spending."
             />
 
-            <div className="pt-24 pb-12 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+            <div className="pt-24 pb-12 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
                 <div className="container mx-auto px-4">
                      <AutoBreadcrumbs />
                      <CategoryHero
@@ -106,7 +106,7 @@ export default function WalletArchitectPage() {
                 
                 {/* Input Section */}
                 <div className="lg:col-span-5 space-y-8">
-                    <Card className="border-0 shadow-xl bg-white dark:bg-slate-900 sticky top-24">
+                    <Card className="border-0 shadow-xl bg-white dark:bg-gray-900 sticky top-24">
                         <CardHeader className="bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-t-xl p-6">
                             <CardTitle className="flex items-center gap-3 text-xl">
                                 <Wallet className="w-6 h-6" />
@@ -148,10 +148,10 @@ export default function WalletArchitectPage() {
                                 onChange={(v: number) => setProfile({...profile, fuel: v})} 
                             />
 
-                            <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
+                            <div className="pt-6 border-t border-gray-100 dark:border-gray-800">
                                 <div className="flex justify-between items-center mb-6">
-                                    <span className="text-slate-500 font-medium">Total Monthly Spend</span>
-                                    <span className="text-2xl font-bold text-slate-900 dark:text-white">₹{totalSpend.toLocaleString()}</span>
+                                    <span className="text-gray-500 font-medium">Total Monthly Spend</span>
+                                    <span className="text-2xl font-bold text-gray-900 dark:text-white">₹{totalSpend.toLocaleString()}</span>
                                 </div>
                                 <Button 
                                     size="lg" 
@@ -184,7 +184,7 @@ export default function WalletArchitectPage() {
                                 </div>
                             </div>
                             
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Recommended Power Cards</h3>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Recommended Power Cards</h3>
                             
                             <div className="space-y-6">
                                 {results.map((result, idx) => (
@@ -195,7 +195,7 @@ export default function WalletArchitectPage() {
                                             </div>
                                         )}
                                         <RichProductCard product={result.card} layout="list" />
-                                        <div className="mt-2 ml-4 flex gap-4 text-xs text-slate-500">
+                                        <div className="mt-2 ml-4 flex gap-4 text-xs text-gray-500">
                                             <span>Est. Rewards: <strong className="text-success-600">₹{result.totalRewardValue}/yr</strong></span>
                                             <span>Net Benefit: <strong className="text-primary-600">₹{result.netBenefit}/yr</strong></span>
                                         </div>
@@ -204,11 +204,11 @@ export default function WalletArchitectPage() {
                             </div>
                         </div>
                     ) : (
-                        <div className="h-full flex flex-col items-center justify-center text-center p-12 text-slate-600 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[3rem]">
-                            <div className="w-24 h-24 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center mb-6">
+                        <div className="h-full flex flex-col items-center justify-center text-center p-12 text-gray-600 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-[3rem]">
+                            <div className="w-24 h-24 bg-gray-50 dark:bg-gray-900 rounded-full flex items-center justify-center mb-6">
                                 <Wallet className="w-10 h-10 opacity-20" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Ready to Optimize?</h3>
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Ready to Optimize?</h3>
                             <p className="max-w-md mx-auto">Enter your spending details on the left, and we'll calculate the mathematically perfect card combination for you.</p>
                         </div>
                     )}
@@ -224,11 +224,11 @@ function SpendInput({ label, value, onChange, icon: Icon, max = 50000 }: any) {
     return (
         <div className="space-y-3">
             <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium">
-                    <Icon className="w-4 h-4 text-slate-600" />
+                <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                    <Icon className="w-4 h-4 text-gray-600" />
                     {label}
                 </div>
-                <div className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-bold w-24 text-right">
+                <div className="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm font-bold w-24 text-right">
                     ₹{value.toLocaleString()}
                 </div>
             </div>

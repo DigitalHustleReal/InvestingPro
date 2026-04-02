@@ -27,16 +27,16 @@ export default function ProgressiveDisclosure({
 
     if (buttonVariant === 'minimal') {
         return (
-            <div className={`border-t border-slate-200 ${className}`}>
+            <div className={`border-t border-gray-200 ${className}`}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-full py-4 flex items-center justify-between text-left hover:bg-slate-50 transition-colors px-6"
+                    className="w-full py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors px-6"
                 >
-                    <span className="font-semibold text-slate-700">{title}</span>
+                    <span className="font-semibold text-gray-700">{title}</span>
                     {isOpen ? (
-                        <ChevronUp className="w-5 h-5 text-slate-600" />
+                        <ChevronUp className="w-5 h-5 text-gray-600" />
                     ) : (
-                        <ChevronDown className="w-5 h-5 text-slate-600" />
+                        <ChevronDown className="w-5 h-5 text-gray-600" />
                     )}
                 </button>
                 {isOpen && (
@@ -49,16 +49,16 @@ export default function ProgressiveDisclosure({
     }
 
     return (
-        <div className={`border border-slate-200 rounded-xl overflow-hidden ${className}`}>
+        <div className={`border border-gray-200 rounded-xl overflow-hidden ${className}`}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full p-4 flex items-center justify-between bg-slate-50 hover:bg-slate-100 transition-colors"
+                className="w-full p-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
             >
-                <span className="font-semibold text-slate-900">{title}</span>
+                <span className="font-semibold text-gray-900">{title}</span>
                 {isOpen ? (
-                    <ChevronUp className="w-5 h-5 text-slate-600" />
+                    <ChevronUp className="w-5 h-5 text-gray-600" />
                 ) : (
-                    <ChevronDown className="w-5 h-5 text-slate-600" />
+                    <ChevronDown className="w-5 h-5 text-gray-600" />
                 )}
             </button>
             {isOpen && (
@@ -90,13 +90,13 @@ export function DetailsGrid({ items, columns = 2 }: DetailsGridProps) {
         <div className={`grid ${gridClass} gap-4`}>
             {items.map((item, idx) => (
                 <div key={idx} className="flex flex-col gap-1">
-                    <dt className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <dt className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                         {item.label}
                         {item.tooltip && (
-                            <span className="ml-1 text-slate-600 cursor-help" title={item.tooltip}>ⓘ</span>
+                            <span className="ml-1 text-gray-600 cursor-help" title={item.tooltip}>ⓘ</span>
                         )}
                     </dt>
-                    <dd className="text-sm font-semibold text-slate-900">{item.value}</dd>
+                    <dd className="text-sm font-semibold text-gray-900">{item.value}</dd>
                 </div>
             ))}
         </div>

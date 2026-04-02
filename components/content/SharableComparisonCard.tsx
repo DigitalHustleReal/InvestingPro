@@ -150,17 +150,17 @@ export default function SharableComparisonCard({
     };
 
     return (
-        <Card className={cn("border-slate-200 dark:border-slate-800 overflow-hidden", className)}>
+        <Card className={cn("border-gray-200 dark:border-gray-800 overflow-hidden", className)}>
             <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-bold text-slate-900 dark:text-white">
+                    <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
                         {title}
                     </CardTitle>
                     {showShare && (
                         <div className="flex items-center gap-1">
                             <button
                                 onClick={handleTweet}
-                                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors"
+                                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
                                 aria-label="Tweet comparison"
                                 title="Tweet this comparison"
                             >
@@ -168,24 +168,24 @@ export default function SharableComparisonCard({
                             </button>
                             <button
                                 onClick={handleCopy}
-                                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors"
+                                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
                                 aria-label="Copy comparison"
                                 title="Copy comparison"
                             >
                                 {copied ? (
                                     <Check className="w-4 h-4 text-success-600" />
                                 ) : (
-                                    <Copy className="w-4 h-4 text-slate-600" />
+                                    <Copy className="w-4 h-4 text-gray-600" />
                                 )}
                             </button>
                             {typeof navigator !== 'undefined' && 'share' in navigator && (
                                 <button
                                     onClick={handleShare}
-                                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors"
+                                    className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
                                     aria-label="Share comparison"
                                     title="Share comparison"
                                 >
-                                    <Share2 className="w-4 h-4 text-slate-600" />
+                                    <Share2 className="w-4 h-4 text-gray-600" />
                                 </button>
                             )}
                         </div>
@@ -196,14 +196,14 @@ export default function SharableComparisonCard({
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
                         <thead>
-                            <tr className="border-b-2 border-slate-200 dark:border-slate-700">
-                                <th className="text-left p-3 text-sm font-semibold text-slate-600 dark:text-slate-400 w-1/3">
+                            <tr className="border-b-2 border-gray-200 dark:border-gray-700">
+                                <th className="text-left p-3 text-sm font-semibold text-gray-600 dark:text-gray-400 w-1/3">
                                     Feature
                                 </th>
-                                <th className="text-center p-3 text-sm font-semibold text-slate-900 dark:text-white w-1/3">
+                                <th className="text-center p-3 text-sm font-semibold text-gray-900 dark:text-white w-1/3">
                                     {itemA}
                                 </th>
-                                <th className="text-center p-3 text-sm font-semibold text-slate-900 dark:text-white w-1/3">
+                                <th className="text-center p-3 text-sm font-semibold text-gray-900 dark:text-white w-1/3">
                                     {itemB}
                                 </th>
                             </tr>
@@ -217,11 +217,11 @@ export default function SharableComparisonCard({
                                     <tr 
                                         key={index}
                                         className={cn(
-                                            "border-b border-slate-100 dark:border-slate-800",
-                                            index % 2 === 0 && "bg-slate-50/50 dark:bg-slate-900/50"
+                                            "border-b border-gray-100 dark:border-gray-800",
+                                            index % 2 === 0 && "bg-gray-50/50 dark:bg-gray-900/50"
                                         )}
                                     >
-                                        <td className="p-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                        <td className="p-3 text-sm font-medium text-gray-700 dark:text-gray-300">
                                             {item.label}
                                         </td>
                                         <td className={cn(

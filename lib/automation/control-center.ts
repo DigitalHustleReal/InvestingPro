@@ -97,7 +97,7 @@ export async function getWorkflowStatuses(limit: number = 50): Promise<WorkflowS
         
         const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
         
-        return (workflows || []).map(wf => {
+        return (workflows || []).map((wf: any) => {
             const startedAt = new Date(wf.started_at);
             const duration = wf.completed_at 
                 ? new Date(wf.completed_at).getTime() - startedAt.getTime()
@@ -207,14 +207,14 @@ export async function getAutomationMetrics(days: number = 7) {
             .gte('started_at', startDate);
         
         const total = workflows?.length || 0;
-        const completed = workflows?.filter(w => w.state === 'completed').length || 0;
-        const failed = workflows?.filter(w => w.state === 'failed').length || 0;
+        const completed = workflows?.filter((w: any) => w.state === 'completed').length || 0;
+        const failed = workflows?.filter((w: any) => w.state === 'failed').length || 0;
         const successRate = total > 0 ? (completed / total) * 100 : 0;
         
         // Calculate average duration
-        const completedWorkflows = workflows?.filter(w => w.state === 'completed' && w.completed_at) || [];
+        const completedWorkflows = workflows?.filter((w: any) => w.state === 'completed' && w.completed_at) || [];
         const avgDuration = completedWorkflows.length > 0
-            ? completedWorkflows.reduce((sum, w) => {
+            ? completedWorkflows.reduce((sum: any, w: any) => {
                 const duration = new Date(w.completed_at!).getTime() - new Date(w.started_at).getTime();
                 return sum + duration;
             }, 0) / completedWorkflows.length

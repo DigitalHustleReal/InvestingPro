@@ -24,22 +24,22 @@ export default function MiniRewardsCalculator({
 
   return (
     <div className={cn(
-      "bg-gradient-to-br from-success-50 to-white dark:from-success-950/20 dark:to-slate-900 border border-success-200 dark:border-success-800/30 rounded-2xl p-6",
+      "bg-gradient-to-br from-success-50 to-white dark:from-success-950/20 dark:to-gray-900 border border-success-200 dark:border-success-800/30 rounded-2xl p-6",
       className
     )}>
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         <Calculator className="w-5 h-5 text-success-600 dark:text-success-400" />
-        <h3 className="font-bold text-slate-900 dark:text-white">Rewards Calculator</h3>
+        <h3 className="font-bold text-gray-900 dark:text-white">Rewards Calculator</h3>
       </div>
 
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
         See if this card's rewards justify the annual fee
       </p>
 
       {/* Input */}
       <div className="mb-4">
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Monthly Spend (₹)
         </label>
         <input
@@ -50,32 +50,32 @@ export default function MiniRewardsCalculator({
           value={monthlySpend}
           onChange={(e) => setMonthlySpend(parseInt(e.target.value))}
           aria-label="Monthly spending amount"
-          className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-success-600"
+          className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-success-600"
         />
-        <div className="flex justify-between text-xs text-slate-500 dark:text-slate-600 mt-1">
+        <div className="flex justify-between text-xs text-gray-500 dark:text-gray-600 mt-1">
           <span>₹5k</span>
-          <span className="font-bold text-slate-900 dark:text-white">₹{(monthlySpend / 1000).toFixed(0)}k</span>
+          <span className="font-bold text-gray-900 dark:text-white">₹{(monthlySpend / 1000).toFixed(0)}k</span>
           <span>₹1L</span>
         </div>
       </div>
 
       {/* Results */}
-      <div className="space-y-3 p-4 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
+      <div className="space-y-3 p-4 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700">
         <div className="flex justify-between text-sm">
-          <span className="text-slate-600 dark:text-slate-400">Annual Spend</span>
-          <span className="font-semibold text-slate-900 dark:text-white">₹{annualSpend.toLocaleString('en-IN')}</span>
+          <span className="text-gray-600 dark:text-gray-400">Annual Spend</span>
+          <span className="font-semibold text-gray-900 dark:text-white">₹{annualSpend.toLocaleString('en-IN')}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-slate-600 dark:text-slate-400">Rewards Earned</span>
+          <span className="text-gray-600 dark:text-gray-400">Rewards Earned</span>
           <span className="font-semibold text-success-600 dark:text-success-400">+₹{rewardsEarned.toLocaleString('en-IN')}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-slate-600 dark:text-slate-400">Annual Fee</span>
+          <span className="text-gray-600 dark:text-gray-400">Annual Fee</span>
           <span className="font-semibold text-danger-600 dark:text-danger-400">-₹{annualFee.toLocaleString('en-IN')}</span>
         </div>
-        <div className="pt-3 border-t border-slate-200 dark:border-slate-700">
+        <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
           <div className="flex justify-between items-center">
-            <span className="text-sm font-bold text-slate-900 dark:text-white">Net Value</span>
+            <span className="text-sm font-bold text-gray-900 dark:text-white">Net Value</span>
             <div className="flex items-center gap-2">
               <span className={cn(
                 "text-lg font-black",

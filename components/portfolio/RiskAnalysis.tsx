@@ -22,7 +22,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
     };
 
     return (
-        <Card className="rounded-xl border-0 shadow-2xl bg-slate-900 text-white overflow-hidden p-6 md:p-8 relative group">
+        <Card className="rounded-xl border-0 shadow-2xl bg-gray-900 text-white overflow-hidden p-6 md:p-8 relative group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
 
             <CardHeader className="p-0 mb-8 relative z-10">
@@ -32,7 +32,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
                     </div>
                     <div>
                         <CardTitle className="text-2xl font-bold text-white tracking-tight">Risk Radar</CardTitle>
-                        <p className="text-slate-500 font-medium text-sm">Targeting: {userRiskProfile}</p>
+                        <p className="text-gray-500 font-medium text-sm">Targeting: {userRiskProfile}</p>
                     </div>
                 </div>
             </CardHeader>
@@ -40,7 +40,7 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
             <CardContent className="p-0 relative z-10 space-y-8">
                 <div>
                     <div className="flex justify-between items-end mb-3">
-                        <span className="text-[10px] font-semibold uppercase text-slate-600 tracking-st">Calculated Volatility</span>
+                        <span className="text-[10px] font-semibold uppercase text-gray-600 tracking-st">Calculated Volatility</span>
                         <span className={`text-2xl font-bold ${getRiskColor(portfolioRiskScore)}`}>{portfolioRiskScore}/100</span>
                     </div>
                     <Progress value={portfolioRiskScore} className="h-3 rounded-full bg-white/5" />
@@ -49,19 +49,19 @@ export default function RiskAnalysis({ holdings = [], user }: RiskAnalysisProps)
                 <div className="p-6 bg-white/5 rounded-xl border border-white/5 space-y-4">
                     <div className="flex items-start gap-3">
                         <Zap className="w-5 h-5 text-accent-500 shrink-0 mt-1" />
-                        <p className="text-sm text-slate-300 font-medium leading-relaxed">
+                        <p className="text-sm text-gray-300 font-medium leading-relaxed">
                             Your portfolio is currently <span className="text-white font-bold">12% more aggressive</span> than your intended {userRiskProfile} profile.
                         </p>
                     </div>
                     <div className="flex items-start gap-3">
                         <AlertTriangle className="w-5 h-5 text-danger-500 shrink-0 mt-1" />
-                        <p className="text-sm text-slate-300 font-medium leading-relaxed">
+                        <p className="text-sm text-gray-300 font-medium leading-relaxed">
                             Sector concentration in <span className="text-white font-bold">Technology</span> is exceeding safety benchmarks.
                         </p>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2 pt-4 border-t border-white/5 text-[10px] font-semibold text-slate-500 uppercase tracking-st">
+                <div className="flex items-center gap-2 pt-4 border-t border-white/5 text-[10px] font-semibold text-gray-500 uppercase tracking-st">
                     <Info className="w-3.5 h-3.5" />
                     Last synchronized with India VIX: Today
                 </div>

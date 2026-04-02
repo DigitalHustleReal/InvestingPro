@@ -50,7 +50,7 @@ export function BulkActionsBar({
     };
 
     const variantStyles = {
-        default: 'bg-slate-700 hover:bg-slate-600 text-wt-text dark:text-wt-text',
+        default: 'bg-gray-700 hover:bg-gray-600 text-wt-text dark:text-wt-text',
         danger: 'bg-wt-danger/20 hover:bg-wt-danger/30 text-wt-danger border border-danger-500/30',
         success: 'bg-wt-gold-subtle hover:bg-primary-500/30 text-wt-gold border border-wt-gold/30'
     };
@@ -107,7 +107,7 @@ export function BulkActionsBar({
                         {/* Clear Selection */}
                         <button
                             onClick={onClearSelection}
-                            className="ml-2 p-2 hover:bg-slate-700 rounded-lg text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text transition-colors"
+                            className="ml-2 p-2 hover:bg-gray-700 rounded-lg text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text transition-colors"
                             title="Clear selection"
                         >
                             <X className="w-4 h-4" />

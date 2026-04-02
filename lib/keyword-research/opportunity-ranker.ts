@@ -148,7 +148,7 @@ export function rankKeywordOpportunities(
                 our_domain_authority: ourDA
             });
             
-            const competitionLevel = 
+            const competitionLevel: KeywordOpportunity['competition_level'] =
                 kw.difficulty < 20 ? 'very_easy' :
                 kw.difficulty < 40 ? 'easy' :
                 kw.difficulty < 60 ? 'medium' :

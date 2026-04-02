@@ -34,31 +34,31 @@ const TRENDS = [
 
 export default function MarketOverview() {
     return (
-        <Card className="border-slate-800 bg-slate-950 text-slate-50 shadow-xl overflow-hidden">
-            <CardHeader className="border-b border-slate-800 bg-slate-900/50 py-4">
+        <Card className="border-gray-800 bg-gray-950 text-gray-50 shadow-xl overflow-hidden">
+            <CardHeader className="border-b border-gray-800 bg-gray-900/50 py-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Activity className="text-primary-400 w-5 h-5" />
-                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-slate-300">Macro Indicators</CardTitle>
+                        <CardTitle className="text-sm font-bold uppercase tracking-widest text-gray-300">Macro Indicators</CardTitle>
                     </div>
-                    <Badge variant="outline" className="border-slate-700 text-slate-600 text-[10px] font-mono">
+                    <Badge variant="outline" className="border-gray-700 text-gray-600 text-[10px] font-mono">
                         INDIA
                     </Badge>
                 </div>
             </CardHeader>
             <CardContent className="p-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-800">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-gray-800">
                     {MACRO_INDICATORS.map((index, idx) => (
-                        <div key={idx} className="p-4 hover:bg-slate-900/30 transition-colors group">
+                        <div key={idx} className="p-4 hover:bg-gray-900/30 transition-colors group">
                             <div className="flex justify-between items-start mb-2">
                                 <div>
-                                    <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">{index.name}</h4>
-                                    <div className="text-lg font-bold text-slate-50">{index.value}</div>
+                                    <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-1">{index.name}</h4>
+                                    <div className="text-lg font-bold text-gray-50">{index.value}</div>
                                 </div>
                                 <Badge className={`px-1.5 py-0.5 text-[10px] font-bold border-0 ${
                                     index.trend === 'up' ? 'bg-primary-500/10 text-primary-400' : 
                                     index.trend === 'down' ? 'bg-primary-500/10 text-primary-400' :
-                                    'bg-slate-500/10 text-slate-600'
+                                    'bg-gray-500/10 text-gray-600'
                                 }`}>
                                     {index.change}
                                 </Badge>
@@ -90,15 +90,15 @@ export default function MarketOverview() {
                 </div>
 
                 {/* Additional Stats Row */}
-                <div className="border-t border-slate-800 p-3 bg-slate-900/30 flex items-center justify-between text-xs overflow-x-auto whitespace-nowrap gap-4">
-                    <div className="flex items-center gap-2 text-slate-600 font-medium">
+                <div className="border-t border-gray-800 p-3 bg-gray-900/30 flex items-center justify-between text-xs overflow-x-auto whitespace-nowrap gap-4">
+                    <div className="flex items-center gap-2 text-gray-600 font-medium">
                         <BarChart2 size={12} />
                         <span>Asset Trends:</span>
                     </div>
                     <div className="flex gap-3">
                         {TRENDS.map((sec, i) => (
                             <div key={i} className="flex items-center gap-1">
-                                <span className="text-slate-300 font-semibold">{sec.name}</span>
+                                <span className="text-gray-300 font-semibold">{sec.name}</span>
                                 <span className={sec.positive ? "text-primary-400" : "text-danger-400"}>
                                     {sec.change}
                                 </span>

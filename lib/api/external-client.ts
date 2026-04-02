@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 interface CircuitBreakerState {
     status: 'CLOSED' | 'OPEN' | 'HALF_OPEN';
     failureCount: number;
@@ -81,7 +82,7 @@ export async function externalInfoFetch(url: string, options: RequestOptions = {
         } catch (error: unknown) {
             lastError = error;
             const errorMessage = error instanceof Error ? error.message : String(error);
-            logger.warn(`Attempt ${i + 1}/${retries + 1} failed for ${url}:`, errorMessage);
+            logger.warn(`Attempt ${i + 1}/${retries + 1} failed for ${url}: ${errorMessage}`);
 
             // Don't retry if aborted (timeout) and it was the last try
             if (i === retries) break;

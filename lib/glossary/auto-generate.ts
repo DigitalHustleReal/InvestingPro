@@ -135,7 +135,7 @@ export async function autoGenerateGlossaryTerm(
 
         // Step 7: Save to Supabase
         logger.info('Saving glossary term to Supabase', { term: input.term, slug });
-        const result = await api.entities.Glossary.create(glossaryData);
+        const result = await (api as any).entities?.Glossary?.create?.(glossaryData);
 
         if (!result) {
             errors.push('Failed to save glossary term to database');

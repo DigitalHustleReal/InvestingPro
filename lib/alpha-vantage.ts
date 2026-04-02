@@ -166,11 +166,11 @@ export async function exampleUsage() {
     try {
         // Get Reliance stock quote
         const reliance = await getStockQuote('RELIANCE.BSE');
-        logger.info('Reliance Price:', reliance.price);
-        
+        logger.info('Reliance Price:', { price: reliance.price });
+
         // Get USD to INR rate
         const usdInr = await getForexRate('USD', 'INR');
-        logger.info('USD/INR Rate:', usdInr.rate);
+        logger.info('USD/INR Rate:', { rate: usdInr.rate });
         
         // Get TCS historical prices (last 100 days)
         const tcsHistory = await getDailyPrices('TCS.BSE', 'compact');

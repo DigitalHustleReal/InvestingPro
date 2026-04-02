@@ -202,7 +202,7 @@ export default function WorkflowDetailPage() {
             case 'completed': return 'bg-success-500/20 text-success-400 border-success-500/30';
             case 'running': return 'bg-primary-500/20 text-primary-400 border-primary-500/30';
             case 'failed': return 'bg-danger-500/20 text-danger-400 border-danger-500/30';
-            case 'skipped': return 'bg-slate-500/20 text-slate-400 border-slate-500/30';
+            case 'skipped': return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
             default: return 'bg-muted/20 text-muted-foreground border-muted/30';
         }
     };
@@ -265,11 +265,11 @@ export default function WorkflowDetailPage() {
                                 <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
                                     {workflow.name}
                                 </h1>
-                                <Badge className={workflow.is_enabled ? 'bg-success-500/20 text-success-400' : 'bg-slate-500/20 text-slate-400'}>
+                                <Badge className={workflow.is_enabled ? 'bg-success-500/20 text-success-400' : 'bg-gray-500/20 text-gray-400'}>
                                     {workflow.is_enabled ? 'Enabled' : 'Disabled'}
                                 </Badge>
                                 {workflow.is_system && (
-                                    <Badge className="bg-slate-500/20 text-slate-400">System</Badge>
+                                    <Badge className="bg-gray-500/20 text-gray-400">System</Badge>
                                 )}
                             </div>
                             <p className="text-muted-foreground mt-1">

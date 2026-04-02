@@ -64,7 +64,7 @@ export async function trackWebVitals(vitals: WebVitals, url: string): Promise<vo
         // This is non-critical analytics that can fail silently
         if (process.env.NODE_ENV === 'development') {
             // Only use console.warn in dev, never logger (which might have dependencies)
-            logger.warn('[Web Vitals] Tracking error (non-critical, safely ignored):', error);
+            logger.warn('[Web Vitals] Tracking error (non-critical, safely ignored):', { error: error instanceof Error ? error.message : String(error) });
         }
         // Explicitly return to ensure no error propagation
         return;
@@ -117,7 +117,7 @@ export async function getWebVitalsMetrics(
             poor: 10
         };
 
-    } catch (error) {
+    } catch (error: any) {
         logger.error('Error getting Web Vitals metrics', error);
         throw error;
     }

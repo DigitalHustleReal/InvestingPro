@@ -137,8 +137,8 @@ export default function RevenueDashboardPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Revenue Dashboard</h1>
-                        <p className="text-slate-500 mt-1">
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Revenue Dashboard</h1>
+                        <p className="text-gray-500 mt-1">
                             Real-time revenue tracking by category, article, and affiliate
                         </p>
                     </div>
@@ -146,7 +146,7 @@ export default function RevenueDashboardPage() {
                         <select
                             value={timeRange}
                             onChange={(e) => setTimeRange(e.target.value)}
-                            className="px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
+                            className="px-4 py-2 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                         >
                             <option value="7d">Last 7 days</option>
                             <option value="30d">Last 30 days</option>
@@ -166,7 +166,7 @@ export default function RevenueDashboardPage() {
                 {dashboardLoading ? (
                     <div className="text-center py-12">
                         <RefreshCw className="w-8 h-8 animate-spin mx-auto text-sky-500" />
-                        <p className="mt-4 text-slate-500">Loading revenue data...</p>
+                        <p className="mt-4 text-gray-500">Loading revenue data...</p>
                     </div>
                 ) : (
                     <>
@@ -244,7 +244,7 @@ export default function RevenueDashboardPage() {
                                         className={`p-4 rounded-lg border-2 transition-all ${
                                             selectedCategory === 'credit-cards'
                                                 ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/20'
-                                                : 'border-slate-200 dark:border-slate-800 hover:border-sky-300'
+                                                : 'border-gray-200 dark:border-gray-800 hover:border-sky-300'
                                         }`}
                                     >
                                         <div className="flex items-center gap-2 mb-2">
@@ -267,7 +267,7 @@ export default function RevenueDashboardPage() {
                                         className={`p-4 rounded-lg border-2 transition-all ${
                                             selectedCategory === 'mutual-funds'
                                                 ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/20'
-                                                : 'border-slate-200 dark:border-slate-800 hover:border-sky-300'
+                                                : 'border-gray-200 dark:border-gray-800 hover:border-sky-300'
                                         }`}
                                     >
                                         <div className="flex items-center gap-2 mb-2">
@@ -290,7 +290,7 @@ export default function RevenueDashboardPage() {
                                         className={`p-4 rounded-lg border-2 transition-all ${
                                             selectedCategory === 'insurance'
                                                 ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/20'
-                                                : 'border-slate-200 dark:border-slate-800 hover:border-sky-300'
+                                                : 'border-gray-200 dark:border-gray-800 hover:border-sky-300'
                                         }`}
                                     >
                                         <div className="flex items-center gap-2 mb-2">
@@ -310,7 +310,7 @@ export default function RevenueDashboardPage() {
                                         className={`p-4 rounded-lg border-2 transition-all ${
                                             selectedCategory === 'all'
                                                 ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/20'
-                                                : 'border-slate-200 dark:border-slate-800 hover:border-sky-300'
+                                                : 'border-gray-200 dark:border-gray-800 hover:border-sky-300'
                                         }`}
                                     >
                                         <div className="flex items-center gap-2 mb-2">
@@ -336,7 +336,7 @@ export default function RevenueDashboardPage() {
                                             <div className="space-y-2">
                                                 {categoryData.topArticles.length > 0 ? (
                                                     categoryData.topArticles.map((article, idx) => (
-                                                        <div key={article.articleId} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-surface-darker dark:bg-surface-darker rounded-lg">
+                                                        <div key={article.articleId} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-surface-darker dark:bg-surface-darker rounded-lg">
                                                             <div className="flex items-center gap-3">
                                                                 <span className="text-sm font-medium text-muted-foreground/70 dark:text-muted-foreground/70">#{idx + 1}</span>
                                                                 <FileText className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
@@ -363,7 +363,7 @@ export default function RevenueDashboardPage() {
                                             <div className="space-y-2">
                                                 {categoryData.topAffiliates.length > 0 ? (
                                                     categoryData.topAffiliates.map((affiliate, idx) => (
-                                                        <div key={affiliate.affiliateId} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-surface-darker dark:bg-surface-darker rounded-lg">
+                                                        <div key={affiliate.affiliateId} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-surface-darker dark:bg-surface-darker rounded-lg">
                                                             <div className="flex items-center gap-3">
                                                                 <span className="text-sm font-medium text-muted-foreground/70 dark:text-muted-foreground/70">#{idx + 1}</span>
                                                                 <Building2 className="w-4 h-4 text-muted-foreground dark:text-muted-foreground" />
@@ -411,7 +411,7 @@ export default function RevenueDashboardPage() {
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70">Total Conversions</p>
-                                                <p className="text-lg font-bold text-slate-900 dark:text-foreground dark:text-foreground">
+                                                <p className="text-lg font-bold text-gray-900 dark:text-foreground dark:text-foreground">
                                                     {topArticlesData.totalConversions}
                                                 </p>
                                             </div>
@@ -420,7 +420,7 @@ export default function RevenueDashboardPage() {
                                         {topArticlesData.articles.map((article: any, idx: number) => (
                                             <div
                                                 key={article.articleId}
-                                                className="flex items-center justify-between p-4 bg-slate-50 dark:bg-surface-darker dark:bg-surface-darker rounded-xl hover:bg-slate-100 dark:hover:bg-muted dark:bg-muted transition-colors border border-slate-200 dark:border-slate-800"
+                                                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-surface-darker dark:bg-surface-darker rounded-xl hover:bg-gray-100 dark:hover:bg-muted dark:bg-muted transition-colors border border-gray-200 dark:border-gray-800"
                                             >
                                                 <div className="flex items-center gap-4 flex-1">
                                                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center">
@@ -428,13 +428,13 @@ export default function RevenueDashboardPage() {
                                                             {idx + 1}
                                                         </span>
                                                     </div>
-                                                    <FileText className="w-5 h-5 text-slate-400 dark:text-slate-500 flex-shrink-0" />
+                                                    <FileText className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                                                     <div className="flex-1 min-w-0">
                                                         <a
                                                             href={`/article/${article.articleSlug}`}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="font-semibold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 line-clamp-1 flex items-center gap-1"
+                                                            className="font-semibold text-gray-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 line-clamp-1 flex items-center gap-1"
                                                         >
                                                             {article.articleTitle}
                                                             <ExternalLink className="w-3 h-3 opacity-60" />

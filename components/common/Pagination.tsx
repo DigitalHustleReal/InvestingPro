@@ -52,7 +52,7 @@ export default function Pagination({
     };
 
     return (
-        <div className="flex items-center justify-between px-4 py-3 bg-white border-t border-slate-200 sm:px-6">
+        <div className="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6">
             <div className="flex flex-1 justify-between sm:hidden">
                 <Button
                     variant="outline"
@@ -74,7 +74,7 @@ export default function Pagination({
 
             <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                 <div>
-                    <p className="text-sm text-slate-700">
+                    <p className="text-sm text-gray-700">
                         Showing <span className="font-medium">{startItem}</span> to{' '}
                         <span className="font-medium">{endItem}</span> of{' '}
                         <span className="font-medium">{totalItems}</span> results
@@ -102,7 +102,7 @@ export default function Pagination({
 
                         {getPageNumbers().map((page, idx) => (
                             page === '...' ? (
-                                <span key={idx} className="px-4 py-2 text-sm text-slate-700 border border-slate-200">
+                                <span key={idx} className="px-4 py-2 text-sm text-gray-700 border border-gray-200">
                                     ...
                                 </span>
                             ) : (

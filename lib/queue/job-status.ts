@@ -29,7 +29,7 @@ export async function getJobStatus(jobId: string): Promise<JobStatusResponse> {
     // Try to get from database first (if job_status table exists)
     try {
         const { createClient } = await import('@/lib/supabase/server');
-        const supabase = createClient();
+        const supabase = await createClient();
         
         const { data, error } = await supabase
             .from('job_status')
@@ -84,7 +84,7 @@ export async function storeJobStatus(
     
     try {
         const { createClient } = await import('@/lib/supabase/server');
-        const supabase = createClient();
+        const supabase = await createClient();
         
         const { error: dbError } = await supabase
             .from('job_status')

@@ -61,11 +61,11 @@ export default function CategoryHero({
             button: "bg-success-600 hover:bg-success-700 text-white"
         },
         neutral: {
-            gradient: "from-slate-700 via-slate-600 to-slate-700",
-            bg: "bg-slate-50 dark:bg-slate-900/20",
-            border: "border-slate-200 dark:border-slate-800",
-            text: "text-slate-700 dark:text-slate-300",
-            button: "bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-900"
+            gradient: "from-gray-700 via-gray-600 to-gray-700",
+            bg: "bg-gray-50 dark:bg-gray-900/20",
+            border: "border-gray-200 dark:border-gray-800",
+            text: "text-gray-700 dark:text-gray-300",
+            button: "bg-gray-900 hover:bg-gray-800 text-white dark:bg-white dark:text-gray-900"
         }
     };
 
@@ -95,7 +95,7 @@ export default function CategoryHero({
                     </div>
 
                     {/* Title */}
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4 leading-tight tracking-tight">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 leading-tight tracking-tight">
                         {title}
                         {subtitle && (
                             <span className={cn("block mt-2 bg-gradient-to-r", style.gradient, "bg-clip-text text-transparent")}>
@@ -105,7 +105,7 @@ export default function CategoryHero({
                     </h1>
 
                     {/* Description */}
-                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-3xl leading-relaxed">
+                    <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl leading-relaxed">
                         {description}
                     </p>
 
@@ -119,7 +119,7 @@ export default function CategoryHero({
                                         <div className={cn("text-2xl font-bold", style.text)}>
                                             {stat.value}
                                         </div>
-                                        <div className="text-sm text-slate-500 dark:text-slate-600">
+                                        <div className="text-sm text-gray-500 dark:text-gray-600">
                                             {stat.label}
                                         </div>
                                     </div>

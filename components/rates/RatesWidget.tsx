@@ -48,9 +48,9 @@ export default function RatesWidget({ category, title, className }: RatesWidgetP
 
     if (loading) {
          return (
-             <Card className={cn("bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800", className)}>
+             <Card className={cn("bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800", className)}>
                 <CardContent className="p-6 flex justify-center items-center h-40">
-                    <Loader2 className="w-6 h-6 animate-spin text-slate-600" />
+                    <Loader2 className="w-6 h-6 animate-spin text-gray-600" />
                 </CardContent>
              </Card>
          );
@@ -61,27 +61,27 @@ export default function RatesWidget({ category, title, className }: RatesWidgetP
     }
 
     return (
-        <Card className={cn("bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800", className)}>
-            <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
-                <CardTitle className="text-base font-bold text-slate-900 dark:text-white flex items-center justify-between">
+        <Card className={cn("bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800", className)}>
+            <CardHeader className="pb-3 border-b border-gray-100 dark:border-gray-800">
+                <CardTitle className="text-base font-bold text-gray-900 dark:text-white flex items-center justify-between">
                     {displayTitle}
-                    <span className="text-[10px] font-normal text-slate-500 uppercase px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">Live</span>
+                    <span className="text-[10px] font-normal text-gray-500 uppercase px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded">Live</span>
                 </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-                <div className="grid grid-cols-2 divide-x divide-y divide-slate-100 dark:divide-slate-800">
+                <div className="grid grid-cols-2 divide-x divide-y divide-gray-100 dark:divide-gray-800">
                     {rates.map((rate, idx) => (
-                        <div key={idx} className="p-4 flex flex-col items-center text-center hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                            <span className="text-xs text-slate-500 font-medium mb-1">{rate.label}</span>
+                        <div key={idx} className="p-4 flex flex-col items-center text-center hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                            <span className="text-xs text-gray-500 font-medium mb-1">{rate.label}</span>
                             <div className="flex items-center gap-1">
                                 <span className={cn("text-lg font-bold", 
                                     rate.trend === 'up' ? "text-success-600" : 
-                                    rate.trend === 'down' ? "text-primary-600" : "text-slate-900 dark:text-white"
+                                    rate.trend === 'down' ? "text-primary-600" : "text-gray-900 dark:text-white"
                                 )}>
                                     {rate.value}
                                 </span>
                             </div>
-                            {rate.subtext && <span className="text-[10px] text-slate-600">{rate.subtext}</span>}
+                            {rate.subtext && <span className="text-[10px] text-gray-600">{rate.subtext}</span>}
                         </div>
                     ))}
                 </div>

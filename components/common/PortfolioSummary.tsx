@@ -46,8 +46,8 @@ export default function PortfolioSummary({ holdings }: PortfolioSummaryProps) {
             label: 'Total Holdings',
             value: holdings.length,
             icon: Wallet,
-            color: 'text-slate-600',
-            bgColor: 'bg-slate-100'
+            color: 'text-gray-600',
+            bgColor: 'bg-gray-100'
         }
     ];
 
@@ -59,7 +59,7 @@ export default function PortfolioSummary({ holdings }: PortfolioSummaryProps) {
                     <Card key={idx}>
                         <CardContent className="p-6">
                             <div className="flex items-start justify-between mb-2">
-                                <p className="text-sm font-medium text-slate-500">{stat.label}</p>
+                                <p className="text-sm font-medium text-gray-500">{stat.label}</p>
                                 <div className={`w-10 h-10 rounded-lg ${stat.bgColor} flex items-center justify-center`}>
                                     <Icon className={`w-5 h-5 ${stat.color}`} />
                                 </div>

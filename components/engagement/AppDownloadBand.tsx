@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/Button';
 
 export default function AppDownloadBand() {
   return (
-    <div className="w-full bg-slate-900 overflow-hidden relative group">
+    <div className="w-full bg-gray-900 overflow-hidden relative group">
       {/* Animated Gradient Background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(20,184,166,0.15),transparent)] opacity-70" />
       
@@ -23,7 +23,7 @@ export default function AppDownloadBand() {
               <h4 className="text-xl md:text-2xl font-black text-white font-heading tracking-tight mb-1">
                 Take InvestingPro Everywhere
               </h4>
-              <p className="text-slate-600 text-sm md:text-base font-medium">
+              <p className="text-gray-600 text-sm md:text-base font-medium">
                 Get real-time alerts, compare cards on the go, and track your portfolio.
               </p>
             </div>
@@ -36,11 +36,11 @@ export default function AppDownloadBand() {
                 {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 text-amber-400 fill-amber-400" />)}
               </div>
               <p className="text-white font-bold text-sm leading-none">4.9 / 5.0</p>
-              <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mt-1">App Store</p>
+              <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest mt-1">App Store</p>
             </div>
             <div className="text-center">
               <p className="text-white font-bold text-sm leading-none">50K+</p>
-              <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mt-1">Downloads</p>
+              <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest mt-1">Downloads</p>
             </div>
           </div>
 

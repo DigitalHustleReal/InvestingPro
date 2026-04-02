@@ -2,7 +2,7 @@ name: Accessibility Checks
 
 on:
   pull_request:
-    branches: [ master, main ]
+    branches: [ main, master, main ]
 
 jobs:
   a11y-check:
@@ -13,7 +13,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install Dependencies

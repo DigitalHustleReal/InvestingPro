@@ -39,7 +39,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
     }
 
     return (
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 p-6 relative group overflow-hidden min-h-[180px] flex flex-col">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 p-6 relative group overflow-hidden min-h-[180px] flex flex-col">
             {product.isPopular && (
                 <div className="absolute top-0 right-0 bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
                     POPULAR
@@ -51,8 +51,8 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                 <div className="flex-1">
                     <div className="flex items-start justify-between mb-2">
                         <div>
-                            <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">{product.provider}</p>
-                            <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary-600 transition-colors">
+                            <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">{product.provider}</p>
+                            <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
                             <Link href={getProductUrl(product)}>{product.name}</Link>
                         </h3>
                             {/* Best For Badge */}
@@ -67,13 +67,13 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                         </div>
                     </div>
 
-                    <p className="text-slate-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
 
                     {/* Pros / Highlights */}
                     {(product as any).features && (
                         <ul className="space-y-1 mb-4 hidden md:block">
                             {(product as any).features.slice(0, 3).map((feat: string, i: number) => (
-                                <li key={i} className="flex items-start text-xs text-slate-500 font-medium">
+                                <li key={i} className="flex items-start text-xs text-gray-500 font-medium">
                                     <CheckCircle2 className="w-3.5 h-3.5 text-primary-500 mr-1.5 flex-shrink-0 mt-0.5" />
                                     {feat}
                                 </li>
@@ -83,12 +83,12 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                 </div>
 
                 {/* Middle: Metrics */}
-                <div className="md:w-1/3 flex flex-col justify-center border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6">
+                <div className="md:w-1/3 flex flex-col justify-center border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
                     <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
                         {metrics.map((m, i) => (
                             <div key={i}>
-                                <p className="text-xs text-slate-600 mb-0.5">{m.label}</p>
-                                <p className={`font-bold text-slate-900 ${m.isHighlight ? 'text-primary-600 text-lg' : ''} ${m.isCapitalize ? 'capitalize' : ''}`}>
+                                <p className="text-xs text-gray-600 mb-0.5">{m.label}</p>
+                                <p className={`font-bold text-gray-900 ${m.isHighlight ? 'text-primary-600 text-lg' : ''} ${m.isCapitalize ? 'capitalize' : ''}`}>
                                     {m.value}
                                 </p>
                             </div>
@@ -97,7 +97,7 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
                 </div>
 
                 {/* Right: Actions */}
-                <div className="md:w-1/5 flex flex-col justify-center gap-3 border-t md:border-t-0 border-slate-100 pt-4 md:pt-0">
+                <div className="md:w-1/5 flex flex-col justify-center gap-3 border-t md:border-t-0 border-gray-100 pt-4 md:pt-0">
                     <div className="flex flex-col gap-1">
                         <DecisionCTA
                             text={product.category === 'credit_card' ? "Apply Instantly" : 
@@ -129,8 +129,8 @@ export function ProductCard({ product, showCompare = true }: ProductCardProps) {
 
                     {showCompare && (
                         <div className="flex items-center justify-center gap-2 mt-1">
-                            <input type="checkbox" id={`cmp-${product.id}`} className="rounded border-slate-300 text-primary-600 focus:ring-primary-500" />
-                            <label htmlFor={`cmp-${product.id}`} className="text-xs text-slate-500 cursor-pointer select-none">Add to Compare</label>
+                            <input type="checkbox" id={`cmp-${product.id}`} className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" />
+                            <label htmlFor={`cmp-${product.id}`} className="text-xs text-gray-500 cursor-pointer select-none">Add to Compare</label>
                         </div>
                     )}
                 </div>

@@ -313,7 +313,7 @@ Return JSON:
         });
 
         // Sort by score (highest first)
-        alternatives.sort((a, b) => b.score - a.score);
+        alternatives.sort((a: any, b: any) => b.score - a.score);
 
         return {
             original: originalHeadline,

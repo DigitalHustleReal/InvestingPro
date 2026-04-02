@@ -168,7 +168,7 @@ export default function BulkGenerationPanel() {
                     <Button
                         onClick={handleGenerate}
                         disabled={bulkGenerate.isPending}
-                        className="w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold"
+                        className="w-full bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold"
                         size="lg"
                     >
                         {bulkGenerate.isPending ? (

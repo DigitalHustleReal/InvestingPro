@@ -196,13 +196,13 @@ class AffiliateService {
                 return this.getEmptyStats();
             }
 
-            const totalClicks = links.reduce((sum, l) => sum + (l.clicks || 0), 0);
-            const totalConversions = links.reduce((sum, l) => sum + (l.conversions || 0), 0);
-            const totalRevenue = links.reduce((sum, l) => sum + (l.revenue || 0), 0);
+            const totalClicks = links.reduce((sum: any, l: any) => sum + (l.clicks || 0), 0);
+            const totalConversions = links.reduce((sum: any, l: any) => sum + (l.conversions || 0), 0);
+            const totalRevenue = links.reduce((sum: any, l: any) => sum + (l.revenue || 0), 0);
 
             // Group by partner
             const partnerStats = new Map<string, { clicks: number; revenue: number }>();
-            links.forEach(link => {
+            links.forEach((link: any) => {
                 const partnerName = link.partner?.name || 'Unknown';
                 const existing = partnerStats.get(partnerName) || { clicks: 0, revenue: 0 };
                 partnerStats.set(partnerName, {
@@ -217,9 +217,9 @@ class AffiliateService {
                 .slice(0, 5);
 
             const topLinks = links
-                .sort((a, b) => (b.clicks || 0) - (a.clicks || 0))
+                .sort((a: any, b: any) => (b.clicks || 0) - (a.clicks || 0))
                 .slice(0, 10)
-                .map(l => ({
+                .map((l: any) => ({
                     name: l.name,
                     clicks: l.clicks || 0,
                     conversions: l.conversions || 0

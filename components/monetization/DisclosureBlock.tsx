@@ -49,11 +49,11 @@ export default function DisclosureBlock({
 
     if (compact) {
         return (
-            <div className="text-xs text-slate-600 border-t border-slate-200 pt-4 mt-6">
+            <div className="text-xs text-gray-600 border-t border-gray-200 pt-4 mt-6">
                 <div className="flex items-start gap-2">
-                    <Icon className="w-3 h-3 mt-0.5 text-slate-600 shrink-0" />
+                    <Icon className="w-3 h-3 mt-0.5 text-gray-600 shrink-0" />
                     <p>
-                        <strong className="font-semibold text-slate-700">{disclosure.title}:</strong>{' '}
+                        <strong className="font-semibold text-gray-700">{disclosure.title}:</strong>{' '}
                         {disclosure.content}
                     </p>
                 </div>
@@ -62,17 +62,17 @@ export default function DisclosureBlock({
     }
 
     return (
-        <Card className={`border-slate-200 bg-slate-50 ${position === 'top' ? 'mb-6' : 'mt-6'}`}>
+        <Card className={`border-gray-200 bg-gray-50 ${position === 'top' ? 'mb-6' : 'mt-6'}`}>
             <CardContent className="p-6 md:p-8">
                 <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center shrink-0">
                         <Icon className="w-4 h-4 text-primary-600" />
                     </div>
                     <div className="flex-1">
-                        <h3 className="font-bold text-slate-900 mb-2 text-sm">
+                        <h3 className="font-bold text-gray-900 mb-2 text-sm">
                             {disclosure.title}
                         </h3>
-                        <p className="text-sm text-slate-700 leading-relaxed">
+                        <p className="text-sm text-gray-700 leading-relaxed">
                             {disclosure.content}
                         </p>
                     </div>

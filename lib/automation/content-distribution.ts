@@ -155,7 +155,10 @@ export async function distributeContent(articleId: string): Promise<ContentDistr
                     }
                 });
 
-                messagingResult = messagingSendResult;
+                messagingResult = {
+                    telegram: { ...messagingResult.telegram, ...messagingSendResult.telegram },
+                    whatsapp: { ...messagingResult.whatsapp, ...messagingSendResult.whatsapp }
+                };
             }
         } catch (error: any) {
             logger.error('Error sending messaging notification', error, { articleId });
@@ -172,7 +175,7 @@ export async function distributeContent(articleId: string): Promise<ContentDistr
                     // Could add distributed_at field to track when distributed
                 })
                 .eq('id', articleId);
-        } catch (error) {
+        } catch (error: any) {
             // Non-critical, continue
             logger.warn('Failed to update article distribution timestamp', error);
         }

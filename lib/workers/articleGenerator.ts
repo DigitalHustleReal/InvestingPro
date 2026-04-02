@@ -349,7 +349,7 @@ Return ONLY valid JSON.
             if (affLinks && affLinks.length > 0) {
                 // 1. Inject Disclaimer at the TOP
                 const disclaimer = affLinks[0].disclosure;
-                htmlContent = `<div class="bg-slate-50 border-l-4 border-indigo-400 p-4 mb-8 text-xs text-slate-500 italic">
+                htmlContent = `<div class="bg-gray-50 border-l-4 border-indigo-400 p-4 mb-8 text-xs text-gray-500 italic">
                     <strong>Editorial Disclosure:</strong> ${disclaimer}
                 </div>\n${htmlContent}`;
 
@@ -362,8 +362,8 @@ Return ONLY valid JSON.
                     ctaHtml += `
                         <div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm border border-indigo-50">
                             <div>
-                                <span class="text-sm font-semibold text-slate-900">${link.productName}</span>
-                                <p class="text-xs text-slate-500">${link.context}</p>
+                                <span class="text-sm font-semibold text-gray-900">${link.productName}</span>
+                                <p class="text-xs text-gray-500">${link.context}</p>
                             </div>
                             <a href="${link.affiliateLink}" target="_blank" rel="nofollow" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 transition-colors">
                                 View Details

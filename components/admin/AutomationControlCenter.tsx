@@ -131,7 +131,7 @@ export default function AutomationControlCenter() {
             case 'running': return 'bg-secondary-500';
             case 'failed': return 'bg-wt-danger';
             case 'paused': return 'bg-warning-500';
-            default: return 'bg-slate-500';
+            default: return 'bg-gray-500';
         }
     };
 

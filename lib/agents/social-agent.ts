@@ -96,7 +96,7 @@ export class SocialAgent extends BaseAgent {
         const startTime = Date.now();
         
         try {
-            const posts = await this.createSocialPosts(context.articleId);
+            const posts = await this.createSocialPosts(context.articleId ?? '');
             
             return {
                 success: true,

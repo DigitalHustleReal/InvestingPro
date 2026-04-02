@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RebalancingPage() {
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 min-h-screen py-12">
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <AutoBreadcrumbs />
         
@@ -22,10 +22,10 @@ export default function RebalancingPage() {
            <div className="inline-flex items-center justify-center p-3 bg-primary-100 dark:bg-primary-900/30 rounded-2xl mb-4">
               <Calculator className="w-8 h-8 text-primary-600 dark:text-primary-400" />
            </div>
-           <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">
+           <h1 className="text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
              Portfolio Rebalancing Tool
            </h1>
-           <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+           <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
              Maintain your risk discipline. Our tool calculates exactly what you need to buy or sell to get your portfolio back on track.
            </p>
         </div>

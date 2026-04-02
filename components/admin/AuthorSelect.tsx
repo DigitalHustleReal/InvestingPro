@@ -141,7 +141,7 @@ export default function AuthorSelect({
                                         </Avatar>
                                         <div className="flex flex-col min-w-0">
                                             <div className="flex items-center gap-1.5">
-                                                <span className="font-bold text-slate-900 dark:text-white truncate">{author.name}</span>
+                                                <span className="font-bold text-gray-900 dark:text-white truncate">{author.name}</span>
                                                 {author.is_ai_persona && (
                                                     <Badge variant="outline" className="text-[10px] py-0 h-4 bg-primary-500/5 border-primary-500/20 text-primary-600">AI</Badge>
                                                 )}

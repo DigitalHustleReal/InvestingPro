@@ -26,10 +26,10 @@ export default function ComparisonTable({ title = "Side-by-Side Comparison", pro
     const labels = products[0]?.points.map(p => p.label) || [];
 
     return (
-        <div className="my-10 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+        <div className="my-10 border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
             {title && (
-                <div className="bg-slate-50 border-b border-slate-200 px-6 py-4">
-                    <h3 className="font-bold text-slate-900">{title}</h3>
+                <div className="bg-gray-50 border-b border-gray-200 px-6 py-4">
+                    <h3 className="font-bold text-gray-900">{title}</h3>
                 </div>
             )}
             
@@ -37,9 +37,9 @@ export default function ComparisonTable({ title = "Side-by-Side Comparison", pro
                 <table className="w-full min-w-[600px] text-left border-collapse">
                     <thead>
                         <tr>
-                            <th className="p-4 border-b border-slate-100 bg-white w-1/4 min-w-[150px]"></th>
+                            <th className="p-4 border-b border-gray-100 bg-white w-1/4 min-w-[150px]"></th>
                             {products.map((product) => (
-                                <th key={product.id} className="p-4 border-b border-slate-100 bg-white w-1/3 min-w-[200px] text-center align-bottom">
+                                <th key={product.id} className="p-4 border-b border-gray-100 bg-white w-1/3 min-w-[200px] text-center align-bottom">
                                     <div className="flex flex-col items-center gap-3">
                                         <div className="relative w-24 h-16">
                                             <Image 
@@ -49,7 +49,7 @@ export default function ComparisonTable({ title = "Side-by-Side Comparison", pro
                                                 className="object-contain" 
                                             />
                                         </div>
-                                        <div className="text-sm font-bold text-slate-900 leading-tight px-2">
+                                        <div className="text-sm font-bold text-gray-900 leading-tight px-2">
                                             {product.name}
                                         </div>
                                         <div className="flex items-center gap-1">
@@ -64,21 +64,21 @@ export default function ComparisonTable({ title = "Side-by-Side Comparison", pro
                     </thead>
                     <tbody>
                         {labels.map((label, rowIndex) => (
-                            <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}>
-                                <td className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wide border-b border-slate-100">
+                            <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                                <td className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wide border-b border-gray-100">
                                     {label}
                                 </td>
                                 {products.map((product) => {
                                     const point = product.points.find(p => p.label === label);
-                                    if (!point) return <td key={product.id} className="border-b border-slate-100" />;
+                                    if (!point) return <td key={product.id} className="border-b border-gray-100" />;
 
                                     return (
-                                        <td key={product.id} className="p-4 border-b border-slate-100 text-center text-sm font-medium text-slate-900">
+                                        <td key={product.id} className="p-4 border-b border-gray-100 text-center text-sm font-medium text-gray-900">
                                             {typeof point.value === 'boolean' ? (
                                                 point.value ? (
                                                     <Check className="w-5 h-5 text-primary-500 mx-auto" />
                                                 ) : (
-                                                    <Minus className="w-5 h-5 text-slate-300 mx-auto" />
+                                                    <Minus className="w-5 h-5 text-gray-300 mx-auto" />
                                                 )
                                             ) : (
                                                 <span>{point.value}</span>

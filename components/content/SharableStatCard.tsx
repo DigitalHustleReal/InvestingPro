@@ -129,7 +129,7 @@ export default function SharableStatCard({
             case 'decrease':
                 return 'text-danger-600 dark:text-danger-400';
             default:
-                return 'text-slate-600 dark:text-slate-400';
+                return 'text-gray-600 dark:text-gray-400';
         }
     };
 
@@ -179,19 +179,19 @@ export default function SharableStatCard({
 
     if (variant === 'minimal') {
         return (
-            <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg", className)}>
-                <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{title}:</span>
-                <span className="text-sm font-bold text-slate-900 dark:text-white">{formatValue(value)}</span>
+            <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg", className)}>
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{title}:</span>
+                <span className="text-sm font-bold text-gray-900 dark:text-white">{formatValue(value)}</span>
                 {showShare && (
                     <button
                         onClick={handleCopy}
-                        className="ml-2 p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
+                        className="ml-2 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
                         aria-label="Copy stat"
                     >
                         {copied ? (
                             <Check className="w-3 h-3 text-success-600" />
                         ) : (
-                            <Copy className="w-3 h-3 text-slate-600" />
+                            <Copy className="w-3 h-3 text-gray-600" />
                         )}
                     </button>
                 )}
@@ -201,12 +201,12 @@ export default function SharableStatCard({
 
     return (
         <Card className={cn(
-            "border-slate-200 dark:border-slate-800 overflow-hidden transition-all hover:shadow-lg",
-            variant === 'highlighted' && "border-primary-300 dark:border-primary-700 bg-gradient-to-br from-primary-50/50 to-white dark:from-primary-900/20 dark:to-slate-900",
+            "border-gray-200 dark:border-gray-800 overflow-hidden transition-all hover:shadow-lg",
+            variant === 'highlighted' && "border-primary-300 dark:border-primary-700 bg-gradient-to-br from-primary-50/50 to-white dark:from-primary-900/20 dark:to-gray-900",
             className
         )}>
             <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-400 flex items-center justify-between">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400 flex items-center justify-between">
                     <span className="flex items-center gap-2">
                         {Icon && <Icon className="w-4 h-4" />}
                         {title}
@@ -215,7 +215,7 @@ export default function SharableStatCard({
                         <div className="flex items-center gap-1">
                             <button
                                 onClick={handleTweet}
-                                className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors"
+                                className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
                                 aria-label="Tweet stat"
                                 title="Tweet this stat"
                             >
@@ -223,14 +223,14 @@ export default function SharableStatCard({
                             </button>
                             <button
                                 onClick={handleCopy}
-                                className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors"
+                                className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
                                 aria-label="Copy stat"
                                 title="Copy stat"
                             >
                                 {copied ? (
                                     <Check className="w-3.5 h-3.5 text-success-600" />
                                 ) : (
-                                    <Copy className="w-3.5 h-3.5 text-slate-600" />
+                                    <Copy className="w-3.5 h-3.5 text-gray-600" />
                                 )}
                             </button>
                         </div>
@@ -239,7 +239,7 @@ export default function SharableStatCard({
             </CardHeader>
             <CardContent>
                 <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-bold text-slate-900 dark:text-white">
+                    <span className="text-3xl font-bold text-gray-900 dark:text-white">
                         {formatValue(value)}
                     </span>
                     {change && (
@@ -250,7 +250,7 @@ export default function SharableStatCard({
                                 {Math.abs(change.value)}%
                             </span>
                             {change.period && (
-                                <span className="text-xs text-slate-500 dark:text-slate-600 ml-1">
+                                <span className="text-xs text-gray-500 dark:text-gray-600 ml-1">
                                     {change.period}
                                 </span>
                             )}
@@ -258,7 +258,7 @@ export default function SharableStatCard({
                     )}
                 </div>
                 {source && (
-                    <p className="text-xs text-slate-500 dark:text-slate-600 mt-2">
+                    <p className="text-xs text-gray-500 dark:text-gray-600 mt-2">
                         Source: {source}
                     </p>
                 )}

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function InflationAdjustedReturnsPage() {
     return (
-        <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <main className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 <AutoBreadcrumbs />
 
@@ -29,10 +29,10 @@ export default function InflationAdjustedReturnsPage() {
                             Inflation Impact Tool
                         </span>
                     </div>
-                    <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
                         Inflation Adjusted Returns Calculator
                     </h1>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
                         Your FD earns 7%. Inflation runs at 6%. Your real return is just 1%.
                         This calculator shows you what your investments are <em>actually</em> worth in today's money.
                     </p>
@@ -57,13 +57,13 @@ export default function InflationAdjustedReturnsPage() {
                             body: "Historically, equity mutual funds have delivered 12–15% returns vs 5–7% inflation — a real return of 6–9%. FDs and savings accounts barely keep pace with inflation.",
                         },
                     ].map(({ title, body }) => (
-                        <Card key={title} className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+                        <Card key={title} className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
                             <CardContent className="p-6">
-                                <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                                <h3 className="font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
                                     <Info className="w-4 h-4 text-primary-500 flex-shrink-0" />
                                     {title}
                                 </h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{body}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{body}</p>
                             </CardContent>
                         </Card>
                     ))}
@@ -71,7 +71,7 @@ export default function InflationAdjustedReturnsPage() {
 
                 {/* FAQ */}
                 <div className="mt-12">
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                         Frequently Asked Questions
                     </h2>
                     <div className="space-y-4">
@@ -93,10 +93,10 @@ export default function InflationAdjustedReturnsPage() {
                                 a: "Real Return ≈ Nominal Return − Inflation Rate (simplified). The precise formula is: Real Return = ((1 + Nominal) / (1 + Inflation)) − 1. For small numbers the approximation works fine.",
                             },
                         ].map(({ q, a }, i) => (
-                            <Card key={i} className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+                            <Card key={i} className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
                                 <CardContent className="p-6">
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">{q}</h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{a}</p>
+                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{q}</h3>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{a}</p>
                                 </CardContent>
                             </Card>
                         ))}

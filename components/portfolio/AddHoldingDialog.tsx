@@ -56,15 +56,15 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-primary-500 hover:text-white font-semibold h-12 px-8 uppercase tracking-widest text- shadow-xl shadow-black/10 transition-all active:scale-95 group">
+                <Button className="rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-primary-500 hover:text-white font-semibold h-12 px-8 uppercase tracking-widest text- shadow-xl shadow-black/10 transition-all active:scale-95 group">
                     <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform" />
                     Add Position
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px] rounded-xl p-8 border-0 shadow-2xl">
                 <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold text-slate-900 tracking-tight">Record New Position</DialogTitle>
-                    <DialogDescription className="text-slate-500 font-medium pt-1">
+                    <DialogTitle className="text-2xl font-bold text-gray-900 tracking-tight">Record New Position</DialogTitle>
+                    <DialogDescription className="text-gray-500 font-medium pt-1">
                         Synchronize your market holdings with your InvestingPro secure vault.
                     </DialogDescription>
                 </DialogHeader>
@@ -72,37 +72,37 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                 <form onSubmit={handleSubmit} className="space-y-6 pt-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2 col-span-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Asset Identity</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-gray-600 tracking-st px-1">Asset Identity</Label>
                             <div className="relative group">
-                                <Wallet className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+                                <Wallet className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                                 <Input
                                     required
                                     placeholder="Asset Name (e.g. Reliance Industries)"
                                     value={formData.asset_name}
                                     onChange={(e) => setFormData({ ...formData, asset_name: e.target.value })}
-                                    className="pl-12 h-14 rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 focus:bg-white dark:focus:bg-slate-800 transition-all font-bold"
+                                    className="pl-12 h-14 rounded-xl border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 focus:bg-white dark:focus:bg-gray-800 transition-all font-bold"
                                 />
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Symbol / Ticker</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-gray-600 tracking-st px-1">Symbol / Ticker</Label>
                             <Input
                                 required
                                 placeholder="RELIANCE"
                                 value={formData.symbol}
                                 onChange={(e) => setFormData({ ...formData, symbol: e.target.value })}
-                                className="h-14 rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 focus:bg-white dark:focus:bg-slate-800 transition-all font-bold uppercase"
+                                className="h-14 rounded-xl border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 focus:bg-white dark:focus:bg-gray-800 transition-all font-bold uppercase"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Asset Class</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-gray-600 tracking-st px-1">Asset Class</Label>
                             <Select value={formData.asset_type} onValueChange={(v: string) => setFormData({ ...formData, asset_type: v })}>
-                                <SelectTrigger className="h-14 rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 font-bold">
+                                <SelectTrigger className="h-14 rounded-xl border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 font-bold">
                                     <SelectValue placeholder="Select Type" />
                                 </SelectTrigger>
-                                <SelectContent className="rounded-xl border-0 dark:border-slate-700 shadow-2xl bg-white dark:bg-slate-900">
+                                <SelectContent className="rounded-xl border-0 dark:border-gray-700 shadow-2xl bg-white dark:bg-gray-900">
                                     <SelectItem value="Equity">Equity / Stocks</SelectItem>
                                     <SelectItem value="Mutual Fund">Mutual Fund</SelectItem>
                                     <SelectItem value="Gold">Digital Gold</SelectItem>
@@ -112,31 +112,31 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Purchase Units</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-gray-600 tracking-st px-1">Purchase Units</Label>
                             <div className="relative">
-                                <TrendingUp className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+                                <TrendingUp className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                                 <Input
                                     required
                                     type="number"
                                     placeholder="100"
                                     value={formData.quantity}
                                     onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                                    className="pl-12 h-14 rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 focus:bg-white dark:focus:bg-slate-800 transition-all font-bold"
+                                    className="pl-12 h-14 rounded-xl border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 focus:bg-white dark:focus:bg-gray-800 transition-all font-bold"
                                 />
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[10px] font-semibold uppercase text-slate-600 tracking-st px-1">Average Cost (₹)</Label>
+                            <Label className="text-[10px] font-semibold uppercase text-gray-600 tracking-st px-1">Average Cost (₹)</Label>
                             <div className="relative">
-                                <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+                                <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                                 <Input
                                     required
                                     type="number"
                                     placeholder="2450.50"
                                     value={formData.average_price}
                                     onChange={(e) => setFormData({ ...formData, average_price: e.target.value })}
-                                    className="pl-12 h-14 rounded-xl border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 focus:bg-white dark:focus:bg-slate-800 transition-all font-bold"
+                                    className="pl-12 h-14 rounded-xl border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 focus:bg-white dark:focus:bg-gray-800 transition-all font-bold"
                                 />
                             </div>
                         </div>
@@ -145,7 +145,7 @@ export default function AddHoldingDialog({ onAdd, user }: AddHoldingDialogProps)
                     <DialogFooter className="pt-4">
                         <Button
                             type="submit"
-                            className="w-full rounded-xl h-14 bg-slate-900 hover:bg-primary-600 font-semibold uppercase tracking-widest text-white transition-all shadow-xl shadow-primary-500/10"
+                            className="w-full rounded-xl h-14 bg-gray-900 hover:bg-primary-600 font-semibold uppercase tracking-widest text-white transition-all shadow-xl shadow-primary-500/10"
                         >
                             Commit to Ledger
                         </Button>

@@ -133,8 +133,8 @@ export default function DataTableDemo() {
       header: 'Fund Name',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-slate-900 dark:text-white">{row.name}</div>
-          <div className="text-xs text-slate-500 dark:text-slate-600">{row.category}</div>
+          <div className="font-semibold text-gray-900 dark:text-white">{row.name}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-600">{row.category}</div>
         </div>
       ),
       sortable: true,
@@ -146,7 +146,7 @@ export default function DataTableDemo() {
       accessor: (row) => (
         <div className="flex items-center gap-1">
           <Star className="w-4 h-4 text-accent-400 fill-accent-400" />
-          <span className="font-bold text-slate-900 dark:text-white">{row.rating}</span>
+          <span className="font-bold text-gray-900 dark:text-white">{row.rating}</span>
         </div>
       ),
       sortable: true,
@@ -157,7 +157,7 @@ export default function DataTableDemo() {
       key: 'returns_1y',
       header: '1Y Returns',
       accessor: (row) => (
-        <span className={`font-semibold ${row.returns_1y > 15 ? 'text-success-600' : 'text-slate-700 dark:text-slate-300'}`}>
+        <span className={`font-semibold ${row.returns_1y > 15 ? 'text-success-600' : 'text-gray-700 dark:text-gray-300'}`}>
           {row.returns_1y.toFixed(1)}%
         </span>
       ),
@@ -170,7 +170,7 @@ export default function DataTableDemo() {
       key: 'returns_3y',
       header: '3Y Returns',
       accessor: (row) => (
-        <span className={`font-semibold ${row.returns_3y > 18 ? 'text-success-600' : 'text-slate-700 dark:text-slate-300'}`}>
+        <span className={`font-semibold ${row.returns_3y > 18 ? 'text-success-600' : 'text-gray-700 dark:text-gray-300'}`}>
           {row.returns_3y.toFixed(1)}%
         </span>
       ),
@@ -182,7 +182,7 @@ export default function DataTableDemo() {
       key: 'returns_5y',
       header: '5Y Returns',
       accessor: (row) => (
-        <span className={`font-semibold ${row.returns_5y > 17 ? 'text-success-600' : 'text-slate-700 dark:text-slate-300'}`}>
+        <span className={`font-semibold ${row.returns_5y > 17 ? 'text-success-600' : 'text-gray-700 dark:text-gray-300'}`}>
           {row.returns_5y.toFixed(1)}%
         </span>
       ),
@@ -195,7 +195,7 @@ export default function DataTableDemo() {
       key: 'expenseRatio',
       header: 'Expense Ratio',
       accessor: (row) => (
-        <span className="text-sm text-slate-600 dark:text-slate-400">
+        <span className="text-sm text-gray-600 dark:text-gray-400">
           {row.expenseRatio.toFixed(2)}%
         </span>
       ),
@@ -234,14 +234,14 @@ export default function DataTableDemo() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12 px-4">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             DataTable Component Demo
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400">
+          <p className="text-lg text-gray-600 dark:text-gray-400">
             Universal table component with sorting, pagination, and mobile responsiveness
           </p>
         </div>
@@ -287,11 +287,11 @@ export default function DataTableDemo() {
         {/* Features list */}
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="p-6">
-            <h3 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-primary-600" />
               Desktop Features
             </h3>
-            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
               <li>âœ… Sortable columns (click headers)</li>
               <li>âœ… Row selection with checkboxes</li>
               <li>âœ… Pagination with page numbers</li>
@@ -302,11 +302,11 @@ export default function DataTableDemo() {
           </Card>
 
           <Card className="p-6">
-            <h3 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <ArrowUpRight className="w-5 h-5 text-primary-600" />
               Mobile Features
             </h3>
-            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
               <li>âœ… Automatic card layout on mobile</li>
               <li>âœ… Hide non-essential columns</li>
               <li>âœ… Touch-friendly interactions</li>
@@ -318,7 +318,7 @@ export default function DataTableDemo() {
         </div>
 
         {/* Code example */}
-        <Card className="p-6 bg-slate-900 text-slate-100">
+        <Card className="p-6 bg-gray-900 text-gray-100">
           <h3 className="font-bold mb-4">Usage Example:</h3>
           <pre className="text-xs overflow-x-auto">
 {`import { DataTable, ColumnDef } from '@/components/data-table';

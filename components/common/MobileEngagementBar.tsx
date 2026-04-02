@@ -147,13 +147,13 @@ export default function MobileEngagementBar({ category = 'general', className }:
                 )}
             >
                 {/* Gradient fade at top */}
-                <div className="absolute -top-6 left-0 right-0 h-6 bg-gradient-to-t from-white dark:from-slate-950 to-transparent pointer-events-none" />
+                <div className="absolute -top-6 left-0 right-0 h-6 bg-gradient-to-t from-white dark:from-gray-950 to-transparent pointer-events-none" />
                 
                 {/* Main bar */}
-                <div className="bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 shadow-2xl shadow-slate-900/20">
+                <div className="bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 shadow-2xl shadow-gray-900/20">
                     {/* Dismiss hint */}
                     <div className="flex justify-center pt-2">
-                        <div className="w-10 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
+                        <div className="w-10 h-1 rounded-full bg-gray-300 dark:bg-gray-700" />
                     </div>
                     
                     {/* Scrollable widgets */}
@@ -175,7 +175,7 @@ export default function MobileEngagementBar({ category = 'general', className }:
                                     </SheetTrigger>
                                     <SheetContent 
                                         side="bottom" 
-                                        className="h-[60vh] rounded-t-3xl p-0 border-t border-slate-200 dark:border-slate-800"
+                                        className="h-[60vh] rounded-t-3xl p-0 border-t border-gray-200 dark:border-gray-800"
                                     >
                                         <div className="p-6">
                                             <div className="flex items-center justify-between mb-6">
@@ -200,7 +200,7 @@ export default function MobileEngagementBar({ category = 'general', className }:
                     </div>
                     
                     {/* Safe area padding for iOS */}
-                    <div className="h-safe-area-inset-bottom bg-white dark:bg-slate-950" />
+                    <div className="h-safe-area-inset-bottom bg-white dark:bg-gray-950" />
                 </div>
             </div>
             
@@ -248,7 +248,7 @@ function CibilExpandedContent() {
                     </div>
                 </div>
                 <p className="text-lg font-bold text-emerald-600">Excellent Score</p>
-                <p className="text-sm text-slate-500">You qualify for premium cards</p>
+                <p className="text-sm text-gray-500">You qualify for premium cards</p>
             </div>
             
             {/* CTA */}
@@ -257,7 +257,7 @@ function CibilExpandedContent() {
                 <ChevronRight className="w-5 h-5 ml-2" />
             </Button>
             
-            <p className="text-xs text-center text-slate-600">
+            <p className="text-xs text-center text-gray-600">
                 No impact on your credit score. Powered by CIBIL.
             </p>
         </div>
@@ -269,16 +269,16 @@ function TaxExpandedContent() {
         <div className="space-y-6">
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 rounded-2xl p-6 text-center">
                 <div className="text-5xl font-black text-amber-600 mb-2">45</div>
-                <div className="text-lg font-bold text-slate-700 dark:text-slate-300">Days Left</div>
-                <div className="text-sm text-slate-500 mt-1">ITR Filing Deadline: July 31</div>
+                <div className="text-lg font-bold text-gray-700 dark:text-gray-300">Days Left</div>
+                <div className="text-sm text-gray-500 mt-1">ITR Filing Deadline: July 31</div>
             </div>
             
             <div className="space-y-3">
-                <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
                     <span className="font-medium">Advance Tax (Q1)</span>
-                    <span className="text-sm text-slate-500">Jun 15</span>
+                    <span className="text-sm text-gray-500">Jun 15</span>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
                     <span className="font-medium">ITR Filing</span>
                     <span className="text-sm text-amber-600 font-bold">Jul 31</span>
                 </div>
@@ -305,16 +305,16 @@ function RatesExpandedContent({ category }: { category: string }) {
                 {rates.map((rate, idx) => (
                     <div 
                         key={idx}
-                        className="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl"
+                        className="p-4 bg-gray-50 dark:bg-gray-900 rounded-xl"
                     >
-                        <div className="text-xs text-slate-500 mb-1">{rate.label}</div>
+                        <div className="text-xs text-gray-500 mb-1">{rate.label}</div>
                         <div className="flex items-center gap-2">
                             <span className="text-lg font-bold">{rate.value}</span>
                             {rate.change && (
                                 <span className={cn(
                                     "text-xs font-semibold flex items-center",
                                     rate.trend === 'up' ? 'text-emerald-600' : 
-                                    rate.trend === 'down' ? 'text-red-600' : 'text-slate-500'
+                                    rate.trend === 'down' ? 'text-red-600' : 'text-gray-500'
                                 )}>
                                     {rate.trend === 'up' && <TrendingUp className="w-3 h-3 mr-0.5" />}
                                     {rate.trend === 'down' && <TrendingDown className="w-3 h-3 mr-0.5" />}
@@ -326,7 +326,7 @@ function RatesExpandedContent({ category }: { category: string }) {
                 ))}
             </div>
             
-            <div className="text-xs text-center text-slate-600 pt-2">
+            <div className="text-xs text-center text-gray-600 pt-2">
                 Last updated: 2 minutes ago
             </div>
         </div>
@@ -345,12 +345,12 @@ function NewsExpandedContent({ category }: { category: string }) {
             {news.map((item, idx) => (
                 <div 
                     key={idx}
-                    className="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    className="p-4 bg-gray-50 dark:bg-gray-900 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
-                    <h4 className="font-semibold text-slate-900 dark:text-white leading-snug mb-2">
+                    <h4 className="font-semibold text-gray-900 dark:text-white leading-snug mb-2">
                         {item.title}
                     </h4>
-                    <div className="flex items-center justify-between text-xs text-slate-500">
+                    <div className="flex items-center justify-between text-xs text-gray-500">
                         <span className="font-medium">{item.source}</span>
                         <span>{item.time}</span>
                     </div>

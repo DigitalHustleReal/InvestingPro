@@ -15,7 +15,7 @@ export default function SavedProducts() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[1, 2].map(i => (
-          <div key={i} className="h-32 bg-slate-100 dark:bg-slate-800 animate-pulse rounded-2xl" />
+          <div key={i} className="h-32 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-2xl" />
         ))}
       </div>
     );
@@ -23,13 +23,13 @@ export default function SavedProducts() {
 
   if (savedProducts.length === 0) {
     return (
-      <Card className="border-2 border-dashed border-slate-200 dark:border-slate-800 bg-transparent">
+      <Card className="border-2 border-dashed border-gray-200 dark:border-gray-800 bg-transparent">
         <CardContent className="p-12 text-center">
-          <div className="mx-auto w-16 h-16 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center text-slate-600 mb-4">
+          <div className="mx-auto w-16 h-16 bg-gray-100 dark:bg-gray-900 rounded-full flex items-center justify-center text-gray-600 mb-4">
             <Bookmark size={32} />
           </div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No saved products yet</h3>
-          <p className="text-slate-500 dark:text-slate-600 mb-6 max-w-sm mx-auto">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">No saved products yet</h3>
+          <p className="text-gray-500 dark:text-gray-600 mb-6 max-w-sm mx-auto">
             Pin the credit cards or loans you're interested in to compare them here later.
           </p>
           <div className="flex justify-center gap-3">
@@ -48,10 +48,10 @@ export default function SavedProducts() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {savedProducts.map((product) => (
-        <Card key={product.id} className="overflow-hidden border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:shadow-lg transition-all group">
+        <Card key={product.id} className="overflow-hidden border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-lg transition-all group">
           <CardContent className="p-4">
             <div className="flex gap-4">
-              <div className="relative w-20 h-12 bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden flex-shrink-0 border border-slate-100 dark:border-slate-700">
+              <div className="relative w-20 h-12 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100 dark:border-gray-700">
                 {product.image ? (
                   <Image 
                     src={product.image} 
@@ -60,7 +60,7 @@ export default function SavedProducts() {
                     className="object-contain p-1"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-slate-300">
+                  <div className="w-full h-full flex items-center justify-center text-gray-300">
                     {product.category === 'credit_card' ? <CreditCard size={20} /> : 
                      product.category === 'loan' ? <Landmark size={20} /> : <Coins size={20} />}
                   </div>
@@ -70,16 +70,16 @@ export default function SavedProducts() {
               <div className="flex-grow min-w-0">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h4 className="font-bold text-slate-900 dark:text-white truncate text-sm">
+                    <h4 className="font-bold text-gray-900 dark:text-white truncate text-sm">
                       {product.name}
                     </h4>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-600 font-medium uppercase tracking-wider">
+                    <p className="text-[10px] text-gray-500 dark:text-gray-600 font-medium uppercase tracking-wider">
                       {product.provider}
                     </p>
                   </div>
                   <button 
                     onClick={() => toggleSaveProduct(product)}
-                    className="text-slate-300 hover:text-danger-500 transition-colors p-1"
+                    className="text-gray-300 hover:text-danger-500 transition-colors p-1"
                   >
                     <Trash2 size={16} />
                   </button>
@@ -87,7 +87,7 @@ export default function SavedProducts() {
                 
                 <div className="flex items-center justify-between mt-3">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-[9px] font-bold text-slate-500 uppercase">
+                    <span className="px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-[9px] font-bold text-gray-500 uppercase">
                       {product.category.replace('_', ' ')}
                     </span>
                   </div>

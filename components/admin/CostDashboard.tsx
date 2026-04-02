@@ -186,7 +186,7 @@ export default function CostDashboard() {
                                                 ${data.dailyBudget.cost_spent_usd.toFixed(2)} / ${data.dailyBudget.max_cost_usd.toFixed(2)}
                                             </span>
                                         </div>
-                                        <div className="w-full bg-slate-200 rounded-full h-2">
+                                        <div className="w-full bg-gray-200 rounded-full h-2">
                                             <div
                                                 className={`h-2 rounded-full ${getStatusColor(dailyPercent)}`}
                                                 style={{ width: `${Math.min(100, dailyPercent)}%` }}
@@ -242,7 +242,7 @@ export default function CostDashboard() {
                                                 ${data.monthlyBudget.cost_spent_usd.toFixed(2)} / ${data.monthlyBudget.max_cost_usd.toFixed(2)}
                                             </span>
                                         </div>
-                                        <div className="w-full bg-slate-200 rounded-full h-2">
+                                        <div className="w-full bg-gray-200 rounded-full h-2">
                                             <div
                                                 className={`h-2 rounded-full ${getStatusColor(monthlyPercent)}`}
                                                 style={{ width: `${Math.min(100, monthlyPercent)}%` }}

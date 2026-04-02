@@ -95,7 +95,7 @@ const categoryTools = {
 };
 
 // Combine all tools for 'all' category
-categoryTools.all = [
+(categoryTools.all as typeof categoryTools.credit_card) = [
     ...categoryTools.credit_card.slice(0, 1),
     ...categoryTools.loan.slice(0, 1),
     ...categoryTools.mutual_fund.slice(0, 1),
@@ -128,26 +128,26 @@ export default function DecisionHelper({ category, variant = 'full', className }
 
     if (variant === 'compact') {
         return (
-            <Card className={cn("rounded-2xl border-slate-200 dark:border-slate-800", className)}>
+            <Card className={cn("rounded-2xl border-gray-200 dark:border-gray-800", className)}>
                 <CardContent className="p-4">
                     <div className="flex items-center gap-2 mb-3">
                         <Sparkles className="w-4 h-4 text-primary-500" />
-                        <span className="font-bold text-sm text-slate-900 dark:text-white">Decision Tools</span>
+                        <span className="font-bold text-sm text-gray-900 dark:text-white">Decision Tools</span>
                     </div>
                     <div className="space-y-2">
                         {tools.slice(0, 2).map((tool) => {
                             const Icon = tool.icon;
                             return (
                                 <Link key={tool.id} href={tool.href}>
-                                    <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                                    <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                                         <div className={cn("w-10 h-10 rounded-xl bg-gradient-to-br flex items-center justify-center", tool.color)}>
                                             <Icon className="w-5 h-5 text-white" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-semibold text-sm text-slate-900 dark:text-white truncate">{tool.title}</p>
-                                            <p className="text-xs text-slate-500 truncate">{tool.description}</p>
+                                            <p className="font-semibold text-sm text-gray-900 dark:text-white truncate">{tool.title}</p>
+                                            <p className="text-xs text-gray-500 truncate">{tool.description}</p>
                                         </div>
-                                        <ChevronRight className="w-4 h-4 text-slate-600 shrink-0" />
+                                        <ChevronRight className="w-4 h-4 text-gray-600 shrink-0" />
                                     </div>
                                 </Link>
                             );
@@ -163,14 +163,14 @@ export default function DecisionHelper({ category, variant = 'full', className }
         <Card className={cn("rounded-3xl border-0 shadow-xl overflow-hidden", className)}>
             <CardContent className="p-0">
                 {/* Header */}
-                <div className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 p-6 text-white">
+                <div className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 p-6 text-white">
                     <div className="flex items-center gap-3 mb-2">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
                             <Sparkles className="w-5 h-5" />
                         </div>
                         <div>
                             <h3 className="font-bold text-lg">Decision Helper</h3>
-                            <p className="text-sm text-slate-600">Tools to help you decide faster</p>
+                            <p className="text-sm text-gray-600">Tools to help you decide faster</p>
                         </div>
                     </div>
                 </div>
@@ -181,7 +181,7 @@ export default function DecisionHelper({ category, variant = 'full', className }
                         const Icon = tool.icon;
                         return (
                             <Link key={tool.id} href={tool.href}>
-                                <div className="group flex items-center gap-4 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-primary-200 dark:hover:border-primary-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all">
+                                <div className="group flex items-center gap-4 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-primary-200 dark:hover:border-primary-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all">
                                     <div className={cn(
                                         "w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center shrink-0 transition-transform group-hover:scale-110",
                                         tool.color
@@ -190,14 +190,14 @@ export default function DecisionHelper({ category, variant = 'full', className }
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <h4 className="font-bold text-slate-900 dark:text-white">{tool.title}</h4>
+                                            <h4 className="font-bold text-gray-900 dark:text-white">{tool.title}</h4>
                                             {tool.badge && (
                                                 <Badge className="bg-primary-100 text-primary-700 border-0 text-[10px]">
                                                     {tool.badge}
                                                 </Badge>
                                             )}
                                         </div>
-                                        <p className="text-sm text-slate-500 dark:text-slate-600">{tool.description}</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-600">{tool.description}</p>
                                     </div>
                                     <Button variant="ghost" size="sm" className="shrink-0 rounded-xl group-hover:bg-primary-100 group-hover:text-primary-700">
                                         Try Now
@@ -213,7 +213,7 @@ export default function DecisionHelper({ category, variant = 'full', className }
                 {category !== 'all' && (
                     <div className="px-6 pb-6">
                         <div className="p-4 rounded-2xl bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-950 border border-primary-100 dark:border-primary-900">
-                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                 <Zap className="w-4 h-4 inline mr-1 text-primary-500" />
                                 <strong>Pro Tip:</strong> Use our decision tools to make informed choices without endless browsing.
                             </p>

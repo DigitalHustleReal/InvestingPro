@@ -11,13 +11,13 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
 export function ProductCardSkeleton() {
     return (
-        <Card className="animate-pulse border border-slate-200 dark:border-slate-700">
+        <Card className="animate-pulse border border-gray-200 dark:border-gray-700">
             <CardHeader className="pb-2">
                 <div className="flex items-start gap-3">
-                    <div className="h-12 w-16 bg-slate-200 dark:bg-slate-700 rounded" />
+                    <div className="h-12 w-16 bg-gray-200 dark:bg-gray-700 rounded" />
                     <div className="flex-1 space-y-2">
-                        <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-3/4" />
-                        <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-1/2" />
+                        <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
                     </div>
                 </div>
             </CardHeader>
@@ -25,14 +25,14 @@ export function ProductCardSkeleton() {
                 <div className="grid grid-cols-3 gap-2">
                     {Array.from({ length: 3 }).map((_, i) => (
                         <div key={i} className="space-y-1">
-                            <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full" />
-                            <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-2/3" />
+                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full" />
+                            <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-2/3" />
                         </div>
                     ))}
                 </div>
                 <div className="flex gap-2 pt-2">
-                    <div className="h-9 bg-slate-200 dark:bg-slate-700 rounded flex-1" />
-                    <div className="h-9 bg-slate-200 dark:bg-slate-700 rounded w-24" />
+                    <div className="h-9 bg-gray-200 dark:bg-gray-700 rounded flex-1" />
+                    <div className="h-9 bg-gray-200 dark:bg-gray-700 rounded w-24" />
                 </div>
             </CardContent>
         </Card>

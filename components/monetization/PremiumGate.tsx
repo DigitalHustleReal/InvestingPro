@@ -84,9 +84,9 @@ export function PremiumGate({
   // Loading state
   if (isLoading) {
     return (
-      <div className="animate-pulse bg-slate-800/50 rounded-xl p-8">
-        <div className="h-8 bg-slate-700 rounded w-1/3 mb-4"></div>
-        <div className="h-4 bg-slate-700 rounded w-2/3"></div>
+      <div className="animate-pulse bg-gray-800/50 rounded-xl p-8">
+        <div className="h-8 bg-gray-700 rounded w-1/3 mb-4"></div>
+        <div className="h-4 bg-gray-700 rounded w-2/3"></div>
       </div>
     );
   }
@@ -109,7 +109,7 @@ export function PremiumGate({
       )}
 
       {/* Upgrade overlay */}
-      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent">
+      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent">
         <div className="text-center p-8 max-w-md">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-accent-500 to-orange-600 mb-6">
             <Crown className="w-8 h-8 text-white" />
@@ -119,7 +119,7 @@ export function PremiumGate({
             {featureInfo?.title || 'Premium Feature'}
           </h3>
           
-          <p className="text-slate-300 mb-6">
+          <p className="text-gray-300 mb-6">
             {description || featureInfo?.description || 'Upgrade to Pro to unlock this feature'}
           </p>
 
@@ -142,12 +142,12 @@ export function PremiumGate({
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>
-            <Button variant="ghost" className="text-slate-600">
+            <Button variant="ghost" className="text-gray-600">
               Learn More
             </Button>
           </div>
 
-          <p className="text-slate-500 text-sm mt-4">
+          <p className="text-gray-500 text-sm mt-4">
             Starting at ₹199/month • Cancel anytime
           </p>
         </div>
@@ -158,7 +158,7 @@ export function PremiumGate({
 
 function ProBenefit({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-2 text-sm text-slate-300">
+    <div className="flex items-center gap-2 text-sm text-gray-300">
       <Check className="w-4 h-4 text-success-500 flex-shrink-0" />
       <span>{children}</span>
     </div>
@@ -186,10 +186,10 @@ export function PremiumBadge({ size = 'sm' }: { size?: 'sm' | 'md' }) {
  */
 export function PremiumLock({ className = '' }: { className?: string }) {
   return (
-    <div className={`absolute inset-0 flex items-center justify-center bg-slate-950/80 ${className}`}>
+    <div className={`absolute inset-0 flex items-center justify-center bg-gray-950/80 ${className}`}>
       <div className="flex flex-col items-center gap-2">
         <Lock className="w-8 h-8 text-accent-500" />
-        <span className="text-sm text-slate-600">Pro Feature</span>
+        <span className="text-sm text-gray-600">Pro Feature</span>
       </div>
     </div>
   );

@@ -90,7 +90,7 @@ export default function CategoryPage() {
             />
 
             {/* Header */}
-            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 border-b border-slate-200">
+            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 border-b border-gray-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                     <div className="mb-4">
                         <Link href="/articles">
@@ -99,10 +99,10 @@ export default function CategoryPage() {
                             </Button>
                         </Link>
                     </div>
-                    <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
+                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
                         {categoryName}
                     </h1>
-                    <p className="text-xl text-slate-600 max-w-2xl">
+                    <p className="text-xl text-gray-600 max-w-2xl">
                         {paginatedArticles.length > 0 
                             ? `${articles.length} article${articles.length !== 1 ? 's' : ''} about ${categoryName.toLowerCase()}`
                             : `Articles about ${categoryName.toLowerCase()}`
@@ -115,7 +115,7 @@ export default function CategoryPage() {
                 {/* Search */}
                 <div className="mb-8">
                     <div className="relative max-w-md">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <Input
                             placeholder="Search articles..."
                             value={searchTerm}
@@ -131,7 +131,7 @@ export default function CategoryPage() {
                 {/* Articles Grid */}
                 {isLoading ? (
                     <div className="text-center py-12">
-                        <div className="text-slate-600">Loading articles...</div>
+                        <div className="text-gray-600">Loading articles...</div>
                     </div>
                 ) : paginatedArticles.length === 0 ? (
                     <EmptyState
@@ -161,15 +161,15 @@ export default function CategoryPage() {
                                                     {article.category?.replace(/-/g, ' ')}
                                                 </Badge>
                                             </div>
-                                            <h2 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2">
+                                            <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
                                                 {article.title}
                                             </h2>
                                             {article.excerpt && (
-                                                <p className="text-slate-600 text-sm mb-4 line-clamp-3">
+                                                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                                                     {article.excerpt}
                                                 </p>
                                             )}
-                                            <div className="flex items-center justify-between text-xs text-slate-500">
+                                            <div className="flex items-center justify-between text-xs text-gray-500">
                                                 <div className="flex items-center gap-4">
                                                     {article.read_time && (
                                                         <span className="flex items-center gap-1">
@@ -206,7 +206,7 @@ export default function CategoryPage() {
                                 >
                                     Previous
                                 </Button>
-                                <span className="flex items-center px-4 text-slate-600">
+                                <span className="flex items-center px-4 text-gray-600">
                                     Page {currentPage} of {totalPages}
                                 </span>
                                 <Button
@@ -270,7 +270,7 @@ function RelatedProductsSection({ category }: { category: string }) {
     if (isLoading || !products || products.length === 0) return null;
 
     return (
-        <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800">
+        <div className="mt-16 pt-12 border-t border-gray-200 dark:border-gray-800">
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -279,7 +279,7 @@ function RelatedProductsSection({ category }: { category: string }) {
                             Explore Products
                         </Badge>
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                         Top {category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} Products
                     </h2>
                 </div>
@@ -296,7 +296,7 @@ function RelatedProductsSection({ category }: { category: string }) {
                     <Link key={product.id || product.slug} href={getProductUrl(product)}>
                         <Card className="h-full hover:shadow-lg transition-shadow group">
                             {product.image_url && (
-                                <div className="aspect-[16/10] w-full overflow-hidden rounded-t-lg bg-slate-100">
+                                <div className="aspect-[16/10] w-full overflow-hidden rounded-t-lg bg-gray-100">
                                     <img
                                         src={product.image_url}
                                         alt={product.name}
@@ -305,17 +305,17 @@ function RelatedProductsSection({ category }: { category: string }) {
                                 </div>
                             )}
                             <CardContent className="p-4">
-                                <p className="text-xs font-semibold text-slate-500 uppercase mb-1">
+                                <p className="text-xs font-semibold text-gray-500 uppercase mb-1">
                                     {product.provider_name || product.provider || 'Provider'}
                                 </p>
-                                <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-primary-600 line-clamp-2 mb-2">
+                                <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-primary-600 line-clamp-2 mb-2">
                                     {product.name}
                                 </h3>
                                 {product.rating && (
                                     <div className="flex items-center gap-1 text-sm">
                                         <TrendingUp className="w-4 h-4 text-amber-500" />
                                         <span className="font-semibold">{product.rating}</span>
-                                        <span className="text-slate-400">/5</span>
+                                        <span className="text-gray-400">/5</span>
                                     </div>
                                 )}
                             </CardContent>

@@ -30,7 +30,7 @@ export function TrendSparkline({
         return `${i === 0 ? 'M' : 'L'} ${x},${y}`;
     }).join(' ');
 
-    const fillColor = trend === 'up' ? 'text-success-500' : trend === 'down' ? 'text-danger-500' : 'text-slate-600';
+    const fillColor = trend === 'up' ? 'text-success-500' : trend === 'down' ? 'text-danger-500' : 'text-gray-600';
     const strokeColor = trend === 'up' ? '#10b981' : trend === 'down' ? '#ef4444' : '#94a3b8';
 
     return (

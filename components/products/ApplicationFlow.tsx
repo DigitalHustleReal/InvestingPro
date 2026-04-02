@@ -14,7 +14,7 @@ interface ApplicationFlowProps {
     affiliateLink: string;
     isOpen: boolean;
     onClose: () => void;
-    onConversion?: (event: { type: string; productId: string }) => void;
+    onConversion?: (event: { type: string; productId?: string }) => void;
 }
 
 /**
@@ -97,7 +97,7 @@ export default function ApplicationFlow({
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-white">
+                    <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-white">
                         Apply for {productName}
                     </DialogTitle>
                 </DialogHeader>
@@ -109,10 +109,10 @@ export default function ApplicationFlow({
                             <div className="flex items-start gap-3">
                                 <Shield className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-0.5 shrink-0" />
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-1">
+                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                                         Secure Application Process
                                     </h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">
                                         You'll be redirected to the official {getProductTypeLabel().toLowerCase()} provider's website. 
                                         Your application is secure and protected.
                                     </p>
@@ -122,7 +122,7 @@ export default function ApplicationFlow({
 
                         {/* What Happens Next */}
                         <div className="space-y-3">
-                            <h4 className="font-semibold text-slate-900 dark:text-white">What happens next:</h4>
+                            <h4 className="font-semibold text-gray-900 dark:text-white">What happens next:</h4>
                             <ul className="space-y-2">
                                 {[
                                     "You'll be redirected to the official application page",
@@ -132,7 +132,7 @@ export default function ApplicationFlow({
                                 ].map((item, idx) => (
                                     <li key={idx} className="flex items-start gap-3">
                                         <CheckCircle2 className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-0.5 shrink-0" />
-                                        <span className="text-slate-700 dark:text-slate-300">{item}</span>
+                                        <span className="text-gray-700 dark:text-gray-300">{item}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -154,7 +154,7 @@ export default function ApplicationFlow({
                         </div>
 
                         {/* Disclaimer */}
-                        <p className="text-xs text-slate-500 dark:text-slate-600 text-center">
+                        <p className="text-xs text-gray-500 dark:text-gray-600 text-center">
                             By clicking "{getCtaText()}", you'll be redirected to the official provider's website. 
                             InvestingPro earns a commission if you complete the application.
                         </p>
@@ -164,10 +164,10 @@ export default function ApplicationFlow({
                 {step === 'redirecting' && (
                     <div className="py-12 text-center">
                         <Loader2 className="w-12 h-12 text-primary-600 dark:text-primary-400 animate-spin mx-auto mb-4" />
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                             Redirecting You...
                         </h3>
-                        <p className="text-slate-600 dark:text-slate-400">
+                        <p className="text-gray-600 dark:text-gray-400">
                             Opening the official application page in a new tab.
                         </p>
                     </div>
@@ -176,10 +176,10 @@ export default function ApplicationFlow({
                 {step === 'complete' && (
                     <div className="py-12 text-center">
                         <CheckCircle2 className="w-16 h-16 text-success-600 dark:text-success-400 mx-auto mb-4" />
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                             Application Page Opened
                         </h3>
-                        <p className="text-slate-600 dark:text-slate-400 mb-6">
+                        <p className="text-gray-600 dark:text-gray-400 mb-6">
                             Complete your application on the official provider's website.
                         </p>
                         <Button onClick={onClose} variant="outline">

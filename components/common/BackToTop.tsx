@@ -43,13 +43,13 @@ export default function BackToTop() {
                     exit={{ opacity: 0, scale: 0.8, y: 20 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                     onClick={scrollToTop}
-                    className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg border border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl hover:scale-110 transition-all group"
+                    className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl hover:scale-110 transition-all group"
                     aria-label="Back to top"
                 >
-                    <ArrowUp className="w-5 h-5 text-slate-600 dark:text-slate-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors" />
+                    <ArrowUp className="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors" />
                     
                     {/* Tooltip */}
-                    <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-900 dark:bg-slate-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                    <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                         Back to top
                     </span>
                 </motion.button>

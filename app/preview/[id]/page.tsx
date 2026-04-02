@@ -96,7 +96,7 @@ export default function PreviewArticlePage() {
     if (!article) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center px-4">
-                <h1 className="text-2xl font-bold text-slate-900 mb-4">Article Not Found</h1>
+                <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
                 <Link href="/admin/articles">
                     <Button>Back to Admin</Button>
                 </Link>
@@ -170,23 +170,23 @@ export default function PreviewArticlePage() {
                         <Badge className="mb-4 bg-secondary-100 text-secondary-700 border-0">
                             {article.category?.replace(/-/g, ' ')}
                         </Badge>
-                        <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                             {article.title}
                         </h1>
-                        <p className="text-xl text-slate-500 mb-8 leading-relaxed">
+                        <p className="text-xl text-gray-500 mb-8 leading-relaxed">
                             {article.excerpt}
                         </p>
 
-                        <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-slate-500 mb-8 pb-8 border-b">
+                        <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-gray-500 mb-8 pb-8 border-b">
                             <span className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-                                    <User className="w-4 h-4 text-slate-400" />
+                                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                                    <User className="w-4 h-4 text-gray-400" />
                                 </div>
-                                <span className="font-semibold text-slate-900">{article.author_name}</span>
+                                <span className="font-semibold text-gray-900">{article.author_name}</span>
                             </span>
                             {article.published_date && (
                                 <span className="flex items-center gap-2">
-                                    <Calendar className="w-4 h-4 text-slate-400" />
+                                    <Calendar className="w-4 h-4 text-gray-400" />
                                     {new Date(article.published_date).toLocaleDateString('en-IN', {
                                         year: 'numeric',
                                         month: 'long',
@@ -195,11 +195,11 @@ export default function PreviewArticlePage() {
                                 </span>
                             )}
                             <span className="flex items-center gap-2">
-                                <Clock className="w-4 h-4 text-slate-400" />
+                                <Clock className="w-4 h-4 text-gray-400" />
                                 {article.read_time} min read
                             </span>
                             <span className="flex items-center gap-2">
-                                <Eye className="w-4 h-4 text-slate-400" />
+                                <Eye className="w-4 h-4 text-gray-400" />
                                 {article.views || 0} views
                             </span>
                         </div>

@@ -61,18 +61,18 @@ export default function PartnerLogos({
   }
 
   return (
-    <section className="w-full py-16 px-4 bg-slate-50 dark:bg-slate-900">
+    <section className="w-full py-16 px-4 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         {(title || subtitle) && (
           <div className="text-center mb-12">
             {title && (
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className="text-lg text-slate-600 dark:text-slate-400">
+              <p className="text-lg text-gray-600 dark:text-gray-400">
                 {subtitle}
               </p>
             )}
@@ -92,7 +92,7 @@ export default function PartnerLogos({
 
 function PartnerLogo({ partner }: { partner: Partner }) {
   const logoElement = (
-    <div className="group relative h-24 flex items-center justify-center p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-primary-700 transition-all hover:shadow-lg">
+    <div className="group relative h-24 flex items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700 transition-all hover:shadow-lg">
       <div className="relative w-full h-full grayscale group-hover:grayscale-0 transition-all opacity-70 group-hover:opacity-100">
         <Image
           src={partner.logo_url}

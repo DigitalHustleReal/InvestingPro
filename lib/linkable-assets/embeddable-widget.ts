@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 /**
  * Embeddable Widget System
  * Generates embed codes for calculators and tools

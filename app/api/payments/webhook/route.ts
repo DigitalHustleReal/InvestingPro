@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object;
-        logger.info('[WEBHOOK] Checkout completed:', session.id);
+        logger.info('[WEBHOOK] Checkout completed:', { value: session.id });
         
         // Update user subscription status in database
         const customerId = session.customer as string;
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
 
       case 'customer.subscription.updated': {
         const subscription = event.data.object;
-        logger.info('[WEBHOOK] Subscription updated:', subscription.id);
+        logger.info('[WEBHOOK] Subscription updated:', { value: subscription.id });
         
         await supabase
           .from('user_profiles')
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
 
       case 'customer.subscription.deleted': {
         const subscription = event.data.object;
-        logger.info('[WEBHOOK] Subscription cancelled:', subscription.id);
+        logger.info('[WEBHOOK] Subscription cancelled:', { value: subscription.id });
         
         await supabase
           .from('user_profiles')
@@ -91,19 +91,19 @@ export async function POST(request: NextRequest) {
 
       case 'invoice.payment_failed': {
         const invoice = event.data.object;
-        logger.info('[WEBHOOK] Payment failed:', invoice.id);
+        logger.info('[WEBHOOK] Payment failed:', { value: invoice.id });
         
         // Could send email notification here
         break;
       }
 
       default:
-        logger.info('[WEBHOOK] Unhandled event type:', event.type);
+        logger.info('[WEBHOOK] Unhandled event type:', { value: event.type });
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    logger.error('[WEBHOOK] Error:', error);
+    logger.error('[WEBHOOK] Error:', { value: error });
     return NextResponse.json(
       { error: 'Webhook processing failed' },
       { status: 500 }

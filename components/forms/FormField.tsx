@@ -48,7 +48,7 @@ export function FormField({
                 {showCharCount && maxLength && (
                     <span
                         className={cn(
-                            'text-xs text-slate-500',
+                            'text-xs text-gray-500',
                             charCount > maxLength * 0.9 && 'text-warning-500',
                             charCount > maxLength && 'text-danger-500'
                         )}
@@ -69,7 +69,7 @@ export function FormField({
             </div>
 
             {helperText && !hasError && (
-                <p className="text-xs text-slate-500 mt-1">{helperText}</p>
+                <p className="text-xs text-gray-500 mt-1">{helperText}</p>
             )}
 
             {hasError && (

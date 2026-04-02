@@ -9,7 +9,7 @@ import { BrainCircuit } from 'lucide-react';
 
 export default function RiskAnalyzerPage() {
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
             <SEOHead
                 title="Investment Risk Profile Analyzer | Free Financial Tools"
                 description="Discover your investment risk profile with our free 2-minute quiz. Get personalized asset allocation recommendations."
@@ -29,10 +29,10 @@ export default function RiskAnalyzerPage() {
                         <BrainCircuit className="w-3 h-3" />
                          AI Powered Analysis
                     </Badge>
-                    <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
                         What's Your Investment <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600">DNA?</span>
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                         Take our 2-minute psychometric test to discover your true risk tolerance and get a personalized portfolio mix.
                     </p>
                 </div>

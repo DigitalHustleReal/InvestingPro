@@ -46,20 +46,20 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
         // For now, we'll show the content with risk indicators
         return (
             <div className="space-y-4">
-                <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                    <div className="text-sm font-bold text-slate-700 mb-2">Title:</div>
-                    <div className="text-base text-slate-900">{draft.title}</div>
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <div className="text-sm font-bold text-gray-700 mb-2">Title:</div>
+                    <div className="text-base text-gray-900">{draft.title}</div>
                 </div>
 
                 {draft.excerpt && (
-                    <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <div className="text-sm font-bold text-slate-700 mb-2">Excerpt:</div>
-                        <div className="text-sm text-slate-700">{draft.excerpt}</div>
+                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <div className="text-sm font-bold text-gray-700 mb-2">Excerpt:</div>
+                        <div className="text-sm text-gray-700">{draft.excerpt}</div>
                     </div>
                 )}
 
-                <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                    <div className="text-sm font-bold text-slate-700 mb-2">Content:</div>
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <div className="text-sm font-bold text-gray-700 mb-2">Content:</div>
                     <div className="prose prose-sm max-w-none">
                         <ReactMarkdown>{draft.content}</ReactMarkdown>
                     </div>
@@ -87,7 +87,7 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
             <div className="space-y-4">
                 <article className="prose prose-lg max-w-none">
                     <h1>{draft.title}</h1>
-                    {draft.excerpt && <p className="text-xl text-slate-600">{draft.excerpt}</p>}
+                    {draft.excerpt && <p className="text-xl text-gray-600">{draft.excerpt}</p>}
                     <ReactMarkdown>{draft.content}</ReactMarkdown>
                 </article>
             </div>
@@ -98,30 +98,30 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
         return (
             <div className="space-y-6">
                 {/* Confidence Scores */}
-                <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                    <h3 className="text-sm font-bold text-slate-700 mb-3">Confidence Scores</h3>
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h3 className="text-sm font-bold text-gray-700 mb-3">Confidence Scores</h3>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <div className="text-xs text-slate-500 mb-1">Overall</div>
-                            <div className="text-lg font-bold text-slate-900">
+                            <div className="text-xs text-gray-500 mb-1">Overall</div>
+                            <div className="text-lg font-bold text-gray-900">
                                 {Math.round((confidence.overall || 0) * 100)}%
                             </div>
                         </div>
                         <div>
-                            <div className="text-xs text-slate-500 mb-1">Data Quality</div>
-                            <div className="text-lg font-bold text-slate-900">
+                            <div className="text-xs text-gray-500 mb-1">Data Quality</div>
+                            <div className="text-lg font-bold text-gray-900">
                                 {Math.round((confidence.data_quality || 0) * 100)}%
                             </div>
                         </div>
                         <div>
-                            <div className="text-xs text-slate-500 mb-1">Factual Accuracy</div>
-                            <div className="text-lg font-bold text-slate-900">
+                            <div className="text-xs text-gray-500 mb-1">Factual Accuracy</div>
+                            <div className="text-lg font-bold text-gray-900">
                                 {Math.round((confidence.factual_accuracy || 0) * 100)}%
                             </div>
                         </div>
                         <div>
-                            <div className="text-xs text-slate-500 mb-1">Completeness</div>
-                            <div className="text-lg font-bold text-slate-900">
+                            <div className="text-xs text-gray-500 mb-1">Completeness</div>
+                            <div className="text-lg font-bold text-gray-900">
                                 {Math.round((confidence.completeness || 0) * 100)}%
                             </div>
                         </div>
@@ -130,21 +130,21 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
 
                 {/* Data Sources */}
                 <div>
-                    <h3 className="text-sm font-bold text-slate-700 mb-3">Data Sources ({dataSources.length})</h3>
+                    <h3 className="text-sm font-bold text-gray-700 mb-3">Data Sources ({dataSources.length})</h3>
                     <div className="space-y-3">
                         {dataSources.length === 0 ? (
-                            <div className="text-sm text-slate-500 p-4 bg-accent-50 rounded-lg border border-accent-200">
+                            <div className="text-sm text-gray-500 p-4 bg-accent-50 rounded-lg border border-accent-200">
                                 No data sources listed
                             </div>
                         ) : (
                             dataSources.map((source: any, idx: number) => (
-                                <div key={idx} className="p-4 bg-white rounded-lg border border-slate-200">
+                                <div key={idx} className="p-4 bg-white rounded-lg border border-gray-200">
                                     <div className="flex items-start justify-between mb-2">
                                         <div className="flex-1">
-                                            <div className="font-bold text-slate-900 mb-1">
+                                            <div className="font-bold text-gray-900 mb-1">
                                                 {source.source_name || source.name || 'Unknown Source'}
                                             </div>
-                                            <div className="text-xs text-slate-500 mb-2">
+                                            <div className="text-xs text-gray-500 mb-2">
                                                 Type: {source.source_type || 'unknown'}
                                             </div>
                                             {source.source_url && (
@@ -166,7 +166,7 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
                                         )}
                                     </div>
                                     {source.last_verified && (
-                                        <div className="text-xs text-slate-600">
+                                        <div className="text-xs text-gray-600">
                                             Verified: {new Date(source.last_verified).toLocaleDateString()}
                                         </div>
                                     )}
@@ -179,25 +179,25 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
                 {/* Change Log */}
                 {changeLog.length > 0 && (
                     <div>
-                        <h3 className="text-sm font-bold text-slate-700 mb-3">Change Log</h3>
+                        <h3 className="text-sm font-bold text-gray-700 mb-3">Change Log</h3>
                         <div className="space-y-2">
                             {changeLog.map((log: any, idx: number) => (
-                                <div key={idx} className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-sm">
+                                <div key={idx} className="p-3 bg-gray-50 rounded-lg border border-gray-200 text-sm">
                                     <div className="flex items-center justify-between mb-1">
-                                        <span className="font-bold text-slate-900">
+                                        <span className="font-bold text-gray-900">
                                             {log.change_type || log.event}
                                         </span>
-                                        <span className="text-xs text-slate-600">
+                                        <span className="text-xs text-gray-600">
                                             {new Date(log.timestamp || log.generated_at).toLocaleString()}
                                         </span>
                                     </div>
                                     {log.changed_by && (
-                                        <div className="text-xs text-slate-500 mb-1">
+                                        <div className="text-xs text-gray-500 mb-1">
                                             By: {log.changed_by}
                                         </div>
                                     )}
                                     {log.changes && Array.isArray(log.changes) && (
-                                        <ul className="list-disc list-inside text-xs text-slate-600 mt-1">
+                                        <ul className="list-disc list-inside text-xs text-gray-600 mt-1">
                                             {log.changes.map((change: string, cIdx: number) => (
                                                 <li key={cIdx}>{change}</li>
                                             ))}
@@ -217,7 +217,7 @@ export default function DiffView({ draft, onClose }: DiffViewProps) {
             <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <div className="flex items-center justify-between">
-                        <DialogTitle className="text-xl font-bold text-slate-900">
+                        <DialogTitle className="text-xl font-bold text-gray-900">
                             {draft.title}
                         </DialogTitle>
                         <Button

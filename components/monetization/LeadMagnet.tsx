@@ -69,24 +69,24 @@ export default function LeadMagnet({ title, description, downloadUrl, type }: Le
     };
 
     return (
-        <Card className="my-10 overflow-hidden border-2 border-primary-500/20 bg-gradient-to-br from-white to-slate-50 relative">
+        <Card className="my-10 overflow-hidden border-2 border-primary-500/20 bg-gradient-to-br from-white to-gray-50 relative">
             <div className="absolute top-4 right-4 text-[10px] font-bold text-primary-600 bg-primary-50 px-2 py-1 rounded uppercase tracking-widest">
                 Free Download
             </div>
             
             <div className="flex flex-col md:flex-row items-center p-8 gap-8">
-                <div className="w-24 h-24 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center shrink-0">
+                <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-center shrink-0">
                     {typeIcons[type]}
                 </div>
                 
                 <div className="flex-1 text-center md:text-left">
-                    <h3 className="text-2xl font-bold text-slate-900 mb-2">{title}</h3>
-                    <p className="text-slate-600 mb-6">{description}</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{title}</h3>
+                    <p className="text-gray-600 mb-6">{description}</p>
                     
                     {!isSubmitted ? (
                         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
                             <div className="relative flex-1">
-                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                                 <Input 
                                     type="email" 
                                     placeholder="Enter your email to download" 
@@ -107,7 +107,7 @@ export default function LeadMagnet({ title, description, downloadUrl, type }: Le
                         </div>
                     )}
                     
-                    <div className="mt-4 flex items-center gap-4 text-[10px] text-slate-600">
+                    <div className="mt-4 flex items-center gap-4 text-[10px] text-gray-600">
                         <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Spam-free guaranteed</span>
                         <span>•</span>
                         <span>Used by 5,000+ investors</span>

@@ -39,7 +39,7 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
     return (
         <NavigationMenuItem className="navigation-menu-item">
             <NavigationMenuTrigger 
-                className={`gap-1 text-slate-700 dark:text-slate-300 hover:text-secondary-600 dark:hover:text-secondary-400 data-[state=open]:text-secondary-600 dark:data-[state=open]:text-secondary-400 font-semibold text-base tracking-tight font-sans bg-transparent hover:bg-transparent focus:bg-transparent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 ${
+                className={`gap-1 text-gray-700 dark:text-gray-300 hover:text-secondary-600 dark:hover:text-secondary-400 data-[state=open]:text-secondary-600 dark:data-[state=open]:text-secondary-400 font-semibold text-base tracking-tight font-sans bg-transparent hover:bg-transparent focus:bg-transparent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 ${
                     isCurrentPath
                     ? 'text-secondary-600 dark:text-secondary-400 font-bold' 
                     : ''
@@ -51,12 +51,12 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
             
             <NavigationMenuContent>
                 <div 
-                    className="w-[900px] p-6 bg-white dark:bg-slate-900 shadow-xl rounded-xl border border-slate-100 dark:border-slate-800"
+                    className="w-[900px] p-6 bg-white dark:bg-gray-900 shadow-xl rounded-xl border border-gray-100 dark:border-gray-800"
                     onMouseLeave={() => setActiveIntentIndex(0)}
                 >
                     <div className="grid grid-cols-3 gap-8">
                         {/* Column 1: Intents */}
-                        <div className="border-r border-slate-100 dark:border-slate-800 pr-6">
+                        <div className="border-r border-gray-100 dark:border-gray-800 pr-6">
                             <nav className="space-y-1">
                                 {category.intents.map((intent, index) => {
                                     const isActive = activeIntentIndex === index;
@@ -68,13 +68,13 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
                                             className={`group flex items-center justify-between px-3 py-2.5 rounded-lg transition-all cursor-pointer ${
                                                 isActive 
                                                     ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400' 
-                                                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                                                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
                                             }`}
                                         >
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-semibold">{intent.name}</span>
                                                 {intent.description && (
-                                                    <span className={`text-[11px] mt-0.5 line-clamp-1 ${isActive ? 'text-primary-600/80 dark:text-primary-400/70' : 'text-slate-600 dark:text-slate-500'}`}>
+                                                    <span className={`text-[11px] mt-0.5 line-clamp-1 ${isActive ? 'text-primary-600/80 dark:text-primary-400/70' : 'text-gray-600 dark:text-gray-500'}`}>
                                                         {intent.description}
                                                     </span>
                                                 )}
@@ -89,17 +89,17 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
                         {/* Column 2: Collections */}
                         <div className="pr-6">
                             <div className="animate-in fade-in zoom-in-95 duration-200">
-                                <h4 className="text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-                                    <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div>
+                                <h4 className="text-xs font-semibold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                                    <div className="h-px bg-gray-200 dark:bg-gray-700 flex-1"></div>
                                     {activeIntent.name}
-                                    <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div>
+                                    <div className="h-px bg-gray-200 dark:bg-gray-700 flex-1"></div>
                                 </h4>
                                 <nav className="space-y-1">
                                     {activeIntent.collections.map((collection) => (
                                         <Link
                                             key={collection.href}
                                             href={collection.href}
-                                            className="flex items-center justify-between group px-3 py-2 rounded-lg text-sm text-slate-700 dark:text-slate-300 hover:text-primary-700 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-all font-medium"
+                                            className="flex items-center justify-between group px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:text-primary-700 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-all font-medium"
                                         >
                                             <span>{collection.name}</span>
                                             <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-primary-500 transition-opacity" />
@@ -119,34 +119,34 @@ const NavbarDesktopItem = React.memo(function NavbarDesktopItem({
                         </div>
 
                         {/* Column 3: Featured/Tools */}
-                        <div className="pl-6 border-l border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 -my-6 -mr-6 p-6">
+                        <div className="pl-6 border-l border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 -my-6 -mr-6 p-6">
                             {activeIntent.slug === EDITORIAL_INTENTS.CALCULATORS ? (
                                 <div>
-                                    <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3">Top Tools</h4>
+                                    <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-3">Top Tools</h4>
                                     <nav className="space-y-2">
-                                        <Link href="/calculators/sip" className="block p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all">
-                                            <div className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">SIP Calculator</div>
-                                            <div className="text-[11px] text-slate-500 dark:text-slate-600">Estimate your returns</div>
+                                        <Link href="/calculators/sip" className="block p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all">
+                                            <div className="text-sm font-bold text-gray-900 dark:text-white mb-0.5">SIP Calculator</div>
+                                            <div className="text-[11px] text-gray-500 dark:text-gray-600">Estimate your returns</div>
                                         </Link>
-                                        <Link href="/calculators/emi" className="block p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all">
-                                            <div className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">EMI Calculator</div>
-                                            <div className="text-[11px] text-slate-500 dark:text-slate-600">Plan your loans</div>
+                                        <Link href="/calculators/emi" className="block p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all">
+                                            <div className="text-sm font-bold text-gray-900 dark:text-white mb-0.5">EMI Calculator</div>
+                                            <div className="text-[11px] text-gray-500 dark:text-gray-600">Plan your loans</div>
                                         </Link>
                                     </nav>
                                 </div>
                             ) : (
                                 <div>
-                                    <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3">Featured Guide</h4>
-                                    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                                    <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-3">Featured Guide</h4>
+                                    <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                                         <Link 
                                             href={`/${category.slug}/${activeIntent.slug}`}
-                                            className="block text-sm font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 mb-2 leading-snug"
+                                            className="block text-sm font-bold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 mb-2 leading-snug"
                                         >
                                             {activeIntent.slug === EDITORIAL_INTENTS.GUIDES 
                                                 ? `The Ultimate Guide to ${category.name}` 
                                                 : `Best ${category.name} Analysis 2026`}
                                         </Link>
-                                        <p className="text-[11px] text-slate-500 dark:text-slate-600 leading-relaxed mb-3">
+                                        <p className="text-[11px] text-gray-500 dark:text-gray-600 leading-relaxed mb-3">
                                             Expert insights and data-driven recommendations.
                                         </p>
                                         <Link

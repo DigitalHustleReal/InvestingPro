@@ -37,7 +37,7 @@ export default function CibilGauge() {
     };
 
     return (
-        <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 overflow-hidden relative">
+        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 overflow-hidden relative">
             <CardContent className="p-6 flex flex-col items-center">
                 <div className="relative w-48 h-24 mb-4 overflow-hidden">
                     {/* Gauge Background */}
@@ -64,7 +64,7 @@ export default function CibilGauge() {
                 </div>
 
                 <div className="text-center mb-4">
-                    <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">CIBIL Score</p>
+                    <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">CIBIL Score</p>
                     <p className={cn("font-bold text-lg", getColor(score).replace('stroke-', ''))}>
                         {getLabel(score)}
                     </p>

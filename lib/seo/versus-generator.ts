@@ -106,7 +106,7 @@ export class VersusGenerator {
      */
     async runBatch(limitPerCategory: number = 10) {
         const categories = ['credit_cards', 'mutual_funds']; // Add more as needed
-        const results = {};
+        const results: Record<string, any> = {};
 
         for (const cat of categories) {
             results[cat] = await this.generatePairsForCategory(cat, limitPerCategory);

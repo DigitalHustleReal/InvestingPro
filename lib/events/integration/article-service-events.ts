@@ -3,7 +3,7 @@
  * Publishes events when articles are created, updated, or published
  */
 import { eventPublisher } from '../publisher';
-import { EventType, type ArticleCreatedEvent, type ArticlePublishedEvent } from '../types';
+import { EventType, type ArticleCreatedEvent, type ArticlePublishedEvent, type ArticleUpdatedEvent } from '../types';
 import { logger } from '@/lib/logger';
 
 /**
@@ -71,13 +71,15 @@ export async function publishArticleUpdated(article: {
     title?: string;
 }): Promise<void> {
     try {
-        await eventPublisher.publish({
+        await eventPublisher.publish<ArticleUpdatedEvent>({
             type: EventType.ARTICLE_UPDATED,
             source: 'ArticleService',
             payload: {
-                articleId: article.id,
-                slug: article.slug,
-                title: article.title
+                entityType: 'article',
+                entityId: article.id,
+                from: null,
+                to: { slug: article.slug, title: article.title },
+                action: 'update'
             },
             metadata: {
                 articleId: article.id,

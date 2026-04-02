@@ -28,17 +28,17 @@ export default function EditorialStandardsPage() {
                 description="Our editorial standards, content review process, and commitment to transparency and accuracy in financial information."
                 url="https://investingpro.in/about/editorial-standards"
             />
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     {/* Header */}
                     <div className="mb-12 text-center">
-                        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                             Editorial Standards
                         </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                             Our commitment to accuracy, transparency, and independence in financial content
                         </p>
-                        <div className="mt-6 flex items-center justify-center gap-4 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="mt-6 flex items-center justify-center gap-4 text-sm text-gray-600 dark:text-gray-400">
                             <span className="flex items-center gap-2">
                                 <CheckCircle2 className="w-4 h-4 text-success-600" />
                                 160+ Years Combined Experience
@@ -63,7 +63,7 @@ export default function EditorialStandardsPage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-slate-700 dark:text-slate-300 mb-6">
+                            <p className="text-gray-700 dark:text-gray-300 mb-6">
                                 All content on InvestingPro is created and reviewed by certified financial professionals with extensive industry experience. Our editorial team includes:
                             </p>
                             
@@ -73,10 +73,10 @@ export default function EditorialStandardsPage() {
                                     <div className="flex items-start gap-3">
                                         <Award className="w-5 h-5 text-primary-600 mt-0.5 shrink-0" />
                                         <div>
-                                            <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                                            <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
                                                 Chartered Financial Analysts (CFA)
                                             </h4>
-                                            <p className="text-sm text-slate-600 dark:text-slate-400">
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">
                                                 3 CFAs with 40+ years combined experience in equity research, portfolio management, and financial analysis
                                             </p>
                                         </div>
@@ -85,10 +85,10 @@ export default function EditorialStandardsPage() {
                                     <div className="flex items-start gap-3">
                                         <Award className="w-5 h-5 text-primary-600 mt-0.5 shrink-0" />
                                         <div>
-                                            <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                                            <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
                                                 Chartered Accountants (CA)
                                             </h4>
-                                            <p className="text-sm text-slate-600 dark:text-slate-400">
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">
                                                 5 CAs specializing in taxation, financial planning, and regulatory compliance
                                             </p>
                                         </div>
@@ -97,10 +97,10 @@ export default function EditorialStandardsPage() {
                                     <div className="flex items-start gap-3">
                                         <Award className="w-5 h-5 text-primary-600 mt-0.5 shrink-0" />
                                         <div>
-                                            <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                                            <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
                                                 Certified Financial Planners (CFP)
                                             </h4>
-                                            <p className="text-sm text-slate-600 dark:text-slate-400">
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">
                                                 2 CFPs with expertise in retirement planning, insurance, and wealth management
                                             </p>
                                         </div>
@@ -109,10 +109,10 @@ export default function EditorialStandardsPage() {
                                     <div className="flex items-start gap-3">
                                         <Award className="w-5 h-5 text-primary-600 mt-0.5 shrink-0" />
                                         <div>
-                                            <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                                            <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
                                                 Former Regulatory Officials
                                             </h4>
-                                            <p className="text-sm text-slate-600 dark:text-slate-400">
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">
                                                 2 advisors with experience at RBI and SEBI, ensuring regulatory compliance
                                             </p>
                                         </div>
@@ -172,10 +172,10 @@ export default function EditorialStandardsPage() {
                                             </div>
                                         </div>
                                         <div className="flex-1">
-                                            <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+                                            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                                                 {item.title}
                                             </h4>
-                                            <p className="text-sm text-slate-600 dark:text-slate-400">
+                                            <p className="text-sm text-gray-600 dark:text-gray-400">
                                                 {item.description}
                                             </p>
                                         </div>
@@ -196,13 +196,13 @@ export default function EditorialStandardsPage() {
                         <CardContent>
                             <div className="space-y-4">
                                 <div>
-                                    <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+                                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                                         Source Verification
                                     </h4>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                         All sources must meet our credibility standards:
                                     </p>
-                                    <ul className="space-y-1 text-sm text-slate-600 dark:text-slate-400 ml-4">
+                                    <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400 ml-4">
                                         <li className="flex items-start gap-2">
                                             <CheckCircle2 className="w-4 h-4 text-success-600 mt-0.5 shrink-0" />
                                             <span>Tier 1: Government sources (RBI, SEBI, IRDAI, Ministry of Finance)</span>
@@ -223,13 +223,13 @@ export default function EditorialStandardsPage() {
                                 </div>
                                 
                                 <div>
-                                    <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+                                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                                         Data Validation
                                     </h4>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">
                                         All numerical data is verified through:
                                     </p>
-                                    <ul className="space-y-1 text-sm text-slate-600 dark:text-slate-400 ml-4 mt-2">
+                                    <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400 ml-4 mt-2">
                                         <li className="flex items-start gap-2">
                                             <CheckCircle2 className="w-4 h-4 text-success-600 mt-0.5 shrink-0" />
                                             <span>Cross-referencing with multiple authoritative sources</span>
@@ -259,10 +259,10 @@ export default function EditorialStandardsPage() {
                         <CardContent>
                             <div className="space-y-4">
                                 <div>
-                                    <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+                                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                                         Regular Updates
                                     </h4>
-                                    <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                                         <li className="flex items-start gap-2">
                                             <CheckCircle2 className="w-4 h-4 text-success-600 mt-0.5 shrink-0" />
                                             <span><strong>Product Data:</strong> Updated daily from provider websites and official sources</span>
@@ -282,8 +282,8 @@ export default function EditorialStandardsPage() {
                                     </ul>
                                 </div>
                                 
-                                <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
-                                    <p className="text-sm text-slate-700 dark:text-slate-300">
+                                <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+                                    <p className="text-sm text-gray-700 dark:text-gray-300">
                                         <strong>Transparency:</strong> All content displays "Last Updated" dates. Content older than 12 months is flagged for mandatory review.
                                     </p>
                                 </div>
@@ -302,13 +302,13 @@ export default function EditorialStandardsPage() {
                         <CardContent>
                             <div className="space-y-4">
                                 <div>
-                                    <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+                                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                                         Conflict of Interest Policy
                                     </h4>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                         We maintain strict editorial independence:
                                     </p>
-                                    <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                                         <li className="flex items-start gap-2">
                                             <CheckCircle2 className="w-4 h-4 text-success-600 mt-0.5 shrink-0" />
                                             <span>Rankings and recommendations are based solely on data and analysis</span>
@@ -348,26 +348,26 @@ export default function EditorialStandardsPage() {
                         <CardContent>
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Authoritative & Neutral</h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Authoritative & Neutral</h3>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">
                                         All content is research-driven and neutral. We do not favor any provider or product.
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Data-Driven</h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Data-Driven</h3>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">
                                         Every claim is backed by verified data with full provenance (source, timestamp, update frequency).
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Transparent</h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Transparent</h3>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">
                                         Our methodology, data sources, and ranking calculations are publicly disclosed.
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Independent</h3>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Independent</h3>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">
                                         Rankings and content are not influenced by monetization, affiliate relationships, or advertising.
                                     </p>
                                 </div>
@@ -381,10 +381,10 @@ export default function EditorialStandardsPage() {
                             <CardTitle>Corrections & Feedback</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                                 We are committed to accuracy. If you find an error:
                             </p>
-                            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                                 <li className="flex items-start gap-2">
                                     <CheckCircle2 className="w-4 h-4 text-success-600 mt-0.5 shrink-0" />
                                     <span>Contact us at <a href="mailto:editorial@investingpro.in" className="text-primary-600 hover:underline">editorial@investingpro.in</a></span>
@@ -416,17 +416,17 @@ export default function EditorialStandardsPage() {
                     
                     {/* Related Links */}
                     <div className="mt-8 grid md:grid-cols-3 gap-4">
-                        <Link href="/about/editorial-team" className="p-4 border border-slate-200 dark:border-slate-800 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-colors">
-                            <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Meet Our Team</h4>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">Learn about our expert contributors</p>
+                        <Link href="/about/editorial-team" className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-colors">
+                            <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Meet Our Team</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">Learn about our expert contributors</p>
                         </Link>
-                        <Link href="/how-we-make-money" className="p-4 border border-slate-200 dark:border-slate-800 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-colors">
-                            <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Revenue Model</h4>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">How we maintain independence</p>
+                        <Link href="/how-we-make-money" className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-colors">
+                            <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Revenue Model</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">How we maintain independence</p>
                         </Link>
-                        <Link href="/affiliate-disclosure" className="p-4 border border-slate-200 dark:border-slate-800 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-colors">
-                            <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Affiliate Disclosure</h4>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">Our affiliate relationships</p>
+                        <Link href="/affiliate-disclosure" className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-colors">
+                            <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Affiliate Disclosure</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">Our affiliate relationships</p>
                         </Link>
                     </div>
                 </div>

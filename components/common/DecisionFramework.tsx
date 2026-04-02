@@ -116,7 +116,7 @@ export default function DecisionFramework({
 
     if (variant === 'compact') {
         return (
-            <Card className={cn("bg-primary-50 dark:bg-slate-900 border-primary-200 dark:border-slate-800 shadow-lg dark:shadow-slate-900/50", className)}>
+            <Card className={cn("bg-primary-50 dark:bg-gray-900 border-primary-200 dark:border-gray-800 shadow-lg dark:shadow-gray-900/50", className)}>
                 <CardContent className="p-4">
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2">
@@ -133,7 +133,7 @@ export default function DecisionFramework({
                                                 "flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors cursor-pointer",
                                                 isActive && "bg-primary-600 dark:bg-primary-700 text-white",
                                                 isCompleted && !isActive && "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300",
-                                                !isActive && !isCompleted && "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                                                !isActive && !isCompleted && "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400"
                                             )}
                                             onClick={() => handleStageClick(stage.id)}
                                         >
@@ -145,7 +145,7 @@ export default function DecisionFramework({
                                             <span className="text-xs font-medium hidden sm:inline">{stage.label}</span>
                                         </div>
                                         {idx < STAGES.length - 1 && (
-                                            <ArrowRight className="w-4 h-4 text-slate-600" />
+                                            <ArrowRight className="w-4 h-4 text-gray-600" />
                                         )}
                                     </React.Fragment>
                                 );
@@ -181,7 +181,7 @@ export default function DecisionFramework({
                                     "flex items-center gap-1.5 px-2 py-1 rounded",
                                     isActive && "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium",
                                     isCompleted && !isActive && "text-success-600 dark:text-success-400",
-                                    !isActive && !isCompleted && "text-slate-500 dark:text-slate-600"
+                                    !isActive && !isCompleted && "text-gray-500 dark:text-gray-600"
                                 )}
                             >
                                 {isCompleted ? (
@@ -192,7 +192,7 @@ export default function DecisionFramework({
                                 <span className="text-xs">{stage.label}</span>
                             </div>
                             {idx < STAGES.length - 1 && (
-                                <ArrowRight className="w-3 h-3 text-slate-600" />
+                                <ArrowRight className="w-3 h-3 text-gray-600" />
                             )}
                         </React.Fragment>
                     );
@@ -203,13 +203,13 @@ export default function DecisionFramework({
 
     // Full variant
     return (
-        <Card className={cn("bg-gradient-to-br from-primary-50 to-slate-50 dark:from-slate-900 dark:to-slate-950 border-primary-200 dark:border-primary-800", className)}>
+        <Card className={cn("bg-gradient-to-br from-primary-50 to-gray-50 dark:from-gray-900 dark:to-gray-950 border-primary-200 dark:border-primary-800", className)}>
             <CardContent className="p-6">
                 <div className="mb-6">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                         Your Decision Journey
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                         Follow these steps to make the best financial decision
                     </p>
                 </div>
@@ -229,7 +229,7 @@ export default function DecisionFramework({
                                     "flex items-start gap-4 p-4 rounded-lg border-2 transition-all cursor-pointer",
                                     isActive && "border-primary-500 dark:border-primary-400 bg-primary-50 dark:bg-primary-900/20",
                                     isCompleted && !isActive && "border-success-300 dark:border-success-700 bg-success-50 dark:bg-success-900/10",
-                                    !isActive && !isCompleted && "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
+                                    !isActive && !isCompleted && "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
                                 )}
                                 onClick={() => handleStageClick(stage.id)}
                             >
@@ -237,7 +237,7 @@ export default function DecisionFramework({
                                     "w-10 h-10 rounded-full flex items-center justify-center shrink-0",
                                     isActive && "bg-primary-600 dark:bg-primary-500 text-white",
                                     isCompleted && !isActive && "bg-success-600 dark:bg-success-500 text-white",
-                                    !isActive && !isCompleted && "bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-600"
+                                    !isActive && !isCompleted && "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-600"
                                 )}>
                                     {isCompleted ? (
                                         <Check className="w-5 h-5" />
@@ -252,7 +252,7 @@ export default function DecisionFramework({
                                             "font-semibold",
                                             isActive && "text-primary-900 dark:text-primary-100",
                                             isCompleted && !isActive && "text-success-900 dark:text-success-100",
-                                            !isActive && !isCompleted && "text-slate-700 dark:text-slate-300"
+                                            !isActive && !isCompleted && "text-gray-700 dark:text-gray-300"
                                         )}>
                                             {stage.label}
                                         </h4>
@@ -267,7 +267,7 @@ export default function DecisionFramework({
                                             </Badge>
                                         )}
                                     </div>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">
                                         {stage.description}
                                     </p>
                                 </div>
@@ -278,13 +278,13 @@ export default function DecisionFramework({
 
                 {/* Next Action CTA */}
                 {currentStage !== 'apply' && (
-                    <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+                    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-slate-900 dark:text-white mb-1">
+                                <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">
                                     Next Step
                                 </p>
-                                <p className="text-xs text-slate-600 dark:text-slate-400">
+                                <p className="text-xs text-gray-600 dark:text-gray-400">
                                     {nextAction.cta}
                                 </p>
                             </div>
@@ -303,9 +303,9 @@ export default function DecisionFramework({
 
                 {/* Apply CTA (when at apply stage) */}
                 {currentStage === 'apply' && affiliateLink && (
-                    <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+                    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
                         <div className="text-center">
-                            <p className="text-sm font-medium text-slate-900 dark:text-white mb-3">
+                            <p className="text-sm font-medium text-gray-900 dark:text-white mb-3">
                                 Ready to apply for {productName || 'this product'}?
                             </p>
                             <DecisionCTA

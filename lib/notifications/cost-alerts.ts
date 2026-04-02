@@ -27,17 +27,13 @@ export async function sendCostAlert(alert: CostAlert): Promise<void> {
         
         // Trigger alert through alert manager
         await alertManager.triggerAlert({
-            ruleId: `cost-${alert.budget_type}-${alert.threshold_percent}`,
+            id: `cost-${alert.budget_type}-${alert.threshold_percent}`,
+            name: `Cost Alert: ${alert.budget_type} ${alert.threshold_percent}%`,
+            description: message,
             severity: alert.threshold_percent >= 100 ? 'critical' : 'warning',
-            message,
-            metadata: {
-                alert_type: alert.alert_type,
-                budget_type: alert.budget_type,
-                threshold_percent: alert.threshold_percent,
-                budget_limit: alert.budget_limit,
-                cost_spent: alert.cost_spent,
-                cost_percent: alert.cost_percent,
-            },
+            enabled: true,
+            condition: { type: 'budget', threshold: alert.threshold_percent, windowMinutes: 60 },
+            notificationChannels: [],
         });
         
         logger.info('Cost alert sent', {
@@ -111,13 +107,13 @@ export async function generateDailyCostReport(): Promise<void> {
         
         // Send report via alert manager
         await alertManager.triggerAlert({
-            ruleId: 'daily-cost-report',
+            id: 'daily-cost-report',
+            name: 'Daily Cost Report',
+            description: report,
             severity: 'info',
-            message: report,
-            metadata: {
-                report_type: 'daily_cost',
-                date: today,
-            },
+            enabled: true,
+            condition: { type: 'budget', threshold: 0, windowMinutes: 1440 },
+            notificationChannels: [],
         });
         
         logger.info('Daily cost report generated and sent', { date: today });

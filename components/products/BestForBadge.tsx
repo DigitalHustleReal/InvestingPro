@@ -78,9 +78,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'business-expenses',
     label: 'Best for Business',
     icon: Briefcase,
-    color: 'text-slate-700',
-    bgColor: 'bg-slate-50',
-    borderColor: 'border-slate-200',
+    color: 'text-gray-700',
+    bgColor: 'bg-gray-50',
+    borderColor: 'border-gray-200',
     description: 'Corporate expenses, GST benefits'
   },
   'premium-lifestyle': {
@@ -190,9 +190,9 @@ export const BEST_FOR_CATEGORIES: Record<string, BadgeConfig> = {
     id: 'index-fund',
     label: 'Best for Low-Cost Investing',
     icon: BarChart3,
-    color: 'text-slate-700',
-    bgColor: 'bg-slate-50',
-    borderColor: 'border-slate-200',
+    color: 'text-gray-700',
+    bgColor: 'bg-gray-50',
+    borderColor: 'border-gray-200',
     description: 'Passive investing, low expense ratio, tracks Nifty/Sensex'
   },
   'balanced-fund': {
@@ -249,12 +249,12 @@ export default function BestForBadge({
 
   return (
     <div className={className}>
-      <div className={`inline-flex items-center ${sizeClasses[size]} ${badge.bgColor} ${badge.borderColor} dark:bg-slate-900/90 dark:border-white/20 border-2 rounded-full font-bold ${badge.color} dark:text-white shadow-sm hover:shadow-md transition-shadow backdrop-blur-sm`}>
+      <div className={`inline-flex items-center ${sizeClasses[size]} ${badge.bgColor} ${badge.borderColor} dark:bg-gray-900/90 dark:border-white/20 border-2 rounded-full font-bold ${badge.color} dark:text-white shadow-sm hover:shadow-md transition-shadow backdrop-blur-sm`}>
         <Icon className={iconSizes[size]} />
         <span>{badge.label}</span>
       </div>
       {showDescription && (
-        <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">{badge.description}</p>
+        <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">{badge.description}</p>
       )}
     </div>
   );

@@ -130,12 +130,14 @@ export default async function ArticlePage({
   // Increment view count asynchronously (fire & forget — doesn't block render)
   if (!isPreview) {
     const supabase = createServiceClient()
-    supabase
-      .from('articles')
-      .update({ views: (article.views || 0) + 1 })
-      .eq('id', article.id)
-      .then(() => {})
-      .catch(() => {})
+    try {
+      await supabase
+        .from('articles')
+        .update({ views: (article.views || 0) + 1 })
+        .eq('id', article.id)
+    } catch {
+      // Silently ignore view count errors
+    }
   }
 
   const breadcrumbs = [
@@ -186,7 +188,7 @@ export default async function ArticlePage({
         )}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <AutoBreadcrumbs items={breadcrumbs} />
+          <AutoBreadcrumbs />
 
           {/* Draggable TOC (client component) */}
           <DraggableTableOfContents />
@@ -204,12 +206,12 @@ export default async function ArticlePage({
               </div>
 
               {/* Title */}
-              <h1 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white mb-5 leading-[1.08] font-heading tracking-tight">
+              <h1 className="text-4xl sm:text-5xl font-black text-gray-900 dark:text-white mb-5 leading-[1.08] font-heading tracking-tight">
                 {article.title}
               </h1>
 
               {/* Excerpt */}
-              <p className="text-xl text-slate-600 dark:text-slate-400 mb-7 leading-relaxed font-medium border-l-4 border-primary/30 pl-4">
+              <p className="text-xl text-gray-600 dark:text-gray-400 mb-7 leading-relaxed font-medium border-l-4 border-primary/30 pl-4">
                 {article.excerpt}
               </p>
 

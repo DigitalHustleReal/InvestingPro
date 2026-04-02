@@ -1,713 +1,172 @@
-"use client"; // Rebuild trigger
-
-import React, { useState } from 'react';
-import SEOHead from "@/components/common/SEOHead";
-import { Breadcrumb } from "@/components/common/Breadcrumb";
-import { FAQSchema, CalculatorSchema, OrganizationSchema } from "@/components/seo/SchemaMarkup";
-import { CategoryCTA } from "@/components/common/CTAButton";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React from 'react';
+import { Metadata } from 'next';
+import Link from 'next/link';
 import {
-    Calculator as CalculatorIcon,
-    TrendingUp as TrendingUpIcon,
-    PiggyBank,
-    Home,
-    Receipt,
-    TrendingDown,
-    Coins,
-    Target,
-    BarChart3,
-    CheckCircle2,
-    Percent,
-    Clock,
-    Info,
-    ArrowRight,
-    Baby,
-    Sprout,
-    Landmark,
-    Armchair,
-    Wallet,
-    Activity
-} from "lucide-react";
-import Link from "next/link";
-import { SWPCalculator } from "@/components/calculators/SWPCalculator";
-import { InflationAdjustedCalculator } from "@/components/calculators/InflationAdjustedCalculator";
-import { FDCalculator } from "@/components/calculators/FDCalculator";
-import { TaxCalculator } from "@/components/calculators/TaxCalculator";
-import { RetirementCalculator } from "@/components/calculators/RetirementCalculator";
-import { SIPCalculatorWithInflation } from "@/components/calculators/SIPCalculatorWithInflation";
-import { LumpsumCalculatorWithInflation } from "@/components/calculators/LumpsumCalculatorWithInflation";
-import { EMICalculatorEnhanced } from "@/components/calculators/EMICalculatorEnhanced";
-import { PPFCalculator } from "@/components/calculators/PPFCalculator";
-import { NPSCalculator } from "@/components/calculators/NPSCalculator";
-import { GoalPlanningCalculator } from "@/components/calculators/GoalPlanningCalculator";
-import { GSTCalculator } from "@/components/calculators/GSTCalculator";
-import { HomeLoanVsSIPCalculator } from "@/components/calculators/HomeLoanVsSIPCalculator";
-import { RDCalculator } from "@/components/calculators/RDCalculator";
-import { SSYCalculator } from "@/components/calculators/SSYCalculator";
-import { KVPCalculator } from "@/components/calculators/KVPCalculator";
-import { NSCCalculator } from "@/components/calculators/NSCCalculator";
-import { SCSSCalculator } from "@/components/calculators/SCSSCalculator";
-import { MISCalculator } from "@/components/calculators/MISCalculator";
-import { SimpleInterestCalculator } from "@/components/calculators/SimpleInterestCalculator";
-import { CompoundInterestCalculator } from "@/components/calculators/CompoundInterestCalculator";
-import ComplianceDisclaimer from "@/components/common/ComplianceDisclaimer";
-import { FinancialHealthCalculator } from "@/components/calculators/FinancialHealthCalculator";
-import { ErrorBoundary } from "@/components/common/ErrorBoundary";
+  ChevronRight, Shield, CalendarDays, TrendingUp, Home, Receipt,
+  PiggyBank, Calculator, Target, BarChart3, Percent, Clock,
+  Baby, Landmark, Armchair, Wallet, Activity, Coins, ArrowRight,
+} from 'lucide-react';
+
+export const revalidate = 86400; // ISR: daily
+
+export const metadata: Metadata = {
+  title: 'Free Financial Calculators India (2026) — SIP, EMI, Tax, FD, PPF | InvestingPro',
+  description: '25 free financial calculators with inflation adjustment. SIP, EMI, FD, PPF, NPS, tax, retirement, and goal planning. No registration. Accurate results.',
+  openGraph: { title: 'Free Financial Calculators India (2026)', description: '25 free calculators for smart financial planning.', url: 'https://investingpro.in/calculators' },
+};
+
+const CATEGORIES = [
+  {
+    title: 'Investment',
+    desc: 'Plan your wealth creation',
+    calcs: [
+      { name: 'SIP Calculator', desc: 'Monthly SIP growth with inflation', href: '/calculators/sip', icon: TrendingUp, badge: 'Popular' },
+      { name: 'Lumpsum Calculator', desc: 'One-time investment returns', href: '/calculators/lumpsum', icon: Coins },
+      { name: 'SWP Calculator', desc: 'Systematic withdrawal plan', href: '/calculators/swp', icon: Activity },
+      { name: 'Goal Planner', desc: 'Invest by financial goal', href: '/calculators/goal-planning', icon: Target },
+      { name: 'Inflation Returns', desc: 'Real vs nominal returns', href: '/calculators/inflation-adjusted-returns', icon: Percent },
+      { name: 'Portfolio Rebalancer', desc: 'Optimal asset allocation', href: '/calculators/portfolio-rebalancing', icon: BarChart3 },
+    ],
+  },
+  {
+    title: 'Loans & EMI',
+    desc: 'Calculate payments and savings',
+    calcs: [
+      { name: 'EMI Calculator', desc: 'Loan EMI with prepayment impact', href: '/calculators/emi', icon: Home, badge: 'Popular' },
+      { name: 'Home Loan vs SIP', desc: 'Prepay or invest?', href: '/calculators/home-loan-vs-sip', icon: TrendingUp },
+      { name: 'Simple Interest', desc: 'Basic interest calculation', href: '/calculators/simple-interest', icon: Calculator },
+      { name: 'Compound Interest', desc: 'Power of compounding', href: '/calculators/compound-interest', icon: Coins },
+    ],
+  },
+  {
+    title: 'Tax & Savings',
+    desc: 'Save tax, grow wealth',
+    calcs: [
+      { name: 'Tax Calculator', desc: 'Old vs New regime (Budget 2026)', href: '/calculators/tax', icon: Receipt, badge: 'Popular' },
+      { name: 'GST Calculator', desc: 'GST for goods and services', href: '/calculators/gst', icon: Percent },
+      { name: 'FD Calculator', desc: 'Fixed deposit maturity', href: '/calculators/fd', icon: PiggyBank },
+      { name: 'RD Calculator', desc: 'Recurring deposit returns', href: '/calculators/rd', icon: Clock },
+    ],
+  },
+  {
+    title: 'Government Schemes',
+    desc: 'Sovereign savings calculators',
+    calcs: [
+      { name: 'PPF Calculator', desc: '15-year PPF maturity', href: '/calculators/ppf', icon: Landmark },
+      { name: 'NPS Calculator', desc: 'Retirement corpus + pension', href: '/calculators/nps', icon: Armchair },
+      { name: 'SSY Calculator', desc: 'Sukanya Samriddhi returns', href: '/calculators/ssy', icon: Baby },
+      { name: 'SCSS Calculator', desc: 'Senior citizen savings', href: '/calculators/scss', icon: Wallet },
+      { name: 'KVP Calculator', desc: 'Kisan Vikas Patra doubling', href: '/calculators/kvp', icon: Coins },
+      { name: 'NSC Calculator', desc: 'National Savings Certificate', href: '/calculators/nsc', icon: Landmark },
+      { name: 'MIS Calculator', desc: 'Monthly income scheme', href: '/calculators/mis', icon: Activity },
+    ],
+  },
+  {
+    title: 'Planning',
+    desc: 'Long-term financial planning',
+    calcs: [
+      { name: 'Retirement Planner', desc: 'How much you need to retire', href: '/calculators/retirement', icon: Armchair, badge: 'Popular' },
+      { name: 'Financial Health Score', desc: 'Rate your financial fitness', href: '/calculators/financial-health-score', icon: Activity },
+    ],
+  },
+];
 
 export default function CalculatorsPage() {
-    return (
-        <div className="min-h-screen bg-background transition-colors duration-300">
-            <SEOHead
-                title="Free Financial Calculators India 2026 - SIP, EMI, Tax, Retirement | InvestingPro"
-                description="Free SIP, EMI, Tax & Retirement calculators with inflation adjustment. Accurate results for financial planning in India. No registration required."
-            />
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Free Financial Calculators India',
+    description: '25 free financial calculators for Indian investors and taxpayers.',
+    url: 'https://investingpro.in/calculators',
+    numberOfItems: 25,
+  };
 
-            {/* Schema Markup */}
-            <CalculatorSchema
-                name="Financial Calculators"
-                description="Free financial calculators for SIP, EMI, Tax, Retirement planning with inflation adjustment"
-                url="/calculators"
-            />
-            <OrganizationSchema />
-            
-            {/* Light Theme Hero Section - Consistent with Platform */}
-            <div className="bg-card border-b border-border pt-28 pb-20 relative overflow-hidden">
-                {/* Subtle background decoration */}
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary rounded-full blur-[140px] -translate-y-1/2" />
-                </div>
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="max-w-3xl mx-auto text-center">
-                        {/* Badge */}
-                        <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 px-4 py-2 uppercase tracking-widest text-xs font-bold inline-flex items-center gap-2">
-                            <CalculatorIcon className="w-3 h-3" />
-                            22 Free Tools
-                        </Badge>
-
-                        {/* Title */}
-                        <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight leading-tight">
-                            Financial Calculators
-                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary mt-2">
-                                Plan Your Future
-                            </span>
-                        </h1>
-
-                        {/* Description */}
-                        <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
-                            Plan your investments, calculate EMIs, taxes, and retirement with our comprehensive calculators. All tools include inflation-adjusted projections.
-                        </p>
-
-                        {/* Stats */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-                            {[
-                                { label: "Calculators", value: "22+", icon: <CalculatorIcon className="w-5 h-5" /> },
-                                { label: "Inflation Adjusted", value: "All", icon: <Percent className="w-5 h-5" /> },
-                                { label: "Free Forever", value: "100%", icon: <CheckCircle2 className="w-5 h-5" /> },
-                                { label: "Updated Daily", value: "24/7", icon: <Clock className="w-5 h-5" /> }
-                            ].map((stat, idx) => (
-                                <div key={idx} className="p-4 rounded-xl bg-muted/50 border border-border">
-                                    <div className="text-primary mb-2 flex justify-center">{stat.icon}</div>
-                                    <div className="text-2xl font-bold text-foreground mb-1">{stat.value}</div>
-                                    <div className="text-xs text-muted-foreground fond-medium uppercase tracking-wider">
-                                        {stat.label}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+      {/* Hero */}
+      <section className="bg-white border-b border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pt-6 pb-8">
+          <nav aria-label="Breadcrumb" className="mb-5">
+            <ol className="flex items-center gap-1.5 text-[13px] text-gray-400">
+              <li><Link href="/" className="hover:text-green-600 transition-colors">Home</Link></li>
+              <li><ChevronRight size={12} /></li>
+              <li className="text-gray-700 font-medium">Calculators</li>
+            </ol>
+          </nav>
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+            <div>
+              <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">
+                Free Financial Calculators
+              </h1>
+              <p className="text-[15px] text-gray-500 mt-2 max-w-xl leading-relaxed">
+                25 calculators with inflation adjustment, tax impact, and shareable results. No sign-up. Run the numbers before you commit.
+              </p>
             </div>
-
-            {/* Calculators Guide Visual Placeholder - HIDDEN UNTIL INFOGRAPHIC IS READY */}
-            {/* 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 mb-12">
-                <div className="bg-slate-900 text-white p-8 rounded-[2.5rem] overflow-hidden relative min-h-[300px] flex flex-col md:flex-row items-center gap-12 shadow-2xl shadow-indigo-500/20">
-                    <div className="flex-1 text-center md:text-left z-10">
-                        <Badge className="bg-primary/20 text-primary-foreground border-0 mb-4 px-3 py-1">Pro Tip</Badge>
-                        <h3 className="text-2xl md:text-3xl font-bold mb-4">Compound Interest Magic</h3>
-                        <p className="text-white/80 text-lg leading-relaxed mb-6">
-                            Start early. Validating the 8th wonder of the world visually helps you plan better. 
-                            Use our tools to see how small investments grow over time.
-                        </p>
-                        <div className="inline-flex items-center gap-2 text-primary-foreground/80 font-bold text-sm">
-                            <Info className="w-4 h-4" />
-                            <span>Visual Guide Loading...</span>
-                        </div>
-                    </div>
-                    
-                    <div className="flex-1 w-full max-w-md">
-                        <div className="aspect-video bg-white/5 rounded-2xl border border-dashed border-white/20 flex items-center justify-center relative overflow-hidden group">
-                           <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                           <div className="text-center"> 
-                                <BarChart3 className="w-12 h-12 text-white/40 mx-auto mb-3" />
-                                <p className="text-sm font-mono text-white/40 uppercase tracking-wider">Infographic Slot</p>
-                           </div>
-                        </div>
-                    </div>
-
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
+            <div className="flex items-center gap-5 text-[12px] text-gray-500 flex-shrink-0 mt-1">
+              <span className="flex items-center gap-1.5"><Shield size={13} className="text-green-600" />100% free</span>
+              <span className="flex items-center gap-1.5"><CalendarDays size={13} className="text-green-600" />Updated for 2026</span>
             </div>
-            */}
-
-            {/* Calculators */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                {/* Breadcrumb */}
-                <Breadcrumb 
-                    items={[
-                        { label: "Calculators" }
-                    ]} 
-                />
-                
-                <Tabs defaultValue="sip" className="space-y-8">
-                    <div className="mb-8">
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">All Calculators</h2>
-                        <p className="text-slate-600 dark:text-slate-400">Choose a calculator to get started</p>
-                    </div>
-                    <TabsList className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1.5 h-auto inline-flex flex-wrap rounded-xl shadow-sm gap-2">
-                        <TabsTrigger value="sip" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <TrendingUpIcon className="w-4 h-4 mr-2" />
-                            SIP
-                        </TabsTrigger>
-                        <TabsTrigger value="swp" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <TrendingDown className="w-4 h-4 mr-2" />
-                            SWP
-                        </TabsTrigger>
-                        <TabsTrigger value="health" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Activity className="w-4 h-4 mr-2" />
-                            Financial Health
-                        </TabsTrigger>
-                        <TabsTrigger value="lumpsum" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <PiggyBank className="w-4 h-4 mr-2" />
-                            Lumpsum
-                        </TabsTrigger>
-                        <TabsTrigger value="fd" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Coins className="w-4 h-4 mr-2" />
-                            FD
-                        </TabsTrigger>
-                        <TabsTrigger value="emi" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Home className="w-4 h-4 mr-2" />
-                            EMI
-                        </TabsTrigger>
-                        <TabsTrigger value="tax" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Receipt className="w-4 h-4 mr-2" />
-                            Tax
-                        </TabsTrigger>
-                        <TabsTrigger value="retirement" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Target className="w-4 h-4 mr-2" />
-                            Retirement
-                        </TabsTrigger>
-                        <TabsTrigger value="inflation" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <BarChart3 className="w-4 h-4 mr-2" />
-                            Inflation
-                        </TabsTrigger>
-                        <TabsTrigger value="ppf" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Coins className="w-4 h-4 mr-2" />
-                            PPF
-                        </TabsTrigger>
-                        <TabsTrigger value="nps" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Target className="w-4 h-4 mr-2" />
-                            NPS
-                        </TabsTrigger>
-                        <TabsTrigger value="goal" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Target className="w-4 h-4 mr-2" />
-                            Goal Planning
-                        </TabsTrigger>
-                        <TabsTrigger value="rd" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <PiggyBank className="w-4 h-4 mr-2" />
-                            RD
-                        </TabsTrigger>
-                        <TabsTrigger value="ssy" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Baby className="w-4 h-4 mr-2" />
-                            SSY
-                        </TabsTrigger>
-                        <TabsTrigger value="kvp" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Sprout className="w-4 h-4 mr-2" />
-                            KVP
-                        </TabsTrigger>
-                        <TabsTrigger value="nsc" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Landmark className="w-4 h-4 mr-2" />
-                            NSC
-                        </TabsTrigger>
-                        <TabsTrigger value="scss" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Armchair className="w-4 h-4 mr-2" />
-                            SCSS
-                        </TabsTrigger>
-                        <TabsTrigger value="mis" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Wallet className="w-4 h-4 mr-2" />
-                            MIS
-                        </TabsTrigger>
-                        <TabsTrigger value="si" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <CalculatorIcon className="w-4 h-4 mr-2" />
-                            Simple Int.
-                        </TabsTrigger>
-                         <TabsTrigger value="ci" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <TrendingUpIcon className="w-4 h-4 mr-2" />
-                            Compound Int.
-                        </TabsTrigger>
-
-                        <TabsTrigger value="gst" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <Receipt className="w-4 h-4 mr-2" />
-                            GST
-                        </TabsTrigger>
-                        <TabsTrigger value="loan-vs-sip" className="px-4 py-2.5 data-[state=active]:bg-primary-600 data-[state=active]:text-white rounded-lg transition-all text-sm">
-                            <ArrowRight className="w-4 h-4 mr-2" />
-                            Loan vs SIP
-                        </TabsTrigger>
-                    </TabsList>
-
-                    <TabsContent value="sip">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600 dark:text-slate-400">Visit our dedicated SIP calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/sip" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <SIPCalculatorWithInflation />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="swp">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600 dark:text-slate-400">Visit our dedicated SWP calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/swp" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <SWPCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="health">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600 dark:text-slate-400">Get a comprehensive assessment of your financial health.</p>
-                                <Link href="/calculators/financial-health-score" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <ErrorBoundary>
-                                <FinancialHealthCalculator />
-                            </ErrorBoundary>
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="lumpsum">
-                        <LumpsumCalculatorWithInflation />
-                    </TabsContent>
-
-                    <TabsContent value="fd">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated FD calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/fd" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <FDCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="emi">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated EMI calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/emi" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <EMICalculatorEnhanced />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="tax">
-                        <TaxCalculator />
-                    </TabsContent>
-
-                    <TabsContent value="retirement">
-                        <RetirementCalculator />
-                    </TabsContent>
-
-                    <TabsContent value="inflation">
-                        <InflationAdjustedCalculator />
-                    </TabsContent>
-
-                    <TabsContent value="ppf">
-                        <PPFCalculator />
-                    </TabsContent>
-
-                    <TabsContent value="nps">
-                        <NPSCalculator />
-                    </TabsContent>
-
-                    <TabsContent value="goal">
-                        <GoalPlanningCalculator />
-                    </TabsContent>
-
-                    <TabsContent value="rd">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated RD calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/rd" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <RDCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="ssy">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated SSY calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/ssy" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <SSYCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="kvp">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated KVP calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/kvp" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <KVPCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="nsc">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated NSC calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/nsc" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <NSCCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="scss">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated SCSS calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/scss" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <SCSSCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="mis">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated MIS calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/mis" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <MISCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="si">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated Simple Interest calculator page.</p>
-                                <Link href="/calculators/simple-interest" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <SimpleInterestCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="ci">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated Compound Interest calculator page.</p>
-                                <Link href="/calculators/compound-interest" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <CompoundInterestCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="gst">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600">Visit our dedicated GST calculator page for comprehensive guides and FAQs.</p>
-                                <Link href="/calculators/gst" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <GSTCalculator />
-                        </div>
-                    </TabsContent>
-
-                    <TabsContent value="loan-vs-sip">
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <p className="text-slate-600 dark:text-slate-400">Compare the opportunity cost of loan prepayments against equity SIPs.</p>
-                                <Link href="/calculators/home-loan-vs-sip" className="text-primary-600 hover:text-primary-700 font-semibold">
-                                    View Full Page →
-                                </Link>
-                            </div>
-                            <HomeLoanVsSIPCalculator />
-                        </div>
-                    </TabsContent>
-                </Tabs>
-
-                {/* SEO Content Section - All Calculators */}
-                <section className="mt-16 space-y-12">
-                    {/* Introduction */}
-                    <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 dark:border dark:border-slate-800">
-                        <CardContent className="p-8 lg:p-6 md:p-8">
-                            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6">
-                                Free Financial Calculators India - Plan Your Financial Future
-                            </h2>
-                            <div className="prose prose-slate dark:prose-invert max-w-none">
-                                <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                                    Use our comprehensive suite of free financial calculators to plan your investments, loans, taxes, and retirement. 
-                                    All calculators include inflation adjustment to show real returns, helping you make informed financial decisions. 
-                                    Whether you're calculating SIP returns, planning loan EMIs, estimating tax liability, or planning for retirement, 
-                                    our calculators provide accurate projections based on standard financial formulas.
-                                </p>
-                                <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                                    Our financial calculators are trusted by thousands of users across India for accurate calculations. 
-                                    We use the same formulas used by banks, mutual fund companies, and financial institutions, ensuring 
-                                    you get reliable results. All calculators are completely free, require no registration, and provide 
-                                    instant results with detailed breakdowns and visualizations.
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                                    {[
-                                        "SIP Calculator - Calculate systematic investment plan returns",
-                                        "SWP Calculator - Plan systematic withdrawal from corpus",
-                                        "Lumpsum Calculator - Calculate one-time investment returns",
-                                        "FD Calculator - Fixed deposit maturity calculator",
-                                        "EMI Calculator - Loan EMI calculator for all loan types",
-                                        "Tax Calculator - Income tax calculator for FY 2025-26",
-                                        "Retirement Calculator - Plan your retirement corpus",
-                                        "Inflation Calculator - Calculate real returns after inflation",
-                                        "PPF Calculator - Public Provident Fund calculator",
-                                        "NPS Calculator - National Pension System calculator",
-                                        "Goal Planning Calculator - Plan financial goals with SIP",
-
-                                        "SSY Calculator - Sukanya Samriddhi Yojana calculator",
-                                        "KVP Calculator - Kisan Vikas Patra doubling calculator",
-                                        "NSC Calculator - National Savings Certificate calculator",
-                                        "SCSS Calculator - Senior Citizen Savings Scheme calculator",
-                                        "MIS Calculator - Post Office Monthly Income Scheme calculator",
-                                        "Simple Interest Calculator - Basic interest calculator",
-                                        "Compound Interest Calculator - Calculate exponential growth"
-                                    ].map((feature, idx) => (
-                                        <div key={idx} className="flex items-start gap-3">
-                                            <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                                            <p className="text-slate-700 dark:text-slate-300 font-medium">{feature}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    {/* FAQ Section */}
-                    <Card className="border-0 shadow-lg rounded-2xl dark:bg-slate-900 dark:border dark:border-slate-800">
-                        {/* FAQ Schema */}
-                        <FAQSchema
-                            faqs={[
-                                {
-                                    question: "Are these financial calculators free to use?",
-                                    answer: "Yes, all our financial calculators are completely free to use. There's no registration required, no hidden charges, and no limitations on usage. You can use any calculator as many times as you need to plan your finances."
-                                },
-                                {
-                                    question: "How accurate are these calculators?",
-                                    answer: "Our calculators use standard financial formulas used by banks, mutual fund companies, and financial institutions. They provide accurate estimates based on your inputs. However, actual returns may vary based on market conditions. The calculators are designed to help you plan and make informed decisions."
-                                },
-                                {
-                                    question: "What is inflation-adjusted calculator?",
-                                    answer: "Inflation-adjusted calculators show real returns after accounting for inflation. For example, if your investment grows to ₹50 lakhs in 20 years but inflation is 6%, your real purchasing power would be lower. Inflation-adjusted calculators help you understand the true value of your investments in today's terms."
-                                },
-                                {
-                                    question: "Can I use these calculators on mobile?",
-                                    answer: "Yes, all our calculators are fully responsive and optimized for mobile devices. You can use them on smartphones, tablets, and desktops. The calculators are designed to work seamlessly across all devices and screen sizes."
-                                },
-                                {
-                                    question: "Do I need to create an account to use calculators?",
-                                    answer: "No, you don't need to create an account or register to use any of our calculators. They're available for immediate use without any sign-up requirements. Simply select a calculator and start calculating."
-                                },
-                                {
-                                    question: "How do these calculators compare to Groww or ET Money calculators?",
-                                    answer: "Our calculators offer similar accuracy with additional features like inflation adjustment, detailed visualizations, and comprehensive explanations. We also provide extensive FAQ sections and how-to guides to help you understand the calculations better."
-                                },
-                                {
-                                    question: "Can I save my calculations?",
-                                    answer: "Currently, calculations are performed in real-time and results are displayed instantly. We're working on adding save functionality for future updates. For now, you can bookmark the page or take screenshots of your results."
-                                },
-                                {
-                                    question: "Are the calculations updated for FY 2025-26?",
-                                    answer: "Yes, all our calculators are updated for the current financial year (FY 2025-26). Tax calculators include the latest tax slabs and rates. Interest rate calculators use current market rates. We regularly update our calculators to reflect the latest regulations and rates."
-                                }
-                            ]}
-                        />
-                        <CardHeader>
-                            <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
-                                <Info className="w-6 h-6 text-primary-600" />
-                                Financial Calculator FAQs
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="space-y-6">
-                                {[
-                                    {
-                                        q: "Are these financial calculators free to use?",
-                                        a: "Yes, all our financial calculators are completely free to use. There's no registration required, no hidden charges, and no limitations on usage. You can use any calculator as many times as you need to plan your finances."
-                                    },
-                                    {
-                                        q: "How accurate are these calculators?",
-                                        a: "Our calculators use standard financial formulas used by banks, mutual fund companies, and financial institutions. They provide accurate estimates based on your inputs. However, actual returns may vary based on market conditions. The calculators are designed to help you plan and make informed decisions."
-                                    },
-                                    {
-                                        q: "What is inflation-adjusted calculator?",
-                                        a: "Inflation-adjusted calculators show real returns after accounting for inflation. For example, if your investment grows to ₹50 lakhs in 20 years but inflation is 6%, your real purchasing power would be lower. Inflation-adjusted calculators help you understand the true value of your investments in today's terms."
-                                    },
-                                    {
-                                        q: "Can I use these calculators on mobile?",
-                                        a: "Yes, all our calculators are fully responsive and optimized for mobile devices. You can use them on smartphones, tablets, and desktops. The calculators are designed to work seamlessly across all devices and screen sizes."
-                                    },
-                                    {
-                                        q: "Do I need to create an account to use calculators?",
-                                        a: "No, you don't need to create an account or register to use any of our calculators. They're available for immediate use without any sign-up requirements. Simply select a calculator and start calculating."
-                                    },
-                                    {
-                                        q: "How do these calculators compare to Groww or ET Money calculators?",
-                                        a: "Our calculators offer similar accuracy with additional features like inflation adjustment, detailed visualizations, and comprehensive explanations. We also provide extensive FAQ sections and how-to guides to help you understand the calculations better."
-                                    },
-                                    {
-                                        q: "Can I save my calculations?",
-                                        a: "Currently, calculations are performed in real-time and results are displayed instantly. We're working on adding save functionality for future updates. For now, you can bookmark the page or take screenshots of your results."
-                                    },
-                                    {
-                                        q: "Are the calculations updated for FY 2025-26?",
-                                        a: "Yes, all our calculators are updated for the current financial year (FY 2025-26). Tax calculators include the latest tax slabs and rates. Interest rate calculators use current market rates. We regularly update our calculators to reflect the latest regulations and rates."
-                                    }
-                                ].map((faq, idx) => (
-                                    <div key={idx} className="border-b border-slate-200 dark:border-slate-800 pb-6 last:border-0">
-                                        <h3 className="font-bold text-slate-900 dark:text-white mb-2 text-lg">{faq.q}</h3>
-                                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    {/* Related Content */}
-                    <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-slate-900 dark:to-slate-800">
-                        <CardHeader>
-                            <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">Related Financial Tools & Resources</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                {[
-                                    { name: "Compare Credit Cards", href: "/credit-cards", desc: "Compare best credit cards" },
-                                    { name: "Compare Loans", href: "/loans", desc: "Compare loan offers" },
-                                    { name: "Compare Mutual Funds", href: "/mutual-funds", desc: "Compare mutual funds" },
-                                    { name: "Check Credit Score", href: "/credit-score", desc: "Free credit score check" }
-                                ].map((item, idx) => (
-                                    <Link
-                                        key={idx}
-                                        href={item.href}
-                                        className="p-4 bg-white dark:bg-slate-800 rounded-xl hover:shadow-md transition-all group"
-                                    >
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <CalculatorIcon className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
-                                            <span className="font-semibold text-slate-900 dark:text-white group-hover:text-primary-600">{item.name}</span>
-                                        </div>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400">{item.desc}</p>
-                                    </Link>
-                                ))}
-                            </div>
-                        </CardContent>
-                    </Card>
-                </section>
-
-                {/* Quick Access Tools */}
-                <section className="mt-16">
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8">Quick Access Tools</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <CategoryCTA
-                            href="/credit-score"
-                            categoryName="Credit Score"
-                            description="Check your credit score for free and get personalized recommendations"
-                        />
-                        <CategoryCTA
-                            href="/compare"
-                            categoryName="Comparisons"
-                            description="Side-by-side comparison of financial products"
-                        />
-                        <CategoryCTA
-                            href="/calculators?type=tax"
-                            categoryName="Taxes"
-                            description="Calculate your income tax for old and new regime"
-                        />
-                    </div>
-                </section>
-
-                {/* Why Choose Section */}
-                <section className="bg-white dark:bg-slate-900 py-16 mt-16 rounded-2xl border border-slate-200 dark:border-slate-800">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">
-                            Why Use Our Financial Calculators?
-                        </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {[
-                                {
-                                    icon: <CheckCircle2 className="w-8 h-8 text-primary-600" />,
-                                    title: "100% Free",
-                                    description: "All calculators are completely free with no hidden charges"
-                                },
-                                {
-                                    icon: <Percent className="w-8 h-8 text-primary-600" />,
-                                    title: "Inflation Adjusted",
-                                    description: "All calculators include inflation adjustment for real returns"
-                                },
-                                {
-                                    icon: <Clock className="w-8 h-8 text-primary-600" />,
-                                    title: "Real-Time Calculations",
-                                    description: "Instant results with accurate financial formulas"
-                                }
-                            ].map((feature, idx) => (
-                                <Card key={idx} className="border-0 shadow-lg rounded-2xl bg-slate-50 dark:bg-slate-800/50">
-                                    <CardContent className="p-8 text-center">
-                                        <div className="flex justify-center mb-4">{feature.icon}</div>
-                                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{feature.title}</h3>
-                                        <p className="text-slate-600 dark:text-slate-400">{feature.description}</p>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* Compliance Disclaimer */}
-                <section className="py-12">
-                    <div className="max-w-4xl mx-auto px-4">
-                        <ComplianceDisclaimer variant="compact" />
-                    </div>
-                </section>
-            </div>
+          </div>
         </div>
-    );
+      </section>
+
+      {/* Calculator grid by category */}
+      <section className="bg-gray-50">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+          <div className="space-y-10">
+            {CATEGORIES.map((cat) => (
+              <div key={cat.title}>
+                <div className="mb-4">
+                  <h2 className="text-lg font-bold text-[--v2-ink]">{cat.title}</h2>
+                  <p className="text-sm text-gray-500">{cat.desc}</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {cat.calcs.map((calc) => {
+                    const Icon = calc.icon;
+                    return (
+                      <Link
+                        key={calc.href}
+                        href={calc.href}
+                        className="flex items-start gap-3.5 p-4 bg-white border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
+                      >
+                        <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                          <Icon size={18} className="text-green-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{calc.name}</p>
+                            {calc.badge && (
+                              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wide bg-green-50 text-green-600">{calc.badge}</span>
+                            )}
+                          </div>
+                          <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{calc.desc}</p>
+                        </div>
+                        <ArrowRight size={14} className="text-gray-300 group-hover:text-green-500 transition-colors mt-1 flex-shrink-0" />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom */}
+      <section className="bg-white border-t border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-4">About Our Calculators</h2>
+          <p className="text-sm text-gray-500 leading-relaxed max-w-2xl">
+            Every calculator on InvestingPro accounts for inflation, taxes, and real-world scenarios. Results are shareable and printable. The math formulas are transparent — you can see exactly how we calculate every number. Built for Indian investors, updated for Budget 2026.
+          </p>
+          <p className="text-sm text-gray-500 leading-relaxed max-w-2xl mt-3">
+            These tools are for educational purposes only and do not constitute financial advice. See our{' '}
+            <Link href="/disclaimer" className="text-green-600 font-medium hover:text-green-700">disclaimer</Link>.
+          </p>
+        </div>
+      </section>
+    </>
+  );
 }

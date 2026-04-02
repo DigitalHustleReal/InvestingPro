@@ -69,7 +69,7 @@ export default function DataProvenance({
             case 'monthly':
                 return 'bg-accent-100 text-accent-700';
             default:
-                return 'bg-slate-100 text-slate-700';
+                return 'bg-gray-100 text-gray-700';
         }
     };
 
@@ -97,7 +97,7 @@ export default function DataProvenance({
                     Data Sources & Provenance
                 </CardTitle>
                 {lastUpdated && (
-                    <p className="text-sm text-slate-600 mt-2">
+                    <p className="text-sm text-gray-600 mt-2">
                         Last updated: {new Date(lastUpdated).toLocaleDateString('en-IN', {
                             year: 'numeric',
                             month: 'long',
@@ -111,13 +111,13 @@ export default function DataProvenance({
             <CardContent>
                 <div className="space-y-4">
                     {Object.entries(groupedBySource).map(([sourceId, group]) => (
-                        <div key={sourceId} className="border border-slate-200 rounded-lg p-6 md:p-8">
+                        <div key={sourceId} className="border border-gray-200 rounded-lg p-6 md:p-8">
                             {/* Source Header */}
                             {group.source && (
                                 <div className="flex items-start justify-between mb-3">
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <h4 className="font-semibold text-slate-900">
+                                            <h4 className="font-semibold text-gray-900">
                                                 {group.source.name}
                                             </h4>
                                             {group.source.is_verified && (
@@ -151,13 +151,13 @@ export default function DataProvenance({
                                     return (
                                         <div
                                             key={point.id}
-                                            className="flex items-start justify-between p-2 bg-slate-50 rounded"
+                                            className="flex items-start justify-between p-2 bg-gray-50 rounded"
                                         >
                                             <div className="flex-1">
-                                                <div className="font-medium text-slate-900 text-sm">
+                                                <div className="font-medium text-gray-900 text-sm">
                                                     {fieldName}
                                                 </div>
-                                                <div className="text-xs text-slate-600 mt-1 space-y-1">
+                                                <div className="text-xs text-gray-600 mt-1 space-y-1">
                                                     <div className="flex items-center gap-2">
                                                         <Calendar className="w-3 h-3" />
                                                         <span>
@@ -198,10 +198,10 @@ export default function DataProvenance({
                 </div>
 
                 {/* Compliance Note */}
-                <div className="mt-6 pt-4 border-t border-slate-200">
-                    <div className="flex items-start gap-2 p-3 bg-slate-50 rounded-lg">
-                        <AlertCircle className="w-4 h-4 text-slate-600 mt-0.5 flex-shrink-0" />
-                        <p className="text-xs text-slate-600">
+                <div className="mt-6 pt-4 border-t border-gray-200">
+                    <div className="flex items-start gap-2 p-3 bg-gray-50 rounded-lg">
+                        <AlertCircle className="w-4 h-4 text-gray-600 mt-0.5 flex-shrink-0" />
+                        <p className="text-xs text-gray-600">
                             <strong>Data Integrity:</strong> All data points are sourced from verified sources with
                             timestamps and update frequencies. This information is for educational purposes only.
                             Users should verify current information directly with the provider.

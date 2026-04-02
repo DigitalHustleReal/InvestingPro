@@ -225,21 +225,21 @@ export default function RiskProfiler() {
 
     if (!isLoaded) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-900">
+            <div className="min-h-screen flex items-center justify-center bg-gray-900">
                 <LoadingSpinner text="Benchmarking Your Risk Tolerance..." />
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
             <SEOHead
                 title="Investment DNA - Institutional Risk Profiler | InvestingPro"
                 description="Discover your investment personality with our proprietary assessment tool. Get professional asset allocation based on your risk appetite."
             />
 
             {/* Authority Hero Section */}
-            <div className="bg-slate-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
+            <div className="bg-gray-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
                     <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-secondary-600 rounded-full blur-[140px] -translate-y-1/2" />
                 </div>
@@ -252,7 +252,7 @@ export default function RiskProfiler() {
                     <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
                         Unlock Your <br /> <span className="text-secondary-400">Investment DNA</span>
                     </h1>
-                    <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed">
                         Our proprietary algorithm analyzes your psychology, financial capacity, and goal horizon to architect a personalized allocation strategy.
                     </p>
                 </div>
@@ -265,14 +265,14 @@ export default function RiskProfiler() {
                         <Card className="rounded-[2rem] border-0 shadow-2xl bg-white p-8">
                             <div className="flex justify-between items-center mb-6">
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-st">Question Sequence</span>
-                                    <span className="text-2xl font-bold text-slate-900">{currentStep + 1} <span className="text-slate-200">/ {questions.length}</span></span>
+                                    <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-st">Question Sequence</span>
+                                    <span className="text-2xl font-bold text-gray-900">{currentStep + 1} <span className="text-gray-200">/ {questions.length}</span></span>
                                 </div>
-                                <Badge className="bg-slate-900 text-white rounded-xl px-4 py-2 font-bold italic">
+                                <Badge className="bg-gray-900 text-white rounded-xl px-4 py-2 font-bold italic">
                                     {Math.round(((currentStep + 1) / questions.length) * 100)}% ANALYZED
                                 </Badge>
                             </div>
-                            <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                            <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
                                 <div
                                     className="bg-gradient-to-r from-secondary-500 to-secondary-700 h-full transition-all duration-700 ease-out rounded-full"
                                     style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
@@ -282,10 +282,10 @@ export default function RiskProfiler() {
 
                         {/* Question Architecture */}
                         <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8 overflow-hidden relative">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50/50 rounded-bl-[4rem] -mr-8 -mt-8" />
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-gray-50/50 rounded-bl-[4rem] -mr-8 -mt-8" />
 
                             <div className="relative z-10">
-                                <h2 className="text-3xl font-bold text-slate-900 tracking-tight mb-10 leading-snug">
+                                <h2 className="text-3xl font-bold text-gray-900 tracking-tight mb-10 leading-snug">
                                     {currentQuestion.question}
                                 </h2>
 
@@ -303,12 +303,12 @@ export default function RiskProfiler() {
                                             />
                                             <Label
                                                 htmlFor={`q${currentQuestion.id}-${idx}`}
-                                                className="flex items-center gap-4 p-6 rounded-3xl border-2 border-slate-50 bg-slate-50/50 cursor-pointer transition-all peer-data-[state=checked]:border-secondary-500 peer-data-[state=checked]:bg-white peer-data-[state=checked]:shadow-xl group-hover:bg-white group-hover:border-slate-200"
+                                                className="flex items-center gap-4 p-6 rounded-3xl border-2 border-gray-50 bg-gray-50/50 cursor-pointer transition-all peer-data-[state=checked]:border-secondary-500 peer-data-[state=checked]:bg-white peer-data-[state=checked]:shadow-xl group-hover:bg-white group-hover:border-gray-200"
                                             >
-                                                <div className="w-10 h-10 rounded-2xl bg-white border border-slate-100 flex items-center justify-center font-semibold group-hover:bg-slate-900 group-hover:text-white peer-data-[state=checked]:bg-secondary-600 peer-data-[state=checked]:text-white transition-all text-">
+                                                <div className="w-10 h-10 rounded-2xl bg-white border border-gray-100 flex items-center justify-center font-semibold group-hover:bg-gray-900 group-hover:text-white peer-data-[state=checked]:bg-secondary-600 peer-data-[state=checked]:text-white transition-all text-">
                                                     {String.fromCharCode(65 + idx)}
                                                 </div>
-                                                <span className="text-lg font-bold text-slate-700 peer-data-[state=checked]:text-slate-900">
+                                                <span className="text-lg font-bold text-gray-700 peer-data-[state=checked]:text-gray-900">
                                                     {option.label}
                                                 </span>
                                             </Label>
@@ -324,7 +324,7 @@ export default function RiskProfiler() {
                                 variant="ghost"
                                 onClick={handlePrevious}
                                 disabled={currentStep === 0}
-                                className="flex-1 h-16 rounded-[1.5rem] font-semibold text-slate-600 hover:text-slate-900 transition-all uppercase tracking-widest text-"
+                                className="flex-1 h-16 rounded-[1.5rem] font-semibold text-gray-600 hover:text-gray-900 transition-all uppercase tracking-widest text-"
                             >
                                 <ChevronLeft className="w-4 h-4 mr-2" />
                                 Previous Question
@@ -332,7 +332,7 @@ export default function RiskProfiler() {
                             <Button
                                 onClick={handleNext}
                                 disabled={!isAnswered}
-                                className={`flex-1 h-16 rounded-[1.5rem] font-bold text-white shadow-2xl transition-all uppercase tracking-widest text-[10px] active:scale-95 ${!isAnswered ? 'bg-slate-200' : 'bg-slate-900 hover:bg-secondary-600 shadow-purple-500/20'}`}
+                                className={`flex-1 h-16 rounded-[1.5rem] font-bold text-white shadow-2xl transition-all uppercase tracking-widest text-[10px] active:scale-95 ${!isAnswered ? 'bg-gray-200' : 'bg-gray-900 hover:bg-secondary-600 shadow-purple-500/20'}`}
                             >
                                 {currentStep === questions.length - 1 ? 'Generate DNA Results' : 'Confirm & Continue'}
                                 <ChevronRight className="w-4 h-4 ml-2" />
@@ -348,20 +348,20 @@ export default function RiskProfiler() {
                                 {ProfileIcon && <ProfileIcon className="w-14 h-14 text-white group-hover:scale-110 transition-transform duration-500" />}
                             </div>
 
-                            <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.4em] mb-4">Investment Archetype</h2>
-                            <h1 className="text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                            <h2 className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.4em] mb-4">Investment Archetype</h2>
+                            <h1 className="text-5xl font-bold text-gray-900 mb-6 tracking-tight">
                                 {result.profile} <br />
                                 <span className={`text-4xl opacity-40 italic font-medium`}>Strategist</span>
                             </h1>
 
-                            <p className="text-slate-500 font-medium text-xl leading-relaxed max-w-2xl mx-auto mb-10">
+                            <p className="text-gray-500 font-medium text-xl leading-relaxed max-w-2xl mx-auto mb-10">
                                 {profileData.description}
                             </p>
 
-                            <div className="flex justify-center gap-12 border-t border-slate-50 pt-10">
+                            <div className="flex justify-center gap-12 border-t border-gray-50 pt-10">
                                 <div className="text-center">
-                                    <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-st mb-1">Risk Score</p>
-                                    <p className="text-3xl font-bold text-slate-900">{result.score}<span className="text-slate-200">/100</span></p>
+                                    <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-st mb-1">Risk Score</p>
+                                    <p className="text-3xl font-bold text-gray-900">{result.score}<span className="text-gray-200">/100</span></p>
                                 </div>
                             </div>
                         </Card>
@@ -372,24 +372,24 @@ export default function RiskProfiler() {
                                 <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8">
                                     <div className="flex items-center justify-between mb-10">
                                         <div>
-                                            <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Deployment Strategy</h3>
-                                            <p className="text-xs font-bold text-slate-600 uppercase tracking-widest mt-1">Institutional Allocation Matrix</p>
+                                            <h3 className="text-2xl font-bold text-gray-900 tracking-tight">Deployment Strategy</h3>
+                                            <p className="text-xs font-bold text-gray-600 uppercase tracking-widest mt-1">Institutional Allocation Matrix</p>
                                         </div>
-                                        <PieChart className="w-8 h-8 text-slate-100" />
+                                        <PieChart className="w-8 h-8 text-gray-100" />
                                     </div>
 
                                     <div className="space-y-4">
                                         {profileData.recommendations.map((rec: any, idx: number) => (
-                                            <div key={idx} className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl border border-transparent hover:border-slate-100 hover:bg-white transition-all group">
+                                            <div key={idx} className="flex items-center justify-between p-6 bg-gray-50 rounded-3xl border border-transparent hover:border-gray-100 hover:bg-white transition-all group">
                                                 <div className="flex items-center gap-4">
-                                                    <div className={`w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-slate-600 group-hover:text-secondary-600 transition-colors shadow-sm`}>
+                                                    <div className={`w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-gray-600 group-hover:text-secondary-600 transition-colors shadow-sm`}>
                                                         <rec.icon className="w-6 h-6" />
                                                     </div>
-                                                    <span className="text-lg font-bold text-slate-900">{rec.category}</span>
+                                                    <span className="text-lg font-bold text-gray-900">{rec.category}</span>
                                                 </div>
                                                 <div className="flex flex-col items-end">
-                                                    <span className="text-2xl font-bold text-slate-900">{rec.allocation}</span>
-                                                    <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tighter">Target Allocation</span>
+                                                    <span className="text-2xl font-bold text-gray-900">{rec.allocation}</span>
+                                                    <span className="text-[10px] font-bold text-gray-600 uppercase tracking-tighter">Target Allocation</span>
                                                 </div>
                                             </div>
                                         ))}
@@ -405,14 +405,14 @@ export default function RiskProfiler() {
                                         <p className="text-lg font-bold leading-relaxed mb-10">
                                             Your profile suggests a robust threshold for market cycles. We recommend rebalancing your portfolio every <span className="underline decoration-white/30 underline-offset-4">90 days</span> to maintain this alignment.
                                         </p>
-                                        <Button className="w-full bg-white text-slate-900 rounded-2xl font-bold h-14 hover:bg-slate-50">
+                                        <Button className="w-full bg-white text-gray-900 rounded-2xl font-bold h-14 hover:bg-gray-50">
                                             Download Analysis PDF
                                         </Button>
                                     </div>
                                 </Card>
 
                                 <Card className="rounded-[3rem] border-0 shadow-xl bg-white p-8">
-                                    <h4 className="text-[10px] font-semibold text-slate-600 uppercase tracking-st mb-6 px-2">Next Phase</h4>
+                                    <h4 className="text-[10px] font-semibold text-gray-600 uppercase tracking-st mb-6 px-2">Next Phase</h4>
                                     <div className="space-y-6">
                                         {[
                                             { link: "/mutual-funds", label: "Explore Direct Funds", desc: "Start SIPs in top funds." },
@@ -420,10 +420,10 @@ export default function RiskProfiler() {
                                         ].map((next, i) => (
                                             <Link href={next.link} key={i} className="flex items-center justify-between group p-2">
                                                 <div>
-                                                    <p className="font-bold text-slate-900 group-hover:text-secondary-600 transition-colors">{next.label}</p>
-                                                    <p className="text-[10px] font-bold text-slate-600 uppercase mt-0.5">{next.desc}</p>
+                                                    <p className="font-bold text-gray-900 group-hover:text-secondary-600 transition-colors">{next.label}</p>
+                                                    <p className="text-[10px] font-bold text-gray-600 uppercase mt-0.5">{next.desc}</p>
                                                 </div>
-                                                <ChevronRight className="w-4 h-4 text-slate-300 group-hover:translate-x-1 transition-transform" />
+                                                <ChevronRight className="w-4 h-4 text-gray-300 group-hover:translate-x-1 transition-transform" />
                                             </Link>
                                         ))}
                                     </div>
@@ -436,14 +436,14 @@ export default function RiskProfiler() {
                             <Button
                                 onClick={resetQuiz}
                                 variant="ghost"
-                                className="flex-1 h-20 rounded-[2rem] font-semibold text-slate-600 uppercase tracking-widest text- hover:text-slate-900 transition-all"
+                                className="flex-1 h-20 rounded-[2rem] font-semibold text-gray-600 uppercase tracking-widest text- hover:text-gray-900 transition-all"
                             >
                                 Reset Assessment Engine
                             </Button>
                             <Button
                                 onClick={saveToProfile}
                                 disabled={saving}
-                                className="flex-[2] h-20 rounded-[2.5rem] bg-slate-900 hover:bg-secondary-600 text-white font-bold text-xl shadow-2xl shadow-slate-900/20 active:scale-95 transition-all group"
+                                className="flex-[2] h-20 rounded-[2.5rem] bg-gray-900 hover:bg-secondary-600 text-white font-bold text-xl shadow-2xl shadow-gray-900/20 active:scale-95 transition-all group"
                             >
                                 {saving ? (
                                     <span className="animate-pulse">Synchronizing Data...</span>

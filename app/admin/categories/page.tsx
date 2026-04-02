@@ -155,7 +155,7 @@ export default function CategoriesPage() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search categories..."
-                            className="w-full pl-10 pr-4 py-2.5 bg-muted/50 dark:bg-muted/50 border border-border dark:border-border rounded-lg text-foreground dark:text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-secondary-500/50"
+                            className="w-full pl-10 pr-4 py-2.5 bg-muted/50 dark:bg-muted/50 border border-border dark:border-border rounded-lg text-foreground dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary-500/50"
                         />
                     </div>
                 </ContentSection>

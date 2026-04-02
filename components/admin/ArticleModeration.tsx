@@ -145,7 +145,7 @@ export default function ArticleModeration({ article }: { article: Article }) {
                             </div>
 
                             <div className="flex flex-wrap gap-2 mb-3">
-                                <Badge className="bg-slate-700 text-wt-text dark:text-wt-text border-0">
+                                <Badge className="bg-gray-700 text-wt-text dark:text-wt-text border-0">
                                     {article.category?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                                 </Badge>
                                 <Badge variant="outline" className="bg-white">

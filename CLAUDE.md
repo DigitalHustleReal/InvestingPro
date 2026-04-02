@@ -1,7 +1,7 @@
 # InvestingPro.in — Claude Code Context
 
 > **Read this first, every session. This saves you from re-reading 200+ files.**
-> Last updated: March 2026
+> Last updated: April 2026
 
 ---
 
@@ -20,8 +20,8 @@ Has AI-powered recommendations, financial calculators, and a full CMS/admin pane
 ## 2. Tech Stack (DO NOT change without discussion)
 
 ```
-Framework:    Next.js 16 (App Router) + React 19 + TypeScript 5
-Styling:      Tailwind CSS 3 + shadcn/ui + Radix UI primitives
+Framework:    Next.js 16.1 (App Router, Turbopack) + React 19 + TypeScript 5
+Styling:      Tailwind CSS 4 + shadcn/ui + Radix UI primitives
 Database:     Supabase (Postgres + Auth + Storage + RLS)
 Payments:     Stripe
 Email:        Resend

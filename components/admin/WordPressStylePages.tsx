@@ -224,7 +224,7 @@ export default function WordPressStylePages({
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                                 filterStatus === status
                                     ? 'bg-wt-gold text-wt-text dark:text-wt-text'
-                                    : 'bg-wt-card text-wt-text hover:bg-slate-200'
+                                    : 'bg-wt-card text-wt-text hover:bg-gray-200'
                             }`}
                         >
                             {(status ?? 'All').charAt(0).toUpperCase() + (status ?? 'All').slice(1)}

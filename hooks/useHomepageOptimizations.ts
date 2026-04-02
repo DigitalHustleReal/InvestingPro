@@ -17,7 +17,7 @@ export function useWebVitals() {
             
             // Log LCP for analytics
             if (lastEntry) {
-                const lcp = lastEntry.renderTime || lastEntry.loadTime;
+                const lcp = lastEntry.startTime + lastEntry.duration;
                 // Send to analytics (replace with your analytics service)
                 if (typeof window.gtag !== 'undefined') {
                     window.gtag('event', 'web_vitals', {

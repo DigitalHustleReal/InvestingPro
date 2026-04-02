@@ -276,8 +276,8 @@ export class RevenuePredictor {
 
       // Calculate metrics
       const totalClicks = clicksData.length;
-      const conversions = clicksData.filter(c => c.conversion_status === 'converted').length;
-      const totalRevenue = clicksData.reduce((sum, c) => sum + (c.commission_earned || 0), 0);
+      const conversions = clicksData.filter((c: any) => c.conversion_status === 'converted').length;
+      const totalRevenue = clicksData.reduce((sum: any, c: any) => sum + (c.commission_earned || 0), 0);
 
       // Top products
       const productCounts = new Map<string, number>();
@@ -390,7 +390,7 @@ export class RevenuePredictor {
       }
 
       const avgViews = Math.round(
-        data.reduce((sum, a) => sum + (a.views || 0), 0) / data.length
+        data.reduce((sum: any, a: any) => sum + (a.views || 0), 0) / data.length
       );
 
       // Adjust based on content quality indicators
@@ -445,9 +445,9 @@ export class RevenuePredictor {
     }
 
     // Search intent
-    if (draft.search_intent === 'transactional') {
+    if ((draft as ArticleDraft & { search_intent?: string }).search_intent === 'transactional') {
       multiplier += 0.25;
-    } else if (draft.search_intent === 'commercial') {
+    } else if ((draft as ArticleDraft & { search_intent?: string }).search_intent === 'commercial') {
       multiplier += 0.15;
     }
 

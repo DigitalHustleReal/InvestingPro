@@ -107,7 +107,7 @@ const categoryConfigs: Record<string, {
     },
     'personal-finance': {
         icon: FileText,
-        gradient: 'from-slate-700 to-slate-900',
+        gradient: 'from-gray-700 to-gray-900',
         headline: 'Take control of your finances',
         subheadline: 'Plan your budget, manage debt, build emergency fund, and achieve your financial goals.',
         searchPlaceholder: 'Search financial planning tools or guides...',
@@ -193,7 +193,7 @@ export default function CategoryHero({
                             <Link href={config.primaryCTA.href}>
                                 <Button 
                                     size="lg"
-                                    className="bg-white text-slate-900 hover:bg-white/90 shadow-xl shadow-black/20 font-semibold px-8 py-6 text-base rounded-xl"
+                                    className="bg-white text-gray-900 hover:bg-white/90 shadow-xl shadow-black/20 font-semibold px-8 py-6 text-base rounded-xl"
                                 >
                                     {config.primaryCTA.label}
                                 </Button>

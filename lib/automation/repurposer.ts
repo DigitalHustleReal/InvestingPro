@@ -51,7 +51,6 @@ export async function repurposeArticle(
 
         const result = await api.integrations.Core.InvokeLLM({
             prompt: userPrompt,
-            persona: 'arjun', // Use Arjun persona for relatable content
             operation: `repurpose_to_${format}`,
             contextData: { format, articleTitle }
         });

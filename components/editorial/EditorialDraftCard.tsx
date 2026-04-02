@@ -133,7 +133,7 @@ export default function EditorialDraftCard({
     const timeAgo = getTimeAgo(new Date(draft.created_at));
 
     return (
-        <Card className={`border-2 transition-all ${selected ? 'border-primary-500 bg-primary-50/30' : 'border-slate-200'}`}>
+        <Card className={`border-2 transition-all ${selected ? 'border-primary-500 bg-primary-50/30' : 'border-gray-200'}`}>
             <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                     {/* Checkbox */}
@@ -150,7 +150,7 @@ export default function EditorialDraftCard({
                         <div className="flex items-start justify-between gap-4 mb-3">
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-2">
-                                    <h3 className="text-lg font-bold text-slate-900 truncate">
+                                    <h3 className="text-lg font-bold text-gray-900 truncate">
                                         {draft.title}
                                     </h3>
                                     <Badge className={`${riskColors[draft.risk]} text-xs font-bold`}>
@@ -165,7 +165,7 @@ export default function EditorialDraftCard({
                                     )}
                                 </div>
                                 {draft.excerpt && (
-                                    <p className="text-sm text-slate-600 line-clamp-2 mb-2">
+                                    <p className="text-sm text-gray-600 line-clamp-2 mb-2">
                                         {draft.excerpt}
                                     </p>
                                 )}
@@ -173,7 +173,7 @@ export default function EditorialDraftCard({
                         </div>
 
                         {/* Metadata */}
-                        <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 mb-4">
+                        <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-4">
                             <span className="capitalize font-medium">{draft.category.replace(/-/g, ' ')}</span>
                             <span className="flex items-center gap-1">
                                 <Clock className="w-3 h-3" />
@@ -212,22 +212,22 @@ export default function EditorialDraftCard({
 
                         {/* Data Sources Preview */}
                         {dataSources.length > 0 && (
-                            <div className="mb-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
-                                <div className="text-xs font-bold text-slate-700 mb-2">Data Sources:</div>
+                            <div className="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                                <div className="text-xs font-bold text-gray-700 mb-2">Data Sources:</div>
                                 <div className="space-y-1">
                                     {dataSources.slice(0, 3).map((source: any, idx: number) => (
-                                        <div key={idx} className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div key={idx} className="flex items-center gap-2 text-xs text-gray-600">
                                             <ExternalLink className="w-3 h-3" />
                                             <span className="truncate">{source.source_name || source.name || 'Unknown'}</span>
                                             {source.confidence && (
-                                                <span className="text-slate-600">
+                                                <span className="text-gray-600">
                                                     ({Math.round(source.confidence * 100)}%)
                                                 </span>
                                             )}
                                         </div>
                                     ))}
                                     {dataSources.length > 3 && (
-                                        <div className="text-xs text-slate-600">
+                                        <div className="text-xs text-gray-600">
                                             +{dataSources.length - 3} more
                                         </div>
                                     )}

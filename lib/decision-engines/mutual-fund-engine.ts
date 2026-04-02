@@ -92,10 +92,10 @@ export class MutualFundDecisionEngine {
                 }
 
                 // Rating bonus
-                if (fund.rating >= 4.5) {
+                if ((fund.rating ?? 0) >= 4.5) {
                     score += 15;
                     reasons.push('Highly rated fund');
-                } else if (fund.rating >= 4.0) {
+                } else if ((fund.rating ?? 0) >= 4.0) {
                     score += 10;
                     reasons.push('Well-rated fund');
                 }
@@ -176,7 +176,7 @@ export class MutualFundDecisionEngine {
                 }
 
                 // Rating bonus
-                if (fund.rating >= 4.5) {
+                if ((fund.rating ?? 0) >= 4.5) {
                     score += 15;
                     reasons.push('Highly rated fund');
                 }

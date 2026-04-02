@@ -30,7 +30,7 @@ export default async function ExpertsPage() {
     const experts = Array.isArray(expertsData) ? expertsData : [];
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <SEOHead
                 title="Meet Our Expert Team - Financial Analysts & Advisors | InvestingPro"
                 description="Meet the financial experts behind InvestingPro. Our team of CAs, CFAs, and financial analysts help you make informed financial decisions."

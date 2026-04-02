@@ -117,7 +117,7 @@ export class TrendsService {
     private getFallbackTrends(category: string): TrendingTopic[] {
         const fallbacks: Record<string, string[]> = {
             'markets': ['Nifty 50 Analysis', 'HDFC Bank Share Price', 'IPO Alert', 'Gold Price Trend', 'Sensex Update'],
-            'personal-finance': ['Best Mutual Funds 2025', 'Tax Saving Schemes', 'PPF vs EPF', 'Home Loan Rates', 'Credit Card Offers'],
+            'personal-finance': ['Best Mutual Funds 2026', 'Tax Saving Schemes', 'PPF vs EPF', 'Home Loan Rates', 'Credit Card Offers'],
             'technology': ['AI in Finance', 'Fintech Trends', 'UPI Updates', 'Cybersecurity Banking', 'Crypto Regulations'],
             'economy': ['RBI Repo Rate Update', 'India GDP Growth', 'Inflation Data', 'Union Budget Analysis', 'Rupee vs Dollar']
         };

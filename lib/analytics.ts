@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 /**
  * Analytics Tracking Service
  * Lightweight event tracking for product views, comparisons, and conversions
@@ -107,7 +108,7 @@ class AnalyticsService {
 
         // Log in development
         if (process.env.NODE_ENV === 'development') {
-            logger.info('[Analytics]', event, properties);
+            logger.info('[Analytics]', { event, properties });
         }
     }
 

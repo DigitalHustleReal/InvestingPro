@@ -120,7 +120,7 @@ export class HealthMonitorAgent extends BaseAgent {
                     setTimeout(() => reject(new Error('Budget check timed out')), 2000)
                 );
                 budgetStatus = await Promise.race([budgetPromise, timeoutPromise]);
-            } catch (e) {
+            } catch (e: any) {
                 logger.warn('HealthMonitor: Budget check timed out or failed, using fallback', e);
                 budgetStatus = {
                     canGenerate: true, // Fail open for health check display
@@ -190,7 +190,7 @@ export class HealthMonitorAgent extends BaseAgent {
                 }
             };
             
-        } catch (error) {
+        } catch (error: any) {
             logger.error('HealthMonitorAgent: Failed to get system health', error as Error);
             throw error;
         }
@@ -203,7 +203,7 @@ export class HealthMonitorAgent extends BaseAgent {
         try {
             const health = await this.getSystemHealth();
             return health.overall === 'healthy' || health.overall === 'degraded';
-        } catch (error) {
+        } catch (error: any) {
             return false;
         }
     }
@@ -227,7 +227,7 @@ export class HealthMonitorAgent extends BaseAgent {
                     errorCount: health.errors.count
                 }
             };
-        } catch (error) {
+        } catch (error: any) {
             return this.handleError(error, context);
         }
     }

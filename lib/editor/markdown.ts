@@ -17,6 +17,7 @@
 
 import { Editor } from '@tiptap/core';
 import { logger } from '@/lib/logger';
+// @ts-expect-error no types
 import TurndownService from 'turndown';
 import { marked } from 'marked';
 import { generateHTML } from '@tiptap/html';

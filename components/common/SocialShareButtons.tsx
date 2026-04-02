@@ -48,7 +48,7 @@ export default function SocialShareButtons({ title, url, description }: SocialSh
 
     return (
         <div className="flex flex-wrap items-center gap-2">
-            <span className="text-sm font-semibold text-slate-600 mr-2">Share:</span>
+            <span className="text-sm font-semibold text-gray-600 mr-2">Share:</span>
             <a
                 href={shareLinks.whatsapp}
                 target="_blank"
@@ -81,7 +81,7 @@ export default function SocialShareButtons({ title, url, description }: SocialSh
             </a>
             <button
                 onClick={copyToClipboard}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition-colors border border-slate-200"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors border border-gray-200"
                 aria-label="Copy link"
             >
                 <LinkIcon className="w-4 h-4" />
@@ -90,7 +90,7 @@ export default function SocialShareButtons({ title, url, description }: SocialSh
             {typeof navigator !== 'undefined' && typeof navigator.share === 'function' && (
                 <button
                     onClick={handleShare}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition-colors border border-slate-200"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors border border-gray-200"
                     aria-label="Share via native share"
                 >
                     <Share2 className="w-4 h-4" />

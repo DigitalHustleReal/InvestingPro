@@ -75,7 +75,7 @@ export const GOLDEN_KEYWORDS: GoldenKeyword[] = [
     // --- Pillar Content ---
     {
         keyword: 'Income Tax Slabs',
-        url: '/tax/income-tax-slabs-2025',
+        url: '/tax/income-tax-slabs-2026',
         priority: 60,
         category: 'informational',
         variants: ['tax slabs', 'income tax rates']

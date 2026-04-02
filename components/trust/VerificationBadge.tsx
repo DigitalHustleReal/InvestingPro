@@ -43,7 +43,7 @@ export default function VerificationBadge({
     const colorClasses = {
         emerald: 'bg-primary-50 text-primary-700 border-primary-200', // Vibrant is good
         amber: 'bg-accent-50 text-accent-700 border-accent-200',
-        slate: 'bg-slate-50 text-slate-600 border-slate-200'
+        slate: 'bg-gray-50 text-gray-600 border-gray-200'
     };
 
     if (showDescription) {
@@ -96,18 +96,18 @@ export function LastUpdated({ timestamp, variant = 'subtle' }: Omit<LastUpdatedP
 
     if (variant === 'prominent') {
         return (
-            <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 rounded-lg border border-slate-100">
+            <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-gray-100">
                 <Shield className="w-4 h-4 text-primary-600" />
                 <div className="flex-1">
-                    <div className="text-xs font-semibold text-slate-700">{relativeTime}</div>
-                    <div className="text-[10px] text-slate-500">Our team verifies data regularly</div>
+                    <div className="text-xs font-semibold text-gray-700">{relativeTime}</div>
+                    <div className="text-[10px] text-gray-500">Our team verifies data regularly</div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+        <div className="flex items-center gap-1.5 text-xs text-gray-500">
             <Clock className="w-3 h-3" />
             <span>{relativeTime}</span>
         </div>

@@ -42,10 +42,10 @@ export default function TrustSignals({
             {showUserCount && (
                 <div className="flex items-center gap-2 text-sm">
                     <Users className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                    <span className="font-semibold text-slate-900 dark:text-white">
+                    <span className="font-semibold text-gray-900 dark:text-white">
                         {stats.totalUsers.toLocaleString()}+
                     </span>
-                    <span className="text-slate-600 dark:text-slate-400">Users</span>
+                    <span className="text-gray-600 dark:text-gray-400">Users</span>
                 </div>
             )}
 
@@ -53,11 +53,11 @@ export default function TrustSignals({
                 <div className="flex items-center gap-2 text-sm">
                     <div className="flex items-center gap-1">
                         <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        <span className="font-semibold text-slate-900 dark:text-white">
+                        <span className="font-semibold text-gray-900 dark:text-white">
                             {stats.averageRating}
                         </span>
                     </div>
-                    <span className="text-slate-600 dark:text-slate-400">
+                    <span className="text-gray-600 dark:text-gray-400">
                         ({stats.totalReviews.toLocaleString()} reviews)
                     </span>
                 </div>
@@ -66,7 +66,7 @@ export default function TrustSignals({
             {showReviews && variant === 'full' && (
                 <div className="flex items-center gap-2 text-sm">
                     <CheckCircle2 className="w-4 h-4 text-success-600 dark:text-success-400" />
-                    <span className="text-slate-600 dark:text-slate-400">
+                    <span className="text-gray-600 dark:text-gray-400">
                         {stats.totalReviews.toLocaleString()} Verified Reviews
                     </span>
                 </div>
@@ -124,7 +124,7 @@ export function TrustBadge({
         <div className="flex items-center gap-2 text-sm">
             <Icon className={cn("w-4 h-4", color)} />
             {label && (
-                <span className="text-slate-600 dark:text-slate-400">{label}</span>
+                <span className="text-gray-600 dark:text-gray-400">{label}</span>
             )}
         </div>
     );
@@ -149,14 +149,14 @@ export function SocialProof({
                 <div className="flex items-center gap-2">
                     <Users className="w-4 h-4 text-primary-600" />
                     <span className="font-semibold">{users.toLocaleString()}+</span>
-                    <span className="text-slate-500">users</span>
+                    <span className="text-gray-500">users</span>
                 </div>
             )}
             {reviews && (
                 <div className="flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-success-600" />
                     <span className="font-semibold">{reviews.toLocaleString()}</span>
-                    <span className="text-slate-500">reviews</span>
+                    <span className="text-gray-500">reviews</span>
                 </div>
             )}
             {rating && (

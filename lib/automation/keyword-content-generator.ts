@@ -11,7 +11,7 @@
  * 4. Auto-publish if quality gates pass
  */
 
-import { discoverKeywordsForBothCategories, getTopKeywordsForGeneration, DiscoveredKeyword } from '@/lib/seo/keyword-discovery';
+import { discoverKeywordsForBothCategories, getTopKeywordsForGeneration, type DiscoveredKeyword } from '@/lib/seo/keyword-discovery';
 import { runAutomationPipeline, PipelineConfig } from '@/lib/automation/content-pipeline';
 import { logger } from '@/lib/logger';
 import { createClient } from '@supabase/supabase-js';

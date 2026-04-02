@@ -47,7 +47,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-50 via-white to-orange-50 dark:from-yellow-900/10 dark:via-slate-900 dark:to-orange-900/10 p-8 mb-8 border-2 border-accent-200 dark:border-accent-800/50 shadow-xl"
+            className="relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-50 via-white to-orange-50 dark:from-yellow-900/10 dark:via-gray-900 dark:to-orange-900/10 p-8 mb-8 border-2 border-accent-200 dark:border-accent-800/50 shadow-xl"
         >
             {/* Animated Background Blobs */}
             <div className="absolute inset-0 opacity-20 pointer-events-none">
@@ -68,24 +68,24 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                         <Sparkles className="w-7 h-7 text-white" />
                     </motion.div>
                     <div>
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                             AI Recommendation
                             <Badge className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white border-0 text-xs">
                                 SMART PICK
                             </Badge>
                         </h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">Based on your comparison</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Based on your comparison</p>
                     </div>
                 </div>
 
                 {/* Winner Card */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-2xl border-2 border-accent-200 dark:border-accent-800/50">
+                <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-2xl border-2 border-accent-200 dark:border-accent-800/50">
                     <div className="flex flex-col sm:flex-row items-center gap-6">
                         {/* Product Image */}
                         {winner.image_url && (
                             <div className="relative">
                                 <div className="absolute inset-0 bg-accent-500/30 rounded-xl blur-xl" />
-                                <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-white dark:bg-slate-800 shadow-xl ring-4 ring-yellow-200 dark:ring-yellow-800">
+                                <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-xl ring-4 ring-yellow-200 dark:ring-yellow-800">
                                     <Image
                                         src={winner.image_url}
                                         alt={winner.name}
@@ -110,7 +110,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
 
                         {/* Product Info */}
                         <div className="flex-1 text-center sm:text-left">
-                            <h4 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-2">
+                            <h4 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2">
                                 {winner.name}
                             </h4>
                             <div className="flex items-center justify-center sm:justify-start gap-4 mb-3">
@@ -127,7 +127,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                             {/* Why it's best */}
                             {reasons.length > 0 && (
                                 <div className="space-y-2 mb-4">
-                                    <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Why it's the best:</p>
+                                    <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">Why it's the best:</p>
                                     {reasons.map((reason, idx) => (
                                         <motion.div
                                             key={idx}
@@ -137,7 +137,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                                             className="flex items-center gap-2"
                                         >
                                             <reason.icon className="w-4 h-4 text-success-600 dark:text-success-400" />
-                                            <span className="text-sm text-slate-700 dark:text-slate-300">{reason.text}</span>
+                                            <span className="text-sm text-gray-700 dark:text-gray-300">{reason.text}</span>
                                         </motion.div>
                                     ))}
                                 </div>

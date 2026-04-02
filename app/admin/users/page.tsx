@@ -21,12 +21,12 @@ export default function UsersPage() {
         u.full_name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const getRoleVariant = (role: string): 'default' | 'success' | 'warning' | 'danger' | 'info' => {
+    const getRoleVariant = (role: string): 'neutral' | 'completed' | 'processing' | 'warning' | 'error' => {
         switch (role) {
-            case 'admin': return 'danger';
-            case 'editor': return 'info';
-            case 'author': return 'success';
-            default: return 'default';
+            case 'admin': return 'error';
+            case 'editor': return 'processing';
+            case 'author': return 'completed';
+            default: return 'neutral';
         }
     };
 
@@ -56,7 +56,7 @@ export default function UsersPage() {
                             placeholder="Search users by name or email..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2.5 bg-muted/50 dark:bg-muted/50 border border-border dark:border-border rounded-lg text-foreground dark:text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                            className="w-full pl-10 pr-4 py-2.5 bg-muted/50 dark:bg-muted/50 border border-border dark:border-border rounded-lg text-foreground dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                         />
                     </div>
                 </ContentSection>
@@ -93,7 +93,7 @@ export default function UsersPage() {
                                             </div>
                                         </div>
                                     </div>
-                                    <StatusBadge variant={getRoleVariant(user.role || 'user')}>
+                                    <StatusBadge status={getRoleVariant(user.role || 'user')}>
                                         {user.role || 'user'}
                                     </StatusBadge>
                                 </div>

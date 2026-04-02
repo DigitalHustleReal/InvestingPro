@@ -89,18 +89,18 @@ export function BulkUploader() {
     return (
         <div className="h-full flex flex-col">
             {/* Header */}
-            <div className="p-4 border-b bg-slate-50">
-                <h3 className="text-lg font-bold text-slate-900 mb-2">
+            <div className="p-4 border-b bg-gray-50">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                     ðŸ“¤ Bulk Upload
                 </h3>
-                <p className="text-sm text-slate-600 mb-4">
+                <p className="text-sm text-gray-600 mb-4">
                     Upload multiple images at once. All images will be automatically optimized.
                 </p>
 
                 {/* Stats */}
                 {stats.total > 0 && (
                     <div className="flex gap-4 mb-4 text-sm">
-                        <span className="text-slate-600">Total: <strong>{stats.total}</strong></span>
+                        <span className="text-gray-600">Total: <strong>{stats.total}</strong></span>
                         {stats.pending > 0 && <span className="text-secondary-600">Pending: <strong>{stats.pending}</strong></span>}
                         {stats.uploading > 0 && <span className="text-accent-600">Uploading: <strong>{stats.uploading}</strong></span>}
                         {stats.complete > 0 && <span className="text-success-600">Complete: <strong>{stats.complete}</strong></span>}
@@ -137,7 +137,7 @@ export function BulkUploader() {
                     {stats.complete > 0 && !uploading && (
                         <button
                             onClick={handleClearCompleted}
-                            className="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 font-medium"
+                            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium"
                         >
                             ðŸ—‘ï¸ Clear Completed
                         </button>
@@ -151,7 +151,7 @@ export function BulkUploader() {
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <svg
-                                className="mx-auto h-16 w-16 text-slate-600 mb-4"
+                                className="mx-auto h-16 w-16 text-gray-600 mb-4"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -163,10 +163,10 @@ export function BulkUploader() {
                                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                 />
                             </svg>
-                            <p className="text-slate-500 dark:text-slate-600 text-lg font-medium mb-2">
+                            <p className="text-gray-500 dark:text-gray-600 text-lg font-medium mb-2">
                                 No files selected
                             </p>
-                            <p className="text-slate-600 dark:text-slate-500 text-sm mb-4">
+                            <p className="text-gray-600 dark:text-gray-500 text-sm mb-4">
                                 Click "Select Files" to choose multiple images
                             </p>
                         </div>
@@ -183,7 +183,7 @@ export function BulkUploader() {
                                         ? 'bg-danger-50 dark:bg-danger-900/20 border-danger-200 dark:border-danger-800'
                                         : item.status === 'uploading'
                                         ? 'bg-secondary-50 dark:bg-secondary-900/20 border-secondary-200 dark:border-secondary-800'
-                                        : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700'
+                                        : 'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700'
                                 }`}
                             >
                                 <div className="flex items-center gap-3">
@@ -196,23 +196,23 @@ export function BulkUploader() {
 
                                     {/* Info */}
                                     <div className="flex-1 min-w-0">
-                                        <p className="font-medium text-slate-900 dark:text-white truncate">
+                                        <p className="font-medium text-gray-900 dark:text-white truncate">
                                             {item.file.name}
                                         </p>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
                                             {(item.file.size / 1024 / 1024).toFixed(2)} MB
                                         </p>
 
                                         {/* Progress */}
                                         {item.progress && item.status === 'uploading' && (
                                             <div className="mt-2">
-                                                <div className="w-full bg-slate-200 rounded-full h-2">
+                                                <div className="w-full bg-gray-200 rounded-full h-2">
                                                     <div
                                                         className="bg-secondary-600 h-2 rounded-full transition-all duration-300"
                                                         style={{ width: `${item.progress.progress}%` }}
                                                     />
                                                 </div>
-                                                <p className="text-xs text-slate-600 mt-1">
+                                                <p className="text-xs text-gray-600 mt-1">
                                                     {item.progress.message} ({item.progress.progress}%)
                                                 </p>
                                             </div>

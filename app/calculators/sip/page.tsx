@@ -120,7 +120,7 @@ export default function SIPCalculatorPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
             {/* JSON-LD Structured Data */}
             <script
                 type="application/ld+json"
@@ -151,15 +151,15 @@ export default function SIPCalculatorPage() {
             {/* Hero Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                 <div className="text-center mb-6">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                         SIP Calculator - Calculate Systematic Investment Plan Returns
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed mb-4">
+                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed mb-4">
                         Calculate returns on your SIP investments with our free SIP calculator. Includes inflation adjustment to show real returns and help you plan your financial goals.
                     </p>
                     
                     {/* Usage Counter & Last Updated */}
-                    <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500 mb-4">
+                    <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500 mb-4">
                         <span className="flex items-center gap-2">
                             <span className="font-semibold text-primary-600">Verified by Experts</span>
                         </span>
@@ -203,11 +203,11 @@ export default function SIPCalculatorPage() {
                 {/* External Authority Links */}
                 <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-secondary-50 to-secondary-100">
                     <CardHeader>
-                        <CardTitle className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                             Official Resources & Guidelines
                         </CardTitle>
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">Refer to these authoritative sources for official information about SIP investments and mutual funds in India.</p>
+                        <p className="text-gray-600 dark:text-gray-400 mt-2">Refer to these authoritative sources for official information about SIP investments and mutual funds in India.</p>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -215,42 +215,42 @@ export default function SIPCalculatorPage() {
                                 href="https://www.sebi.gov.in/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-secondary-200 dark:border-secondary-800 hover:border-secondary-300 dark:hover:border-secondary-700 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl border border-secondary-200 dark:border-secondary-800 hover:border-secondary-300 dark:hover:border-secondary-700 hover:shadow-md transition-all group"
                             >
                                 <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
                                     <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
-                                    <p className="font-bold text-slate-900 dark:text-white">SEBI</p>
-                                    <p className="text-xs text-slate-600 dark:text-slate-400">Securities and Exchange Board of India</p>
+                                    <p className="font-bold text-gray-900 dark:text-white">SEBI</p>
+                                    <p className="text-xs text-gray-600 dark:text-gray-400">Securities and Exchange Board of India</p>
                                 </div>
                             </a>
                             <a
                                 href="https://www.amfiindia.com/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-secondary-200 dark:border-secondary-800 hover:border-secondary-300 dark:hover:border-secondary-700 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl border border-secondary-200 dark:border-secondary-800 hover:border-secondary-300 dark:hover:border-secondary-700 hover:shadow-md transition-all group"
                             >
                                 <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
                                     <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
-                                    <p className="font-bold text-slate-900">AMFI</p>
-                                    <p className="text-xs text-slate-600">Association of Mutual Funds in India</p>
+                                    <p className="font-bold text-gray-900">AMFI</p>
+                                    <p className="text-xs text-gray-600">Association of Mutual Funds in India</p>
                                 </div>
                             </a>
                             <a
                                 href="https://www.rbi.org.in/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-secondary-200 dark:border-secondary-800 hover:border-secondary-300 dark:hover:border-secondary-700 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl border border-secondary-200 dark:border-secondary-800 hover:border-secondary-300 dark:hover:border-secondary-700 hover:shadow-md transition-all group"
                             >
                                 <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
                                     <ExternalLink className="w-5 h-5 text-primary-600" />
                                 </div>
                                 <div>
-                                    <p className="font-bold text-slate-900 dark:text-white">RBI</p>
-                                    <p className="text-xs text-slate-600 dark:text-slate-400">Reserve Bank of India</p>
+                                    <p className="font-bold text-gray-900 dark:text-white">RBI</p>
+                                    <p className="text-xs text-gray-600 dark:text-gray-400">Reserve Bank of India</p>
                                 </div>
                             </a>
                         </div>

@@ -10,9 +10,10 @@ import type { KeywordData, KeywordAPIProvider } from '@/lib/seo/keyword-api-clie
 
 // Lazy import google-trends-api to avoid issues if not installed
 let googleTrendsModule: any = null;
-async function getGoogleTrends() {
+async function getGoogleTrends(): Promise<any> {
     if (!googleTrendsModule) {
         try {
+            // @ts-ignore - google-trends-api lacks type declarations
             googleTrendsModule = await import('google-trends-api');
         } catch (error) {
             logger.warn('google-trends-api not available, using fallback', { error });
@@ -278,17 +279,19 @@ export class GoogleTrendsProvider implements KeywordAPIProvider {
             }
 
             // Convert interest (0-100) to estimated search volume
-            const baseVolume = this.estimateSearchVolume(keyword) || 1000;
+            const helperProvider = new GoogleKeywordPlannerProvider();
+            const baseVolume = await helperProvider.getSearchVolume(keyword) || 1000;
             const estimatedVolume = avgInterest > 0
                 ? Math.round((avgInterest / 100) * baseVolume * 2) // Scale up for trending keywords
                 : baseVolume; // Use base estimate if no trend data
+            const estimatedDifficulty = await helperProvider.getKeywordDifficulty(keyword) ?? 50;
 
             return {
                 keyword,
                 searchVolume: estimatedVolume,
-                difficulty: this.estimateDifficulty(keyword),
+                difficulty: estimatedDifficulty,
                 competition: avgInterest > 70 ? 'high' : avgInterest > 40 ? 'medium' : 'low',
-                intent: this.estimateIntent(keyword),
+                intent: (helperProvider as any).estimateIntent(keyword),
                 serpFeatures: [],
                 relatedKeywords
             };
@@ -324,15 +327,16 @@ export class GoogleTrendsProvider implements KeywordAPIProvider {
                 if (!queryText) continue;
                 
                 // Use estimation to avoid API rate limits
-                const baseVolume = this.estimateSearchVolume(queryText) || 1000;
-                const difficulty = this.estimateDifficulty(queryText);
-                
+                const helperProvider = new GoogleKeywordPlannerProvider();
+                const baseVolume = await helperProvider.getSearchVolume(queryText) || 1000;
+                const difficulty = await helperProvider.getKeywordDifficulty(queryText) ?? 50;
+
                 related.push({
                     keyword: queryText,
                     searchVolume: baseVolume,
                     difficulty: difficulty,
                     competition: difficulty > 70 ? 'high' : difficulty > 40 ? 'medium' : 'low',
-                    intent: this.estimateIntent(queryText),
+                    intent: (helperProvider as any).estimateIntent(queryText),
                     relatedKeywords: []
                 });
             }

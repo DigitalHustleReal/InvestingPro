@@ -95,7 +95,7 @@ export const SelectContent = React.forwardRef<HTMLDivElement, any>(
                 <div
                     ref={ref}
                     className={cn(
-                        "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-80 bg-white dark:bg-slate-900 dark:border-slate-800",
+                        "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-80 bg-white dark:bg-gray-900 dark:border-gray-800",
                         position === "popper" && "translate-y-1",
                         className
                     )}
@@ -118,7 +118,7 @@ export const SelectItem = React.forwardRef<HTMLDivElement, any>(
             <div
                 ref={ref}
                 className={cn(
-                    "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-slate-100 cursor-pointer",
+                    "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-gray-100 cursor-pointer",
                     className
                 )}
                 onClick={(e) => {

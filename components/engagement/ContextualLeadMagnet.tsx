@@ -208,8 +208,8 @@ export function ContextualLeadMagnet({
       <div className={getVariantClasses(variant)}>
         <div className="text-center py-6">
           <CheckCircle className="w-12 h-12 text-success-500 mx-auto mb-3" />
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-white">You're all set!</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Check your inbox for the download link.</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">You're all set!</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Check your inbox for the download link.</p>
         </div>
       </div>
     );
@@ -218,14 +218,14 @@ export function ContextualLeadMagnet({
   // Inline variant (minimal)
   if (variant === 'inline') {
     return (
-      <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-3 mb-3">
           <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${offer.color} flex items-center justify-center`}>
             <Icon className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h4 className="font-semibold text-slate-900 dark:text-white text-sm">{offer.title}</h4>
-            <p className="text-xs text-slate-500">{offer.subtitle}</p>
+            <h4 className="font-semibold text-gray-900 dark:text-white text-sm">{offer.title}</h4>
+            <p className="text-xs text-gray-500">{offer.subtitle}</p>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="flex gap-2">
@@ -235,7 +235,7 @@ export function ContextualLeadMagnet({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="flex-1 px-3 py-2 text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+            className="flex-1 px-3 py-2 text-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50"
           />
           <button
             type="submit"
@@ -279,7 +279,7 @@ export function ContextualLeadMagnet({
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 text-sm font-medium bg-white text-slate-900 rounded-lg hover:bg-white/90 disabled:opacity-50 flex items-center gap-2"
+              className="px-4 py-2 text-sm font-medium bg-white text-gray-900 rounded-lg hover:bg-white/90 disabled:opacity-50 flex items-center gap-2"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
                 <>
@@ -299,9 +299,9 @@ export function ContextualLeadMagnet({
     <div className={getVariantClasses(variant)}>
       <button
         onClick={handleDismiss}
-        className="absolute top-3 right-3 p-1 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700"
+        className="absolute top-3 right-3 p-1 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
       >
-        <X className="w-4 h-4 text-slate-500" />
+        <X className="w-4 h-4 text-gray-500" />
       </button>
 
       {/* Header */}
@@ -317,14 +317,14 @@ export function ContextualLeadMagnet({
         </div>
       </div>
 
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
         {offer.description}
       </p>
 
       {/* Benefits */}
       <ul className="space-y-2 mb-4">
         {offer.benefits.map((benefit, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+          <li key={i} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
             <CheckCircle className="w-4 h-4 text-success-500 flex-shrink-0" />
             {benefit}
           </li>
@@ -339,7 +339,7 @@ export function ContextualLeadMagnet({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+          className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50"
         />
         <button
           type="submit"
@@ -357,7 +357,7 @@ export function ContextualLeadMagnet({
         </button>
       </form>
 
-      <p className="text-xs text-slate-500 text-center mt-3">
+      <p className="text-xs text-gray-500 text-center mt-3">
         Free • No spam • Unsubscribe anytime
       </p>
     </div>
@@ -378,7 +378,7 @@ function detectCategory(pathname: string): string {
 
 // Get CSS classes for variant
 function getVariantClasses(variant: string): string {
-  const base = 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-4 relative';
+  const base = 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-4 relative';
   
   switch (variant) {
     case 'sidebar':

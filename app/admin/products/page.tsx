@@ -104,9 +104,9 @@ export default function AdminProductsPage() {
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <StatCard label="Total Products" value={products.length} icon={Package} color="rose" />
-                    <StatCard label="Active" value={products.filter(p => p.is_active).length} icon={Eye} color="teal" />
-                    <StatCard label="Verified" value={products.filter(p => p.verification_status === 'verified').length} icon={CheckCircle2} color="blue" />
-                    <StatCard label="Needs Review" value={products.filter(p => p.verification_status === 'discrepancy').length} icon={AlertTriangle} color="amber" />
+                    <StatCard label="Active" value={products.filter((p: any) => p.is_active).length} icon={Eye} color="teal" />
+                    <StatCard label="Verified" value={products.filter((p: any) => p.verification_status === 'verified').length} icon={CheckCircle2} color="blue" />
+                    <StatCard label="Needs Review" value={products.filter((p: any) => p.verification_status === 'discrepancy').length} icon={AlertTriangle} color="amber" />
                 </div>
 
                 {/* Filters */}
@@ -115,7 +115,7 @@ export default function AdminProductsPage() {
                         <div className="relative flex-1 max-w-md">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/70 dark:text-muted-foreground/70" />
                             <input 
-                                className="w-full pl-10 pr-4 py-2.5 bg-muted/50 dark:bg-muted/50 border border-border dark:border-border rounded-lg text-foreground dark:text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-danger-500/50"
+                                className="w-full pl-10 pr-4 py-2.5 bg-muted/50 dark:bg-muted/50 border border-border dark:border-border rounded-lg text-foreground dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-danger-500/50"
                                 placeholder="Search products..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -161,7 +161,7 @@ export default function AdminProductsPage() {
                                 ) : filteredProducts.length === 0 ? (
                                     <tr><td colSpan={6} className="p-16 text-center text-muted-foreground/70 dark:text-muted-foreground/70">No products found</td></tr>
                                 ) : (
-                                    filteredProducts.map(product => (
+                                    filteredProducts.map((product: any) => (
                                         <tr key={product.id} className={`group hover:bg-white/5 transition-colors ${!product.is_active ? 'opacity-50' : ''}`}>
                                             <td className="pl-6 pr-4 py-4">
                                                 <div className="flex items-center gap-3">

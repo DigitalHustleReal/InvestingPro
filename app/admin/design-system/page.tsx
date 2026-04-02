@@ -88,7 +88,7 @@ export default function DesignSystemPage() {
                             { name: 'Purple', color: 'bg-secondary-500', hex: '#a855f7' },
                             { name: 'Amber', color: 'bg-accent-500', hex: '#f59e0b' },
                             { name: 'Rose', color: 'bg-rose-500', hex: '#f43f5e' },
-                            { name: 'Slate', color: 'bg-slate-600', hex: '#475569' },
+                            { name: 'Slate', color: 'bg-gray-600', hex: '#475569' },
                             { name: 'Dark BG', color: 'bg-surface-darker dark:bg-surface-darker', hex: '#0f172a' },
                             { name: 'Surface', color: 'bg-muted dark:bg-muted', hex: '#1e293b' },
                             { name: 'Border', color: 'bg-white/10', hex: 'rgba(255,255,255,0.1)' },
@@ -105,11 +105,11 @@ export default function DesignSystemPage() {
                 {/* Status Badges */}
                 <ContentSection title="Status Badges" subtitle="Semantic color-coded status indicators">
                     <div className="flex flex-wrap gap-4">
-                        <StatusBadge variant="success">Published</StatusBadge>
-                        <StatusBadge variant="warning">Pending</StatusBadge>
-                        <StatusBadge variant="danger">Archived</StatusBadge>
-                        <StatusBadge variant="info">Draft</StatusBadge>
-                        <StatusBadge variant="default">Default</StatusBadge>
+                        <StatusBadge status="completed">Published</StatusBadge>
+                        <StatusBadge status="warning">Pending</StatusBadge>
+                        <StatusBadge status="error">Archived</StatusBadge>
+                        <StatusBadge status="processing">Draft</StatusBadge>
+                        <StatusBadge status="neutral">Default</StatusBadge>
                     </div>
                 </ContentSection>
 

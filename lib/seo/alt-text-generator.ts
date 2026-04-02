@@ -61,7 +61,7 @@ Write ONLY the alt text:`;
     if (generated.length > 0) {
       return validateAltText(generated, keyword);
     }
-  } catch (error) {
+  } catch (error: any) {
     logger.warn('AI generation failed, using fallback:', error);
   }
   

@@ -127,17 +127,17 @@ export default function LimitedAdSlot({
     const getPositionStyles = () => {
         switch (position) {
             case 'header':
-                return 'w-full bg-slate-100 border-b border-slate-200';
+                return 'w-full bg-gray-100 border-b border-gray-200';
             case 'sidebar':
-                return 'sticky top-24 bg-white border border-slate-200 rounded-xl';
+                return 'sticky top-24 bg-white border border-gray-200 rounded-xl';
             case 'in-article':
-                return 'my-8 bg-slate-50 border border-slate-200 rounded-xl';
+                return 'my-8 bg-gray-50 border border-gray-200 rounded-xl';
             case 'footer':
-                return 'w-full bg-slate-100 border-t border-slate-200';
+                return 'w-full bg-gray-100 border-t border-gray-200';
             case 'between-cards':
                 return 'bg-gradient-to-r from-primary-50 to-primary-100 border border-secondary-200 rounded-xl';
             default:
-                return 'bg-slate-100 border border-slate-200 rounded-lg';
+                return 'bg-gray-100 border border-gray-200 rounded-lg';
         }
     };
 
@@ -147,7 +147,7 @@ export default function LimitedAdSlot({
             <div className="absolute top-2 right-2 z-10">
                 <button
                     onClick={() => setVisible(false)}
-                    className="w-6 h-6 rounded-full bg-slate-800/50 hover:bg-slate-800/70 flex items-center justify-center text-white transition-colors"
+                    className="w-6 h-6 rounded-full bg-gray-800/50 hover:bg-gray-800/70 flex items-center justify-center text-white transition-colors"
                     aria-label="Close ad"
                 >
                     <X className="w-4 h-4" />
@@ -155,7 +155,7 @@ export default function LimitedAdSlot({
             </div>
 
             {/* Clear "Ad" label */}
-            <div className="text-[10px] uppercase font-bold tracking-widest text-slate-600 px-3 pt-2">
+            <div className="text-[10px] uppercase font-bold tracking-widest text-gray-600 px-3 pt-2">
                 Advertisement
             </div>
 
@@ -168,7 +168,7 @@ export default function LimitedAdSlot({
 
             {/* Advertiser info */}
             {ad.advertiser && (
-                <div className="px-3 pb-2 text-[10px] text-slate-500 uppercase tracking-tighter">
+                <div className="px-3 pb-2 text-[10px] text-gray-500 uppercase tracking-tighter">
                     by {ad.advertiser}
                 </div>
             )}

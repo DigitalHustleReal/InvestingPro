@@ -41,9 +41,9 @@ export async function GET(request: Request) {
 
   // Handle auth errors
   if (error) {
-    logger.error('[AUTH CALLBACK] Auth error:', error, errorDescription);
+    logger.error('[AUTH CALLBACK] Auth error:', error, { description: errorDescription });
     return NextResponse.redirect(
-      `${origin}${errorLoginPage}?error=${encodeURIComponent(errorDescription || error)}`
+      `${origin}${errorLoginPage}?error=${encodeURIComponent(errorDescription ?? error ?? '')}`
     );
   }
 

@@ -10,6 +10,7 @@ import Link from "next/link";
 import { ArrowLeft, Plus } from "lucide-react";
 import { CreditCard } from "@/types";
 import { RichProduct } from "@/types/rich-product";
+import SEOHead from "@/components/common/SEOHead";
 
 // Helper to map CreditCard to RichProduct
 // Helper to map CreditCard to RichProduct & Comparison Props
@@ -92,6 +93,10 @@ function CreditCardCompareContent() {
 
     return (
         <div className="min-h-screen bg-background pb-20 transition-colors duration-300">
+            <SEOHead
+                title="Compare Credit Cards Side by Side | InvestingPro"
+                description="Compare credit cards side by side on fees, rewards, lounge access, and more to find the best card for your lifestyle."
+            />
             {/* Header */}
             <div className="bg-card text-card-foreground py-12 border-b border-border pt-32">
                 <div className="container mx-auto px-6">

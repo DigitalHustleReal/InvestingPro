@@ -18,7 +18,7 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
   };
 
   return (
-    <div className="border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-primary-300 dark:hover:border-primary-700 transition-colors">
+    <div className="border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:border-primary-300 dark:hover:border-primary-700 transition-colors">
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
@@ -30,7 +30,7 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
           {/* User Info */}
           <div>
             <div className="flex items-center gap-2">
-              <p className="font-semibold text-slate-900 dark:text-white">{review.userName}</p>
+              <p className="font-semibold text-gray-900 dark:text-white">{review.userName}</p>
               {review.verified && (
                 <span className="flex items-center gap-1 text-xs bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-400 px-2 py-0.5 rounded-full font-medium">
                   <CheckCircle2 className="w-3 h-3" />
@@ -38,7 +38,7 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-600">{formatDate(review.createdAt)}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-600">{formatDate(review.createdAt)}</p>
           </div>
         </div>
 
@@ -51,7 +51,7 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
                 "w-4 h-4",
                 star <= review.rating
                   ? "fill-amber-400 text-amber-400"
-                  : "fill-slate-200 text-slate-200 dark:fill-slate-700 dark:text-slate-700"
+                  : "fill-gray-200 text-gray-200 dark:fill-gray-700 dark:text-gray-700"
               )}
             />
           ))}
@@ -59,18 +59,18 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
       </div>
 
       {/* Title */}
-      <h4 className="font-bold text-lg text-slate-900 dark:text-white mb-2">
+      <h4 className="font-bold text-lg text-gray-900 dark:text-white mb-2">
         {review.title}
       </h4>
 
       {/* Content */}
-      <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+      <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
         {review.content}
       </p>
 
       {/* Pros & Cons */}
       {(review.pros || review.cons) && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
           {review.pros && review.pros.length > 0 && (
             <div>
               <p className="text-xs font-bold text-success-700 dark:text-success-400 mb-2 flex items-center gap-1">
@@ -79,7 +79,7 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
               </p>
               <ul className="space-y-1">
                 {review.pros.map((pro, index) => (
-                  <li key={index} className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2">
+                  <li key={index} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
                     <span className="text-success-600 dark:text-success-400 mt-0.5">•</span>
                     {pro}
                   </li>
@@ -96,7 +96,7 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
               </p>
               <ul className="space-y-1">
                 {review.cons.map((con, index) => (
-                  <li key={index} className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2">
+                  <li key={index} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
                     <span className="text-danger-600 dark:text-danger-400 mt-0.5">•</span>
                     {con}
                   </li>
@@ -108,19 +108,19 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
       )}
 
       {/* Helpful Actions */}
-      <div className="flex items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-        <p className="text-sm text-slate-600 dark:text-slate-400">Was this helpful?</p>
+      <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <p className="text-sm text-gray-600 dark:text-gray-400">Was this helpful?</p>
         <div className="flex items-center gap-2">
           <button
             onClick={() => onHelpful?.(review.id)}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-success-500 hover:bg-success-50 dark:hover:bg-success-950/30 transition-colors text-sm font-medium text-slate-700 dark:text-slate-300"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-success-500 hover:bg-success-50 dark:hover:bg-success-950/30 transition-colors text-sm font-medium text-gray-700 dark:text-gray-300"
           >
             <ThumbsUp className="w-4 h-4" />
             <span>{review.helpful}</span>
           </button>
           <button
             onClick={() => onNotHelpful?.(review.id)}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-danger-500 hover:bg-danger-50 dark:hover:bg-danger-950/30 transition-colors text-sm font-medium text-slate-700 dark:text-slate-300"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-danger-500 hover:bg-danger-50 dark:hover:bg-danger-950/30 transition-colors text-sm font-medium text-gray-700 dark:text-gray-300"
           >
             <ThumbsDown className="w-4 h-4" />
             <span>{review.notHelpful}</span>

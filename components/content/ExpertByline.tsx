@@ -34,7 +34,7 @@ export function ExpertByline({
   return (
     <div 
       className={cn(
-        "flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-800 border-l-4 border-primary-600 rounded-lg",
+        "flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-800 border-l-4 border-primary-600 rounded-lg",
         isCompact && "p-3 gap-2",
         className
       )}
@@ -44,7 +44,7 @@ export function ExpertByline({
       {/* Photo */}
       {photoUrl ? (
         <div className={cn(
-          "flex-shrink-0 rounded-full overflow-hidden border-2 border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800",
+          "flex-shrink-0 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800",
           isCompact ? "w-10 h-10" : "w-12 h-12"
         )}>
           <Image
@@ -76,7 +76,7 @@ export function ExpertByline({
         <div className="flex items-center gap-2 flex-wrap">
           <span 
             className={cn(
-              "font-semibold text-slate-900 dark:text-white",
+              "font-semibold text-gray-900 dark:text-white",
               isCompact ? "text-sm" : "text-base"
             )}
             itemProp="name"
@@ -99,7 +99,7 @@ export function ExpertByline({
         {/* Title */}
         <p 
           className={cn(
-            "text-slate-600 dark:text-slate-400",
+            "text-gray-600 dark:text-gray-400",
             isCompact ? "text-xs" : "text-sm"
           )}
           itemProp="jobTitle"
@@ -126,11 +126,11 @@ export function ExpertByline({
         {lastUpdated && (
           <div className="flex items-center gap-1 mt-2">
             <Calendar className={cn(
-              "text-slate-500 dark:text-slate-600",
+              "text-gray-500 dark:text-gray-600",
               isCompact ? "w-3 h-3" : "w-3.5 h-3.5"
             )} aria-hidden="true" />
             <span className={cn(
-              "text-slate-500 dark:text-slate-600",
+              "text-gray-500 dark:text-gray-600",
               isCompact ? "text-[10px]" : "text-xs"
             )}>
               Last updated: {lastUpdated.toLocaleDateString('en-IN', {
@@ -172,21 +172,21 @@ export function ExpertReviewByline(
         <div className="flex items-center gap-4 px-4 py-2 bg-accent-50 border border-accent-200 rounded-lg">
           {rating && (
             <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-slate-700 dark:text-slate-300">Expert Rating:</span>
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Expert Rating:</span>
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <span 
                     key={i}
                     className={cn(
                       "text-base",
-                      i < rating ? "text-accent-500" : "text-slate-300 dark:text-slate-600"
+                      i < rating ? "text-accent-500" : "text-gray-300 dark:text-gray-600"
                     )}
                     aria-hidden="true"
                   >
                     ★
                   </span>
                 ))}
-                <span className="text-sm font-bold text-slate-900 dark:text-white ml-1">
+                <span className="text-sm font-bold text-gray-900 dark:text-white ml-1">
                   {(typeof rating === 'number' ? rating : Number(rating) || 4.5).toFixed(1)}
                 </span>
               </div>
@@ -194,7 +194,7 @@ export function ExpertReviewByline(
           )}
           
           {reviewDate && (
-            <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400">
+            <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
               <Calendar className="w-3 h-3" aria-hidden="true" />
               Reviewed: {reviewDate.toLocaleDateString('en-IN', {
                 year: 'numeric',

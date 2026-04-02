@@ -51,10 +51,10 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-900 dark:text-slate-200">Name</label>
+          <label className="text-sm font-medium text-gray-900 dark:text-gray-200">Name</label>
           <Input 
             {...register('name')} 
             placeholder="Your name" 
@@ -64,7 +64,7 @@ export default function ContactForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-900 dark:text-slate-200">Email</label>
+          <label className="text-sm font-medium text-gray-900 dark:text-gray-200">Email</label>
           <Input 
             {...register('email')} 
             placeholder="you@example.com" 
@@ -75,10 +75,10 @@ export default function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-900 dark:text-slate-200">Inquiry Type</label>
+        <label className="text-sm font-medium text-gray-900 dark:text-gray-200">Inquiry Type</label>
         <select 
           {...register('type')}
-          className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950 dark:placeholder:text-slate-600 dark:focus-visible:ring-slate-300"
+          className="flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-600 dark:focus-visible:ring-gray-300"
         >
           <option value="support">Customer Support</option>
           <option value="feedback">Feedback & Suggestions</option>
@@ -88,7 +88,7 @@ export default function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-900 dark:text-slate-200">Subject</label>
+        <label className="text-sm font-medium text-gray-900 dark:text-gray-200">Subject</label>
         <Input 
           {...register('subject')} 
           placeholder="What is this about?" 
@@ -98,11 +98,11 @@ export default function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-900 dark:text-slate-200">Message</label>
+        <label className="text-sm font-medium text-gray-900 dark:text-gray-200">Message</label>
         <textarea 
           {...register('message')} 
           rows={5}
-          className="flex w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950 dark:placeholder:text-slate-600 dark:focus-visible:ring-slate-300"
+          className="flex w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-600 dark:focus-visible:ring-gray-300"
           placeholder="How can we help you?"
         />
         {errors.message && <p className="text-xs text-danger-500">{errors.message.message}</p>}
@@ -122,7 +122,7 @@ export default function ContactForm() {
         )}
       </Button>
       
-      <p className="text-xs text-slate-500 text-center">
+      <p className="text-xs text-gray-500 text-center">
         We typically respond within 24-48 hours. Your data is secure.
       </p>
     </form>

@@ -99,8 +99,8 @@ export async function detectCannibalization(options?: {
             }
 
             // Check for exact title duplicates (very high severity)
-            const titles = competingArticles.map(a => (a.title || '').toLowerCase());
-            const duplicateTitles = titles.filter((t, i) => titles.indexOf(t) !== i);
+            const titles = competingArticles.map((a: any) => (a.title || '').toLowerCase());
+            const duplicateTitles = titles.filter((t: any, i: any) => titles.indexOf(t) !== i);
             if (duplicateTitles.length > 0) {
                 severity = 'high';
             }
@@ -123,10 +123,10 @@ export async function detectCannibalization(options?: {
 
             // If articles have similar keywords, recommend differentiation
             const allSecondaryKeywords = competingArticles
-                .flatMap(a => (a.secondary_keywords || []) as string[])
-                .map(k => k.toLowerCase());
+                .flatMap((a: any) => (a.secondary_keywords || []) as string[])
+                .map((k: any) => k.toLowerCase());
 
-            const commonSecondaryKeywords = allSecondaryKeywords.filter((k, i) =>
+            const commonSecondaryKeywords = allSecondaryKeywords.filter((k: any, i: any) =>
                 allSecondaryKeywords.indexOf(k) !== i
             );
 
@@ -137,7 +137,7 @@ export async function detectCannibalization(options?: {
 
             issues.push({
                 keyword,
-                competingArticles: competingArticles.map(a => ({
+                competingArticles: competingArticles.map((a: any) => ({
                     articleId: a.id,
                     slug: a.slug || '',
                     title: a.title || '',
@@ -226,7 +226,7 @@ export async function checkArticleCannibalization(
         // Create issue
         const issue: CannibalizationIssue = {
             keyword: primaryKeyword,
-            competingArticles: competingArticles.map(a => ({
+            competingArticles: competingArticles.map((a: any) => ({
                 articleId: a.id,
                 slug: a.slug || '',
                 title: a.title || '',

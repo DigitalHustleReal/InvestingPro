@@ -224,14 +224,14 @@ export default function EditorialDashboard() {
     }, [draftsWithRisk]);
 
     return (
-        <div className="min-h-screen bg-slate-50 py-8">
+        <div className="min-h-screen bg-gray-50 py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="mb-8">
                     <div className="flex items-center justify-between mb-4">
                         <div>
-                            <h1 className="text-3xl font-bold text-slate-900 mb-2">Editorial Dashboard</h1>
-                            <p className="text-slate-600">Review and approve AI-generated content</p>
+                            <h1 className="text-3xl font-bold text-gray-900 mb-2">Editorial Dashboard</h1>
+                            <p className="text-gray-600">Review and approve AI-generated content</p>
                         </div>
                         <div className="flex items-center gap-4">
                             <Badge className="bg-primary-100 text-primary-700 text-sm font-bold px-4 py-2">
@@ -247,8 +247,8 @@ export default function EditorialDashboard() {
                     <div className="grid grid-cols-4 gap-4 mb-6">
                         <Card>
                             <CardContent className="p-6 md:p-8">
-                                <div className="text-2xl font-bold text-slate-900">{stats.total}</div>
-                                <div className="text-xs text-slate-500 font-medium">Total Drafts</div>
+                                <div className="text-2xl font-bold text-gray-900">{stats.total}</div>
+                                <div className="text-xs text-gray-500 font-medium">Total Drafts</div>
                             </CardContent>
                         </Card>
                         <Card className="border-danger-200 bg-danger-50">
@@ -279,7 +279,7 @@ export default function EditorialDashboard() {
                             {/* Search */}
                             <div className="flex-1 min-w-[200px]">
                                 <div className="relative">
-                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-600" />
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-600" />
                                     <Input
                                         placeholder="Search drafts..."
                                         value={searchQuery}
@@ -293,7 +293,7 @@ export default function EditorialDashboard() {
                             <select
                                 value={riskFilter}
                                 onChange={(e) => setRiskFilter(e.target.value as RiskLevel | 'all')}
-                                className="px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white"
+                                className="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white"
                             >
                                 <option value="all">All Risk Levels</option>
                                 <option value="high">High Risk</option>
@@ -305,7 +305,7 @@ export default function EditorialDashboard() {
                             <select
                                 value={categoryFilter}
                                 onChange={(e) => setCategoryFilter(e.target.value)}
-                                className="px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white"
+                                className="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white"
                             >
                                 <option value="all">All Categories</option>
                                 {categories.map(cat => (
@@ -316,7 +316,7 @@ export default function EditorialDashboard() {
                             {/* Batch Actions */}
                             {selectedIds.size > 0 && (
                                 <div className="flex items-center gap-2 ml-auto">
-                                    <span className="text-sm text-slate-600 font-medium">
+                                    <span className="text-sm text-gray-600 font-medium">
                                         {selectedIds.size} selected
                                     </span>
                                     <Button
@@ -348,15 +348,15 @@ export default function EditorialDashboard() {
                 {isLoading ? (
                     <Card>
                         <CardContent className="p-6 md:p-8 text-center">
-                            <div className="text-slate-500">Loading drafts...</div>
+                            <div className="text-gray-500">Loading drafts...</div>
                         </CardContent>
                     </Card>
                 ) : filteredDrafts.length === 0 ? (
                     <Card>
                         <CardContent className="p-6 md:p-8 text-center">
                             <CheckCircle2 className="w-16 h-16 text-primary-500 mx-auto mb-4" />
-                            <h3 className="text-xl font-bold text-slate-900 mb-2">All Caught Up!</h3>
-                            <p className="text-slate-500">No drafts pending review.</p>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">All Caught Up!</h3>
+                            <p className="text-gray-500">No drafts pending review.</p>
                         </CardContent>
                     </Card>
                 ) : (
@@ -367,7 +367,7 @@ export default function EditorialDashboard() {
                                 checked={selectedIds.size === filteredDrafts.length && filteredDrafts.length > 0}
                                 onCheckedChange={handleSelectAll}
                             />
-                            <span className="text-sm text-slate-600 font-medium">
+                            <span className="text-sm text-gray-600 font-medium">
                                 Select all ({filteredDrafts.length})
                             </span>
                         </div>

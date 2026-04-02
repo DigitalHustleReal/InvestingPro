@@ -30,13 +30,13 @@ export default function ApplicationStats({
 
   return (
     <div className={cn(
-      "bg-gradient-to-br from-primary-50 to-white dark:from-primary-950/20 dark:to-slate-900 border border-primary-200 dark:border-primary-800/30 rounded-2xl p-6 shadow-lg",
+      "bg-gradient-to-br from-primary-50 to-white dark:from-primary-950/20 dark:to-gray-900 border border-primary-200 dark:border-primary-800/30 rounded-2xl p-6 shadow-lg",
       className
     )}>
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         <Users className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-        <h3 className="font-bold text-slate-900 dark:text-white">Application Statistics</h3>
+        <h3 className="font-bold text-gray-900 dark:text-white">Application Statistics</h3>
         {stats.trending && (
           <span className="ml-auto flex items-center gap-1 text-xs font-semibold text-success-600 dark:text-success-400 bg-success-50 dark:bg-success-950/30 px-2 py-1 rounded-full">
             <TrendingUp className="w-3 h-3" />
@@ -48,46 +48,46 @@ export default function ApplicationStats({
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Applications This Month */}
-        <div className="bg-white dark:bg-slate-800/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700">
+        <div className="bg-white dark:bg-gray-800/50 rounded-xl p-4 border border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-2 mb-1">
-            <Users className="w-4 h-4 text-slate-500" />
-            <p className="text-xs text-slate-500 dark:text-slate-600 font-medium">This Month</p>
+            <Users className="w-4 h-4 text-gray-500" />
+            <p className="text-xs text-gray-500 dark:text-gray-600 font-medium">This Month</p>
           </div>
-          <p className="text-2xl font-black text-slate-900 dark:text-white">
+          <p className="text-2xl font-black text-gray-900 dark:text-white">
             {stats.applications.toLocaleString('en-IN')}
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">applications</p>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">applications</p>
         </div>
 
         {/* Approval Rate */}
-        <div className="bg-white dark:bg-slate-800/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700">
+        <div className="bg-white dark:bg-gray-800/50 rounded-xl p-4 border border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-2 mb-1">
             <CheckCircle2 className="w-4 h-4 text-success-500" />
-            <p className="text-xs text-slate-500 dark:text-slate-600 font-medium">Approval Rate</p>
+            <p className="text-xs text-gray-500 dark:text-gray-600 font-medium">Approval Rate</p>
           </div>
           <p className="text-2xl font-black text-success-600 dark:text-success-400">
             {stats.approvalRate}%
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">avg. approval</p>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">avg. approval</p>
         </div>
 
         {/* Processing Time */}
-        <div className="bg-white dark:bg-slate-800/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700">
+        <div className="bg-white dark:bg-gray-800/50 rounded-xl p-4 border border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-2 mb-1">
             <Clock className="w-4 h-4 text-primary-500" />
-            <p className="text-xs text-slate-500 dark:text-slate-600 font-medium">Processing</p>
+            <p className="text-xs text-gray-500 dark:text-gray-600 font-medium">Processing</p>
           </div>
-          <p className="text-lg font-black text-slate-900 dark:text-white">
+          <p className="text-lg font-black text-gray-900 dark:text-white">
             {stats.processingTime}
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">avg. time</p>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">avg. time</p>
         </div>
       </div>
 
       {/* Social Proof Message */}
-      <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-        <p className="text-sm text-slate-600 dark:text-slate-300 text-center">
-          <span className="font-semibold text-slate-900 dark:text-white">
+      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <p className="text-sm text-gray-600 dark:text-gray-300 text-center">
+          <span className="font-semibold text-gray-900 dark:text-white">
             {Math.floor(stats.applications / 30)}+ people
           </span>
           {" "}applied for {productName} today

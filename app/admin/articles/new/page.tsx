@@ -295,14 +295,14 @@ export default function NewArticlePage() {
                 />
             }
         >
-            <div className="flex flex-col h-screen bg-slate-50 dark:bg-surface-darkest transition-colors duration-300">
+            <div className="flex flex-col h-screen bg-gray-50 dark:bg-surface-darkest transition-colors duration-300">
                 {/* Header */}
-                <div className="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-surface-darker/50 backdrop-blur-md px-8 py-4">
+                <div className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-surface-darker/50 backdrop-blur-md px-8 py-4">
                     <div className="max-w-5xl mx-auto w-full">
                         <div className="flex items-center gap-2 mb-4">
                             <Link
                                 href="/admin/articles"
-                                className="flex items-center gap-2 text-muted-foreground/70 hover:text-slate-900 dark:hover:text-foreground transition-colors text-sm"
+                                className="flex items-center gap-2 text-muted-foreground/70 hover:text-gray-900 dark:hover:text-foreground transition-colors text-sm"
                             >
                                 <ArrowLeft className="w-4 h-4" />
                                 Back to Articles
@@ -325,7 +325,7 @@ export default function NewArticlePage() {
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
                                         placeholder="Add title..."
-                                        className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2 text-slate-900 dark:text-slate-100 placeholder:text-muted-foreground dark:placeholder:text-muted-foreground/50 transition-colors"
+                                        className="text-3xl font-bold border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-auto py-2 text-gray-900 dark:text-gray-100 placeholder:text-muted-foreground dark:placeholder:text-muted-foreground/50 transition-colors"
                                     />
                                 </FormField>
                             </div>
@@ -355,8 +355,8 @@ export default function NewArticlePage() {
                                     variant="outline"
                                     onClick={() => setShowInspector(!showInspector)}
                                     className={cn(
-                                        "gap-2 border-slate-200 dark:border-border text-slate-700 dark:text-foreground/80 hover:text-slate-900 dark:hover:text-foreground transition-colors",
-                                        showInspector ? "bg-slate-100 dark:bg-muted" : "hover:bg-slate-100 dark:bg-transparent"
+                                        "gap-2 border-gray-200 dark:border-border text-gray-700 dark:text-foreground/80 hover:text-gray-900 dark:hover:text-foreground transition-colors",
+                                        showInspector ? "bg-gray-100 dark:bg-muted" : "hover:bg-gray-100 dark:bg-transparent"
                                     )}
                                 >
                                     {showInspector ? 'Hide Info' : 'Show Info'}
@@ -365,7 +365,7 @@ export default function NewArticlePage() {
                                 <Button
                                     variant="outline"
                                     onClick={handlePreview}
-                                    className="gap-2 border-slate-200 dark:border-border text-slate-700 dark:text-foreground/80 hover:text-slate-900 dark:hover:text-foreground transition-colors"
+                                    className="gap-2 border-gray-200 dark:border-border text-gray-700 dark:text-foreground/80 hover:text-gray-900 dark:hover:text-foreground transition-colors"
                                 >
                                     <Eye className="w-4 h-4" />
                                     Preview
@@ -394,7 +394,7 @@ export default function NewArticlePage() {
                 </div>
 
                 {/* Editor Area */}
-                <div className="flex-1 overflow-auto bg-slate-50 dark:bg-surface-darkest transition-colors duration-300">
+                <div className="flex-1 overflow-auto bg-gray-50 dark:bg-surface-darkest transition-colors duration-300">
                     <div className="max-w-5xl mx-auto px-8 py-8">
                         <ArticleEditor
                             key={editorKey}
@@ -414,8 +414,8 @@ export default function NewArticlePage() {
 
                 {/* AI Tools Bar (New) */}
                 <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40">
-                    <div className="bg-slate-900 dark:bg-slate-800 text-white p-2 px-4 rounded-full shadow-2xl flex items-center gap-4 border border-slate-700">
-                        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 border-r border-slate-700 pr-4">
+                    <div className="bg-gray-900 dark:bg-gray-800 text-white p-2 px-4 rounded-full shadow-2xl flex items-center gap-4 border border-gray-700">
+                        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 border-r border-gray-700 pr-4">
                             <Sparkles className="w-4 h-4 text-wt-gold" />
                             <span>AI Assistant</span>
                         </div>

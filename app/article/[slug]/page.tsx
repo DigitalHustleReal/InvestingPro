@@ -96,7 +96,7 @@ export default function ArticleDetail() {
     if (!article) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center px-4">
-                <h1 className="text-2xl font-bold text-slate-900 mb-4">Article Not Found</h1>
+                <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
                 <Link href="/blog">
                     <Button>Browse All Articles</Button>
                 </Link>
@@ -171,22 +171,22 @@ export default function ArticleDetail() {
                     <Badge className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-100 hover:bg-emerald-50">
                         {article.category?.replace(/-/g, ' ')}
                     </Badge>
-                    <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                         {article.title}
                     </h1>
-                    <p className="text-xl text-slate-500 mb-8 leading-relaxed">
+                    <p className="text-xl text-gray-500 mb-8 leading-relaxed">
                         {article.excerpt}
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-slate-500 mb-8 pb-8 border-b">
+                    <div className="flex flex-wrap items-center gap-y-4 gap-6 text-sm text-gray-500 mb-8 pb-8 border-b">
                         <span className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-                                <User className="w-4 h-4 text-slate-400" />
+                            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                                <User className="w-4 h-4 text-gray-400" />
                             </div>
-                            <span className="font-semibold text-slate-900">{article.author_name}</span>
+                            <span className="font-semibold text-gray-900">{article.author_name}</span>
                         </span>
                         <span className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4 text-slate-400" />
+                            <Calendar className="w-4 h-4 text-gray-400" />
                             {new Date(article.published_date || Date.now()).toLocaleDateString('en-IN', {
                                 year: 'numeric',
                                 month: 'long',
@@ -194,11 +194,11 @@ export default function ArticleDetail() {
                             })}
                         </span>
                         <span className="flex items-center gap-2">
-                            <Clock className="w-4 h-4 text-slate-400" />
+                            <Clock className="w-4 h-4 text-gray-400" />
                             {article.read_time} min read
                         </span>
                         <span className="flex items-center gap-2">
-                            <Eye className="w-4 h-4 text-slate-400" />
+                            <Eye className="w-4 h-4 text-gray-400" />
                             {article.views || 0} views
                         </span>
                     </div>
@@ -254,8 +254,8 @@ export default function ArticleDetail() {
                         
                         if (!rawContent || !rawContent.trim()) {
                             return (
-                                <div className="p-8 bg-slate-50 rounded-lg border border-slate-200">
-                                    <p className="text-slate-500 text-center">
+                                <div className="p-8 bg-gray-50 rounded-lg border border-gray-200">
+                                    <p className="text-gray-500 text-center">
                                         No content available for this article.
                                     </p>
                                 </div>
@@ -299,10 +299,10 @@ export default function ArticleDetail() {
                 {/* Tags */}
                 {article.tags && article.tags.length > 0 && (
                     <div className="mt-16 pt-8 border-t">
-                        <p className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-wider">Tags</p>
+                        <p className="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wider">Tags</p>
                         <div className="flex flex-wrap gap-2">
                             {article.tags.map((tag, idx) => (
-                                <Badge key={idx} variant="secondary" className="bg-slate-100 text-slate-600 hover:bg-slate-200 border-0">
+                                <Badge key={idx} variant="secondary" className="bg-gray-100 text-gray-600 hover:bg-gray-200 border-0">
                                     {tag}
                                 </Badge>
                             ))}
@@ -319,7 +319,7 @@ export default function ArticleDetail() {
                 <AutoInternalLinks context={linkingContext} />
 
                 {/* Related Articles */}
-                <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
+                <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
                     <RelatedArticles articleId={article.id} />
                 </div>
             </article>

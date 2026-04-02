@@ -96,25 +96,25 @@ export default function SearchPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             {/* Hero Search */}
             <div className="bg-gradient-to-b from-primary-500/10 to-transparent py-16 px-6">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4">
+                    <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
                         Search Articles
                     </h1>
-                    <p className="text-slate-600 dark:text-slate-400 mb-8">
+                    <p className="text-gray-600 dark:text-gray-400 mb-8">
                         Find guides, tutorials, and insights on personal finance
                     </p>
                     
                     <div className="relative max-w-2xl mx-auto">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
                         <Input
                             type="text"
                             placeholder="Search for mutual funds, stocks, tax saving..."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            className="pl-12 pr-4 py-4 text-lg h-14 bg-white dark:bg-slate-900 border-slate-200 dark:border-white/10 rounded-xl shadow-lg"
+                            className="pl-12 pr-4 py-4 text-lg h-14 bg-white dark:bg-gray-900 border-gray-200 dark:border-white/10 rounded-xl shadow-lg"
                         />
                     </div>
 
@@ -130,7 +130,7 @@ export default function SearchPage() {
                                     "rounded-full text-sm",
                                     category === cat.value
                                         ? "bg-primary-500 text-white hover:bg-primary-600"
-                                        : "bg-white dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10"
+                                        : "bg-white dark:bg-white/5 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10"
                                 )}
                             >
                                 {cat.label}
@@ -145,7 +145,7 @@ export default function SearchPage() {
                 {query.length >= 2 ? (
                     <div>
                         <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                                 {isLoading ? 'Searching...' : `${totalResults} results for "${query}"`}
                             </h2>
                         </div>
@@ -154,7 +154,7 @@ export default function SearchPage() {
                             <div className="space-y-4">
                                 {results.map(result => (
                                     <Link key={result.id} href={`/articles/${result.slug}`}>
-                                        <Card className="bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-primary-500/30 hover:shadow-lg hover:shadow-primary-500/5 transition-all group">
+                                        <Card className="bg-white dark:bg-white/[0.03] border-gray-200 dark:border-white/5 hover:border-primary-500/30 hover:shadow-lg hover:shadow-primary-500/5 transition-all group">
                                             <CardContent className="p-6">
                                                 <div className="flex gap-6">
                                                     {result.featured_image ? (
@@ -172,13 +172,13 @@ export default function SearchPage() {
                                                         <Badge className="mb-2 bg-primary-500/10 text-primary-600 dark:text-primary-400 border-0 text-[10px] font-bold uppercase tracking-wider">
                                                             {result.category?.replace(/-/g, ' ')}
                                                         </Badge>
-                                                        <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1">
+                                                        <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1">
                                                             {result.title}
                                                         </h3>
-                                                        <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mt-2">
+                                                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mt-2">
                                                             {result.excerpt}
                                                         </p>
-                                                        <div className="flex items-center gap-4 mt-3 text-xs text-slate-500">
+                                                        <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
                                                             <span className="flex items-center gap-1">
                                                                 <Calendar className="w-3 h-3" />
                                                                 {formatDate(result.published_at)}
@@ -199,9 +199,9 @@ export default function SearchPage() {
                             </div>
                         ) : !isLoading ? (
                             <div className="text-center py-16">
-                                <Search className="w-12 h-12 mx-auto text-slate-300 dark:text-slate-600 mb-4" />
-                                <h3 className="text-xl font-bold text-slate-500 mb-2">No results found</h3>
-                                <p className="text-slate-600">Try different keywords or browse trending topics below</p>
+                                <Search className="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
+                                <h3 className="text-xl font-bold text-gray-500 mb-2">No results found</h3>
+                                <p className="text-gray-600">Try different keywords or browse trending topics below</p>
                             </div>
                         ) : null}
                     </div>
@@ -209,7 +209,7 @@ export default function SearchPage() {
                     <div>
                         <div className="flex items-center gap-2 mb-8">
                             <TrendingUp className="w-5 h-5 text-primary-500" />
-                            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                                 Trending Topics
                             </h2>
                         </div>
@@ -217,15 +217,15 @@ export default function SearchPage() {
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {trending.map(article => (
                                 <Link key={article.id} href={`/articles/${article.slug}`}>
-                                    <Card className="h-full bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-primary-500/30 hover:shadow-lg hover:shadow-primary-500/5 transition-all group">
+                                    <Card className="h-full bg-white dark:bg-white/[0.03] border-gray-200 dark:border-white/5 hover:border-primary-500/30 hover:shadow-lg hover:shadow-primary-500/5 transition-all group">
                                         <CardContent className="p-6">
                                             <Badge className="mb-3 bg-primary-500/10 text-primary-600 dark:text-primary-400 border-0 text-[10px] font-bold uppercase tracking-wider">
                                                 {article.category?.replace(/-/g, ' ')}
                                             </Badge>
-                                            <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
+                                            <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
                                                 {article.title}
                                             </h3>
-                                            <p className="text-sm text-slate-500 dark:text-slate-600 line-clamp-2 mt-2">
+                                            <p className="text-sm text-gray-500 dark:text-gray-600 line-clamp-2 mt-2">
                                                 {article.excerpt}
                                             </p>
                                         </CardContent>

@@ -71,7 +71,7 @@ export async function middleware(request: NextRequest) {
 
     if (roleData?.role) {
       cachedRole = roleData.role;
-      return cachedRole;
+      return cachedRole as string;
     }
 
     // Fallback: check user_profiles only if user_roles returned nothing
@@ -82,7 +82,7 @@ export async function middleware(request: NextRequest) {
       .single();
 
     cachedRole = profile?.role || 'user';
-    return cachedRole;
+    return cachedRole as string;
   }
 
   // ===== Handle OAuth code exchange landing on homepage =====
@@ -141,7 +141,7 @@ export async function middleware(request: NextRequest) {
           statusCode: response.status,
           duration: duration,
           timestamp: new Date().toISOString(),
-          ip: request.ip || 'unknown'
+          ip: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
       });
   } catch (e) {
       // Ignore metrics errors in production

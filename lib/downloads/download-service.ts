@@ -130,18 +130,20 @@ export async function trackDownload(request: DownloadRequest): Promise<{
 
         // Save email if required
         if (resource.requiresEmail && request.email) {
-            await supabase.from('newsletter_subscribers').insert({
-                email: request.email,
-                name: request.name,
-                source: `download_${request.resourceId}`,
-                tags: [resource.category, resource.type],
-                metadata: {
-                    downloadedResource: resource.title,
-                    resourceId: request.resourceId
-                }
-            }).catch(() => {
+            try {
+                await supabase.from('newsletter_subscribers').insert({
+                    email: request.email,
+                    name: request.name,
+                    source: `download_${request.resourceId}`,
+                    tags: [resource.category, resource.type],
+                    metadata: {
+                        downloadedResource: resource.title,
+                        resourceId: request.resourceId
+                    }
+                });
+            } catch {
                 // Ignore duplicate errors
-            });
+            }
         }
 
         // Track download
@@ -153,15 +155,17 @@ export async function trackDownload(request: DownloadRequest): Promise<{
         });
 
         // Increment download count
-        await supabase.rpc('increment_download_count', {
-            resource_id: request.resourceId
-        }).catch(() => {
+        try {
+            await supabase.rpc('increment_download_count', {
+                resource_id: request.resourceId
+            } as any);
+        } catch {
             // Fallback: direct update
-            supabase
+            await supabase
                 .from('downloadable_resources')
                 .update({ download_count: (resource.downloadCount || 0) + 1 })
                 .eq('id', request.resourceId);
-        });
+        }
 
         // Generate download URL (if template-based, generate on-the-fly)
         let downloadUrl = resource.fileUrl;

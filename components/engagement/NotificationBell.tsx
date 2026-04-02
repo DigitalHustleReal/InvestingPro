@@ -116,7 +116,7 @@ export default function NotificationBell() {
                     "relative w-10 h-10 rounded-xl flex items-center justify-center transition-all",
                     isOpen 
                         ? "bg-primary-500/10 text-primary-500" 
-                        : "bg-slate-100 dark:bg-white/5 text-slate-500 hover:text-primary-500 hover:bg-slate-200 dark:hover:bg-white/10"
+                        : "bg-gray-100 dark:bg-white/5 text-gray-500 hover:text-primary-500 hover:bg-gray-200 dark:hover:bg-white/10"
                 )}
             >
                 <Bell className="w-5 h-5" />
@@ -129,10 +129,10 @@ export default function NotificationBell() {
 
             {/* Dropdown */}
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-96 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden z-50 animate-in slide-in-from-top-2 fade-in duration-200">
+                <div className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-white/10 overflow-hidden z-50 animate-in slide-in-from-top-2 fade-in duration-200">
                     {/* Header */}
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-white/10">
-                        <h3 className="font-bold text-slate-900 dark:text-white">Notifications</h3>
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-white/10">
+                        <h3 className="font-bold text-gray-900 dark:text-white">Notifications</h3>
                         {unreadCount > 0 && (
                             <Button
                                 variant="ghost"
@@ -150,15 +150,15 @@ export default function NotificationBell() {
                     <div className="max-h-96 overflow-y-auto">
                         {isLoading ? (
                             <div className="py-8 text-center">
-                                <Loader2 className="w-6 h-6 animate-spin mx-auto text-slate-600" />
+                                <Loader2 className="w-6 h-6 animate-spin mx-auto text-gray-600" />
                             </div>
                         ) : notifications.length > 0 ? (
-                            <div className="divide-y divide-slate-100 dark:divide-white/5">
+                            <div className="divide-y divide-gray-100 dark:divide-white/5">
                                 {notifications.map((notification) => (
                                     <div
                                         key={notification.id}
                                         className={cn(
-                                            "px-4 py-3 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer",
+                                            "px-4 py-3 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer",
                                             !notification.is_read && "bg-primary-50/50 dark:bg-primary-500/5"
                                         )}
                                         onClick={() => {
@@ -174,22 +174,22 @@ export default function NotificationBell() {
                                             <span className="text-lg">{getTypeIcon(notification.type)}</span>
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-center gap-2">
-                                                    <span className="font-semibold text-sm text-slate-900 dark:text-white line-clamp-1">
+                                                    <span className="font-semibold text-sm text-gray-900 dark:text-white line-clamp-1">
                                                         {notification.title}
                                                     </span>
                                                     {!notification.is_read && (
                                                         <span className="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0" />
                                                     )}
                                                 </div>
-                                                <p className="text-xs text-slate-500 dark:text-slate-600 mt-0.5 line-clamp-2">
+                                                <p className="text-xs text-gray-500 dark:text-gray-600 mt-0.5 line-clamp-2">
                                                     {notification.message}
                                                 </p>
-                                                <span className="text-[10px] text-slate-600 mt-1 block">
+                                                <span className="text-[10px] text-gray-600 mt-1 block">
                                                     {formatTime(notification.created_at)}
                                                 </span>
                                             </div>
                                             {notification.link && (
-                                                <ExternalLink className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                                                <ExternalLink className="w-4 h-4 text-gray-600 flex-shrink-0" />
                                             )}
                                         </div>
                                     </div>
@@ -197,19 +197,19 @@ export default function NotificationBell() {
                             </div>
                         ) : (
                             <div className="py-12 text-center">
-                                <Bell className="w-8 h-8 mx-auto text-slate-300 dark:text-slate-600 mb-2" />
-                                <p className="text-sm text-slate-500">No notifications yet</p>
+                                <Bell className="w-8 h-8 mx-auto text-gray-300 dark:text-gray-600 mb-2" />
+                                <p className="text-sm text-gray-500">No notifications yet</p>
                             </div>
                         )}
                     </div>
 
                     {/* Footer */}
                     {notifications.length > 0 && (
-                        <div className="px-4 py-3 border-t border-slate-200 dark:border-white/10 text-center">
+                        <div className="px-4 py-3 border-t border-gray-200 dark:border-white/10 text-center">
                             <Button
                                 variant="ghost"
                                 size="sm"
-                                className="text-xs text-slate-500 hover:text-primary-600"
+                                className="text-xs text-gray-500 hover:text-primary-600"
                                 onClick={() => {
                                     setIsOpen(false);
                                     window.location.href = '/notifications';

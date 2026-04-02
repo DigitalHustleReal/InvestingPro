@@ -27,13 +27,13 @@ export default function EligibilityPreChecker() {
     };
 
     return (
-        <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white border-none shadow-xl">
+        <Card className="bg-gradient-to-br from-gray-900 to-gray-800 text-white border-none shadow-xl">
             <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                     <CheckCircle2 className="text-green-400" />
                     Check Your Approval Chance
                 </CardTitle>
-                <p className="text-slate-600 text-sm">No impact on credit score • Instant result</p>
+                <p className="text-gray-600 text-sm">No impact on credit score • Instant result</p>
             </CardHeader>
             <CardContent className="space-y-6">
                 {!result ? (
@@ -41,7 +41,7 @@ export default function EligibilityPreChecker() {
                         <div className="space-y-4">
                             <div>
                                 <div className="flex justify-between mb-2">
-                                    <Label className="text-slate-200">Monthly Income</Label>
+                                    <Label className="text-gray-200">Monthly Income</Label>
                                     <span className="text-green-400 font-bold">{formatCurrency(income)}</span>
                                 </div>
                                 <Slider 
@@ -56,7 +56,7 @@ export default function EligibilityPreChecker() {
 
                             <div>
                                 <div className="flex justify-between mb-2">
-                                    <Label className="text-slate-200">Credit Score (Approx)</Label>
+                                    <Label className="text-gray-200">Credit Score (Approx)</Label>
                                     <span className="text-yellow-400 font-bold">{score}</span>
                                 </div>
                                 <Slider 
@@ -85,7 +85,7 @@ export default function EligibilityPreChecker() {
                                     <CheckCircle2 className="w-10 h-10 text-green-400" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-green-400 mb-2">High Approval Chance!</h3>
-                                <p className="text-slate-300 mb-6">You qualify for premium rewards cards.</p>
+                                <p className="text-gray-300 mb-6">You qualify for premium rewards cards.</p>
                             </>
                         )}
                         {result === 'medium' && (
@@ -94,7 +94,7 @@ export default function EligibilityPreChecker() {
                                     <AlertTriangle className="w-10 h-10 text-yellow-400" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-yellow-400 mb-2">Fair Approval Chance</h3>
-                                <p className="text-slate-300 mb-6">You qualify for most entry-level cards.</p>
+                                <p className="text-gray-300 mb-6">You qualify for most entry-level cards.</p>
                             </>
                         )}
                         {result === 'low' && (
@@ -103,20 +103,20 @@ export default function EligibilityPreChecker() {
                                     <XCircle className="w-10 h-10 text-red-400" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-red-400 mb-2">Low Approval Chance</h3>
-                                <p className="text-slate-300 mb-6">Consider secured cards to build history.</p>
+                                <p className="text-gray-300 mb-6">Consider secured cards to build history.</p>
                             </>
                         )}
 
                         <div className="flex gap-3">
                             <Button 
                                 variant="outline" 
-                                className="flex-1 bg-transparent border-slate-600 hover:bg-white/10 text-white"
+                                className="flex-1 bg-transparent border-gray-600 hover:bg-white/10 text-white"
                                 onClick={() => setResult(null)}
                             >
                                 Check Again
                             </Button>
                             <Link href="/credit-cards/find-your-card" className="flex-1">
-                                <Button className="w-full bg-white text-slate-900 hover:bg-slate-200 font-bold">
+                                <Button className="w-full bg-white text-gray-900 hover:bg-gray-200 font-bold">
                                     Get Cards <ArrowRight className="w-4 h-4 ml-2" />
                                 </Button>
                             </Link>

@@ -13,9 +13,9 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ({ className, checked, onCheckedChange, ...props }, ref) => {
         return (
             <label className={cn(
-                "relative inline-flex items-center justify-center w-5 h-5 rounded border-2 border-slate-300 cursor-pointer transition-colors",
+                "relative inline-flex items-center justify-center w-5 h-5 rounded border-2 border-gray-300 cursor-pointer transition-colors",
                 checked && "bg-primary-600 border-primary-600",
-                !checked && "bg-white dark:bg-slate-800 hover:border-primary-400",
+                !checked && "bg-white dark:bg-gray-800 hover:border-primary-400",
                 className
             )}>
                 <input

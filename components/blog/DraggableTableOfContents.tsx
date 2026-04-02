@@ -191,14 +191,14 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
    */
 
   const StaticMobileTOC = () => (
-    <div className="lg:hidden mb-10 p-6 bg-slate-50/80 backdrop-blur-sm rounded-2xl border border-slate-200/60 shadow-sm">
-        <h3 className="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
+    <div className="lg:hidden mb-10 p-6 bg-gray-50/80 backdrop-blur-sm rounded-2xl border border-gray-200/60 shadow-sm">
+        <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
             <Menu className="w-5 h-5 text-primary-600" /> 
             Table of Contents
         </h3>
         <div className="space-y-3 relative pl-2">
              {/* Vertical Track */}
-             <div className="absolute left-[3px] top-2 bottom-2 w-0.5 bg-slate-200 rounded-full" />
+             <div className="absolute left-[3px] top-2 bottom-2 w-0.5 bg-gray-200 rounded-full" />
              
              {headings.map((heading) => (
                <button
@@ -209,14 +209,14 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                  } ${
                    activeId === heading.id 
                     ? 'text-primary-700 font-semibold' 
-                    : 'text-slate-600'
+                    : 'text-gray-600'
                  }`}
                >
                  {/* Dot */}
                  <span className={`absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full border-2 transition-colors ${
                      activeId === heading.id 
                      ? 'bg-primary-500 border-white ring-2 ring-primary-100' 
-                     : 'bg-white border-slate-300'
+                     : 'bg-white border-gray-300'
                  }`} />
                  {heading.text}
                </button>
@@ -236,18 +236,18 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
       }}
       onMouseDown={handleMouseDown}
     >
-      <div className={`bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-12 h-12 rounded-full cursor-pointer hover:bg-primary-50' : 'w-80'}`}>
+      <div className={`bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-12 h-12 rounded-full cursor-pointer hover:bg-primary-50' : 'w-80'}`}>
         
         {/* Header (Draggable) */}
         {!isCollapsed && (
-            <div className="bg-slate-50 border-b border-slate-100 p-3 flex items-center justify-between cursor-grab toc-drag-handle group">
-            <div className="flex items-center gap-2 text-slate-500 group-hover:text-slate-700 transition-colors">
+            <div className="bg-gray-50 border-b border-gray-100 p-3 flex items-center justify-between cursor-grab toc-drag-handle group">
+            <div className="flex items-center gap-2 text-gray-500 group-hover:text-gray-700 transition-colors">
                 <GripVertical className="w-5 h-5" />
                 <span className="font-semibold text-xs uppercase tracking-wider">Contents</span>
             </div>
             <button
                 onClick={() => setIsCollapsed(true)}
-                className="text-slate-600 hover:text-primary-600 hover:bg-primary-50 p-1.5 rounded-lg transition-colors"
+                className="text-gray-600 hover:text-primary-600 hover:bg-primary-50 p-1.5 rounded-lg transition-colors"
             >
                 <Minimize2 className="w-4 h-4" />
             </button>
@@ -265,7 +265,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
         {!isCollapsed && (
           <div className="max-h-[70vh] overflow-y-auto p-5 relative custom-scrollbar">
             {/* Thread Line */}
-            <div className="absolute left-[29px] top-5 bottom-5 w-0.5 bg-slate-100" />
+            <div className="absolute left-[29px] top-5 bottom-5 w-0.5 bg-gray-100" />
 
             <div className="space-y-4">
                 {headings.map((heading) => {
@@ -276,7 +276,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                             <div className={`relative z-10 flex-shrink-0 mt-1.5 w-2.5 h-2.5 rounded-full border-2 transition-all duration-300 ${
                                 isActive 
                                     ? 'bg-primary-500 border-white shadow-md scale-125' 
-                                    : 'bg-slate-200 border-white group-hover:border-primary-200'
+                                    : 'bg-gray-200 border-white group-hover:border-primary-200'
                             }`} />
                             
                             {/* Link */}
@@ -287,7 +287,7 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
                                 } ${
                                     isActive 
                                         ? 'text-primary-700 font-bold translate-x-1' 
-                                        : 'text-slate-500 hover:text-slate-800'
+                                        : 'text-gray-500 hover:text-gray-800'
                                 }`}
                             >
                                 {heading.text}
@@ -321,17 +321,17 @@ export default function DraggableTableOfContents({ className = '' }: DraggableTa
       <div className={`lg:hidden fixed inset-0 z-[150] transition-opacity duration-300 ${isMobileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setIsMobileOpen(false)} />
           <div className={`absolute right-4 bottom-24 w-80 max-h-[60vh] bg-white rounded-2xl shadow-2xl transition-transform duration-300 flex flex-col ${isMobileOpen ? 'translate-y-0' : 'translate-y-10'}`}>
-              <div className="flex items-center justify-between p-4 border-b border-slate-100">
-                  <h3 className="font-semibold text-slate-800">Table of Contents</h3>
-                  <button onClick={() => setIsMobileOpen(false)} className="p-1 hover:bg-slate-100 rounded-full"><X className="w-5 h-5 text-slate-500" /></button>
+              <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                  <h3 className="font-semibold text-gray-800">Table of Contents</h3>
+                  <button onClick={() => setIsMobileOpen(false)} className="p-1 hover:bg-gray-100 rounded-full"><X className="w-5 h-5 text-gray-500" /></button>
               </div>
               <div className="overflow-y-auto p-4 flex-1">
                  {/* Re-use logic for list or simplify */}
                  <div className="space-y-3 relative pl-2">
-                    <div className="absolute left-[5px] top-2 bottom-2 w-0.5 bg-slate-100" />
+                    <div className="absolute left-[5px] top-2 bottom-2 w-0.5 bg-gray-100" />
                     {headings.map(h => (
-                        <button key={h.id} onClick={() => scrollToHeading(h.id)} className={`relative block w-full text-left pl-6 py-1 ${activeId === h.id ? 'text-primary-600 font-medium' : 'text-slate-600'}`}>
-                            <span className={`absolute left-0 top-2.5 w-1.5 h-1.5 rounded-full ${activeId === h.id ? 'bg-primary-500' : 'bg-slate-300'}`} />
+                        <button key={h.id} onClick={() => scrollToHeading(h.id)} className={`relative block w-full text-left pl-6 py-1 ${activeId === h.id ? 'text-primary-600 font-medium' : 'text-gray-600'}`}>
+                            <span className={`absolute left-0 top-2.5 w-1.5 h-1.5 rounded-full ${activeId === h.id ? 'bg-primary-500' : 'bg-gray-300'}`} />
                             {h.text}
                         </button>
                     ))}

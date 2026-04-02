@@ -1,14 +1,15 @@
-import { Inter, Outfit, Source_Serif_4, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, DM_Mono } from "next/font/google";
 import { Suspense } from "react";
-import Script from "next/script";
+
 import "./globals.css";
-import ConditionalTopBar from "@/components/layout/ConditionalTopBar";
-import BottomMobileNav from "@/components/layout/BottomMobileNav";
+import ConditionalTopBarV2 from "@/components/v2/layout/ConditionalTopBar";
+// Old: import ConditionalTopBar from "@/components/layout/ConditionalTopBar";
+import MobileNav from "@/components/v2/layout/MobileNav";
+// Old: import BottomMobileNav from "@/components/layout/BottomMobileNav";
 import AdminShell from "@/components/layout/AdminShell";
 import { cn } from "@/lib/utils";
 import Analytics from "@/components/common/Analytics";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics"; // Import GA
-import CookieConsent from "@/components/legal/CookieConsent";
 import QueryProvider from "@/components/providers/QueryProvider";
 import ErrorBoundaryProvider from "@/components/providers/ErrorBoundaryProvider";
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
@@ -20,35 +21,24 @@ import CompareBar from "@/components/compare/CompareBar";
 import PerformanceMonitor from "@/components/performance/PerformanceMonitor";
 import { ConditionalPublicElements } from "@/components/common/ConditionalPublicElements";
 import { ConditionalPublicFloating } from "@/components/common/ConditionalPublicFloating";
-import ExitIntentPopup from "@/components/common/ExitIntentPopup";
-import WhatsAppButton from "@/components/common/WhatsAppButton";
-import OnboardingTrigger from "@/components/profile/OnboardingTrigger";
+import CookieConsent from "@/components/legal/CookieConsent";
 
 
-// Font configurations with CSS variables
-const inter = Inter({ 
+// Font configurations — v2 Design System (DM Sans + DM Mono + Georgia system)
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: '--font-inter',
+  variable: '--font-dm-sans',
   display: 'swap',
 });
 
-const outfit = Outfit({
+const dmMono = DM_Mono({
+  weight: ['400', '500'],
   subsets: ["latin"],
-  variable: '--font-outfit',
+  variable: '--font-dm-mono',
   display: 'swap',
 });
 
-const serif = Source_Serif_4({
-  subsets: ["latin"],
-  variable: '--font-serif',
-  display: 'swap',
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: '--font-mono',
-  display: 'swap',
-});
+// Georgia is a system font — no import needed, declared in CSS
 
 // ... existing code ...
 
@@ -128,20 +118,20 @@ export default async function RootLayout({
   // Initialize event system (runs once per server instance)
   initializeEventSystem();
   
-  // Fetch navigation on the server
-  const navConfig = await getNavigation();
+  // Navigation is now handled by v2 Navbar component directly
+  // const navConfig = await getNavigation();
 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body suppressHydrationWarning className={cn(
-        inter.className,
-        inter.variable,
-        outfit.variable,
-        serif.variable,
-        mono.variable,
+        dmSans.className,
+        dmSans.variable,
+        dmMono.variable,
         "min-h-screen flex flex-col bg-background text-foreground antialiased"
       )}>
         <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
@@ -170,8 +160,8 @@ export default async function RootLayout({
                   </a>
 
                   <AdminShell>
-                    <ConditionalTopBar initialConfig={navConfig} />
-                    <main id="main-content" className="flex-grow pb-16 md:pb-0" tabIndex={-1}>
+                    <ConditionalTopBarV2 />
+                    <main id="main-content" className="flex-grow pb-20 md:pb-0" tabIndex={-1}>
                       <PageErrorBoundary pageName="Root Layout">
                         <ConditionalPublicElements>
                           {children}
@@ -181,8 +171,7 @@ export default async function RootLayout({
                   </AdminShell>
                   <ConditionalPublicFloating>
                     <CompareBar />
-                    <WhatsAppButton />
-                    <BottomMobileNav />
+                    <MobileNav />
                   </ConditionalPublicFloating>
                   {/* 
                      AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)
@@ -190,31 +179,16 @@ export default async function RootLayout({
                   */}
                   {/* <script async src="https://cuelinks.com/js/..." /> */}
                   <Toaster />
-                  <ExitIntentPopup variant="wizard" />
-                  <OnboardingTrigger />
                 </NavigationProvider>
               </CompareProvider>
             </SearchProvider>
           </QueryProvider>
         </ErrorBoundaryProvider>
         </ThemeProvider>
+        {/* Legal-only: Cookie consent (Accept/Decline bar). All other popups removed —
+             ExitIntentPopup, WhatsAppButton, Tawk.to, OnboardingTrigger, LeadCapture.
+             Audit: popups are friction. ProfileOnboarding available as opt-in on /profile. */}
         <CookieConsent />
-        {/* Tawk.to Live Chat - Externalized for stability */}
-        {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID !== 'undefined' && (
-          <Script id="tawk-to" strategy="afterInteractive">
-            {`
-              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-              (function(){
-              var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-              s1.async=true;
-              s1.src='https://embed.tawk.to/${process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID}/default';
-              s1.charset='UTF-8';
-              s1.setAttribute('crossorigin','*');
-              s0.parentNode.insertBefore(s1,s0);
-              })();
-            `}
-          </Script>
-        )}
       </body>
     </html>
   );

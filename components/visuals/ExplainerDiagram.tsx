@@ -39,8 +39,8 @@ export default function ExplainerDiagram({
  */
 function ProcessDiagram({ title, steps }: { title: string; steps: Array<{ number: number; title: string; description: string }> }) {
     return (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">{title}</h3>
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-8">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">{title}</h3>
             <div className="flex flex-col md:flex-row items-start gap-6">
                 {steps.map((step, idx) => (
                     <div key={idx} className="flex-1 relative">
@@ -50,7 +50,7 @@ function ProcessDiagram({ title, steps }: { title: string; steps: Array<{ number
                                 <span className="text-primary-700 font-bold text-lg">{step.number}</span>
                             </div>
                             {idx < steps.length - 1 && (
-                                <div className="hidden md:block flex-1 h-0.5 bg-slate-200 relative top-6 -z-10">
+                                <div className="hidden md:block flex-1 h-0.5 bg-gray-200 relative top-6 -z-10">
                                     <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-primary-500 rounded-full" />
                                 </div>
                             )}
@@ -58,8 +58,8 @@ function ProcessDiagram({ title, steps }: { title: string; steps: Array<{ number
                         
                         {/* Step Content */}
                         <div>
-                            <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">{step.title}</h4>
-                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{step.description}</p>
+                            <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">{step.title}</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{step.description}</p>
                         </div>
                     </div>
                 ))}
@@ -75,19 +75,19 @@ function ComparisonDiagram({ title, data }: { title: string; data: any }) {
     const items = data?.items || [];
     
     return (
-        <div className="bg-white border border-slate-200 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-slate-900 mb-6">{title}</h3>
+        <div className="bg-white border border-gray-200 rounded-xl p-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">{title}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {items.map((item: any, idx: number) => (
-                    <div key={idx} className="border border-slate-200 rounded-lg p-6">
-                        <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-4">{item.name}</h4>
+                    <div key={idx} className="border border-gray-200 rounded-lg p-6">
+                        <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-4">{item.name}</h4>
                         <div className="space-y-3">
                             {item.features?.map((feature: string, fIdx: number) => (
                                 <div key={fIdx} className="flex items-start gap-2">
                                     <div className="w-5 h-5 rounded-full bg-primary-100 flex items-center justify-center shrink-0 mt-0.5">
                                         <div className="w-2 h-2 bg-primary-600 rounded-full" />
                                     </div>
-                                    <span className="text-sm text-slate-700">{feature}</span>
+                                    <span className="text-sm text-gray-700">{feature}</span>
                                 </div>
                             ))}
                         </div>
@@ -105,8 +105,8 @@ function FlowDiagram({ title, data }: { title: string; data: any }) {
     const nodes = data?.nodes || [];
     
     return (
-        <div className="bg-white border border-slate-200 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-slate-900 mb-6">{title}</h3>
+        <div className="bg-white border border-gray-200 rounded-xl p-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">{title}</h3>
             <div className="relative">
                 <svg viewBox="0 0 800 400" className="w-full h-96">
                     {/* Flow Lines */}
@@ -172,8 +172,8 @@ function FlowDiagram({ title, data }: { title: string; data: any }) {
  */
 function HierarchyDiagram({ title, data }: { title: string; data: any }) {
     return (
-        <div className="bg-white border border-slate-200 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-slate-900 mb-6">{title}</h3>
+        <div className="bg-white border border-gray-200 rounded-xl p-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">{title}</h3>
             <div className="flex flex-col items-center">
                 {/* Top Level */}
                 <div className="mb-8">
@@ -183,13 +183,13 @@ function HierarchyDiagram({ title, data }: { title: string; data: any }) {
                 </div>
                 
                 {/* Connector */}
-                <div className="w-0.5 h-8 bg-slate-300 mb-8" />
+                <div className="w-0.5 h-8 bg-gray-300 mb-8" />
                 
                 {/* Sub Levels */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {(data?.subs || []).map((sub: string, idx: number) => (
-                        <div key={idx} className="px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-center">
-                            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{sub}</span>
+                        <div key={idx} className="px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-center">
+                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{sub}</span>
                         </div>
                     ))}
                 </div>
@@ -205,11 +205,11 @@ function TimelineDiagram({ title, data }: { title: string; data: any }) {
     const events = data?.events || [];
     
     return (
-        <div className="bg-white border border-slate-200 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-slate-900 mb-6">{title}</h3>
+        <div className="bg-white border border-gray-200 rounded-xl p-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">{title}</h3>
             <div className="relative">
                 {/* Timeline Line */}
-                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-slate-300" />
+                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300" />
                 
                 {/* Events */}
                 <div className="space-y-8">
@@ -221,9 +221,9 @@ function TimelineDiagram({ title, data }: { title: string; data: any }) {
                             {/* Content */}
                             <div>
                                 <div className="text-sm font-bold text-primary-600 mb-1">{event.date || `Step ${idx + 1}`}</div>
-                                <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">{event.title}</h4>
+                                <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">{event.title}</h4>
                                 {event.description && (
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">{event.description}</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">{event.description}</p>
                                 )}
                             </div>
                         </div>
@@ -239,8 +239,8 @@ function TimelineDiagram({ title, data }: { title: string; data: any }) {
  */
 function GenericExplainerDiagram({ title }: { title: string }) {
     return (
-        <div className="bg-white border border-slate-200 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-slate-900 mb-6">{title}</h3>
+        <div className="bg-white border border-gray-200 rounded-xl p-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">{title}</h3>
             <div className="flex items-center justify-center h-64">
                 <svg viewBox="0 0 200 200" className="w-48 h-48 opacity-20">
                     <circle cx="100" cy="100" r="80" fill="none" stroke="#0d9488" strokeWidth="2" />

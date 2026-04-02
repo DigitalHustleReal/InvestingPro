@@ -83,7 +83,7 @@ export default function PerformanceDashboard() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Performance Dashboard</h1>
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground dark:text-foreground">Performance Dashboard</h1>
                         <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Monitor Core Web Vitals, bundle size, and Lighthouse scores
                         </p>
@@ -222,7 +222,7 @@ export default function PerformanceDashboard() {
                                 </div>
 
                                 {/* Web Vitals Distribution */}
-                                <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800">
+                                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800">
                                     <div className="text-sm font-semibold mb-3">Web Vitals Distribution</div>
                                     <div className="flex gap-4">
                                         <div className="flex-1">
@@ -230,7 +230,7 @@ export default function PerformanceDashboard() {
                                                 <span className="text-sm text-green-600">Good</span>
                                                 <span className="text-sm font-semibold">{metrics.webVitals.good}%</span>
                                             </div>
-                                            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                                 <div
                                                     className="bg-green-600 h-2 rounded-full"
                                                     style={{ width: `${metrics.webVitals.good}%` }}
@@ -242,7 +242,7 @@ export default function PerformanceDashboard() {
                                                 <span className="text-sm text-yellow-600">Needs Improvement</span>
                                                 <span className="text-sm font-semibold">{metrics.webVitals.needsImprovement}%</span>
                                             </div>
-                                            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                                 <div
                                                     className="bg-yellow-600 h-2 rounded-full"
                                                     style={{ width: `${metrics.webVitals.needsImprovement}%` }}
@@ -254,7 +254,7 @@ export default function PerformanceDashboard() {
                                                 <span className="text-sm text-red-600">Poor</span>
                                                 <span className="text-sm font-semibold">{metrics.webVitals.poor}%</span>
                                             </div>
-                                            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                                 <div
                                                     className="bg-red-600 h-2 rounded-full"
                                                     style={{ width: `${metrics.webVitals.poor}%` }}

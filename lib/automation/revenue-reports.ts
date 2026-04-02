@@ -77,7 +77,8 @@ export async function generateDailyReport(date?: string): Promise<RevenueReport>
         : 0;
 
     // Get conversions count
-    const { data: conversions } = await supabase
+    const db = getSupabaseClient();
+    const { data: conversions } = await db
         .from('affiliate_clicks')
         .select('id')
         .eq('converted', true)
@@ -87,7 +88,7 @@ export async function generateDailyReport(date?: string): Promise<RevenueReport>
     const conversionsCount = conversions?.length || 0;
 
     // Get clicks count for conversion rate
-    const { data: clicks } = await supabase
+    const { data: clicks } = await db
         .from('affiliate_clicks')
         .select('id')
         .gte('created_at', startDate)
@@ -147,7 +148,8 @@ export async function generateWeeklyReport(weekStartDate?: string): Promise<Reve
         ? ((currentMetrics.totalRevenue - previousMetrics.totalRevenue) / previousMetrics.totalRevenue) * 100
         : 0;
 
-    const { data: conversions } = await supabase
+    const db = getSupabaseClient();
+    const { data: conversions } = await db
         .from('affiliate_clicks')
         .select('id')
         .eq('converted', true)
@@ -156,7 +158,7 @@ export async function generateWeeklyReport(weekStartDate?: string): Promise<Reve
 
     const conversionsCount = conversions?.length || 0;
 
-    const { data: clicks } = await supabase
+    const { data: clicks } = await db
         .from('affiliate_clicks')
         .select('id')
         .gte('created_at', weekStart.toISOString())
@@ -210,7 +212,8 @@ export async function generateMonthlyReport(month?: string, year?: number): Prom
         ? ((currentMetrics.totalRevenue - previousMetrics.totalRevenue) / previousMetrics.totalRevenue) * 100
         : 0;
 
-    const { data: conversions } = await supabase
+    const db = getSupabaseClient();
+    const { data: conversions } = await db
         .from('affiliate_clicks')
         .select('id')
         .eq('converted', true)
@@ -219,7 +222,7 @@ export async function generateMonthlyReport(month?: string, year?: number): Prom
 
     const conversionsCount = conversions?.length || 0;
 
-    const { data: clicks } = await supabase
+    const { data: clicks } = await db
         .from('affiliate_clicks')
         .select('id')
         .gte('created_at', monthStart.toISOString())

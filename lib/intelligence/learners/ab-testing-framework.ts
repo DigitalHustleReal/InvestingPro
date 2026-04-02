@@ -218,12 +218,12 @@ export class ABTestingFramework {
 
       if (!data || data.length === 0) return null;
 
-      const avgQualityScore = data.reduce((sum, m) => {
+      const avgQualityScore = data.reduce((sum: any, m: any) => {
         const score = (m.engaged ? 1 : 0) + (m.completed ? 0.5 : 0) - (m.bounced ? 0.5 : 0);
         return sum + Math.max(0, Math.min(1, score));
       }, 0) / data.length;
 
-      const conversionRate = data.filter(m => 
+      const conversionRate = data.filter((m: any) => 
         m.calculator_used || m.affiliate_link_clicked || m.product_compared
       ).length / data.length;
 
@@ -327,7 +327,7 @@ export class ABTestingFramework {
 
       if (!data) return [];
 
-      return data.map(d => ({
+      return data.map((d: any) => ({
         id: d.id,
         name: d.name,
         articleId: d.article_id,

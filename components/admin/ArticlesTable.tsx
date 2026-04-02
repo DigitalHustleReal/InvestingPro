@@ -369,18 +369,18 @@ export default function ArticlesTable({
             />
 
             {/* Filters */}
-            <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
                 <div className="relative flex-1 max-w-md w-full">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <input
                         type="text"
                         placeholder="Search articles..."
                         value={searchTerm}
                         onChange={(e) => onSearchChange?.(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+                        className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
                     />
                 </div>
-                <div className="flex gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg self-stretch md:self-auto overflow-x-auto no-scrollbar">
+                <div className="flex gap-2 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg self-stretch md:self-auto overflow-x-auto no-scrollbar">
                     {(['all', 'published', 'draft', 'review', 'archived', 'trash', 'stale'] as const).map((status) => (
                         <button
                             key={status}
@@ -390,8 +390,8 @@ export default function ArticlesTable({
                                 filterStatus === status
                                     ? status === 'stale' 
                                         ? "bg-rose-500 text-white shadow-sm"
-                                        : "bg-white dark:bg-slate-700 text-sky-600 dark:text-sky-400 shadow-sm"
-                                    : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50"
+                                        : "bg-white dark:bg-gray-700 text-sky-600 dark:text-sky-400 shadow-sm"
+                                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
                             )}
                         >
                             {status}
@@ -407,18 +407,18 @@ export default function ArticlesTable({
             </div>
 
             {/* Table */}
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
+            <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm overflow-hidden">
                 {isLoading ? (
                     <div className="flex items-center justify-center py-20">
                         <div className="w-8 h-8 border-4 border-sky-500/30 border-t-sky-500 rounded-full animate-spin" />
                     </div>
                 ) : filteredArticles.length === 0 ? (
                     <div className="text-center py-20">
-                        <div className="w-16 h-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center mx-auto mb-4">
-                            <FileText className="w-8 h-8 text-slate-400" />
+                        <div className="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center mx-auto mb-4">
+                            <FileText className="w-8 h-8 text-gray-400" />
                         </div>
-                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">No articles found</h3>
-                        <p className="text-slate-500 dark:text-slate-400 mb-6 max-w-sm mx-auto">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No articles found</h3>
+                        <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">
                             {searchTerm || filterStatus !== 'all'
                                 ? 'Try adjusting your search or filters to find what you are looking for.'
                                 : 'Get started by creating your first article.'}
@@ -434,13 +434,13 @@ export default function ArticlesTable({
                 ) : (
                     <div className="overflow-x-auto">
                         <table className="w-full text-left text-sm">
-                            <thead className="bg-slate-50 dark:bg-slate-950/50 border-b border-slate-200 dark:border-slate-800">
+                            <thead className="bg-gray-50 dark:bg-gray-950/50 border-b border-gray-200 dark:border-gray-800">
                                 <tr>
                                     <th className="px-4 py-3 w-12 text-center">
                                         <div 
                                             className={cn(
                                                 "w-4 h-4 rounded border flex items-center justify-center cursor-pointer transition-colors mx-auto",
-                                                isAllSelected ? "bg-sky-500 border-sky-500 text-white" : "border-slate-300 dark:border-slate-600 hover:border-sky-500"
+                                                isAllSelected ? "bg-sky-500 border-sky-500 text-white" : "border-gray-300 dark:border-gray-600 hover:border-sky-500"
                                             )}
                                             onClick={isAllSelected || isPartialSelected ? deselectAll : selectAll}
                                         >
@@ -459,7 +459,7 @@ export default function ArticlesTable({
                                     <SortableHeader label="Updated" field="updated_at" sortConfig={sortConfig} onSort={handleSort} align="right" className="hidden xl:table-cell" />
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                                 {paginatedArticles.map((article) => {
                                     const isSelected = selectedIds.includes(article.id);
                                     const isEditing = editingId === article.id;
@@ -470,31 +470,31 @@ export default function ArticlesTable({
                                                 <td colSpan={10} className="p-4">
                                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                                         <div className="space-y-2">
-                                                            <label className="text-[10px] font-bold uppercase text-slate-500">Title</label>
+                                                            <label className="text-[10px] font-bold uppercase text-gray-500">Title</label>
                                                             <input 
                                                                 type="text"
                                                                 value={editForm.title || ''}
                                                                 onChange={(e) => setEditForm(prev => ({ ...prev, title: e.target.value }))}
-                                                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
+                                                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
                                                                 placeholder="Article Title"
                                                             />
                                                         </div>
                                                         <div className="space-y-2">
-                                                            <label className="text-[10px] font-bold uppercase text-slate-500">Slug</label>
+                                                            <label className="text-[10px] font-bold uppercase text-gray-500">Slug</label>
                                                             <input 
                                                                 type="text"
                                                                 value={editForm.slug || ''}
                                                                 onChange={(e) => setEditForm(prev => ({ ...prev, slug: e.target.value }))}
-                                                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
+                                                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
                                                                 placeholder="article-slug"
                                                             />
                                                         </div>
                                                         <div className="space-y-2">
-                                                            <label className="text-[10px] font-bold uppercase text-slate-500">Status</label>
+                                                            <label className="text-[10px] font-bold uppercase text-gray-500">Status</label>
                                                             <select 
                                                                 value={editForm.status || 'draft'}
                                                                 onChange={(e) => setEditForm(prev => ({ ...prev, status: e.target.value as any }))}
-                                                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
+                                                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
                                                             >
                                                                 <option value="draft">Draft</option>
                                                                 <option value="review">Review</option>
@@ -503,11 +503,11 @@ export default function ArticlesTable({
                                                             </select>
                                                         </div>
                                                         <div className="space-y-2">
-                                                            <label className="text-[10px] font-bold uppercase text-slate-500">Category</label>
+                                                            <label className="text-[10px] font-bold uppercase text-gray-500">Category</label>
                                                             <select 
                                                                 value={editForm.category || ''}
                                                                 onChange={(e) => setEditForm(prev => ({ ...prev, category: e.target.value }))}
-                                                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
+                                                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
                                                             >
                                                                 <option value="">Select Category</option>
                                                                 {Object.keys(CATEGORY_TTLS).filter(k => k !== 'default').map(cat => (
@@ -516,12 +516,12 @@ export default function ArticlesTable({
                                                             </select>
                                                         </div>
                                                         <div className="space-y-2">
-                                                            <label className="text-[10px] font-bold uppercase text-slate-500">Primary Keyword</label>
+                                                            <label className="text-[10px] font-bold uppercase text-gray-500">Primary Keyword</label>
                                                             <input 
                                                                 type="text"
                                                                 value={editForm.primary_keyword || ''}
                                                                 onChange={(e) => setEditForm(prev => ({ ...prev, primary_keyword: e.target.value }))}
-                                                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
+                                                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 outline-none"
                                                                 placeholder="Target Keyword"
                                                             />
                                                         </div>
@@ -537,7 +537,7 @@ export default function ArticlesTable({
                                                             <Button 
                                                                 variant="ghost" 
                                                                 size="sm" 
-                                                                className="px-4 text-slate-500"
+                                                                className="px-4 text-gray-500"
                                                                 onClick={handleQuickCancel}
                                                                 disabled={saveLoading}
                                                             >
@@ -554,7 +554,7 @@ export default function ArticlesTable({
                                         <tr 
                                             key={article.id} 
                                             className={cn(
-                                                "group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors",
+                                                "group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors",
                                                 isSelected && "bg-sky-100 dark:bg-sky-900/30"
                                             )}
                                         >
@@ -562,7 +562,7 @@ export default function ArticlesTable({
                                                 <div 
                                                     className={cn(
                                                         "w-4 h-4 rounded border flex items-center justify-center cursor-pointer transition-colors mx-auto",
-                                                        isSelected ? "bg-sky-500 border-sky-500 text-white" : "border-slate-300 dark:border-slate-600 group-hover:border-sky-400"
+                                                        isSelected ? "bg-sky-500 border-sky-500 text-white" : "border-gray-300 dark:border-gray-600 group-hover:border-sky-400"
                                                     )}
                                                     onClick={() => toggleSelection(article.id)}
                                                 >
@@ -576,7 +576,7 @@ export default function ArticlesTable({
                                                         "font-semibold transition-colors block mb-0.5",
                                                         isSelected 
                                                             ? "text-sky-900 dark:text-sky-100" 
-                                                            : "text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400"
+                                                            : "text-gray-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400"
                                                     )}
                                                 >
                                                     {article.title || 'Untitled'}
@@ -592,7 +592,7 @@ export default function ArticlesTable({
                                                             >
                                                                 Restore
                                                             </button>
-                                                            <span className="text-slate-300 dark:text-slate-700">|</span>
+                                                            <span className="text-gray-300 dark:text-gray-700">|</span>
                                                             <button 
                                                                 onClick={() => { if(confirm('Permanently delete? This cannot be undone.')) onDelete?.(article.id, true) }}
                                                                 className="text-rose-600 hover:text-rose-700"
@@ -608,24 +608,24 @@ export default function ArticlesTable({
                                                             >
                                                                 Edit
                                                             </button>
-                                                            <span className="text-slate-300 dark:text-slate-700">|</span>
+                                                            <span className="text-gray-300 dark:text-gray-700">|</span>
                                                             <button 
-                                                                className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                                                                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                                                                 onClick={() => handleQuickEdit(article)}
                                                             >
                                                                 Quick Edit
                                                             </button>
-                                                            <span className="text-slate-300 dark:text-slate-700">|</span>
+                                                            <span className="text-gray-300 dark:text-gray-700">|</span>
                                                             <Link 
                                                                 href={`/article/${article.slug}`} 
                                                                 target="_blank"
-                                                                className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                                                                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                                                             >
                                                                 View
                                                             </Link>
                                                             {onDelete && (
                                                                 <>
-                                                                    <span className="text-slate-300 dark:text-slate-700">|</span>
+                                                                    <span className="text-gray-300 dark:text-gray-700">|</span>
                                                                     <button 
                                                                         onClick={() => { if(confirm('Move to Trash?')) onDelete(article.id, false) }}
                                                                         className="text-rose-600 hover:text-rose-700"
@@ -668,9 +668,9 @@ export default function ArticlesTable({
                                                 <Badge variant="outline" className={cn(
                                                     "capitalize",
                                                     article.status === 'published' && "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-300 dark:border-emerald-800",
-                                                    article.status === 'draft' && "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700",
+                                                    article.status === 'draft' && "bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700",
                                                     article.status === 'review' && "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/20 dark:text-amber-300 dark:border-amber-800",
-                                                    article.status === 'archived' && "bg-slate-100 text-slate-500 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                                                    article.status === 'archived' && "bg-gray-100 text-gray-500 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700"
                                                 )}>
                                                     {article.status}
                                                 </Badge>
@@ -679,7 +679,7 @@ export default function ArticlesTable({
                                                 "px-4 py-3 transition-colors hidden lg:table-cell",
                                                 isSelected 
                                                     ? "text-sky-900 dark:text-sky-50 font-semibold" 
-                                                    : "text-slate-700 dark:text-slate-200"
+                                                    : "text-gray-700 dark:text-gray-200"
                                             )}>
                                                 {article.author_name || 'Admin'}
                                             </td>
@@ -689,14 +689,14 @@ export default function ArticlesTable({
                                                         "inline-block px-2 py-0.5 rounded text-xs border transition-colors",
                                                         isSelected 
                                                             ? "bg-sky-200/50 dark:bg-sky-500/30 text-sky-900 dark:text-white border-sky-300 dark:border-sky-400" 
-                                                            : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+                                                            : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700"
                                                     )}>
                                                         {article.category.replace(/-/g, ' ')}
                                                     </span>
-                                                ) : <span className="text-slate-400 font-mono">-</span>}
+                                                ) : <span className="text-gray-400 font-mono">-</span>}
                                             </td>
                                             <td className="px-4 py-3 hidden xl:table-cell">
-                                                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium truncate max-w-[150px] block">
+                                                <span className="text-xs text-gray-500 dark:text-gray-400 font-medium truncate max-w-[150px] block">
                                                     {article.primary_keyword || '-'}
                                                 </span>
                                             </td>
@@ -710,7 +710,7 @@ export default function ArticlesTable({
                                                         {article.seo_score || '-'}
                                                     </span>
                                                     {(article.seo_score || 0) > 0 && (
-                                                        <div className="w-8 h-1 bg-slate-100 dark:bg-slate-800 rounded-full mt-1 overflow-hidden">
+                                                        <div className="w-8 h-1 bg-gray-100 dark:bg-gray-800 rounded-full mt-1 overflow-hidden">
                                                             <div 
                                                                 className={cn(
                                                                     "h-full",
@@ -733,7 +733,7 @@ export default function ArticlesTable({
                                                         {article.quality_score || '-'}
                                                     </span>
                                                     {(article.quality_score || 0) > 0 && (
-                                                        <div className="w-8 h-1 bg-slate-100 dark:bg-slate-800 rounded-full mt-1 overflow-hidden">
+                                                        <div className="w-8 h-1 bg-gray-100 dark:bg-gray-800 rounded-full mt-1 overflow-hidden">
                                                             <div 
                                                                 className={cn(
                                                                     "h-full",
@@ -748,13 +748,13 @@ export default function ArticlesTable({
                                             </td>
                                             <td className={cn(
                                                 "px-4 py-3 text-right font-mono text-xs transition-colors hidden sm:table-cell",
-                                                isSelected ? "text-sky-900 dark:text-sky-50 font-bold" : "text-slate-700 dark:text-slate-200"
+                                                isSelected ? "text-sky-900 dark:text-sky-50 font-bold" : "text-gray-700 dark:text-gray-200"
                                             )}>
                                                 {article.views?.toLocaleString() || 0}
                                             </td>
                                             <td className={cn(
                                                 "px-4 py-3 text-right text-xs transition-colors hidden xl:table-cell",
-                                                isSelected ? "text-sky-900 dark:text-sky-200 font-medium" : "text-slate-500 dark:text-slate-400"
+                                                isSelected ? "text-sky-900 dark:text-sky-200 font-medium" : "text-gray-500 dark:text-gray-400"
                                             )}>
                                                 {new Date(article.updated_at || article.created_at || '').toLocaleDateString()}
                                             </td>
@@ -768,8 +768,8 @@ export default function ArticlesTable({
                 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                    <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
-                        <div className="text-xs text-slate-500 dark:text-slate-400">
+                    <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
                             Page {pagination.currentPage} of {totalPages}
                         </div>
                         <div className="flex gap-2">
@@ -804,12 +804,12 @@ export default function ArticlesTable({
                         exit={{ y: 100, opacity: 0 }}
                         className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]"
                     >
-                        <div className="flex items-center gap-3 p-2 px-4 bg-slate-900 dark:bg-slate-800 rounded-full shadow-2xl border-2 border-sky-500/50 text-white ring-4 ring-black/5">
+                        <div className="flex items-center gap-3 p-2 px-4 bg-gray-900 dark:bg-gray-800 rounded-full shadow-2xl border-2 border-sky-500/50 text-white ring-4 ring-black/5">
                             <span className="text-sm font-bold whitespace-nowrap px-2">
                                 {selectedIds.length} Article{selectedIds.length !== 1 ? 's' : ''} Selected
                             </span>
                             
-                            <div className="h-8 w-px bg-slate-700 mx-1" />
+                            <div className="h-8 w-px bg-gray-700 mx-1" />
                             
                             <div className="flex items-center gap-1">
                                 {filterStatus === 'trash' ? (
@@ -835,7 +835,7 @@ export default function ArticlesTable({
                                         <Button 
                                             size="sm" 
                                             variant="ghost" 
-                                            className="text-slate-300 hover:text-white hover:bg-slate-700 h-9 px-4 font-bold"
+                                            className="text-gray-300 hover:text-white hover:bg-gray-700 h-9 px-4 font-bold"
                                             onClick={() => handleBulkAction('archive')}
                                         >
                                             Archive
@@ -855,7 +855,7 @@ export default function ArticlesTable({
                                 <Button 
                                     size="sm" 
                                     variant="ghost" 
-                                    className="text-slate-400 hover:text-white hover:bg-slate-700 h-9 w-9 p-0 rounded-full ml-2"
+                                    className="text-gray-400 hover:text-white hover:bg-gray-700 h-9 w-9 p-0 rounded-full ml-2"
                                     onClick={deselectAll}
                                     title="Deselect All"
                                 >
@@ -877,7 +877,7 @@ function SortableHeader({ label, field, sortConfig, onSort, align = 'left', clas
         <th 
             className={cn(
                 "px-4 py-3 cursor-pointer select-none group transition-colors",
-                isActive ? "bg-slate-100/50 dark:bg-slate-800/30" : "hover:bg-slate-100/30 dark:hover:bg-slate-800/20",
+                isActive ? "bg-gray-100/50 dark:bg-gray-800/30" : "hover:bg-gray-100/30 dark:hover:bg-gray-800/20",
                 align === 'right' ? "text-right" : "text-left",
                 className
             )}
@@ -886,18 +886,18 @@ function SortableHeader({ label, field, sortConfig, onSort, align = 'left', clas
             <div className={cn("flex items-center gap-1", align === 'right' ? "justify-end" : "justify-start")}>
                 <span className={cn(
                     "text-xs font-black uppercase tracking-widest transition-colors",
-                    isActive ? "text-sky-600 dark:text-sky-400" : "text-slate-500 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300"
+                    isActive ? "text-sky-600 dark:text-sky-400" : "text-gray-500 dark:text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300"
                 )}>
                     {label}
                 </span>
                 <div className="flex flex-col">
                     <ChevronUp className={cn(
                         "w-2.5 h-2.5 -mb-1 transition-colors",
-                        isActive && sortConfig.direction === 'asc' ? "text-sky-600 dark:text-sky-400" : "text-slate-300 dark:text-slate-700"
+                        isActive && sortConfig.direction === 'asc' ? "text-sky-600 dark:text-sky-400" : "text-gray-300 dark:text-gray-700"
                     )} />
                     <ChevronDown className={cn(
                         "w-2.5 h-2.5 transition-colors",
-                        isActive && sortConfig.direction === 'desc' ? "text-sky-600 dark:text-sky-400" : "text-slate-300 dark:text-slate-700"
+                        isActive && sortConfig.direction === 'desc' ? "text-sky-600 dark:text-sky-400" : "text-gray-300 dark:text-gray-700"
                     )} />
                 </div>
             </div>

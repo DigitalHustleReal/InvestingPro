@@ -192,7 +192,7 @@ export function DataFreshnessText({
 
     return (
         <span 
-            className={cn("text-slate-500 dark:text-slate-600", className)}
+            className={cn("text-gray-500 dark:text-gray-600", className)}
             title={updatedDate.toLocaleString('en-IN')}
         >
             Updated {getTimeAgo()}

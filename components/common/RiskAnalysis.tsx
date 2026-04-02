@@ -96,13 +96,13 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
                 </div>
             </CardHeader>
             <CardContent className="space-y-4">
-                <div className="bg-slate-50 rounded-lg p-6 md:p-8 border border-slate-100">
+                <div className="bg-gray-50 rounded-lg p-6 md:p-8 border border-gray-100">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-slate-600">Recommended Equity Allocation</span>
-                        <span className="font-semibold text-slate-900">{profile.equity.min}-{profile.equity.max}%</span>
+                        <span className="text-sm text-gray-600">Recommended Equity Allocation</span>
+                        <span className="font-semibold text-gray-900">{profile.equity.min}-{profile.equity.max}%</span>
                     </div>
                     <div className="flex items-center justify-between">
-                        <span className="text-sm text-slate-600">Your Current Equity Allocation</span>
+                        <span className="text-sm text-gray-600">Your Current Equity Allocation</span>
                         <span className={`font-bold ${isEquityInRange ? 'text-primary-600' : 'text-accent-600'}`}>
                             {equityPercent}%
                         </span>
@@ -131,8 +131,8 @@ export default function RiskAnalysis({ holdings, user }: RiskAnalysisProps) {
                 </div>
 
                 {!user?.risk_profile && (
-                    <div className="pt-4 border-t border-slate-100">
-                        <p className="text-sm text-slate-600 mb-3">Complete your risk profile for personalized insights</p>
+                    <div className="pt-4 border-t border-gray-100">
+                        <p className="text-sm text-gray-600 mb-3">Complete your risk profile for personalized insights</p>
                         <Link href="/risk-profiler">
                             <Button variant="outline" size="sm" className="w-full">
                                 Take Risk Assessment

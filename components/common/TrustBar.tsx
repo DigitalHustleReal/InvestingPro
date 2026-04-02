@@ -95,7 +95,7 @@ export default function TrustBar() {
     ];
 
     return (
-        <section className="py-8 bg-white dark:bg-slate-950 border-y border-slate-100 dark:border-slate-800">
+        <section className="py-8 bg-white dark:bg-gray-950 border-y border-gray-100 dark:border-gray-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                     {stats.map((stat, idx) => (
@@ -111,14 +111,14 @@ export default function TrustBar() {
                                 <stat.icon className="w-6 h-6" />
                             </div>
                             <div>
-                                <h4 className="text-2xl font-black text-slate-900 dark:text-white leading-none mb-1">
+                                <h4 className="text-2xl font-black text-gray-900 dark:text-white leading-none mb-1">
                                     <AnimatedCounter 
                                         value={stat.value} 
                                         prefix={stat.displayPrefix}
                                         suffix={stat.displaySuffix}
                                     />
                                 </h4>
-                                <p className="text-sm font-semibold text-slate-500 dark:text-slate-600 uppercase tracking-wide">
+                                <p className="text-sm font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wide">
                                     {stat.label}
                                 </p>
                             </div>
@@ -127,18 +127,18 @@ export default function TrustBar() {
                 </div>
 
                 {/* Data Source Attribution - Builds trust through transparency */}
-                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-                    <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-500 dark:text-slate-600">
+                <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
+                    <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-gray-500 dark:text-gray-600">
                         <span className="flex items-center gap-2">
                             <Shield className="w-4 h-4 text-emerald-500" />
                             Data from AMFI & RBI
                         </span>
-                        <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
+                        <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
                         <span className="flex items-center gap-2">
                             <Award className="w-4 h-4 text-amber-500" />
                             Independent Research
                         </span>
-                        <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
+                        <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
                         <span className="flex items-center gap-2">
                             <TrendingUp className="w-4 h-4 text-blue-500" />
                             Updated Daily

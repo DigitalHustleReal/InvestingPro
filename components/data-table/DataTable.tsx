@@ -96,7 +96,7 @@ export function DataTable<T extends Record<string, any>>({
 
   const getSortIcon = (columnKey: string) => {
     if (!sortConfig || sortConfig.column !== columnKey) {
-      return <ChevronsUpDown className="w-4 h-4 text-slate-600" />;
+      return <ChevronsUpDown className="w-4 h-4 text-gray-600" />;
     }
     return sortConfig.direction === 'asc' 
       ? <ChevronUp className="w-4 h-4 text-primary-600" />
@@ -110,7 +110,7 @@ export function DataTable<T extends Record<string, any>>({
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className="h-16 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse"
+            className="h-16 bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"
           />
         ))}
       </div>
@@ -120,8 +120,8 @@ export function DataTable<T extends Record<string, any>>({
   // Empty state
   if (sortedData.length === 0) {
     return (
-      <div className="text-center py-12 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-        <p className="text-slate-500 dark:text-slate-600">{emptyMessage}</p>
+      <div className="text-center py-12 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800">
+        <p className="text-gray-500 dark:text-gray-600">{emptyMessage}</p>
       </div>
     );
   }
@@ -129,9 +129,9 @@ export function DataTable<T extends Record<string, any>>({
   return (
     <div className={`space-y-4 ${className}`}>
       {/* Desktop Table View - shown on md and above (≥768px) */}
-      <div className="hidden md:block overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+      <div className="hidden md:block overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
         <table className="w-full">
-          <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-10">
+          <thead className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
             <tr>
               {selectable && (
                 <th className="w-12 px-4 py-4">
@@ -144,8 +144,8 @@ export function DataTable<T extends Record<string, any>>({
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className={`px-4 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider ${
-                    column.sortable && sortable ? 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors' : ''
+                  className={`px-4 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider ${
+                    column.sortable && sortable ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors' : ''
                   } ${column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : ''}`}
                   style={{ width: column.width }}
                   onClick={() => column.sortable && handleSort(column.key)}
@@ -158,14 +158,14 @@ export function DataTable<T extends Record<string, any>>({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+          <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
             {sortedData.map((row, rowIndex) => {
               const selected = isRowSelected(row);
               return (
                 <tr
                   key={rowIndex}
                   className={`transition-colors ${
-                    onRowClick ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800' : ''
+                    onRowClick ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800' : ''
                   } ${selected ? 'bg-primary-50 dark:bg-primary-900/20' : ''}`}
                   onClick={() => onRowClick?.(row)}
                 >
@@ -180,7 +180,7 @@ export function DataTable<T extends Record<string, any>>({
                   {columns.map((column) => (
                     <td
                       key={column.key}
-                      className={`px-4 py-3 text-sm text-slate-700 dark:text-slate-300 ${
+                      className={`px-4 py-3 text-sm text-gray-700 dark:text-gray-300 ${
                         column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : ''
                       } ${column.className || ''}`}
                     >

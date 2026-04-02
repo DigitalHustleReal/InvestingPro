@@ -17,7 +17,7 @@ const Separator = React.forwardRef<
       role={decorative ? undefined : "separator"}
       aria-orientation={decorative ? undefined : orientation}
       className={cn(
-        "shrink-0 bg-slate-200 dark:bg-slate-800",
+        "shrink-0 bg-gray-200 dark:bg-gray-800",
         orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
         className
       )}

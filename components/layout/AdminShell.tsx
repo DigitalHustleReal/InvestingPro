@@ -19,7 +19,7 @@ export default function AdminShell({ children }: AdminShellProps) {
 
   if (isAdmin) {
     return (
-      <div className="admin-wealth-trust dark min-h-screen bg-slate-950 text-slate-50 flex flex-col [color-scheme:dark]">
+      <div className="admin-wealth-trust dark min-h-screen bg-gray-950 text-gray-50 flex flex-col [color-scheme:dark]">
         {children}
       </div>
     );

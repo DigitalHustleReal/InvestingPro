@@ -45,7 +45,7 @@ export default function AppTracker() {
   return (
     <div className="space-y-4">
       {applications.map((app) => (
-        <Card key={app.id} className="overflow-hidden border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <Card key={app.id} className="overflow-hidden border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div className="flex items-center gap-4">
@@ -55,15 +55,15 @@ export default function AppTracker() {
                   })}
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-white">{app.productName}</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-600 font-medium">{app.provider}</p>
+                  <h4 className="font-bold text-gray-900 dark:text-white">{app.productName}</h4>
+                  <p className="text-xs text-gray-500 dark:text-gray-600 font-medium">{app.provider}</p>
                 </div>
               </div>
 
               {/* Progress Timeline */}
               <div className="flex-grow max-w-md">
                 <div className="relative flex justify-between">
-                  <div className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 dark:bg-slate-800 -translate-y-1/2 z-0" />
+                  <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-100 dark:bg-gray-800 -translate-y-1/2 z-0" />
                   {STEPS.map((step, idx) => {
                     const isCompleted = STEPS.indexOf(app.status) >= idx;
                     const isCurrent = app.status === step;
@@ -72,11 +72,11 @@ export default function AppTracker() {
                       <div key={step} className="relative z-10 flex flex-col items-center">
                         <div className={cn(
                           "w-3 h-3 rounded-full transition-all duration-500",
-                          isCompleted ? "bg-primary-600 scale-125" : "bg-slate-200 dark:bg-slate-700"
+                          isCompleted ? "bg-primary-600 scale-125" : "bg-gray-200 dark:bg-gray-700"
                         )} />
                         <span className={cn(
                           "text-[8px] font-bold uppercase mt-2 tracking-tighter",
-                          isCurrent ? "text-primary-600" : "text-slate-600"
+                          isCurrent ? "text-primary-600" : "text-gray-600"
                         )}>
                           {step.replace('_', ' ')}
                         </span>
@@ -87,16 +87,16 @@ export default function AppTracker() {
               </div>
 
               <div className="flex items-center gap-2">
-                <button className="text-xs font-bold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center">
+                <button className="text-xs font-bold text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center">
                   Track on Bank Site <ExternalLink size={12} className="ml-1" />
                 </button>
               </div>
             </div>
 
             {app.status === 'under_review' && (
-              <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700 flex items-start gap-3">
+              <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700 flex items-start gap-3">
                 <Clock className="w-4 h-4 text-amber-500 mt-0.5" />
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
                   The bank is currently verifying your documents. This usually takes <span className="font-bold">2-3 business days</span>. 
                   We'll notify you on WhatsApp once there's an update.
                 </p>

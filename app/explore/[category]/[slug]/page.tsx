@@ -40,16 +40,16 @@ async function IntentPageContent({
                 description={description}
                 url={`/${categorySlug}/${intentSlug}`}
             />
-            <div className="min-h-screen bg-slate-50">
+            <div className="min-h-screen bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <AutoBreadcrumbs />
                     
                     <div className="mb-8">
-                        <h1 className="text-4xl font-bold text-slate-900 mb-4">
+                        <h1 className="text-4xl font-bold text-gray-900 mb-4">
                             {intent.name} {category.name}
                         </h1>
                         {intent.description && (
-                            <p className="text-xl text-slate-600">
+                            <p className="text-xl text-gray-600">
                                 {intent.description}
                             </p>
                         )}
@@ -61,13 +61,13 @@ async function IntentPageContent({
                             <Link
                                 key={collection.href}
                                 href={collection.href}
-                                className="block p-6 bg-white rounded-lg border border-slate-200 hover:border-emerald-500 hover:shadow-lg transition-all"
+                                className="block p-6 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 hover:shadow-lg transition-all"
                             >
-                                <h3 className="text-lg font-semibold text-slate-900 mb-2 hover:text-emerald-600">
+                                <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-emerald-600">
                                     {collection.name}
                                 </h3>
                                 {collection.description && (
-                                    <p className="text-sm text-slate-500">
+                                    <p className="text-sm text-gray-500">
                                         {collection.description}
                                     </p>
                                 )}
@@ -76,7 +76,7 @@ async function IntentPageContent({
                     </div>
 
                     {/* Category-level link */}
-                    <div className="mt-8 pt-8 border-t border-slate-200">
+                    <div className="mt-8 pt-8 border-t border-gray-200">
                         <Link
                             href={`/${categorySlug}`}
                             className="text-emerald-600 hover:text-emerald-700 font-medium"
@@ -111,15 +111,15 @@ async function SubcategoryPageContent({
     if (!data) {
         // Return basic page even if data fetch fails
         return (
-            <div className="min-h-screen bg-white dark:bg-slate-950">
+            <div className="min-h-screen bg-white dark:bg-gray-950">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                    <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                         {subcategory.name}
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400">
+                    <p className="text-xl text-gray-600 dark:text-gray-400">
                         {subcategory.description}
                     </p>
-                    <p className="mt-8 text-slate-500">
+                    <p className="mt-8 text-gray-500">
                         Content is being generated. Please check back soon.
                     </p>
                 </div>

@@ -3,19 +3,16 @@
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import { Footer } from '@/components/layout/Footer';
-import CookieConsent from '@/components/legal/CookieConsent';
-import ExitIntentPopup from '@/components/common/ExitIntentPopup';
-import { LeadCaptureProvider } from '@/components/engagement/LeadCaptureProvider';
 import PageErrorBoundary from '@/components/common/PageErrorBoundary';
 
 /**
  * Conditional Public Elements Wrapper
- * 
- * Only renders trust/email capture elements on public pages (not admin)
- * - Footer (contains "Zero BS" trust banner)
- * - Newsletter ("Master the Market" email capture)
- * - Exit Intent Popup
- * - Lead Capture Provider
+ *
+ * Only renders public page elements (not admin)
+ * - Footer
+ *
+ * Note: Popups (ExitIntent, CookieConsent, LeadCapture) are managed
+ * in layout.tsx to prevent duplicates. Do NOT add popups here.
  */
 export function ConditionalPublicElements({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -26,15 +23,13 @@ export function ConditionalPublicElements({ children }: { children: React.ReactN
         return <>{children}</>;
     }
 
-    // Public pages: Include all trust/email capture elements
+    // Public pages: children + footer only (popups live in layout.tsx)
     return (
-        <LeadCaptureProvider>
+        <>
             {children}
             <PageErrorBoundary pageName="Footer">
                 <Footer />
             </PageErrorBoundary>
-            <CookieConsent />
-            <ExitIntentPopup />
-        </LeadCaptureProvider>
+        </>
     );
 }

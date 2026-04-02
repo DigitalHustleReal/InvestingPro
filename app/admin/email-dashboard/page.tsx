@@ -72,7 +72,7 @@ export default function EmailDashboard() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Email Marketing Dashboard</h1>
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground dark:text-foreground">Email Marketing Dashboard</h1>
                         <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Track email performance, open rates, and conversions
                         </p>
@@ -180,7 +180,7 @@ export default function EmailDashboard() {
                                     <div className="overflow-x-auto">
                                         <table className="w-full">
                                             <thead>
-                                                <tr className="border-b border-slate-200 dark:border-slate-800">
+                                                <tr className="border-b border-gray-200 dark:border-gray-800">
                                                     <th className="text-left py-3 px-4 text-sm font-semibold">Campaign</th>
                                                     <th className="text-center py-3 px-4 text-sm font-semibold">Sent</th>
                                                     <th className="text-center py-3 px-4 text-sm font-semibold">Open Rate</th>
@@ -192,7 +192,7 @@ export default function EmailDashboard() {
                                                 {campaigns.map((campaign) => (
                                                     <tr
                                                         key={campaign.id}
-                                                        className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-surface-darker/50 dark:bg-surface-darker/50"
+                                                        className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-surface-darker/50 dark:bg-surface-darker/50"
                                                     >
                                                         <td className="py-4 px-4">
                                                             <div className="font-medium">{campaign.name}</div>

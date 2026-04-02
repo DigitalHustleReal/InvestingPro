@@ -113,7 +113,7 @@ export default function FeaturedImageSelector({
                     }}
                     variant="outline"
                     size="sm"
-                    className="flex-1 bg-white hover:bg-slate-100 border-wt-border text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700 dark:hover:text-white"
+                    className="flex-1 bg-white hover:bg-gray-100 border-wt-border text-gray-700 hover:text-gray-900 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                     <ImageIcon className="w-4 h-4 mr-2" />
                     Browse
@@ -129,7 +129,7 @@ export default function FeaturedImageSelector({
                     }}
                     variant="outline"
                     size="sm"
-                    className="flex-1 bg-white hover:bg-slate-100 border-wt-border text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700 dark:hover:text-white"
+                    className="flex-1 bg-white hover:bg-gray-100 border-wt-border text-gray-700 hover:text-gray-900 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                     <Upload className="w-4 h-4 mr-2" />
                     Upload
@@ -139,7 +139,7 @@ export default function FeaturedImageSelector({
                     disabled={autoSelecting || !articleTitle}
                     variant="default"
                     size="sm"
-                    className="col-span-2 bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:hover:bg-white dark:text-slate-900"
+                    className="col-span-2 bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:hover:bg-white dark:text-gray-900"
                     title="Automatically select image based on article title"
                 >
                     {autoSelecting ? (
@@ -166,15 +166,15 @@ export default function FeaturedImageSelector({
                     />
 
                     {/* Modal */}
-                    <div className="relative w-full h-full max-w-7xl max-h-[90vh] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg shadow-2xl flex flex-col overflow-hidden">
+                    <div className="relative w-full h-full max-w-7xl max-h-[90vh] bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg shadow-2xl flex flex-col overflow-hidden">
                         {/* Header */}
-                        <div className="border-b border-wt-border dark:border-slate-800 px-6 py-4 flex items-center justify-between bg-white dark:bg-slate-950 flex-none z-20">
+                        <div className="border-b border-wt-border dark:border-gray-800 px-6 py-4 flex items-center justify-between bg-white dark:bg-gray-950 flex-none z-20">
                             <h2 className="text-lg font-semibold text-wt-text dark:text-white">Select Featured Image</h2>
                             <button
                                 onClick={() => setShowMediaLibrary(false)}
-                                className="p-2 hover:bg-wt-card dark:hover:bg-slate-800 rounded-md transition-colors"
+                                className="p-2 hover:bg-wt-card dark:hover:bg-gray-800 rounded-md transition-colors"
                             >
-                                <X className="w-5 h-5 text-wt-text-muted dark:text-slate-400" />
+                                <X className="w-5 h-5 text-wt-text-muted dark:text-gray-400" />
                             </button>
                         </div>
 
@@ -182,9 +182,6 @@ export default function FeaturedImageSelector({
                         <div className="flex-1 overflow-hidden relative z-0">
                             <MediaLibrary
                                 onSelect={handleMediaSelect}
-                                // Pass the state here
-                                initialView={initialView}
-                                selectionMode={true}
                             />
                         </div>
                     </div>

@@ -29,10 +29,10 @@ export function ProgressBar({ label, percentage, color = 'emerald', showValue = 
   return (
     <div className="mb-4">
       <div className="flex justify-between items-center mb-2">
-        <span className="text-sm font-medium text-slate-700">{label}</span>
-        {showValue && <span className="text-sm font-bold text-slate-900">{percentage}%</span>}
+        <span className="text-sm font-medium text-gray-700">{label}</span>
+        {showValue && <span className="text-sm font-bold text-gray-900">{percentage}%</span>}
       </div>
-      <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+      <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
         <div 
           className={`h-3 rounded-full transition-all duration-500 ${colors[color]}`}
           style={{ width: `${Math.min(percentage, 100)}%` }}
@@ -62,7 +62,7 @@ export function PieChart({ segments }: { segments: Array<{ label: string; percen
       }}>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-            <span className="text-2xl font-bold text-slate-900">100%</span>
+            <span className="text-2xl font-bold text-gray-900">100%</span>
           </div>
         </div>
       </div>
@@ -72,8 +72,8 @@ export function PieChart({ segments }: { segments: Array<{ label: string; percen
         {segments.map((seg, index) => (
           <div key={index} className="flex items-center gap-3">
             <div className="w-4 h-4 rounded" style={{ backgroundColor: seg.color }} />
-            <span className="text-sm text-slate-700">{seg.label}</span>
-            <span className="text-sm font-semibold text-slate-900">{seg.percentage}%</span>
+            <span className="text-sm text-gray-700">{seg.label}</span>
+            <span className="text-sm font-semibold text-gray-900">{seg.percentage}%</span>
           </div>
         ))}
       </div>
@@ -91,16 +91,16 @@ export function BarChart({ data, maxValue }: {
   const max = maxValue || Math.max(...data.map(d => d.value))
   
   return (
-    <div className="my-6 p-6 bg-white border border-slate-200 rounded-lg">
+    <div className="my-6 p-6 bg-white border border-gray-200 rounded-lg">
       <div className="flex items-end justify-around gap-4 h-64">
         {data.map((item, index) => {
           const heightPercentage = (item.value / max) * 100
           return (
             <div key={index} className="flex flex-col items-center flex-1">
-              <div className="mb-2 text-sm font-semibold text-slate-900">
+              <div className="mb-2 text-sm font-semibold text-gray-900">
                 {item.value}
               </div>
-              <div className="w-full bg-slate-100 rounded-t-lg relative" style={{ height: `${heightPercentage}%` }}>
+              <div className="w-full bg-gray-100 rounded-t-lg relative" style={{ height: `${heightPercentage}%` }}>
                 <div 
                   className="absolute bottom-0 w-full rounded-t-lg transition-all duration-500"
                   style={{ 
@@ -109,7 +109,7 @@ export function BarChart({ data, maxValue }: {
                   }}
                 />
               </div>
-              <div className="mt-2 text-xs text-center text-slate-600 max-w-[80px]">
+              <div className="mt-2 text-xs text-center text-gray-600 max-w-[80px]">
                 {item.label}
               </div>
             </div>
@@ -133,12 +133,12 @@ export function ComparisonSlider({
   percentage: number 
 }) {
   return (
-    <div className="my-6 p-6 bg-gradient-to-r from-success-50 to-primary-50 rounded-lg border border-slate-200">
+    <div className="my-6 p-6 bg-gradient-to-r from-success-50 to-primary-50 rounded-lg border border-gray-200">
       <div className="flex justify-between mb-3">
-        <span className="font-semibold text-slate-900">{option1}</span>
-        <span className="font-semibold text-slate-900">{option2}</span>
+        <span className="font-semibold text-gray-900">{option1}</span>
+        <span className="font-semibold text-gray-900">{option2}</span>
       </div>
-      <div className="relative h-12 bg-white rounded-full overflow-hidden border-2 border-slate-300">
+      <div className="relative h-12 bg-white rounded-full overflow-hidden border-2 border-gray-300">
         <div 
           className="absolute left-0 top-0 h-full bg-gradient-to-r from-success-500 to-success-600 flex items-center justify-end pr-4 transition-all duration-500"
           style={{ width: `${percentage}%` }}
@@ -176,8 +176,8 @@ export function Timeline({ steps }: { steps: Array<{ title: string; description:
           
           {/* Step Content */}
           <div className="flex-1 pb-6">
-            <h4 className="font-bold text-slate-900 mb-1">{step.title}</h4>
-            <p className="text-slate-600 text-sm">{step.description}</p>
+            <h4 className="font-bold text-gray-900 mb-1">{step.title}</h4>
+            <p className="text-gray-600 text-sm">{step.description}</p>
           </div>
         </div>
       ))}
@@ -191,19 +191,19 @@ export function Timeline({ steps }: { steps: Array<{ title: string; description:
 export function RatingDisplay({ rating, maxRating = 5, label }: { rating: number; maxRating?: number; label?: string }) {
   return (
     <div className="flex items-center gap-3 my-4">
-      {label && <span className="text-sm font-medium text-slate-700">{label}</span>}
+      {label && <span className="text-sm font-medium text-gray-700">{label}</span>}
       <div className="flex gap-1">
         {Array.from({ length: maxRating }).map((_, index) => (
           <svg
             key={index}
-            className={`w-6 h-6 ${index < rating ? 'text-accent-400 fill-current' : 'text-slate-300'}`}
+            className={`w-6 h-6 ${index < rating ? 'text-accent-400 fill-current' : 'text-gray-300'}`}
             viewBox="0 0 20 20"
           >
             <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
           </svg>
         ))}
       </div>
-      <span className="text-sm font-bold text-slate-900">{rating}/{maxRating}</span>
+      <span className="text-sm font-bold text-gray-900">{rating}/{maxRating}</span>
     </div>
   )
 }
@@ -221,7 +221,7 @@ export function GrowthIndicator({
   const colors = {
     up: 'text-success-600',
     down: 'text-danger-600',
-    neutral: 'text-slate-600'
+    neutral: 'text-gray-600'
   }
   
   const arrows = {
@@ -232,7 +232,7 @@ export function GrowthIndicator({
   
   return (
     <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border-2 ${
-      trend === 'up' ? 'border-success-200' : trend === 'down' ? 'border-danger-200' : 'border-slate-200'
+      trend === 'up' ? 'border-success-200' : trend === 'down' ? 'border-danger-200' : 'border-gray-200'
     }`}>
       <span className={`text-2xl font-bold ${colors[trend]}`}>{value}</span>
       <span className={`text-2xl ${colors[trend]}`}>{arrows[trend]}</span>
@@ -256,18 +256,18 @@ export function FeatureGrid({
           className={`flex items-center gap-3 p-4 rounded-lg border-2 ${
             feature.available 
               ? 'bg-primary-50 border-primary-200' 
-              : 'bg-slate-50 border-slate-200'
+              : 'bg-gray-50 border-gray-200'
           }`}
         >
           <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
-            feature.available ? 'bg-primary-600' : 'bg-slate-400'
+            feature.available ? 'bg-primary-600' : 'bg-gray-400'
           }`}>
             <span className="text-white text-sm font-bold">
               {feature.available ? 'âœ“' : 'âœ—'}
             </span>
           </div>
           <span className={`text-sm font-medium ${
-            feature.available ? 'text-slate-900' : 'text-slate-500'
+            feature.available ? 'text-gray-900' : 'text-gray-500'
           }`}>
             {feature.name}
           </span>
@@ -296,13 +296,13 @@ export function MetricCard({
   return (
     <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
       <div className="text-4xl mb-2">{icon}</div>
-      <p className="text-sm text-slate-600 mb-2">{label}</p>
+      <p className="text-sm text-gray-600 mb-2">{label}</p>
       <p className="text-3xl font-bold text-primary-600 mb-2">{value}</p>
       {change && (
         <p className={`text-xs font-medium ${
           changeType === 'positive' ? 'text-success-600' : 
           changeType === 'negative' ? 'text-danger-600' : 
-          'text-slate-600'
+          'text-gray-600'
         }`}>
           {change}
         </p>

@@ -78,8 +78,8 @@ export function DataTable<T extends { id: string | number }>({
                 className={cn(
                   "px-6 py-3 text-left",
                   "text-xs font-semibold uppercase tracking-wider",
-                  "text-slate-300 font-inter",
-                  column.sortable && "cursor-pointer hover:text-slate-200 select-none",
+                  "text-gray-300 font-inter",
+                  column.sortable && "cursor-pointer hover:text-gray-200 select-none",
                   column.className
                 )}
                 onClick={() => column.sortable && handleSort(String(column.key))}
@@ -123,7 +123,7 @@ export function DataTable<T extends { id: string | number }>({
                     key={String(column.key)}
                     className={cn(
                       "px-6 py-4 whitespace-nowrap",
-                      "text-sm text-slate-200 font-inter",
+                      "text-sm text-gray-200 font-inter",
                       column.className
                     )}
                   >
@@ -138,7 +138,7 @@ export function DataTable<T extends { id: string | number }>({
             <tr>
               <td
                 colSpan={columns.length}
-                className="px-6 py-12 text-center text-slate-600 font-inter"
+                className="px-6 py-12 text-center text-gray-600 font-inter"
               >
                 {emptyMessage}
               </td>
@@ -162,7 +162,7 @@ export function StatusBadge({ status, children }: StatusBadgeProps) {
     warning: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
     error: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
     info: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-    neutral: 'bg-slate-500/10 text-slate-300 border-slate-500/20',
+    neutral: 'bg-gray-500/10 text-gray-300 border-gray-500/20',
   };
 
   return (

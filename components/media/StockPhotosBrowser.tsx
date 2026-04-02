@@ -77,11 +77,11 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
     return (
         <div className="h-full flex flex-col">
             {/* Header */}
-            <div className="p-4 border-b bg-slate-50">
-                <h3 className="text-lg font-bold text-slate-900 mb-3">
+            <div className="p-4 border-b bg-gray-50">
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
                     📸 Free Stock Photos
                 </h3>
-                <p className="text-sm text-slate-600 mb-4">
+                <p className="text-sm text-gray-600 mb-4">
                     Search millions of free images from Pexels and Pixabay
                 </p>
 
@@ -93,7 +93,7 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                        className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                     />
                     <button
                         onClick={handleSearch}
@@ -113,7 +113,7 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                                 setSearchQuery(term);
                                 StockPhotoService.searchPhotos(term).then(setPhotos);
                             }}
-                            className="px-3 py-1 text-sm bg-slate-200 text-slate-700 rounded-full hover:bg-slate-300"
+                            className="px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300"
                         >
                             {term}
                         </button>
@@ -127,14 +127,14 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <div className="animate-spin rounded-full h-12 w-12 border-4 border-secondary-600 border-t-transparent mx-auto mb-4"></div>
-                            <p className="text-slate-500">Loading stock photos...</p>
+                            <p className="text-gray-500">Loading stock photos...</p>
                         </div>
                     </div>
                 ) : photos.length === 0 ? (
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
-                            <p className="text-slate-500 text-lg mb-2">No photos found</p>
-                            <p className="text-slate-600 text-sm">Try a different search term</p>
+                            <p className="text-gray-500 text-lg mb-2">No photos found</p>
+                            <p className="text-gray-600 text-sm">Try a different search term</p>
                         </div>
                     </div>
                 ) : (
@@ -145,7 +145,7 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                                 className="group relative border rounded-lg overflow-hidden hover:shadow-lg transition-all"
                             >
                                 {/* Image */}
-                                <div className="aspect-square bg-slate-100 relative">
+                                <div className="aspect-square bg-gray-100 relative">
                                     <img
                                         src={photo.thumbnailUrl}
                                         alt={`Photo by ${photo.photographer}`}
@@ -180,12 +180,12 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
                                         href={photo.photographerUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-xs text-slate-600 hover:text-secondary-600 truncate block"
+                                        className="text-xs text-gray-600 hover:text-secondary-600 truncate block"
                                         title={`Photo by ${photo.photographer}`}
                                     >
                                         📸 {photo.photographer}
                                     </a>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-gray-500 mt-1">
                                         {photo.width} × {photo.height}
                                     </p>
                                 </div>
@@ -196,8 +196,8 @@ export function StockPhotosBrowser({ onSelect }: StockPhotosBrowserProps) {
             </div>
 
             {/* Footer */}
-            <div className="border-t p-3 bg-slate-50">
-                <p className="text-xs text-slate-600 text-center">
+            <div className="border-t p-3 bg-gray-50">
+                <p className="text-xs text-gray-600 text-center">
                     Images from <strong>Pexels</strong> and <strong>Pixabay</strong>. Free to use with attribution.
                 </p>
             </div>

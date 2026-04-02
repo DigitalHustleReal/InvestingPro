@@ -1,140 +1,103 @@
-// Server Component for ISR support
+// InvestingPro v2 Homepage — March 2026 Redesign
+// NerdWallet structure + modern execution + Indian identity
 
-// ISR: Revalidate every 5 minutes (homepage has frequently changing content)
-export const revalidate = 300;
+export const revalidate = 300; // ISR: 5 minutes
 
-// Rebuild trigger 1
 import React, { Suspense } from 'react';
-import HeroSplit from "@/components/home/HeroSplit";
-import QuickToolsSection from "@/components/home/QuickToolsSection";
-import LatestInsights from "@/components/home/LatestInsights";
-import SEOHead from "@/components/common/SEOHead";
-import FeaturedProducts from "@/components/home/FeaturedProducts";
-import CategoryDiscovery from "@/components/home/CategoryDiscovery";
-import PageErrorBoundary from "@/components/common/PageErrorBoundary";
-import HomepageOptimizations from "@/components/home/HomepageOptimizations";
-import { STRUCTURED_DATA_STATS } from "@/lib/constants/platform-stats";
+import { Metadata } from 'next';
+import Hero from '@/components/v2/home/Hero';
+import TrustBar from '@/components/v2/home/TrustBar';
+import MarketPulse from '@/components/v2/home/MarketPulse';
+import TopPicks from '@/components/v2/home/TopPicks';
+import CalculatorSpotlight from '@/components/v2/home/CalculatorSpotlight';
+import Editorial from '@/components/v2/home/Editorial';
+import ExploreCategories from '@/components/v2/home/ExploreCategories';
+import NewsletterTrust from '@/components/v2/home/NewsletterTrust';
 
-// Lazy load heavy components below the fold for better initial load performance
-import StickyMobileCTA from "@/components/home/StickyMobileCTA";
+export const metadata: Metadata = {
+  title: 'InvestingPro — India\'s Independent Financial Comparison Platform',
+  description: 'Compare 500+ credit cards, 2,000+ mutual funds, and 60+ loan products. Independent research, AI-powered recommendations, 25 free calculators. No paid rankings.',
+  openGraph: {
+    title: 'InvestingPro — India\'s Independent Financial Comparison Platform',
+    description: 'Compare credit cards, mutual funds, loans, insurance, and more. Free. Independent. Updated daily.',
+    url: 'https://investingpro.in',
+    type: 'website',
+    locale: 'en_IN',
+  },
+};
 
-/**
- * Section wrapper that provides isolation.
- * If one vertical fails, the rest of the command center stays operational.
- */
-function CommandCenterSection({ children, name }: { children: React.ReactNode, name: string }) {
-    return (
-        <PageErrorBoundary pageName={`Home Section: ${name}`}>
-            {children}
-        </PageErrorBoundary>
-    );
+function SectionSkeleton() {
+  return (
+    <div className="py-12 md:py-16 px-4 lg:px-8">
+      <div className="max-w-[1200px] mx-auto">
+        <div className="h-5 w-20 bg-gray-200 rounded mb-2 animate-pulse" />
+        <div className="h-7 w-64 bg-gray-200 rounded mb-7 animate-pulse" />
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="bg-white border border-gray-200 rounded-xl p-4 space-y-3 animate-pulse">
+              <div className="h-4 bg-gray-100 rounded w-1/3" />
+              <div className="h-5 bg-gray-100 rounded w-3/4" />
+              <div className="h-3 bg-gray-100 rounded w-full" />
+              <div className="h-3 bg-gray-100 rounded w-2/3" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
-/**
- * Homepage v3 — Streamlined from 8 sections → 5
- *
- * New order (optimized for conversion path):
- * 1. Hero — value prop + search + inline trust signals
- * 2. Category Discovery — immediate routing (moved from position 7)
- * 3. Featured Products — high-intent selection
- * 4. Quick Tools — calculators (moved from position 6)
- * 5. Latest Insights — editorial authority + SEO
- *
- * Removed:
- * - SmartAdvisorWidget (competed with hero search)
- * - TrendingSection (used mock data, not real)
- * - TrustSection (signals integrated into hero)
- * - ScrollProgressBar (not needed on homepage)
- */
 export default function Home() {
-    const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "InvestingPro - India's Most Trusted Finance Comparison Platform",
-        "alternateName": "InvestingPro.in",
-        "description": "Compare credit cards, loans, mutual funds, and insurance. Independent research, AI-powered recommendations, and free financial calculators for smart money decisions.",
-        "url": "https://investingpro.in",
-        "slogan": "India's Most Trusted Finance Comparison Platform",
-        "aggregateRating": STRUCTURED_DATA_STATS.aggregateRating,
-        "areaServed": {
-            "@type": "Country",
-            "name": "India"
-        },
-        "knowsAbout": ["Personal Finance", "Credit Cards", "Loans", "Mutual Funds", "Investment", "Insurance", "Fixed Deposits"],
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://investingpro.in/search?q={search_term_string}"
-            },
-            "query-input": "required name=search_term_string"
-        },
-        "offers": {
-            "@type": "AggregateOffer",
-            "offerCount": "500+",
-            "lowPrice": "0",
-            "highPrice": "0",
-            "priceCurrency": "INR"
-        }
-    };
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'InvestingPro',
+    url: 'https://investingpro.in',
+    description: 'India\'s independent financial comparison platform',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://investingpro.in/search?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
 
-    return (
-        <>
-            {/* Phase 3 Optimizations: Performance, Accessibility, Conversion Tracking */}
-            <HomepageOptimizations />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
-            <main
-                className="flex flex-col min-h-screen bg-background"
-                role="main"
-                aria-label="InvestingPro homepage"
-                id="main-content"
-            >
-            <SEOHead
-                title="InvestingPro - Compare Credit Cards, Loans & Mutual Funds | India's Trusted Platform"
-                description="Compare 500+ credit cards, mutual funds, loans, and insurance products. Free calculators, independent rankings, and AI-powered recommendations. No paid rankings."
-                structuredData={structuredData}
-            />
+      {/* S3: Hero — centered, geometric bg, category cards */}
+      <Hero />
 
-            {/* 1. Hero — Value prop, search, trust signals */}
-            <CommandCenterSection name="Hero">
-                <section data-section-name="Hero" aria-label="Hero section">
-                    <HeroSplit />
-                </section>
-            </CommandCenterSection>
+      {/* S4: Trust bar — green gradient */}
+      <TrustBar />
 
-            {/* 2. Category Discovery — Immediate routing to product categories */}
-            <CommandCenterSection name="Category Discovery">
-                <section data-section-name="Category Discovery" aria-label="Explore financial categories">
-                    <CategoryDiscovery />
-                </section>
-            </CommandCenterSection>
+      {/* S6: Market Pulse — cream bg, dot pattern, editorial cards */}
+      <Suspense fallback={<SectionSkeleton />}>
+        <MarketPulse />
+      </Suspense>
 
-            {/* 3. Featured Products — High-intent selection */}
-            <CommandCenterSection name="Featured Products">
-                <section data-section-name="Featured Products" aria-label="Featured financial products">
-                    <FeaturedProducts />
-                </section>
-            </CommandCenterSection>
+      {/* S7: Top Picks — product cards with scores */}
+      <Suspense fallback={<SectionSkeleton />}>
+        <TopPicks />
+      </Suspense>
 
-            {/* 4. Quick Tools — Calculators (high retention, viral sharing) */}
-            <CommandCenterSection name="Quick Tools">
-                <section data-section-name="Quick Tools" aria-label="Financial calculators and tools">
-                    <QuickToolsSection />
-                </section>
-            </CommandCenterSection>
+      {/* S8: Calculators — gray bg, grid pattern, 3 previews */}
+      <CalculatorSpotlight />
 
-            {/* 5. Latest Insights — Editorial authority + SEO */}
-            <CommandCenterSection name="Latest Insights">
-                <section data-section-name="Latest Insights" aria-label="Latest financial insights and articles">
-                    <LatestInsights />
-                </section>
-            </CommandCenterSection>
+      {/* S9: Explore — NerdWallet-style category navigator */}
+      <ExploreCategories />
 
-            {/* Sticky Mobile CTA - Lazy loaded, appears after scrolling */}
-            <Suspense fallback={null}>
-                <StickyMobileCTA />
-            </Suspense>
-        </main>
-        </>
-    );
+      {/* S10: Newsletter + Trust — green gradient, geometric lines */}
+      <NewsletterTrust />
+
+      {/* S11: Editorial — article cards */}
+      <Editorial />
+    </>
+  );
 }

@@ -45,9 +45,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             return (
                 <Slot
                     className={cn(buttonVariants({ variant, size, className }))}
-                    ref={ref}
-                    disabled={loading || disabled}
-                    {...props}
+                    ref={ref as React.Ref<HTMLElement>}
+                    {...(props as React.HTMLAttributes<HTMLElement>)}
                 >
                     {children}
                 </Slot>

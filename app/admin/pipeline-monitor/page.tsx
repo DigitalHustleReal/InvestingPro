@@ -103,7 +103,7 @@ export default function PipelineMonitorPage() {
                             </div>
                             <div>
                                 <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Pipeline Intelligence</h1>
-                                <p className="text-slate-300 max-w-md">Real-time visibility and heuristic analysis of the AI content generation engine.</p>
+                                <p className="text-gray-300 max-w-md">Real-time visibility and heuristic analysis of the AI content generation engine.</p>
                             </div>
                         </div>
                         

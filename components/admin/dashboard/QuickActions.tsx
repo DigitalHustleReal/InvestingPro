@@ -27,7 +27,7 @@ const ACTIONS: QuickAction[] = [
     { label: 'Content Factory',  icon: Wand2,       href: '/admin/content-factory',  color: 'text-amber-400' },
     { label: 'Authors',          icon: Users,        href: '/admin/authors',          color: 'text-purple-400' },
     { label: 'Articles',         icon: FileText,    href: '/admin/articles',         color: 'text-orange-400' },
-    { label: 'Settings',         icon: Settings,    href: '/admin/settings',         color: 'text-slate-300' },
+    { label: 'Settings',         icon: Settings,    href: '/admin/settings',         color: 'text-gray-300' },
 ];
 
 export default function QuickActions() {
@@ -52,7 +52,7 @@ export default function QuickActions() {
                         )}>
                             <Icon className={cn("w-5 h-5", color)} />
                         </div>
-                        <span className="text-[14px] font-bold text-slate-200 group-hover/btn:text-white transition-colors truncate">
+                        <span className="text-[14px] font-bold text-gray-200 group-hover/btn:text-white transition-colors truncate">
                             {label}
                         </span>
                     </button>

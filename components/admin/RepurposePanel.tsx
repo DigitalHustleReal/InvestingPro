@@ -94,18 +94,18 @@ export function RepurposePanel({ articleId, title, content }: RepurposePanelProp
             </div>
 
             {result && (
-                <div className="mt-6 p-4 bg-slate-50 dark:bg-surface-darker rounded-xl border border-wt-border animate-in fade-in slide-in-from-top-2">
+                <div className="mt-6 p-4 bg-gray-50 dark:bg-surface-darker rounded-xl border border-wt-border animate-in fade-in slide-in-from-top-2">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                             <Sparkles className="w-4 h-4 text-wt-gold"/>
-                            <span className="text-xs font-bold uppercase text-slate-500">{result.format} Preview</span>
+                            <span className="text-xs font-bold uppercase text-gray-500">{result.format} Preview</span>
                         </div>
                         <Button variant="ghost" size="sm" onClick={() => copyToClipboard(JSON.stringify(result.data, null, 2))}>
                             {copied ? <Check className="w-4 h-4 text-green-500"/> : <Copy className="w-4 h-4"/>}
                         </Button>
                     </div>
 
-                    <div className="text-xs text-slate-700 dark:text-slate-300 font-mono overflow-x-auto whitespace-pre-wrap max-h-[300px] overflow-y-auto">
+                    <div className="text-xs text-gray-700 dark:text-gray-300 font-mono overflow-x-auto whitespace-pre-wrap max-h-[300px] overflow-y-auto">
                         {renderRepurposeResult(result)}
                     </div>
                 </div>
@@ -130,7 +130,7 @@ function renderRepurposeResult({ format, data }: { format: string; data: any }) 
                 <div className="mb-4">{data.post}</div>
                 {data.hooks && data.hooks.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-wt-border">
-                        <p className="font-bold text-slate-400 mb-2">Alternative Hooks:</p>
+                        <p className="font-bold text-gray-400 mb-2">Alternative Hooks:</p>
                         {data.hooks.map((h: string, i: number) => (
                             <div key={i} className="mb-2 italic">"{h}"</div>
                         ))}

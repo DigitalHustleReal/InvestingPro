@@ -73,7 +73,7 @@ export function DialogContent({
             />
             <div
                 className={cn(
-                    "relative z-[101] w-full max-w-lg rounded-lg bg-white dark:bg-slate-900 p-6 shadow-xl dark:border dark:border-slate-800",
+                    "relative z-[101] w-full max-w-lg rounded-lg bg-white dark:bg-gray-900 p-6 shadow-xl dark:border dark:border-gray-800",
                     className
                 )}
                 onClick={(e) => e.stopPropagation()}
@@ -148,7 +148,7 @@ export function DialogDescription({
 }: React.HTMLAttributes<HTMLParagraphElement>) {
     return (
         <p
-            className={cn("text-sm text-slate-600", className)}
+            className={cn("text-sm text-gray-600", className)}
             {...props}
         />
     )

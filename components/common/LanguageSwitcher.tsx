@@ -86,7 +86,7 @@ export default function LanguageSwitcher({ isMobile = false }: { isMobile?: bool
 
     return (
         <Select value={currentLang} onValueChange={handleLanguageChange}>
-            <SelectTrigger className="w-[110px] h-9 text-xs font-medium border-slate-200 bg-transparent hover:bg-slate-50 focus:ring-0">
+            <SelectTrigger className="w-[110px] h-9 text-xs font-medium border-gray-200 bg-transparent hover:bg-gray-50 focus:ring-0">
                 <Globe className="w-3 h-3 mr-2 opacity-50" />
                 <SelectValue placeholder="Language" />
             </SelectTrigger>

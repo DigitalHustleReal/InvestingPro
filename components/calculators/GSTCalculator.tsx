@@ -159,7 +159,7 @@ export function GSTCalculator() {
                                     <Label className="text-sm font-semibold text-foreground flex items-center gap-2">
                                         <Percent className="w-4 h-4" /> GST Rate
                                     </Label>
-                                    <Select value={gstRate.toString()} onValueChange={(value) => setGstRate(Number(value))}>
+                                    <Select value={gstRate.toString()} onValueChange={(value: string) => setGstRate(Number(value))}>
                                         <SelectTrigger className="h-10">
                                             <SelectValue />
                                         </SelectTrigger>
@@ -244,7 +244,7 @@ export function GSTCalculator() {
                             <Label className="text-sm font-semibold text-foreground flex items-center gap-2">
                                 <Percent className="w-4 h-4" /> GST Rate
                             </Label>
-                            <Select value={gstRate.toString()} onValueChange={(value) => setGstRate(Number(value))}>
+                            <Select value={gstRate.toString()} onValueChange={(value: string) => setGstRate(Number(value))}>
                                 <SelectTrigger className="h-12">
                                     <SelectValue />
                                 </SelectTrigger>
@@ -358,7 +358,7 @@ export function GSTCalculator() {
                                     />
                                     <Tooltip
                                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                                        formatter={(value: number | undefined, name: string) => [value !== undefined ? `₹${value.toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : '', name === 'total' ? 'Total Amount' : 'GST Amount']}
+                                        formatter={(value: number | undefined, name: string | undefined) => [value !== undefined ? `₹${value.toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : '', name === 'total' ? 'Total Amount' : 'GST Amount'] as [string, string]}
                                     />
                                     <Bar dataKey="total" radius={[8, 8, 0, 0]} name="Total Amount">
                                         {allRatesData.map((entry, index) => (

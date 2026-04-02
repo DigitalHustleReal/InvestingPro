@@ -63,8 +63,8 @@ export const INSTITUTIONAL_VISUAL_STYLE: VisualStyle = {
         primary: '#10b981', // success-500
         secondary: '#0f766e', // primary-700
         accent: '#06b6d4', // cyan-500
-        background: '#0f172a', // slate-900
-        text: '#f1f5f9', // slate-100
+        background: '#0f172a', // gray-900
+        text: '#f1f5f9', // gray-100
     },
     typography: {
         fontFamily: 'system-ui, -apple-system, sans-serif',

@@ -15,8 +15,8 @@ export default function SEOContentBlock({ title, content, className }: SEOConten
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section className={cn("bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 md:p-8", className)}>
-      <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">{title}</h2>
+    <section className={cn("bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 md:p-8", className)}>
+      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{title}</h2>
       
       <div 
         className={cn(

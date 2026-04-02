@@ -151,32 +151,32 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
         <>
             {/* Backdrop */}
             <div 
-                className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] animate-in fade-in duration-300"
+                className="fixed inset-0 bg-gray-950/60 backdrop-blur-md z-[100] animate-in fade-in duration-300"
                 onClick={onClose}
             />
 
             {/* Palette */}
             <div className="fixed left-1/2 top-[12%] -translate-x-1/2 w-[95%] max-w-2xl z-[101] animate-in zoom-in-95 slide-in-from-top-8 fade-in duration-300">
-                <div className="bg-slate-900/90 border border-white/10 rounded-xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl overflow-hidden ring-1 ring-white/5">
+                <div className="bg-gray-900/90 border border-white/10 rounded-xl shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl overflow-hidden ring-1 ring-white/5">
                     
                     {/* Search Input */}
                     <div className="relative flex items-center gap-4 px-6 py-5 border-b border-white/10 group">
                         <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary-500/50 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity" />
                         
-                        <Search className="w-6 h-6 text-slate-600 group-focus-within:text-primary-400 transition-colors" />
+                        <Search className="w-6 h-6 text-gray-600 group-focus-within:text-primary-400 transition-colors" />
                         <input
                             ref={inputRef}
                             type="text"
                             placeholder="Search products, articles, or tools..."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            className="flex-1 bg-transparent text-white text-xl placeholder-slate-500 focus:outline-none font-light"
+                            className="flex-1 bg-transparent text-white text-xl placeholder-gray-500 focus:outline-none font-light"
                         />
                         
                         {isLoading ? (
                             <Loader2 className="w-5 h-5 text-primary-400 animate-spin" />
                         ) : (
-                            <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-slate-500">
+                            <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-gray-500">
                                 <span>ESC</span>
                             </div>
                         )}
@@ -187,7 +187,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                         {/* Suggestions Header */}
                         {!query && trending.length > 0 && (
                             <div className="px-6 pt-4 pb-2">
-                                <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Trending Now</h3>
+                                <h3 className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">Trending Now</h3>
                             </div>
                         )}
 
@@ -200,8 +200,8 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                             onClick={() => setQuery(s.query)}
                                             className="px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-primary-500/30 hover:bg-primary-500/5 text-left transition-all group/s"
                                         >
-                                            <div className="text-xs font-semibold text-slate-300 group-hover/s:text-white transition-colors">{s.label}</div>
-                                            <div className="text-[10px] text-slate-500 mt-0.5">Quick Search</div>
+                                            <div className="text-xs font-semibold text-gray-300 group-hover/s:text-white transition-colors">{s.label}</div>
+                                            <div className="text-[10px] text-gray-500 mt-0.5">Quick Search</div>
                                         </button>
                                     ))}
                                 </div>
@@ -239,7 +239,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
 
                                         <div className="flex-1 min-w-0 py-0.5">
                                             <div className="flex items-center gap-2">
-                                                <span className="font-semibold text-slate-100 group-hover/item:text-white transition-colors">
+                                                <span className="font-semibold text-gray-100 group-hover/item:text-white transition-colors">
                                                     {item.title}
                                                 </span>
                                                 <span className={cn(
@@ -256,7 +256,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                                 <div className="text-[10px] text-primary-400/80 font-medium mt-0.5">{item.provider}</div>
                                             )}
 
-                                            <div className="text-xs text-slate-500 line-clamp-1 mt-1 font-light leading-relaxed">
+                                            <div className="text-xs text-gray-500 line-clamp-1 mt-1 font-light leading-relaxed">
                                                 {item.excerpt}
                                             </div>
                                         </div>
@@ -267,7 +267,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                         )}>
                                             <ArrowRight className={cn(
                                                 "w-4 h-4",
-                                                selectedIndex === index ? "text-primary-400" : "text-slate-600"
+                                                selectedIndex === index ? "text-primary-400" : "text-gray-600"
                                             )} />
                                         </div>
                                     </button>
@@ -275,9 +275,9 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                             </div>
                         ) : query.length >= 2 && !isLoading ? (
                             <div className="py-20 text-center animate-in fade-in zoom-in-95 duration-500">
-                                <Search className="w-12 h-12 mx-auto mb-4 text-slate-700 stroke-[1]" />
-                                <p className="text-lg font-light text-slate-300">Nothing found for "{query}"</p>
-                                <p className="text-sm text-slate-500 mt-2">Try searching for 'hdfc', 'sip', or 'mutual funds'</p>
+                                <Search className="w-12 h-12 mx-auto mb-4 text-gray-700 stroke-[1]" />
+                                <p className="text-lg font-light text-gray-300">Nothing found for "{query}"</p>
+                                <p className="text-sm text-gray-500 mt-2">Try searching for 'hdfc', 'sip', or 'mutual funds'</p>
                             </div>
                         ) : null}
                     </div>
@@ -285,17 +285,17 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                     {/* Footer Nav Hints */}
                     <div className="px-6 py-4 bg-black/20 border-t border-white/5 backdrop-blur-md flex items-center justify-between">
                         <div className="flex items-center gap-6">
-                            <div className="flex items-center gap-2 text-[10px] text-slate-500">
-                                <kbd className="flex items-center justify-center w-5 h-5 rounded border border-white/10 bg-white/5 text-slate-600">↑↓</kbd>
+                            <div className="flex items-center gap-2 text-[10px] text-gray-500">
+                                <kbd className="flex items-center justify-center w-5 h-5 rounded border border-white/10 bg-white/5 text-gray-600">↑↓</kbd>
                                 <span>Navigate</span>
                             </div>
-                            <div className="flex items-center gap-2 text-[10px] text-slate-500">
-                                <kbd className="flex items-center justify-center w-8 h-5 rounded border border-white/10 bg-white/5 text-slate-600">↵</kbd>
+                            <div className="flex items-center gap-2 text-[10px] text-gray-500">
+                                <kbd className="flex items-center justify-center w-8 h-5 rounded border border-white/10 bg-white/5 text-gray-600">↵</kbd>
                                 <span>Select</span>
                             </div>
                         </div>
                         
-                        <div className="flex items-center gap-2 text-[10px] text-slate-300 font-medium px-2 py-1 rounded bg-primary-500/10 text-primary-400 border border-primary-500/10">
+                        <div className="flex items-center gap-2 text-[10px] text-gray-300 font-medium px-2 py-1 rounded bg-primary-500/10 text-primary-400 border border-primary-500/10">
                             <Clock className="w-3 h-3" />
                             <span>Quick Access</span>
                         </div>

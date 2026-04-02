@@ -36,7 +36,7 @@ export default function DifficultyBadge({ level, className }: DifficultyBadgePro
       meta.color,
       className
     )}>
-      <div className="w-10 h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+      <div className="w-10 h-1 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
         <div className={cn("h-full bg-current opacity-60", meta.width)} />
       </div>
       <span>{meta.label}</span>

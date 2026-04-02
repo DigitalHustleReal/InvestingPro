@@ -116,7 +116,7 @@ export default function DataStudiesPage() {
   const liveStudiesCount = Array.isArray(studies) ? studies.filter(s => s.isLive).length : 0;
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
       {/* Hero Section */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -124,14 +124,14 @@ export default function DataStudiesPage() {
             <Database className="w-3 h-3 mr-1" />
             Data-Driven Insights
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             India Finance Data Studies
           </h1>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
             Authoritative data on loans, insurance, investments, banking, and government schemes. 
             Updated from official RBI, IRDAI, SEBI, and government sources.
           </p>
-          <div className="flex items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-600">
+          <div className="flex items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-600">
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4 text-green-500" />
               {liveStudiesCount} Live Data Studies
@@ -217,7 +217,7 @@ export default function DataStudiesPage() {
                   <span className={`p-2 rounded-lg ${CATEGORY_COLORS[category]}`}>
                     {CATEGORY_ICONS[category]}
                   </span>
-                  <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {CATEGORY_LABELS[category] || category}
                   </h2>
                   <Badge variant="outline">
@@ -244,9 +244,9 @@ export default function DataStudiesPage() {
 
       {/* Popular Studies Highlight */}
       {!searchTerm && activeCategory === 'all' && (
-        <section className="py-12 px-4 bg-slate-100 dark:bg-slate-800/50">
+        <section className="py-12 px-4 bg-gray-100 dark:bg-gray-800/50">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
               Most Popular Data Studies
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -278,10 +278,10 @@ export default function DataStudiesPage() {
       {/* CTA Section */}
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             Use Our Data in Your Content
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-6">
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
             Journalists, bloggers, and researchers can cite our data studies. 
             All data is sourced from official government and regulatory bodies (RBI, IRDAI, SEBI, AMFI).
           </p>
@@ -307,19 +307,19 @@ function QuickLinkCard({ title, href, icon }: { title: string; href: string; ico
   return (
     <Link 
       href={href}
-      className="flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+      className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
     >
       <span className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg text-primary-600 dark:text-primary-400">
         {icon}
       </span>
-      <span className="font-medium text-slate-900 dark:text-white">{title}</span>
+      <span className="font-medium text-gray-900 dark:text-white">{title}</span>
       <ArrowRight className="w-4 h-4 ml-auto text-muted-foreground" />
     </Link>
   );
 }
 
 function StudyCard({ study }: { study: DataStudy }) {
-  const categoryColor = CATEGORY_COLORS[study.category] || 'bg-slate-100 text-slate-700';
+  const categoryColor = CATEGORY_COLORS[study.category] || 'bg-gray-100 text-gray-700';
   const categoryIcon = CATEGORY_ICONS[study.category] || <BarChart3 className="w-5 h-5" />;
 
   // Get top 3 data points for preview
@@ -353,9 +353,9 @@ function StudyCard({ study }: { study: DataStudy }) {
           {topDataPoints.map((point, idx) => (
             <div 
               key={idx}
-              className="flex items-center justify-between text-sm py-1 border-b border-slate-100 dark:border-slate-800 last:border-0"
+              className="flex items-center justify-between text-sm py-1 border-b border-gray-100 dark:border-gray-800 last:border-0"
             >
-              <span className="text-slate-600 dark:text-slate-400 truncate max-w-[60%]">
+              <span className="text-gray-600 dark:text-gray-400 truncate max-w-[60%]">
                 {point.label}
               </span>
               <span className="font-semibold">
@@ -372,11 +372,11 @@ function StudyCard({ study }: { study: DataStudy }) {
 
         {/* Key Insight */}
         {study.insights[0] && (
-          <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 mb-4">
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-600 mb-1">
+          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 mb-4">
+            <p className="text-xs font-medium text-gray-500 dark:text-gray-600 mb-1">
               Key Insight
             </p>
-            <p className="text-sm text-slate-700 dark:text-slate-300">
+            <p className="text-sm text-gray-700 dark:text-gray-300">
               {study.insights[0]}
             </p>
           </div>

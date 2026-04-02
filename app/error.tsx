@@ -34,35 +34,35 @@ export default function GlobalError({
   const guidance = getErrorGuidance();
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-4">
       <div className="max-w-md w-full text-center">
         {/* Animated Icon */}
         <div className="relative mb-8 inline-block">
           <div className="absolute inset-0 bg-danger-500/20 blur-2xl rounded-full scale-150 animate-pulse" />
-          <div className="relative bg-white dark:bg-slate-900 w-20 h-20 rounded-2xl flex items-center justify-center border border-danger-100 dark:border-danger-500/20 shadow-xl">
+          <div className="relative bg-white dark:bg-gray-900 w-20 h-20 rounded-2xl flex items-center justify-center border border-danger-100 dark:border-danger-500/20 shadow-xl">
             <AlertCircle className="w-10 h-10 text-danger-500" />
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
           {guidance.title}
         </h1>
         
-        <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+        <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
           {guidance.detail}
         </p>
 
         {error.digest && (
-          <div className="mb-6 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-            <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Error Reference</p>
-            <p className="text-xs font-mono text-slate-700 dark:text-slate-300 break-all">{error.digest}</p>
+          <div className="mb-6 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-1">Error Reference</p>
+            <p className="text-xs font-mono text-gray-700 dark:text-gray-300 break-all">{error.digest}</p>
           </div>
         )}
 
         <div className="flex flex-col gap-3">
           <Button 
             onClick={() => reset()}
-            className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 h-12 rounded-xl font-bold flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500"
+            className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 h-12 rounded-xl font-bold flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500"
           >
             <RefreshCcw className="w-4 h-4" />
             Retry Request
@@ -72,7 +72,7 @@ export default function GlobalError({
             <Button 
               variant="outline" 
               asChild
-              className="flex-1 h-12 rounded-xl border-slate-200 dark:border-slate-800 flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2"
+              className="flex-1 h-12 rounded-xl border-gray-200 dark:border-gray-800 flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2"
             >
               <Link href="/">
                 <Home className="w-4 h-4" />
@@ -83,7 +83,7 @@ export default function GlobalError({
             <Button 
               variant="outline" 
               asChild
-              className="flex-1 h-12 rounded-xl border-slate-200 dark:border-slate-800 flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2"
+              className="flex-1 h-12 rounded-xl border-gray-200 dark:border-gray-800 flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2"
             >
               <Link href="/admin">
                 <Home className="w-4 h-4" />
@@ -92,10 +92,10 @@ export default function GlobalError({
             </Button>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800">
+          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800">
             <Link 
               href="/support" 
-              className="text-sm font-medium text-slate-500 hover:text-secondary-500 flex items-center justify-center gap-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500 rounded-lg p-2"
+              className="text-sm font-medium text-gray-500 hover:text-secondary-500 flex items-center justify-center gap-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500 rounded-lg p-2"
             >
               <MessageSquare className="w-4 h-4" />
               Report this behavior

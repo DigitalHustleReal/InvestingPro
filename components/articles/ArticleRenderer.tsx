@@ -29,8 +29,8 @@ export default function ArticleRenderer({
 
     if (!rawContent || !rawContent.trim()) {
         return (
-            <div className="p-8 bg-slate-50 rounded-lg border border-slate-200">
-                <p className="text-slate-500 text-center">
+            <div className="p-8 bg-gray-50 rounded-lg border border-gray-200">
+                <p className="text-gray-500 text-center">
                     No content available for this article.
                 </p>
             </div>

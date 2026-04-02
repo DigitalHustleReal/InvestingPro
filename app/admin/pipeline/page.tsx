@@ -119,7 +119,7 @@ export default function PipelineHealthPage() {
         switch (status) {
             case 'published': return 'bg-success-500/20 text-success-400 border-success-500/30';
             case 'review': return 'bg-warning-500/20 text-warning-400 border-warning-500/30';
-            case 'draft': return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
+            case 'draft': return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
             case 'failed': return 'bg-danger-500/20 text-danger-400 border-danger-500/30';
             default: return 'bg-muted/20 text-muted-foreground border-muted/30';
         }
@@ -210,7 +210,7 @@ export default function PipelineHealthPage() {
                                             />
                                         </div>
                                         <div className="text-xs font-bold text-white mt-3">{day.count}</div>
-                                        <div className="text-[10px] uppercase tracking-tighter text-slate-500 mt-1">{day.date}</div>
+                                        <div className="text-[10px] uppercase tracking-tighter text-gray-500 mt-1">{day.date}</div>
                                     </div>
                                 ))}
                             </div>
@@ -248,7 +248,7 @@ export default function PipelineHealthPage() {
                                             <p className="text-sm font-bold text-white truncate group-hover:text-[#c49e48]">
                                                 {article.title || 'Untitled'}
                                             </p>
-                                            <p className="text-xs text-slate-500 mt-1 uppercase tracking-widest font-medium">
+                                            <p className="text-xs text-gray-500 mt-1 uppercase tracking-widest font-medium">
                                                 {new Date(article.created_at).toLocaleDateString()}
                                             </p>
                                         </div>
@@ -258,7 +258,7 @@ export default function PipelineHealthPage() {
                                     </div>
                                 ))}
                                 {recentArticles.length === 0 && (
-                                    <p className="text-center text-slate-500 py-12">
+                                    <p className="text-center text-gray-500 py-12">
                                         No recent telemetry data
                                     </p>
                                 )}

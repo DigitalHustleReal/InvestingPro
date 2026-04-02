@@ -70,7 +70,7 @@ export default function TopPicksRow() {
         fetchWinners();
     }, []);
 
-    if (loading) return <div className="h-64 animate-pulse bg-slate-100 dark:bg-slate-800 rounded-2xl mb-12"></div>;
+    if (loading) return <div className="h-64 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-2xl mb-12"></div>;
     if (winners.length === 0) return null;
 
     return (
@@ -79,8 +79,8 @@ export default function TopPicksRow() {
                 <div className="p-2 bg-yellow-100 dark:bg-yellow-900/20 rounded-lg">
                     <Trophy className="w-5 h-5 text-yellow-600 dark:text-yellow-500" />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-                    Editors' Top Picks <span className="text-slate-600 font-medium text-lg ml-2">January 2026</span>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    Editors' Top Picks <span className="text-gray-600 font-medium text-lg ml-2">January 2026</span>
                 </h2>
             </div>
             
@@ -93,8 +93,8 @@ export default function TopPicksRow() {
                         transition={{ delay: idx * 0.1 }}
                         className="relative group"
                     >
-                        <div className="absolute -inset-0.5 bg-gradient-to-b from-slate-200 to-slate-50 dark:from-slate-700 dark:to-slate-800 rounded-[2rem] blur opacity-50 group-hover:opacity-100 transition duration-500" />
-                        <div className="relative h-full bg-white dark:bg-slate-900 rounded-[1.75rem] p-6 border border-slate-100 dark:border-slate-800 shadow-sm group-hover:shadow-xl transition-all duration-300 flex flex-col">
+                        <div className="absolute -inset-0.5 bg-gradient-to-b from-gray-200 to-gray-50 dark:from-gray-700 dark:to-gray-800 rounded-[2rem] blur opacity-50 group-hover:opacity-100 transition duration-500" />
+                        <div className="relative h-full bg-white dark:bg-gray-900 rounded-[1.75rem] p-6 border border-gray-100 dark:border-gray-800 shadow-sm group-hover:shadow-xl transition-all duration-300 flex flex-col">
                             
                             {/* Header Badge */}
                             <div className={`absolute top-0 right-0 ${card.badgeColor} text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-bl-xl rounded-tr-[1.75rem]`}>
@@ -102,26 +102,26 @@ export default function TopPicksRow() {
                             </div>
                             
                             {/* Card Image Placeholder */}
-                            <div className="h-32 mb-4 relative flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                            <div className="h-32 mb-4 relative flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-500">
                                 {card.image ? (
                                     <img src={card.image} alt={card.cardName} className="w-full h-full object-cover" />
                                 ) : (
-                                    <div className="w-40 h-24 rounded-lg bg-gradient-to-br from-slate-700 to-slate-900 shadow-lg rotate-[-5deg] flex items-center justify-center text-white font-bold opacity-90">
+                                    <div className="w-40 h-24 rounded-lg bg-gradient-to-br from-gray-700 to-gray-900 shadow-lg rotate-[-5deg] flex items-center justify-center text-white font-bold opacity-90">
                                         {card.cardName}
                                     </div>
                                 )}
                             </div>
                             
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
                                 {card.cardName}
                             </h3>
-                            <div className="text-xs font-semibold text-slate-500 mb-4">
-                                Fee: <span className="text-slate-900 dark:text-white">{card.fee}</span>
+                            <div className="text-xs font-semibold text-gray-500 mb-4">
+                                Fee: <span className="text-gray-900 dark:text-white">{card.fee}</span>
                             </div>
                             
                             <ul className="space-y-2 mb-6 flex-1">
                                 {card.benefits.map((benefit: string, i: number) => (
-                                    <li key={i} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                                    <li key={i} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-400 font-medium leading-relaxed">
                                         <Check className="w-3.5 h-3.5 text-success-500 mt-0.5 shrink-0" />
                                         {benefit}
                                     </li>
@@ -129,7 +129,7 @@ export default function TopPicksRow() {
                             </ul>
                             
                             <Link href={`/credit-cards/${card.id}`} className="w-full">
-                                <Button size="sm" className="w-full rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-primary-600 dark:hover:bg-primary-400 dark:hover:text-white transition-colors">
+                                <Button size="sm" className="w-full rounded-xl font-bold bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-primary-600 dark:hover:bg-primary-400 dark:hover:text-white transition-colors">
                                     Apply Now
                                 </Button>
                             </Link>

@@ -121,6 +121,7 @@ export default function WebVitalsTracker() {
         } catch (error) {
             // Completely silent - web vitals tracking should never break the app
             cleanup();
+            return undefined;
         }
     }, []);
 

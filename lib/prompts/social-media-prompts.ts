@@ -331,7 +331,7 @@ function buildSocialMediaPostPrompt(params: {
     keyPoints: string[];
     statistics: Array<{ label: string; value: string }>;
     platform: string;
-    platformSpec: typeof PLATFORM_SPECS[string];
+    platformSpec: (typeof PLATFORM_SPECS)[keyof typeof PLATFORM_SPECS];
     hashtags: string[];
     cta: string;
     tone: string;
@@ -367,7 +367,7 @@ function buildSocialMediaPostPrompt(params: {
     prompt += `\n`;
     
     prompt += `WRITING REQUIREMENTS:\n`;
-    platformSpec.engagementTips.forEach(tip => {
+    platformSpec.engagementTips.forEach((tip: any) => {
         prompt += `- ${tip}\n`;
     });
     prompt += `- Make it engaging and shareable\n`;

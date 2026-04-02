@@ -23,7 +23,7 @@ export default function CalculatorVisual({
     return (
         <div className="space-y-6">
             {showChart && (
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6">
                     <CalculatorChart 
                         calculatorType={calculatorType}
                         inputData={inputData}
@@ -33,7 +33,7 @@ export default function CalculatorVisual({
             )}
             
             {showTable && resultData?.breakdown && (
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
                     <CalculatorTable 
                         calculatorType={calculatorType}
                         data={resultData.breakdown}
@@ -75,7 +75,7 @@ function EMIChart({ inputData, resultData }: any) {
     
     return (
         <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">Payment Breakdown</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Payment Breakdown</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                     <Pie
@@ -107,7 +107,7 @@ function SIPChart({ inputData, resultData }: any) {
     
     return (
         <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">Investment Growth</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Investment Growth</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={projection}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -145,7 +145,7 @@ function FDChart({ inputData, resultData }: any) {
     
     return (
         <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">Fixed Deposit Breakdown</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Fixed Deposit Breakdown</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -179,7 +179,7 @@ function TaxChart({ inputData, resultData }: any) {
     
     return (
         <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">Tax by Income Bracket</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Tax by Income Bracket</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -208,7 +208,7 @@ function RetirementChart({ inputData, resultData }: any) {
     
     return (
         <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">Retirement Corpus Growth</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Retirement Corpus Growth</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={projection}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -243,7 +243,7 @@ function GenericChart({ data }: any) {
     
     return (
         <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">Results</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Results</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={chartData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -275,30 +275,30 @@ function CalculatorTable({ calculatorType, data }: any) {
     
     return (
         <div>
-            <div className="px-6 py-4 bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">Detailed Breakdown</h3>
+            <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Detailed Breakdown</h3>
             </div>
             <div className="overflow-x-auto">
                 <table className="w-full">
-                    <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+                    <thead className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                         <tr>
                             {headers.map((header, idx) => (
                                 <th
                                     key={idx}
-                                    className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider"
+                                    className="px-6 py-3 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider"
                                 >
                                     {header.replace(/_/g, ' ')}
                                 </th>
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="bg-white dark:bg-slate-900 divide-y divide-slate-200 dark:divide-slate-800">
+                    <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
                         {data.map((row: any, rowIdx: number) => (
-                            <tr key={rowIdx} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                            <tr key={rowIdx} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                 {headers.map((header, colIdx) => (
                                     <td
                                         key={colIdx}
-                                        className="px-6 py-4 whitespace-nowrap text-sm text-slate-700 dark:text-slate-300"
+                                        className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300"
                                     >
                                         {typeof row[header] === 'number'
                                             ? row[header].toLocaleString('en-IN', { 

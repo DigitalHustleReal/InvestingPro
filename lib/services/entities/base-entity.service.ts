@@ -109,7 +109,7 @@ export abstract class BaseEntityService<T> {
         throw error;
       }
 
-      logger.info(`Updated ${this.tableName}:`, id);
+      logger.info(`Updated ${this.tableName}: ${id}`);
       return updated as T;
     } catch (error) {
       logger.error(`Failed to update ${this.tableName}: ${id}`, error as Error);
@@ -132,7 +132,7 @@ export abstract class BaseEntityService<T> {
         throw error;
       }
 
-      logger.info(`Deleted ${this.tableName}:`, id);
+      logger.info(`Deleted ${this.tableName}: ${id}`);
     } catch (error) {
       logger.error(`Failed to delete ${this.tableName}: ${id}`, error as Error);
       throw error;

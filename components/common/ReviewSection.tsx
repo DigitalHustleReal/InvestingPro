@@ -98,19 +98,19 @@ export default function ReviewSection({ productId }: { productId: string }) {
                 <CardContent>
                     <div className="grid md:grid-cols-2 gap-8">
                         <div className="text-center">
-                            <div className="text-5xl font-bold text-slate-900 dark:text-white mb-2">{avgRating}</div>
+                            <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">{avgRating}</div>
                             <div className="flex justify-center gap-1 mb-2">
                                 {[1, 2, 3, 4, 5].map((star) => (
                                     <Star
                                         key={star}
                                         className={`w-5 h-5 ${star <= Math.round(Number(avgRating))
                                             ? 'text-accent-400 fill-accent-400'
-                                            : 'text-slate-300'
+                                            : 'text-gray-300'
                                             }`}
                                     />
                                 ))}
                             </div>
-                            <p className="text-slate-500">{reviews.length} reviews</p>
+                            <p className="text-gray-500">{reviews.length} reviews</p>
                         </div>
 
                         <div className="space-y-2">
@@ -121,7 +121,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                         value={reviews.length > 0 ? (count / reviews.length) * 100 : 0}
                                         className="flex-1"
                                     />
-                                    <span className="text-sm text-slate-500 w-8">{count}</span>
+                                    <span className="text-sm text-gray-500 w-8">{count}</span>
                                 </div>
                             ))}
                         </div>
@@ -152,7 +152,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                         key={star}
                                         className={`w-8 h-8 cursor-pointer transition-colors ${star <= (hoverRating || rating)
                                             ? 'text-accent-400 fill-accent-400'
-                                            : 'text-slate-300'
+                                            : 'text-gray-300'
                                             }`}
                                         onClick={() => setRating(star)}
                                         onMouseEnter={() => setHoverRating(star)}
@@ -234,22 +234,22 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                                 key={star}
                                                 className={`w-4 h-4 ${star <= review.rating
                                                     ? 'text-accent-400 fill-accent-400'
-                                                    : 'text-slate-300'
+                                                    : 'text-gray-300'
                                                     }`}
                                             />
                                         ))}
                                     </div>
                                 </div>
-                                <span className="text-sm text-slate-500">
+                                <span className="text-sm text-gray-500">
                                     {new Date(review.created_at || review.created_date || "").toLocaleDateString()}
                                 </span>
                             </div>
 
                             {review.title && (
-                                <h4 className="font-semibold text-slate-900 dark:text-white mb-2">{review.title}</h4>
+                                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{review.title}</h4>
                             )}
 
-                            <p className="text-slate-600 dark:text-slate-400 mb-4">{review.review_text}</p>
+                            <p className="text-gray-600 dark:text-gray-400 mb-4">{review.review_text}</p>
 
                             {((review.pros && review.pros.length > 0) || (review.cons && review.cons.length > 0)) && (
                                 <div className="grid md:grid-cols-2 gap-4 mb-4">
@@ -260,7 +260,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                             </p>
                                             <ul className="space-y-1 text-sm">
                                                 {review.pros.map((pro, idx) => (
-                                                    <li key={idx} className="text-slate-600 dark:text-slate-400">• {pro}</li>
+                                                    <li key={idx} className="text-gray-600 dark:text-gray-400">• {pro}</li>
                                                 ))}
                                             </ul>
                                         </div>
@@ -272,7 +272,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                             </p>
                                             <ul className="space-y-1 text-sm">
                                                 {review.cons.map((con, idx) => (
-                                                    <li key={idx} className="text-slate-600 dark:text-slate-400">• {con}</li>
+                                                    <li key={idx} className="text-gray-600 dark:text-gray-400">• {con}</li>
                                                 ))}
                                             </ul>
                                         </div>
@@ -280,7 +280,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
                                 </div>
                             )}
 
-                            <Button variant="ghost" size="sm" className="text-slate-500">
+                            <Button variant="ghost" size="sm" className="text-gray-500">
                                 <ThumbsUp className="w-4 h-4 mr-1" />
                                 Helpful ({review.helpful_count || 0})
                             </Button>

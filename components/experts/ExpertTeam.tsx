@@ -34,7 +34,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
     if (safeExperts.length === 0) {
         return (
             <div className="max-w-4xl mx-auto text-center py-12">
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-gray-600 dark:text-gray-400">
                     Our expert team profiles are being updated. Check back soon!
                 </p>
             </div>
@@ -45,10 +45,10 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
         <div className="max-w-7xl mx-auto">
             {/* Introduction */}
             <div className="mb-12 text-center max-w-3xl mx-auto">
-                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                     Trusted Financial Experts
                 </h2>
-                <p className="text-lg text-slate-600 dark:text-slate-400">
+                <p className="text-lg text-gray-600 dark:text-gray-400">
                     Our team combines decades of experience in Indian financial markets, 
                     regulatory compliance, and personal finance to bring you accurate, 
                     actionable advice.
@@ -62,7 +62,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                         <CardContent className="p-6">
                             <div className="flex flex-col items-center text-center">
                                 {/* Avatar */}
-                                <div className="w-24 h-24 rounded-full border-4 border-primary-200 dark:border-primary-800 overflow-hidden mb-4 bg-slate-100 dark:bg-slate-800">
+                                <div className="w-24 h-24 rounded-full border-4 border-primary-200 dark:border-primary-800 overflow-hidden mb-4 bg-gray-100 dark:bg-gray-800">
                                     {expert.avatar_url ? (
                                         <Image
                                             src={expert.avatar_url}
@@ -72,14 +72,14 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                             className="object-cover"
                                         />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-slate-600">
+                                        <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-gray-600">
                                             {expert.name.charAt(0).toUpperCase()}
                                         </div>
                                     )}
                                 </div>
 
                                 {/* Name & Role */}
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                                     {expert.name}
                                 </h3>
                                 <p className="text-primary-600 dark:text-primary-400 font-medium mb-3">
@@ -104,7 +104,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
 
                                 {/* Experience */}
                                 {expert.years_of_experience && (
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                         {expert.years_of_experience}+ years of experience
                                     </p>
                                 )}
@@ -112,14 +112,14 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                 {/* Specialization */}
                                 {expert.specialization && expert.specialization.length > 0 && (
                                     <div className="w-full mb-4">
-                                        <p className="text-xs font-semibold text-slate-500 dark:text-slate-600 uppercase tracking-wide mb-2">
+                                        <p className="text-xs font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wide mb-2">
                                             Expertise
                                         </p>
                                         <div className="flex flex-wrap gap-1 justify-center">
                                             {expert.specialization.slice(0, 3).map((spec, idx) => (
                                                 <span
                                                     key={idx}
-                                                    className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded text-xs"
+                                                    className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs"
                                                 >
                                                     {spec}
                                                 </span>
@@ -130,7 +130,7 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
 
                                 {/* Bio Preview */}
                                 {expert.bio && (
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-4">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
                                         {expert.bio}
                                     </p>
                                 )}
@@ -142,9 +142,9 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                             href={expert.linkedin_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                                            className="p-2 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                         >
-                                            <Linkedin className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                            <Linkedin className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                                         </a>
                                     )}
                                     {expert.twitter_url && (
@@ -152,9 +152,9 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                             href={expert.twitter_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                                            className="p-2 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                         >
-                                            <Twitter className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                            <Twitter className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                                         </a>
                                     )}
                                     {expert.website_url && (
@@ -162,9 +162,9 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                                             href={expert.website_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                                            className="p-2 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                         >
-                                            <Globe className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                            <Globe className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                                         </a>
                                     )}
                                 </div>
@@ -192,10 +192,10 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                             <Award className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                                 Editorial Integrity & Expertise
                             </h3>
-                            <p className="text-slate-700 dark:text-slate-300 mb-4">
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
                                 All content published on InvestingPro is reviewed by our expert team 
                                 to ensure accuracy, compliance, and actionable insights. Our experts 
                                 hold professional certifications including CA, CFA, CFP, and have 
@@ -204,15 +204,15 @@ export default function ExpertTeam({ experts }: ExpertTeamProps) {
                             <div className="flex flex-wrap gap-4 text-sm">
                                 <div className="flex items-center gap-2">
                                     <BookOpen className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                                    <span className="text-slate-600 dark:text-slate-400">Data-driven research</span>
+                                    <span className="text-gray-600 dark:text-gray-400">Data-driven research</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <TrendingUp className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                                    <span className="text-slate-600 dark:text-slate-400">Market expertise</span>
+                                    <span className="text-gray-600 dark:text-gray-400">Market expertise</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Award className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                                    <span className="text-slate-600 dark:text-slate-400">Professional certifications</span>
+                                    <span className="text-gray-600 dark:text-gray-400">Professional certifications</span>
                                 </div>
                             </div>
                         </div>

@@ -81,7 +81,7 @@ export class MistralService {
       this.isHealthy = true;
 
       return {
-        content,
+        content: typeof content === 'string' ? content : JSON.stringify(content),
         provider: 'mistral',
         is_draft: true
       };

@@ -55,7 +55,7 @@ export default function AuthorBio({
         return (
             <div className={cn("flex items-start gap-3", className)}>
                 {/* Avatar */}
-                <div className="w-12 h-12 rounded-full border-2 border-slate-200 dark:border-slate-700 overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0">
+                <div className="w-12 h-12 rounded-full border-2 border-gray-200 dark:border-gray-700 overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
                     {author.avatar_url ? (
                         <Image
                             src={author.avatar_url}
@@ -65,7 +65,7 @@ export default function AuthorBio({
                             className="object-cover"
                         />
                     ) : (
-                        <div className="w-full h-full flex items-center justify-center text-lg font-bold text-slate-600">
+                        <div className="w-full h-full flex items-center justify-center text-lg font-bold text-gray-600">
                             {author.name.charAt(0).toUpperCase()}
                         </div>
                     )}
@@ -77,12 +77,12 @@ export default function AuthorBio({
                         {author.slug ? (
                             <Link
                                 href={`/author/${author.slug}`}
-                                className="font-semibold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400"
+                                className="font-semibold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400"
                             >
                                 {author.name}
                             </Link>
                         ) : (
-                            <span className="font-semibold text-slate-900 dark:text-white">
+                            <span className="font-semibold text-gray-900 dark:text-white">
                                 {author.name}
                             </span>
                         )}
@@ -101,12 +101,12 @@ export default function AuthorBio({
                         )}
                     </div>
                     {author.role && (
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">
                             {author.role}
                         </p>
                     )}
                     {author.bio && (
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
                             {author.bio}
                         </p>
                     )}
@@ -117,10 +117,10 @@ export default function AuthorBio({
 
     // Full variant
     return (
-        <div className={cn("bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800", className)}>
+        <div className={cn("bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-800", className)}>
             <div className="flex items-start gap-4">
                 {/* Avatar */}
-                <div className="w-20 h-20 rounded-full border-4 border-primary-200 dark:border-primary-800 overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0">
+                <div className="w-20 h-20 rounded-full border-4 border-primary-200 dark:border-primary-800 overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
                     {author.avatar_url ? (
                         <Image
                             src={author.avatar_url}
@@ -130,7 +130,7 @@ export default function AuthorBio({
                             className="object-cover"
                         />
                     ) : (
-                        <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-slate-600">
+                        <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-gray-600">
                             {author.name.charAt(0).toUpperCase()}
                         </div>
                     )}
@@ -143,12 +143,12 @@ export default function AuthorBio({
                             {author.slug ? (
                                 <Link
                                     href={`/author/${author.slug}`}
-                                    className="text-xl font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400"
+                                    className="text-xl font-bold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400"
                                 >
                                     {author.name}
                                 </Link>
                             ) : (
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                                     {author.name}
                                 </h3>
                             )}
@@ -178,14 +178,14 @@ export default function AuthorBio({
 
                     {/* Experience */}
                     {author.years_of_experience && (
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                             {author.years_of_experience}+ years of experience
                         </p>
                     )}
 
                     {/* Bio */}
                     {author.bio && (
-                        <p className="text-slate-700 dark:text-slate-300 mb-4">
+                        <p className="text-gray-700 dark:text-gray-300 mb-4">
                             {author.bio}
                         </p>
                     )}
@@ -193,14 +193,14 @@ export default function AuthorBio({
                     {/* Specialization */}
                     {author.specialization && author.specialization.length > 0 && (
                         <div className="mb-4">
-                            <p className="text-xs font-semibold text-slate-500 dark:text-slate-600 uppercase tracking-wide mb-2">
+                            <p className="text-xs font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wide mb-2">
                                 Expertise
                             </p>
                             <div className="flex flex-wrap gap-2">
                                 {author.specialization.map((spec, idx) => (
                                     <span
                                         key={idx}
-                                        className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm"
+                                        className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm"
                                     >
                                         {spec}
                                     </span>
@@ -210,16 +210,16 @@ export default function AuthorBio({
                     )}
 
                     {/* Social Links */}
-                    <div className="flex gap-2 pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <div className="flex gap-2 pt-4 border-t border-gray-200 dark:border-gray-800">
                         {author.linkedin_url && (
                             <a
                                 href={author.linkedin_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                                className="p-2 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                 aria-label="LinkedIn"
                             >
-                                <Linkedin className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                <Linkedin className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                             </a>
                         )}
                         {author.twitter_url && (
@@ -227,10 +227,10 @@ export default function AuthorBio({
                                 href={author.twitter_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                                className="p-2 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                 aria-label="Twitter"
                             >
-                                <Twitter className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                <Twitter className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                             </a>
                         )}
                         {author.website_url && (
@@ -238,10 +238,10 @@ export default function AuthorBio({
                                 href={author.website_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-2 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                                className="p-2 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                 aria-label="Website"
                             >
-                                <Globe className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                <Globe className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                             </a>
                         )}
                     </div>

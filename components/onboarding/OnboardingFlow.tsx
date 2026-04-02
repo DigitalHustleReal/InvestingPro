@@ -106,10 +106,10 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
 
     return (
         <Dialog open={open} onOpenChange={() => { }}>
-            <DialogContent className="max-w-2xl bg-white dark:bg-slate-900 rounded-xl p-0 overflow-hidden border-0 shadow-2xl">
+            <DialogContent className="max-w-2xl bg-white dark:bg-gray-900 rounded-xl p-0 overflow-hidden border-0 shadow-2xl">
                 <div className="grid lg:grid-cols-5 min-h-[500px]">
                     {/* Sidebar */}
-                    <div className="lg:col-span-2 bg-slate-900 p-8 text-white hidden lg:flex flex-col justify-between relative overflow-hidden">
+                    <div className="lg:col-span-2 bg-gray-900 p-8 text-white hidden lg:flex flex-col justify-between relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
                         <div className="relative z-10">
@@ -117,13 +117,13 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                                 <TrendingUp className="w-6 h-6 text-white" />
                             </div>
                             <h2 className="text-2xl font-bold tracking-tight mb-2">Build Your <br /> Alpha Profile</h2>
-                            <p className="text-slate-600 text-sm font-medium">Join 2.5k+ investors making data-driven decisions.</p>
+                            <p className="text-gray-600 text-sm font-medium">Join 2.5k+ investors making data-driven decisions.</p>
                         </div>
 
                         <div className="relative z-10 space-y-6">
                             {steps.map((s, i) => (
                                 <div key={i} className={`flex items-center gap-4 transition-all duration-300 ${i === currentStep ? 'opacity-100 translate-x-1' : i < currentStep ? 'opacity-50' : 'opacity-20'}`}>
-                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold border ${i === currentStep ? 'bg-white text-slate-900 border-white' : 'border-white/50'}`}>
+                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold border ${i === currentStep ? 'bg-white text-gray-900 border-white' : 'border-white/50'}`}>
                                         {i < currentStep ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
                                     </div>
                                     <span className="text-[10px] uppercase font-bold tracking-[0.2em]">{s.title}</span>
@@ -136,22 +136,22 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                     <div className="lg:col-span-3 p-10 flex flex-col justify-between">
                         <div>
                             <div className="flex justify-between items-center mb-10">
-                                <Progress value={progress} className="h-1.5 flex-1 mr-4 bg-slate-100" />
-                                <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-st">{Math.round(progress)}%</span>
+                                <Progress value={progress} className="h-1.5 flex-1 mr-4 bg-gray-100" />
+                                <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-st">{Math.round(progress)}%</span>
                             </div>
 
                             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
-                                <div className="w-14 h-14 bg-slate-50 rounded-[1.5rem] flex items-center justify-center mb-6">
-                                    {React.createElement(steps[currentStep].icon, { className: "w-7 h-7 text-slate-900" })}
+                                <div className="w-14 h-14 bg-gray-50 rounded-[1.5rem] flex items-center justify-center mb-6">
+                                    {React.createElement(steps[currentStep].icon, { className: "w-7 h-7 text-gray-900" })}
                                 </div>
-                                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{steps[currentStep].title}</h3>
-                                <p className="text-slate-500 text-sm leading-relaxed font-medium">{steps[currentStep].description}</p>
+                                <h3 className="text-2xl font-bold text-gray-900 tracking-tight">{steps[currentStep].title}</h3>
+                                <p className="text-gray-500 text-sm leading-relaxed font-medium">{steps[currentStep].description}</p>
                             </div>
 
                             <div className="mt-10 py-4 max-h-[240px] overflow-y-auto no-scrollbar">
                                 {currentStep === 0 && (
                                     <div className="space-y-4">
-                                        <p className="text-sm text-slate-600 font-medium">Click "Get Started" to begin your personalized financial audit.</p>
+                                        <p className="text-sm text-gray-600 font-medium">Click "Get Started" to begin your personalized financial audit.</p>
                                     </div>
                                 )}
 
@@ -167,11 +167,11 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                                                 onClick={() => setFormData({ ...formData, goal: opt.id })}
                                                 className={`p-4 rounded-xl border-2 text-left transition-all ${formData.goal === opt.id
                                                     ? 'bg-primary-50 border-primary-500 shadow-lg shadow-primary-500/5'
-                                                    : 'bg-white border-slate-100 hover:border-slate-200'
+                                                    : 'bg-white border-gray-100 hover:border-gray-200'
                                                     }`}
                                             >
-                                                <p className="font-extrabold text-slate-900 text-sm">{opt.label}</p>
-                                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter mt-1">{opt.sub}</p>
+                                                <p className="font-extrabold text-gray-900 text-sm">{opt.label}</p>
+                                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-tighter mt-1">{opt.sub}</p>
                                             </button>
                                         ))}
                                     </div>
@@ -189,11 +189,11 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                                                 onClick={() => setFormData({ ...formData, risk: opt.id })}
                                                 className={`p-4 rounded-xl border-2 text-left transition-all ${formData.risk === opt.id
                                                     ? 'bg-primary-50 border-primary-500 shadow-lg shadow-primary-500/5'
-                                                    : 'bg-white border-slate-100 hover:border-slate-200'
+                                                    : 'bg-white border-gray-100 hover:border-gray-200'
                                                     }`}
                                             >
-                                                <p className="font-extrabold text-slate-900 text-sm">{opt.label}</p>
-                                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter mt-1">{opt.sub}</p>
+                                                <p className="font-extrabold text-gray-900 text-sm">{opt.label}</p>
+                                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-tighter mt-1">{opt.sub}</p>
                                             </button>
                                         ))}
                                     </div>
@@ -212,13 +212,13 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                                                 onClick={() => toggleInterest(opt.id)}
                                                 className={`p-4 rounded-xl border-2 text-center transition-all flex flex-col items-center gap-3 relative ${formData.interests.includes(opt.id)
                                                     ? 'bg-accent-50 border-accent-500 shadow-lg shadow-accent-500/5'
-                                                    : 'bg-white border-slate-100 hover:border-slate-200'
+                                                    : 'bg-white border-gray-100 hover:border-gray-200'
                                                     }`}
                                             >
-                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${formData.interests.includes(opt.id) ? 'bg-accent-500 text-white' : 'bg-slate-50 text-slate-600'}`}>
+                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${formData.interests.includes(opt.id) ? 'bg-accent-500 text-white' : 'bg-gray-50 text-gray-600'}`}>
                                                     <opt.icon className="w-5 h-5" />
                                                 </div>
-                                                <span className="font-bold text-[10px] uppercase tracking-widest text-slate-900">{opt.label}</span>
+                                                <span className="font-bold text-[10px] uppercase tracking-widest text-gray-900">{opt.label}</span>
                                                 {formData.interests.includes(opt.id) && (
                                                     <div className="absolute top-2 right-2">
                                                         <CheckCircle2 className="w-4 h-4 text-accent-500" />
@@ -243,7 +243,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                             <Button
                                 onClick={handleNext}
                                 disabled={loading || (currentStep === 1 && !formData.goal) || (currentStep === 2 && !formData.risk)}
-                                className="rounded-[1.25rem] bg-slate-900 hover:bg-primary-600 text-white font-bold px-10 h-14 flex-1 shadow-xl shadow-slate-900/10 transition-all active:scale-95"
+                                className="rounded-[1.25rem] bg-gray-900 hover:bg-primary-600 text-white font-bold px-10 h-14 flex-1 shadow-xl shadow-gray-900/10 transition-all active:scale-95"
                             >
                                 {loading ? "Initializing..." : currentStep === steps.length - 1 ? "Complete Profile" : currentStep === 0 ? "Get Started" : "Continue"}
                                 {!loading && <ChevronRight className="w-5 h-5 ml-2" />}

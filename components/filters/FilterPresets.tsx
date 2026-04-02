@@ -62,7 +62,7 @@ interface FilterPresetsProps {
 export default function FilterPresets({ onPresetClick, className }: FilterPresetsProps) {
   return (
     <div className={cn("w-full", className)}>
-      <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
         Quick Filters
       </h3>
       <div className="flex flex-wrap gap-2">
@@ -70,7 +70,7 @@ export default function FilterPresets({ onPresetClick, className }: FilterPreset
           <button
             key={preset.id}
             onClick={() => onPresetClick(preset.filters)}
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950/30 transition-all"
+            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950/30 transition-all"
           >
             {preset.icon}
             {preset.label}

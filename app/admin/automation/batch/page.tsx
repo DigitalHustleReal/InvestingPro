@@ -147,14 +147,14 @@ export default function BatchGeneratorPage() {
                         <Factory className="w-8 h-8" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Content Factory</h1>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-foreground dark:text-foreground">Content Factory</h1>
                         <p className="text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground">Generate hundreds of articles in bulk using AI.</p>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* INPUT FORM */}
-                    <div className="space-y-6 bg-white dark:bg-surface-darker dark:bg-surface-darker p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div className="space-y-6 bg-white dark:bg-surface-darker dark:bg-surface-darker p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
                         <h2 className="font-semibold text-lg mb-4">1. Configure Batch</h2>
                         
                         <div className="space-y-4">
@@ -186,7 +186,7 @@ export default function BatchGeneratorPage() {
                                     <div className="mt-1">
                                         {/* Simple select fallback if component tricky, but we have it */}
                                         <select 
-                                            className="w-full h-10 rounded-md border border-slate-300 dark:border-border dark:border-border px-3 text-sm bg-white dark:bg-muted dark:bg-muted text-slate-900 dark:text-foreground dark:text-foreground"
+                                            className="w-full h-10 rounded-md border border-gray-300 dark:border-border dark:border-border px-3 text-sm bg-white dark:bg-muted dark:bg-muted text-gray-900 dark:text-foreground dark:text-foreground"
                                             value={category}
                                             onChange={e => setCategory(e.target.value)}
                                         >
@@ -201,7 +201,7 @@ export default function BatchGeneratorPage() {
                                 <div>
                                     <Label>Status</Label>
                                     <select 
-                                        className="w-full h-10 rounded-md border border-slate-300 px-3 text-sm mt-1"
+                                        className="w-full h-10 rounded-md border border-gray-300 px-3 text-sm mt-1"
                                         value={status}
                                         onChange={e => setStatus(e.target.value)}
                                     >
@@ -215,7 +215,7 @@ export default function BatchGeneratorPage() {
                             <div>
                                 <Label>Author Persona (Optional)</Label>
                                 <select 
-                                    className="w-full h-10 rounded-md border border-slate-300 dark:border-border dark:border-border px-3 text-sm mt-1 bg-white dark:bg-muted dark:bg-muted text-slate-900 dark:text-foreground dark:text-foreground"
+                                    className="w-full h-10 rounded-md border border-gray-300 dark:border-border dark:border-border px-3 text-sm mt-1 bg-white dark:bg-muted dark:bg-muted text-gray-900 dark:text-foreground dark:text-foreground"
                                     value={selectedAuthorId}
                                     onChange={e => setSelectedAuthorId(e.target.value)}
                                 >
@@ -249,7 +249,7 @@ export default function BatchGeneratorPage() {
                     </div>
 
                     {/* PROGRESS MONITOR */}
-                    <div className="space-y-6 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    <div className="space-y-6 bg-gray-50 p-6 rounded-xl border border-gray-200">
                         <div className="flex items-center justify-between">
                             <h2 className="font-semibold text-lg">2. Live Progress</h2>
                             {isProcessing && (
@@ -261,7 +261,7 @@ export default function BatchGeneratorPage() {
                         </div>
 
                         {!activeBatchId ? (
-                            <div className="h-64 flex flex-col items-center justify-center text-muted-foreground dark:text-muted-foreground dark:text-muted-foreground/70 dark:text-muted-foreground/70 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-lg">
+                            <div className="h-64 flex flex-col items-center justify-center text-muted-foreground dark:text-muted-foreground dark:text-muted-foreground/70 dark:text-muted-foreground/70 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-lg">
                                 <Factory className="w-12 h-12 mb-2 opacity-20" />
                                 <p>Ready to build content</p>
                             </div>
@@ -269,15 +269,15 @@ export default function BatchGeneratorPage() {
                             <div className="space-y-6">
                                 {/* Stats Cards */}
                                 <div className="grid grid-cols-3 gap-4">
-                                    <div className="bg-white dark:bg-muted dark:bg-muted p-3 rounded-lg border border-slate-200 dark:border-border dark:border-border shadow-sm text-center">
-                                        <div className="text-2xl font-bold text-slate-700 dark:text-foreground dark:text-foreground">{batchProgress?.total || 0}</div>
+                                    <div className="bg-white dark:bg-muted dark:bg-muted p-3 rounded-lg border border-gray-200 dark:border-border dark:border-border shadow-sm text-center">
+                                        <div className="text-2xl font-bold text-gray-700 dark:text-foreground dark:text-foreground">{batchProgress?.total || 0}</div>
                                         <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Total</div>
                                     </div>
-                                    <div className="bg-white dark:bg-muted dark:bg-muted p-3 rounded-lg border border-slate-200 dark:border-border dark:border-border shadow-sm text-center">
+                                    <div className="bg-white dark:bg-muted dark:bg-muted p-3 rounded-lg border border-gray-200 dark:border-border dark:border-border shadow-sm text-center">
                                         <div className="text-2xl font-bold text-success-600 dark:text-success-400">{batchProgress?.completed || 0}</div>
                                         <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Done</div>
                                     </div>
-                                    <div className="bg-white dark:bg-muted dark:bg-muted p-3 rounded-lg border border-slate-200 dark:border-border dark:border-border shadow-sm text-center">
+                                    <div className="bg-white dark:bg-muted dark:bg-muted p-3 rounded-lg border border-gray-200 dark:border-border dark:border-border shadow-sm text-center">
                                         <div className="text-2xl font-bold text-danger-500 dark:text-danger-400">{batchProgress?.failed || 0}</div>
                                         <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 dark:text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">Failed</div>
                                     </div>
@@ -289,7 +289,7 @@ export default function BatchGeneratorPage() {
                                         <span>Progress</span>
                                         <span>{Math.round(((batchProgress?.completed || 0) / (batchProgress?.total || 1)) * 100)}%</span>
                                     </div>
-                                    <div className="h-4 bg-slate-200 rounded-full overflow-hidden">
+                                    <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
                                         <div 
                                             className="h-full bg-secondary-600 transition-all duration-500 ease-out"
                                             style={{ width: `${((batchProgress?.completed || 0) / (batchProgress?.total || 1)) * 100}%` }}

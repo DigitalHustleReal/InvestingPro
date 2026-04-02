@@ -32,12 +32,12 @@ export default function RatingBreakdown({ distribution, totalReviews, className 
           <div key={rating} className="flex items-center gap-3">
             {/* Star Rating Label */}
             <div className="flex items-center gap-1 w-16">
-              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{rating}</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{rating}</span>
               <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
             </div>
 
             {/* Progress Bar */}
-            <div className="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div className="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
               <div
                 className="h-full bg-amber-400 transition-all duration-300"
                 style={{ width: `${percentage}%` }}
@@ -45,7 +45,7 @@ export default function RatingBreakdown({ distribution, totalReviews, className 
             </div>
 
             {/* Count */}
-            <span className="text-sm text-slate-600 dark:text-slate-400 w-12 text-right">
+            <span className="text-sm text-gray-600 dark:text-gray-400 w-12 text-right">
               {count}
             </span>
           </div>

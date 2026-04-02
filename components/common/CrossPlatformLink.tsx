@@ -56,8 +56,8 @@ export default function CrossPlatformLink({
   // Determine styling based on variant
   const baseStyles = {
     default: 'text-primary-600 hover:text-primary-700 font-medium',
-    subtle: 'text-slate-500 hover:text-slate-700 text-sm',
-    text: 'text-slate-600 hover:text-slate-900 underline underline-offset-2',
+    subtle: 'text-gray-500 hover:text-gray-700 text-sm',
+    text: 'text-gray-600 hover:text-gray-900 underline underline-offset-2',
   };
 
   const linkContent = (
@@ -141,10 +141,10 @@ export function ContextualLinkSection({
   }
 
   return (
-    <div className="mt-12 pt-8 border-t border-slate-200">
-      <h3 className="text-lg font-semibold text-slate-900 mb-2">{title}</h3>
+    <div className="mt-12 pt-8 border-t border-gray-200">
+      <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
       {description && (
-        <p className="text-sm text-slate-600 mb-4">{description}</p>
+        <p className="text-sm text-gray-600 mb-4">{description}</p>
       )}
       <div className="space-y-2">
         {validLinks.map(({ platform }) => (

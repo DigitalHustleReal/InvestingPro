@@ -444,15 +444,15 @@ export default function ContentFactoryPage() {
 
                     {/* Console Output */}
                     {events.length > 0 && (
-                        <div className="bg-slate-950 rounded-lg border border-border p-6 mb-8 font-mono">
-                            <h2 className="text-base font-semibold text-slate-50 mb-4">Pipeline Console</h2>
+                        <div className="bg-gray-950 rounded-lg border border-border p-6 mb-8 font-mono">
+                            <h2 className="text-base font-semibold text-gray-50 mb-4">Pipeline Console</h2>
                             <div ref={consoleRef} className="space-y-1.5 max-h-[500px] overflow-y-auto text-xs custom-scrollbar">
                                 {events.map((event, i) => {
                                     const cfg = STAGE_CONFIG[event.stage] || STAGE_CONFIG['generating'];
                                     const Icon = cfg.icon;
                                     return (
                                         <div key={i} className="flex items-start gap-2">
-                                            <span className="text-slate-600 select-none shrink-0 w-16 text-right">
+                                            <span className="text-gray-600 select-none shrink-0 w-16 text-right">
                                                 {new Date(event.timestamp).toLocaleTimeString('en-IN', { hour12: false })}
                                             </span>
                                             <span className={`shrink-0 px-1.5 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider ${cfg.color} bg-current/5`}>

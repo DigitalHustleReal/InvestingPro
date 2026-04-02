@@ -111,15 +111,15 @@ export default async function StockDetailPage({ params }: { params: Promise<{ sl
   const trendBg = stock.isPositive ? 'bg-success-50 dark:bg-success-900/20' : 'bg-danger-50 dark:bg-danger-900/20';
   
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 min-h-screen">
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+      <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                <span className="bg-gray-700 text-gray-200 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                   <Building2 className="w-4 h-4" />
                   {stock.sector}
                 </span>
@@ -140,28 +140,28 @@ export default async function StockDetailPage({ params }: { params: Promise<{ sl
                 </div>
               </div>
               
-              <p className="text-lg text-slate-300 mb-8 max-w-2xl">{stock.description}</p>
+              <p className="text-lg text-gray-300 mb-8 max-w-2xl">{stock.description}</p>
               
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
                 <div>
-                  <p className="text-sm text-slate-400">Market Cap</p>
+                  <p className="text-sm text-gray-400">Market Cap</p>
                   <p className="text-lg font-bold">{stock.marketCap}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-400">P/E Ratio</p>
+                  <p className="text-sm text-gray-400">P/E Ratio</p>
                   <p className="text-lg font-bold">{stock.peRatio}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-400">Div. Yield</p>
+                  <p className="text-sm text-gray-400">Div. Yield</p>
                   <p className="text-lg font-bold">{stock.dividendYield}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-400">52W High</p>
+                  <p className="text-sm text-gray-400">52W High</p>
                   <p className="text-lg font-bold text-success-400">{stock.weekHigh52}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-400">52W Low</p>
+                  <p className="text-sm text-gray-400">52W Low</p>
                   <p className="text-lg font-bold text-danger-400">{stock.weekLow52}</p>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default async function StockDetailPage({ params }: { params: Promise<{ sl
                 <CardContent className="p-6">
                   {/* Analyst Rating */}
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-slate-300">Analyst Rating</span>
+                    <span className="text-gray-300">Analyst Rating</span>
                     <span className={`px-3 py-1 rounded-full text-sm font-bold ${
                       stock.analystRating === 'Buy' ? 'bg-success-500 text-white' :
                       stock.analystRating === 'Hold' ? 'bg-accent-500 text-black dark:text-white' :
@@ -183,7 +183,7 @@ export default async function StockDetailPage({ params }: { params: Promise<{ sl
                     </span>
                   </div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-slate-300">Target Price</span>
+                    <span className="text-gray-300">Target Price</span>
                     <span className="text-xl font-bold text-success-400">{stock.targetPrice}</span>
                   </div>
                   
@@ -192,7 +192,7 @@ export default async function StockDetailPage({ params }: { params: Promise<{ sl
                       Invest Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <p className="text-xs text-slate-400 text-center">
+                  <p className="text-xs text-gray-400 text-center">
                     Open demat account to start investing
                   </p>
                 </CardContent>
@@ -218,8 +218,8 @@ export default async function StockDetailPage({ params }: { params: Promise<{ sl
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {stock.keyMetrics.map((metric, index) => (
-                    <div key={index} className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
-                      <p className="text-sm text-slate-500 mb-1">{metric.label}</p>
+                    <div key={index} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                      <p className="text-sm text-gray-500 mb-1">{metric.label}</p>
                       <p className="font-bold text-lg">{metric.value}</p>
                     </div>
                   ))}
@@ -239,7 +239,7 @@ export default async function StockDetailPage({ params }: { params: Promise<{ sl
                 <div className="relative pt-6 pb-2">
                   <div className="flex justify-between text-sm mb-2">
                     <span className="text-danger-500 font-semibold">{stock.weekLow52}</span>
-                    <span className="text-slate-500">Current: {stock.currentPrice}</span>
+                    <span className="text-gray-500">Current: {stock.currentPrice}</span>
                     <span className="text-success-500 font-semibold">{stock.weekHigh52}</span>
                   </div>
                   <div className="h-3 bg-gradient-to-r from-red-200 via-yellow-200 to-green-200 rounded-full relative">
@@ -323,15 +323,15 @@ export default async function StockDetailPage({ params }: { params: Promise<{ sl
                 </CardHeader>
                 <CardContent className="text-sm space-y-3">
                   <div>
-                    <p className="text-slate-500">Sector</p>
+                    <p className="text-gray-500">Sector</p>
                     <p className="font-semibold">{stock.sector}</p>
                   </div>
                   <div>
-                    <p className="text-slate-500">Symbol</p>
+                    <p className="text-gray-500">Symbol</p>
                     <p className="font-semibold">{stock.symbol}</p>
                   </div>
                   <div>
-                    <p className="text-slate-500">Market Cap</p>
+                    <p className="text-gray-500">Market Cap</p>
                     <p className="font-semibold">{stock.marketCap}</p>
                   </div>
                 </CardContent>
@@ -355,10 +355,10 @@ export default async function StockDetailPage({ params }: { params: Promise<{ sl
       </div>
       
       {/* Bottom CTA */}
-      <div className="bg-slate-900 text-white py-12">
+      <div className="bg-gray-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Invest in {stock.symbol} Today</h2>
-          <p className="text-slate-300 mb-8">Open a demat account and build your long-term portfolio!</p>
+          <p className="text-gray-300 mb-8">Open a demat account and build your long-term portfolio!</p>
           <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
               Open Demat Account <ExternalLink className="w-5 h-5 ml-2" />

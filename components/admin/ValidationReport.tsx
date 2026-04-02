@@ -143,7 +143,7 @@ export default function ValidationReport({
     return (
         <div className="space-y-3">
             <div className="flex items-center justify-between">
-                <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
                     <Shield className="w-4 h-4" />
                     Content Validation
                 </h3>
@@ -152,7 +152,7 @@ export default function ValidationReport({
                     size="sm"
                     onClick={runValidation}
                     disabled={validating || !content}
-                    className="h-7 text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                    className="h-7 text-xs text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                 >
                     <RefreshCw className={`w-3 h-3 mr-1 ${validating ? 'animate-spin' : ''}`} />
                     Validate
@@ -160,13 +160,13 @@ export default function ValidationReport({
             </div>
 
             {lastValidated && (
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                     Last validated: {new Date(lastValidated).toLocaleString('en-IN')}
                 </p>
             )}
 
             {!validationResult && (
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                     Click "Validate" to check content for fact-check and compliance issues.
                 </p>
             )}
@@ -204,7 +204,7 @@ export default function ValidationReport({
                     {factCheck && (
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <h4 className="text-xs font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                                <h4 className="text-xs font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                     <FileText className="w-3.5 h-3.5" />
                                     Fact-Check
                                 </h4>
@@ -257,12 +257,12 @@ export default function ValidationReport({
                                                             {error.type.replace('_', ' ')}
                                                         </Badge>
                                                         {error.field && (
-                                                            <span className="text-xs text-slate-500 dark:text-slate-400">
+                                                            <span className="text-xs text-gray-500 dark:text-gray-400">
                                                                 Field: {error.field}
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                                                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
                                                         {error.message}
                                                     </p>
                                                     {error.suggestedFix && (
@@ -282,9 +282,9 @@ export default function ValidationReport({
                                     {factCheck.warnings.map((warning, index) => (
                                         <div
                                             key={index}
-                                            className="p-2 rounded bg-slate-50 dark:bg-surface-dark border border-wt-border"
+                                            className="p-2 rounded bg-gray-50 dark:bg-surface-dark border border-wt-border"
                                         >
-                                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">
                                                 ⚠️ {warning.message}
                                             </p>
                                         </div>
@@ -298,7 +298,7 @@ export default function ValidationReport({
                     {compliance && (
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <h4 className="text-xs font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                                <h4 className="text-xs font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                     <Shield className="w-3.5 h-3.5" />
                                     Regulatory Compliance
                                 </h4>
@@ -350,15 +350,15 @@ export default function ValidationReport({
                                                         >
                                                             {violation.type}
                                                         </Badge>
-                                                        <span className="text-xs text-slate-500 dark:text-slate-400">
+                                                        <span className="text-xs text-gray-500 dark:text-gray-400">
                                                             Rule: {violation.rule}
                                                         </span>
                                                     </div>
-                                                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                                                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
                                                         {violation.message}
                                                     </p>
                                                     {violation.location && (
-                                                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                                             Location: {violation.location}
                                                         </p>
                                                     )}

@@ -40,11 +40,11 @@ export default async function AuthorProfilePage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
       {/* Breadcrumb / Back Link */}
-      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-4 py-4">
-            <Link href="/about/editorial-team" className="inline-flex items-center text-sm text-slate-500 hover:text-primary-600 transition-colors">
+            <Link href="/about/editorial-team" className="inline-flex items-center text-sm text-gray-500 hover:text-primary-600 transition-colors">
                 <ArrowLeft className="w-4 h-4 mr-1" />
                 Back to Editorial Team
             </Link>
@@ -52,11 +52,11 @@ export default async function AuthorProfilePage({ params }: Props) {
       </div>
 
       {/* Hero Profile Header */}
-      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pb-12 pt-8">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 pb-12 pt-8">
         <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row gap-8 items-start md:items-center max-w-5xl mx-auto">
                 {/* Image */}
-                <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 rounded-2xl overflow-hidden shadow-lg border-4 border-white dark:border-slate-800 bg-slate-100 dark:bg-slate-800">
+                <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 rounded-2xl overflow-hidden shadow-lg border-4 border-white dark:border-gray-800 bg-gray-100 dark:bg-gray-800">
                     <Image 
                         src={author.image} 
                         alt={author.name}
@@ -70,33 +70,33 @@ export default async function AuthorProfilePage({ params }: Props) {
                 <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-3 mb-2">
                         <Badge className="bg-primary-600 hover:bg-primary-700">{author.role}</Badge>
-                        <span className="flex items-center text-slate-500 text-sm">
+                        <span className="flex items-center text-gray-500 text-sm">
                             <MapPin className="w-3 h-3 mr-1" />
                             {author.location}
                         </span>
                     </div>
                     
-                    <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">
                         {author.name}
                     </h1>
                     
-                    <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mb-6">
+                    <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mb-6">
                         {author.shortBio}
                     </p>
 
                     <div className="flex gap-4">
                         {author.social.twitter && (
-                            <a href={author.social.twitter} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-primary-600 hover:bg-primary-50 transition-colors">
+                            <a href={author.social.twitter} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition-colors">
                                 <Twitter className="w-5 h-5" />
                             </a>
                         )}
                         {author.social.linkedin && (
-                            <a href={author.social.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-primary-600 hover:bg-primary-50 transition-colors">
+                            <a href={author.social.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition-colors">
                                 <Linkedin className="w-5 h-5" />
                             </a>
                         )}
                         {author.social.email && (
-                            <a href={`mailto:${author.social.email}`} className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-primary-600 hover:bg-primary-50 transition-colors">
+                            <a href={`mailto:${author.social.email}`} className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition-colors">
                                 <Mail className="w-5 h-5" />
                             </a>
                         )}
@@ -114,11 +114,11 @@ export default async function AuthorProfilePage({ params }: Props) {
                 
                 {/* My Story Section */}
                 <section>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                         <span className="w-8 h-1 bg-primary-500 rounded-full block"></span>
                         My Story
                     </h2>
-                    <div className="prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-300">
+                    <div className="prose prose-lg dark:prose-invert text-gray-600 dark:text-gray-300">
                         <p className="italic text-lg border-l-4 border-primary-200 pl-4 mb-6">
                             "{author.quote}"
                         </p>
@@ -128,15 +128,15 @@ export default async function AuthorProfilePage({ params }: Props) {
                     </div>
                 </section>
 
-                <hr className="border-slate-200 dark:border-slate-800" />
+                <hr className="border-gray-200 dark:border-gray-800" />
 
                 {/* Professional Bio */}
                 <section>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                         <span className="w-8 h-1 bg-primary-500 rounded-full block"></span>
                          Professional Profile
                     </h2>
-                    <div className="prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-300">
+                    <div className="prose prose-lg dark:prose-invert text-gray-600 dark:text-gray-300">
                         <p>{author.fullBio}</p>
                     </div>
                 </section>
@@ -151,15 +151,15 @@ export default async function AuthorProfilePage({ params }: Props) {
             <div className="lg:col-span-4 space-y-8">
                 
                 {/* Credentials Card */}
-                <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
+                <Card className="border-gray-200 dark:border-gray-800 shadow-sm">
                     <CardContent className="p-6 space-y-8">
                         
                         {/* Expertise */}
                         <div>
-                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 mb-4">Areas of Expertise</h3>
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-300 mb-4">Areas of Expertise</h3>
                             <div className="flex flex-wrap gap-2">
                                 {author.expertise.map(skill => (
-                                    <Badge key={skill} variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">
+                                    <Badge key={skill} variant="secondary" className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200">
                                         {skill}
                                     </Badge>
                                 ))}
@@ -168,14 +168,14 @@ export default async function AuthorProfilePage({ params }: Props) {
 
                         {/* Experience */}
                         <div>
-                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2">
                                 <Briefcase className="w-4 h-4" /> Experience
                             </h3>
                             <ul className="space-y-4">
                                 {author.experience.map((exp, i) => (
-                                    <li key={i} className="text-sm border-l-2 border-slate-200 pl-3">
-                                        <span className="text-slate-700 dark:text-slate-200 block font-medium">{exp.split(',')[0]}</span>
-                                        <span className="text-slate-500 dark:text-slate-400 block text-xs mt-0.5">{exp.split(',').slice(1).join(',')}</span>
+                                    <li key={i} className="text-sm border-l-2 border-gray-200 pl-3">
+                                        <span className="text-gray-700 dark:text-gray-200 block font-medium">{exp.split(',')[0]}</span>
+                                        <span className="text-gray-500 dark:text-gray-400 block text-xs mt-0.5">{exp.split(',').slice(1).join(',')}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -183,14 +183,14 @@ export default async function AuthorProfilePage({ params }: Props) {
 
                         {/* Education */}
                          <div>
-                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2">
                                 <GraduationCap className="w-4 h-4" /> Education
                             </h3>
                             <ul className="space-y-4">
                                 {author.education.map((edu, i) => (
                                     <li key={i} className="text-sm">
-                                        <span className="text-slate-700 dark:text-slate-200 block font-medium">{edu.split(',')[0]}</span>
-                                        <span className="text-slate-500 dark:text-slate-400 block text-xs mt-0.5">{edu.split(',').slice(1).join(',')}</span>
+                                        <span className="text-gray-700 dark:text-gray-200 block font-medium">{edu.split(',')[0]}</span>
+                                        <span className="text-gray-500 dark:text-gray-400 block text-xs mt-0.5">{edu.split(',').slice(1).join(',')}</span>
                                     </li>
                                 ))}
                             </ul>

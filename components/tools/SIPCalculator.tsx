@@ -51,13 +51,13 @@ export default function SIPCalculator() {
     };
 
     return (
-        <Card className="max-w-md mx-auto my-8 border-primary-100 dark:border-primary-900/50 shadow-md dark:bg-slate-900">
+        <Card className="max-w-md mx-auto my-8 border-primary-100 dark:border-primary-900/50 shadow-md dark:bg-gray-900">
             <CardHeader className="bg-primary-50/50 dark:bg-primary-900/10 border-b border-primary-100 dark:border-primary-900/20 pb-4">
                 <CardTitle className="text-xl text-primary-900 dark:text-primary-100 flex items-center gap-6 md:p-8">
                     📊 SIP Calculator
                 </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6 pt-6 dark:text-slate-200">
+            <CardContent className="space-y-6 pt-6 dark:text-gray-200">
                 {/* Inputs */}
                 <div className="space-y-4">
                     <div className="space-y-2">
@@ -99,21 +99,21 @@ export default function SIPCalculator() {
                 </div>
 
                 {/* Results */}
-                <div className="grid grid-cols-2 gap-4 items-center pt-4 border-t border-slate-100">
+                <div className="grid grid-cols-2 gap-4 items-center pt-4 border-t border-gray-100">
                      <div className="w-32 h-32 mx-auto">
                         <Doughnut data={chartData} options={chartOptions} />
                      </div>
                      <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                            <span className="text-slate-500">Invested</span>
+                            <span className="text-gray-500">Invested</span>
                             <span className="font-medium">₹{results.investedAmount.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-slate-500">Returns</span>
+                            <span className="text-gray-500">Returns</span>
                             <span className="font-medium text-primary-600">+₹{results.estimatedReturns.toLocaleString()}</span>
                         </div>
-                        <div className="flex justify-between border-t border-slate-100 dark:border-slate-800 pt-1 mt-1">
-                            <span className="font-bold text-slate-900 dark:text-white">Total Value</span>
+                        <div className="flex justify-between border-t border-gray-100 dark:border-gray-800 pt-1 mt-1">
+                            <span className="font-bold text-gray-900 dark:text-white">Total Value</span>
                             <span className="font-bold text-primary-700 dark:text-primary-400">₹{results.totalValue.toLocaleString()}</span>
                         </div>
                      </div>

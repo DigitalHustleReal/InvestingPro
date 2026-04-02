@@ -47,7 +47,7 @@ export function withAuth(
 
       // 1. Check authentication if required
       if (config.requireAuth || config.requireAdmin || config.requireEditor) {
-        const supabase = createClient();
+        const supabase = await createClient();
         const { data: { user: authUser }, error } = await supabase.auth.getUser();
 
         if (error || !authUser) {

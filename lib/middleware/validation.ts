@@ -20,14 +20,14 @@ export async function validateBody<T>(
         return { success: true, data };
     } catch (error) {
         if (error instanceof z.ZodError) {
-            logger.warn('Request validation failed', { errors: error.errors });
+            logger.warn('Request validation failed', { errors: error.issues });
             return {
                 success: false,
                 response: NextResponse.json(
                     {
                         success: false,
                         error: 'Validation failed',
-                        details: error.errors,
+                        details: error.issues,
                     },
                     { status: 400 }
                 ),
@@ -54,14 +54,14 @@ export function validateQuery<T>(
         return { success: true, data };
     } catch (error) {
         if (error instanceof z.ZodError) {
-            logger.warn('Query validation failed', { errors: error.errors });
+            logger.warn('Query validation failed', { errors: error.issues });
             return {
                 success: false,
                 response: NextResponse.json(
                     {
                         success: false,
                         error: 'Query validation failed',
-                        details: error.errors,
+                        details: error.issues,
                     },
                     { status: 400 }
                 ),

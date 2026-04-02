@@ -52,18 +52,18 @@ export function AuthorBadge({
 
     const BadgeContent = () => (
         <div className={`flex items-center gap-3 ${className} cursor-pointer group`}>
-            <Avatar className={`${sizeClasses[size]} border border-slate-200 bg-slate-50 transition-transform group-hover:scale-105`}>
+            <Avatar className={`${sizeClasses[size]} border border-gray-200 bg-gray-50 transition-transform group-hover:scale-105`}>
                 <AvatarImage src={avatarUrl || ""} alt={name} />
-                <AvatarFallback className="bg-slate-100 text-slate-600">
+                <AvatarFallback className="bg-gray-100 text-gray-600">
                     <User className={size === 'sm' ? "w-4 h-4" : "w-6 h-6"} />
                 </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-                <span className={`font-semibold text-slate-900 leading-tight ${textSizeClasses[size]} group-hover:text-primary-600 group-hover:underline decoration-primary-600/30 underline-offset-4 transition-colors`}>
+                <span className={`font-semibold text-gray-900 leading-tight ${textSizeClasses[size]} group-hover:text-primary-600 group-hover:underline decoration-primary-600/30 underline-offset-4 transition-colors`}>
                     {name}
                 </span>
                 {showRole && (
-                    <span className="text-xs text-slate-500 font-medium">
+                    <span className="text-xs text-gray-500 font-medium">
                         {role}
                     </span>
                 )}

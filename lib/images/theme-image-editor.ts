@@ -98,7 +98,7 @@ function getThemeColor(
             return theme.accent; // #F59E0B
         case 'category':
             if (category) {
-                return getCategoryAccent(category) || theme.primary;
+                return getCategoryAccent(category)?.accent || theme.primary;
             }
             return theme.primary;
         default:

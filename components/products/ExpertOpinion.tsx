@@ -21,7 +21,7 @@ export default function ExpertOpinion({
 }: ExpertOpinionProps) {
   return (
     <div className={cn(
-      "relative group overflow-hidden rounded-2xl border border-primary-200/50 dark:border-primary-800/30 bg-gradient-to-br from-primary-50/80 to-white dark:from-primary-950/20 dark:to-slate-900/50 backdrop-blur-sm p-6 shadow-lg shadow-primary-500/5",
+      "relative group overflow-hidden rounded-2xl border border-primary-200/50 dark:border-primary-800/30 bg-gradient-to-br from-primary-50/80 to-white dark:from-primary-950/20 dark:to-gray-900/50 backdrop-blur-sm p-6 shadow-lg shadow-primary-500/5",
       className
     )}>
       {/* Decorative Background */}
@@ -37,18 +37,18 @@ export default function ExpertOpinion({
         </div>
 
         {/* Opinion Text */}
-        <blockquote className="text-slate-800 dark:text-slate-200 font-semibold text-lg leading-relaxed mb-4 italic">
+        <blockquote className="text-gray-800 dark:text-gray-200 font-semibold text-lg leading-relaxed mb-4 italic">
           "{opinion}"
         </blockquote>
 
         {/* Expert Info */}
-        <div className="flex items-center gap-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-3 pt-3 border-t border-gray-200 dark:border-gray-700">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white font-bold">
             <User className="w-5 h-5" />
           </div>
           <div>
-            <p className="font-bold text-slate-900 dark:text-white text-sm">{expertName}</p>
-            <p className="text-xs text-slate-600 dark:text-slate-400">{expertTitle}</p>
+            <p className="font-bold text-gray-900 dark:text-white text-sm">{expertName}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400">{expertTitle}</p>
           </div>
         </div>
       </div>
