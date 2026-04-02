@@ -48,6 +48,9 @@ import RelatedCalculators from '@/components/calculators/RelatedCalculators'
 import { getSimilarProducts } from '@/lib/utils/product-similarity'
 import WhatsAppAlerts from '@/components/common/WhatsAppAlerts'
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure'
+import { CreditCardSchema } from '@/components/seo/SchemaMarkup'
+import DataFreshnessIndicator from '@/components/common/DataFreshnessIndicator'
+import CreditCardVisual from '@/components/common/CreditCardVisual'
 
 interface CreditCardDetail {
   id: string
@@ -64,7 +67,8 @@ interface CreditCardDetail {
   interestRate: string
   description: string
   applyLink: string
-  
+  updatedAt: string | null
+
   // Detailed features
   keyFeatures: string[]
   rewardProgram: {
@@ -135,7 +139,8 @@ async function getCreditCardData(slug: string, useServiceClient: boolean = false
     interestRate: card.interest_rate || '3.5% pm',
     description: card.description || `The ${card.name} from ${card.bank} is a ${card.type} credit card offering competitive benefits and rewards.`,
     applyLink: card.apply_link || card.source_url || '#',
-    
+    updatedAt: card.updated_at || null,
+
     keyFeatures: card.pros || [],
     rewardProgram: {
       name: `${card.name} Rewards`,
@@ -243,8 +248,26 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
     notFound()
   }
   
+  // Format the updated date for display
+  const lastUpdatedDate = card.updatedAt
+    ? new Date(card.updatedAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })
+    : new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+
   return (
     <div className="bg-slate-50 dark:bg-black min-h-screen">
+      {/* JSON-LD Schema Markup for SEO */}
+      <CreditCardSchema
+        name={card.name}
+        slug={params.slug}
+        description={card.description}
+        provider={card.provider}
+        image={card.image}
+        rating={card.rating}
+        annualFee={card.annualFee}
+        interestRate={card.interestRate}
+        faqs={CREDIT_CARD_GENERAL_FAQS}
+      />
+
       {/* Hero Section - The "Decision Layer" */}
       <div className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 pt-8 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -257,9 +280,13 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                          {card.image ? (
                            <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
                          ) : (
-                           <div className="w-full h-full bg-slate-900 flex items-center justify-center">
-                              <span className="text-white font-bold text-2xl">{card.provider}</span>
-                           </div>
+                           <CreditCardVisual
+                             cardName={card.name}
+                             bankName={card.provider}
+                             cardType={card.type}
+                             className="w-full h-full"
+                             size="lg"
+                           />
                          )}
                          {/* Best For Tag overlay */}
                          <div className="absolute top-3 left-3 bg-slate-900/90 backdrop-blur-sm border border-white/20 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1.5 rounded-full shadow-lg z-10">
@@ -305,6 +332,13 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
                             {card.description}
                         </p>
                         <AuthorByline />
+                        <div className="mt-3">
+                            <DataFreshnessIndicator
+                                lastUpdated={card.updatedAt || new Date().toISOString()}
+                                label="Last updated"
+                                size="sm"
+                            />
+                        </div>
                     </div>
 
                     {/* Expert Opinion Box - NEW */}

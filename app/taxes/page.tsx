@@ -37,7 +37,7 @@ const TaxHeroCalculator = () => {
     const [income, setIncome] = useState(1200000); // 12 Lakhs
     const [deductions, setDeductions] = useState(250000); // 1.5L (80C) + 50k (80D) + 50k (Standard)
 
-    // Rough calculation for FY 2025-26
+    // Rough calculation for FY 2026-27
     const calculateTax = (inc: number, ded: number, type: 'old' | 'new') => {
         if (type === 'old') {
             const taxable = Math.max(0, inc - ded);
@@ -130,7 +130,7 @@ const TaxHeroCalculator = () => {
                     <div className="mt-12 p-4 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3">
                         <Info className="w-5 h-5 text-primary-400 mt-0.5" />
                         <p className="text-xs text-slate-600 leading-relaxed">
-                            Calculations are based on FY 2025-26 rules. New regime now includes ₹75,000 standard deduction and Nil tax up to ₹7 Lakhs taxable income.
+                            Calculations are based on FY 2026-27 rules. New regime now includes ₹75,000 standard deduction and Nil tax up to ₹7 Lakhs taxable income.
                         </p>
                     </div>
                 </div>
@@ -204,7 +204,7 @@ export default function TaxesPage() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center mb-16">
                         <Badge className="mb-4 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 border-primary-100 dark:border-primary-500/20 px-4 py-1.5 rounded-full font-bold tracking-wide">
-                            FINANCIAL YEAR 2025-26
+                            FINANCIAL YEAR 2026-27
                         </Badge>
                         <h1 className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-white mb-6 leading-[1.1] tracking-tight">
                             Save More. <span className="text-transparent bg-clip-text bg-gradient-to-r from-success-400 via-primary-500 to-secondary-500">Tax Less.</span>
@@ -300,7 +300,7 @@ export default function TaxesPage() {
 
                         <div className="space-y-8">
                             {[
-                                { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2025-26.', color: 'bg-primary-500' },
+                                { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2026-27.', color: 'bg-primary-500' },
                                 { date: 'July 31', title: 'ITR Filing Deadline', desc: 'Standard deadline for individual tax payers and salaried employees.', color: 'bg-accent-500' },
                                 { date: 'Sept 30', title: 'Tax Audit Deadline', desc: 'Deadline for businesses and professionals requiring a tax audit.', color: 'bg-primary-500' },
                                 { date: 'Dec 31', title: 'Belated ITR Return', desc: 'Last chance to file your taxes with a penalty for late submission.', color: 'bg-danger-500' },

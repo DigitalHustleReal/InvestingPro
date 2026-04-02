@@ -157,6 +157,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             logger.error('Error fetching articles for sitemap', error as Error);
         }
 
+        // Credit Card individual pages (per-card SEO pages)
+        try {
+            const { data: creditCards } = await supabase
+                .from('credit_cards')
+                .select('slug, updated_at')
+                .not('slug', 'is', null)
+                .limit(10000);
+
+            if (creditCards) {
+                for (const card of creditCards) {
+                    sitemap.push({
+                        url: `${baseUrl}/credit-cards/${card.slug}`,
+                        lastModified: card.updated_at ? new Date(card.updated_at) : new Date(),
+                        changeFrequency: 'weekly',
+                        priority: 0.8,
+                    });
+                }
+            }
+        } catch (error) {
+            logger.error('Error fetching credit cards for sitemap', error as Error);
+        }
+
+        // Credit Card salary bracket pages (programmatic SEO)
+        const salaryBrackets = [
+            '15000-25000', '25000-40000', '40000-60000', '60000-100000',
+            'above-100000', 'students', 'self-employed', 'women',
+        ];
+        for (const bracket of salaryBrackets) {
+            sitemap.push({
+                url: `${baseUrl}/credit-cards/salary/${bracket}`,
+                lastModified: new Date(),
+                changeFrequency: 'weekly',
+                priority: 0.85,
+            });
+        }
+
+        // Credit Card category/type pages (programmatic SEO)
+        const cardCategories = [
+            'travel', 'cashback', 'rewards', 'fuel', 'shopping',
+            'premium', 'business', 'lifetime-free',
+        ];
+        for (const category of cardCategories) {
+            sitemap.push({
+                url: `${baseUrl}/credit-cards/category/${category}`,
+                lastModified: new Date(),
+                changeFrequency: 'weekly',
+                priority: 0.85,
+            });
+        }
+
         // Versus Comparison Pages (Programmatic SEO)
         try {
             const { data: versusPages } = await supabase
@@ -170,7 +220,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                         url: `${baseUrl}/compare/${page.slug}`,
                         lastModified: page.updated_at ? new Date(page.updated_at) : new Date(),
                         changeFrequency: 'weekly',
-                        priority: 0.8,
+                        priority: 0.7,
                     });
                 }
             }

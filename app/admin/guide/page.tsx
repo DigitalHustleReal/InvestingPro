@@ -363,7 +363,7 @@ The CMS generates content through this process:
 
 ---
 
-**Last Updated:** 2025-01-15
+**Last Updated:** 2026-04-02
 **Version:** 1.0.0`;
 
 const sections = [

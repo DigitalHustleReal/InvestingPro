@@ -35,7 +35,7 @@ const mockTrendingItems: TrendingItem[] = [
     {
         id: '2',
         title: 'Tax Planning Window Closing (31 Days Left)',
-        description: 'Last chance to invest in tax-saving instruments for FY 2025-26. Save up to ₹45,000 in taxes.',
+        description: 'Last chance to invest in tax-saving instruments for FY 2026-27. Save up to ₹45,000 in taxes.',
         category: 'Taxes',
         impact: 'high',
         actionUrl: '/calculators/tax',

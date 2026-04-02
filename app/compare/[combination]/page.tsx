@@ -28,6 +28,7 @@ import {
 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import ComparisonPDFButton from '@/components/products/ComparisonPDFButton'
+import { VersusSchema } from '@/components/seo/SchemaMarkup'
 import { cn } from '@/lib/utils'
 
 export const revalidate = 86400 // Cache comparison pages for 24h
@@ -123,6 +124,19 @@ export default async function ComparisonPage({
 
   return (
     <div className="min-h-screen bg-background">
+      {/* JSON-LD Schema Markup for SEO */}
+      <VersusSchema
+        product1Name={p1.name}
+        product1Slug={p1.slug || parts[0]}
+        product1Image={p1.image_url}
+        product1Rating={p1.rating}
+        product2Name={p2.name}
+        product2Slug={p2.slug || parts[1]}
+        product2Image={p2.image_url}
+        product2Rating={p2.rating}
+        combination={combination}
+        category={p1.category || 'credit_cards'}
+      />
       <div className="max-w-6xl mx-auto px-4 py-10 sm:py-16" id="versus-report">
 
         {/* ── Hero Face-Off ─────────────────────────────────────── */}

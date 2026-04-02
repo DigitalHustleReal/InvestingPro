@@ -257,7 +257,7 @@ export const TONE_CONFIGS: Record<ToneType, ToneConfig> = {
       'Create false urgency',
       'Pressure the reader',
     ],
-    examplePhrase: 'Tax-saving investments for FY 2025-26 must be done by March 31st. With 45 days left, here\'s your action plan.',
+    examplePhrase: 'Tax-saving investments for FY 2026-27 must be done by March 31st. With 45 days left, here\'s your action plan.',
   },
   reassuring: {
     tone: 'reassuring',

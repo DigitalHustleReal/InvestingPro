@@ -38,7 +38,7 @@ const RESOURCES = [
     },
     {
         id: 'tax-planner-2026',
-        title: 'Tax Savings Optimizer (FY 2025-26)',
+        title: 'Tax Savings Optimizer (FY 2026-27)',
         description: 'Minimize your tax burden with this automated calculator for Old vs New tax regimes.',
         type: 'excel',
         downloadUrl: '#',

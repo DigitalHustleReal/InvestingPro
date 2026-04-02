@@ -417,7 +417,7 @@ Generate a complete, SEO-optimized article about "${topic}" with the following r
                                 id="topic"
                                 value={topic}
                                 onChange={(e) => setTopic(e.target.value)}
-                                placeholder="e.g., Best SIP Plans for 2025, Credit Card Comparison Guide"
+                                placeholder="e.g., Best SIP Plans for 2026, Credit Card Comparison Guide"
                                 className="mt-2 text-lg"
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' && !e.shiftKey) {

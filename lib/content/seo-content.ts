@@ -1,5 +1,5 @@
 export const CREDIT_CARD_SEO_CONTENT = {
-    title: "Complete Guide to Credit Cards in India (2025)",
+    title: `Complete Guide to Credit Cards in India (${new Date().getFullYear()})`,
     content: `
       <h3>How to Choose the Right Credit Card?</h3>
       <p>With over 100+ credit cards available in India, choosing the right one can be overwhelming. The key is to analyze your spending habits:</p>
@@ -26,7 +26,7 @@ export const CREDIT_CARD_SEO_CONTENT = {
       <h3>What is a Personal Loan?</h3>
       <p>A personal loan is an unsecured loan provided by banks and NBFCs without any collateral. You can use it for any purpose: medical emergencies, weddings, travel, or debt consolidation.</p>
   
-      <h3>Current Interest Rates (2025)</h3>
+      <h3>Current Interest Rates (${new Date().getFullYear()})</h3>
       <p>Interest rates start from <strong>10.50% p.a.</strong> for salaried individuals with high credit scores (750+). For others, rates can go up to 18-24%. Always check the APR (Annual Percentage Rate) which includes processing fees.</p>
   
       <h3>Processing Fees & Charges</h3>

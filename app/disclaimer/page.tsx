@@ -14,7 +14,7 @@ export default function DisclaimerPage() {
           <AlertTriangle className="w-10 h-10 text-danger-600" />
           <h1 className="text-4xl font-bold text-slate-900">Disclaimer</h1>
         </div>
-        <p className="text-sm text-slate-600 mb-8">Last Updated: December 31, 2025</p>
+        <p className="text-sm text-slate-600 mb-8">Last Updated: April 2, 2026</p>
 
         <div className="prose prose-slate max-w-none">
           {/* Critical Notice */}

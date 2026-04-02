@@ -187,7 +187,7 @@ export default function MutualFundsPage() {
         <PageErrorBoundary pageName="Mutual Funds Page">
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20 transition-colors duration-300">
                 <SEOHead
-                    title="Top Mutual Funds India 2025 - Compare & Start SIP | InvestingPro"
+                    title={`Top Mutual Funds India ${new Date().getFullYear()} - Compare & Start SIP | InvestingPro`}
                     description="Invest in best mutual funds in India. Compare returns, expense ratios, and ratings. Start SIP from ₹500/month. Zero commission, expert advice."
                     structuredData={structuredData}
                 />

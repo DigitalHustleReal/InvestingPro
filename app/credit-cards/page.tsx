@@ -33,7 +33,7 @@ export default async function CreditCardsPage() {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
             <SEOHead
-                title="Best Credit Cards in India (2025) - Compare & Apply Online | InvestingPro"
+                title={`Best Credit Cards in India (${new Date().getFullYear()}) - Compare & Apply Online | InvestingPro`}
                 description="Compare 100+ top credit cards in India. Get instant approval, check eligibility, and find cards with best rewards, cashback, and travel benefits. Apply now!"
                 structuredData={{
                     "@context": "https://schema.org",
