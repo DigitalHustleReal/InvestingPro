@@ -159,7 +159,7 @@ export default function ReviewQueuePage() {
                                             {article.excerpt || 'No excerpt provided...'}
                                         </p>
                                         <div className="flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
-                                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center">
+                                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center">
                                                 <User className="w-3 h-3 text-foreground/80 dark:text-foreground/80" />
                                             </div>
                                             <span className="text-xs">Author: {article.author_id?.slice(0, 8) || 'Unknown'}...</span>
@@ -225,7 +225,7 @@ export default function ReviewQueuePage() {
                                     placeholder={actionType === 'approve' ? "Optional: Great work on..." : "Required: Please fix..."}
                                     value={reviewNotes}
                                     onChange={e => setReviewNotes(e.target.value)}
-                                    className="min-h-[100px] bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground placeholder-slate-500"
+                                    className="min-h-[100px] bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground placeholder-gray-500"
                                 />
                             </div>
                         </div>

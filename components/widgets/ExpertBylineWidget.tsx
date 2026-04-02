@@ -66,12 +66,12 @@ export default function ExpertBylineWidget() {
     const expert = EXPERTS[currentIndex];
 
     return (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm relative overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm relative overflow-hidden">
             <div className="flex items-center gap-2 mb-4">
                 <div className="bg-primary-100 dark:bg-primary-900/30 p-1.5 rounded-lg">
                     <Shield className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                 </div>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">
                     Expert Verified
                 </h3>
             </div>
@@ -87,7 +87,7 @@ export default function ExpertBylineWidget() {
                         className="flex flex-col items-center text-center absolute inset-0"
                     >
                 <div className="relative mb-4">
-                    <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-lg relative z-10">
+                    <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-lg relative z-10">
                         <Image 
                             src={expert.image} 
                             alt={expert.name}
@@ -99,19 +99,19 @@ export default function ExpertBylineWidget() {
                     {/* Decorative ring */}
                     <div className="absolute inset-0 rounded-full border border-primary-200 dark:border-primary-800 scale-125 -z-0 animate-pulse-slow" />
                     
-                    <div className="absolute -bottom-1 -right-1 bg-white dark:bg-slate-900 rounded-full p-1 shadow-sm z-20">
-                        <CheckCircle className="w-5 h-5 text-success-500 fill-white dark:fill-slate-900" />
+                    <div className="absolute -bottom-1 -right-1 bg-white dark:bg-gray-900 rounded-full p-1 shadow-sm z-20">
+                        <CheckCircle className="w-5 h-5 text-success-500 fill-white dark:fill-gray-900" />
                     </div>
                 </div>
 
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
+                <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
                     {expert.name}
                 </h4>
                 <p className="text-xs font-semibold text-primary-600 dark:text-primary-400 mb-3 bg-primary-50 dark:bg-primary-900/20 px-3 py-1 rounded-full">
                     {expert.role}
                 </p>
 
-                <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 italic line-clamp-3">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 italic line-clamp-3">
                     "{expert.bio}"
                 </p>
 

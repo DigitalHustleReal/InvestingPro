@@ -88,7 +88,7 @@ export default function DownloadsPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white dark:bg-slate-950">
+        <div className="min-h-screen bg-white dark:bg-gray-950">
             <SEOHead
                 title="Free Finance Resources - Dashboards, Guides & eBooks | InvestingPro"
                 description="Download free finance dashboards, guides, and eBooks. Portfolio trackers, expense trackers, tax planning tools, and more."
@@ -100,42 +100,42 @@ export default function DownloadsPage() {
                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 dark:bg-primary-900/30 mb-6">
                         <Download className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                     </div>
-                    <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                         Free Finance Resources
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                         Download free Excel dashboards, PDF guides, eBooks, and templates to manage your finances better.
                     </p>
                 </div>
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4 text-center">
+                    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 text-center">
                         <FileSpreadsheet className="w-6 h-6 text-primary-600 mx-auto mb-2" />
-                        <div className="text-2xl font-bold text-slate-900 dark:text-white">{typeStats.dashboard}</div>
-                        <div className="text-sm text-slate-600 dark:text-slate-400">Dashboards</div>
+                        <div className="text-2xl font-bold text-gray-900 dark:text-white">{typeStats.dashboard}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Dashboards</div>
                     </div>
-                    <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4 text-center">
+                    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 text-center">
                         <BookOpen className="w-6 h-6 text-success-600 mx-auto mb-2" />
-                        <div className="text-2xl font-bold text-slate-900 dark:text-white">{typeStats.guide}</div>
-                        <div className="text-sm text-slate-600 dark:text-slate-400">Guides</div>
+                        <div className="text-2xl font-bold text-gray-900 dark:text-white">{typeStats.guide}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Guides</div>
                     </div>
-                    <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4 text-center">
+                    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 text-center">
                         <BookOpen className="w-6 h-6 text-secondary-600 mx-auto mb-2" />
-                        <div className="text-2xl font-bold text-slate-900 dark:text-white">{typeStats.ebook}</div>
-                        <div className="text-sm text-slate-600 dark:text-slate-400">eBooks</div>
+                        <div className="text-2xl font-bold text-gray-900 dark:text-white">{typeStats.ebook}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">eBooks</div>
                     </div>
-                    <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4 text-center">
+                    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 text-center">
                         <FileText className="w-6 h-6 text-danger-600 mx-auto mb-2" />
-                        <div className="text-2xl font-bold text-slate-900 dark:text-white">{typeStats.pdf}</div>
-                        <div className="text-sm text-slate-600 dark:text-slate-400">PDFs</div>
+                        <div className="text-2xl font-bold text-gray-900 dark:text-white">{typeStats.pdf}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">PDFs</div>
                     </div>
                 </div>
 
                 {/* Search and Filters */}
                 <div className="mb-8 space-y-4">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
                         <Input
                             type="text"
                             placeholder="Search resources..."
@@ -160,11 +160,11 @@ export default function DownloadsPage() {
                 {loading ? (
                     <div className="text-center py-12">
                         <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-                        <p className="mt-4 text-slate-600 dark:text-slate-400">Loading resources...</p>
+                        <p className="mt-4 text-gray-600 dark:text-gray-400">Loading resources...</p>
                     </div>
                 ) : filteredDownloads.length === 0 ? (
                     <div className="text-center py-12">
-                        <p className="text-slate-600 dark:text-slate-400">No resources found. Try a different search.</p>
+                        <p className="text-gray-600 dark:text-gray-400">No resources found. Try a different search.</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

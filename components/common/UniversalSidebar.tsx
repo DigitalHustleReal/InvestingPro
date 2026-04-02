@@ -8,11 +8,11 @@ import { Loader2 } from "lucide-react";
 // Skeleton components for loading states
 function WidgetSkeleton({ height = "h-40" }: { height?: string }) {
     return (
-        <div className={cn("bg-slate-100 dark:bg-slate-800 rounded-2xl animate-pulse", height)}>
+        <div className={cn("bg-gray-100 dark:bg-gray-800 rounded-2xl animate-pulse", height)}>
             <div className="p-4 space-y-3">
-                <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-1/2" />
-                <div className="h-8 bg-slate-200 dark:bg-slate-700 rounded w-3/4" />
-                <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-2/3" />
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3" />
             </div>
         </div>
     );
@@ -20,15 +20,15 @@ function WidgetSkeleton({ height = "h-40" }: { height?: string }) {
 
 function RatesWidgetSkeleton() {
     return (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden">
-            <div className="p-4 border-b border-slate-100 dark:border-slate-800">
-                <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-1/3 animate-pulse" />
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden">
+            <div className="p-4 border-b border-gray-100 dark:border-gray-800">
+                <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-1/3 animate-pulse" />
             </div>
-            <div className="grid grid-cols-2 divide-x divide-y divide-slate-100 dark:divide-slate-800">
+            <div className="grid grid-cols-2 divide-x divide-y divide-gray-100 dark:divide-gray-800">
                 {[1, 2, 3, 4].map((i) => (
                     <div key={i} className="p-4 flex flex-col items-center animate-pulse">
-                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-16 mb-2" />
-                        <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded w-12" />
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mb-2" />
+                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-12" />
                     </div>
                 ))}
             </div>
@@ -38,20 +38,20 @@ function RatesWidgetSkeleton() {
 
 function NewsWidgetSkeleton() {
     return (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden">
-            <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between">
-                <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-1/3 animate-pulse" />
-                <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-16 animate-pulse" />
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden">
+            <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between">
+                <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-1/3 animate-pulse" />
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16 animate-pulse" />
             </div>
-            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+            <div className="divide-y divide-gray-100 dark:divide-gray-800">
                 {[1, 2, 3].map((i) => (
                     <div key={i} className="p-4 space-y-2 animate-pulse">
                         <div className="flex gap-2">
-                            <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-12" />
-                            <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-16" />
+                            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-12" />
+                            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16" />
                         </div>
-                        <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-full" />
-                        <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-2/3" />
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full" />
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3" />
                     </div>
                 ))}
             </div>

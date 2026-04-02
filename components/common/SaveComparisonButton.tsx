@@ -47,7 +47,7 @@ export default function SaveComparisonButton() {
         variant="ghost" 
         size="sm" 
         onClick={handleSave} 
-        className="hidden sm:flex items-center gap-2 text-slate-500 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/10 text-xs font-semibold px-2"
+        className="hidden sm:flex items-center gap-2 text-gray-500 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/10 text-xs font-semibold px-2"
         disabled={selectedProducts.length === 0}
     >
       {isSaved ? <Check className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}

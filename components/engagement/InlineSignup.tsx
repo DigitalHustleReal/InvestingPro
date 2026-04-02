@@ -53,7 +53,7 @@ export default function InlineSignup({ variant, cardName, category, className }:
       description: `Know when ${cardName || 'this card'} changes fees or adds new offers.`,
       placeholder: 'your@email.com',
       cta: 'Alert Me',
-      bgClass: 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800',
+      bgClass: 'bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800',
     },
     'save-results': {
       icon: <Mail className="w-5 h-5" />,
@@ -69,7 +69,7 @@ export default function InlineSignup({ variant, cardName, category, className }:
       description: 'One email per week. Our analysts pick 3 cards worth your attention.',
       placeholder: 'your@email.com',
       cta: 'Get Picks',
-      bgClass: 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800',
+      bgClass: 'bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800',
     },
   };
 
@@ -82,8 +82,8 @@ export default function InlineSignup({ variant, cardName, category, className }:
           {config.icon}
         </div>
         <div>
-          <h3 className="font-bold text-slate-900 dark:text-white text-sm">{config.title}</h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{config.description}</p>
+          <h3 className="font-bold text-gray-900 dark:text-white text-sm">{config.title}</h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{config.description}</p>
         </div>
       </div>
       <form onSubmit={handleSubmit} className="flex gap-2">
@@ -93,7 +93,7 @@ export default function InlineSignup({ variant, cardName, category, className }:
           onChange={(e) => setEmail(e.target.value)}
           placeholder={config.placeholder}
           required
-          className="flex-1 px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500/30 focus:border-green-500"
+          className="flex-1 px-3 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500/30 focus:border-green-500"
         />
         <Button
           type="submit"
@@ -103,7 +103,7 @@ export default function InlineSignup({ variant, cardName, category, className }:
           {loading ? '...' : config.cta}
         </Button>
       </form>
-      <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-2">No spam. Unsubscribe anytime.</p>
+      <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-2">No spam. Unsubscribe anytime.</p>
     </div>
   );
 }

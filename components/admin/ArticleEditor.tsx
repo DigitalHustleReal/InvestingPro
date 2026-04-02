@@ -166,18 +166,18 @@ export default function ArticleEditor({
             attributes: {
                 class: cn(
                     "prose prose-gray dark:prose-invert max-w-none focus:outline-none min-h-[400px] p-4",
-                    "text-slate-900 dark:text-text-primary",
-                    "[&_h1]:text-slate-900 dark:[&_h1]:text-text-primary",
-                    "[&_h2]:text-slate-900 dark:[&_h2]:text-text-primary",
-                    "[&_h3]:text-slate-900 dark:[&_h3]:text-text-primary",
-                    "[&_h4]:text-slate-900 dark:[&_h4]:text-text-primary",
-                    "[&_p]:text-slate-900 dark:[&_p]:text-text-primary",
-                    "[&_ul]:text-slate-900 dark:[&_ul]:text-text-primary",
-                    "[&_ol]:text-slate-900 dark:[&_ol]:text-text-primary",
-                    "[&_li]:text-slate-900 dark:[&_li]:text-text-primary",
-                    "[&_strong]:text-slate-900 dark:[&_strong]:text-text-primary",
-                    "[&_blockquote]:text-slate-500 dark:[&_blockquote]:text-text-secondary/50 [&_blockquote]:border-border",
-                    "[&_code]:text-slate-900 dark:[&_code]:text-text-primary [&_code]:bg-slate-100 dark:[&_code]:bg-subtle [&_code]:px-1 [&_code]:rounded",
+                    "text-gray-900 dark:text-text-primary",
+                    "[&_h1]:text-gray-900 dark:[&_h1]:text-text-primary",
+                    "[&_h2]:text-gray-900 dark:[&_h2]:text-text-primary",
+                    "[&_h3]:text-gray-900 dark:[&_h3]:text-text-primary",
+                    "[&_h4]:text-gray-900 dark:[&_h4]:text-text-primary",
+                    "[&_p]:text-gray-900 dark:[&_p]:text-text-primary",
+                    "[&_ul]:text-gray-900 dark:[&_ul]:text-text-primary",
+                    "[&_ol]:text-gray-900 dark:[&_ol]:text-text-primary",
+                    "[&_li]:text-gray-900 dark:[&_li]:text-text-primary",
+                    "[&_strong]:text-gray-900 dark:[&_strong]:text-text-primary",
+                    "[&_blockquote]:text-gray-500 dark:[&_blockquote]:text-text-secondary/50 [&_blockquote]:border-border",
+                    "[&_code]:text-gray-900 dark:[&_code]:text-text-primary [&_code]:bg-gray-100 dark:[&_code]:bg-subtle [&_code]:px-1 [&_code]:rounded",
                     "[&_a]:text-primary hover:[&_a]:underline",
                     className
                 ),
@@ -301,10 +301,10 @@ export default function ArticleEditor({
     }
 
     return (
-        <div className="bg-white dark:bg-[#020617] rounded-xl overflow-hidden shadow-sm border border-wt-border dark:border-slate-800 transition-all duration-300">
+        <div className="bg-white dark:bg-[#020617] rounded-xl overflow-hidden shadow-sm border border-wt-border dark:border-gray-800 transition-all duration-300">
             {/* Toolbar */}
             {editable && (
-                <div className="border-b border-wt-border dark:border-slate-800 p-2 flex flex-wrap gap-1 bg-slate-50 dark:bg-slate-900 backdrop-blur-md transition-colors duration-300">
+                <div className="border-b border-wt-border dark:border-gray-800 p-2 flex flex-wrap gap-1 bg-gray-50 dark:bg-gray-900 backdrop-blur-md transition-colors duration-300">
                     <Button
                         variant="ghost"
                         size="sm"
@@ -452,7 +452,7 @@ export default function ArticleEditor({
 
             {/* Editor Content */}
             <div 
-                className="p-6 md:p-8 min-h-[500px] bg-white dark:bg-slate-950"
+                className="p-6 md:p-8 min-h-[500px] bg-white dark:bg-gray-950"
                 role="textbox"
                 aria-label="Article content editor"
                 aria-multiline="true"

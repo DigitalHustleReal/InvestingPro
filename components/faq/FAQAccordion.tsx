@@ -75,12 +75,12 @@ export default function FAQAccordion({
       {/* Header */}
       <div className="text-center mb-12">
         {title && (
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             {title}
           </h2>
         )}
         {subtitle && (
-          <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
             {subtitle}
           </p>
         )}
@@ -88,13 +88,13 @@ export default function FAQAccordion({
         {/* Search */}
         {searchable && (
           <div className="relative max-w-md mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
             <input
               type="text"
               placeholder="Search FAQs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
+              className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
             />
           </div>
         )}
@@ -103,7 +103,7 @@ export default function FAQAccordion({
       {/* FAQ Items */}
       <div className="space-y-4">
         {filteredFAQs.length === 0 ? (
-          <p className="text-center text-slate-600 dark:text-slate-400 py-8">
+          <p className="text-center text-gray-600 dark:text-gray-400 py-8">
             No FAQs found matching your search.
           </p>
         ) : (
@@ -150,17 +150,17 @@ function FAQItem({
   onToggle: () => void;
 }) {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all hover:border-primary-300 dark:hover:border-primary-700">
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all hover:border-primary-300 dark:hover:border-primary-700">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-6 text-left transition-colors hover:bg-slate-50 dark:hover:bg-slate-700/50"
+        className="w-full flex items-center justify-between p-6 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50"
         aria-expanded={isOpen}
       >
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-white pr-4">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white pr-4">
           {faq.question}
         </h3>
         <ChevronDown
-          className={`w-5 h-5 text-slate-500 dark:text-slate-600 flex-shrink-0 transition-transform ${
+          className={`w-5 h-5 text-gray-500 dark:text-gray-600 flex-shrink-0 transition-transform ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
@@ -168,8 +168,8 @@ function FAQItem({
 
       {isOpen && (
         <div className="px-6 pb-6">
-          <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
-            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+          <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
               {faq.answer}
             </p>
           </div>

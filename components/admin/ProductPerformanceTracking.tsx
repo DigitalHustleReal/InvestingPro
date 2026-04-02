@@ -186,7 +186,7 @@ export default function ProductPerformanceTracking({ timeRange = '30d' }: Produc
                     </CardContent>
                 </Card>
 
-                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-slate-500/30 transition-all group">
+                <Card className="bg-wt-surface dark:bg-wt-surface border-wt-border/50 dark:border-wt-border/50 rounded-xl overflow-hidden hover:border-gray-500/30 transition-all group">
                     <CardContent className="p-8">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-[10px] font-bold text-wt-text-muted/70 dark:text-wt-text-muted/70 uppercase tracking-[0.2em]">Active Products</span>

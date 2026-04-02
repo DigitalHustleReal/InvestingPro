@@ -278,9 +278,9 @@ export function LiveRateTable({
         <div className="rounded-md border overflow-hidden">
           <Table>
             <TableHeader>
-              <TableRow className="bg-slate-50 dark:bg-slate-800/50">
+              <TableRow className="bg-gray-50 dark:bg-gray-800/50">
                 <TableHead 
-                  className={sortable ? 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700' : ''}
+                  className={sortable ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' : ''}
                   onClick={() => handleSort('provider')}
                 >
                   <div className="flex items-center">
@@ -290,7 +290,7 @@ export function LiveRateTable({
                   </div>
                 </TableHead>
                 <TableHead 
-                  className={sortable ? 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700' : ''}
+                  className={sortable ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' : ''}
                   onClick={() => handleSort('rate')}
                 >
                   <div className="flex items-center">
@@ -299,7 +299,7 @@ export function LiveRateTable({
                   </div>
                 </TableHead>
                 <TableHead 
-                  className={sortable ? 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700' : ''}
+                  className={sortable ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' : ''}
                   onClick={() => handleSort('tenure')}
                 >
                   <div className="flex items-center">
@@ -308,7 +308,7 @@ export function LiveRateTable({
                   </div>
                 </TableHead>
                 <TableHead 
-                  className={sortable ? 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700' : ''}
+                  className={sortable ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' : ''}
                   onClick={() => handleSort('minAmount')}
                 >
                   <div className="flex items-center">
@@ -338,7 +338,7 @@ export function LiveRateTable({
                   <TableRow 
                     key={rate.id}
                     className={`
-                      hover:bg-slate-50 dark:hover:bg-slate-800/50 
+                      hover:bg-gray-50 dark:hover:bg-gray-800/50 
                       ${highlightBest && rate.id === bestRate?.id ? 'bg-green-50 dark:bg-green-900/20' : ''}
                       ${onRateClick ? 'cursor-pointer' : ''}
                     `}

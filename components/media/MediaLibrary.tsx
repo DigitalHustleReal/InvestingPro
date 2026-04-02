@@ -118,9 +118,9 @@ export function MediaLibrary({
     const totalPages = Math.ceil(total / limit);
 
     return (
-        <div className="h-full flex flex-col bg-white dark:bg-slate-950">
+        <div className="h-full flex flex-col bg-white dark:bg-gray-950">
             {/* Header / Tabs */}
-            <div className="flex-none bg-white dark:bg-slate-950 px-4 pt-4 border-b border-slate-200 dark:border-slate-800">
+            <div className="flex-none bg-white dark:bg-gray-950 px-4 pt-4 border-b border-gray-200 dark:border-gray-800">
                 <div className="flex items-center gap-6">
                    {/* h2 removed */}
                    
@@ -129,7 +129,7 @@ export function MediaLibrary({
                        className={`pb-4 px-2 text-sm font-medium transition-all relative ${
                            view === 'upload'
                                ? 'text-primary-600 dark:text-primary-400'
-                               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                               : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                        }`}
                    >
                        Upload Files
@@ -143,7 +143,7 @@ export function MediaLibrary({
                        className={`pb-4 px-2 text-sm font-medium transition-all relative ${
                            view === 'grid'
                                ? 'text-primary-600 dark:text-primary-400'
-                               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                               : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                        }`}
                    >
                        Media Library
@@ -157,7 +157,7 @@ export function MediaLibrary({
                        className={`pb-4 px-2 text-sm font-medium transition-all relative ${
                            view === 'stock'
                                ? 'text-primary-600 dark:text-primary-400'
-                               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                               : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                        }`}
                    >
                        Stock Photos
@@ -171,7 +171,7 @@ export function MediaLibrary({
                        className={`pb-4 px-2 text-sm font-medium transition-all relative ${
                            view === 'ai'
                                ? 'text-primary-600 dark:text-primary-400'
-                               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                               : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                        }`}
                    >
                        AI Generate
@@ -184,13 +184,13 @@ export function MediaLibrary({
 
             {/* Toolbar (Only visible in Media Library view) */}
             {view === 'grid' && (
-                <div className="flex-none p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div className="flex-none p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 flex flex-col sm:flex-row gap-4 items-center justify-between">
                     {/* Filters */}
                     <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto no-scrollbar">
                         <select
                             value={selectedFolder}
                             onChange={(e) => setSelectedFolder(e.target.value)}
-                            className="h-9 px-3 text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 dark:text-white"
+                            className="h-9 px-3 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 dark:text-white"
                         >
                             <option value="all">All media items</option>
                             {folders.map(folder => (
@@ -201,7 +201,7 @@ export function MediaLibrary({
                         </select>
                         <button 
                             onClick={loadMedia} // Refresh
-                            className="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                            className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                             title="Refresh"
                         >
                             🔄
@@ -216,9 +216,9 @@ export function MediaLibrary({
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                            className="w-full h-9 pl-9 pr-4 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md shadow-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary-500 dark:text-white placeholder-slate-400"
+                            className="w-full h-9 pl-9 pr-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary-500 dark:text-white placeholder-gray-400"
                         />
-                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
+                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
                             🔍
                         </div>
                     </div>
@@ -251,14 +251,14 @@ export function MediaLibrary({
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
-                            <p className="text-slate-500 dark:text-slate-400">Loading media...</p>
+                            <p className="text-gray-500 dark:text-gray-400">Loading media...</p>
                         </div>
                     </div>
                 ) : media.length === 0 ? (
                     <div className="flex items-center justify-center h-64">
                         <div className="text-center">
                             <svg
-                                className="mx-auto h-16 w-16 text-slate-600 mb-4"
+                                className="mx-auto h-16 w-16 text-gray-600 mb-4"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -270,10 +270,10 @@ export function MediaLibrary({
                                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                                 />
                             </svg>
-                            <p className="text-slate-500 text-lg font-medium mb-2">
+                            <p className="text-gray-500 text-lg font-medium mb-2">
                                 {searchQuery ? 'No images found' : 'No images yet'}
                             </p>
-                            <p className="text-slate-600 text-sm mb-4">
+                            <p className="text-gray-600 text-sm mb-4">
                                 {searchQuery ? 'Try a different search term' : 'Upload your first image to get started'}
                             </p>
                             {!searchQuery && (
@@ -302,7 +302,7 @@ export function MediaLibrary({
                                     onClick={() => mode === 'select' && onSelect?.(file)}
                                 >
                                     {/* Image */}
-                                    <div className="aspect-square bg-slate-100 relative">
+                                    <div className="aspect-square bg-gray-100 relative">
                                         <img
                                             src={file.publicUrl}
                                             alt={file.altText || file.filename}
@@ -318,7 +318,7 @@ export function MediaLibrary({
                                                         e.stopPropagation();
                                                         window.open(file.publicUrl, '_blank');
                                                     }}
-                                                    className="px-3 py-1 bg-white text-slate-900 rounded text-sm font-medium hover:bg-slate-100"
+                                                    className="px-3 py-1 bg-white text-gray-900 rounded text-sm font-medium hover:bg-gray-100"
                                                     title="View full size"
                                                 >
                                                     👁️ View
@@ -348,15 +348,15 @@ export function MediaLibrary({
 
                                     {/* Info */}
                                     <div className="p-2 bg-white">
-                                        <p className="text-xs truncate font-medium text-slate-900" title={file.originalFilename}>
+                                        <p className="text-xs truncate font-medium text-gray-900" title={file.originalFilename}>
                                             {file.originalFilename}
                                         </p>
                                         <div className="flex items-center justify-between mt-1">
-                                            <p className="text-xs text-slate-500">
+                                            <p className="text-xs text-gray-500">
                                                 {(file.fileSize / 1024).toFixed(0)} KB
                                             </p>
                                             {file.width && file.height && (
-                                                <p className="text-xs text-slate-500">
+                                                <p className="text-xs text-gray-500">
                                                     {file.width}×{file.height}
                                                 </p>
                                             )}
@@ -379,13 +379,13 @@ export function MediaLibrary({
                                     disabled={page === 1}
                                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                                         page === 1
-                                            ? 'bg-slate-100 text-slate-600 cursor-not-allowed'
-                                            : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                                            ? 'bg-gray-100 text-gray-600 cursor-not-allowed'
+                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                     }`}
                                 >
                                     ← Previous
                                 </button>
-                                <span className="text-sm text-slate-600 font-medium px-4">
+                                <span className="text-sm text-gray-600 font-medium px-4">
                                     Page {page} of {totalPages}
                                 </span>
                                 <button
@@ -393,8 +393,8 @@ export function MediaLibrary({
                                     disabled={page === totalPages}
                                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                                         page === totalPages
-                                            ? 'bg-slate-100 text-slate-600 cursor-not-allowed'
-                                            : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                                            ? 'bg-gray-100 text-gray-600 cursor-not-allowed'
+                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                     }`}
                                 >
                                     Next →

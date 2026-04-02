@@ -23,17 +23,17 @@ export function GlossaryTooltip({ term, definition, category, children }: Glossa
     <TooltipProvider delayDuration={300}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <span className="cursor-help border-b-2 border-dashed border-primary-300 dark:border-primary-700 hover:border-solid hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-all font-medium text-slate-800 dark:text-slate-200">
+          <span className="cursor-help border-b-2 border-dashed border-primary-300 dark:border-primary-700 hover:border-solid hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-all font-medium text-gray-800 dark:text-gray-200">
             {children}
           </span>
         </TooltipTrigger>
-        <TooltipContent className="max-w-xs p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl rounded-xl">
+        <TooltipContent className="max-w-xs p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-xl rounded-xl">
           <div className="flex items-center gap-2 mb-2">
             <BookOpen className="w-4 h-4 text-primary-600" />
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{category || 'Definition'}</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-gray-500">{category || 'Definition'}</span>
           </div>
-          <p className="font-bold text-slate-900 dark:text-white mb-1">{term}</p>
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+          <p className="font-bold text-gray-900 dark:text-white mb-1">{term}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
             {definition}
           </p>
 

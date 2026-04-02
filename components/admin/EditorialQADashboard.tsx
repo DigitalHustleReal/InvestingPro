@@ -231,7 +231,7 @@ export default function EditorialQADashboard() {
             <p>No content assignments found</p>
           </div>
         ) : (
-          <div className="divide-y divide-slate-700">
+          <div className="divide-y divide-gray-700">
             {filteredAssignments.map((assignment: ContentAssignment) => (
               <ContentRow
                 key={assignment.id}
@@ -372,7 +372,7 @@ function ContentRow({
           <div className="bg-surface-darker dark:bg-surface-darker border border-wt-border dark:border-wt-border rounded-xl p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold text-wt-text/95 dark:text-wt-text/95 mb-4">Reject Content</h3>
             <textarea
-              className="w-full p-3 bg-muted dark:bg-muted border border-wt-border/70 dark:border-wt-border/70 rounded-lg text-wt-text/95 dark:text-wt-text/95 placeholder-slate-400"
+              className="w-full p-3 bg-muted dark:bg-muted border border-wt-border/70 dark:border-wt-border/70 rounded-lg text-wt-text/95 dark:text-wt-text/95 placeholder-gray-400"
               rows={4}
               placeholder="Provide feedback for the author..."
               value={rejectReason}

@@ -43,17 +43,17 @@ export default function RiskQuestionnaire() {
         <div className="max-w-2xl mx-auto">
             {/* Progress Bar */}
             <div className="mb-8">
-                <div className="flex justify-between text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wider">
+                <div className="flex justify-between text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
                     <span>Question {currentStep + 1} of {QUESTIONS.length}</span>
                     <span>{Math.round(progress)}% Complete</span>
                 </div>
-                <Progress value={progress} className="h-2 bg-slate-100 dark:bg-slate-800" indicatorClassName="bg-primary-600" />
+                <Progress value={progress} className="h-2 bg-gray-100 dark:bg-gray-800" indicatorClassName="bg-primary-600" />
             </div>
 
             {/* Question Card */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-slate-200 dark:border-slate-800 p-8 min-h-[400px] flex flex-col justify-center animate-slide-up">
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl shadow-gray-200/50 dark:shadow-black/20 border border-gray-200 dark:border-gray-800 p-8 min-h-[400px] flex flex-col justify-center animate-slide-up">
                 
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 text-center leading-tight">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center leading-tight">
                     {currentQuestion.question}
                 </h3>
 
@@ -64,13 +64,13 @@ export default function RiskQuestionnaire() {
                             onClick={() => handleAnswer(answer.score)}
                             className={cn(
                                 "w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center justify-between group",
-                                "border-slate-200 dark:border-slate-800 hover:border-primary-500 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10"
+                                "border-gray-200 dark:border-gray-800 hover:border-primary-500 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10"
                             )}
                         >
-                            <span className="font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-700 dark:group-hover:text-primary-300 text-lg">
+                            <span className="font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary-700 dark:group-hover:text-primary-300 text-lg">
                                 {answer.text}
                             </span>
-                            <div className="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-600 group-hover:border-primary-500 group-hover:bg-primary-500 flex items-center justify-center transition-colors">
+                            <div className="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-600 group-hover:border-primary-500 group-hover:bg-primary-500 flex items-center justify-center transition-colors">
                                 <Check className="w-3 h-3 text-white opacity-0 group-hover:opacity-100" />
                             </div>
                         </button>
@@ -82,7 +82,7 @@ export default function RiskQuestionnaire() {
                          <Button 
                             variant="ghost" 
                             onClick={() => setCurrentStep(prev => prev - 1)}
-                            className="text-slate-600 hover:text-slate-600"
+                            className="text-gray-600 hover:text-gray-600"
                         >
                             Back to previous question
                         </Button>

@@ -28,25 +28,25 @@ const steps = [
         icon: Sparkles,
         content: (
             <div className="space-y-4">
-                <p className="text-slate-600">
+                <p className="text-gray-600">
                     We're excited to have you here! InvestingPro helps you make informed investment decisions with:
                 </p>
                 <ul className="space-y-3">
                     <li className="flex items-center gap-3">
                         <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0" />
-                        <span className="text-slate-700">Compare 5000+ mutual funds, stocks, and credit cards</span>
+                        <span className="text-gray-700">Compare 5000+ mutual funds, stocks, and credit cards</span>
                     </li>
                     <li className="flex items-center gap-3">
                         <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0" />
-                        <span className="text-slate-700">Free financial calculators and tools</span>
+                        <span className="text-gray-700">Free financial calculators and tools</span>
                     </li>
                     <li className="flex items-center gap-3">
                         <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0" />
-                        <span className="text-slate-700">Expert articles and community reviews</span>
+                        <span className="text-gray-700">Expert articles and community reviews</span>
                     </li>
                     <li className="flex items-center gap-3">
                         <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0" />
-                        <span className="text-slate-700">Personalized investment recommendations</span>
+                        <span className="text-gray-700">Personalized investment recommendations</span>
                     </li>
                 </ul>
             </div>
@@ -59,7 +59,7 @@ const steps = [
         icon: FileText,
         content: (
             <div className="space-y-4">
-                <p className="text-slate-600">
+                <p className="text-gray-600">
                     Become a contributor and share your investment insights!
                 </p>
                 <div className="grid gap-4">
@@ -96,35 +96,35 @@ const steps = [
         icon: Calculator,
         content: (
             <div className="space-y-4">
-                <p className="text-slate-600">
+                <p className="text-gray-600">
                     Access free calculators to plan your financial future:
                 </p>
                 <div className="grid gap-3">
-                    <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                         <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center">
                             <Calculator className="w-5 h-5 text-primary-600" />
                         </div>
                         <div>
-                            <p className="font-medium text-slate-900">SIP Calculator</p>
-                            <p className="text-sm text-slate-500">Plan your systematic investments</p>
+                            <p className="font-medium text-gray-900">SIP Calculator</p>
+                            <p className="text-sm text-gray-500">Plan your systematic investments</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                         <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center">
                             <TrendingUp className="w-5 h-5 text-secondary-600" />
                         </div>
                         <div>
-                            <p className="font-medium text-slate-900">Risk Profiler</p>
-                            <p className="text-sm text-slate-500">Discover your investment personality</p>
+                            <p className="font-medium text-gray-900">Risk Profiler</p>
+                            <p className="text-sm text-gray-500">Discover your investment personality</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                         <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center">
                             <Calculator className="w-5 h-5 text-primary-600" />
                         </div>
                         <div>
-                            <p className="font-medium text-slate-900">EMI Calculator</p>
-                            <p className="text-sm text-slate-500">Calculate loan repayments</p>
+                            <p className="font-medium text-gray-900">EMI Calculator</p>
+                            <p className="text-sm text-gray-500">Calculate loan repayments</p>
                         </div>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ const steps = [
         icon: User,
         content: (
             <div className="space-y-4">
-                <p className="text-slate-600">
+                <p className="text-gray-600">
                     Help us personalize your experience by completing your profile:
                 </p>
                 <div className="space-y-3">
@@ -148,9 +148,9 @@ const steps = [
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <User className="w-5 h-5 text-primary-600" />
-                                        <span className="font-medium text-slate-900">Add Bio & Profile Picture</span>
+                                        <span className="font-medium text-gray-900">Add Bio & Profile Picture</span>
                                     </div>
-                                    <ArrowRight className="w-5 h-5 text-slate-600" />
+                                    <ArrowRight className="w-5 h-5 text-gray-600" />
                                 </div>
                             </CardContent>
                         </Card>
@@ -161,15 +161,15 @@ const steps = [
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <TrendingUp className="w-5 h-5 text-secondary-600" />
-                                        <span className="font-medium text-slate-900">Take Risk Profiler Assessment</span>
+                                        <span className="font-medium text-gray-900">Take Risk Profiler Assessment</span>
                                     </div>
-                                    <ArrowRight className="w-5 h-5 text-slate-600" />
+                                    <ArrowRight className="w-5 h-5 text-gray-600" />
                                 </div>
                             </CardContent>
                         </Card>
                     </Link>
                 </div>
-                <p className="text-sm text-slate-500 text-center mt-6">
+                <p className="text-sm text-gray-500 text-center mt-6">
                     You can complete these steps anytime from your profile
                 </p>
             </div>
@@ -219,7 +219,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                         {steps.map((_, idx) => (
                             <div
                                 key={idx}
-                                className={`flex-1 h-1.5 rounded-full transition-colors ${idx <= currentStep ? 'bg-primary-600' : 'bg-slate-200'
+                                className={`flex-1 h-1.5 rounded-full transition-colors ${idx <= currentStep ? 'bg-primary-600' : 'bg-gray-200'
                                     }`}
                             />
                         ))}
@@ -232,8 +232,8 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
 
                     {/* Content */}
                     <div className="text-center mb-6">
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{step.title}</h2>
-                        <p className="text-slate-600 dark:text-slate-400">{step.description}</p>
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{step.title}</h2>
+                        <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
                     </div>
 
                     <div className="mb-8">
@@ -258,7 +258,7 @@ export default function OnboardingFlow({ open, onComplete }: OnboardingFlowProps
                     </div>
 
                     {/* Step counter */}
-                    <p className="text-center text-sm text-slate-600 mt-4">
+                    <p className="text-center text-sm text-gray-600 mt-4">
                         Step {currentStep + 1} of {steps.length}
                     </p>
                 </div>

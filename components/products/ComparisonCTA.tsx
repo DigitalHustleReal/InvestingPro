@@ -28,7 +28,7 @@ export default function ComparisonCTA({
 
   return (
     <div className={cn(
-      "bg-gradient-to-r from-slate-50 to-primary-50 dark:from-slate-900 dark:to-primary-950/20 border border-slate-200 dark:border-slate-800 rounded-2xl p-6",
+      "bg-gradient-to-r from-gray-50 to-primary-50 dark:from-gray-900 dark:to-primary-950/20 border border-gray-200 dark:border-gray-800 rounded-2xl p-6",
       className
     )}>
       <div className="flex items-start gap-4">
@@ -39,22 +39,22 @@ export default function ComparisonCTA({
 
         {/* Content */}
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             Compare Before You Decide
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
             See how {currentProductName} stacks up against similar cards. Compare fees, rewards, and benefits side-by-side.
           </p>
 
           {/* Similar Products Preview */}
           {similarProducts.length > 0 && (
             <div className="mb-4">
-              <p className="text-xs text-slate-500 dark:text-slate-600 mb-2">Compare with:</p>
+              <p className="text-xs text-gray-500 dark:text-gray-600 mb-2">Compare with:</p>
               <div className="flex flex-wrap gap-2">
                 {similarProducts.slice(0, 3).map((product) => (
                   <span 
                     key={product.slug}
-                    className="text-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-1 rounded-full text-slate-700 dark:text-slate-300"
+                    className="text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-1 rounded-full text-gray-700 dark:text-gray-300"
                   >
                     {product.name}
                   </span>

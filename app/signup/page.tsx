@@ -117,14 +117,14 @@ export default function SignupPage() {
   // Success state
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 flex items-center justify-center p-4">
-        <div className="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 text-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 flex items-center justify-center p-4">
+        <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success-100 dark:bg-success-500/20 mb-4">
             <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">Check your email</h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-6">
-            We've sent a confirmation link to <strong className="text-slate-900 dark:text-white">{email}</strong>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Check your email</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            We've sent a confirmation link to <strong className="text-gray-900 dark:text-white">{email}</strong>
           </p>
           <Link
             href="/login"
@@ -139,7 +139,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 flex">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 flex">
       {/* Left Side - Benefits */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-600 to-primary-700 p-12 flex-col justify-between relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -184,12 +184,12 @@ export default function SignupPage() {
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-slate-900 dark:text-white">InvestingP?o</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">InvestingP?o</span>
             </div>
           </div>
 
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Create your account</h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-8">It's free and takes less than a minute</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Create your account</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">It's free and takes less than a minute</p>
 
           {/* Error Display */}
           {error && (
@@ -203,7 +203,7 @@ export default function SignupPage() {
           <button
             onClick={handleGoogleSignup}
             disabled={googleLoading}
-            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-medium rounded-xl transition-all duration-200 mb-4 disabled:opacity-50 shadow-sm"
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-white font-medium rounded-xl transition-all duration-200 mb-4 disabled:opacity-50 shadow-sm"
           >
             {googleLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
@@ -220,19 +220,19 @@ export default function SignupPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-4 my-6">
-            <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
-            <span className="text-slate-600 text-sm">or</span>
-            <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
+            <div className="flex-1 h-px bg-gray-200 dark:bg-white/10" />
+            <span className="text-gray-600 text-sm">or</span>
+            <div className="flex-1 h-px bg-gray-200 dark:bg-white/10" />
           </div>
 
           {/* Email/Password Form */}
           <form onSubmit={handleEmailSignup} className="space-y-4">
             <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Full Name
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
                 <input
                   id="fullName"
                   type="text"
@@ -241,17 +241,17 @@ export default function SignupPage() {
                   onChange={(e) => setFullName(e.target.value)}
                   required
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
                 <input
                   id="email"
                   type="email"
@@ -260,17 +260,17 @@ export default function SignupPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
                 <input
                   id="password"
                   type="password"
@@ -280,7 +280,7 @@ export default function SignupPage() {
                   required
                   minLength={8}
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all"
                 />
               </div>
             </div>
@@ -302,15 +302,15 @@ export default function SignupPage() {
           </form>
 
           {/* Terms */}
-          <p className="text-center text-slate-500 dark:text-slate-500 text-xs mt-4">
+          <p className="text-center text-gray-500 dark:text-gray-500 text-xs mt-4">
             By signing up, you agree to our{' '}
-            <Link href="/terms" className="underline hover:text-slate-700 dark:hover:text-slate-300">Terms</Link>
+            <Link href="/terms" className="underline hover:text-gray-700 dark:hover:text-gray-300">Terms</Link>
             {' '}and{' '}
-            <Link href="/privacy" className="underline hover:text-slate-700 dark:hover:text-slate-300">Privacy Policy</Link>
+            <Link href="/privacy" className="underline hover:text-gray-700 dark:hover:text-gray-300">Privacy Policy</Link>
           </p>
 
           {/* Login Link */}
-          <p className="text-center text-slate-600 dark:text-slate-400 text-sm mt-6">
+          <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-6">
             Already have an account?{' '}
             <Link href="/login" className="text-primary-600 hover:text-primary-500 font-medium">
               Sign in

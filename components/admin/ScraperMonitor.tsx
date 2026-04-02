@@ -119,7 +119,7 @@ export default function ScraperMonitor({
       case 'failed':
         return <XCircle className="w-5 h-5 text-red-500" />;
       default:
-        return <Clock className="w-5 h-5 text-slate-300" />;
+        return <Clock className="w-5 h-5 text-gray-300" />;
     }
   };
 
@@ -133,7 +133,7 @@ export default function ScraperMonitor({
       case 'failed':
         return 'bg-red-500/10 text-red-500 border-red-500/20';
       default:
-        return 'bg-slate-500/10 text-slate-300 border-slate-500/20';
+        return 'bg-gray-500/10 text-gray-300 border-gray-500/20';
     }
   };
 
@@ -176,7 +176,7 @@ export default function ScraperMonitor({
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-wt-text dark:text-wt-text">Scraper Monitor</h2>
-          <p className="text-sm text-slate-300 mt-1">
+          <p className="text-sm text-gray-300 mt-1">
             {activeScrapers} of {scrapers.length} scrapers running
           </p>
         </div>
@@ -217,7 +217,7 @@ export default function ScraperMonitor({
                 {getStatusIcon(scraper.status)}
                 <div>
                   <h3 className="font-semibold text-wt-text dark:text-wt-text">{scraper.name}</h3>
-                  <p className="text-sm text-slate-300 mt-1">{scraper.description}</p>
+                  <p className="text-sm text-gray-300 mt-1">{scraper.description}</p>
                 </div>
               </div>
               
@@ -247,21 +247,21 @@ export default function ScraperMonitor({
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div>
-                <p className="text-xs text-slate-300">Items Scraped</p>
+                <p className="text-xs text-gray-300">Items Scraped</p>
                 <p className="text-lg font-semibold text-wt-text dark:text-wt-text mt-1">
                   {scraper.itemsScraped.toLocaleString()}
                 </p>
               </div>
               
               <div>
-                <p className="text-xs text-slate-300">Last Run</p>
+                <p className="text-xs text-gray-300">Last Run</p>
                 <p className="text-sm font-medium text-wt-text dark:text-wt-text mt-1">
                   {formatDate(scraper.lastRun)}
                 </p>
               </div>
               
               <div>
-                <p className="text-xs text-slate-300">Duration</p>
+                <p className="text-xs text-gray-300">Duration</p>
                 <p className="text-sm font-medium text-wt-text dark:text-wt-text mt-1">
                   {formatDuration(scraper.duration)}
                 </p>
@@ -270,12 +270,12 @@ export default function ScraperMonitor({
 
             {/* Sources */}
             <div className="mb-4">
-              <p className="text-xs text-slate-300 mb-2">Sources:</p>
+              <p className="text-xs text-gray-300 mb-2">Sources:</p>
               <div className="flex flex-wrap gap-2">
                 {scraper.sources.map((source) => (
                   <span
                     key={source}
-                    className="px-2 py-1 bg-muted dark:bg-muted text-xs text-slate-300 rounded"
+                    className="px-2 py-1 bg-muted dark:bg-muted text-xs text-gray-300 rounded"
                   >
                     {source}
                   </span>

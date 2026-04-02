@@ -28,20 +28,20 @@ export default function ReviewVerdict({
             : { color: 'text-danger-700', bg: 'bg-danger-50', border: 'border-danger-200', fill: 'bg-danger-500' };
 
     return (
-        <div className="my-8 rounded-xl border bg-white dark:bg-slate-900 shadow-sm overflow-hidden border-slate-200 dark:border-slate-800">
+        <div className="my-8 rounded-xl border bg-white dark:bg-gray-900 shadow-sm overflow-hidden border-gray-200 dark:border-gray-800">
             {/* Header / Score Strip */}
-            <div className="bg-slate-900 text-white p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="bg-gray-900 text-white p-6 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex-1">
-                    <div className="uppercase tracking-widest text-xs font-bold text-slate-600 mb-2">Our Verdict</div>
+                    <div className="uppercase tracking-widest text-xs font-bold text-gray-600 mb-2">Our Verdict</div>
                     <h3 className="text-2xl font-bold leading-tight">{verdictTitle}</h3>
                 </div>
                 <div className="flex items-center gap-4 shrink-0">
                     <div className="text-right hidden md:block">
                         <div className="text-2xl font-bold">{score}/10</div>
-                        <div className="text-xs text-slate-600">InvestingPro Rating</div>
+                        <div className="text-xs text-gray-600">InvestingPro Rating</div>
                     </div>
                     {/* Radial Progress Placeholder (Simple CSS) */}
-                    <div className={cn("w-20 h-20 rounded-full flex items-center justify-center border-4 text-3xl font-bold bg-slate-800", theme.border)}>
+                    <div className={cn("w-20 h-20 rounded-full flex items-center justify-center border-4 text-3xl font-bold bg-gray-800", theme.border)}>
                         <span className={theme.color.replace('700', '400')}>{score}</span>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ export default function ReviewVerdict({
 
             {/* Content Body */}
             <div className="p-6 md:p-8">
-                <p className="text-slate-600 leading-relaxed text-lg mb-8">
+                <p className="text-gray-600 leading-relaxed text-lg mb-8">
                     {verdictSummary}
                 </p>
 
@@ -62,7 +62,7 @@ export default function ReviewVerdict({
                         </h4>
                         <ul className="space-y-3">
                             {pros.map((item, i) => (
-                                <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
+                                <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
                                     <Check className="w-4 h-4 text-primary-500 shrink-0 mt-0.5" />
                                     <span>{item}</span>
                                 </li>
@@ -78,7 +78,7 @@ export default function ReviewVerdict({
                         </h4>
                         <ul className="space-y-3">
                             {cons.map((item, i) => (
-                                <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
+                                <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
                                     <X className="w-4 h-4 text-danger-500 shrink-0 mt-0.5" />
                                     <span>{item}</span>
                                 </li>
@@ -89,9 +89,9 @@ export default function ReviewVerdict({
             </div>
 
             {/* Bottom Action */}
-            <div className="bg-slate-50 p-4 border-t border-slate-100 flex justify-end">
+            <div className="bg-gray-50 p-4 border-t border-gray-100 flex justify-end">
                 {/* Could be a CTA button here */}
-                 <span className="text-xs text-slate-500 italic">Last updated: {new Date().toLocaleDateString()} by Editorial Team</span>
+                 <span className="text-xs text-gray-500 italic">Last updated: {new Date().toLocaleDateString()} by Editorial Team</span>
             </div>
         </div>
     );

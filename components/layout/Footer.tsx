@@ -12,7 +12,7 @@ function FooterBadge({ icon, text }: { icon: 'lock' | 'shield' | 'award'; text: 
     return (
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[.06] border border-white/[.08]">
             <Icon size={11} className="text-green-400" />
-            <span className="text-[10px] text-slate-400 font-medium">{text}</span>
+            <span className="text-[10px] text-gray-400 font-medium">{text}</span>
         </div>
     );
 }
@@ -63,7 +63,7 @@ export function Footer() {
         return () => window.removeEventListener('scroll', toggle);
     }, []);
 
-    const linkClass = "text-[13px] text-slate-400 hover:text-green-400 transition-colors";
+    const linkClass = "text-[13px] text-gray-400 hover:text-green-400 transition-colors";
     const headingClass = "text-[11px] font-semibold text-white/70 uppercase tracking-wider mb-4";
 
     return (
@@ -238,7 +238,7 @@ export function Footer() {
                 <div className="py-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
                     <div className="col-span-2 sm:col-span-3 lg:col-span-1">
                         <Logo variant="light" size="md" showText />
-                        <p className="mt-4 text-[13px] text-slate-400 leading-relaxed max-w-[240px]">
+                        <p className="mt-4 text-[13px] text-gray-400 leading-relaxed max-w-[240px]">
                             Independent financial product research and comparison for India.
                         </p>
                     </div>
@@ -275,15 +275,15 @@ export function Footer() {
                             onClick={() => setDisclaimerExpanded(!disclaimerExpanded)}
                             className="w-full flex items-center justify-between gap-4 text-left"
                         >
-                            <span className="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                            <span className="text-xs font-semibold text-gray-300 flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 bg-amber-500 rounded-full flex-shrink-0" />
                                 Important Disclaimer — Not investment advice
                             </span>
-                            <ChevronDown size={14} className={`text-slate-500 transition-transform flex-shrink-0 ${disclaimerExpanded ? 'rotate-180' : ''}`} />
+                            <ChevronDown size={14} className={`text-gray-500 transition-transform flex-shrink-0 ${disclaimerExpanded ? 'rotate-180' : ''}`} />
                         </button>
                         {disclaimerExpanded && (
-                            <div className="mt-3 pt-3 border-t border-white/[.06] space-y-2 text-xs text-slate-400 leading-relaxed">
-                                <p><strong className="text-slate-300">InvestingPro.in is NOT a SEBI registered investment advisor, financial advisor, or stockbroker.</strong> We are an independent research, education, and discovery platform. Content, tools, and comparisons are for informational and educational purposes only.</p>
+                            <div className="mt-3 pt-3 border-t border-white/[.06] space-y-2 text-xs text-gray-400 leading-relaxed">
+                                <p><strong className="text-gray-300">InvestingPro.in is NOT a SEBI registered investment advisor, financial advisor, or stockbroker.</strong> We are an independent research, education, and discovery platform. Content, tools, and comparisons are for informational and educational purposes only.</p>
                                 <p>Nothing on this website constitutes a recommendation to buy, sell, or hold any security or financial product. Past performance does not guarantee future results. Consult a SEBI-registered financial advisor before making investment decisions.</p>
                                 <Link href="/disclaimer" className="inline-block text-green-400 hover:text-green-300 font-medium mt-1">Read full disclaimer →</Link>
                             </div>
@@ -294,9 +294,9 @@ export function Footer() {
                 {/* ── Copyright ── */}
                 <div className="py-5 border-t border-white/[.06]">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-3">
-                        <p className="text-[11px] text-slate-500 order-2 md:order-1">© {new Date().getFullYear()} InvestingPro.in. All rights reserved.</p>
+                        <p className="text-[11px] text-gray-500 order-2 md:order-1">© {new Date().getFullYear()} InvestingPro.in. All rights reserved.</p>
                         <div className="order-1 md:order-2 flex items-center gap-2 px-3 py-1 rounded-full bg-white/[.04] border border-white/[.06]">
-                            <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                            <span className="text-[11px] text-gray-400 flex items-center gap-1">
                                 Made with{' '}
                                 <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 inline-block" fill="#ef4444" aria-hidden="true">
                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -310,9 +310,9 @@ export function Footer() {
                             <FooterBadge icon="award" text="RBI Compliant" />
                         </div>
                     </div>
-                    <p className="text-[10px] text-slate-500 text-center mt-4 leading-relaxed max-w-2xl mx-auto">
+                    <p className="text-[10px] text-gray-500 text-center mt-4 leading-relaxed max-w-2xl mx-auto">
                         Independent research platform · Not a SEBI registered advisor · Educational purposes only
-                        <span className="mx-2 text-slate-700">|</span>
+                        <span className="mx-2 text-gray-700">|</span>
                         Owned &amp; operated in India · Not affiliated with Investing.com
                     </p>
                 </div>

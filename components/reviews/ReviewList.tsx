@@ -30,13 +30,13 @@ export default function ReviewList({ productSlug, refreshTrigger }: ReviewListPr
   }, [productSlug, refreshTrigger]);
 
   if (loading) {
-    return <div className="text-center py-8 text-slate-500">Loading reviews...</div>;
+    return <div className="text-center py-8 text-gray-500">Loading reviews...</div>;
   }
 
   if (reviews.length === 0) {
     return (
-      <div className="text-center py-12 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
-        <p className="text-slate-500 dark:text-slate-600">No reviews yet. Be the first to share your experience!</p>
+      <div className="text-center py-12 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
+        <p className="text-gray-500 dark:text-gray-600">No reviews yet. Be the first to share your experience!</p>
       </div>
     );
   }

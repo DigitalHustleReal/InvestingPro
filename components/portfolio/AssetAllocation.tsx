@@ -27,15 +27,15 @@ export default function AssetAllocation({ holdings = [] }: AssetAllocationProps)
     };
 
     return (
-        <Card className="rounded-xl border-0 shadow-2xl bg-white dark:bg-slate-900 overflow-hidden p-6 md:p-8">
+        <Card className="rounded-xl border-0 shadow-2xl bg-white dark:bg-gray-900 overflow-hidden p-6 md:p-8">
             <CardHeader className="p-0 mb-8">
                 <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-secondary-50 dark:bg-secondary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400">
                         <PieChart className="w-6 h-6" />
                     </div>
                     <div>
-                        <CardTitle className="text-2xl font-bold text-slate-900 tracking-tight">Asset Allocation</CardTitle>
-                        <p className="text-slate-500 font-medium text-sm">Diversification across categories</p>
+                        <CardTitle className="text-2xl font-bold text-gray-900 tracking-tight">Asset Allocation</CardTitle>
+                        <p className="text-gray-500 font-medium text-sm">Diversification across categories</p>
                     </div>
                 </div>
             </CardHeader>
@@ -63,7 +63,7 @@ export default function AssetAllocation({ holdings = [] }: AssetAllocationProps)
                         </PieChart>
                     </ResponsiveContainer>
                 ) : (
-                    <div className="h-full flex items-center justify-center text-slate-600 font-bold uppercase tracking-widest text-[10px]">
+                    <div className="h-full flex items-center justify-center text-gray-600 font-bold uppercase tracking-widest text-[10px]">
                         No data available
                     </div>
                 )}

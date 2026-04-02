@@ -172,13 +172,13 @@ export function LeadMagnetPopup({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+      <div className="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
         >
-          <X className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+          <X className="w-4 h-4 text-gray-600 dark:text-gray-400" />
         </button>
 
         {/* Success State */}
@@ -187,10 +187,10 @@ export function LeadMagnetPopup({
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success-100 dark:bg-success-500/20 mb-4">
               <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
               You're in! ðŸŽ‰
             </h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-4">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
               {variant === 'newsletter' 
                 ? 'Check your inbox for a welcome email.'
                 : 'Your download link is on the way!'}
@@ -221,10 +221,10 @@ export function LeadMagnetPopup({
                 </div>
               </div>
 
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 text-center md:text-left">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 text-center md:text-left">
                 {content.title}
               </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 text-center md:text-left">
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-6 text-center md:text-left">
                 {content.description}
               </p>
 
@@ -241,7 +241,7 @@ export function LeadMagnetPopup({
                     placeholder="Your name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
                   />
                 )}
                 <input
@@ -250,7 +250,7 @@ export function LeadMagnetPopup({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
                 />
                 <button
                   type="submit"
@@ -268,7 +268,7 @@ export function LeadMagnetPopup({
                 </button>
               </form>
 
-              <p className="text-xs text-slate-500 text-center mt-4">
+              <p className="text-xs text-gray-500 text-center mt-4">
                 No spam. Unsubscribe anytime.
               </p>
             </div>

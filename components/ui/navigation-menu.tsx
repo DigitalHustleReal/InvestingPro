@@ -73,7 +73,7 @@ const NavigationMenuContent = ({
             onMouseLeave={onMouseLeave}
             {...props}
         >
-            <div className="rounded-md border bg-popover text-popover-foreground shadow-md bg-white dark:bg-slate-900 dark:border-slate-800">
+            <div className="rounded-md border bg-popover text-popover-foreground shadow-md bg-white dark:bg-gray-900 dark:border-gray-800">
                 {children}
             </div>
         </div>

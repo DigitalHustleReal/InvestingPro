@@ -49,13 +49,13 @@ export default function TrustScoreWidget({
                         <AnimatedCounter end={breakdown.overall} suffix="/100" />
                     </span>
                 </div>
-                <span className="text-xs text-slate-500">{breakdown.label}</span>
+                <span className="text-xs text-gray-500">{breakdown.label}</span>
             </div>
         );
     }
 
     return (
-        <Card className="border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+        <Card className="border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm">
             {/* Keep gradient header - vibrant is good */}
             <div className={`bg-gradient-to-r ${colorClasses[breakdown.color as keyof typeof colorClasses]} p-4 text-white`}>
                 <div className="flex items-center justify-between mb-2">
@@ -65,9 +65,9 @@ export default function TrustScoreWidget({
                     </div>
                     <div className="relative group/info">
                         <Info className="w-4 h-4 cursor-help" />
-                        <div className="absolute right-0 bottom-full mb-2 hidden group-hover/info:block w-64 p-3 bg-slate-900 text-white text-xs rounded-lg shadow-xl z-50">
+                        <div className="absolute right-0 bottom-full mb-2 hidden group-hover/info:block w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-xl z-50">
                             <div className="font-bold mb-1">How We Calculate</div>
-                            <div className="text-slate-300 leading-relaxed">
+                            <div className="text-gray-300 leading-relaxed">
                                 Based on data freshness, editorial verification, user feedback, and market presence.
                             </div>
                         </div>
@@ -86,7 +86,7 @@ export default function TrustScoreWidget({
 
             <CardContent className="p-4">
                 <div className="space-y-3">
-                    <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                         Score Breakdown
                     </div>
 
@@ -95,13 +95,13 @@ export default function TrustScoreWidget({
                         <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2 text-sm">
                                 <Clock className="w-3.5 h-3.5 text-primary-600" />
-                                <span className="font-medium text-slate-700">Data Freshness</span>
+                                <span className="font-medium text-gray-700">Data Freshness</span>
                             </div>
-                            <span className="text-sm font-bold text-slate-900 dark:text-white">
+                            <span className="text-sm font-bold text-gray-900 dark:text-white">
                                 <AnimatedCounter end={breakdown.components.dataFreshness} duration={1500} suffix="/30" />
                             </span>
                         </div>
-                        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                             <div 
                                 className="h-full bg-primary-500 rounded-full transition-all duration-1000 ease-out"
                                 style={{ 
@@ -117,13 +117,13 @@ export default function TrustScoreWidget({
                         <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2 text-sm">
                                 <TrendingUp className="w-3.5 h-3.5 text-secondary-600" />
-                                <span className="font-medium text-slate-700">User Reviews</span>
+                                <span className="font-medium text-gray-700">User Reviews</span>
                             </div>
-                            <span className="text-sm font-bold text-slate-900 dark:text-white">
+                            <span className="text-sm font-bold text-gray-900 dark:text-white">
                                 <AnimatedCounter end={breakdown.components.userReviews} duration={1500} suffix="/30" />
                             </span>
                         </div>
-                        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                             <div 
                                 className="h-full bg-secondary-500 rounded-full transition-all duration-1000 ease-out"
                                 style={{ 
@@ -139,13 +139,13 @@ export default function TrustScoreWidget({
                         <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2 text-sm">
                                 <TrendingUp className="w-3.5 h-3.5 text-secondary-600" />
-                                <span className="font-medium text-slate-700">Market Presence</span>
+                                <span className="font-medium text-gray-700">Market Presence</span>
                             </div>
-                            <span className="text-sm font-bold text-slate-900 dark:text-white">
+                            <span className="text-sm font-bold text-gray-900 dark:text-white">
                                 <AnimatedCounter end={breakdown.components.marketPresence} duration={1500} suffix="/15" />
                             </span>
                         </div>
-                        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                             <div 
                                 className="h-full bg-secondary-500 rounded-full transition-all duration-1000 ease-out"
                                 style={{ 
@@ -161,13 +161,13 @@ export default function TrustScoreWidget({
                         <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2 text-sm">
                                 <CheckCircle className="w-3.5 h-3.5 text-primary-600" />
-                                <span className="font-medium text-slate-700">Verification</span>
+                                <span className="font-medium text-gray-700">Verification</span>
                             </div>
-                            <span className="text-sm font-bold text-slate-900 dark:text-white">
+                            <span className="text-sm font-bold text-gray-900 dark:text-white">
                                 <AnimatedCounter end={breakdown.components.verification} duration={1500} suffix="/25" />
                             </span>
                         </div>
-                        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                             <div 
                                 className="h-full bg-primary-500 rounded-full transition-all duration-1000 ease-out"
                                 style={{ 
@@ -179,8 +179,8 @@ export default function TrustScoreWidget({
                     </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-                    <p className="text-xs text-slate-500 dark:text-slate-600 leading-relaxed">
+                <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <p className="text-xs text-gray-500 dark:text-gray-600 leading-relaxed">
                         Updated daily based on real-time data verification and market analysis.
                     </p>
                 </div>

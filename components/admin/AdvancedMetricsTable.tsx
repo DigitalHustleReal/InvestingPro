@@ -105,7 +105,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
                     <BarChart3 className="w-5 h-5 text-amber-400" />
                     Advanced Metrics - Content Lifecycle
                 </div>
-                <div className="px-3 py-1 rounded-full bg-white/15 text-[11px] font-bold text-slate-200">
+                <div className="px-3 py-1 rounded-full bg-white/15 text-[11px] font-bold text-gray-200">
                     Last {timeRange.replace('d', ' Days')}
                 </div>
             </div>
@@ -191,7 +191,7 @@ export default function AdvancedMetricsTable({ timeRange = '30d' }: { timeRange?
 function MetricRow({ label, value, highlight = false }: { label: string, value: string | number, highlight?: boolean }) {
     return (
         <div className="flex justify-between items-center gap-2">
-            <span className="text-[13px] text-slate-400 font-medium leading-tight">{label}</span>
+            <span className="text-[13px] text-gray-400 font-medium leading-tight">{label}</span>
             <span className={cn(
                 "text-[14px] font-bold whitespace-nowrap",
                 highlight ? "text-amber-400" : "text-white"

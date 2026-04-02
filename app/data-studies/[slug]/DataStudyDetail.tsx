@@ -89,7 +89,7 @@ export default function DataStudyDetail({ study }: Props) {
 ></iframe>`;
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Back Link */}
         <Link 
@@ -117,10 +117,10 @@ export default function DataStudyDetail({ study }: Props) {
               Updates {study.updateFrequency}
             </Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             {study.title}
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400">
+          <p className="text-lg text-gray-600 dark:text-gray-400">
             {study.description}
           </p>
           <p className="text-sm text-muted-foreground mt-2">
@@ -146,12 +146,12 @@ export default function DataStudyDetail({ study }: Props) {
 
         {/* Embed Code */}
         {showEmbedCode && (
-          <Card className="mb-8 bg-slate-900 text-white">
+          <Card className="mb-8 bg-gray-900 text-white">
             <CardHeader>
               <CardTitle className="text-lg">Embed This Study</CardTitle>
             </CardHeader>
             <CardContent>
-              <pre className="bg-slate-800 p-4 rounded-lg overflow-x-auto text-sm">
+              <pre className="bg-gray-800 p-4 rounded-lg overflow-x-auto text-sm">
                 <code>{embedCode}</code>
               </pre>
               <Button 
@@ -181,7 +181,7 @@ export default function DataStudyDetail({ study }: Props) {
             <div className="rounded-md border overflow-hidden">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-slate-50 dark:bg-slate-800/50">
+                  <TableRow className="bg-gray-50 dark:bg-gray-800/50">
                     <TableHead>Item</TableHead>
                     <TableHead className="text-right">Value</TableHead>
                     <TableHead className="text-right">Change</TableHead>
@@ -208,7 +208,7 @@ export default function DataStudyDetail({ study }: Props) {
                               ? 'text-green-600' 
                               : point.changeDirection === 'down' 
                                 ? 'text-red-600' 
-                                : 'text-slate-500'
+                                : 'text-gray-500'
                           }`}>
                             {point.changeDirection === 'up' && <TrendingUp className="w-4 h-4 mr-1" />}
                             {point.changeDirection === 'down' && <TrendingDown className="w-4 h-4 mr-1" />}
@@ -241,7 +241,7 @@ export default function DataStudyDetail({ study }: Props) {
                   <span className="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center text-sm font-medium flex-shrink-0">
                     {idx + 1}
                   </span>
-                  <span className="text-slate-700 dark:text-slate-300">
+                  <span className="text-gray-700 dark:text-gray-300">
                     {insight}
                   </span>
                 </li>
@@ -259,7 +259,7 @@ export default function DataStudyDetail({ study }: Props) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-gray-600 dark:text-gray-400">
               {study.methodology}
             </p>
           </CardContent>

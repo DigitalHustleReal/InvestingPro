@@ -39,7 +39,7 @@ export default function CategoryHeroCarousel({ slides, className }: CategoryHero
     const slide = slides[current];
 
     return (
-        <div className={cn("relative rounded-xl overflow-hidden bg-slate-900 text-white min-h-[400px] flex items-center", className)}>
+        <div className={cn("relative rounded-xl overflow-hidden bg-gray-900 text-white min-h-[400px] flex items-center", className)}>
             {/* Background Gradient */}
             <div className={cn("absolute inset-0 bg-gradient-to-r opacity-90 transition-colors duration-700", slide.color)} />
             
@@ -57,7 +57,7 @@ export default function CategoryHeroCarousel({ slides, className }: CategoryHero
                         {slide.description}
                     </p>
                     <div className="flex flex-wrap gap-4 pt-2">
-                        <Button className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 font-bold px-8 h-12 rounded-xl">
+                        <Button className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 font-bold px-8 h-12 rounded-xl">
                             {slide.ctaText}
                         </Button>
                         <Button variant="outline" className="text-white dark:text-white border-white/30 dark:border-white/30 hover:bg-white/10 dark:hover:bg-white/10 h-12 px-6 rounded-xl">

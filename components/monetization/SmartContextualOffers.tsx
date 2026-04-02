@@ -51,7 +51,7 @@ export default function SmartContextualOffers({
         .slice(0, limit);
 
     return (
-        <div className="my-12 p-8 bg-slate-900 rounded-xl border border-slate-700 shadow-2xl relative overflow-hidden">
+        <div className="my-12 p-8 bg-gray-900 rounded-xl border border-gray-700 shadow-2xl relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -mr-32 -mt-32" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-500/10 rounded-full blur-3xl -ml-32 -mb-32" />
@@ -64,13 +64,13 @@ export default function SmartContextualOffers({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {displayedProducts.map((product: any) => (
-                        <Card key={product.id} className="bg-slate-800/50 border-slate-700 hover:border-primary-500/50 transition-all group backdrop-blur-sm">
+                        <Card key={product.id} className="bg-gray-800/50 border-gray-700 hover:border-primary-500/50 transition-all group backdrop-blur-sm">
                             <CardContent className="p-6 md:p-8">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="p-6 md:p-8 bg-white rounded-lg w-12 h-12 flex items-center justify-center overflow-hidden">
                                         <img src={product.image_url} alt={product.name} className="w-full h-full object-contain" />
                                     </div>
-                                    <div className="flex items-center text-accent-400 font-bold text-sm bg-slate-900/50 px-2 py-1 rounded-full border border-slate-700">
+                                    <div className="flex items-center text-accent-400 font-bold text-sm bg-gray-900/50 px-2 py-1 rounded-full border border-gray-700">
                                         <Star className="w-3.5 h-3.5 fill-current mr-1" />
                                         {product.rating || '4.5'}
                                     </div>
@@ -79,13 +79,13 @@ export default function SmartContextualOffers({
                                 <h3 className="text-lg font-bold text-white mb-1 group-hover:text-primary-400 transition-colors">
                                     {product.name}
                                 </h3>
-                                <p className="text-xs text-slate-600 mb-4 line-clamp-2 h-8">
+                                <p className="text-xs text-gray-600 mb-4 line-clamp-2 h-8">
                                     {product.description}
                                 </p>
 
                                 <div className="space-y-2 mb-6">
                                     {product.pros?.slice(0, 2).map((pro: string, i: number) => (
-                                        <div key={i} className="flex items-center gap-2 text-[11px] text-slate-300">
+                                        <div key={i} className="flex items-center gap-2 text-[11px] text-gray-300">
                                             <div className="w-1 h-1 rounded-full bg-primary-500" />
                                             <span className="truncate">{pro}</span>
                                         </div>
@@ -103,7 +103,7 @@ export default function SmartContextualOffers({
                     ))}
                 </div>
 
-                <div className="mt-8 flex items-center justify-center gap-2 text-slate-500 text-[10px] uppercase font-bold tracking-widest bg-slate-900/50 py-3 rounded-xl border border-slate-800">
+                <div className="mt-8 flex items-center justify-center gap-2 text-gray-500 text-[10px] uppercase font-bold tracking-widest bg-gray-900/50 py-3 rounded-xl border border-gray-800">
                     <ShieldCheck className="w-4 h-4" />
                     <span>Editorial Disclosure: We may receive a commission for referrals</span>
                 </div>

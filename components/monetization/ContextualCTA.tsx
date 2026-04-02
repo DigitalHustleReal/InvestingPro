@@ -51,12 +51,12 @@ export default function ContextualCTA({
     if (placement === 'sidebar') {
         return (
             <div className={cn("space-y-4", className)}>
-                <h4 className="text-xs font-bold uppercase tracking-widest text-slate-600 flex items-center gap-2">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2">
                     <Sparkles className="w-3 h-3 text-primary-400" />
                     Recommended
                 </h4>
                 {links.map(link => (
-                    <Card key={link.id} className="bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/5 hover:border-primary-500/30 transition-all">
+                    <Card key={link.id} className="bg-white dark:bg-white/[0.03] border-gray-200 dark:border-white/5 hover:border-primary-500/30 transition-all">
                         <CardContent className="p-6 md:p-8">
                             <div className="flex items-center gap-3 mb-3">
                                 {link.partner.logo_url ? (
@@ -66,7 +66,7 @@ export default function ContextualCTA({
                                         <TrendingUp className="w-4 h-4 text-primary-400" />
                                     </div>
                                 )}
-                                <span className="text-sm font-semibold text-slate-900 dark:text-white">{link.partner.name}</span>
+                                <span className="text-sm font-semibold text-gray-900 dark:text-white">{link.partner.name}</span>
                             </div>
                             <SmartCTA
                                 variant="primary"
@@ -96,8 +96,8 @@ export default function ContextualCTA({
                             <Shield className="w-5 h-5 text-primary-400" />
                         </div>
                         <div>
-                            <h4 className="font-bold text-slate-900 dark:text-white">Ready to Get Started?</h4>
-                            <p className="text-sm text-slate-500">Choose from our trusted partners</p>
+                            <h4 className="font-bold text-gray-900 dark:text-white">Ready to Get Started?</h4>
+                            <p className="text-sm text-gray-500">Choose from our trusted partners</p>
                         </div>
                     </div>
                     <div className="grid md:grid-cols-2 gap-4">
@@ -107,7 +107,7 @@ export default function ContextualCTA({
                                 href={`/go/${link.short_code}${articleId ? `?article=${articleId}` : ''}`}
                                 target="_blank"
                                 rel="noopener noreferrer sponsored"
-                                className="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 hover:border-primary-500/30 hover:shadow-lg transition-all group"
+                                className="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 hover:border-primary-500/30 hover:shadow-lg transition-all group"
                             >
                                 <div className="flex items-center gap-3">
                                     {link.partner.logo_url ? (
@@ -118,11 +118,11 @@ export default function ContextualCTA({
                                         </div>
                                     )}
                                     <div>
-                                        <div className="font-semibold text-slate-900 dark:text-white">{link.partner.name}</div>
-                                        <div className="text-xs text-slate-500">{link.name}</div>
+                                        <div className="font-semibold text-gray-900 dark:text-white">{link.partner.name}</div>
+                                        <div className="text-xs text-gray-500">{link.name}</div>
                                     </div>
                                 </div>
-                                <ArrowRight className="w-5 h-5 text-slate-600 group-hover:text-primary-500 group-hover:translate-x-1 transition-all" />
+                                <ArrowRight className="w-5 h-5 text-gray-600 group-hover:text-primary-500 group-hover:translate-x-1 transition-all" />
                             </a>
                         ))}
                     </div>
@@ -141,12 +141,12 @@ export default function ContextualCTA({
                 <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                         <TrendingUp className="w-4 h-4 text-primary-500" />
-                        <span className="text-xs font-bold uppercase tracking-widest text-slate-600">Partner Recommendation</span>
+                        <span className="text-xs font-bold uppercase tracking-widest text-gray-600">Partner Recommendation</span>
                     </div>
-                    <h4 className="font-bold text-slate-900 dark:text-white">
+                    <h4 className="font-bold text-gray-900 dark:text-white">
                         Start investing with {links[0]?.partner.name}
                     </h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                         {links[0]?.name}
                     </p>
                 </div>

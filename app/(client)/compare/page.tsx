@@ -93,10 +93,10 @@ export default function ComparisonPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-24 pb-12 px-4 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-24 pb-12 px-4 flex items-center justify-center">
                 <div className="animate-pulse flex flex-col items-center">
-                    <div className="h-12 w-12 bg-slate-200 dark:bg-slate-800 rounded-full mb-4"></div>
-                    <div className="h-4 w-48 bg-slate-200 dark:bg-slate-800 rounded"></div>
+                    <div className="h-12 w-12 bg-gray-200 dark:bg-gray-800 rounded-full mb-4"></div>
+                    <div className="h-4 w-48 bg-gray-200 dark:bg-gray-800 rounded"></div>
                 </div>
             </div>
         );
@@ -142,7 +142,7 @@ export default function ComparisonPage() {
         ];
 
         return (
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-24 pb-12 transition-colors duration-300">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-24 pb-12 transition-colors duration-300">
                  <div className="container mx-auto px-4">
                       <AutoBreadcrumbs />
                       <CategoryHero
@@ -156,13 +156,13 @@ export default function ComparisonPage() {
 
                       <div id="categories" className="grid md:grid-cols-3 gap-8 mb-20 max-w-6xl mx-auto">
                           {categories.map((cat, i) => (
-                              <Link key={i} href={cat.link} className="group bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all hover:-translate-y-1">
+                              <Link key={i} href={cat.link} className="group bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-xl transition-all hover:-translate-y-1">
                                   <div className={`w-14 h-14 ${cat.bg} rounded-2xl flex items-center justify-center mb-6`}>
                                       <cat.icon className={`w-7 h-7 ${cat.color}`} />
                                   </div>
-                                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 transition-colors">{cat.title}</h3>
-                                  <p className="text-slate-500 dark:text-slate-600 mb-6">{cat.desc}</p>
-                                  <div className="flex items-center text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 transition-colors">{cat.title}</h3>
+                                  <p className="text-gray-500 dark:text-gray-600 mb-6">{cat.desc}</p>
+                                  <div className="flex items-center text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">
                                       Compare Now <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                                   </div>
                               </Link>
@@ -171,18 +171,18 @@ export default function ComparisonPage() {
 
                       <div className="max-w-4xl mx-auto mb-16">
                           <h2 className="text-2xl font-bold text-center mb-10 flex items-center justify-center gap-3">
-                              <ArrowLeftRight className="w-6 h-6 text-slate-600" />
+                              <ArrowLeftRight className="w-6 h-6 text-gray-600" />
                               Popular Battles
                           </h2>
                           <div className="grid md:grid-cols-2 gap-4">
                               {popularComparisons.map((comp, i) => (
-                                  <Link key={i} href={`/compare/${comp.slug}`} className="flex items-center justify-between p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary-500 hover:shadow-md transition-all group">
+                                  <Link key={i} href={`/compare/${comp.slug}`} className="flex items-center justify-between p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-primary-500 hover:shadow-md transition-all group">
                                       <div className="flex items-center gap-3">
-                                          <span className="font-semibold text-slate-700 dark:text-slate-300">{comp.p1}</span>
-                                          <span className="text-slate-600 text-xs font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">VS</span>
-                                          <span className="font-semibold text-slate-700 dark:text-slate-300">{comp.p2}</span>
+                                          <span className="font-semibold text-gray-700 dark:text-gray-300">{comp.p1}</span>
+                                          <span className="text-gray-600 text-xs font-bold bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">VS</span>
+                                          <span className="font-semibold text-gray-700 dark:text-gray-300">{comp.p2}</span>
                                       </div>
-                                      <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-primary-500 transition-colors" />
+                                      <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-primary-500 transition-colors" />
                                   </Link>
                               ))}
                           </div>
@@ -201,22 +201,22 @@ export default function ComparisonPage() {
     const config = getComparisonConfig(category);
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
             <SEOHead 
                 title={`Compare ${products.length} Products | InvestingPro`} 
                 description="Side-by-side spec comparison" 
             />
 
             {/* Header Actions */}
-            <div className="sticky top-[72px] z-30 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 py-4 px-4 sm:px-6">
+            <div className="sticky top-[72px] z-30 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 py-4 px-4 sm:px-6">
                 <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
                         <Button variant="ghost" size="sm" onClick={() => router.back()} className="-ml-2">
                             <ArrowLeft className="w-4 h-4 mr-1" /> Back
                         </Button>
-                        <h1 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <h1 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                             Compare {products.length} Items 
-                            <span className="text-xs font-normal text-slate-500 px-2 py-0.5 bg-slate-100 dark:bg-slate-900 rounded-full capitalize">
+                            <span className="text-xs font-normal text-gray-500 px-2 py-0.5 bg-gray-100 dark:bg-gray-900 rounded-full capitalize">
                                 {category.replace('_', ' ')}
                             </span>
                         </h1>
@@ -224,22 +224,22 @@ export default function ComparisonPage() {
                     
                     <div className="flex items-center gap-3">
                          {/* View Options */}
-                         <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900 p-1 rounded-lg">
+                         <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-900 p-1 rounded-lg">
                             <button 
                                 onClick={() => setHighlightDiff(!highlightDiff)}
-                                className={`text-xs font-medium px-3 py-1.5 rounded-md transition-all ${highlightDiff ? 'bg-white dark:bg-slate-800 shadow-sm text-primary-600' : 'text-slate-500'}`}
+                                className={`text-xs font-medium px-3 py-1.5 rounded-md transition-all ${highlightDiff ? 'bg-white dark:bg-gray-800 shadow-sm text-primary-600' : 'text-gray-500'}`}
                             >
                                 Highlight Diffs
                             </button>
                             <button 
                                 onClick={() => setHideIdentical(!hideIdentical)}
-                                className={`text-xs font-medium px-3 py-1.5 rounded-md transition-all ${hideIdentical ? 'bg-white dark:bg-slate-800 shadow-sm text-primary-600' : 'text-slate-500'}`}
+                                className={`text-xs font-medium px-3 py-1.5 rounded-md transition-all ${hideIdentical ? 'bg-white dark:bg-gray-800 shadow-sm text-primary-600' : 'text-gray-500'}`}
                             >
                                 Hide Identical
                             </button>
                          </div>
 
-                        <div className="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
+                        <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1"></div>
 
                         <Button variant="outline" size="sm" onClick={clearAll} className="h-9 text-xs">
                              <X className="w-3.5 h-3.5 mr-1.5" /> Clear
@@ -256,9 +256,9 @@ export default function ComparisonPage() {
                 {/* 1. Mobile/Tablet "Card-Flipped" View (Stacked logic for small screens) */}
                 <div className="lg:hidden space-y-8">
                     {/* Sticky Product Cards for reference */}
-                    <div className="sticky top-[132px] z-20 flex gap-2 overflow-x-auto pb-4 pt-2 -mx-4 px-4 bg-slate-50 dark:bg-slate-950 shadow-sm scrollbar-hide">
+                    <div className="sticky top-[132px] z-20 flex gap-2 overflow-x-auto pb-4 pt-2 -mx-4 px-4 bg-gray-50 dark:bg-gray-950 shadow-sm scrollbar-hide">
                         {products.map(product => (
-                            <div key={product.id} className="min-w-[140px] p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col items-center">
+                            <div key={product.id} className="min-w-[140px] p-3 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col items-center">
                                 <div className="h-10 w-full relative mb-2">
                                     <Image 
                                         src={product.image_url || '/images/placeholder.png'} 
@@ -267,7 +267,7 @@ export default function ComparisonPage() {
                                         className="object-contain"
                                     />
                                 </div>
-                                <h4 className="text-[10px] font-bold text-slate-900 dark:text-white line-clamp-1 text-center">{product.name}</h4>
+                                <h4 className="text-[10px] font-bold text-gray-900 dark:text-white line-clamp-1 text-center">{product.name}</h4>
                             </div>
                         ))}
                     </div>
@@ -282,15 +282,15 @@ export default function ComparisonPage() {
                                     if (hideIdentical && isIdentical) return null;
 
                                     return (
-                                        <div key={field.key} className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-                                            <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">{field.label}</p>
+                                        <div key={field.key} className="bg-white dark:bg-gray-900 rounded-2xl p-5 border border-gray-200 dark:border-gray-800 shadow-sm">
+                                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-4 border-b border-gray-100 dark:border-gray-800 pb-2">{field.label}</p>
                                             <div className="grid grid-cols-2 gap-4">
                                                 {products.map((product, pIdx) => {
                                                     const value = getFieldValue(product, field.key);
                                                     return (
                                                         <div key={product.id} className="flex flex-col gap-1">
-                                                            <span className="text-[10px] font-bold text-slate-500 uppercase">{product.provider_name}</span>
-                                                            <div className="text-sm font-semibold text-slate-900 dark:text-white">
+                                                            <span className="text-[10px] font-bold text-gray-500 uppercase">{product.provider_name}</span>
+                                                            <div className="text-sm font-semibold text-gray-900 dark:text-white">
                                                                 {renderCell(value, field.type, false)}
                                                             </div>
                                                         </div>
@@ -310,13 +310,13 @@ export default function ComparisonPage() {
                     <table className="w-full min-w-[800px] border-collapse">
                         {/* thead remains as updated previously */}
                         {/* 1. Product Headers (Sticky) */}
-                        <thead className="sticky top-[132px] z-30 bg-slate-50 dark:bg-slate-950 shadow-sm">
+                        <thead className="sticky top-[132px] z-30 bg-gray-50 dark:bg-gray-950 shadow-sm">
                             <tr>
-                                <th className="w-[200px] p-4 text-left align-bottom bg-slate-50 dark:bg-slate-950 sticky left-0 z-40 border-b border-slate-200 dark:border-slate-800">
-                                    <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Features</span>
+                                <th className="w-[200px] p-4 text-left align-bottom bg-gray-50 dark:bg-gray-950 sticky left-0 z-40 border-b border-gray-200 dark:border-gray-800">
+                                    <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Features</span>
                                 </th>
                                 {products.map(product => (
-                                    <th key={product.id} className="w-[280px] p-4 align-top bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+                                    <th key={product.id} className="w-[280px] p-4 align-top bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
                                         <div className="relative group">
                                             <button 
                                                 onClick={() => {
@@ -330,12 +330,12 @@ export default function ComparisonPage() {
                                                         router.replace(`/compare?products=${slugs}`);
                                                     }
                                                 }}
-                                                className="absolute -top-2 -right-2 p-1 bg-slate-200 dark:bg-slate-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                                className="absolute -top-2 -right-2 p-1 bg-gray-200 dark:bg-gray-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                                             >
-                                                <X className="w-3 h-3 text-slate-600 dark:text-slate-400" />
+                                                <X className="w-3 h-3 text-gray-600 dark:text-gray-400" />
                                             </button>
 
-                                            <div className="h-32 flex items-center justify-center mb-4 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                                            <div className="h-32 flex items-center justify-center mb-4 p-4 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
                                                 <Image 
                                                     src={product.image_url || '/images/placeholder.png'} 
                                                     alt={product.name} 
@@ -344,14 +344,14 @@ export default function ComparisonPage() {
                                                     className="object-contain max-h-full"
                                                 />
                                             </div>
-                                            <h3 className="font-bold text-slate-900 dark:text-white mb-1 line-clamp-2 min-h-[3rem]">
+                                            <h3 className="font-bold text-gray-900 dark:text-white mb-1 line-clamp-2 min-h-[3rem]">
                                                 {product.name}
                                             </h3>
                                             <div className="flex items-center justify-center gap-1 mb-4">
                                                 <Badge variant="secondary" className="bg-primary-50 text-primary-700 hover:bg-primary-50 border-0 text-[10px]">
                                                     {product.rating.overall} â˜…
                                                 </Badge>
-                                                <span className="text-xs text-slate-500">{product.provider_name}</span>
+                                                <span className="text-xs text-gray-500">{product.provider_name}</span>
                                             </div>
                                             <Link href={product.affiliate_link ||  product.official_link || '#'}>
                                                 <Button size="sm" className="w-full bg-primary-600 hover:bg-secondary-600 text-white rounded-lg">
@@ -363,7 +363,7 @@ export default function ComparisonPage() {
                                 ))}
                                 {/* Add Button Column */}
                                 {showAddButton && (
-                                    <th className="w-[280px] p-4 align-top bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+                                    <th className="w-[280px] p-4 align-top bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
                                         <ProductSelector 
                                             category={products[0]?.category}
                                             excludeIds={products.map(p => p.id)}
@@ -381,11 +381,11 @@ export default function ComparisonPage() {
                         </thead>
 
                         {/* 2. Feature Rows */}
-                        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-800/50">
                             {config.sections.map((section) => (
                                 <React.Fragment key={section.title}>
-                                    <tr className="bg-slate-100/50 dark:bg-slate-900/50">
-                                        <td colSpan={products.length + (showAddButton ? 2 : 1)} className="p-3 text-xs font-bold uppercase tracking-wider text-slate-500 sticky left-0">
+                                    <tr className="bg-gray-100/50 dark:bg-gray-900/50">
+                                        <td colSpan={products.length + (showAddButton ? 2 : 1)} className="p-3 text-xs font-bold uppercase tracking-wider text-gray-500 sticky left-0">
                                             {section.title}
                                         </td>
                                     </tr>
@@ -397,10 +397,10 @@ export default function ComparisonPage() {
                                         if (hideIdentical && isIdentical) return null;
 
                                         return (
-                                            <tr key={field.key} className="group hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors">
-                                                <td className="p-4 py-6 text-sm font-medium text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-950 sticky left-0 z-10 border-r border-slate-100 dark:border-slate-800 group-hover:bg-slate-50 dark:group-hover:bg-slate-900/30">
+                                            <tr key={field.key} className="group hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-colors">
+                                                <td className="p-4 py-6 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-950 sticky left-0 z-10 border-r border-gray-100 dark:border-gray-800 group-hover:bg-gray-50 dark:group-hover:bg-gray-900/30">
                                                     {field.label}
-                                                    {field.help && <AlertCircle className="w-3 h-3 inline ml-1 text-slate-300" />}
+                                                    {field.help && <AlertCircle className="w-3 h-3 inline ml-1 text-gray-300" />}
                                                 </td>
                                                 {products.map((product) => {
                                                     const value = getFieldValue(product, field.key);
@@ -411,13 +411,13 @@ export default function ComparisonPage() {
                                                             : false;
 
                                                     return (
-                                                        <td key={`${product.id}-${field.key}`} className={`p-4 align-top text-sm border-r border-slate-50 dark:border-slate-900 text-center ${isBest ? 'bg-success-50/50 dark:bg-success-900/10' : ''}`}>
+                                                        <td key={`${product.id}-${field.key}`} className={`p-4 align-top text-sm border-r border-gray-50 dark:border-gray-900 text-center ${isBest ? 'bg-success-50/50 dark:bg-success-900/10' : ''}`}>
                                                             {renderCell(value, field.type, isBest)}
                                                         </td>
                                                     );
                                                 })}
                                                 {/* Empty cell for Add column */}
-                                                {showAddButton && <td className="p-4 border-r border-slate-50 dark:border-slate-900"></td>}
+                                                {showAddButton && <td className="p-4 border-r border-gray-50 dark:border-gray-900"></td>}
                                             </tr>
                                         );
                                     })}
@@ -469,19 +469,19 @@ function getFieldValue(product: RichProduct | any, key: string): any {
 
 function renderCell(value: any, type: FieldType, isBest: boolean) {
     if (value === '--' || value === null || value === undefined) 
-        return <span className="text-slate-300">-</span>;
+        return <span className="text-gray-300">-</span>;
 
     const content = () => {
         switch (type) {
             case 'boolean':
-                return value === true || value === 'Yes' ? <Check className="w-5 h-5 text-success-500 mx-auto" /> : <Minus className="w-4 h-4 text-slate-300 mx-auto" />;
+                return value === true || value === 'Yes' ? <Check className="w-5 h-5 text-success-500 mx-auto" /> : <Minus className="w-4 h-4 text-gray-300 mx-auto" />;
             case 'list':
                 if (Array.isArray(value)) return <ul className="text-left list-disc list-inside text-xs space-y-1">{value.map((v: any, i: number) => <li key={i}>{v}</li>)}</ul>;
                 return <span className="text-sm">{String(value)}</span>;
             case 'currency':
                 return <span className="font-semibold">{String(value)}</span>; // TODO: format currency
             default:
-                return <span className="text-slate-700 dark:text-slate-300 leading-relaxed block max-w-[250px] mx-auto">{String(value)}</span>;
+                return <span className="text-gray-700 dark:text-gray-300 leading-relaxed block max-w-[250px] mx-auto">{String(value)}</span>;
         }
     };
 

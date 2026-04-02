@@ -30,7 +30,7 @@ export function LastUpdated({
     // Show placeholder during SSR to match client
     if (!formattedDate) {
         return (
-            <div className={`flex items-center gap-2 text-xs text-slate-500 ${className}`}>
+            <div className={`flex items-center gap-2 text-xs text-gray-500 ${className}`}>
                 {showIcon && <Clock className="w-3.5 h-3.5" />}
                 <span>Last updated: <strong>—</strong></span>
             </div>
@@ -38,7 +38,7 @@ export function LastUpdated({
     }
 
     return (
-        <div className={`flex items-center gap-2 text-xs text-slate-500 ${className}`}>
+        <div className={`flex items-center gap-2 text-xs text-gray-500 ${className}`}>
             {showIcon && <Clock className="w-3.5 h-3.5" />}
             <span>Last updated: <strong>{formattedDate}</strong></span>
         </div>

@@ -24,7 +24,7 @@ export default function AuthorByline({
   });
 
   return (
-    <div className={cn("flex items-center gap-3 py-4 border-b border-slate-100 dark:border-slate-800 mb-6 font-sans", className)}>
+    <div className={cn("flex items-center gap-3 py-4 border-b border-gray-100 dark:border-gray-800 mb-6 font-sans", className)}>
       <div className="relative">
         {isTeam ? (
           <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-600 to-green-700 flex items-center justify-center text-white">
@@ -36,19 +36,19 @@ export default function AuthorByline({
           </div>
         )}
         {verified && (
-            <div className="absolute -bottom-1 -right-1 bg-white dark:bg-slate-900 rounded-full p-0.5">
+            <div className="absolute -bottom-1 -right-1 bg-white dark:bg-gray-900 rounded-full p-0.5">
                 <BadgeCheck className="w-4 h-4 text-green-600 fill-green-50/20" />
             </div>
         )}
       </div>
       <div>
         <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+            <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                 {isTeam ? authorName : `Reviewed by ${authorName}`}
             </span>
             <Shield className="w-3 h-3 text-emerald-500" />
         </div>
-        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-600">
+        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-600">
             <span>{authorRole}</span>
             <span>•</span>
             <span>Updated {displayDate}</span>

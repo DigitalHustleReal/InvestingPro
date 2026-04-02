@@ -61,9 +61,9 @@ export default function TaxCountdown() {
     if (!target) return null;
 
     return (
-        <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white border-none shadow-xl">
+        <Card className="bg-gradient-to-br from-gray-900 to-gray-800 text-white border-none shadow-xl">
             <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-semibold flex items-center gap-2 text-slate-300">
+                <CardTitle className="text-sm font-semibold flex items-center gap-2 text-gray-300">
                     <Clock className="w-4 h-4 text-accent-400" />
                     Tax Deadline Tracker
                 </CardTitle>
@@ -72,14 +72,14 @@ export default function TaxCountdown() {
                 <div className="flex items-center justify-between">
                     <div>
                         <h4 className="font-bold text-lg leading-tight mb-1">{target.label}</h4>
-                        <p className="text-xs text-slate-600 flex items-center gap-1">
+                        <p className="text-xs text-gray-600 flex items-center gap-1">
                             <Calendar className="w-3 h-3" />
                             {target.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
                         </p>
                     </div>
                     <div className="text-center bg-white/10 rounded-xl p-3 backdrop-blur-sm min-w-[80px]">
                         <span className="block text-2xl font-black text-white">{timeLeft.days}</span>
-                        <span className="text-[10px] uppercase font-bold text-slate-600">Days Left</span>
+                        <span className="text-[10px] uppercase font-bold text-gray-600">Days Left</span>
                     </div>
                 </div>
                 <div className="mt-3 text-[10px] text-accent-300 bg-accent-500/10 px-2 py-1 rounded border border-accent-500/20 inline-block">

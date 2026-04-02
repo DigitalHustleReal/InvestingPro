@@ -337,10 +337,10 @@ export default function AIContentWriterPage() {
 
     return (
         <AdminLayout>
-            <div className="h-full flex flex-col bg-slate-50">
-                <div className="bg-white border-b border-slate-200 px-8 py-6">
-                    <h1 className="text-2xl font-bold text-slate-900">AI Content Writer</h1>
-                    <p className="text-sm text-slate-600 mt-1">
+            <div className="h-full flex flex-col bg-gray-50">
+                <div className="bg-white border-b border-gray-200 px-8 py-6">
+                    <h1 className="text-2xl font-bold text-gray-900">AI Content Writer</h1>
+                    <p className="text-sm text-gray-600 mt-1">
                         Professional-grade content creation platform - Templates, Prompts, Auto-Generator
                     </p>
                 </div>
@@ -361,14 +361,14 @@ export default function AIContentWriterPage() {
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>One-Click Auto Generator</CardTitle>
-                                        <p className="text-sm text-slate-600 mt-1">
+                                        <p className="text-sm text-gray-600 mt-1">
                                             Fully automated content generation workflow
                                         </p>
                                     </CardHeader>
                                     <CardContent className="space-y-6">
                                         {/* Workflow Steps */}
                                         <div className="space-y-4">
-                                            <h3 className="font-semibold text-slate-900">Automated Workflow</h3>
+                                            <h3 className="font-semibold text-gray-900">Automated Workflow</h3>
                                             <div className="space-y-3">
                                                 {autoSteps.map((step, index) => {
                                                     const StepIcon = step.icon;
@@ -382,7 +382,7 @@ export default function AIContentWriterPage() {
                                                                     ? 'bg-primary-500 text-white'
                                                                     : isActive
                                                                     ? 'bg-secondary-500 text-white'
-                                                                    : 'bg-slate-200 text-slate-600'
+                                                                    : 'bg-gray-200 text-gray-600'
                                                             }`}>
                                                                 {isCompleted ? (
                                                                     <CheckCircle2 className="w-5 h-5" />
@@ -392,7 +392,7 @@ export default function AIContentWriterPage() {
                                                             </div>
                                                             <div className="flex-1">
                                                                 <div className="flex items-center gap-2">
-                                                                    <h4 className="font-semibold text-slate-900">{step.title}</h4>
+                                                                    <h4 className="font-semibold text-gray-900">{step.title}</h4>
                                                                     {isActive && (
                                                                         <Badge className="bg-secondary-100 text-secondary-700 border-0">
                                                                             Running...
@@ -406,7 +406,7 @@ export default function AIContentWriterPage() {
                                                                 </div>
                                                             </div>
                                                             {index < autoSteps.length - 1 && (
-                                                                <ArrowDown className="w-5 h-5 text-slate-600 absolute left-5 mt-12" />
+                                                                <ArrowDown className="w-5 h-5 text-gray-600 absolute left-5 mt-12" />
                                                             )}
                                                         </div>
                                                     );
@@ -417,15 +417,15 @@ export default function AIContentWriterPage() {
                                             {autoGenerating && (
                                                 <div className="space-y-2 mt-4">
                                                     <div className="flex items-center justify-between text-sm">
-                                                        <span className="text-slate-600">
+                                                        <span className="text-gray-600">
                                                             {autoStep === 1 && "Scraping trending topics..."}
                                                             {autoStep === 2 && "Generating articles..."}
                                                             {autoStep === 3 && "Saving to review queue..."}
                                                             {autoStep === 4 && "Complete!"}
                                                         </span>
-                                                        <span className="font-semibold text-slate-900">{autoProgress}%</span>
+                                                        <span className="font-semibold text-gray-900">{autoProgress}%</span>
                                                     </div>
-                                                    <div className="w-full bg-slate-200 rounded-full h-2">
+                                                    <div className="w-full bg-gray-200 rounded-full h-2">
                                                         <div
                                                             className="bg-secondary-500 h-2 rounded-full transition-all duration-300"
                                                             style={{ width: `${autoProgress}%` }}
@@ -491,7 +491,7 @@ export default function AIContentWriterPage() {
                                     <Card>
                                         <CardHeader>
                                             <CardTitle>Niche Templates Library</CardTitle>
-                                            <p className="text-sm text-slate-600 mt-1">
+                                            <p className="text-sm text-gray-600 mt-1">
                                                 Pre-built templates for financial content
                                             </p>
                                         </CardHeader>
@@ -513,8 +513,8 @@ export default function AIContentWriterPage() {
                                                                         <TemplateIcon className="w-5 h-5 text-primary-600" />
                                                                     </div>
                                                                     <div className="flex-1">
-                                                                        <h4 className="font-semibold text-slate-900 mb-1">{template.name}</h4>
-                                                                        <p className="text-xs text-slate-600 mb-2">{template.description}</p>
+                                                                        <h4 className="font-semibold text-gray-900 mb-1">{template.name}</h4>
+                                                                        <p className="text-xs text-gray-600 mb-2">{template.description}</p>
                                                                         <Badge variant="outline" className="text-xs">
                                                                             {template.category}
                                                                         </Badge>
@@ -557,11 +557,11 @@ export default function AIContentWriterPage() {
                                                 </div>
                                                 <div>
                                                     <Label>Template Structure</Label>
-                                                    <div className="mt-2 p-4 bg-slate-50 rounded-lg">
+                                                    <div className="mt-2 p-4 bg-gray-50 rounded-lg">
                                                         <ul className="space-y-2">
                                                             {NICHE_TEMPLATES.find(t => t.id === selectedTemplate)?.structure.map((section, idx) => (
-                                                                <li key={idx} className="flex items-center gap-2 text-sm text-slate-700">
-                                                                    <ArrowRight className="w-4 h-4 text-slate-600" />
+                                                                <li key={idx} className="flex items-center gap-2 text-sm text-gray-700">
+                                                                    <ArrowRight className="w-4 h-4 text-gray-600" />
                                                                     {section}
                                                                 </li>
                                                             ))}
@@ -584,7 +584,7 @@ export default function AIContentWriterPage() {
                                     <Card>
                                         <CardHeader>
                                             <CardTitle>Prompts Library</CardTitle>
-                                            <p className="text-sm text-slate-600 mt-1">
+                                            <p className="text-sm text-gray-600 mt-1">
                                                 Pre-built prompts for different content types
                                             </p>
                                         </CardHeader>
@@ -600,12 +600,12 @@ export default function AIContentWriterPage() {
                                                     >
                                                         <CardContent className="p-6 md:p-8">
                                                             <div className="flex items-start justify-between mb-2">
-                                                                <h4 className="font-semibold text-slate-900">{prompt.name}</h4>
+                                                                <h4 className="font-semibold text-gray-900">{prompt.name}</h4>
                                                                 <Badge variant="outline" className="text-xs">
                                                                     {prompt.category}
                                                                 </Badge>
                                                             </div>
-                                                            <p className="text-sm text-slate-600 line-clamp-2">{prompt.prompt}</p>
+                                                            <p className="text-sm text-gray-600 line-clamp-2">{prompt.prompt}</p>
                                                         </CardContent>
                                                     </Card>
                                                 ))}
@@ -668,7 +668,7 @@ export default function AIContentWriterPage() {
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Review Queue</CardTitle>
-                                        <p className="text-sm text-slate-600 mt-1">
+                                        <p className="text-sm text-gray-600 mt-1">
                                             {reviewArticles.length} articles pending review
                                         </p>
                                     </CardHeader>
@@ -676,12 +676,12 @@ export default function AIContentWriterPage() {
                                         <div className="space-y-4">
                                             {Array.isArray(reviewArticles) && reviewArticles.length > 0 ? (
                                                 reviewArticles.map((article: any) => (
-                                                    <Card key={article.id} className="border-slate-200">
+                                                    <Card key={article.id} className="border-gray-200">
                                                         <CardContent className="p-6">
                                                             <div className="flex items-start justify-between mb-4">
                                                                 <div className="flex-1">
-                                                                    <h4 className="font-semibold text-slate-900 mb-2">{article.title}</h4>
-                                                                    <div className="flex items-center gap-3 text-sm text-slate-600 mb-3">
+                                                                    <h4 className="font-semibold text-gray-900 mb-2">{article.title}</h4>
+                                                                    <div className="flex items-center gap-3 text-sm text-gray-600 mb-3">
                                                                         <Badge variant="outline">{article.category}</Badge>
                                                                         <span className="flex items-center gap-1">
                                                                             <Clock className="w-4 h-4" />
@@ -695,7 +695,7 @@ export default function AIContentWriterPage() {
                                                                         )}
                                                                     </div>
                                                                     {article.excerpt && (
-                                                                        <p className="text-sm text-slate-600 line-clamp-2">{article.excerpt}</p>
+                                                                        <p className="text-sm text-gray-600 line-clamp-2">{article.excerpt}</p>
                                                                     )}
                                                                 </div>
                                                             </div>
@@ -722,8 +722,8 @@ export default function AIContentWriterPage() {
                                                 ))
                                             ) : (
                                                 <div className="text-center py-12">
-                                                    <ClipboardCheck className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                                                    <p className="text-slate-600">No articles in review queue</p>
+                                                    <ClipboardCheck className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+                                                    <p className="text-gray-600">No articles in review queue</p>
                                                 </div>
                                             )}
                                         </div>
@@ -738,7 +738,7 @@ export default function AIContentWriterPage() {
                                         <CardTitle>Content Pipeline</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        <p className="text-slate-600">Use the One-Click Auto Generator for automated pipeline execution.</p>
+                                        <p className="text-gray-600">Use the One-Click Auto Generator for automated pipeline execution.</p>
                                     </CardContent>
                                 </Card>
                             </TabsContent>

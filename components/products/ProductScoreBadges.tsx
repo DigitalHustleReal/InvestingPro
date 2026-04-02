@@ -89,7 +89,7 @@ export default function ProductScoreBadges({
                         sizeClasses[size],
                         score >= 8 ? 'bg-green-50 border-green-200 text-green-700' :
                         score >= 6 ? 'bg-amber-50 border-amber-200 text-amber-700' :
-                        'bg-slate-50 border-slate-200 text-slate-700'
+                        'bg-gray-50 border-gray-200 text-gray-700'
                     )}
                 >
                     <Star className={cn(iconSizes[size], 'fill-current')} />
@@ -101,8 +101,8 @@ export default function ProductScoreBadges({
             {displayTags.map((tag, index) => {
                 const config = badgeConfig[tag] || { 
                     icon: Award, 
-                    color: 'text-slate-700', 
-                    bg: 'bg-slate-50 border-slate-200' 
+                    color: 'text-gray-700', 
+                    bg: 'bg-gray-50 border-gray-200' 
                 };
                 const Icon = config.icon;
 

@@ -93,14 +93,14 @@ export default function ProductCategoryPage() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-gray-50">
             <SEOHead
                 title={`${categoryMeta.title} | InvestingPro`}
                 description={categoryMeta.description}
             />
 
             {/* Hero */}
-            <div className="bg-slate-900 border-b border-slate-800 relative overflow-hidden">
+            <div className="bg-gray-900 border-b border-gray-800 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500 rounded-full blur-[128px]" />
                     <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-500 rounded-full blur-[128px]" />
@@ -112,16 +112,16 @@ export default function ProductCategoryPage() {
                         <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
                             {categoryMeta.title}
                         </h1>
-                        <p className="text-xl text-slate-400 mb-8">
+                        <p className="text-xl text-gray-400 mb-8">
                             {categoryMeta.description}
                         </p>
                         <div className="relative max-w-xl">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                             <Input
                                 placeholder="Search products..."
                                 value={searchTerm}
                                 onChange={handleSearchChange}
-                                className="pl-12 h-14 bg-white/5 border-slate-700 text-white placeholder:text-slate-500 rounded-xl"
+                                className="pl-12 h-14 bg-white/5 border-gray-700 text-white placeholder:text-gray-500 rounded-xl"
                             />
                         </div>
                     </div>
@@ -132,9 +132,9 @@ export default function ProductCategoryPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {/* Results count */}
                 <div className="flex justify-between items-center mb-8">
-                    <p className="text-slate-600">
-                        Showing <span className="font-bold text-slate-900">{products.length}</span> of{' '}
-                        <span className="font-bold text-slate-900">{totalItems}</span> products
+                    <p className="text-gray-600">
+                        Showing <span className="font-bold text-gray-900">{products.length}</span> of{' '}
+                        <span className="font-bold text-gray-900">{totalItems}</span> products
                     </p>
                 </div>
 
@@ -144,22 +144,22 @@ export default function ProductCategoryPage() {
                         Array.from({ length: 6 }).map((_, i) => (
                             <Card key={i} className="animate-pulse">
                                 <CardContent className="p-6">
-                                    <div className="h-12 w-12 bg-slate-200 rounded-xl mb-4" />
-                                    <div className="h-6 bg-slate-200 rounded mb-2" />
-                                    <div className="h-4 bg-slate-200 rounded w-2/3" />
+                                    <div className="h-12 w-12 bg-gray-200 rounded-xl mb-4" />
+                                    <div className="h-6 bg-gray-200 rounded mb-2" />
+                                    <div className="h-4 bg-gray-200 rounded w-2/3" />
                                 </CardContent>
                             </Card>
                         ))
                     ) : products.length === 0 ? (
                         <div className="col-span-full text-center py-16">
                             <div className="text-5xl mb-4">🔍</div>
-                            <h3 className="text-xl font-bold text-slate-900 mb-2">No products found</h3>
-                            <p className="text-slate-500">Try adjusting your search terms.</p>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">No products found</h3>
+                            <p className="text-gray-500">Try adjusting your search terms.</p>
                         </div>
                     ) : (
                         products.map((product) => (
                             <Link key={product.id} href={`/products/${category}/${product.slug}`}>
-                                <Card className="h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-slate-200 group bg-white overflow-hidden">
+                                <Card className="h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-gray-200 group bg-white overflow-hidden">
                                     <CardContent className="p-6">
                                         {/* Header */}
                                         <div className="flex items-start justify-between mb-4">
@@ -168,10 +168,10 @@ export default function ProductCategoryPage() {
                                                     <Package className="w-6 h-6 text-white" />
                                                 </div>
                                                 <div>
-                                                    <h3 className="font-bold text-slate-900 group-hover:text-emerald-600 transition-colors line-clamp-1">
+                                                    <h3 className="font-bold text-gray-900 group-hover:text-emerald-600 transition-colors line-clamp-1">
                                                         {product.name}
                                                     </h3>
-                                                    <p className="text-sm text-slate-500">{product.provider_name}</p>
+                                                    <p className="text-sm text-gray-500">{product.provider_name}</p>
                                                 </div>
                                             </div>
                                             {product.trust_score && product.trust_score >= 70 && (
@@ -184,7 +184,7 @@ export default function ProductCategoryPage() {
 
                                         {/* Meta Description */}
                                         {product.meta_description && (
-                                            <p className="text-slate-600 text-sm mb-4 line-clamp-2">
+                                            <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                                                 {product.meta_description}
                                             </p>
                                         )}

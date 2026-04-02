@@ -11,7 +11,7 @@ const BANK_THEMES: Record<string, { bg: string; accent: string; text: string }> 
   'SBI Card': { bg: 'from-blue-800 to-cyan-600', accent: 'text-yellow-300', text: 'text-white' },
   'Axis Bank': { bg: 'from-purple-900 to-pink-700', accent: 'text-pink-300', text: 'text-white' },
   'Kotak Mahindra Bank': { bg: 'from-red-700 to-red-500', accent: 'text-yellow-300', text: 'text-white' },
-  'American Express': { bg: 'from-slate-800 to-slate-600', accent: 'text-blue-300', text: 'text-white' },
+  'American Express': { bg: 'from-gray-800 to-gray-600', accent: 'text-blue-300', text: 'text-white' },
   'IDFC First Bank': { bg: 'from-emerald-800 to-emerald-600', accent: 'text-yellow-300', text: 'text-white' },
   'Standard Chartered': { bg: 'from-green-800 to-green-600', accent: 'text-teal-300', text: 'text-white' },
   'YES Bank': { bg: 'from-blue-700 to-blue-500', accent: 'text-red-400', text: 'text-white' },
@@ -70,7 +70,7 @@ export default function CreditCardVisual({
   }
 
   // Generate styled card visual
-  const theme = BANK_THEMES[bankName] || { bg: 'from-slate-700 to-slate-500', accent: 'text-emerald-300', text: 'text-white' };
+  const theme = BANK_THEMES[bankName] || { bg: 'from-gray-700 to-gray-500', accent: 'text-emerald-300', text: 'text-white' };
   const typeLabel = cardType ? TYPE_LABELS[cardType] || cardType.toUpperCase() : '';
 
   const sizeClasses = {

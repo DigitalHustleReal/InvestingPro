@@ -32,7 +32,7 @@ export default function WealthDashboard() {
     const [activeTab, setActiveTab] = useState('overview');
 
     if (profileLoading) {
-        return <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
+        return <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
             <div className="w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin" />
         </div>;
     }
@@ -41,7 +41,7 @@ export default function WealthDashboard() {
     const creditScore = user?.profile_data?.creditScore || 750;
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-24 pb-20 px-4 md:px-8">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-24 pb-20 px-4 md:px-8">
             <div className="max-w-7xl mx-auto space-y-8">
                 {/* Header with Profile Info */}
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -54,23 +54,23 @@ export default function WealthDashboard() {
                         )}
                       </div>
                       <div>
-                        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+                        <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">
                             Namaste, {user?.full_name?.split(' ')[0] || 'Investor'}!
                         </h1>
-                        <p className="text-slate-500 dark:text-slate-600 font-medium flex items-center gap-2 mt-1">
+                        <p className="text-gray-500 dark:text-gray-600 font-medium flex items-center gap-2 mt-1">
                           <ShieldCheck size={14} className="text-success-600" />
                           {income ? `Profile Level: Silver (₹${(income/100000).toFixed(1)}L/yr)` : 'Complete your profile for better insights'}
                         </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <Button variant="outline" size="icon" className="rounded-xl border-slate-200 dark:border-slate-800">
+                        <Button variant="outline" size="icon" className="rounded-xl border-gray-200 dark:border-gray-800">
                           <Bell size={18} />
                         </Button>
-                        <Button variant="outline" size="icon" className="rounded-xl border-slate-200 dark:border-slate-800">
+                        <Button variant="outline" size="icon" className="rounded-xl border-gray-200 dark:border-gray-800">
                           <Settings size={18} />
                         </Button>
-                        <Button className="bg-slate-900 dark:bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl px-6">
+                        <Button className="bg-gray-900 dark:bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl px-6">
                           Contact Expert
                         </Button>
                     </div>
@@ -92,15 +92,15 @@ export default function WealthDashboard() {
                           "w-full flex items-center gap-4 px-4 py-3.5 rounded-xl font-bold transition-all text-sm",
                           activeTab === tab.id 
                             ? "bg-primary-600 text-white shadow-xl shadow-primary-500/20" 
-                            : "text-slate-500 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-900"
+                            : "text-gray-500 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-900"
                         )}
                       >
                         <tab.icon size={18} />
                         {tab.label}
                       </button>
                     ))}
-                    <div className="pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-                        <button className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl font-bold text-slate-600 hover:text-danger-500 transition-all text-sm">
+                    <div className="pt-6 mt-6 border-t border-gray-200 dark:border-gray-800">
+                        <button className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl font-bold text-gray-600 hover:text-danger-500 transition-all text-sm">
                           <LogOut size={18} />
                           Sign Out
                         </button>
@@ -126,25 +126,25 @@ export default function WealthDashboard() {
                             </CardContent>
                           </Card>
 
-                          <Card className="border-none bg-white dark:bg-slate-900 shadow-sm">
+                          <Card className="border-none bg-white dark:bg-gray-900 shadow-sm">
                             <CardContent className="p-6">
                               <div className="flex justify-between mb-1">
-                                <p className="text-xs font-bold uppercase text-slate-600">Monthly Potential</p>
+                                <p className="text-xs font-bold uppercase text-gray-600">Monthly Potential</p>
                                 <TrendingUp size={14} className="text-primary-600" />
                               </div>
-                              <h3 className="text-2xl font-black text-slate-900 dark:text-white">₹4,250</h3>
-                              <p className="text-[10px] text-slate-500 font-medium mt-1">Extra savings with top-tier cards</p>
+                              <h3 className="text-2xl font-black text-gray-900 dark:text-white">₹4,250</h3>
+                              <p className="text-[10px] text-gray-500 font-medium mt-1">Extra savings with top-tier cards</p>
                             </CardContent>
                           </Card>
 
-                          <Card className="border-none bg-white dark:bg-slate-900 shadow-sm">
+                          <Card className="border-none bg-white dark:bg-gray-900 shadow-sm">
                             <CardContent className="p-6">
                               <div className="flex justify-between mb-1">
-                                <p className="text-xs font-bold uppercase text-slate-600">Applications</p>
+                                <p className="text-xs font-bold uppercase text-gray-600">Applications</p>
                                 <ArrowUpRight size={14} className="text-primary-600" />
                               </div>
-                              <h3 className="text-2xl font-black text-slate-900 dark:text-white">02</h3>
-                              <p className="text-[10px] text-slate-500 font-medium mt-1">Pending verification</p>
+                              <h3 className="text-2xl font-black text-gray-900 dark:text-white">02</h3>
+                              <p className="text-[10px] text-gray-500 font-medium mt-1">Pending verification</p>
                             </CardContent>
                           </Card>
                         </div>
@@ -153,7 +153,7 @@ export default function WealthDashboard() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                           <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                              <h4 className="font-black text-slate-900 dark:text-white uppercase text-xs tracking-widest">Saved Products</h4>
+                              <h4 className="font-black text-gray-900 dark:text-white uppercase text-xs tracking-widest">Saved Products</h4>
                               <button onClick={() => setActiveTab('saved')} className="text-[10px] font-bold text-primary-600">View All</button>
                             </div>
                             <SavedProducts />
@@ -161,7 +161,7 @@ export default function WealthDashboard() {
 
                           <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                              <h4 className="font-black text-slate-900 dark:text-white uppercase text-xs tracking-widest">Active Applications</h4>
+                              <h4 className="font-black text-gray-900 dark:text-white uppercase text-xs tracking-widest">Active Applications</h4>
                               <button onClick={() => setActiveTab('applications')} className="text-[10px] font-bold text-primary-600">View All</button>
                             </div>
                             <AppTracker />
@@ -176,7 +176,7 @@ export default function WealthDashboard() {
                     {activeTab === 'saved' && (
                       <div className="space-y-6 animate-in fade-in duration-500">
                         <header className="flex justify-between items-center">
-                          <h2 className="text-2xl font-black text-slate-900 dark:text-white">Your Shortlist</h2>
+                          <h2 className="text-2xl font-black text-gray-900 dark:text-white">Your Shortlist</h2>
                           <div className="flex gap-2">
                              <Button variant="outline" size="sm" className="rounded-xl font-bold">Compare All</Button>
                           </div>
@@ -187,7 +187,7 @@ export default function WealthDashboard() {
 
                     {activeTab === 'applications' && (
                       <div className="space-y-6 animate-in fade-in duration-500">
-                        <h2 className="text-2xl font-black text-slate-900 dark:text-white">Application Status</h2>
+                        <h2 className="text-2xl font-black text-gray-900 dark:text-white">Application Status</h2>
                         <AppTracker />
                       </div>
                     )}
@@ -195,13 +195,13 @@ export default function WealthDashboard() {
                     {activeTab === 'recommendations' && (
                       <div className="space-y-8 animate-in fade-in duration-500">
                         <header>
-                          <h2 className="text-2xl font-black text-slate-900 dark:text-white">Smart Recommendations</h2>
-                          <p className="text-slate-500 dark:text-slate-600 font-medium">Top products matched to your financial profile.</p>
+                          <h2 className="text-2xl font-black text-gray-900 dark:text-white">Smart Recommendations</h2>
+                          <p className="text-gray-500 dark:text-gray-600 font-medium">Top products matched to your financial profile.</p>
                         </header>
                         <PersonalizedPicks />
                         
                         {/* Referral Section - NEW */}
-                        <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white border-none shadow-2xl overflow-hidden relative">
+                        <Card className="bg-gradient-to-br from-gray-900 to-gray-800 text-white border-none shadow-2xl overflow-hidden relative">
                           <div className="absolute top-0 right-0 p-8 opacity-10">
                             <Plus size={120} className="rotate-45" />
                           </div>
@@ -210,7 +210,7 @@ export default function WealthDashboard() {
                               <h3 className="text-2xl font-black mb-2 flex items-center gap-2">
                                 <Plus className="text-primary-500" /> Refer & Earn ₹500
                               </h3>
-                              <p className="text-slate-300 text-sm leading-relaxed">
+                              <p className="text-gray-300 text-sm leading-relaxed">
                                 Love InvestingPro? Refer a friend to any credit card or loan through our platform and both of you get ₹500 Amazon Vouchers upon approval.
                               </p>
                             </div>

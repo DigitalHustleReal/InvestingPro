@@ -130,7 +130,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                                     onChange={handleFileUpload}
                                     className="hidden"
                                 />
-                                <div className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-300 flex items-center gap-2 transition-colors">
+                                <div className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg border border-gray-300 flex items-center gap-2 transition-colors">
                                     <Upload className="w-4 h-4" />
                                     {uploading ? 'Uploading...' : 'Upload Photo'}
                                 </div>
@@ -161,7 +161,7 @@ export default function EditProfileDialog({ open, onOpenChange, user, onUpdate }
                                     variant={formData.expertise.includes(exp) ? "default" : "outline"}
                                     className={`cursor-pointer transition-colors ${formData.expertise.includes(exp)
                                         ? 'bg-primary-600 hover:bg-primary-700 text-white'
-                                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                                         }`}
                                 >
                                     {exp}

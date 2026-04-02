@@ -10,18 +10,18 @@ export const metadata: Metadata = {
 
 export default function AffiliateDisclosurePage() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-24">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-24">
       <div className="container mx-auto px-4 max-w-4xl">
-        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl p-8 md:p-12">
+        <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-xl p-8 md:p-12">
           {/* Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-4">
               <DollarSign className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Affiliate Disclosure
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
+            <p className="text-lg text-gray-600 dark:text-gray-400">
               Transparency about how we earn revenue
             </p>
           </div>
@@ -44,11 +44,11 @@ export default function AffiliateDisclosurePage() {
                 <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
                   <ExternalLink className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white m-0">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white m-0">
                   1. What is Affiliate Marketing?
                 </h2>
               </div>
-              <div className="space-y-3 text-slate-700 dark:text-slate-300">
+              <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
                   Affiliate marketing is a performance-based marketing model where we earn a commission when you:
                 </p>
@@ -70,16 +70,16 @@ export default function AffiliateDisclosurePage() {
                 <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
                   <DollarSign className="w-5 h-5 text-green-600 dark:text-green-400" />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white m-0">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white m-0">
                   2. How We Earn Commissions
                 </h2>
               </div>
-              <div className="space-y-3 text-slate-700 dark:text-slate-300">
+              <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
                   We participate in affiliate programs with various financial institutions and service providers:
                 </p>
                 
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mt-4 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Credit Cards
                 </h3>
                 <p>
@@ -87,7 +87,7 @@ export default function AffiliateDisclosurePage() {
                   from the card issuer. Commission rates vary by card and issuer.
                 </p>
 
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mt-4 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Loans (Personal, Home, Auto)
                 </h3>
                 <p>
@@ -95,7 +95,7 @@ export default function AffiliateDisclosurePage() {
                   The commission is typically a percentage of the loan amount.
                 </p>
 
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mt-4 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Mutual Funds & Investments
                 </h3>
                 <p>
@@ -103,7 +103,7 @@ export default function AffiliateDisclosurePage() {
                   make investments through our referral links.
                 </p>
 
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mt-4 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Insurance Products
                 </h3>
                 <p>
@@ -111,7 +111,7 @@ export default function AffiliateDisclosurePage() {
                   our affiliate links.
                 </p>
 
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mt-4 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Banking Products
                 </h3>
                 <p>
@@ -143,11 +143,11 @@ export default function AffiliateDisclosurePage() {
                 <div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
                   <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white m-0">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white m-0">
                   4. Our Commitment to Editorial Independence
                 </h2>
               </div>
-              <div className="space-y-3 text-slate-700 dark:text-slate-300">
+              <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
                   <strong>We maintain strict editorial independence.</strong> Our affiliate relationships do NOT influence:
                 </p>
@@ -167,10 +167,10 @@ export default function AffiliateDisclosurePage() {
 
             {/* Section 5: How We Choose Partners */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 5. How We Choose Affiliate Partners
               </h2>
-              <div className="space-y-3 text-slate-700 dark:text-slate-300">
+              <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
                   We partner with financial institutions and service providers based on:
                 </p>
@@ -193,11 +193,11 @@ export default function AffiliateDisclosurePage() {
                 <div className="p-2 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
                   <FileText className="w-5 h-5 text-amber-600 dark:text-amber-400" />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white m-0">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white m-0">
                   6. How We Disclose Affiliate Links
                 </h2>
               </div>
-              <div className="space-y-3 text-slate-700 dark:text-slate-300">
+              <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
                   We clearly disclose affiliate relationships in the following ways:
                 </p>
@@ -216,10 +216,10 @@ export default function AffiliateDisclosurePage() {
 
             {/* Section 7: Non-Affiliate Content */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 7. Non-Affiliate Content
               </h2>
-              <div className="space-y-3 text-slate-700 dark:text-slate-300">
+              <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
                   Not all content on InvestingPro is monetized through affiliate links:
                 </p>
@@ -258,14 +258,14 @@ export default function AffiliateDisclosurePage() {
 
             {/* Section 9: Questions */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 9. Questions or Concerns?
               </h2>
-              <p className="text-slate-700 dark:text-slate-300 mb-4">
+              <p className="text-gray-700 dark:text-gray-300 mb-4">
                 If you have any questions about our affiliate relationships or how we earn revenue, please contact us:
               </p>
-              <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-6">
-                <p className="text-slate-700 dark:text-slate-300">
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
+                <p className="text-gray-700 dark:text-gray-300">
                   <strong>Email:</strong> partnerships@investingpro.in<br />
                   <strong>General Inquiries:</strong> support@investingpro.in<br />
                   <strong>Address:</strong> InvestingPro, India
@@ -274,52 +274,52 @@ export default function AffiliateDisclosurePage() {
             </section>
 
             {/* Related Documents */}
-            <section className="bg-slate-100 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+            <section className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 Related Legal Documents
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <Link 
                   href="/terms-of-service"
-                  className="flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
+                  className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
                 >
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="font-semibold text-slate-900 dark:text-white">Terms of Service</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Platform usage terms</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">Terms of Service</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Platform usage terms</p>
                   </div>
                 </Link>
 
                 <Link 
                   href="/privacy-policy"
-                  className="flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
+                  className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
                 >
                   <Shield className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="font-semibold text-slate-900 dark:text-white">Privacy Policy</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Data protection</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">Privacy Policy</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Data protection</p>
                   </div>
                 </Link>
 
                 <Link 
                   href="/disclaimer"
-                  className="flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
+                  className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
                 >
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="font-semibold text-slate-900 dark:text-white">Disclaimer</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Risk disclosures</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">Disclaimer</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Risk disclosures</p>
                   </div>
                 </Link>
 
                 <Link 
                   href="/cookie-policy"
-                  className="flex items-center gap-3 p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
+                  className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
                 >
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="font-semibold text-slate-900 dark:text-white">Cookie Policy</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Cookie usage</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">Cookie Policy</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Cookie usage</p>
                   </div>
                 </Link>
               </div>

@@ -102,7 +102,7 @@ export function ContentAttribution({
                                     {author.name}
                                 </Link>
                                 {author.title && (
-                                    <div className="author-title text-sm text-slate-600">
+                                    <div className="author-title text-sm text-gray-600">
                                         {author.title}
                                     </div>
                                 )}
@@ -113,7 +113,7 @@ export function ContentAttribution({
                     {/* Reviewer */}
                     {showReviewer && reviewer && (
                         <div className="reviewer-byline">
-                            <div className="reviewer-label text-sm text-slate-600">
+                            <div className="reviewer-label text-sm text-gray-600">
                                 {reviewerLabel}
                             </div>
                             <div className="reviewer-name font-medium">
@@ -122,7 +122,7 @@ export function ContentAttribution({
                             {(() => {
                                 const creds = normalizeCredentials(reviewer.credentials);
                                 return creds.length > 0 ? (
-                                    <div className="reviewer-credentials text-sm text-slate-600">
+                                    <div className="reviewer-credentials text-sm text-gray-600">
                                         {reviewer.title} | {creds[0]}
                                     </div>
                                 ) : null;
@@ -131,7 +131,7 @@ export function ContentAttribution({
                     )}
                     
                     {/* Dates */}
-                    <div className="content-dates text-sm text-slate-600">
+                    <div className="content-dates text-sm text-gray-600">
                         {publishedAt && (
                             <div>Published: {formatDate(publishedAt)}</div>
                         )}
@@ -149,7 +149,7 @@ export function ContentAttribution({
         return (
             <div className="content-attribution minimal-attribution">
                 {showAuthor && author && (
-                    <div className="simple-byline text-sm text-slate-600">
+                    <div className="simple-byline text-sm text-gray-600">
                         <span>By </span>
                         <Link href={`/author/${author.slug}`} className="font-medium hover:text-primary">
                             {author.name}
@@ -171,12 +171,12 @@ export function ContentAttribution({
             <div className="content-attribution news-attribution">
                 {showAuthor && author && (
                     <div className="news-byline text-sm">
-                        <span className="text-slate-600">By </span>
+                        <span className="text-gray-600">By </span>
                         <Link href={`/author/${author.slug}`} className="font-medium hover:text-primary">
                             {author.name}
                         </Link>
                         {publishedAt && (
-                            <span className="ml-3 text-slate-600">
+                            <span className="ml-3 text-gray-600">
                                 {formatDateTime(publishedAt)}
                             </span>
                         )}
@@ -197,7 +197,7 @@ export function AuthorBioCard({ author }: { author: Author }) {
     const credentialsArray = normalizeCredentials(author.credentials);
     
     return (
-        <div className="author-bio-card border rounded-lg p-6 bg-slate-50">
+        <div className="author-bio-card border rounded-lg p-6 bg-gray-50">
             <div className="flex gap-4">
                 {author.photoUrl && (
                     <Image
@@ -215,7 +215,7 @@ export function AuthorBioCard({ author }: { author: Author }) {
                         </h3>
                     </Link>
                     {author.title && (
-                        <p className="text-sm text-slate-600 mb-2">{author.title}</p>
+                        <p className="text-sm text-gray-600 mb-2">{author.title}</p>
                     )}
                     {credentialsArray.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-3">
@@ -245,7 +245,7 @@ export function EditorialDisclosure() {
     return (
         <div className="editorial-disclosure border-t pt-6 mt-8">
             <h4 className="font-semibold mb-2">Our Editorial Process</h4>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-gray-600">
                 All content on InvestingPro is reviewed by certified financial experts to ensure 
                 accuracy and compliance with RBI, SEBI, and IRDAI guidelines. Our editorial team 
                 includes CFAs, Chartered Accountants, and former regulatory officials with 160+ 

@@ -246,10 +246,10 @@ export default function EngagementHooks({
                                     </div>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
                                         Get Weekly Financial Insights
                                     </h4>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                         Join 10,000+ readers getting expert financial tips every week.
                                     </p>
                                     <div className="flex items-center gap-2">
@@ -258,9 +258,9 @@ export default function EngagementHooks({
                                         </Button>
                                         <button
                                             onClick={() => setShowNewsletterPrompt(false)}
-                                            className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded"
+                                            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
                                         >
-                                            <X className="w-4 h-4 text-slate-600" />
+                                            <X className="w-4 h-4 text-gray-600" />
                                         </button>
                                     </div>
                                 </div>
@@ -273,7 +273,7 @@ export default function EngagementHooks({
             {/* Calculator Prompt (Scroll-based) */}
             {showCalculatorPrompt && (
                 <div className="fixed bottom-4 left-4 z-50 animate-in slide-in-from-bottom-2 duration-300 max-w-sm">
-                    <Card className="border-secondary-200 dark:border-secondary-800 shadow-xl bg-gradient-to-br from-secondary-50 to-white dark:from-secondary-900/20 dark:to-slate-900">
+                    <Card className="border-secondary-200 dark:border-secondary-800 shadow-xl bg-gradient-to-br from-secondary-50 to-white dark:from-secondary-900/20 dark:to-gray-900">
                         <CardContent className="p-4">
                             <div className="flex items-start gap-3">
                                 <div className="flex-shrink-0">
@@ -282,10 +282,10 @@ export default function EngagementHooks({
                                     </div>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
                                         Calculate Your {category?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} Options
                                     </h4>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                         Use our free calculator to see your personalized results.
                                     </p>
                                     <div className="flex items-center gap-2">
@@ -301,9 +301,9 @@ export default function EngagementHooks({
                                         </Button>
                                         <button
                                             onClick={() => setShowCalculatorPrompt(false)}
-                                            className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded"
+                                            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
                                         >
-                                            <X className="w-4 h-4 text-slate-600" />
+                                            <X className="w-4 h-4 text-gray-600" />
                                         </button>
                                     </div>
                                 </div>
@@ -320,10 +320,10 @@ export default function EngagementHooks({
                         <CardContent className="p-6">
                             <div className="text-center mb-4">
                                 <BookOpen className="w-12 h-12 text-primary-600 mx-auto mb-3" />
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                                     Before You Go...
                                 </h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                                     Save this article for later or explore related content.
                                 </p>
                             </div>
@@ -350,7 +350,7 @@ export default function EngagementHooks({
                                 </Button>
                                 <button
                                     onClick={() => setShowExitIntent(false)}
-                                    className="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mt-2"
+                                    className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mt-2"
                                 >
                                     Continue Reading
                                 </button>

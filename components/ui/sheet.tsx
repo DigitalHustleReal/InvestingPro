@@ -136,8 +136,8 @@ const SheetContent = ({
             <div
                 ref={contentRef}
                 className={cn(
-                    "fixed z-[101] bg-white dark:bg-slate-900 shadow-xl transition-transform duration-300 ease-in-out dark:border-l dark:border-slate-800",
-                    side === "right" && "inset-y-0 right-0 h-full w-3/4 sm:w-96 border-l border-slate-200",
+                    "fixed z-[101] bg-white dark:bg-gray-900 shadow-xl transition-transform duration-300 ease-in-out dark:border-l dark:border-gray-800",
+                    side === "right" && "inset-y-0 right-0 h-full w-3/4 sm:w-96 border-l border-gray-200",
                     className
                 )}
                 style={{
@@ -153,7 +153,7 @@ const SheetContent = ({
                     onClick={() => onOpenChange?.(false)}
                     aria-label="Close menu"
                 >
-                    <X className="h-5 w-5 text-slate-700" />
+                    <X className="h-5 w-5 text-gray-700" />
                 </button>
                 {children}
             </div>

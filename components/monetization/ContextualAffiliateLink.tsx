@@ -78,7 +78,7 @@ export default function ContextualAffiliateLink({
                 </Button>
                 
                 {/* Context Tooltip */}
-                <div className="mt-2 flex items-center gap-2 text-xs text-slate-600">
+                <div className="mt-2 flex items-center gap-2 text-xs text-gray-600">
                     <Info className="w-3 h-3" />
                     <span>{link.context}</span>
                 </div>
@@ -86,7 +86,7 @@ export default function ContextualAffiliateLink({
 
             {/* Disclosure */}
             {showDisclosure && (
-                <div className="text-xs text-slate-500 italic">
+                <div className="text-xs text-gray-500 italic">
                     {link.disclosure}
                 </div>
             )}

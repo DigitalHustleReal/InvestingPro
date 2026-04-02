@@ -46,7 +46,7 @@ export default function GlossaryTemplate({
     };
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-gray-50">
             <SEOHead
                 title={`What Is ${term}? Definition and Explanation | InvestingPro`}
                 description={definition}
@@ -56,12 +56,12 @@ export default function GlossaryTemplate({
             
             {/* Breadcrumbs */}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
-                <nav className="flex items-center gap-2 text-sm text-slate-600">
+                <nav className="flex items-center gap-2 text-sm text-gray-600">
                     <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
                     <span>/</span>
                     <Link href="/glossary" className="hover:text-primary-600 transition-colors">Glossary</Link>
                     <span>/</span>
-                    <span className="text-slate-900 font-medium">{term}</span>
+                    <span className="text-gray-900 font-medium">{term}</span>
                 </nav>
             </div>
 
@@ -69,37 +69,37 @@ export default function GlossaryTemplate({
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <article className="prose prose-slate max-w-none">
                     {/* Page Title */}
-                    <h1 className="text-4xl font-bold text-slate-900 mb-6">
+                    <h1 className="text-4xl font-bold text-gray-900 mb-6">
                         What Is {term}?
                     </h1>
 
                     {/* Short Definition */}
                     <div className="bg-primary-50 border-l-4 border-primary-600 p-6 rounded-r-lg mb-8">
-                        <p className="text-lg text-slate-800 leading-relaxed font-medium">
+                        <p className="text-lg text-gray-800 leading-relaxed font-medium">
                             {definition}
                         </p>
                     </div>
 
                     {/* Why It Matters */}
                     <section className="mb-10">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-4">Why This Term Matters</h2>
-                        <div className="text-slate-700 leading-relaxed">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Why This Term Matters</h2>
+                        <div className="text-gray-700 leading-relaxed">
                             {whyItMatters}
                         </div>
                     </section>
 
                     {/* How It Works */}
                     <section className="mb-10">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-4">How It Works</h2>
-                        <div className="text-slate-700 leading-relaxed">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">How It Works</h2>
+                        <div className="text-gray-700 leading-relaxed">
                             {howItWorks}
                         </div>
                     </section>
 
                     {/* Simple Example */}
                     <section className="mb-10">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-4">Simple Example</h2>
-                        <Card className="border-slate-200 bg-slate-50">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Simple Example</h2>
+                        <Card className="border-gray-200 bg-gray-50">
                             <CardContent className="p-6">
                                 {example}
                             </CardContent>
@@ -108,7 +108,7 @@ export default function GlossaryTemplate({
 
                     {/* Common Misunderstandings */}
                     <section className="mb-10">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-4">Common Misunderstandings</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Common Misunderstandings</h2>
                         <div className="space-y-4">
                             {misunderstandings.map((item, idx) => (
                                 <Card key={idx} className="border-accent-200 bg-accent-50">
@@ -120,8 +120,8 @@ export default function GlossaryTemplate({
                                                 </div>
                                             </div>
                                             <div className="flex-1">
-                                                <p className="font-semibold text-slate-900 mb-1">{item.myth}</p>
-                                                <p className="text-slate-700 text-sm leading-relaxed">{item.fact}</p>
+                                                <p className="font-semibold text-gray-900 mb-1">{item.myth}</p>
+                                                <p className="text-gray-700 text-sm leading-relaxed">{item.fact}</p>
                                             </div>
                                         </div>
                                     </CardContent>
@@ -132,16 +132,16 @@ export default function GlossaryTemplate({
 
                     {/* Related Terms */}
                     <section className="mb-10">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-4">Related Terms</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Related Terms</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             {relatedTerms.map((related, idx) => (
                                 <Link
                                     key={idx}
                                     href={`/glossary/${related.slug}`}
-                                    className="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-primary-300 hover:bg-slate-50 transition-colors group"
+                                    className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-primary-300 hover:bg-gray-50 transition-colors group"
                                 >
-                                    <ChevronRight className="w-5 h-5 text-slate-600 group-hover:text-primary-600 transition-colors flex-shrink-0" />
-                                    <span className="font-medium text-slate-900">{related.term}</span>
+                                    <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-primary-600 transition-colors flex-shrink-0" />
+                                    <span className="font-medium text-gray-900">{related.term}</span>
                                 </Link>
                             ))}
                         </div>
@@ -149,18 +149,18 @@ export default function GlossaryTemplate({
 
                     {/* Where This Term Is Used */}
                     <section className="mb-10">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-4">Where This Term Is Used</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Where This Term Is Used</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {categoryLinks.map((link, idx) => (
                                 <Link
                                     key={idx}
                                     href={link.href}
-                                    className="flex items-start gap-3 p-4 border border-slate-200 rounded-xl hover:border-primary-300 hover:bg-slate-50 transition-colors group"
+                                    className="flex items-start gap-3 p-4 border border-gray-200 rounded-xl hover:border-primary-300 hover:bg-gray-50 transition-colors group"
                                 >
-                                    <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-primary-600 transition-colors flex-shrink-0 mt-0.5" />
+                                    <ExternalLink className="w-5 h-5 text-gray-600 group-hover:text-primary-600 transition-colors flex-shrink-0 mt-0.5" />
                                     <div>
-                                        <p className="font-semibold text-slate-900 mb-1">{link.label}</p>
-                                        <p className="text-sm text-slate-600">{link.description}</p>
+                                        <p className="font-semibold text-gray-900 mb-1">{link.label}</p>
+                                        <p className="text-sm text-gray-600">{link.description}</p>
                                     </div>
                                 </Link>
                             ))}
@@ -169,11 +169,11 @@ export default function GlossaryTemplate({
 
                     {/* Disclaimer */}
                     <section className="mb-10">
-                        <Card className="border-slate-300 bg-slate-100">
+                        <Card className="border-gray-300 bg-gray-100">
                             <CardContent className="p-6 md:p-8">
                                 <div className="flex items-start gap-3">
-                                    <Info className="w-5 h-5 text-slate-600 flex-shrink-0 mt-0.5" />
-                                    <p className="text-sm text-slate-700 leading-relaxed">
+                                    <Info className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
+                                    <p className="text-sm text-gray-700 leading-relaxed">
                                         This explanation is for informational purposes only and does not constitute financial, 
                                         investment, or tax advice. Please consult a qualified financial advisor before making 
                                         investment or financial decisions.
@@ -184,7 +184,7 @@ export default function GlossaryTemplate({
                     </section>
 
                     {/* Last Reviewed */}
-                    <div className="text-center text-sm text-slate-500 pt-8 border-t border-slate-200">
+                    <div className="text-center text-sm text-gray-500 pt-8 border-t border-gray-200">
                         <p>Last reviewed: <span className="font-medium">December 2024</span></p>
                     </div>
                 </article>

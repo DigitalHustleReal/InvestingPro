@@ -110,11 +110,11 @@ export function enrichContent(html: string): string {
     // 1. Calculator Shortcodes & Widgets
     enriched = enriched.replace(
         /\[sip-calculator\]/gi, 
-        '<div data-widget="sip-calculator" class="my-8 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-center text-slate-500">Loading Calculator...</div>'
+        '<div data-widget="sip-calculator" class="my-8 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 text-center text-gray-500">Loading Calculator...</div>'
     );
      enriched = enriched.replace(
         /\[auto-calculator\]/gi, 
-        '<div data-widget="auto-calculator" class="my-8 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-center text-slate-500">Loading Suggested Tool...</div>'
+        '<div data-widget="auto-calculator" class="my-8 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 text-center text-gray-500">Loading Suggested Tool...</div>'
     );
 
     // 2. Automagic Internal Linking
@@ -142,7 +142,7 @@ export function enrichContent(html: string): string {
     });
     
     // 4. Responsive Tables
-    enriched = enriched.replace(/<table/gi, '<div class="overflow-x-auto w-full my-8 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm"><table');
+    enriched = enriched.replace(/<table/gi, '<div class="overflow-x-auto w-full my-8 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm"><table');
     enriched = enriched.replace(/<\/table>/gi, '</table></div>');
     
     return enriched;

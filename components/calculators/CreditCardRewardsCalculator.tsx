@@ -122,7 +122,7 @@ export default function CreditCardRewardsCalculator() {
     { key: 'dining', label: 'Dining', icon: 'ðŸ½ï¸', color: 'from-orange-500 to-danger-500' },
     { key: 'shopping', label: 'Shopping', icon: 'ðŸ›ï¸', color: 'from-purple-500 to-pink-500' },
     { key: 'bills', label: 'Bills', icon: 'ðŸ“±', color: 'from-success-500 to-success-500' },
-    { key: 'others', label: 'Others', icon: 'ðŸ’³', color: 'from-slate-500 to-slate-500' }
+    { key: 'others', label: 'Others', icon: 'ðŸ’³', color: 'from-gray-500 to-gray-500' }
   ];
 
   return (

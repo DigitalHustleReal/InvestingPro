@@ -32,7 +32,7 @@ export default function BadgeDisplay({ badges = [], showTooltip = false }: Badge
     return (
         <div className="flex flex-wrap gap-2">
             {badges.map((badgeName) => {
-                const config = BADGE_CONFIG[badgeName] || { icon: Award, color: 'text-slate-600', bg: 'bg-slate-50' };
+                const config = BADGE_CONFIG[badgeName] || { icon: Award, color: 'text-gray-600', bg: 'bg-gray-50' };
                 const Icon = config.icon;
 
                 return (

@@ -21,7 +21,7 @@ export default function Breadcrumbs({ items, className = '' }: BreadcrumbsProps)
             {/* Home Link */}
             <Link 
                 href="/" 
-                className="flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                className="flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 aria-label="Home"
             >
                 <Home className="w-4 h-4" />
@@ -35,11 +35,11 @@ export default function Breadcrumbs({ items, className = '' }: BreadcrumbsProps)
 
                 return (
                     <React.Fragment key={item.href}>
-                        <ChevronRight className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                        <ChevronRight className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                         
                         {isLast ? (
                             // Last item - not a link
-                            <span className="flex items-center gap-1 text-slate-900 dark:text-white font-medium">
+                            <span className="flex items-center gap-1 text-gray-900 dark:text-white font-medium">
                                 {Icon && <Icon className="w-4 h-4" />}
                                 <span className="line-clamp-1">{item.label}</span>
                             </span>
@@ -47,7 +47,7 @@ export default function Breadcrumbs({ items, className = '' }: BreadcrumbsProps)
                             // Intermediate items - links
                             <Link
                                 href={item.href}
-                                className="flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                                className="flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                             >
                                 {Icon && <Icon className="w-4 h-4" />}
                                 <span className="line-clamp-1">{item.label}</span>

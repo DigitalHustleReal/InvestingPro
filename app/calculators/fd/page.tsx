@@ -58,7 +58,7 @@ export default function FDCalculatorPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <SEOHead
                 title="FD Calculator India 2026 - Fixed Deposit Maturity & Interest Calculator | InvestingPro"
                 description="Free FD calculator to calculate Fixed Deposit maturity amount and interest earned. Compare quarterly, monthly, annual compounding. Find best FD rates and calculate tax on FD interest. Includes inflation-adjusted returns."
@@ -66,21 +66,21 @@ export default function FDCalculatorPage() {
             />
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
-                <nav className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <nav className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                     <Link href="/" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Home</Link>
                     <span>/</span>
                     <Link href="/calculators" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Calculators</Link>
                     <span>/</span>
-                    <span className="text-slate-900 dark:text-white font-medium">FD Calculator</span>
+                    <span className="text-gray-900 dark:text-white font-medium">FD Calculator</span>
                 </nav>
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                         FD Calculator - Fixed Deposit Maturity & Interest Calculator
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
                         Calculate Fixed Deposit (FD) maturity amount and interest earned. Compare different compounding frequencies and see inflation-adjusted returns.
                     </p>
                 </div>
@@ -94,9 +94,9 @@ export default function FDCalculatorPage() {
                 {/* Comprehensive Content Section */}
                 <div className="space-y-12">
                      {/* What is FD Section */}
-                    <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-slate-900">
+                    <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-gray-900">
                         <CardHeader>
-                            <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">What is Fixed Deposit (FD)?</CardTitle>
+                            <CardTitle className="text-3xl font-bold text-gray-900 dark:text-white">What is Fixed Deposit (FD)?</CardTitle>
                         </CardHeader>
                         <CardContent className="prose prose-slate dark:prose-invert max-w-none">
                             <p className="text-lg leading-relaxed">
@@ -110,7 +110,7 @@ export default function FDCalculatorPage() {
 
                     {/* Key Benefits Grid */}
                     <div className="grid md:grid-cols-2 gap-6">
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <CheckCircle2 className="w-5 h-5" />
@@ -118,12 +118,12 @@ export default function FDCalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-slate-600 dark:text-slate-300">
+                                <p className="text-gray-600 dark:text-gray-300">
                                     Unlike mutual funds or stocks, FD returns are fixed and guaranteed. You know exactly how much you will get at maturity.
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <Zap className="w-5 h-5" />
@@ -131,12 +131,12 @@ export default function FDCalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-slate-600 dark:text-slate-300">
+                                <p className="text-gray-600 dark:text-gray-300">
                                     Bank FDs are insured up to â‚¹5 Lakhs by DICGC (RBI subsidiary). This makes them virtually risk-free for conservative investors.
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-gray-800 dark:to-gray-900">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <TrendingUp className="w-5 h-5" />
@@ -144,12 +144,12 @@ export default function FDCalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-slate-600 dark:text-slate-300">
+                                <p className="text-gray-600 dark:text-gray-300">
                                     You can close your FD prematurely (with a small penalty) or take a loan against FD (up to 90% value) to meet emergency needs without breaking it.
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-accent-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-accent-50 to-white dark:from-gray-800 dark:to-gray-900">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-accent-700 dark:text-accent-400">
                                     <Info className="w-5 h-5" />
@@ -157,7 +157,7 @@ export default function FDCalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-slate-600 dark:text-slate-300">
+                                <p className="text-gray-600 dark:text-gray-300">
                                     Choose between Cumulative (payment at maturity) or Non-Cumulative (monthly/quarterly/annual interest payout) options based on your income needs.
                                 </p>
                             </CardContent>
@@ -165,23 +165,23 @@ export default function FDCalculatorPage() {
                     </div>
 
                      {/* Formula Section */}
-                    <Card className="border border-slate-200 shadow-sm rounded-2xl bg-white dark:bg-slate-900">
+                    <Card className="border border-gray-200 shadow-sm rounded-2xl bg-white dark:bg-gray-900">
                          <CardHeader>
-                            <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">How FD Interest is Calculated</CardTitle>
+                            <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">How FD Interest is Calculated</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <p className="text-slate-600 dark:text-slate-300">
+                            <p className="text-gray-600 dark:text-gray-300">
                                 Most banks in India use <strong>Quarterly Compounding</strong> for Fixed Deposits. The formula used is:
                             </p>
-                            <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-slate-200 dark:border-slate-700">
+                            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-gray-200 dark:border-gray-700">
                                 A = P Ã— (1 + r/n)<sup>(n Ã— t)</sup>
                             </div>
-                            <div className="grid grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-400">
-                                <div><span className="font-bold text-slate-900 dark:text-white">A</span> = Maturity Amount</div>
-                                <div><span className="font-bold text-slate-900 dark:text-white">P</span> = Principal Amount</div>
-                                <div><span className="font-bold text-slate-900 dark:text-white">r</span> = Annual Interest Rate (decimal)</div>
-                                <div><span className="font-bold text-slate-900 dark:text-white">n</span> = Compounding Frequency (4 for quarterly)</div>
-                                <div><span className="font-bold text-slate-900 dark:text-white">t</span> = Tenure in Years</div>
+                            <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
+                                <div><span className="font-bold text-gray-900 dark:text-white">A</span> = Maturity Amount</div>
+                                <div><span className="font-bold text-gray-900 dark:text-white">P</span> = Principal Amount</div>
+                                <div><span className="font-bold text-gray-900 dark:text-white">r</span> = Annual Interest Rate (decimal)</div>
+                                <div><span className="font-bold text-gray-900 dark:text-white">n</span> = Compounding Frequency (4 for quarterly)</div>
+                                <div><span className="font-bold text-gray-900 dark:text-white">t</span> = Tenure in Years</div>
                             </div>
                         </CardContent>
                     </Card>
@@ -190,11 +190,11 @@ export default function FDCalculatorPage() {
                 {/* Expanded FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                             FD Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">Find answers to the most common questions about FD calculator and fixed deposits in India</p>
+                        <p className="text-gray-600 dark:text-gray-400 mt-2">Find answers to the most common questions about FD calculator and fixed deposits in India</p>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-8">
@@ -300,12 +300,12 @@ export default function FDCalculatorPage() {
                                     a: "Tax saving FD has 5-year lock-in, qualifies for Section 80C deduction up to â‚¹1.5L. Interest is taxable. Our FD calculator works for tax saving FDs - just set tenure to 5 years. Remember: Tax saving FD cannot be broken before 5 years, unlike regular FD. Compare returns with other 80C options like PPF, ELSS."
                                 }
                             ].map((faq, idx) => (
-                                <div key={idx} className="border-b border-slate-200 dark:border-slate-800 pb-8 last:border-0">
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-3 text-xl flex items-start gap-3">
+                                <div key={idx} className="border-b border-gray-200 dark:border-gray-800 pb-8 last:border-0">
+                                    <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-xl flex items-start gap-3">
                                         <span className="text-primary-600 dark:text-primary-400 font-bold text-lg">Q{idx + 1}.</span>
                                         <span>{faq.q}</span>
                                     </h3>
-                                    <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-lg ml-8">{faq.a}</p>
+                                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg ml-8">{faq.a}</p>
                                 </div>
                             ))}
                         </div>

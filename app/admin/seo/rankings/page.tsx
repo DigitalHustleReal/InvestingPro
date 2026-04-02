@@ -104,7 +104,7 @@ export default function SEORankingsPage() {
             case 'lost':
                 return 'text-orange-500 bg-orange-500/10 border-orange-500/20';
             default:
-                return 'text-muted-foreground/70 dark:text-muted-foreground/70 bg-slate-500/10 border-slate-500/20';
+                return 'text-muted-foreground/70 dark:text-muted-foreground/70 bg-gray-500/10 border-gray-500/20';
         }
     };
 
@@ -114,7 +114,7 @@ export default function SEORankingsPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">SEO Rankings Dashboard</h1>
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground dark:text-foreground">SEO Rankings Dashboard</h1>
                         <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Track keyword rankings and monitor SEO performance
                         </p>
@@ -233,22 +233,22 @@ export default function SEORankingsPage() {
                             <div className="overflow-x-auto">
                                 <table className="w-full">
                                     <thead>
-                                        <tr className="border-b border-slate-200 dark:border-slate-800">
-                                            <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Keyword</th>
-                                            <th className="text-center py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Position</th>
-                                            <th className="text-center py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Change</th>
-                                            <th className="text-center py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Trend</th>
-                                            <th className="text-right py-3 px-4 text-sm font-semibold text-slate-700 dark:text-foreground/80 dark:text-foreground/80">Last Tracked</th>
+                                        <tr className="border-b border-gray-200 dark:border-gray-800">
+                                            <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-foreground/80 dark:text-foreground/80">Keyword</th>
+                                            <th className="text-center py-3 px-4 text-sm font-semibold text-gray-700 dark:text-foreground/80 dark:text-foreground/80">Position</th>
+                                            <th className="text-center py-3 px-4 text-sm font-semibold text-gray-700 dark:text-foreground/80 dark:text-foreground/80">Change</th>
+                                            <th className="text-center py-3 px-4 text-sm font-semibold text-gray-700 dark:text-foreground/80 dark:text-foreground/80">Trend</th>
+                                            <th className="text-right py-3 px-4 text-sm font-semibold text-gray-700 dark:text-foreground/80 dark:text-foreground/80">Last Tracked</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {keywords.map((kw, idx) => (
                                             <tr
                                                 key={kw.keyword}
-                                                className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-surface-darker/50 dark:bg-surface-darker/50 transition-colors"
+                                                className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-surface-darker/50 dark:bg-surface-darker/50 transition-colors"
                                             >
                                                 <td className="py-4 px-4">
-                                                    <div className="font-medium text-slate-900 dark:text-foreground dark:text-foreground">
+                                                    <div className="font-medium text-gray-900 dark:text-foreground dark:text-foreground">
                                                         {kw.keyword}
                                                     </div>
                                                 </td>

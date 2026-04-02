@@ -265,7 +265,7 @@ export function RevenuePredictionCard({
                                     {formatCurrency(prediction.predictedRevenue.low)} - {formatCurrency(prediction.predictedRevenue.high)}
                                 </span>
                             </div>
-                            <div className="mt-2 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div className="mt-2 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                                 <div 
                                     className="h-full bg-gradient-to-r from-purple-400 to-purple-600 rounded-full"
                                     style={{ 
@@ -347,7 +347,7 @@ export function RevenuePredictionCard({
                                                 <Badge variant="outline" className={cn(
                                                     factor.impact === 'positive' && "border-green-500 text-green-600",
                                                     factor.impact === 'negative' && "border-red-500 text-red-600",
-                                                    factor.impact === 'neutral' && "border-slate-400 text-wt-text-muted"
+                                                    factor.impact === 'neutral' && "border-gray-400 text-wt-text-muted"
                                                 )}>
                                                     {factor.weight > 0 ? '+' : ''}{factor.weight}
                                                 </Badge>

@@ -158,7 +158,7 @@ export default function RevenueIntelligencePage() {
                             <Brain className="w-8 h-8 text-purple-500" />
                         </div>
                         <div>
-                            <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground">
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground">
                                 Revenue Intelligence
                             </h1>
                             <p className="text-muted-foreground mt-1">
@@ -170,7 +170,7 @@ export default function RevenueIntelligencePage() {
                         <select
                             value={timeRange}
                             onChange={(e) => setTimeRange(e.target.value)}
-                            className="px-4 py-2 border border-slate-300 dark:border-border rounded-lg bg-white dark:bg-surface-darker text-slate-900 dark:text-foreground"
+                            className="px-4 py-2 border border-gray-300 dark:border-border rounded-lg bg-white dark:bg-surface-darker text-gray-900 dark:text-foreground"
                         >
                             <option value="7d">Last 7 days</option>
                             <option value="30d">Last 30 days</option>
@@ -308,7 +308,7 @@ export default function RevenueIntelligencePage() {
                                                 className={`p-4 rounded-xl border transition-all cursor-pointer ${
                                                     selectedArticle === prediction.articleId
                                                         ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20'
-                                                        : 'border-slate-200 dark:border-slate-800 hover:border-slate-300'
+                                                        : 'border-gray-200 dark:border-gray-800 hover:border-gray-300'
                                                 }`}
                                                 onClick={() => setSelectedArticle(
                                                     selectedArticle === prediction.articleId ? null : prediction.articleId
@@ -367,7 +367,7 @@ export default function RevenueIntelligencePage() {
 
                                                 {/* Expanded details */}
                                                 {selectedArticle === prediction.articleId && (
-                                                    <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                                                    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                                                         <h4 className="text-sm font-medium mb-2">Prediction Factors</h4>
                                                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                                                             {prediction.factors.map((factor, idx) => (
@@ -378,7 +378,7 @@ export default function RevenueIntelligencePage() {
                                                                             ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
                                                                             : factor.impact === 'negative'
                                                                                 ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300'
-                                                                                : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                                                                                : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300'
                                                                     }`}
                                                                 >
                                                                     <span className="font-medium">{factor.name}</span>
@@ -418,7 +418,7 @@ export default function RevenueIntelligencePage() {
                                     {(opportunitiesData || []).map((opportunity, idx) => (
                                         <div
                                             key={idx}
-                                            className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 transition-all"
+                                            className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-amber-500/50 transition-all"
                                         >
                                             <div className="flex items-start justify-between">
                                                 <div className="flex-1">
@@ -466,7 +466,7 @@ export default function RevenueIntelligencePage() {
                                                     <div className="text-xs text-muted-foreground">/month</div>
                                                 </div>
                                             </div>
-                                            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                                            <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
                                                 <Button size="sm" variant="outline" className="w-full">
                                                     <ArrowRight className="w-4 h-4 mr-2" />
                                                     Take Action
@@ -495,7 +495,7 @@ export default function RevenueIntelligencePage() {
                                             <div key={category} className="flex items-center justify-between">
                                                 <span className="text-sm font-medium">{category}</span>
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-32 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                                                    <div className="w-32 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                                                         <div 
                                                             className={`h-full rounded-full ${
                                                                 accuracy >= 80 
@@ -608,7 +608,7 @@ export default function RevenueIntelligencePage() {
                                                 <div key={item.model} className="flex items-center gap-3">
                                                     <div className={`w-3 h-3 rounded-full ${item.color}`} />
                                                     <span className="text-sm w-28">{item.model}</span>
-                                                    <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                                                    <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                                                         <div 
                                                             className={`h-full ${item.color} rounded-full`}
                                                             style={{ width: `${(item.value / 45000) * 100}%` }}
@@ -630,7 +630,7 @@ export default function RevenueIntelligencePage() {
                                                 { channel: 'Social', value: 10, revenue: 4500 },
                                                 { channel: 'Email', value: 5, revenue: 2250 },
                                             ].map((item) => (
-                                                <div key={item.channel} className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800">
+                                                <div key={item.channel} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                                                     <div>
                                                         <span className="font-medium">{item.channel}</span>
                                                         <span className="text-sm text-muted-foreground ml-2">

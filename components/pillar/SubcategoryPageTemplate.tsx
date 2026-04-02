@@ -45,22 +45,22 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                 />
 
                 {/* Breadcrumb */}
-                <section className="bg-slate-50 border-b border-slate-200 py-4">
+                <section className="bg-gray-50 border-b border-gray-200 py-4">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center gap-2 text-sm">
-                            <Link href="/" className="text-slate-600 hover:text-primary-600">Home</Link>
-                            <ChevronRight className="w-4 h-4 text-slate-600" />
-                            <Link href={`/${category.slug}`} className="text-slate-600 hover:text-primary-600">
+                            <Link href="/" className="text-gray-600 hover:text-primary-600">Home</Link>
+                            <ChevronRight className="w-4 h-4 text-gray-600" />
+                            <Link href={`/${category.slug}`} className="text-gray-600 hover:text-primary-600">
                                 {category.name}
                             </Link>
-                            <ChevronRight className="w-4 h-4 text-slate-600" />
-                            <span className="text-slate-900 font-medium">{subcategory.name}</span>
+                            <ChevronRight className="w-4 h-4 text-gray-600" />
+                            <span className="text-gray-900 font-medium">{subcategory.name}</span>
                         </div>
                     </div>
                 </section>
 
                 {/* Hero Section */}
-                <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-16">
+                <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-16">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl">
                             <div className="flex items-center gap-3 mb-4">
@@ -70,7 +70,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                 >
                                     {category.name}
                                 </Link>
-                                <ChevronRight className="w-4 h-4 text-slate-600" />
+                                <ChevronRight className="w-4 h-4 text-gray-600" />
                                 <Badge className="bg-primary-500/20 text-primary-400 border-primary-500/30">
                                     {subcategory.name}
                                 </Badge>
@@ -78,7 +78,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                             <h1 className="text-4xl md:text-5xl font-bold mb-6">
                                 {subcategory.name} in India
                             </h1>
-                            <p className="text-xl text-slate-300 leading-relaxed">
+                            <p className="text-xl text-gray-300 leading-relaxed">
                                 {subcategory.description}
                             </p>
                         </div>
@@ -86,15 +86,15 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                 </section>
 
                 {/* What It Is Section */}
-                <section className="py-16 bg-slate-50">
+                <section className="py-16 bg-gray-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                                 <CheckCircle2 className="w-8 h-8 text-primary-600" />
                                 What Are {subcategory.name}?
                             </h2>
                             <div className="prose prose-lg max-w-none">
-                                <p className="text-slate-700 leading-relaxed text-lg">
+                                <p className="text-gray-700 leading-relaxed text-lg">
                                     {whatItIs}
                                 </p>
                             </div>
@@ -106,13 +106,13 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                 <section className="py-16">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                                 <Users className="w-8 h-8 text-primary-600" />
                                 Who Are {subcategory.name} For?
                             </h2>
                             <Card className="border-0 shadow-lg bg-primary-50">
                                 <CardContent className="p-8">
-                                    <p className="text-slate-700 leading-relaxed text-lg">
+                                    <p className="text-gray-700 leading-relaxed text-lg">
                                         {whoItIsFor}
                                     </p>
                                 </CardContent>
@@ -122,10 +122,10 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                 </section>
 
                 {/* Product Comparison Summary */}
-                <section className="py-16 bg-slate-50">
+                <section className="py-16 bg-gray-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
                                 <BarChart3 className="w-8 h-8 text-primary-600" />
                                 Compare {subcategory.name}
                             </h2>
@@ -145,7 +145,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                         >
                                             <Card className="border-0 shadow-lg hover:shadow-xl transition-all h-full">
                                                 <CardContent className="p-6">
-                                                    <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                                    <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
                                                         {product.name}
                                                         {product.verification_status === 'verified' && (
                                                             <Badge className="bg-green-100 text-green-700 hover:bg-green-100 border-green-200 h-5 px-1.5 text-[10px]">
@@ -153,7 +153,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                                             </Badge>
                                                         )}
                                                     </h3>
-                                                    <p className="text-sm text-slate-600 mb-4">
+                                                    <p className="text-sm text-gray-600 mb-4">
                                                         {product.provider || 'Provider'}
                                                     </p>
                                                     <div className="flex items-center gap-2 text-primary-600 font-medium text-sm">
@@ -168,12 +168,12 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
 
                                 <Card className="border-0 shadow-lg bg-white">
                                     <CardContent className="p-6">
-                                        <h3 className="text-lg font-bold text-slate-900 mb-4">Key Comparison Points</h3>
+                                        <h3 className="text-lg font-bold text-gray-900 mb-4">Key Comparison Points</h3>
                                         <div className="grid md:grid-cols-2 gap-3">
                                             {productComparison.comparisonPoints.map((point, idx) => (
                                                 <div key={idx} className="flex items-center gap-2">
                                                     <CheckCircle2 className="w-5 h-5 text-primary-600 shrink-0" />
-                                                    <span className="text-slate-700">{point}</span>
+                                                    <span className="text-gray-700">{point}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -193,7 +193,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                 {relatedCalculators.length > 0 && (
                     <section className="py-16">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
                                 <Calculator className="w-8 h-8 text-primary-600" />
                                 Related Calculators
                             </h2>
@@ -210,7 +210,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                                     <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
                                                         <Calculator className="w-6 h-6 text-primary-600" />
                                                     </div>
-                                                    <h3 className="text-lg font-bold text-slate-900">
+                                                    <h3 className="text-lg font-bold text-gray-900">
                                                         {calc.name}
                                                     </h3>
                                                 </div>
@@ -225,9 +225,9 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
 
                 {/* Related Glossary */}
                 {relatedGlossary.length > 0 && (
-                    <section className="py-16 bg-slate-50">
+                    <section className="py-16 bg-gray-50">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
                                 <BookOpen className="w-8 h-8 text-primary-600" />
                                 Related Terms
                             </h2>
@@ -236,7 +236,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                                     <Link
                                         key={idx}
                                         href={`/glossary/${term.slug}`}
-                                        className="px-4 py-2 bg-white border border-slate-200 rounded-lg hover:border-primary-300 hover:bg-primary-50 transition-colors font-medium text-slate-900"
+                                        className="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:border-primary-300 hover:bg-primary-50 transition-colors font-medium text-gray-900"
                                     >
                                         {term.term}
                                     </Link>
@@ -247,7 +247,7 @@ export default function SubcategoryPageTemplate({ data }: SubcategoryPageTemplat
                 )}
 
                 {/* Back to Category */}
-                <section className="py-16 md:py-24 border-t border-slate-200">
+                <section className="py-16 md:py-24 border-t border-gray-200">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <Link
                             href={`/${category.slug}`}

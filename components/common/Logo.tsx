@@ -36,7 +36,7 @@ export default function Logo({
         default: {
             logoBg: 'bg-gradient-to-br from-primary-600 to-success-600',
             logoFill: 'white',
-            brandText: 'text-slate-900 dark:text-white',
+            brandText: 'text-gray-900 dark:text-white',
             accent: 'text-primary-600 dark:text-primary-400'
         },
         light: {

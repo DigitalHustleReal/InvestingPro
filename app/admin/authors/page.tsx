@@ -193,7 +193,7 @@ export default function AuthorsPage() {
                                         alt={author.name} 
                                         className="w-full h-full object-cover" 
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
                                 
                                 <h3 className="text-lg font-bold text-foreground dark:text-foreground mb-1 group-hover:text-primary-400 transition-colors">{author.name}</h3>

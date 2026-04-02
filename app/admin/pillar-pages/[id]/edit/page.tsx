@@ -146,7 +146,7 @@ export default function EditPillarPage() {
         return (
             <AdminLayout>
                 <div className="flex flex-col items-center justify-center h-full">
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-foreground dark:text-foreground mb-4">Pillar Page Not Found</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-foreground dark:text-foreground mb-4">Pillar Page Not Found</h1>
                     <button
                         onClick={() => router.push('/admin/pillar-pages')}
                         className="text-wt-gold hover:text-wt-gold-hover"
@@ -177,7 +177,7 @@ export default function EditPillarPage() {
         >
             <div className="flex flex-col bg-white dark:bg-surface-darker dark:bg-surface-darker min-h-screen">
                 {/* Header Bar */}
-                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between bg-white dark:bg-surface-darker dark:bg-surface-darker">
+                <div className="border-b border-gray-200 dark:border-gray-800 px-8 py-4 flex items-center justify-between bg-white dark:bg-surface-darker dark:bg-surface-darker">
                     <div className="flex-1 flex items-center gap-3">
                         <Target className="w-6 h-6 text-wt-gold" />
                         <div className="flex-1">

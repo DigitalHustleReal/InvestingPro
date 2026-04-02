@@ -47,16 +47,16 @@ export default function HoldingsList({ holdings, onDelete }: HoldingsListProps) 
             <CardContent>
                 <div className="space-y-3">
                     {holdings.length === 0 ? (
-                        <p className="text-center text-slate-500 py-8 italic">No holdings added yet</p>
+                        <p className="text-center text-gray-500 py-8 italic">No holdings added yet</p>
                     ) : (
                         holdings.map((holding) => (
                             <div
                                 key={holding.id}
-                                className="flex flex-col md:flex-row md:items-center gap-4 p-4 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+                                className="flex flex-col md:flex-row md:items-center gap-4 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
                             >
                                 <div className="flex-1">
                                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                                        <h4 className="font-semibold text-slate-900">{holding.asset_name}</h4>
+                                        <h4 className="font-semibold text-gray-900">{holding.asset_name}</h4>
                                         <Badge variant="outline" className="text-[10px] uppercase tracking-wider">
                                             {holding.asset_type}
                                         </Badge>
@@ -64,33 +64,33 @@ export default function HoldingsList({ holdings, onDelete }: HoldingsListProps) 
                                             {holding.asset_category}
                                         </Badge>
                                     </div>
-                                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600">
+                                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-600">
                                         <span>{holding.quantity} units</span>
-                                        <span className="hidden md:inline text-slate-300">•</span>
+                                        <span className="hidden md:inline text-gray-300">•</span>
                                         <span>Avg: ₹{holding.purchase_price.toLocaleString('en-IN')}</span>
-                                        <span className="hidden md:inline text-slate-300">•</span>
+                                        <span className="hidden md:inline text-gray-300">•</span>
                                         <span>Current: ₹{holding.current_price.toLocaleString('en-IN')}</span>
-                                        <span className="hidden md:inline text-slate-300">•</span>
+                                        <span className="hidden md:inline text-gray-300">•</span>
                                         <span>{formatDate(holding.purchase_date)}</span>
                                     </div>
                                 </div>
 
                                 <div className="flex md:block items-center justify-between border-t md:border-t-0 pt-2 md:pt-0">
-                                    <p className="text-[10px] uppercase text-slate-500 md:mb-1">Invested</p>
-                                    <p className="font-semibold text-slate-900 dark:text-white text-sm">
+                                    <p className="text-[10px] uppercase text-gray-500 md:mb-1">Invested</p>
+                                    <p className="font-semibold text-gray-900 dark:text-white text-sm">
                                         ₹{holding.invested_amount.toLocaleString('en-IN')}
                                     </p>
                                 </div>
 
                                 <div className="flex md:block items-center justify-between">
-                                    <p className="text-[10px] uppercase text-slate-500 dark:text-slate-600 md:mb-1">Current</p>
-                                    <p className="font-semibold text-slate-900 dark:text-white text-sm">
+                                    <p className="text-[10px] uppercase text-gray-500 dark:text-gray-600 md:mb-1">Current</p>
+                                    <p className="font-semibold text-gray-900 dark:text-white text-sm">
                                         ₹{holding.current_value.toLocaleString('en-IN')}
                                     </p>
                                 </div>
 
                                 <div className="flex md:block items-center justify-between min-w-[120px]">
-                                    <p className="text-[10px] uppercase text-slate-500 md:mb-1 text-right">Returns</p>
+                                    <p className="text-[10px] uppercase text-gray-500 md:mb-1 text-right">Returns</p>
                                     <div className="flex items-center gap-1 justify-end">
                                         {holding.returns >= 0 ? (
                                             <TrendingUp className="w-3 h-3 text-primary-600" />

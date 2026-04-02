@@ -57,7 +57,7 @@ The risk or caution the reader absolutely must know about.
     name: 'Quick Verdict',
     description: 'Slate box for expert recommendation summary',
     preview: '⚡ Verdict box',
-    color: 'border-slate-200 bg-slate-50',
+    color: 'border-gray-200 bg-gray-50',
     template: `[quick-verdict]
 Our evidence-based recommendation in 2-3 clear sentences. Best for X type of user.
 [/quick-verdict]`,

@@ -70,7 +70,7 @@ export default function InterlinkingSuggestions({
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between">
-                <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Internal Linking Suggestions</h4>
+                <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Internal Linking Suggestions</h4>
                 <Button 
                     variant="outline" 
                     size="sm" 
@@ -89,12 +89,12 @@ export default function InterlinkingSuggestions({
                         const isApplied = appliedLinks.includes(`${s.articleId}-${s.anchorText}`);
                         
                         return (
-                            <div key={i} className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 space-y-2 group transition-all hover:border-primary/30">
+                            <div key={i} className="p-3 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 space-y-2 group transition-all hover:border-primary/30">
                                 <div className="flex items-start justify-between gap-2">
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-1.5 mb-1">
                                             <LinkIcon className="w-3 h-3 text-primary" />
-                                            <span className="text-xs font-semibold truncate dark:text-slate-200">{s.title}</span>
+                                            <span className="text-xs font-semibold truncate dark:text-gray-200">{s.title}</span>
                                         </div>
                                         <p className="text-[11px] text-muted-foreground italic leading-relaxed">
                                             "...{s.context}..."
@@ -113,7 +113,7 @@ export default function InterlinkingSuggestions({
                                 <div className="flex items-center justify-between pb-1">
                                     <div className="flex items-center gap-2 text-[10px]">
                                         <span className="font-bold text-primary">Anchor:</span>
-                                        <Badge variant="secondary" className="text-[9px] py-0 px-1 font-mono uppercase bg-slate-100 dark:bg-slate-800">{s.anchorText}</Badge>
+                                        <Badge variant="secondary" className="text-[9px] py-0 px-1 font-mono uppercase bg-gray-100 dark:bg-gray-800">{s.anchorText}</Badge>
                                     </div>
                                     <span className="text-[9px] text-muted-foreground/60">{s.relevanceReason}</span>
                                 </div>
@@ -124,7 +124,7 @@ export default function InterlinkingSuggestions({
             )}
 
             {!loading && suggestions.length === 0 && (
-                <div className="text-center py-6 px-4 border border-dashed border-slate-200 dark:border-slate-800 rounded-lg bg-slate-50/30 dark:bg-slate-900/20">
+                <div className="text-center py-6 px-4 border border-dashed border-gray-200 dark:border-gray-800 rounded-lg bg-gray-50/30 dark:bg-gray-900/20">
                     <p className="text-[11px] text-muted-foreground">Click 'Scan' to find internal link opportunities using AI.</p>
                 </div>
             )}

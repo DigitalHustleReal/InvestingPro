@@ -61,10 +61,10 @@ export default function EmbedCalculatorPage() {
     return (
       <div className="flex items-center justify-center min-h-screen p-4">
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-slate-800 dark:text-white mb-2">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
             Calculator Not Found
           </h2>
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-gray-600 dark:text-gray-400">
             The requested calculator does not exist.
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function EmbedCalculatorPage() {
 
   return (
     <div 
-      className={`min-h-screen ${theme === 'dark' ? 'bg-slate-900' : 'bg-white'}`}
+      className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}
       style={{ borderRadius: borderRadius ? `${borderRadius}px` : undefined }}
     >
       {/* Calculator */}
@@ -86,15 +86,15 @@ export default function EmbedCalculatorPage() {
       {showBranding && (
         <div className={`text-center py-3 border-t ${
           theme === 'dark' 
-            ? 'border-slate-700 bg-slate-800/50' 
-            : 'border-slate-200 bg-slate-50'
+            ? 'border-gray-700 bg-gray-800/50' 
+            : 'border-gray-200 bg-gray-50'
         }`}>
           <a 
             href="https://investingpro.in" 
             target="_blank" 
             rel="noopener noreferrer"
             className={`text-xs font-medium ${
-              theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-700'
+              theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-700'
             }`}
           >
             Powered by <span className="text-primary-500">InvestingPro.in</span>

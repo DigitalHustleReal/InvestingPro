@@ -325,9 +325,9 @@ export default async function AirportLoungeAccessPage() {
                 />
             ))}
 
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
                 {/* Hero */}
-                <div className="bg-gradient-to-b from-green-50 via-slate-50 to-slate-50 dark:from-green-950/30 dark:via-slate-950 dark:to-slate-950 pt-24 pb-12">
+                <div className="bg-gradient-to-b from-green-50 via-gray-50 to-gray-50 dark:from-green-950/30 dark:via-gray-950 dark:to-gray-950 pt-24 pb-12">
                     <div className="container mx-auto px-4">
                         <AutoBreadcrumbs className="mb-6" />
 
@@ -337,25 +337,25 @@ export default async function AirportLoungeAccessPage() {
                                 Updated {new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}
                             </Badge>
 
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4 font-outfit">
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                                 Airport Lounge Access via Credit Cards in India
                             </h1>
 
-                            <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-6">
+                            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-6">
                                 Compare {loungeCards.length > 0 ? `${loungeCards.length}+` : '50+'} credit cards with lounge access.
                                 Learn activation steps, visit limits, guest charges, and the April 2026 RuPay debit card changes.
                             </p>
 
                             <div className="flex flex-wrap justify-center gap-3 mb-8">
-                                <div className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400">
+                                <div className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400">
                                     <Clock className="w-4 h-4 text-green-600" />
                                     15 min read
                                 </div>
-                                <div className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400">
+                                <div className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400">
                                     <BadgeCheck className="w-4 h-4 text-green-600" />
                                     Expert Reviewed
                                 </div>
-                                <div className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400">
+                                <div className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400">
                                     <CreditCard className="w-4 h-4 text-green-600" />
                                     {loungeCards.length > 0 ? loungeCards.length : '50+'} Cards Compared
                                 </div>
@@ -375,7 +375,7 @@ export default async function AirportLoungeAccessPage() {
                     {/* Table of Contents */}
                     <Card className="bg-green-50/50 dark:bg-green-950/20 border-green-200 dark:border-green-800">
                         <CardHeader className="pb-3">
-                            <CardTitle className="text-lg font-semibold text-slate-900 dark:text-white">In This Guide</CardTitle>
+                            <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">In This Guide</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <nav>
@@ -391,7 +391,7 @@ export default async function AirportLoungeAccessPage() {
                                         <li key={item.id}>
                                             <a
                                                 href={`#${item.id}`}
-                                                className="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-green-700 dark:hover:text-green-400 transition-colors"
+                                                className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400 transition-colors"
                                             >
                                                 <span className="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400 text-xs font-bold shrink-0">
                                                     {i + 1}
@@ -407,18 +407,18 @@ export default async function AirportLoungeAccessPage() {
 
                     {/* ===== SECTION 1: What Is Lounge Access ===== */}
                     <section id="what-is-lounge-access" className="scroll-mt-24">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-6 font-outfit">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
                             What Is Airport Lounge Access?
                         </h2>
 
                         <div className="prose prose-slate dark:prose-invert max-w-none mb-8">
-                            <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+                            <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                                 Airport lounge access is one of the most valued perks of premium credit cards in India.
                                 Instead of waiting at crowded boarding gates, lounge access gives you a quiet, comfortable
                                 space with complimentary food, beverages, Wi-Fi, charging stations, and sometimes shower
                                 facilities and spa treatments.
                             </p>
-                            <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed mt-4">
+                            <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
                                 Credit card-based lounge access in India works through three main networks. The network
                                 your card uses determines which lounges you can access, where, and how many times.
                             </p>
@@ -429,27 +429,27 @@ export default async function AirportLoungeAccessPage() {
                             {LOUNGE_NETWORKS.map((network) => (
                                 <Card key={network.name} className="flex flex-col">
                                     <CardHeader className="pb-3">
-                                        <CardTitle className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                             <Plane className="w-5 h-5 text-green-600" />
                                             {network.name}
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent className="flex-1 space-y-3">
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                                             {network.description}
                                         </p>
                                         <div className="space-y-2 text-sm">
                                             <div className="flex justify-between">
-                                                <span className="text-slate-500">Lounges</span>
-                                                <span className="font-medium text-slate-900 dark:text-white">{network.lounges}</span>
+                                                <span className="text-gray-500">Lounges</span>
+                                                <span className="font-medium text-gray-900 dark:text-white">{network.lounges}</span>
                                             </div>
                                             <div className="flex justify-between">
-                                                <span className="text-slate-500">Coverage</span>
-                                                <span className="font-medium text-slate-900 dark:text-white">{network.coverage}</span>
+                                                <span className="text-gray-500">Coverage</span>
+                                                <span className="font-medium text-gray-900 dark:text-white">{network.coverage}</span>
                                             </div>
                                             <div className="flex justify-between">
-                                                <span className="text-slate-500">Best For</span>
-                                                <span className="font-medium text-slate-900 dark:text-white text-right">{network.bestFor}</span>
+                                                <span className="text-gray-500">Best For</span>
+                                                <span className="font-medium text-gray-900 dark:text-white text-right">{network.bestFor}</span>
                                             </div>
                                         </div>
                                     </CardContent>
@@ -457,21 +457,21 @@ export default async function AirportLoungeAccessPage() {
                             ))}
                         </div>
 
-                        <div className="mt-8 text-base text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
+                        <div className="mt-8 text-base text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
                             <p>
-                                <strong className="text-slate-900 dark:text-white">Priority Pass</strong> is the gold standard for international
+                                <strong className="text-gray-900 dark:text-white">Priority Pass</strong> is the gold standard for international
                                 travellers. With 1,500+ lounges in 600+ cities, it is included with super-premium cards
                                 like HDFC Infinia, HDFC Diners Club Black, Axis Magnus, and American Express Platinum.
                                 The membership is provided by your bank at no extra cost when you hold an eligible card.
                             </p>
                             <p>
-                                <strong className="text-slate-900 dark:text-white">Dreamfolks</strong> dominates the domestic lounge
+                                <strong className="text-gray-900 dark:text-white">Dreamfolks</strong> dominates the domestic lounge
                                 access space in India. Most mid-tier and premium cards from HDFC, SBI, Axis, ICICI, and
                                 other banks use Dreamfolks to facilitate complimentary domestic lounge visits. It works
                                 through a simple credit card swipe at the lounge counter — no separate membership card needed.
                             </p>
                             <p>
-                                <strong className="text-slate-900 dark:text-white">Direct bank lounges</strong> are exclusive
+                                <strong className="text-gray-900 dark:text-white">Direct bank lounges</strong> are exclusive
                                 lounges operated by or partnered with specific banks at major Indian airports. These are
                                 less common but can offer a premium experience for loyal customers of that bank.
                             </p>
@@ -480,16 +480,16 @@ export default async function AirportLoungeAccessPage() {
 
                     {/* ===== SECTION 2: Credit Cards Table ===== */}
                     <section id="credit-cards-with-lounge-access" className="scroll-mt-24">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4 font-outfit">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
                             Credit Cards with Airport Lounge Access in India
                         </h2>
-                        <p className="text-base text-slate-600 dark:text-slate-400 mb-6">
+                        <p className="text-base text-gray-600 dark:text-gray-400 mb-6">
                             Below is a comprehensive comparison of credit cards that offer airport lounge access.
                             Data is fetched live from our database and updated regularly.
                         </p>
 
                         {loungeCards.length > 0 ? (
-                            <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+                            <div className="border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
                                 <div className="overflow-x-auto">
                                     <Table>
                                         <TableHeader>
@@ -515,21 +515,21 @@ export default async function AirportLoungeAccessPage() {
                                                                     loading="lazy"
                                                                 />
                                                             )}
-                                                            <span className="font-medium text-slate-900 dark:text-white">
+                                                            <span className="font-medium text-gray-900 dark:text-white">
                                                                 {card.name}
                                                             </span>
                                                         </div>
                                                     </TableCell>
-                                                    <TableCell className="text-slate-600 dark:text-slate-400">
+                                                    <TableCell className="text-gray-600 dark:text-gray-400">
                                                         {card.bank}
                                                     </TableCell>
-                                                    <TableCell className="text-slate-900 dark:text-white font-medium">
+                                                    <TableCell className="text-gray-900 dark:text-white font-medium">
                                                         {card.annual_fee || 'N/A'}
                                                     </TableCell>
                                                     <TableCell>
                                                         <div className="flex items-center gap-1">
                                                             <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                                                            <span className="text-slate-900 dark:text-white font-medium">
+                                                            <span className="text-gray-900 dark:text-white font-medium">
                                                                 {card.rating?.toFixed(1) || '4.0'}
                                                             </span>
                                                         </div>
@@ -551,7 +551,7 @@ export default async function AirportLoungeAccessPage() {
                                                                 <ExternalLink className="w-3 h-3" />
                                                             </a>
                                                         ) : (
-                                                            <span className="text-xs text-slate-400">--</span>
+                                                            <span className="text-xs text-gray-400">--</span>
                                                         )}
                                                     </TableCell>
                                                 </TableRow>
@@ -559,15 +559,15 @@ export default async function AirportLoungeAccessPage() {
                                         </TableBody>
                                     </Table>
                                 </div>
-                                <div className="p-3 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800">
+                                <div className="p-3 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
                                     <AffiliateDisclosure variant="button" hasAffiliateLink={true} />
                                 </div>
                             </div>
                         ) : (
                             <Card className="border-dashed border-2">
                                 <CardContent className="py-12 text-center">
-                                    <CreditCard className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                                    <p className="text-slate-600 dark:text-slate-400 mb-4">
+                                    <CreditCard className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                                    <p className="text-gray-600 dark:text-gray-400 mb-4">
                                         Our card database is being updated. Please check back shortly.
                                     </p>
                                     <Link
@@ -580,7 +580,7 @@ export default async function AirportLoungeAccessPage() {
                             </Card>
                         )}
 
-                        <p className="text-xs text-slate-500 mt-3">
+                        <p className="text-xs text-gray-500 mt-3">
                             Lounge access is subject to change. Verify current benefits with your bank before travelling.
                         </p>
 
@@ -595,7 +595,7 @@ export default async function AirportLoungeAccessPage() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-green-50 dark:hover:bg-green-950/30 text-slate-700 dark:text-slate-300 hover:text-green-700 dark:hover:text-green-400 text-sm rounded-lg transition-colors border border-slate-200 dark:border-slate-700"
+                                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-green-50 dark:hover:bg-green-950/30 text-gray-700 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400 text-sm rounded-lg transition-colors border border-gray-200 dark:border-gray-700"
                                 >
                                     {link.label}
                                     <ArrowRight className="w-3 h-3" />
@@ -606,10 +606,10 @@ export default async function AirportLoungeAccessPage() {
 
                     {/* ===== SECTION 3: Bank-wise Activation ===== */}
                     <section id="how-to-activate" className="scroll-mt-24">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4 font-outfit">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
                             How to Activate Airport Lounge Access (Bank-wise Guide)
                         </h2>
-                        <p className="text-base text-slate-600 dark:text-slate-400 mb-8">
+                        <p className="text-base text-gray-600 dark:text-gray-400 mb-8">
                             Lounge access activation varies by bank. Below are step-by-step instructions for the
                             six major credit card issuers in India.
                         </p>
@@ -618,7 +618,7 @@ export default async function AirportLoungeAccessPage() {
                             {BANK_ACTIVATION_STEPS.map((bank) => (
                                 <Card key={bank.bank}>
                                     <CardHeader className="pb-3">
-                                        <CardTitle className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                             <CreditCard className="w-5 h-5 text-green-600" />
                                             {bank.bank}
                                         </CardTitle>
@@ -626,7 +626,7 @@ export default async function AirportLoungeAccessPage() {
                                     <CardContent className="space-y-4">
                                         <ol className="space-y-3">
                                             {bank.steps.map((step, idx) => (
-                                                <li key={idx} className="flex gap-3 text-sm text-slate-700 dark:text-slate-300">
+                                                <li key={idx} className="flex gap-3 text-sm text-gray-700 dark:text-gray-300">
                                                     <span className="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400 text-xs font-bold shrink-0 mt-0.5">
                                                         {idx + 1}
                                                     </span>
@@ -648,10 +648,10 @@ export default async function AirportLoungeAccessPage() {
 
                     {/* ===== SECTION 4: Limits, Guest Charges, Caveats ===== */}
                     <section id="limits-and-charges" className="scroll-mt-24">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4 font-outfit">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
                             Lounge Access Limits, Guest Charges & Caveats
                         </h2>
-                        <p className="text-base text-slate-600 dark:text-slate-400 mb-8">
+                        <p className="text-base text-gray-600 dark:text-gray-400 mb-8">
                             Understanding the fine print of lounge access can save you from unexpected charges.
                             Here are the key things every cardholder should know.
                         </p>
@@ -660,7 +660,7 @@ export default async function AirportLoungeAccessPage() {
                         <div className="space-y-8">
                             <Card>
                                 <CardHeader className="pb-3">
-                                    <CardTitle className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                                    <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                         <Users className="w-5 h-5 text-green-600" />
                                         Typical Visit Limits by Card Tier
                                     </CardTitle>
@@ -705,13 +705,13 @@ export default async function AirportLoungeAccessPage() {
                             <div className="grid gap-4 sm:grid-cols-2">
                                 <Card className="border-green-200 dark:border-green-800 bg-green-50/30 dark:bg-green-950/10">
                                     <CardHeader className="pb-3">
-                                        <CardTitle className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <CardTitle className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                             <CheckCircle2 className="w-5 h-5 text-green-600" />
                                             What Lounges Include
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+                                        <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                                             {[
                                                 'Complimentary food and beverages (buffet or a la carte)',
                                                 'High-speed Wi-Fi and charging stations',
@@ -732,13 +732,13 @@ export default async function AirportLoungeAccessPage() {
 
                                 <Card className="border-amber-200 dark:border-amber-800 bg-amber-50/30 dark:bg-amber-950/10">
                                     <CardHeader className="pb-3">
-                                        <CardTitle className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <CardTitle className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                             <AlertTriangle className="w-5 h-5 text-amber-600" />
                                             Common Caveats to Watch
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+                                        <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                                             {[
                                                 'Visit counts reset quarterly, not monthly — plan accordingly',
                                                 'Guest visits deduct from your quota (1 guest = 1 visit used)',
@@ -758,22 +758,22 @@ export default async function AirportLoungeAccessPage() {
                                 </Card>
                             </div>
 
-                            <div className="text-base text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
+                            <div className="text-base text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
                                 <p>
-                                    <strong className="text-slate-900 dark:text-white">Guest charges</strong> are one of the most
+                                    <strong className="text-gray-900 dark:text-white">Guest charges</strong> are one of the most
                                     common surprises for lounge users. When you bring a guest, most cards deduct one visit from
                                     your complimentary quota. If you have exhausted your quota or your card does not include
                                     guest access, a charge of Rs 2,000 to Rs 2,500 is levied per guest for domestic lounges. For
                                     international lounges via Priority Pass, the charge is typically $27 to $32 per guest.
                                 </p>
                                 <p>
-                                    <strong className="text-slate-900 dark:text-white">Spending-based eligibility</strong> is
+                                    <strong className="text-gray-900 dark:text-white">Spending-based eligibility</strong> is
                                     becoming more common. Banks like HDFC and Axis now require a minimum quarterly spend
                                     (typically Rs 50,000 to Rs 1,00,000) on certain mid-tier cards to unlock lounge access for
                                     that quarter. Check your card&apos;s terms to confirm if this applies to you.
                                 </p>
                                 <p>
-                                    <strong className="text-slate-900 dark:text-white">International vs domestic limits</strong> are
+                                    <strong className="text-gray-900 dark:text-white">International vs domestic limits</strong> are
                                     tracked separately on most cards. A card offering &ldquo;8 lounge visits per year&rdquo; might
                                     mean 4 domestic + 4 international, not 8 total that you can split any way you like.
                                     Always confirm the split with your bank.
@@ -784,7 +784,7 @@ export default async function AirportLoungeAccessPage() {
 
                     {/* ===== SECTION 5: RuPay Changes 2026 ===== */}
                     <section id="rupay-changes-2026" className="scroll-mt-24">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4 font-outfit">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
                             April 2026: RuPay Debit Card Lounge Access Removed
                         </h2>
 
@@ -796,7 +796,7 @@ export default async function AirportLoungeAccessPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                                     In April 2026, the National Payments Corporation of India (NPCI) officially removed
                                     complimentary airport lounge access for RuPay Platinum debit card holders. This was
                                     one of the most popular free lounge access options in India, used by millions of
@@ -805,8 +805,8 @@ export default async function AirportLoungeAccessPage() {
                             </CardContent>
                         </Card>
 
-                        <div className="text-base text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
-                            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mt-6">What Changed?</h3>
+                        <div className="text-base text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6">What Changed?</h3>
                             <ul className="space-y-3">
                                 {[
                                     'RuPay Platinum debit cards no longer provide complimentary airport lounge access at any domestic or international airport.',
@@ -821,7 +821,7 @@ export default async function AirportLoungeAccessPage() {
                                 ))}
                             </ul>
 
-                            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mt-8">Who Is Affected?</h3>
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8">Who Is Affected?</h3>
                             <p>
                                 This impacts millions of Indians who relied on their Jan Dhan, savings, or salary account
                                 RuPay Platinum debit cards for free lounge access. Particularly affected are customers of
@@ -829,15 +829,15 @@ export default async function AirportLoungeAccessPage() {
                                 default on salary and savings accounts.
                             </p>
 
-                            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mt-8">What Are Your Alternatives?</h3>
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8">What Are Your Alternatives?</h3>
                             <div className="grid gap-4 sm:grid-cols-2 mt-4">
                                 <Card>
                                     <CardContent className="pt-6 space-y-3">
-                                        <h4 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <h4 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                             <CheckCircle2 className="w-4 h-4 text-green-600" />
                                             Best Alternative: Credit Cards
                                         </h4>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
                                             Credit cards remain the most reliable way to access airport lounges. Even
                                             entry-level cards like HDFC Millennia and SBI SimplyCLICK offer 2-4 domestic
                                             lounge visits per quarter. Premium cards like HDFC Regalia provide 6+ visits
@@ -853,11 +853,11 @@ export default async function AirportLoungeAccessPage() {
                                 </Card>
                                 <Card>
                                     <CardContent className="pt-6 space-y-3">
-                                        <h4 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <h4 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                                             <CheckCircle2 className="w-4 h-4 text-green-600" />
                                             Upgrade RuPay Tier
                                         </h4>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
                                             If you prefer debit cards, ask your bank to upgrade to a RuPay Select or
                                             RuPay Platinum+ debit card. These higher tiers may still retain some lounge
                                             access benefits, though with reduced visit counts. Not all banks offer these
@@ -880,10 +880,10 @@ export default async function AirportLoungeAccessPage() {
 
                     {/* ===== SECTION 6: FAQs ===== */}
                     <section id="faqs" className="scroll-mt-24">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4 font-outfit">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
                             Frequently Asked Questions
                         </h2>
-                        <p className="text-base text-slate-600 dark:text-slate-400 mb-8">
+                        <p className="text-base text-gray-600 dark:text-gray-400 mb-8">
                             Answers to the most common questions about airport lounge access via credit cards in India.
                         </p>
 
@@ -891,12 +891,12 @@ export default async function AirportLoungeAccessPage() {
                             {FAQ_DATA.map((faq, idx) => (
                                 <Card key={idx}>
                                     <CardHeader className="pb-2">
-                                        <CardTitle className="text-base font-semibold text-slate-900 dark:text-white">
+                                        <CardTitle className="text-base font-semibold text-gray-900 dark:text-white">
                                             {faq.question}
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                                             {faq.answer}
                                         </p>
                                     </CardContent>
@@ -906,19 +906,19 @@ export default async function AirportLoungeAccessPage() {
                     </section>
 
                     {/* Legal Disclaimers */}
-                    <div className="space-y-4 pt-8 border-t border-slate-200 dark:border-slate-800">
-                        <div className="p-4 bg-slate-100 dark:bg-slate-900/50 rounded-lg">
+                    <div className="space-y-4 pt-8 border-t border-gray-200 dark:border-gray-800">
+                        <div className="p-4 bg-gray-100 dark:bg-gray-900/50 rounded-lg">
                             <div className="flex items-start gap-3">
-                                <Shield className="w-5 h-5 text-slate-500 shrink-0 mt-0.5" />
-                                <div className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                                <Shield className="w-5 h-5 text-gray-500 shrink-0 mt-0.5" />
+                                <div className="space-y-2 text-xs text-gray-600 dark:text-gray-400">
                                     <p>
-                                        <strong className="text-slate-800 dark:text-slate-300">Disclaimer:</strong> Lounge access
+                                        <strong className="text-gray-800 dark:text-gray-300">Disclaimer:</strong> Lounge access
                                         benefits, visit limits, and charges mentioned in this guide are subject to change at any
                                         time without prior notice. Always verify current lounge access terms directly with your
                                         bank or card issuer before travelling.
                                     </p>
                                     <p>
-                                        <strong className="text-slate-800 dark:text-slate-300">Affiliate Disclosure:</strong> We
+                                        <strong className="text-gray-800 dark:text-gray-300">Affiliate Disclosure:</strong> We
                                         may earn a commission when you apply for a credit card through our links. This does not
                                         affect our editorial independence or the information presented in this guide.
                                     </p>
@@ -934,15 +934,15 @@ export default async function AirportLoungeAccessPage() {
                     </div>
 
                     {/* Author Byline */}
-                    <div className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800">
                         <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center shrink-0">
                             <BadgeCheck className="w-6 h-6 text-green-600" />
                         </div>
                         <div>
-                            <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                            <p className="text-sm font-semibold text-gray-900 dark:text-white">
                                 InvestingPro Editorial Team
                             </p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
                                 Our team researches and compares financial products across India. This guide is reviewed by
                                 personal finance experts and updated regularly to reflect the latest bank policies and lounge
                                 access rules.

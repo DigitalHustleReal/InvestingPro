@@ -76,12 +76,12 @@ export default function ArticlesPage() {
             />
 
             {/* Header */}
-            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 border-b border-slate-200">
+            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 border-b border-gray-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
+                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
                         Articles & Guides
                     </h1>
-                    <p className="text-xl text-slate-600 max-w-2xl">
+                    <p className="text-xl text-gray-600 max-w-2xl">
                         Expert insights on investing, personal finance, and financial planning.
                     </p>
                 </div>
@@ -92,7 +92,7 @@ export default function ArticlesPage() {
                 <div className="mb-8">
                     <div className="flex flex-col sm:flex-row gap-4 mb-6">
                         <div className="flex-1 relative">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 w-5 h-5" />
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-5 h-5" />
                             <Input
                                 placeholder="Search articles..."
                                 value={searchTerm}
@@ -139,7 +139,7 @@ export default function ArticlesPage() {
                 {/* Articles Grid */}
                 {isLoading ? (
                     <div className="text-center py-12">
-                        <div className="text-slate-600">Loading articles...</div>
+                        <div className="text-gray-600">Loading articles...</div>
                     </div>
                 ) : categoryFilteredArticles.length === 0 ? (
                     <EmptyState
@@ -170,15 +170,15 @@ export default function ArticlesPage() {
                                                     {article.category?.replace(/-/g, ' ')}
                                                 </Badge>
                                             </div>
-                                            <h2 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2">
+                                            <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
                                                 {article.title}
                                             </h2>
                                             {article.excerpt && (
-                                                <p className="text-slate-600 text-sm mb-4 line-clamp-3">
+                                                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                                                     {article.excerpt}
                                                 </p>
                                             )}
-                                            <div className="flex items-center justify-between text-xs text-slate-500">
+                                            <div className="flex items-center justify-between text-xs text-gray-500">
                                                 <div className="flex items-center gap-4">
                                                     {article.read_time && (
                                                         <span className="flex items-center gap-1">
@@ -215,7 +215,7 @@ export default function ArticlesPage() {
                                 >
                                     Previous
                                 </Button>
-                                <span className="flex items-center px-4 text-slate-600">
+                                <span className="flex items-center px-4 text-gray-600">
                                     Page {currentPage} of {totalPages}
                                 </span>
                                 <Button

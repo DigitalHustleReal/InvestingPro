@@ -100,7 +100,7 @@ export default function MetricsDashboard() {
             <div className="space-y-6 p-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground dark:text-foreground">
                             API Metrics Dashboard
                         </h1>
                         <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
@@ -223,7 +223,7 @@ export default function MetricsDashboard() {
                                     .slice(0, 10)
                                     .map(([path, count]) => (
                                         <div key={path} className="flex items-center justify-between">
-                                            <code className="text-sm bg-slate-100 dark:bg-muted dark:bg-muted px-2 py-1 rounded">
+                                            <code className="text-sm bg-gray-100 dark:bg-muted dark:bg-muted px-2 py-1 rounded">
                                                 {path}
                                             </code>
                                             <span className="font-semibold">{count as number}</span>
@@ -245,7 +245,7 @@ export default function MetricsDashboard() {
                                 {recent.slice(-20).reverse().map((metric: any, index: number) => (
                                     <div
                                         key={index}
-                                        className="flex items-center justify-between text-sm py-1 border-b border-slate-200 dark:border-border dark:border-border last:border-0"
+                                        className="flex items-center justify-between text-sm py-1 border-b border-gray-200 dark:border-border dark:border-border last:border-0"
                                     >
                                         <div className="flex items-center gap-3">
                                             <Badge

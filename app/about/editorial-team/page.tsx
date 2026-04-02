@@ -78,19 +78,19 @@ const TEAM_MEMBERS = [
 
 export default function EditorialTeamPage() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Hero Section */}
-      <div className="relative bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+      <div className="relative bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="absolute inset-0 bg-gradient-to-b from-primary-50/50 to-transparent dark:from-primary-950/10 pointer-events-none" />
         <div className="container mx-auto px-4 py-16 relative">
           <div className="max-w-3xl mx-auto text-center">
             <Badge variant="outline" className="mb-4 bg-primary-50 text-primary-700 border-primary-200 dark:bg-primary-950/50 dark:text-primary-400">
               InvestingPro Editorial Board
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-6">
               Expertise You Can Trust
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
               We are a team of journalists, CAs, bankers, and analysts obsessed with one mission: 
               <strong> Making you wealthier, faster.</strong> Our content is fact-checked, unbiased, and data-driven.
             </p>
@@ -99,23 +99,23 @@ export default function EditorialTeamPage() {
       </div>
 
       {/* Trust Signals Bar */}
-      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-6">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 py-6">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div className="flex flex-col items-center gap-2">
               <ShieldCheck className="h-8 w-8 text-primary-600" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">Editorial Independence</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-600">Our reviews are never influenced by partners.</p>
+              <h3 className="font-semibold text-gray-900 dark:text-white">Editorial Independence</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-600">Our reviews are never influenced by partners.</p>
             </div>
             <div className="flex flex-col items-center gap-2">
               <CheckCircle2 className="h-8 w-8 text-primary-600" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">Fact-Checked Accuracy</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-600">Every rate and fee verified weekly.</p>
+              <h3 className="font-semibold text-gray-900 dark:text-white">Fact-Checked Accuracy</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-600">Every rate and fee verified weekly.</p>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Newspaper className="h-8 w-8 text-primary-600" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">Expert Contributors</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-600">Written by CAs, Bankers & Analysts.</p>
+              <h3 className="font-semibold text-gray-900 dark:text-white">Expert Contributors</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-600">Written by CAs, Bankers & Analysts.</p>
             </div>
           </div>
         </div>
@@ -141,22 +141,22 @@ export default function EditorialTeamPage() {
                             <div className="flex items-center gap-2 mb-2">
                                 <Badge className="bg-primary-600 hover:bg-primary-700">{TEAM_MEMBERS[0].role}</Badge>
                             </div>
-                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">{TEAM_MEMBERS[0].name}</h2>
-                            <p className="text-slate-600 dark:text-slate-300 mb-6 text-lg leading-relaxed">
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{TEAM_MEMBERS[0].name}</h2>
+                            <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg leading-relaxed">
                                 {TEAM_MEMBERS[0].bio}
                             </p>
                             <div className="flex flex-wrap gap-2 mb-6">
                                 {TEAM_MEMBERS[0].expertise.map((skill) => (
-                                    <Badge key={skill} variant="secondary" className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                                    <Badge key={skill} variant="secondary" className="bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
                                         {skill}
                                     </Badge>
                                 ))}
                             </div>
                             <div className="flex gap-4">
-                                <a href="#" className="text-slate-600 hover:text-primary-600 transition-colors">
+                                <a href="#" className="text-gray-600 hover:text-primary-600 transition-colors">
                                     <Twitter className="h-5 w-5" />
                                 </a>
-                                <a href="#" className="text-slate-600 hover:text-primary-600 transition-colors">
+                                <a href="#" className="text-gray-600 hover:text-primary-600 transition-colors">
                                     <Linkedin className="h-5 w-5" />
                                 </a>
                             </div>
@@ -169,7 +169,7 @@ export default function EditorialTeamPage() {
             {TEAM_MEMBERS.slice(1).map((member, index) => (
                 <Link href={`/about/editorial-team/${member.id}`} key={index} className="block group">
                 <Card className="h-full overflow-hidden hover:border-primary-200 dark:hover:border-primary-800 transition-colors duration-300">
-                    <div className="relative h-64 w-full bg-slate-100 dark:bg-slate-800">
+                    <div className="relative h-64 w-full bg-gray-100 dark:bg-gray-800">
                         <Image 
                             src={member.image} 
                             alt={member.name}
@@ -186,13 +186,13 @@ export default function EditorialTeamPage() {
                         <CardTitle className="text-xl font-bold group-hover:text-primary-600 transition-colors">{member.name}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
                             {member.bio}
                         </p>
                         <Separator className="my-4" />
                         <div className="flex flex-wrap gap-2 mb-4 h-16 overflow-hidden content-start">
                             {member.expertise.map((skill) => (
-                                <Badge key={skill} variant="secondary" className="text-xs bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-600">
+                                <Badge key={skill} variant="secondary" className="text-xs bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-600">
                                     {skill}
                                 </Badge>
                             ))}
@@ -219,7 +219,7 @@ export default function EditorialTeamPage() {
                     We are always looking for certified financial experts (CAs, CFAs, Ex-Bankers) to join our contributor network.
                 </p>
                 <div className="flex justify-center gap-4">
-                     <a href="/contact" className="bg-white text-primary-900 px-8 py-3 rounded-full font-bold hover:bg-slate-100 transition-colors">
+                     <a href="/contact" className="bg-white text-primary-900 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors">
                         Apply as Contributor
                     </a>
                 </div>

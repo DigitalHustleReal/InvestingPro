@@ -63,7 +63,7 @@ export default function NewsletterWidget({
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={status === 'loading' || status === 'success'}
-                        className="w-full bg-white dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-600 dark:placeholder:text-slate-500 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-all h-12"
+                        className="w-full bg-white dark:bg-gray-900/50 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-600 dark:placeholder:text-gray-500 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-all h-12"
                     />
                     {!email && (
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-primary-400 animate-pulse" />
@@ -88,7 +88,7 @@ export default function NewsletterWidget({
     
     // Card variant (Default)
     return (
-        <Card className={cn("bg-gradient-to-br from-slate-900 to-slate-800 border-none text-white overflow-hidden relative", className)}>
+        <Card className={cn("bg-gradient-to-br from-gray-900 to-gray-800 border-none text-white overflow-hidden relative", className)}>
             {/* Background Effects */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
             
@@ -98,7 +98,7 @@ export default function NewsletterWidget({
                 </div>
                 
                 <h3 className="text-2xl font-bold mb-3 tracking-tight">{title}</h3>
-                <p className="text-slate-600 mb-8 max-w-xs mx-auto leading-relaxed">
+                <p className="text-gray-600 mb-8 max-w-xs mx-auto leading-relaxed">
                     {description}
                 </p>
 
@@ -110,7 +110,7 @@ export default function NewsletterWidget({
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             disabled={status === 'loading' || status === 'success'}
-                            className="w-full h-12 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-primary-500 focus:bg-white/10 transition-all text-center"
+                            className="w-full h-12 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-primary-500 focus:bg-white/10 transition-all text-center"
                         />
                     </div>
                     <Button 
@@ -130,7 +130,7 @@ export default function NewsletterWidget({
                     </Button>
                 </form>
 
-                <p className="mt-6 text-xs text-slate-500 flex items-center gap-1.5 opacity-80">
+                <p className="mt-6 text-xs text-gray-500 flex items-center gap-1.5 opacity-80">
                     <Sparkles className="w-3 h-3 text-accent-400" />
                     Join 12,000+ smart investors
                 </p>

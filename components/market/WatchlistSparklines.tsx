@@ -20,22 +20,22 @@ const WATCHLIST = [
 
 export default function WatchlistSparklines() {
     return (
-        <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-lg text-slate-900 dark:text-white flex items-center gap-2">
+                <CardTitle className="text-lg text-gray-900 dark:text-white flex items-center gap-2">
                     <Eye className="w-4 h-4 text-primary-500" /> My Watchlist
                 </CardTitle>
-                <button className="text-slate-600 hover:text-primary-500">
+                <button className="text-gray-600 hover:text-primary-500">
                     <MoreHorizontal className="w-5 h-5" />
                 </button>
             </CardHeader>
             <CardContent className="p-0">
-                <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                <div className="divide-y divide-gray-100 dark:divide-gray-800">
                     {WATCHLIST.map((stock, idx) => (
-                        <div key={idx} className="p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                        <div key={idx} className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                             <div className="w-1/3">
-                                <div className="font-bold text-slate-900 dark:text-white">{stock.symbol}</div>
-                                <div className="text-xs text-slate-500 truncate">{stock.name}</div>
+                                <div className="font-bold text-gray-900 dark:text-white">{stock.symbol}</div>
+                                <div className="text-xs text-gray-500 truncate">{stock.name}</div>
                             </div>
                             
                             {/* Sparkline */}
@@ -54,7 +54,7 @@ export default function WatchlistSparklines() {
                             </div>
 
                             <div className="w-1/3 text-right">
-                                <div className="font-bold text-slate-900 dark:text-white">₹{stock.price}</div>
+                                <div className="font-bold text-gray-900 dark:text-white">₹{stock.price}</div>
                                 <div className={`text-xs font-bold ${stock.positive ? 'text-primary-600 dark:text-primary-400' : 'text-danger-600 dark:text-danger-400'}`}>
                                     {stock.change}
                                 </div>

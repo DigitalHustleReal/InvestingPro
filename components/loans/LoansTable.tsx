@@ -23,16 +23,16 @@ export function LoansTable({ loans }: LoansTableProps) {
                 <div className="flex flex-col gap-2 min-w-[260px]">
                     <Link
                         href={`/loans/${row.slug}`}
-                        className="font-bold text-slate-900 dark:text-white hover:text-primary-600 transition-colors text-sm"
+                        className="font-bold text-gray-900 dark:text-white hover:text-primary-600 transition-colors text-sm"
                     >
                         {row.name}
                     </Link>
                     <div className="flex items-center gap-2">
-                        <p className="text-[10px] text-slate-600 font-semibold uppercase tracking-wider">
+                        <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-wider">
                             {row.provider || row.provider_name || 'Lender'}
                         </p>
                         {row.category && (
-                            <Badge variant="outline" className="text-[8px] h-4 rounded px-1.5 border-slate-200 text-slate-500 font-bold">
+                            <Badge variant="outline" className="text-[8px] h-4 rounded px-1.5 border-gray-200 text-gray-500 font-bold">
                                 {row.category}
                             </Badge>
                         )}
@@ -52,12 +52,12 @@ export function LoansTable({ loans }: LoansTableProps) {
                 return (
                     <div className="flex flex-col items-center gap-1">
                         <div className="flex items-center gap-1">
-                            <Percent className={`w-3.5 h-3.5 ${rateNum < 10 ? 'text-primary-600' : 'text-slate-600'}`} />
-                            <p className={`font-bold ${rateNum < 10 ? 'text-primary-600' : 'text-slate-900 dark:text-white'}`}>
+                            <Percent className={`w-3.5 h-3.5 ${rateNum < 10 ? 'text-primary-600' : 'text-gray-600'}`} />
+                            <p className={`font-bold ${rateNum < 10 ? 'text-primary-600' : 'text-gray-900 dark:text-white'}`}>
                                 {rate}
                             </p>
                         </div>
-                        <p className="text-[8px] text-slate-600 uppercase font-semibold">p.a.</p>
+                        <p className="text-[8px] text-gray-600 uppercase font-semibold">p.a.</p>
                         {rateNum < 10 && (
                             <Badge className="text-[7px] bg-primary-100 text-primary-700 border-0 h-4">
                                 Best Rate
@@ -78,8 +78,8 @@ export function LoansTable({ loans }: LoansTableProps) {
                 
                 return (
                     <div className="text-center">
-                        <p className="font-bold text-slate-900 dark:text-white">{amount}</p>
-                        <p className="text-[9px] text-slate-600 uppercase font-semibold">Maximum</p>
+                        <p className="font-bold text-gray-900 dark:text-white">{amount}</p>
+                        <p className="text-[9px] text-gray-600 uppercase font-semibold">Maximum</p>
                     </div>
                 );
             },
@@ -95,9 +95,9 @@ export function LoansTable({ loans }: LoansTableProps) {
                 
                 return (
                     <div className="flex flex-col items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-slate-600" />
-                        <p className="font-bold text-slate-900 dark:text-white text-sm">{tenure}</p>
-                        <p className="text-[9px] text-slate-600 uppercase font-semibold">Max Period</p>
+                        <Calendar className="w-3.5 h-3.5 text-gray-600" />
+                        <p className="font-bold text-gray-900 dark:text-white text-sm">{tenure}</p>
+                        <p className="text-[9px] text-gray-600 uppercase font-semibold">Max Period</p>
                     </div>
                 );
             },
@@ -114,7 +114,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                 
                 return (
                     <div className="text-center">
-                        <p className={`font-bold ${feeNum < 1.5 ? 'text-primary-600' : feeNum > 3 ? 'text-danger-600' : 'text-slate-900 dark:text-white'}`}>
+                        <p className={`font-bold ${feeNum < 1.5 ? 'text-primary-600' : feeNum > 3 ? 'text-danger-600' : 'text-gray-900 dark:text-white'}`}>
                             {fee}
                         </p>
                         {feeNum < 1.5 && (
@@ -149,7 +149,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                         }`}>
                             {chance}
                         </Badge>
-                        <p className="text-[8px] text-slate-600 mt-1">Based on profile</p>
+                        <p className="text-[8px] text-gray-600 mt-1">Based on profile</p>
                     </div>
                  );
             },
@@ -189,12 +189,12 @@ export function LoansTable({ loans }: LoansTableProps) {
                                     className={`w-3.5 h-3.5 ${
                                         i < stars
                                             ? 'text-accent-400 fill-accent-400'
-                                            : 'text-slate-300 dark:text-slate-600'
+                                            : 'text-gray-300 dark:text-gray-600'
                                     }`}
                                 />
                             ))}
                         </div>
-                        <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
+                        <span className="text-xs font-bold text-gray-600 dark:text-gray-400">
                             {(typeof rating === 'number' ? rating : Number(rating) || 4.5).toFixed(1)}
                         </span>
                     </div>
@@ -212,7 +212,7 @@ export function LoansTable({ loans }: LoansTableProps) {
                     <Link href={`/loans/${row.slug}`} className="w-full">
                         <Button 
                             variant="outline" 
-                            className="w-full h-9 rounded-xl border-slate-200 hover:bg-white dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold text-[10px] uppercase tracking-wider"
+                            className="w-full h-9 rounded-xl border-gray-200 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white font-bold text-[10px] uppercase tracking-wider"
                         >
                             Compare
                         </Button>

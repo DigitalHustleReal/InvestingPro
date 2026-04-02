@@ -118,7 +118,7 @@ export default function MetricBentoCard({
                         {trend && (
                             <div className={cn(
                                 "flex items-center gap-1 font-bold text-xs truncate",
-                                isPositive ? "text-emerald-400" : isNegative ? "text-rose-400" : "text-slate-400"
+                                isPositive ? "text-emerald-400" : isNegative ? "text-rose-400" : "text-gray-400"
                             )}>
                                 {isPositive && <ArrowUpRight className="w-3.5 h-3.5" />}
                                 {isNegative && <ArrowDownRight className="w-3.5 h-3.5" />}

@@ -94,16 +94,16 @@ export default function TestimonialsCarousel({
     <div className="w-full max-w-4xl mx-auto py-12 px-4">
       {/* Header */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
           What Our Users Say
         </h2>
-        <p className="text-lg text-slate-600 dark:text-slate-400">
+        <p className="text-lg text-gray-600 dark:text-gray-400">
           Join thousands of satisfied users making smarter financial decisions
         </p>
       </div>
 
       {/* Testimonial Card */}
-      <div className="relative bg-white dark:bg-slate-800 rounded-xl shadow-xl p-8 md:p-12">
+      <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8 md:p-12">
         {/* Quote Icon */}
         <div className="absolute top-6 left-6 text-primary-200 dark:text-primary-900 opacity-20">
           <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
@@ -121,14 +121,14 @@ export default function TestimonialsCarousel({
                 className={`w-6 h-6 ${
                   i < (currentTestimonial?.rating ?? 0)
                     ? 'fill-yellow-400 text-yellow-400'
-                    : 'fill-slate-200 text-slate-200 dark:fill-slate-700 dark:text-slate-700'
+                    : 'fill-gray-200 text-gray-200 dark:fill-gray-700 dark:text-gray-700'
                 }`}
               />
             ))}
           </div>
 
           {/* Testimonial Text */}
-          <p className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 text-center mb-8 leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 text-center mb-8 leading-relaxed">
             "{currentTestimonial?.content}"
           </p>
 
@@ -145,11 +145,11 @@ export default function TestimonialsCarousel({
               </div>
             )}
             <div className="text-left">
-              <p className="font-bold text-lg text-slate-900 dark:text-white">
+              <p className="font-bold text-lg text-gray-900 dark:text-white">
                 {currentTestimonial?.name}
               </p>
               {currentTestimonial?.role && (
-                <p className="text-sm text-slate-600 dark:text-slate-400">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   {currentTestimonial.role}
                   {currentTestimonial?.company && ` at ${currentTestimonial.company}`}
                 </p>
@@ -163,17 +163,17 @@ export default function TestimonialsCarousel({
           <>
             <button
               onClick={goToPrevious}
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white dark:bg-slate-700 shadow-lg hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
+              className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white dark:bg-gray-700 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
               aria-label="Previous testimonial"
             >
-              <ChevronLeft className="w-6 h-6 text-slate-700 dark:text-slate-300" />
+              <ChevronLeft className="w-6 h-6 text-gray-700 dark:text-gray-300" />
             </button>
             <button
               onClick={goToNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white dark:bg-slate-700 shadow-lg hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white dark:bg-gray-700 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
               aria-label="Next testimonial"
             >
-              <ChevronRight className="w-6 h-6 text-slate-700 dark:text-slate-300" />
+              <ChevronRight className="w-6 h-6 text-gray-700 dark:text-gray-300" />
             </button>
           </>
         )}
@@ -189,7 +189,7 @@ export default function TestimonialsCarousel({
               className={`w-3 h-3 rounded-full transition-all ${
                 index === safeIndex
                   ? 'bg-primary-600 w-8'
-                  : 'bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500'
+                  : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
               }`}
               aria-label={`Go to testimonial ${index + 1}`}
             />

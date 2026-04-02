@@ -54,8 +54,8 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
     if (items.length === 0) return null;
 
     return (
-        <nav className="hidden lg:block sticky top-24 self-start max-w-[260px] pl-4 border-l border-slate-200">
-            <h4 className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-4">
+        <nav className="hidden lg:block sticky top-24 self-start max-w-[260px] pl-4 border-l border-gray-200">
+            <h4 className="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4">
                 On this page
             </h4>
             <ul className="space-y-1">
@@ -68,7 +68,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
                                 "block text-sm py-1.5 transition-colors border-l-2 -ml-[17px] pl-4",
                                 activeId === item.id
                                     ? "border-secondary-600 text-secondary-600 font-medium"
-                                    : "border-transparent text-slate-500 hover:text-slate-900 group"
+                                    : "border-transparent text-gray-500 hover:text-gray-900 group"
                             )}
                         >
                             <span className={cn("block truncate", item.level === 3 && "pl-3 text-xs opacity-90")}>

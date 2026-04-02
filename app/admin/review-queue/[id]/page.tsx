@@ -99,7 +99,7 @@ export default function ReviewArticlePage() {
         return (
             <AdminLayout>
                 <div className="p-8 text-center">
-                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">Article Not Found</h2>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">Article Not Found</h2>
                     <button onClick={() => router.back()} className="text-primary-500 hover:underline mt-4">
                         Go Back
                     </button>

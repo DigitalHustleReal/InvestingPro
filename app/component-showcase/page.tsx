@@ -10,10 +10,10 @@ export default function ComponentShowcasePage() {
     <div className="bg-white min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Title */}
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Professional Article Components Showcase
         </h1>
-        <p className="text-lg text-slate-600 mb-8">
+        <p className="text-lg text-gray-600 mb-8">
           This page demonstrates all available article components. Use these in your articles for a professional, Investopedia-style appearance.
         </p>
 
@@ -32,19 +32,19 @@ export default function ComponentShowcasePage() {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
-                <span className="text-slate-800">Professional components make your content stand out and improve user engagement</span>
+                <span className="text-gray-800">Professional components make your content stand out and improve user engagement</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
-                <span className="text-slate-800">Key Takeaways boxes should appear right after the introduction to summarize main points</span>
+                <span className="text-gray-800">Key Takeaways boxes should appear right after the introduction to summarize main points</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
-                <span className="text-slate-800">Use callout boxes to highlight important tips, warnings, and examples throughout your article</span>
+                <span className="text-gray-800">Use callout boxes to highlight important tips, warnings, and examples throughout your article</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
-                <span className="text-slate-800">Stats boxes are perfect for displaying numbers, returns, and financial metrics</span>
+                <span className="text-gray-800">Stats boxes are perfect for displaying numbers, returns, and financial metrics</span>
               </li>
             </ul>
           </div>
@@ -57,7 +57,7 @@ export default function ComponentShowcasePage() {
           {/* PRO TIP */}
           <div className="my-6 p-6 rounded-lg border-l-4 bg-accent-50 border-accent-500">
             <h4 className="font-bold text-lg mb-2 text-accent-900">ðŸ’¡ Pro Tip</h4>
-            <p className="text-slate-700">
+            <p className="text-gray-700">
               Use Pro Tip boxes to share expert advice and insider knowledge. These should contain actionable insights that readers can immediately apply.
             </p>
           </div>
@@ -65,7 +65,7 @@ export default function ComponentShowcasePage() {
           {/* IMPORTANT */}
           <div className="my-6 p-6 rounded-lg border-l-4 bg-secondary-50 border-secondary-500">
             <h4 className="font-bold text-lg mb-2 text-secondary-900">â„¹ï¸ Important</h4>
-            <p className="text-slate-700">
+            <p className="text-gray-700">
               Important boxes highlight critical information that readers must not miss. Use these for regulatory requirements, deadlines, or essential details.
             </p>
           </div>
@@ -73,7 +73,7 @@ export default function ComponentShowcasePage() {
           {/* WARNING */}
           <div className="my-6 p-6 rounded-lg border-l-4 bg-danger-50 border-danger-500">
             <h4 className="font-bold text-lg mb-2 text-danger-900">âš ï¸ Warning</h4>
-            <p className="text-slate-700">
+            <p className="text-gray-700">
               Warning boxes alert readers to potential risks, pitfalls, or common mistakes. Always include these when discussing investment risks or financial decisions that could have negative consequences.
             </p>
           </div>
@@ -81,10 +81,10 @@ export default function ComponentShowcasePage() {
           {/* EXAMPLE */}
           <div className="my-6 p-6 rounded-lg border-l-4 bg-secondary-50 border-secondary-500">
             <h4 className="font-bold text-lg mb-2 text-secondary-900">ðŸ“Š Example</h4>
-            <p className="text-slate-700 mb-2">
+            <p className="text-gray-700 mb-2">
               <strong>Scenario:</strong> Rajesh invests ₹10,000 per month in a SIP for 20 years at 12% annual returns.
             </p>
-            <p className="text-slate-700">
+            <p className="text-gray-700">
               <strong>Result:</strong> Total investment of ₹24 lakhs grows to approximately ₹1 crore through the power of compounding!
             </p>
           </div>
@@ -97,19 +97,19 @@ export default function ComponentShowcasePage() {
           {/* STATS GRID */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
             <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
-              <p className="text-sm text-slate-600 mb-1">Average SIP Returns</p>
+              <p className="text-sm text-gray-600 mb-1">Average SIP Returns</p>
               <p className="text-3xl font-bold text-primary-600">12.5%</p>
               <p className="text-xs mt-1 font-medium text-success-600">+2.3% vs last year</p>
             </div>
             <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
-              <p className="text-sm text-slate-600 mb-1">Min Investment</p>
+              <p className="text-sm text-gray-600 mb-1">Min Investment</p>
               <p className="text-3xl font-bold text-primary-600">₹500</p>
-              <p className="text-xs mt-1 font-medium text-slate-600">Per month</p>
+              <p className="text-xs mt-1 font-medium text-gray-600">Per month</p>
             </div>
             <div className="bg-white border-2 border-primary-200 rounded-lg p-4 text-center">
-              <p className="text-sm text-slate-600 mb-1">Tax Benefit</p>
+              <p className="text-sm text-gray-600 mb-1">Tax Benefit</p>
               <p className="text-3xl font-bold text-primary-600">₹1.5L</p>
-              <p className="text-xs mt-1 font-medium text-slate-600">Section 80C</p>
+              <p className="text-xs mt-1 font-medium text-gray-600">Section 80C</p>
             </div>
           </div>
 
@@ -119,26 +119,26 @@ export default function ComponentShowcasePage() {
           </p>
 
           {/* QUICK FACTS */}
-          <div className="my-6 bg-slate-50 border border-slate-300 rounded-lg p-5">
-            <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <div className="my-6 bg-gray-50 border border-gray-300 rounded-lg p-5">
+            <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
               â„¹ï¸ Quick Facts
             </h4>
             <dl className="space-y-2">
-              <div className="flex justify-between items-center py-2 border-b border-slate-200">
-                <dt className="text-sm text-slate-600">Minimum Investment</dt>
-                <dd className="font-semibold text-slate-900">₹500/month</dd>
+              <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                <dt className="text-sm text-gray-600">Minimum Investment</dt>
+                <dd className="font-semibold text-gray-900">₹500/month</dd>
               </div>
-              <div className="flex justify-between items-center py-2 border-b border-slate-200">
-                <dt className="text-sm text-slate-600">Lock-in Period</dt>
-                <dd className="font-semibold text-slate-900">3 years (ELSS)</dd>
+              <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                <dt className="text-sm text-gray-600">Lock-in Period</dt>
+                <dd className="font-semibold text-gray-900">3 years (ELSS)</dd>
               </div>
-              <div className="flex justify-between items-center py-2 border-b border-slate-200">
-                <dt className="text-sm text-slate-600">Tax Benefit</dt>
-                <dd className="font-semibold text-slate-900">Up to ₹1.5 Lakh (80C)</dd>
+              <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                <dt className="text-sm text-gray-600">Tax Benefit</dt>
+                <dd className="font-semibold text-gray-900">Up to ₹1.5 Lakh (80C)</dd>
               </div>
               <div className="flex justify-between items-center py-2">
-                <dt className="text-sm text-slate-600">Risk Level</dt>
-                <dd className="font-semibold text-slate-900">Moderate to High</dd>
+                <dt className="text-sm text-gray-600">Risk Level</dt>
+                <dd className="font-semibold text-gray-900">Moderate to High</dd>
               </div>
             </dl>
           </div>
@@ -153,7 +153,7 @@ export default function ComponentShowcasePage() {
             <h4 className="font-bold text-primary-900 mb-3 flex items-center gap-2">
               ðŸ§® SIP Return Calculation
             </h4>
-            <div className="bg-white rounded p-4 font-mono text-center text-lg font-semibold text-slate-900 mb-3">
+            <div className="bg-white rounded p-4 font-mono text-center text-lg font-semibold text-gray-900 mb-3">
               FV = P Ã— [(1 + r)â¿ - 1] / r Ã— (1 + r)
             </div>
             <p className="text-sm text-primary-800">
@@ -167,24 +167,24 @@ export default function ComponentShowcasePage() {
           </p>
 
           {/* COMPARISON TABLE */}
-          <div className="my-8 border-2 border-slate-200 rounded-lg overflow-hidden">
+          <div className="my-8 border-2 border-gray-200 rounded-lg overflow-hidden">
             <div className="bg-primary-600 text-white px-6 py-3">
               <h3 className="font-bold text-lg">SIP vs Lumpsum Comparison</h3>
             </div>
-            <div className="divide-y divide-slate-200">
+            <div className="divide-y divide-gray-200">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-                <div className="font-semibold text-slate-900">Investment Style</div>
+                <div className="font-semibold text-gray-900">Investment Style</div>
                 <div className="flex items-center gap-2 text-success-700">
                   <span className="text-lg">âœ“</span>
                   <span>Regular monthly investments</span>
                 </div>
-                <div className="flex items-center gap-2 text-slate-600">
+                <div className="flex items-center gap-2 text-gray-600">
                   <span className="text-lg">â—‹</span>
                   <span>One-time large investment</span>
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-                <div className="font-semibold text-slate-900">Risk Level</div>
+                <div className="font-semibold text-gray-900">Risk Level</div>
                 <div className="flex items-center gap-2 text-success-700">
                   <span className="text-lg">âœ“</span>
                   <span>Lower (rupee cost averaging)</span>
@@ -195,7 +195,7 @@ export default function ComponentShowcasePage() {
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-                <div className="font-semibold text-slate-900">Best For</div>
+                <div className="font-semibold text-gray-900">Best For</div>
                 <div className="flex items-center gap-2 text-success-700">
                   <span className="text-lg">âœ“</span>
                   <span>Salaried individuals</span>
@@ -222,14 +222,14 @@ export default function ComponentShowcasePage() {
           </p>
 
           <h3>Progress Bars</h3>
-          <div className="my-6 p-6 bg-slate-50 rounded-lg">
+          <div className="my-6 p-6 bg-gray-50 rounded-lg">
             {/* Progress Bar 1 */}
             <div className="mb-4">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-slate-700">Portfolio Allocation - Equity</span>
-                <span className="text-sm font-bold text-slate-900">70%</span>
+                <span className="text-sm font-medium text-gray-700">Portfolio Allocation - Equity</span>
+                <span className="text-sm font-bold text-gray-900">70%</span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+              <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                 <div className="h-3 rounded-full bg-primary-600" style={{ width: '70%' }} />
               </div>
             </div>
@@ -237,10 +237,10 @@ export default function ComponentShowcasePage() {
             {/* Progress Bar 2 */}
             <div className="mb-4">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-slate-700">Debt Allocation</span>
-                <span className="text-sm font-bold text-slate-900">25%</span>
+                <span className="text-sm font-medium text-gray-700">Debt Allocation</span>
+                <span className="text-sm font-bold text-gray-900">25%</span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+              <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                 <div className="h-3 rounded-full bg-primary-600" style={{ width: '25%' }} />
               </div>
             </div>
@@ -248,10 +248,10 @@ export default function ComponentShowcasePage() {
             {/* Progress Bar 3 */}
             <div className="mb-4">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-slate-700">Cash & Others</span>
-                <span className="text-sm font-bold text-slate-900">5%</span>
+                <span className="text-sm font-medium text-gray-700">Cash & Others</span>
+                <span className="text-sm font-bold text-gray-900">5%</span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+              <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                 <div className="h-3 rounded-full bg-accent-500" style={{ width: '5%' }} />
               </div>
             </div>
@@ -269,7 +269,7 @@ export default function ComponentShowcasePage() {
             }}>
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-bold text-slate-900">100%</span>
+                  <span className="text-2xl font-bold text-gray-900">100%</span>
                 </div>
               </div>
             </div>
@@ -278,63 +278,63 @@ export default function ComponentShowcasePage() {
             <div className="space-y-2">
               <div className="flex items-center gap-3">
                 <div className="w-4 h-4 rounded bg-primary-600" />
-                <span className="text-sm text-slate-700">Equity</span>
-                <span className="text-sm font-semibold text-slate-900">70%</span>
+                <span className="text-sm text-gray-700">Equity</span>
+                <span className="text-sm font-semibold text-gray-900">70%</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-4 h-4 rounded bg-primary-600" />
-                <span className="text-sm text-slate-700">Debt</span>
-                <span className="text-sm font-semibold text-slate-900">25%</span>
+                <span className="text-sm text-gray-700">Debt</span>
+                <span className="text-sm font-semibold text-gray-900">25%</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-4 h-4 rounded bg-accent-500" />
-                <span className="text-sm text-slate-700">Cash</span>
-                <span className="text-sm font-semibold text-slate-900">5%</span>
+                <span className="text-sm text-gray-700">Cash</span>
+                <span className="text-sm font-semibold text-gray-900">5%</span>
               </div>
             </div>
           </div>
 
           <h3>Bar Chart (Returns Comparison)</h3>
-          <div className="my-6 p-6 bg-white border border-slate-200 rounded-lg">
+          <div className="my-6 p-6 bg-white border border-gray-200 rounded-lg">
             <div className="flex items-end justify-around gap-4 h-64">
               <div className="flex flex-col items-center flex-1">
-                <div className="mb-2 text-sm font-semibold text-slate-900">12.5%</div>
-                <div className="w-full bg-slate-100 rounded-t-lg relative" style={{ height: '62.5%' }}>
+                <div className="mb-2 text-sm font-semibold text-gray-900">12.5%</div>
+                <div className="w-full bg-gray-100 rounded-t-lg relative" style={{ height: '62.5%' }}>
                   <div className="absolute bottom-0 w-full rounded-t-lg bg-primary-600" style={{ height: '100%' }} />
                 </div>
-                <div className="mt-2 text-xs text-center text-slate-600">SIP Returns</div>
+                <div className="mt-2 text-xs text-center text-gray-600">SIP Returns</div>
               </div>
               <div className="flex flex-col items-center flex-1">
-                <div className="mb-2 text-sm font-semibold text-slate-900">8.5%</div>
-                <div className="w-full bg-slate-100 rounded-t-lg relative" style={{ height: '42.5%' }}>
+                <div className="mb-2 text-sm font-semibold text-gray-900">8.5%</div>
+                <div className="w-full bg-gray-100 rounded-t-lg relative" style={{ height: '42.5%' }}>
                   <div className="absolute bottom-0 w-full rounded-t-lg bg-primary-600" style={{ height: '100%' }} />
                 </div>
-                <div className="mt-2 text-xs text-center text-slate-600">FD Returns</div>
+                <div className="mt-2 text-xs text-center text-gray-600">FD Returns</div>
               </div>
               <div className="flex flex-col items-center flex-1">
-                <div className="mb-2 text-sm font-semibold text-slate-900">6.5%</div>
-                <div className="w-full bg-slate-100 rounded-t-lg relative" style={{ height: '32.5%' }}>
+                <div className="mb-2 text-sm font-semibold text-gray-900">6.5%</div>
+                <div className="w-full bg-gray-100 rounded-t-lg relative" style={{ height: '32.5%' }}>
                   <div className="absolute bottom-0 w-full rounded-t-lg bg-accent-500" style={{ height: '100%' }} />
                 </div>
-                <div className="mt-2 text-xs text-center text-slate-600">Savings A/C</div>
+                <div className="mt-2 text-xs text-center text-gray-600">Savings A/C</div>
               </div>
               <div className="flex flex-col items-center flex-1">
-                <div className="mb-2 text-sm font-semibold text-slate-900">20%</div>
-                <div className="w-full bg-slate-100 rounded-t-lg relative" style={{ height: '100%' }}>
+                <div className="mb-2 text-sm font-semibold text-gray-900">20%</div>
+                <div className="w-full bg-gray-100 rounded-t-lg relative" style={{ height: '100%' }}>
                   <div className="absolute bottom-0 w-full rounded-t-lg bg-secondary-600" style={{ height: '100%' }} />
                 </div>
-                <div className="mt-2 text-xs text-center text-slate-600">Gold</div>
+                <div className="mt-2 text-xs text-center text-gray-600">Gold</div>
               </div>
             </div>
           </div>
 
           <h3>Comparison Slider</h3>
-          <div className="my-6 p-6 bg-gradient-to-r from-success-50 to-blue-50 rounded-lg border border-slate-200">
+          <div className="my-6 p-6 bg-gradient-to-r from-success-50 to-blue-50 rounded-lg border border-gray-200">
             <div className="flex justify-between mb-3">
-              <span className="font-semibold text-slate-900">SIP Investment</span>
-              <span className="font-semibold text-slate-900">Lumpsum Investment</span>
+              <span className="font-semibold text-gray-900">SIP Investment</span>
+              <span className="font-semibold text-gray-900">Lumpsum Investment</span>
             </div>
-            <div className="relative h-12 bg-white rounded-full overflow-hidden border-2 border-slate-300">
+            <div className="relative h-12 bg-white rounded-full overflow-hidden border-2 border-gray-300">
               <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-success-500 to-success-600 flex items-center justify-end pr-4" style={{ width: '65%' }}>
                 <span className="text-white font-bold text-sm">65%</span>
               </div>
@@ -342,7 +342,7 @@ export default function ComponentShowcasePage() {
                 <span className="text-white font-bold text-sm">35%</span>
               </div>
             </div>
-            <p className="text-xs text-slate-600 mt-2 text-center">Based on risk-adjusted returns over 10 years</p>
+            <p className="text-xs text-gray-600 mt-2 text-center">Based on risk-adjusted returns over 10 years</p>
           </div>
 
           <h3>Timeline / Process Flow</h3>
@@ -353,8 +353,8 @@ export default function ComponentShowcasePage() {
                 <div className="w-0.5 h-full bg-primary-200 mt-2" />
               </div>
               <div className="flex-1 pb-6">
-                <h4 className="font-bold text-slate-900 mb-1">Check Eligibility</h4>
-                <p className="text-slate-600 text-sm">Verify your credit score, income, and basic requirements before applying</p>
+                <h4 className="font-bold text-gray-900 mb-1">Check Eligibility</h4>
+                <p className="text-gray-600 text-sm">Verify your credit score, income, and basic requirements before applying</p>
               </div>
             </div>
             <div className="flex gap-4 mb-6">
@@ -363,8 +363,8 @@ export default function ComponentShowcasePage() {
                 <div className="w-0.5 h-full bg-primary-200 mt-2" />
               </div>
               <div className="flex-1 pb-6">
-                <h4 className="font-bold text-slate-900 mb-1">Submit Application</h4>
-                <p className="text-slate-600 text-sm">Fill out the online form with accurate personal and financial information</p>
+                <h4 className="font-bold text-gray-900 mb-1">Submit Application</h4>
+                <p className="text-gray-600 text-sm">Fill out the online form with accurate personal and financial information</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -372,15 +372,15 @@ export default function ComponentShowcasePage() {
                 <div className="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-lg">3</div>
               </div>
               <div className="flex-1">
-                <h4 className="font-bold text-slate-900 mb-1">Get Approval</h4>
-                <p className="text-slate-600 text-sm">Receive instant decision or wait 24-48 hours for approval confirmation</p>
+                <h4 className="font-bold text-gray-900 mb-1">Get Approval</h4>
+                <p className="text-gray-600 text-sm">Receive instant decision or wait 24-48 hours for approval confirmation</p>
               </div>
             </div>
           </div>
 
           <h3>Rating Display</h3>
           <div className="flex items-center gap-3 my-4 p-4 bg-accent-50 rounded-lg border border-accent-200">
-            <span className="text-sm font-medium text-slate-700">Overall Rating:</span>
+            <span className="text-sm font-medium text-gray-700">Overall Rating:</span>
             <div className="flex gap-1">
               <svg className="w-6 h-6 text-accent-400 fill-current" viewBox="0 0 20 20">
                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -394,11 +394,11 @@ export default function ComponentShowcasePage() {
               <svg className="w-6 h-6 text-accent-400 fill-current" viewBox="0 0 20 20">
                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
               </svg>
-              <svg className="w-6 h-6 text-slate-300" viewBox="0 0 20 20">
+              <svg className="w-6 h-6 text-gray-300" viewBox="0 0 20 20">
                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
               </svg>
             </div>
-            <span className="text-sm font-bold text-slate-900">4.0/5.0</span>
+            <span className="text-sm font-bold text-gray-900">4.0/5.0</span>
           </div>
 
           <h3>Growth Indicators</h3>
@@ -411,9 +411,9 @@ export default function ComponentShowcasePage() {
               <span className="text-2xl font-bold text-danger-600">-3.2%</span>
               <span className="text-2xl text-danger-600">â†˜</span>
             </div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border-2 border-slate-200">
-              <span className="text-2xl font-bold text-slate-600">0%</span>
-              <span className="text-2xl text-slate-600">â†’</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border-2 border-gray-200">
+              <span className="text-2xl font-bold text-gray-600">0%</span>
+              <span className="text-2xl text-gray-600">â†’</span>
             </div>
           </div>
 
@@ -423,25 +423,25 @@ export default function ComponentShowcasePage() {
               <div className="w-6 h-6 rounded-full flex items-center justify-center bg-primary-600">
                 <span className="text-white text-sm font-bold">âœ“</span>
               </div>
-              <span className="text-sm font-medium text-slate-900">Zero Annual Fee</span>
+              <span className="text-sm font-medium text-gray-900">Zero Annual Fee</span>
             </div>
             <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-primary-50 border-primary-200">
               <div className="w-6 h-6 rounded-full flex items-center justify-center bg-primary-600">
                 <span className="text-white text-sm font-bold">âœ“</span>
               </div>
-              <span className="text-sm font-medium text-slate-900">Cashback on All Purchases</span>
+              <span className="text-sm font-medium text-gray-900">Cashback on All Purchases</span>
             </div>
-            <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-slate-50 border-slate-200">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-slate-400">
+            <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-gray-50 border-gray-200">
+              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-400">
                 <span className="text-white text-sm font-bold">âœ—</span>
               </div>
-              <span className="text-sm font-medium text-slate-500">Lounge Access</span>
+              <span className="text-sm font-medium text-gray-500">Lounge Access</span>
             </div>
-            <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-slate-50 border-slate-200">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-slate-400">
+            <div className="flex items-center gap-3 p-4 rounded-lg border-2 bg-gray-50 border-gray-200">
+              <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-400">
                 <span className="text-white text-sm font-bold">âœ—</span>
               </div>
-              <span className="text-sm font-medium text-slate-500">International Travel Insurance</span>
+              <span className="text-sm font-medium text-gray-500">International Travel Insurance</span>
             </div>
           </div>
 
@@ -449,21 +449,21 @@ export default function ComponentShowcasePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
             <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm">
               <div className="text-4xl mb-2">ðŸ“ˆ</div>
-              <p className="text-sm text-slate-600 mb-2">Average Returns</p>
+              <p className="text-sm text-gray-600 mb-2">Average Returns</p>
               <p className="text-3xl font-bold text-primary-600 mb-2">14.2%</p>
               <p className="text-xs font-medium text-success-600">+2.3% vs last year</p>
             </div>
             <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm">
               <div className="text-4xl mb-2">ðŸ’°</div>
-              <p className="text-sm text-slate-600 mb-2">Min Investment</p>
+              <p className="text-sm text-gray-600 mb-2">Min Investment</p>
               <p className="text-3xl font-bold text-primary-600 mb-2">₹500</p>
-              <p className="text-xs font-medium text-slate-600">Per month via SIP</p>
+              <p className="text-xs font-medium text-gray-600">Per month via SIP</p>
             </div>
             <div className="bg-white border-2 border-primary-200 rounded-lg p-6 text-center shadow-sm">
               <div className="text-4xl mb-2">ðŸ”’</div>
-              <p className="text-sm text-slate-600 mb-2">Lock-in Period</p>
+              <p className="text-sm text-gray-600 mb-2">Lock-in Period</p>
               <p className="text-3xl font-bold text-primary-600 mb-2">3 Years</p>
-              <p className="text-xs font-medium text-slate-600">Tax-saving ELSS</p>
+              <p className="text-xs font-medium text-gray-600">Tax-saving ELSS</p>
             </div>
           </div>
 

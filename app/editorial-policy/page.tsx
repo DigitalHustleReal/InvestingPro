@@ -22,14 +22,14 @@ export default function EditorialPolicyPage() {
                 description="Our editorial standards, content review process, and commitment to transparency and accuracy in financial information."
                 url="https://investingpro.in/editorial-policy"
             />
-            <div className="min-h-screen bg-slate-50">
+            <div className="min-h-screen bg-gray-50">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     {/* Header */}
                     <div className="mb-12 text-center">
-                        <h1 className="text-4xl font-bold text-slate-900 mb-4">
+                        <h1 className="text-4xl font-bold text-gray-900 mb-4">
                             Editorial Policy
                         </h1>
-                        <p className="text-xl text-slate-600">
+                        <p className="text-xl text-gray-600">
                             Our commitment to accuracy, transparency, and independence
                         </p>
                     </div>
@@ -45,26 +45,26 @@ export default function EditorialPolicyPage() {
                         <CardContent>
                             <div className="space-y-4">
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">Authoritative & Neutral</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">Authoritative & Neutral</h3>
+                                    <p className="text-sm text-gray-600">
                                         All content is research-driven and neutral. We do not favor any provider or product.
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">Data-Driven</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">Data-Driven</h3>
+                                    <p className="text-sm text-gray-600">
                                         Every claim is backed by verified data with full provenance (source, timestamp, update frequency).
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">Transparent</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">Transparent</h3>
+                                    <p className="text-sm text-gray-600">
                                         Our methodology, data sources, and ranking calculations are publicly disclosed.
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">Independent</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">Independent</h3>
+                                    <p className="text-sm text-gray-600">
                                         Rankings and content are not influenced by monetization, affiliate relationships, or advertising.
                                     </p>
                                 </div>
@@ -82,8 +82,8 @@ export default function EditorialPolicyPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
-                                <div className="p-6 md:p-8 bg-slate-50 rounded-lg">
-                                    <p className="text-sm text-slate-700 mb-3">
+                                <div className="p-6 md:p-8 bg-gray-50 rounded-lg">
+                                    <p className="text-sm text-gray-700 mb-3">
                                         <strong>Important:</strong> InvestingPro is NOT an AI content generator.
                                         We are an authoritative financial comparison and ranking engine.
                                         AI is used ONLY as a support tool under strict limitations.
@@ -91,8 +91,8 @@ export default function EditorialPolicyPage() {
                                 </div>
 
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">AI May ONLY Be Used For:</h3>
-                                    <ul className="space-y-2 text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">AI May ONLY Be Used For:</h3>
+                                    <ul className="space-y-2 text-sm text-gray-600">
                                         <li className="flex items-start gap-2">
                                             <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>Drafting summaries from verified data (human review required)</span>
@@ -109,8 +109,8 @@ export default function EditorialPolicyPage() {
                                 </div>
 
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">AI Guardrails:</h3>
-                                    <ul className="space-y-2 text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">AI Guardrails:</h3>
+                                    <ul className="space-y-2 text-sm text-gray-600">
                                         <li className="flex items-start gap-2">
                                             <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                             <span>Must use RAG (retrieval from scraped data)</span>
@@ -135,8 +135,8 @@ export default function EditorialPolicyPage() {
                                 </div>
 
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">NOT Allowed:</h3>
-                                    <ul className="space-y-2 text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">NOT Allowed:</h3>
+                                    <ul className="space-y-2 text-sm text-gray-600">
                                         <li className="flex items-start gap-2">
                                             <AlertTriangle className="w-4 h-4 text-danger-600 mt-0.5 flex-shrink-0" />
                                             <span>Bulk article generation</span>
@@ -174,32 +174,32 @@ export default function EditorialPolicyPage() {
                         <CardContent>
                             <div className="space-y-4">
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">1. Data Verification</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">1. Data Verification</h3>
+                                    <p className="text-sm text-gray-600">
                                         All data points are verified against source documents with full provenance tracking.
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">2. Draft Generation</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">2. Draft Generation</h3>
+                                    <p className="text-sm text-gray-600">
                                         If AI is used for drafting, it must be based on verified data and include citations.
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">3. Human Review (MANDATORY)</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">3. Human Review (MANDATORY)</h3>
+                                    <p className="text-sm text-gray-600">
                                         All content, including AI-generated drafts, must be reviewed by a human editor before publication.
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">4. Compliance Check</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">4. Compliance Check</h3>
+                                    <p className="text-sm text-gray-600">
                                         Content is checked for compliance with informational language requirements and disclaimers.
                                     </p>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">5. Publication</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">5. Publication</h3>
+                                    <p className="text-sm text-gray-600">
                                         Only reviewed and approved content is published. All published content includes data provenance.
                                     </p>
                                 </div>
@@ -215,12 +215,12 @@ export default function EditorialPolicyPage() {
                         <CardContent>
                             <div className="space-y-4">
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">Informational Language Only</h3>
-                                    <p className="text-sm text-slate-600 mb-2">
+                                    <h3 className="font-semibold text-gray-900 mb-2">Informational Language Only</h3>
+                                    <p className="text-sm text-gray-600 mb-2">
                                         All content uses informational, educational language. We do not provide financial advice.
                                     </p>
-                                    <div className="p-3 bg-slate-50 rounded">
-                                        <p className="text-xs font-mono text-slate-700">
+                                    <div className="p-3 bg-gray-50 rounded">
+                                        <p className="text-xs font-mono text-gray-700">
                                             ✅ "This product offers..."<br />
                                             ✅ "According to the data..."<br />
                                             ✅ "Users may consider..."<br />
@@ -231,8 +231,8 @@ export default function EditorialPolicyPage() {
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">No Advisory Claims</h3>
-                                    <p className="text-sm text-slate-600">
+                                    <h3 className="font-semibold text-gray-900 mb-2">No Advisory Claims</h3>
+                                    <p className="text-sm text-gray-600">
                                         We do not claim to be registered investment advisors. All content is clearly marked as informational.
                                     </p>
                                 </div>
@@ -246,10 +246,10 @@ export default function EditorialPolicyPage() {
                             <CardTitle>Corrections & Updates</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-sm text-slate-600 mb-4">
+                            <p className="text-sm text-gray-600 mb-4">
                                 We are committed to accuracy. If you find an error:
                             </p>
-                            <ul className="space-y-2 text-sm text-slate-600">
+                            <ul className="space-y-2 text-sm text-gray-600">
                                 <li className="flex items-start gap-2">
                                     <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
                                     <span>Contact us at support@investingpro.in</span>

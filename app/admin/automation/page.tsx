@@ -43,7 +43,7 @@ export default function AutomationPage() {
             <div className="p-8 space-y-8 max-w-7xl mx-auto">
                 {/* Hero / Header Section */}
                 <div 
-                    className="relative overflow-hidden rounded-2xl p-8 bg-slate-900 border border-slate-800 shadow-xl"
+                    className="relative overflow-hidden rounded-2xl p-8 bg-gray-900 border border-gray-800 shadow-xl"
                 >
                     <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-sky-500/10 blur-3xl opacity-50" />
                     
@@ -54,7 +54,7 @@ export default function AutomationPage() {
                             </div>
                             <div>
                                 <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Automation Hub</h1>
-                                <p className="text-slate-400 max-w-md">Orchestrate and monitor your AI-driven content engine from a central command center.</p>
+                                <p className="text-gray-400 max-w-md">Orchestrate and monitor your AI-driven content engine from a central command center.</p>
                             </div>
                         </div>
                         
@@ -158,8 +158,8 @@ export default function AutomationPage() {
                             <div className="flex items-center gap-4">
                                 <Sparkles className="w-6 h-6 text-sky-500 animate-pulse" />
                                 <div>
-                                    <h4 className="font-semibold text-slate-900 dark:text-white">AI Pilot Mode</h4>
-                                    <p className="text-xs text-slate-500">Currently operating at Level 4 Autonomy</p>
+                                    <h4 className="font-semibold text-gray-900 dark:text-white">AI Pilot Mode</h4>
+                                    <p className="text-xs text-gray-500">Currently operating at Level 4 Autonomy</p>
                                 </div>
                             </div>
                             <Badge className="bg-emerald-500 text-white border-none font-bold">
@@ -177,15 +177,15 @@ export default function AutomationPage() {
 function ActionCard({ title, desc, href, icon: Icon, color }: any) {
     return (
         <Link href={href}>
-            <div className="group p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-sky-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-sm">
+            <div className="group p-5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl hover:border-sky-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-sm">
                 <div className={cn(
                     "w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110",
                     color === 'orange' ? 'bg-orange-500/10 text-orange-500' : 'bg-sky-500/10 text-sky-500'
                 )}>
                     <Icon className="w-5 h-5" />
                 </div>
-                <h4 className="font-bold text-slate-900 dark:text-white mb-1">{title}</h4>
-                <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-1">{title}</h4>
+                <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
             </div>
         </Link>
     );
@@ -194,19 +194,19 @@ function ActionCard({ title, desc, href, icon: Icon, color }: any) {
 function ActionRow({ title, desc, count, href, icon: Icon }: any) {
     return (
         <Link href={href}>
-            <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
                 <div className="flex items-center gap-4">
-                    <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 group-hover:bg-sky-500/10 transition-colors">
-                        <Icon className="w-4 h-4 text-slate-400 group-hover:text-sky-500" />
+                    <div className="p-2 rounded-lg bg-gray-50 dark:bg-gray-800 group-hover:bg-sky-500/10 transition-colors">
+                        <Icon className="w-4 h-4 text-gray-400 group-hover:text-sky-500" />
                     </div>
                     <div>
-                        <h4 className="text-sm font-semibold text-slate-900 dark:text-white">{title}</h4>
-                        <p className="text-xs text-slate-500">{desc}</p>
+                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{title}</h4>
+                        <p className="text-xs text-gray-500">{desc}</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
-                    <span className="text-xs font-bold px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-full border border-slate-200 dark:border-slate-700">{count}</span>
-                    <Play className="w-3 h-3 text-slate-400 group-hover:text-sky-500 opacity-0 group-hover:opacity-100 transition-all" />
+                    <span className="text-xs font-bold px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full border border-gray-200 dark:border-gray-700">{count}</span>
+                    <Play className="w-3 h-3 text-gray-400 group-hover:text-sky-500 opacity-0 group-hover:opacity-100 transition-all" />
                 </div>
             </div>
         </Link>

@@ -57,7 +57,7 @@ export function ComparisonTable({
     type: ComparisonTableRow['type']
   ): React.ReactNode => {
     if (value === null || value === undefined) {
-      return <span className="text-slate-600 dark:text-slate-500">—</span>;
+      return <span className="text-gray-600 dark:text-gray-500">—</span>;
     }
 
     switch (type) {
@@ -79,7 +79,7 @@ export function ComparisonTable({
         return value ? (
           <Check className="w-5 h-5 text-success-600 mx-auto" />
         ) : (
-          <X className="w-5 h-5 text-slate-300 dark:text-slate-600 mx-auto" />
+          <X className="w-5 h-5 text-gray-300 dark:text-gray-600 mx-auto" />
         );
       
       case 'rating':
@@ -90,7 +90,7 @@ export function ComparisonTable({
                 key={i}
                 className={cn(
                   "text-base",
-                  i < (value as number) ? "text-accent-500" : "text-slate-300 dark:text-slate-600"
+                  i < (value as number) ? "text-accent-500" : "text-gray-300 dark:text-gray-600"
                 )}
               >
                 ★
@@ -179,9 +179,9 @@ export function ComparisonTable({
                   <tr key={`category-${rowIndex}`}>
                     <td
                       colSpan={columns.length + 1}
-                      className="px-4 py-3 bg-slate-100 dark:bg-slate-800 border-t-2 border-slate-300 dark:border-slate-700"
+                      className="px-4 py-3 bg-gray-100 dark:bg-gray-800 border-t-2 border-gray-300 dark:border-gray-700"
                     >
-                      <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide">
+                      <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wide">
                         {row.category}
                       </h3>
                     </td>
@@ -194,13 +194,13 @@ export function ComparisonTable({
                 <tr
                   key={`row-${rowIndex}`}
                   className={cn(
-                    "border-b border-slate-200 dark:border-slate-700",
-                    rowIndex % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50 dark:bg-slate-800",
+                    "border-b border-gray-200 dark:border-gray-700",
+                    rowIndex % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800",
                     row.highlight && "bg-accent-50 dark:bg-accent-950"
                   )}
                 >
                   {/* Feature name */}
-                  <td className="px-4 py-3 text-sm text-slate-900 dark:text-white">
+                  <td className="px-4 py-3 text-sm text-gray-900 dark:text-white">
                     <div className="flex items-center gap-2">
                       <span className={cn(
                         row.highlight && "font-semibold"
@@ -210,7 +210,7 @@ export function ComparisonTable({
                       {row.tooltip && (
                         <span title={row.tooltip}>
                           <AlertCircle
-                            className="w-4 h-4 text-slate-600 dark:text-slate-500"
+                            className="w-4 h-4 text-gray-600 dark:text-gray-500"
                           />
                         </span>
                       )}
@@ -247,9 +247,9 @@ export function ComparisonTable({
           </tbody>
 
           {/* Footer with CTA buttons */}
-          <tfoot className="bg-slate-100 dark:bg-slate-800">
+          <tfoot className="bg-gray-100 dark:bg-gray-800">
             <tr>
-              <td className="px-4 py-4 text-sm font-semibold text-slate-900 dark:text-white">
+              <td className="px-4 py-4 text-sm font-semibold text-gray-900 dark:text-white">
                 Ready to apply?
               </td>
               {columns.map((col) => (
@@ -282,7 +282,7 @@ export function ComparisonTable({
       </div>
 
       {/* Mobile Notice */}
-      <div className="mt-4 flex items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-600 md:hidden">
+      <div className="mt-4 flex items-center justify-center gap-1.5 text-xs text-gray-500 dark:text-gray-600 md:hidden">
         <Info className="w-3.5 h-3.5 text-primary-500" />
         <span>Swipe horizontally to see all products</span>
       </div>

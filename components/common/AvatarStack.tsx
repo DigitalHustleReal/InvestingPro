@@ -24,7 +24,7 @@ export function AvatarStack({ size = 40, limit = 4, className }: AvatarStackProp
       {avatars.slice(0, limit).map((src, i) => (
         <div 
             key={i} 
-            className="relative inline-block rounded-full ring-2 ring-white dark:ring-slate-900 bg-slate-100"
+            className="relative inline-block rounded-full ring-2 ring-white dark:ring-gray-900 bg-gray-100"
             style={{ width: size, height: size }}
         >
           <Image
@@ -37,7 +37,7 @@ export function AvatarStack({ size = 40, limit = 4, className }: AvatarStackProp
         </div>
       ))}
       <div 
-        className="flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 ring-2 ring-white dark:ring-slate-900 border border-slate-200 dark:border-slate-700 font-medium text-xs text-slate-600 dark:text-slate-300"
+        className="flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 ring-2 ring-white dark:ring-gray-900 border border-gray-200 dark:border-gray-700 font-medium text-xs text-gray-600 dark:text-gray-300"
         style={{ width: size, height: size }}
       >
         +2M

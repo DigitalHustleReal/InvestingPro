@@ -54,15 +54,15 @@ export function AuthorByline({
             </div>
             <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-semibold text-slate-900 dark:text-white cursor-pointer hover:text-primary-600 hover:underline decoration-primary-600/30 underline-offset-4 transition-colors">
+                    <span className="text-sm font-semibold text-gray-900 dark:text-white cursor-pointer hover:text-primary-600 hover:underline decoration-primary-600/30 underline-offset-4 transition-colors">
                         {author.name}
                     </span>
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-400">
+                <p className="text-xs text-gray-600 dark:text-gray-400">
                     {author.title}
                 </p>
                 {author.credentials && (
-                    <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+                    <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                         {author.credentials}
                     </p>
                 )}
@@ -71,7 +71,7 @@ export function AuthorByline({
     );
 
     return (
-        <div className="flex flex-col gap-4 py-6 border-y border-slate-200 dark:border-slate-800 my-8">
+        <div className="flex flex-col gap-4 py-6 border-y border-gray-200 dark:border-gray-800 my-8">
             {/* Author Card with Hover Effect */}
             {author.slug ? (
                 <AuthorHoverCard author={hoverCardAuthor}>
@@ -93,7 +93,7 @@ export function AuthorByline({
                 )}
                 
                 {lastUpdated && (
-                    <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400">
                         <Clock className="w-4 h-4" />
                         <span>
                             Updated {lastUpdated}

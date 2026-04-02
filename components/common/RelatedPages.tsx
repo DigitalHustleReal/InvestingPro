@@ -47,10 +47,10 @@ export default function RelatedPages({
 
     return (
         <section
-            className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800"
+            className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800"
             aria-label="Related pages"
         >
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 Explore More
             </h2>
 
@@ -66,7 +66,7 @@ export default function RelatedPages({
                         >
                             <Card
                                 className={cn(
-                                    'h-full border border-slate-200 dark:border-slate-700',
+                                    'h-full border border-gray-200 dark:border-gray-700',
                                     'transition-all duration-200',
                                     'hover:border-green-300 dark:hover:border-green-700',
                                     'hover:shadow-md',
@@ -84,16 +84,16 @@ export default function RelatedPages({
                                         >
                                             <Icon className="w-4 h-4" />
                                         </span>
-                                        <span className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                                        <span className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
                                             {groupLabel}
                                         </span>
                                     </div>
 
-                                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors leading-snug">
+                                    <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors leading-snug">
                                         {link.title}
                                     </h3>
 
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
                                         {link.description}
                                     </p>
 

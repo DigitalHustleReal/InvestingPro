@@ -78,7 +78,7 @@ export default function SocialDashboard() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-foreground dark:text-foreground">Social Media Dashboard</h1>
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground dark:text-foreground">Social Media Dashboard</h1>
                         <p className="text-muted-foreground/50 dark:text-muted-foreground/50 dark:text-muted-foreground dark:text-muted-foreground mt-1">
                             Track social media performance and engagement
                         </p>

@@ -48,14 +48,14 @@ export default function ScorePreferenceToggle({ currentWeights, onWeightChange }
     )?.id || 'balanced';
 
     return (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 mb-6 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 mb-6 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
                     <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div>
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">AI Personalization</h3>
-                    <p className="text-xs text-slate-500">Adjust how we score these cards for you.</p>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white">AI Personalization</h3>
+                    <p className="text-xs text-gray-500">Adjust how we score these cards for you.</p>
                 </div>
             </div>
             
@@ -72,10 +72,10 @@ export default function ScorePreferenceToggle({ currentWeights, onWeightChange }
                                 "flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-medium transition-all duration-300 border",
                                 isActive 
                                     ? "bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20 scale-105" 
-                                    : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-transparent hover:bg-slate-100 dark:hover:bg-slate-700"
+                                    : "bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-transparent hover:bg-gray-100 dark:hover:bg-gray-700"
                             )}
                         >
-                            <Icon className={cn("w-4 h-4", isActive ? "text-white" : "text-slate-500 dark:text-slate-600")} />
+                            <Icon className={cn("w-4 h-4", isActive ? "text-white" : "text-gray-500 dark:text-gray-600")} />
                             {pref.label}
                         </button>
                     );

@@ -48,7 +48,7 @@ export default function EMICalculatorPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <SEOHead
                 title="EMI Calculator India 2026 - Home Loan, Car Loan EMI Calculator | InvestingPro"
                 description="Free EMI calculator for home loans, car loans, personal loans, and education loans. Calculate loan EMI, total interest, principal vs interest breakdown, and amortization schedule. Compare different loan offers."
@@ -56,21 +56,21 @@ export default function EMICalculatorPage() {
             />
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
-                <nav className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <nav className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                     <Link href="/" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Home</Link>
                     <span>/</span>
                     <Link href="/calculators" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Calculators</Link>
                     <span>/</span>
-                    <span className="text-slate-900 dark:text-white font-medium">EMI Calculator</span>
+                    <span className="text-gray-900 dark:text-white font-medium">EMI Calculator</span>
                 </nav>
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                         EMI Calculator - Calculate Loan EMI Online
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
                         Calculate EMI for home loans, car loans, personal loans, and education loans. See principal vs interest breakdown and total interest paid over loan tenure.
                     </p>
                 </div>
@@ -84,9 +84,9 @@ export default function EMICalculatorPage() {
                 {/* Comprehensive Content Section */}
                 <div className="space-y-12">
                      {/* What is EMI Section */}
-                    <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-slate-900">
+                    <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-gray-900">
                         <CardHeader>
-                            <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">What is Equated Monthly Installment (EMI)?</CardTitle>
+                            <CardTitle className="text-3xl font-bold text-gray-900 dark:text-white">What is Equated Monthly Installment (EMI)?</CardTitle>
                         </CardHeader>
                         <CardContent className="prose prose-slate dark:prose-invert max-w-none">
                             <p className="text-lg leading-relaxed">
@@ -100,7 +100,7 @@ export default function EMICalculatorPage() {
 
                     {/* Key Benefits Grid */}
                     <div className="grid md:grid-cols-2 gap-6">
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <TrendingUp className="w-5 h-5" />
@@ -108,12 +108,12 @@ export default function EMICalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-slate-600 dark:text-slate-300">
+                                <p className="text-gray-600 dark:text-gray-300">
                                     Knowing your exact EMI amount helps you plan your monthly budget effectively. You know exactly how much to set aside for loan repayment.
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <Zap className="w-5 h-5" />
@@ -121,12 +121,12 @@ export default function EMICalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-slate-600 dark:text-slate-300">
+                                <p className="text-gray-600 dark:text-gray-300">
                                     You can choose a tenure that suits your repayment capacity. Longer tenure means lower EMI but higher total interest; shorter tenure means higher EMI but lower interest.
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-gray-800 dark:to-gray-900">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                                     <CheckCircle2 className="w-5 h-5" />
@@ -134,12 +134,12 @@ export default function EMICalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-slate-600 dark:text-slate-300">
+                                <p className="text-gray-600 dark:text-gray-300">
                                     EMIs make expensive assets like homes and cars accessible to the middle class by breaking down the cost into manageable monthly payments.
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-accent-50 to-white dark:from-slate-800 dark:to-slate-900">
+                        <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-accent-50 to-white dark:from-gray-800 dark:to-gray-900">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-accent-700 dark:text-accent-400">
                                     <Info className="w-5 h-5" />
@@ -147,7 +147,7 @@ export default function EMICalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-slate-600 dark:text-slate-300">
+                                <p className="text-gray-600 dark:text-gray-300">
                                     Most loans work on a reducing balance method. As you pay EMIs, the principal reduces, and the interest component decreases over time.
                                 </p>
                             </CardContent>
@@ -155,23 +155,23 @@ export default function EMICalculatorPage() {
                     </div>
 
                      {/* Formula Section */}
-                    <Card className="border border-slate-200 shadow-sm rounded-2xl bg-white dark:bg-slate-900">
+                    <Card className="border border-gray-200 shadow-sm rounded-2xl bg-white dark:bg-gray-900">
                          <CardHeader>
-                            <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">How is EMI Calculated?</CardTitle>
+                            <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">How is EMI Calculated?</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <p className="text-slate-600 dark:text-slate-300">
+                            <p className="text-gray-600 dark:text-gray-300">
                                 The mathematical formula for calculating EMI is:
                             </p>
-                            <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-slate-200 dark:border-slate-700">
+                            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-gray-200 dark:border-gray-700">
                                 EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
                             </div>
-                            <div className="grid grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-400">
-                                <div><span className="font-bold text-slate-900 dark:text-white">P</span> = Principal Loan Amount</div>
-                                <div><span className="font-bold text-slate-900 dark:text-white">R</span> = Monthly Interest Rate (Annual Rate/12/100)</div>
-                                <div><span className="font-bold text-slate-900 dark:text-white">N</span> = Loan Tenure in Months</div>
+                            <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
+                                <div><span className="font-bold text-gray-900 dark:text-white">P</span> = Principal Loan Amount</div>
+                                <div><span className="font-bold text-gray-900 dark:text-white">R</span> = Monthly Interest Rate (Annual Rate/12/100)</div>
+                                <div><span className="font-bold text-gray-900 dark:text-white">N</span> = Loan Tenure in Months</div>
                             </div>
-                            <p className="text-sm text-slate-500 italic mt-4">
+                            <p className="text-sm text-gray-500 italic mt-4">
                                 *Note: This formula assumes interest is compounded monthly, which is the standard for most retail loans in India.
                             </p>
                         </CardContent>
@@ -181,11 +181,11 @@ export default function EMICalculatorPage() {
                 {/* Expanded FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                             EMI Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">Find answers to the most common questions about EMI calculator and loan repayments</p>
+                        <p className="text-gray-600 dark:text-gray-400 mt-2">Find answers to the most common questions about EMI calculator and loan repayments</p>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-8">
@@ -295,12 +295,12 @@ export default function EMICalculatorPage() {
                                     a: "Ways to save interest: 1) Make part prepayments regularly (especially in early years when interest is high), 2) Choose shorter tenure if affordable, 3) Negotiate lower interest rate, 4) Make lump sum prepayments when possible, 5) Use bonuses/windfalls for prepayment. Even 1-2 prepayments can save lakhs in interest. Use our calculator to see interest savings from prepayments."
                                 }
                             ].map((faq, idx) => (
-                                <div key={idx} className="border-b border-slate-200 dark:border-slate-800 pb-8 last:border-0">
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-3 text-xl flex items-start gap-3">
+                                <div key={idx} className="border-b border-gray-200 dark:border-gray-800 pb-8 last:border-0">
+                                    <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-xl flex items-start gap-3">
                                         <span className="text-primary-600 font-bold text-lg">Q{idx + 1}.</span>
                                         <span>{faq.q}</span>
                                     </h3>
-                                    <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-lg ml-8">{faq.a}</p>
+                                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg ml-8">{faq.a}</p>
                                 </div>
                             ))}
                         </div>

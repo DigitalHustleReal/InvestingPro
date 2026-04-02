@@ -14,19 +14,19 @@ const COMMON_COMPARISONS = [
 
 export default function SuggestedComparisons() {
     return (
-        <div className="mt-20 pt-12 border-t border-slate-200">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">Popular Comparisons</h2>
+        <div className="mt-20 pt-12 border-t border-gray-200">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Popular Comparisons</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {COMMON_COMPARISONS.map((comp, i) => (
                     <Link key={i} href={`/compare/${comp.s1}-vs-${comp.s2}`}>
                         <Button variant="outline" className="w-full justify-between hover:border-primary-400 group">
-                            <span className="truncate text-slate-600 group-hover:text-primary-700">{comp.label}</span>
-                            <ArrowLeftRight className="w-4 h-4 text-slate-300" />
+                            <span className="truncate text-gray-600 group-hover:text-primary-700">{comp.label}</span>
+                            <ArrowLeftRight className="w-4 h-4 text-gray-300" />
                         </Button>
                     </Link>
                 ))}
             </div>
-            <p className="mt-4 text-sm text-slate-600 text-center italic">
+            <p className="mt-4 text-sm text-gray-600 text-center italic">
                 Pro Tip: You can compare any two products by changing the URL!
             </p>
         </div>

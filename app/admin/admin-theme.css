@@ -38,7 +38,7 @@
 
 /* Universal Card Token */
 .admin-wealth-trust .card {
-    @apply bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm transition-all duration-200;
+    @apply bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm transition-all duration-200;
 }
 
 .admin-wealth-trust .card:hover {
@@ -62,7 +62,7 @@
 
 .admin-wealth-trust .glass-surface {
     @apply backdrop-blur-sm;
-    background-color: rgb(248 250 252 / 0.5); /* slate-50 / 0.5 */
+    background-color: rgb(248 250 252 / 0.5); /* gray-50 / 0.5 */
     border-width: 1px;
     border-color: rgb(229 231 235 / 0.5);
 }
@@ -87,11 +87,11 @@
 }
 
 .admin-wealth-trust .prose-admin :is(h1, h2, h3, h4, h5, h6) {
-    @apply font-bold tracking-tight text-slate-900 dark:text-white;
+    @apply font-bold tracking-tight text-gray-900 dark:text-white;
 }
 
 .admin-wealth-trust .prose-admin p {
-    @apply text-slate-700 dark:text-slate-300 leading-relaxed;
+    @apply text-gray-700 dark:text-gray-300 leading-relaxed;
 }
 
 .admin-wealth-trust .prose-admin a {
@@ -106,5 +106,5 @@
 }
 
 .admin-wealth-trust .prose-admin img {
-    @apply rounded-xl shadow-md border border-slate-200 dark:border-slate-700;
+    @apply rounded-xl shadow-md border border-gray-200 dark:border-gray-700;
 }

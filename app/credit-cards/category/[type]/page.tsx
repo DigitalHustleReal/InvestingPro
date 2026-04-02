@@ -584,26 +584,26 @@ function ComparisonTable({ cards, columns, categoryType }: { cards: any[]; colum
     }
 
     return (
-        <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 md:p-8">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">
+        <section className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 md:p-8">
+            <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
                 Top 5 {CATEGORY_CONFIGS[categoryType]?.heading || 'Credit Cards'} — Quick Comparison
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
                 Side-by-side comparison of the top-rated cards in this category
             </p>
             <div className="overflow-x-auto -mx-6 px-6">
                 <table className="w-full text-sm border-collapse min-w-[600px]">
                     <thead>
-                        <tr className="border-b border-slate-200 dark:border-slate-700">
+                        <tr className="border-b border-gray-200 dark:border-gray-700">
                             {columns.map((col) => (
                                 <th
                                     key={col}
-                                    className="text-left py-3 px-3 font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap"
+                                    className="text-left py-3 px-3 font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap"
                                 >
                                     {col}
                                 </th>
                             ))}
-                            <th className="text-left py-3 px-3 font-semibold text-slate-700 dark:text-slate-300">
+                            <th className="text-left py-3 px-3 font-semibold text-gray-700 dark:text-gray-300">
                                 Action
                             </th>
                         </tr>
@@ -613,12 +613,12 @@ function ComparisonTable({ cards, columns, categoryType }: { cards: any[]; colum
                             <tr
                                 key={card.id || idx}
                                 className={cn(
-                                    'border-b border-slate-100 dark:border-slate-800 transition-colors',
+                                    'border-b border-gray-100 dark:border-gray-800 transition-colors',
                                     idx === 0 && 'bg-primary-50/30 dark:bg-primary-950/10'
                                 )}
                             >
                                 {columns.map((col) => (
-                                    <td key={col} className="py-3 px-3 text-slate-700 dark:text-slate-300">
+                                    <td key={col} className="py-3 px-3 text-gray-700 dark:text-gray-300">
                                         {col === 'Card Name' ? (
                                             <div className="flex items-center gap-2">
                                                 {idx === 0 && (
@@ -722,7 +722,7 @@ export default async function CategoryPage({ params }: PageProps) {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
             {/* JSON-LD Schema */}
             <script
                 type="application/ld+json"
@@ -734,24 +734,24 @@ export default async function CategoryPage({ params }: PageProps) {
             />
 
             {/* Breadcrumbs */}
-            <div className="bg-slate-50 dark:bg-slate-950 pt-24 pb-2">
+            <div className="bg-gray-50 dark:bg-gray-950 pt-24 pb-2">
                 <div className="container mx-auto px-4">
                     <nav aria-label="Breadcrumb">
                         <ol className="flex items-center gap-2 text-sm">
                             <li className="flex items-center gap-2">
-                                <Link href="/" className="text-slate-600 hover:text-primary-600 transition-colors" aria-label="Home">
+                                <Link href="/" className="text-gray-600 hover:text-primary-600 transition-colors" aria-label="Home">
                                     <Home className="w-4 h-4" />
                                 </Link>
                             </li>
                             <li className="flex items-center gap-2">
-                                <ChevronRight className="w-4 h-4 text-slate-400" />
-                                <Link href="/credit-cards" className="text-slate-600 hover:text-primary-600 transition-colors">
+                                <ChevronRight className="w-4 h-4 text-gray-400" />
+                                <Link href="/credit-cards" className="text-gray-600 hover:text-primary-600 transition-colors">
                                     Credit Cards
                                 </Link>
                             </li>
                             <li className="flex items-center gap-2">
-                                <ChevronRight className="w-4 h-4 text-slate-400" />
-                                <span className="text-slate-900 dark:text-white font-medium" aria-current="page">
+                                <ChevronRight className="w-4 h-4 text-gray-400" />
+                                <span className="text-gray-900 dark:text-white font-medium" aria-current="page">
                                     {config.heading}
                                 </span>
                             </li>
@@ -761,7 +761,7 @@ export default async function CategoryPage({ params }: PageProps) {
             </div>
 
             {/* Hero Section */}
-            <div className="bg-slate-50 dark:bg-slate-950 pb-8">
+            <div className="bg-gray-50 dark:bg-gray-950 pb-8">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto text-center py-8">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-950/30 border border-primary-200 dark:border-primary-800 mb-6">
@@ -770,10 +770,10 @@ export default async function CategoryPage({ params }: PageProps) {
                                 Category: {config.heading.replace('Best ', '')}
                             </span>
                         </div>
-                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                             {config.heading}
                         </h1>
-                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-4">
+                        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-4">
                             {config.subheading}
                         </p>
                         <Badge variant="outline" className="text-xs">
@@ -799,7 +799,7 @@ export default async function CategoryPage({ params }: PageProps) {
                     <CreditCardsClient initialAssets={assets as any} />
                 ) : (
                     <div className="text-center py-16">
-                        <p className="text-slate-500 dark:text-slate-400 text-lg">
+                        <p className="text-gray-500 dark:text-gray-400 text-lg">
                             No cards found in this category. Check back soon or explore
                             <Link href="/credit-cards" className="text-primary-600 hover:text-primary-700 ml-1 underline">
                                 all credit cards
@@ -815,21 +815,21 @@ export default async function CategoryPage({ params }: PageProps) {
                 <SEOContentBlock title={config.title} content={config.introContent} />
 
                 {/* FAQ Section */}
-                <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 md:p-8">
-                    <h2 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+                <section className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 md:p-8">
+                    <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
                         Frequently Asked Questions
                     </h2>
                     <div className="space-y-4">
                         {config.faqs.map((faq, index) => (
                             <details
                                 key={index}
-                                className="group border border-slate-200 dark:border-slate-700 rounded-lg"
+                                className="group border border-gray-200 dark:border-gray-700 rounded-lg"
                             >
-                                <summary className="flex items-center justify-between cursor-pointer p-4 text-left font-medium text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg transition-colors">
+                                <summary className="flex items-center justify-between cursor-pointer p-4 text-left font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-lg transition-colors">
                                     <span>{faq.question}</span>
-                                    <ChevronRight className="w-4 h-4 text-slate-400 group-open:rotate-90 transition-transform" />
+                                    <ChevronRight className="w-4 h-4 text-gray-400 group-open:rotate-90 transition-transform" />
                                 </summary>
-                                <div className="px-4 pb-4 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                <div className="px-4 pb-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                                     {faq.answer}
                                 </div>
                             </details>
@@ -838,8 +838,8 @@ export default async function CategoryPage({ params }: PageProps) {
                 </section>
 
                 {/* Browse Other Categories */}
-                <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 md:p-8">
-                    <h2 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">
+                <section className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 md:p-8">
+                    <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
                         Browse Credit Cards by Category
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -851,7 +851,7 @@ export default async function CategoryPage({ params }: PageProps) {
                                     'flex items-center gap-2 px-4 py-3 rounded-lg border text-sm font-medium transition-colors',
                                     key === type
                                         ? 'bg-primary-50 dark:bg-primary-950/30 border-primary-300 dark:border-primary-700 text-primary-700 dark:text-primary-300'
-                                        : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-primary-300 hover:text-primary-600'
+                                        : 'border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-primary-300 hover:text-primary-600'
                                 )}
                             >
                                 <cfg.icon className="w-4 h-4 shrink-0" />
@@ -862,8 +862,8 @@ export default async function CategoryPage({ params }: PageProps) {
                 </section>
 
                 {/* Also browse by salary */}
-                <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 md:p-8">
-                    <h2 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">
+                <section className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 md:p-8">
+                    <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
                         Browse Credit Cards by Salary Range
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -880,7 +880,7 @@ export default async function CategoryPage({ params }: PageProps) {
                             <Link
                                 key={bracket}
                                 href={`/credit-cards/salary/${bracket}`}
-                                className="flex items-center gap-2 px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-primary-300 hover:text-primary-600 transition-colors"
+                                className="flex items-center gap-2 px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-primary-300 hover:text-primary-600 transition-colors"
                             >
                                 <IndianRupee className="w-4 h-4 shrink-0" />
                                 <span>{label}</span>

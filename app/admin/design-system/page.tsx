@@ -88,7 +88,7 @@ export default function DesignSystemPage() {
                             { name: 'Purple', color: 'bg-secondary-500', hex: '#a855f7' },
                             { name: 'Amber', color: 'bg-accent-500', hex: '#f59e0b' },
                             { name: 'Rose', color: 'bg-rose-500', hex: '#f43f5e' },
-                            { name: 'Slate', color: 'bg-slate-600', hex: '#475569' },
+                            { name: 'Slate', color: 'bg-gray-600', hex: '#475569' },
                             { name: 'Dark BG', color: 'bg-surface-darker dark:bg-surface-darker', hex: '#0f172a' },
                             { name: 'Surface', color: 'bg-muted dark:bg-muted', hex: '#1e293b' },
                             { name: 'Border', color: 'bg-white/10', hex: 'rgba(255,255,255,0.1)' },

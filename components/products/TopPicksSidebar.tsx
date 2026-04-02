@@ -38,20 +38,20 @@ export default function TopPicksSidebar({ category }: { category: string }) {
         <div className="space-y-6 sticky top-24">
             <div className="flex items-center gap-2 mb-4">
                 <Award className="w-5 h-5 text-primary-600" />
-                <h3 className="font-bold text-slate-900 uppercase tracking-wider text-xs">Top Picks for You</h3>
+                <h3 className="font-bold text-gray-900 uppercase tracking-wider text-xs">Top Picks for You</h3>
             </div>
 
             {loading ? (
                 <div className="space-y-4">
                     {[1, 2].map(i => (
-                        <div key={i} className="h-24 bg-slate-100 animate-pulse rounded-xl" />
+                        <div key={i} className="h-24 bg-gray-100 animate-pulse rounded-xl" />
                     ))}
                 </div>
             ) : (
                 Array.isArray(products) && products.map(p => (
-                    <Card key={p.id} className="p-6 md:p-8 border-slate-100 hover:border-primary-200 transition-colors group">
+                    <Card key={p.id} className="p-6 md:p-8 border-gray-100 hover:border-primary-200 transition-colors group">
                         <div className="flex gap-4">
-                            <div className="w-12 h-12 bg-slate-50 rounded p-1 shrink-0 relative overflow-hidden">
+                            <div className="w-12 h-12 bg-gray-50 rounded p-1 shrink-0 relative overflow-hidden">
                                 {p.image_url ? (
                                     <Image 
                                         src={p.image_url} 
@@ -63,11 +63,11 @@ export default function TopPicksSidebar({ category }: { category: string }) {
                                         loading={imageConfig.loading}
                                     />
                                 ) : (
-                                    <div className="w-full h-full bg-slate-100 rounded" />
+                                    <div className="w-full h-full bg-gray-100 rounded" />
                                 )}
                             </div>
                             <div className="flex-1 min-w-0">
-                                <h4 className="font-bold text-sm text-slate-900 truncate group-hover:text-primary-700 transition-colors">
+                                <h4 className="font-bold text-sm text-gray-900 truncate group-hover:text-primary-700 transition-colors">
                                     {p.name}
                                 </h4>
                                 <div className="flex items-center gap-1 text-accent-500 text-[10px] font-bold mt-1">
@@ -76,7 +76,7 @@ export default function TopPicksSidebar({ category }: { category: string }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-4 pt-4 border-t border-slate-50">
+                        <div className="mt-4 pt-4 border-t border-gray-50">
                             <Link href={`/go/${p.slug}`} target="_blank">
                                 <Button size="sm" variant="ghost" className="w-full text-primary-700 hover:text-primary-800 hover:bg-primary-50 text-xs font-bold justify-between px-2">
                                     View Deal <ArrowRight className="w-3 h-3" />

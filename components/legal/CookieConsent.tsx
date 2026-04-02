@@ -95,7 +95,7 @@ export default function CookieConsent() {
             <p className="text-base font-semibold text-white mb-2">
               🍪 We value your privacy
             </p>
-            <p className="text-sm text-slate-300 leading-relaxed">
+            <p className="text-sm text-gray-300 leading-relaxed">
               We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. 
               By clicking "Accept All Cookies", you consent to our use of cookies.{' '}
               <Link 

@@ -114,7 +114,7 @@ export default function NewPillarPage() {
         >
             <div className="flex flex-col bg-white min-h-screen">
                 {/* Header Bar */}
-                <div className="border-b border-slate-200 px-8 py-4 flex items-center justify-between bg-white">
+                <div className="border-b border-gray-200 px-8 py-4 flex items-center justify-between bg-white">
                     <div className="flex-1 flex items-center gap-3">
                         <Target className="w-6 h-6 text-primary-600" />
                         <div className="flex-1">

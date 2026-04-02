@@ -23,7 +23,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                 <div className="flex flex-col gap-2 min-w-[280px]">
                     <div className="flex items-center gap-3">
                         {/* Type Icon */}
-                        <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-primary-600 dark:text-primary-400">
+                        <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-primary-600 dark:text-primary-400">
                              {row.category?.toLowerCase() === 'health' ? <Heart className="w-5 h-5" /> : 
                               row.category?.toLowerCase() === 'motor' ? <Car className="w-5 h-5" /> : 
                               <Shield className="w-5 h-5" />}
@@ -31,16 +31,16 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                         <div className="flex-1">
                             <Link
                                 href={`/insurance/${row.slug}`}
-                                className="font-bold text-slate-900 dark:text-white hover:text-primary-600 transition-colors text-sm"
+                                className="font-bold text-gray-900 dark:text-white hover:text-primary-600 transition-colors text-sm"
                             >
                                 {row.name}
                             </Link>
                             <div className="flex items-center gap-2">
-                                <p className="text-[10px] text-slate-600 font-semibold uppercase tracking-wider">
+                                <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-wider">
                                     {row.provider || row.provider_name || 'Insurer'}
                                 </p>
                                 {row.metadata?.type && (
-                                    <Badge variant="outline" className="text-[8px] h-4 rounded px-1.5 border-slate-200 text-slate-500 font-bold">
+                                    <Badge variant="outline" className="text-[8px] h-4 rounded px-1.5 border-gray-200 text-gray-500 font-bold">
                                         {row.metadata.type}
                                     </Badge>
                                 )}
@@ -60,10 +60,10 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                 
                 return (
                     <div className="text-center">
-                        <p className="font-bold text-slate-900 dark:text-white">
+                        <p className="font-bold text-gray-900 dark:text-white">
                             {premium}
                         </p>
-                        <p className="text-[9px] text-slate-600 uppercase font-semibold">Starts from</p>
+                        <p className="text-[9px] text-gray-600 uppercase font-semibold">Starts from</p>
                     </div>
                 );
             },
@@ -82,7 +82,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                         <p className="font-bold text-primary-600">
                             {coverage}
                         </p>
-                        <p className="text-[9px] text-slate-600 uppercase font-semibold">Sum Assured</p>
+                        <p className="text-[9px] text-gray-600 uppercase font-semibold">Sum Assured</p>
                     </div>
                 );
             },
@@ -99,7 +99,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                 
                 return (
                     <div className="text-center">
-                        <p className={`font-bold ${csrNum > 98 ? 'text-success-600' : 'text-slate-900 dark:text-white'}`}>
+                        <p className={`font-bold ${csrNum > 98 ? 'text-success-600' : 'text-gray-900 dark:text-white'}`}>
                             {csr}
                         </p>
                         {csrNum > 98 && (
@@ -122,7 +122,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                 
                 return (
                     <div className="text-center">
-                        <p className="font-bold text-slate-900 dark:text-white text-sm">{term}</p>
+                        <p className="font-bold text-gray-900 dark:text-white text-sm">{term}</p>
                     </div>
                 );
             },
@@ -162,12 +162,12 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                                     className={`w-3.5 h-3.5 ${
                                         i < stars
                                             ? 'text-accent-400 fill-accent-400'
-                                            : 'text-slate-300 dark:text-slate-600'
+                                            : 'text-gray-300 dark:text-gray-600'
                                     }`}
                                 />
                             ))}
                         </div>
-                        <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
+                        <span className="text-xs font-bold text-gray-600 dark:text-gray-400">
                             {(typeof rating === 'number' ? rating : Number(rating) || 4.5).toFixed(1)}
                         </span>
                     </div>
@@ -185,7 +185,7 @@ export function InsuranceTable({ plans }: InsuranceTableProps) {
                     <Link href={`/insurance/${row.slug}`} className="w-full">
                         <Button 
                             variant="outline" 
-                            className="w-full h-9 rounded-xl border-slate-200 hover:bg-white dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold text-[10px] uppercase tracking-wider"
+                            className="w-full h-9 rounded-xl border-gray-200 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white font-bold text-[10px] uppercase tracking-wider"
                         >
                             Compare
                         </Button>

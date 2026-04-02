@@ -23,7 +23,7 @@ export function Card({
   const variantClasses = {
     default: "bg-white/5 border-white/5",
     glass: "bg-white/10 backdrop-blur-md border-white/10",
-    bordered: "bg-slate-900/50 border-white/20",
+    bordered: "bg-gray-900/50 border-white/20",
   };
 
   return (
@@ -40,12 +40,12 @@ export function Card({
         )}>
           <div className="min-w-0 flex-1">
             {title && (
-              <h3 className="text-lg font-semibold text-slate-200 font-inter">
+              <h3 className="text-lg font-semibold text-gray-200 font-inter">
                 {title}
               </h3>
             )}
             {description && (
-              <p className="mt-1 text-sm text-slate-600 font-inter">
+              <p className="mt-1 text-sm text-gray-600 font-inter">
                 {description}
               </p>
             )}
@@ -77,7 +77,7 @@ export function CardSection({ children, title, className }: CardSectionProps) {
   return (
     <div className={cn("space-y-4", className)}>
       {title && (
-        <h4 className="text-sm font-semibold text-slate-300 uppercase tracking-wider font-inter">
+        <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider font-inter">
           {title}
         </h4>
       )}

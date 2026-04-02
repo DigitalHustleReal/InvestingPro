@@ -101,9 +101,9 @@ export default async function AuthorPage({ params }: PageProps) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+            <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
                 {/* Hero Section */}
-                <section className="bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-900 dark:to-slate-900 text-white py-16">
+                <section className="bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-900 dark:to-gray-900 text-white py-16">
                     <div className="container mx-auto px-4">
                         <div className="max-w-4xl mx-auto">
                             <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
@@ -207,7 +207,7 @@ export default async function AuthorPage({ params }: PageProps) {
                         <div className="max-w-4xl mx-auto">
                             <div className="flex items-center gap-3 mb-8">
                                 <FileText className="w-6 h-6 text-primary-600 dark:text-primary-400" />
-                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                                     Articles by {author.name}
                                 </h2>
                                 <Badge variant="secondary" className="ml-auto">
@@ -220,7 +220,7 @@ export default async function AuthorPage({ params }: PageProps) {
                                     {articles.map((article: any) => (
                                         <Card 
                                             key={article.id} 
-                                            className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-primary-500/50 transition-colors group"
+                                            className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-primary-500/50 transition-colors group"
                                         >
                                             <CardContent className="p-6">
                                                 <Link href={`/articles/${article.slug}`}>
@@ -234,16 +234,16 @@ export default async function AuthorPage({ params }: PageProps) {
                                                                     {article.category}
                                                                 </Badge>
                                                             )}
-                                                            <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mb-2">
+                                                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mb-2">
                                                                 {article.title}
                                                             </h3>
                                                             {article.excerpt && (
-                                                                <p className="text-slate-600 dark:text-slate-400 text-sm line-clamp-2">
+                                                                <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2">
                                                                     {article.excerpt}
                                                                 </p>
                                                             )}
                                                             {article.published_at && (
-                                                                <div className="flex items-center gap-2 mt-3 text-sm text-slate-500 dark:text-slate-500">
+                                                                <div className="flex items-center gap-2 mt-3 text-sm text-gray-500 dark:text-gray-500">
                                                                     <Calendar className="w-4 h-4" />
                                                                     {new Date(article.published_at).toLocaleDateString('en-IN', {
                                                                         year: 'numeric',
@@ -253,7 +253,7 @@ export default async function AuthorPage({ params }: PageProps) {
                                                                 </div>
                                                             )}
                                                         </div>
-                                                        <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors shrink-0 mt-1" />
+                                                        <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors shrink-0 mt-1" />
                                                     </div>
                                                 </Link>
                                             </CardContent>
@@ -261,10 +261,10 @@ export default async function AuthorPage({ params }: PageProps) {
                                     ))}
                                 </div>
                             ) : (
-                                <Card className="bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700">
+                                <Card className="bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
                                     <CardContent className="p-12 text-center">
-                                        <FileText className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                                        <p className="text-slate-600 dark:text-slate-400">
+                                        <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                                        <p className="text-gray-600 dark:text-gray-400">
                                             No published articles yet. Check back soon!
                                         </p>
                                     </CardContent>

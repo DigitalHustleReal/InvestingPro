@@ -29,12 +29,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-24 pb-16 transition-colors">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-24 pb-16 transition-colors">
             {/* Header / Hero */}
             <div className="container mx-auto px-4 mb-10">
-                <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col md:flex-row gap-8 items-start">
+                <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800 shadow-xl flex flex-col md:flex-row gap-8 items-start">
                     {/* Image */}
-                    <div className="w-full md:w-64 aspect-square bg-slate-50 dark:bg-slate-950 rounded-2xl flex items-center justify-center p-6 border border-slate-100 dark:border-slate-800">
+                    <div className="w-full md:w-64 aspect-square bg-gray-50 dark:bg-gray-950 rounded-2xl flex items-center justify-center p-6 border border-gray-100 dark:border-gray-800">
                         {product.image_url ? (
                             <img 
                                 src={product.image_url} 
@@ -42,7 +42,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                 className="max-w-full max-h-full object-contain drop-shadow-lg"
                             />
                         ) : (
-                            <span className="text-4xl font-bold text-slate-200">{product.name.charAt(0)}</span>
+                            <span className="text-4xl font-bold text-gray-200">{product.name.charAt(0)}</span>
                         )}
                     </div>
 
@@ -59,17 +59,17 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                             )}
                         </div>
                         
-                        <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
+                        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
                             {product.name}
                         </h1>
                         
-                        <div className="flex items-center gap-4 text-sm text-slate-500">
+                        <div className="flex items-center gap-4 text-sm text-gray-500">
                            <div className="flex items-center gap-1">
                                 <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
-                                <span className="font-bold text-slate-900 dark:text-white text-lg">{product.rating.overall}</span>
+                                <span className="font-bold text-gray-900 dark:text-white text-lg">{product.rating.overall}</span>
                                 <span>/ 5.0</span>
                            </div>
-                           <div className="w-px h-4 bg-slate-300" />
+                           <div className="w-px h-4 bg-gray-300" />
                            <div className={`font-bold ${
                                product.rating.trust_score > 80 ? 'text-primary-500' : 'text-amber-500'
                            }`}>
@@ -77,7 +77,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                            </div>
                         </div>
 
-                        <p className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
+                        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed">
                             {product.description || "No description provided for this financial product."}
                         </p>
 
@@ -87,7 +87,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                    Apply Now <ArrowRight className="ml-2 w-5 h-5" />
                                 </a>
                             </Button>
-                            <Button size="lg" variant="outline" className="border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 h-12 rounded-xl text-lg">
+                            <Button size="lg" variant="outline" className="border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 h-12 rounded-xl text-lg">
                                 Comparison
                             </Button>
                         </div>
@@ -100,23 +100,23 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <div className="lg:col-span-2 space-y-8">
                     
                     {/* Key Features */}
-                    <Card className="border-0 shadow-lg bg-white dark:bg-slate-900 rounded-3xl overflow-hidden">
-                        <CardHeader className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
+                    <Card className="border-0 shadow-lg bg-white dark:bg-gray-900 rounded-3xl overflow-hidden">
+                        <CardHeader className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
                              <CardTitle className="flex items-center gap-2">
                                 <Info className="w-5 h-5 text-primary-500" />
                                 Key Specs
                              </CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
-                            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100 dark:divide-slate-800">
+                            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-100 dark:divide-gray-800">
                                 {product.key_features.map((feat, i) => (
-                                    <div key={i} className="p-6 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
-                                        <p className="text-sm text-slate-500 uppercase font-bold tracking-wider mb-2">{feat.label}</p>
-                                        <p className="text-lg font-semibold text-slate-900 dark:text-white">{feat.value}</p>
+                                    <div key={i} className="p-6 hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
+                                        <p className="text-sm text-gray-500 uppercase font-bold tracking-wider mb-2">{feat.label}</p>
+                                        <p className="text-lg font-semibold text-gray-900 dark:text-white">{feat.value}</p>
                                     </div>
                                 ))}
                                 {product.key_features.length === 0 && (
-                                    <div className="p-8 text-slate-400 italic">No specific specs listed.</div>
+                                    <div className="p-8 text-gray-400 italic">No specific specs listed.</div>
                                 )}
                             </div>
                         </CardContent>
@@ -131,11 +131,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                             <CardContent>
                                 <ul className="space-y-3">
                                     {product.pros.length > 0 ? product.pros.map((pro, i) => (
-                                        <li key={i} className="flex gap-3 text-slate-700 dark:text-slate-300">
+                                        <li key={i} className="flex gap-3 text-gray-700 dark:text-gray-300">
                                             <Check className="w-5 h-5 text-primary-500 shrink-0" />
                                             {pro}
                                         </li>
-                                    )) : <li className="text-slate-400 italic">No specific pros listed.</li>}
+                                    )) : <li className="text-gray-400 italic">No specific pros listed.</li>}
                                 </ul>
                             </CardContent>
                         </Card>
@@ -147,11 +147,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                             <CardContent>
                                 <ul className="space-y-3">
                                     {product.cons.length > 0 ? product.cons.map((con, i) => (
-                                        <li key={i} className="flex gap-3 text-slate-700 dark:text-slate-300">
+                                        <li key={i} className="flex gap-3 text-gray-700 dark:text-gray-300">
                                             <Info className="w-5 h-5 text-danger-500 shrink-0" />
                                             {con}
                                         </li>
-                                    )) : <li className="text-slate-400 italic">No specific cons listed.</li>}
+                                    )) : <li className="text-gray-400 italic">No specific cons listed.</li>}
                                 </ul>
                             </CardContent>
                         </Card>
@@ -161,18 +161,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
                 {/* Right: Author Box & Disclaimer */}
                 <div className="space-y-6">
-                    <Card className="bg-slate-900 text-white rounded-3xl border-0 overflow-hidden">
+                    <Card className="bg-gray-900 text-white rounded-3xl border-0 overflow-hidden">
                         <div className="h-2 bg-gradient-to-r from-primary-500 to-primary-700" />
                         <CardContent className="p-8">
                             <h3 className="font-bold text-lg mb-4">Why trust InvestingPro?</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                            <p className="text-gray-400 text-sm leading-relaxed mb-6">
                                 We analyze financial products with a standardized 45-point checklist verifying fees, rewards, and hidden terms. Our ratings are never influenced by commissions.
                             </p>
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center font-bold">IP</div>
                                 <div>
                                     <p className="font-bold text-sm">Editorial Team</p>
-                                    <p className="text-xs text-slate-400">Verified Analysis</p>
+                                    <p className="text-xs text-gray-400">Verified Analysis</p>
                                 </div>
                             </div>
                         </CardContent>

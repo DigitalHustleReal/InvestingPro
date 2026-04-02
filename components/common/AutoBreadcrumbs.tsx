@@ -31,22 +31,22 @@ export default function AutoBreadcrumbs({ className }: { className?: string }) {
                             {index === 0 ? (
                                 <Link 
                                     href={crumb.url}
-                                    className="text-slate-600 hover:text-primary-600 transition-colors"
+                                    className="text-gray-600 hover:text-primary-600 transition-colors"
                                     aria-label="Home"
                                 >
                                     <Home className="w-4 h-4" />
                                 </Link>
                             ) : (
                                 <>
-                                    <ChevronRight className="w-4 h-4 text-slate-600" />
+                                    <ChevronRight className="w-4 h-4 text-gray-600" />
                                     {isLast ? (
-                                        <span className="text-slate-900 font-medium" aria-current="page">
+                                        <span className="text-gray-900 font-medium" aria-current="page">
                                             {crumb.label}
                                         </span>
                                     ) : (
                                         <Link 
                                             href={crumb.url}
-                                            className="text-slate-600 hover:text-primary-600 transition-colors"
+                                            className="text-gray-600 hover:text-primary-600 transition-colors"
                                         >
                                             {crumb.label}
                                         </Link>

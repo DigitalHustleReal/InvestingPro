@@ -145,7 +145,7 @@ export function ShareEmbed({
                 href={shareLinks.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 <Twitter className="w-6 h-6 text-[#1DA1F2]" />
                 <span className="text-xs">Twitter</span>
@@ -154,7 +154,7 @@ export function ShareEmbed({
                 href={shareLinks.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 <Facebook className="w-6 h-6 text-[#4267B2]" />
                 <span className="text-xs">Facebook</span>
@@ -163,7 +163,7 @@ export function ShareEmbed({
                 href={shareLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 <Linkedin className="w-6 h-6 text-[#0077B5]" />
                 <span className="text-xs">LinkedIn</span>
@@ -172,7 +172,7 @@ export function ShareEmbed({
                 href={shareLinks.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 <MessageCircle className="w-6 h-6 text-[#25D366]" />
                 <span className="text-xs">WhatsApp</span>
@@ -181,22 +181,22 @@ export function ShareEmbed({
                 href={shareLinks.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 <MessageCircle className="w-6 h-6 text-[#0088CC]" />
                 <span className="text-xs">Telegram</span>
               </a>
               <a
                 href={shareLinks.email}
-                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="flex flex-col items-center gap-2 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
-                <Mail className="w-6 h-6 text-slate-600 dark:text-slate-400" />
+                <Mail className="w-6 h-6 text-gray-600 dark:text-gray-400" />
                 <span className="text-xs">Email</span>
               </a>
             </div>
 
             {/* Copy Link */}
-            <div className="flex items-center gap-2 p-3 bg-slate-100 dark:bg-slate-800 rounded-lg">
+            <div className="flex items-center gap-2 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
               <Link2 className="w-4 h-4 text-muted-foreground flex-shrink-0" />
               <input
                 type="text"
@@ -221,7 +221,7 @@ export function ShareEmbed({
                   <span className="text-sm font-medium">iFrame Embed</span>
                   <CopyButton text={embedCodes.iframe} type="iframe" />
                 </div>
-                <pre className="bg-slate-900 text-slate-100 p-3 rounded-lg overflow-x-auto text-xs">
+                <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg overflow-x-auto text-xs">
                   <code>{embedCodes.iframe}</code>
                 </pre>
               </div>
@@ -232,7 +232,7 @@ export function ShareEmbed({
                   <span className="text-sm font-medium">Script Embed (Auto-resize)</span>
                   <CopyButton text={embedCodes.script} type="script" />
                 </div>
-                <pre className="bg-slate-900 text-slate-100 p-3 rounded-lg overflow-x-auto text-xs">
+                <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg overflow-x-auto text-xs">
                   <code>{embedCodes.script}</code>
                 </pre>
               </div>

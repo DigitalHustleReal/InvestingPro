@@ -108,7 +108,7 @@ export default function ProductAnalyticsPage() {
         <>
           {/* Overview Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800">
+            <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-gray-800">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -122,7 +122,7 @@ export default function ProductAnalyticsPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800">
+            <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-gray-800">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -137,7 +137,7 @@ export default function ProductAnalyticsPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800">
+            <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-gray-800">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -151,7 +151,7 @@ export default function ProductAnalyticsPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800">
+            <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-gray-800">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -167,7 +167,7 @@ export default function ProductAnalyticsPage() {
           </div>
 
           {/* Top Products Table */}
-          <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-slate-800">
+          <Card className="bg-surface-darker/50 dark:bg-surface-darker/50 border-gray-800">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary-500" />
@@ -178,7 +178,7 @@ export default function ProductAnalyticsPage() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-slate-800">
+                    <tr className="border-b border-gray-800">
                       <th className="text-left py-3 px-4 text-muted-foreground dark:text-muted-foreground font-medium text-sm">Product</th>
                       <th className="text-right py-3 px-4 text-muted-foreground dark:text-muted-foreground font-medium text-sm">Views</th>
                       <th className="text-right py-3 px-4 text-muted-foreground dark:text-muted-foreground font-medium text-sm">Clicks</th>
@@ -190,7 +190,7 @@ export default function ProductAnalyticsPage() {
                   </thead>
                   <tbody>
                     {data.topProducts.map((product, index) => (
-                      <tr key={product.slug} className="border-b border-slate-800/50 hover:bg-muted dark:bg-muted/30">
+                      <tr key={product.slug} className="border-b border-gray-800/50 hover:bg-muted dark:bg-muted/30">
                         <td className="py-4 px-4">
                           <div className="flex items-center gap-3">
                             <span className="w-6 h-6 bg-muted dark:bg-muted rounded-full flex items-center justify-center text-xs font-bold">

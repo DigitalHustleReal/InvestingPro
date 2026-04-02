@@ -70,21 +70,21 @@ export default function PortfolioPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-900">
+            <div className="min-h-screen flex items-center justify-center bg-gray-900">
                 <LoadingSpinner text="Decrypting Private Ledger..." />
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 pb-20">
+        <div className="min-h-screen bg-gray-50 pb-20">
             <SEOHead
                 title="Institutional Grade Portfolio Tracker | InvestingPro"
                 description="Monitor your investments with high-fidelity analytics, risk profiling, and real-time performance tracking."
             />
 
             {/* Authority Hero Section */}
-            <div className="bg-slate-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
+            <div className="bg-gray-900 border-b border-white/5 pt-28 pb-32 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
                     <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary-600 rounded-full blur-[140px] -translate-y-1/2" />
                     <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-primary-600 rounded-full blur-[100px] translate-y-1/2" />
@@ -100,7 +100,7 @@ export default function PortfolioPage() {
                             <h1 className="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight">
                                 Capital <span className="text-secondary-400">Headquarters</span>
                             </h1>
-                            <p className="text-xl text-slate-600 font-medium max-w-2xl leading-relaxed">
+                            <p className="text-xl text-gray-600 font-medium max-w-2xl leading-relaxed">
                                 Strategic overview of your global investment positions. Real-time benchmarking against India VIX and Nifty 50.
                             </p>
                         </div>
@@ -123,7 +123,7 @@ export default function PortfolioPage() {
                             <div key={i} className="flex items-center gap-3 bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10 group hover:border-secondary-500/50 transition-colors">
                                 <item.icon className="w-5 h-5 text-secondary-400 group-hover:scale-110 transition-transform" />
                                 <div>
-                                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-st leading-none mb-1">{item.label}</p>
+                                    <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-st leading-none mb-1">{item.label}</p>
                                     <p className="text-sm font-bold text-white">{item.value}</p>
                                 </div>
                             </div>

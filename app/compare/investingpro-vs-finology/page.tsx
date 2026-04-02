@@ -47,13 +47,13 @@ const COMPARISON_FEATURES = [
 
 export default function InvestingProVsFinologyPage() {
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <SEOHead
                 title="InvestingPro vs Finology: Decision-Making Platform vs Educational Content | InvestingPro"
                 description="Compare InvestingPro and Finology. InvestingPro focuses on decision-making with personalized recommendations and instant application. Finology focuses on educational content. Choose the platform that helps you decide."
             />
 
-            <div className="bg-slate-50 dark:bg-slate-950 pt-24 pb-12">
+            <div className="bg-gray-50 dark:bg-gray-950 pt-24 pb-12">
                 <div className="container mx-auto px-4">
                     <AutoBreadcrumbs />
                     
@@ -90,14 +90,14 @@ export default function InvestingProVsFinologyPage() {
                                 <Target className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                             </div>
                             <div>
-                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
+                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
                                     The Key Difference
                                 </h2>
-                                <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
-                                    <strong className="text-slate-900 dark:text-white">InvestingPro</strong> is built for <strong className="text-primary-600 dark:text-primary-400">decision-makers</strong> - users who know what they want and need help choosing. We provide personalized recommendations, decision engines, and instant application links.
+                                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                                    <strong className="text-gray-900 dark:text-white">InvestingPro</strong> is built for <strong className="text-primary-600 dark:text-primary-400">decision-makers</strong> - users who know what they want and need help choosing. We provide personalized recommendations, decision engines, and instant application links.
                                 </p>
-                                <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mt-3">
-                                    <strong className="text-slate-900 dark:text-white">Finology</strong> is built for <strong className="text-slate-600 dark:text-slate-400">learners</strong> - users who want to understand financial concepts. They provide excellent educational content and courses.
+                                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-3">
+                                    <strong className="text-gray-900 dark:text-white">Finology</strong> is built for <strong className="text-gray-600 dark:text-gray-400">learners</strong> - users who want to understand financial concepts. They provide excellent educational content and courses.
                                 </p>
                             </div>
                         </div>
@@ -106,7 +106,7 @@ export default function InvestingProVsFinologyPage() {
 
                 {/* Comparison Table */}
                 <div className="max-w-6xl mx-auto mb-16">
-                    <div className="bg-white dark:bg-slate-900 rounded-2xl border-2 border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl">
+                    <div className="bg-white dark:bg-gray-900 rounded-2xl border-2 border-gray-200 dark:border-gray-800 overflow-hidden shadow-xl">
                         <div className="bg-gradient-to-r from-primary-600 to-secondary-600 p-6">
                             <h2 className="text-2xl font-bold text-white text-center">
                                 Feature Comparison
@@ -115,34 +115,34 @@ export default function InvestingProVsFinologyPage() {
                         
                         <div className="overflow-x-auto">
                             <table className="w-full">
-                                <thead className="bg-slate-100 dark:bg-slate-800 border-b-2 border-slate-200 dark:border-slate-700">
+                                <thead className="bg-gray-100 dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700">
                                     <tr>
-                                        <th className="px-6 py-4 text-left text-sm font-bold text-slate-900 dark:text-white">Feature</th>
+                                        <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 dark:text-white">Feature</th>
                                         <th className="px-6 py-4 text-center text-sm font-bold text-primary-600 dark:text-primary-400">InvestingPro</th>
-                                        <th className="px-6 py-4 text-center text-sm font-bold text-slate-600 dark:text-slate-400">Finology</th>
+                                        <th className="px-6 py-4 text-center text-sm font-bold text-gray-600 dark:text-gray-400">Finology</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                                <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
                                     {COMPARISON_FEATURES.map((item, idx) => (
-                                        <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                        <tr key={idx} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                             <td className="px-6 py-5">
-                                                <div className="font-semibold text-slate-900 dark:text-white">{item.feature}</div>
+                                                <div className="font-semibold text-gray-900 dark:text-white">{item.feature}</div>
                                             </td>
                                             <td className="px-6 py-5 text-center">
-                                                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg ${item.investingPro.highlight ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-bold' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}`}>
+                                                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg ${item.investingPro.highlight ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-bold' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'}`}>
                                                     {item.investingPro.highlight ? <Check className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
                                                     <span>{item.investingPro.value}</span>
                                                 </div>
-                                                <p className="text-xs text-slate-500 dark:text-slate-600 mt-2 max-w-xs mx-auto">
+                                                <p className="text-xs text-gray-500 dark:text-gray-600 mt-2 max-w-xs mx-auto">
                                                     {item.investingPro.desc}
                                                 </p>
                                             </td>
                                             <td className="px-6 py-5 text-center">
-                                                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg ${item.finology.highlight ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-bold' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}`}>
+                                                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg ${item.finology.highlight ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-bold' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'}`}>
                                                     {item.finology.highlight ? <Check className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
                                                     <span>{item.finology.value}</span>
                                                 </div>
-                                                <p className="text-xs text-slate-500 dark:text-slate-600 mt-2 max-w-xs mx-auto">
+                                                <p className="text-xs text-gray-500 dark:text-gray-600 mt-2 max-w-xs mx-auto">
                                                     {item.finology.desc}
                                                 </p>
                                             </td>
@@ -156,12 +156,12 @@ export default function InvestingProVsFinologyPage() {
 
                 {/* When to Choose Each */}
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 mb-16">
-                    <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-primary-200 dark:border-primary-800">
+                    <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border-2 border-primary-200 dark:border-primary-800">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
                                 <Zap className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">Choose InvestingPro If</h3>
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Choose InvestingPro If</h3>
                         </div>
                         <ul className="space-y-3">
                             {[
@@ -173,18 +173,18 @@ export default function InvestingProVsFinologyPage() {
                             ].map((point, idx) => (
                                 <li key={idx} className="flex items-start gap-3">
                                     <Check className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-0.5 shrink-0" />
-                                    <span className="text-slate-700 dark:text-slate-300">{point}</span>
+                                    <span className="text-gray-700 dark:text-gray-300">{point}</span>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 border-2 border-slate-200 dark:border-slate-800">
+                    <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border-2 border-gray-200 dark:border-gray-800">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                                <Shield className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                            <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                                <Shield className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">Choose Finology If</h3>
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Choose Finology If</h3>
                         </div>
                         <ul className="space-y-3">
                             {[
@@ -195,8 +195,8 @@ export default function InvestingProVsFinologyPage() {
                                 "You're not yet ready to make decisions"
                             ].map((point, idx) => (
                                 <li key={idx} className="flex items-start gap-3">
-                                    <Check className="w-5 h-5 text-slate-600 dark:text-slate-400 mt-0.5 shrink-0" />
-                                    <span className="text-slate-700 dark:text-slate-300">{point}</span>
+                                    <Check className="w-5 h-5 text-gray-600 dark:text-gray-400 mt-0.5 shrink-0" />
+                                    <span className="text-gray-700 dark:text-gray-300">{point}</span>
                                 </li>
                             ))}
                         </ul>

@@ -122,9 +122,9 @@ export default function AutomationControls({ className = "" }: AutomationControl
     return (
         <div className={cn("space-y-8", className)}>
             {/* Scraper Triggers */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-6 bg-slate-50 dark:bg-slate-950/30">
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-4">
+            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden">
+                <div className="border-b border-gray-200 dark:border-gray-800 px-8 py-6 bg-gray-50 dark:bg-gray-950/30">
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-4">
                         <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
                             <Zap className="w-4 h-4 text-sky-500" />
                         </div>
@@ -133,9 +133,9 @@ export default function AutomationControls({ className = "" }: AutomationControl
                 </div>
                 <div className="p-8">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="p-6 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-sky-500/30 hover:shadow-sm transition-all group">
+                        <div className="p-6 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-sky-500/30 hover:shadow-sm transition-all group">
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Asset Crawler</span>
+                                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Asset Crawler</span>
                                 <StatusBadge status="completed" label="Ready" />
                             </div>
                             <ActionButton
@@ -150,9 +150,9 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             </ActionButton>
                         </div>
 
-                        <div className="p-6 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-sky-500/30 hover:shadow-sm transition-all group">
+                        <div className="p-6 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-sky-500/30 hover:shadow-sm transition-all group">
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Sentiment Crawler</span>
+                                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Sentiment Crawler</span>
                                 <StatusBadge status="completed" label="Ready" />
                             </div>
                             <ActionButton
@@ -167,9 +167,9 @@ export default function AutomationControls({ className = "" }: AutomationControl
                             </ActionButton>
                         </div>
 
-                        <div className="p-6 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-sky-500/30 hover:shadow-sm transition-all group">
+                        <div className="p-6 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-sky-500/30 hover:shadow-sm transition-all group">
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Market Feed Crawler</span>
+                                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Market Feed Crawler</span>
                                 <StatusBadge status="completed" label="Ready" />
                             </div>
                             <ActionButton
@@ -188,9 +188,9 @@ export default function AutomationControls({ className = "" }: AutomationControl
             </div>
 
             {/* Pipeline Controls */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-6 bg-slate-50 dark:bg-slate-950/30">
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-4">
+            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden">
+                <div className="border-b border-gray-200 dark:border-gray-800 px-8 py-6 bg-gray-50 dark:bg-gray-950/30">
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-4">
                         <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
                             <Activity className="w-4 h-4 text-sky-500" />
                         </div>
@@ -198,7 +198,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                     </h3>
                 </div>
                 <div className="p-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between p-7 bg-slate-900 dark:bg-slate-800 rounded-xl shadow-lg border border-slate-800 dark:border-slate-700">
+                    <div className="flex flex-col md:flex-row items-center justify-between p-7 bg-gray-900 dark:bg-gray-800 rounded-xl shadow-lg border border-gray-800 dark:border-gray-700">
                         <div className="mb-6 md:mb-0">
                             <h4 className="font-bold text-white tracking-tight text-xl mb-1">Content Factory Pipeline</h4>
                             <p className="text-[10px] font-bold text-sky-400 uppercase tracking-[0.1em]">
@@ -219,9 +219,9 @@ export default function AutomationControls({ className = "" }: AutomationControl
             </div>
 
             {/* Manual Content Factory */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-6 bg-slate-50 dark:bg-slate-950/30">
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-4">
+            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden">
+                <div className="border-b border-gray-200 dark:border-gray-800 px-8 py-6 bg-gray-50 dark:bg-gray-950/30">
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-4">
                         <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
                             <Zap className="w-4 h-4 text-sky-500" />
                         </div>
@@ -229,10 +229,10 @@ export default function AutomationControls({ className = "" }: AutomationControl
                     </h3>
                 </div>
                 <div className="p-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-slate-50 dark:bg-slate-800/30 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl group hover:border-sky-500/30 transition-all">
+                    <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-gray-50 dark:bg-gray-800/30 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-xl group hover:border-sky-500/30 transition-all">
                         <div className="mb-4 md:mb-0">
-                            <h4 className="font-bold text-slate-900 dark:text-white tracking-tight text-lg mb-1">Writer Workspace</h4>
-                            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">
+                            <h4 className="font-bold text-gray-900 dark:text-white tracking-tight text-lg mb-1">Writer Workspace</h4>
+                            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">
                                 Manually trigger AI content generation for specific topics
                             </p>
                         </div>
@@ -249,9 +249,9 @@ export default function AutomationControls({ className = "" }: AutomationControl
             </div>
 
             {/* Recent Pipeline Runs */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-6 bg-slate-50 dark:bg-slate-950/30">
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-4">
+            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden">
+                <div className="border-b border-gray-200 dark:border-gray-800 px-8 py-6 bg-gray-50 dark:bg-gray-950/30">
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-4">
                         <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
                             <Clock className="w-4 h-4 text-sky-500" />
                         </div>
@@ -259,7 +259,7 @@ export default function AutomationControls({ className = "" }: AutomationControl
                     </h3>
                 </div>
                     {(!pipelineRuns || pipelineRuns.length === 0) ? (
-                        <div className="text-center py-16 text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px]">
+                        <div className="text-center py-16 text-gray-500 font-bold uppercase tracking-[0.2em] text-[10px]">
                             No system operations logged
                         </div>
                     ) : (
@@ -270,16 +270,16 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                 return (
                                     <div
                                         key={run.id}
-                                        className="border-b border-slate-100 dark:border-slate-800 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors p-8"
+                                        className="border-b border-gray-100 dark:border-gray-800 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors p-8"
                                     >
                                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                                             <div className="space-y-3">
                                                 <div className="flex items-center gap-4">
-                                                    <span className="font-extrabold text-slate-900 dark:text-white tracking-widest uppercase text-xs">
+                                                    <span className="font-extrabold text-gray-900 dark:text-white tracking-widest uppercase text-xs">
                                                         {run.pipeline_type.replace(/_/g, ' ')}
                                                     </span>
                                                     <div className={cn(
-                                                        "flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest border border-slate-200 dark:border-slate-800 shadow-sm",
+                                                        "flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest border border-gray-200 dark:border-gray-800 shadow-sm",
                                                         run.status === 'completed' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
                                                         run.status === 'failed' ? 'bg-rose-500/10 text-rose-500 border-rose-500/20' :
                                                         'bg-sky-500/10 text-sky-500 border-sky-500/20'
@@ -288,10 +288,10 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                                         {run.status}
                                                     </div>
                                                 </div>
-                                                <div className="text-sm text-slate-600 dark:text-slate-400 font-medium tracking-tight">
+                                                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium tracking-tight">
                                                     {run.params?.topic || run.result?.processed_trend || 'Internal System Task'}
                                                 </div>
-                                                <div className="flex items-center gap-6 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                                                <div className="flex items-center gap-6 text-[10px] text-gray-500 font-bold uppercase tracking-widest">
                                                     <span className="flex items-center gap-2">
                                                         <Clock className="w-3.5 h-3.5" />
                                                         {run.triggered_at ? new Date(run.triggered_at).toLocaleTimeString() : 'N/A'}
@@ -334,9 +334,9 @@ export default function AutomationControls({ className = "" }: AutomationControl
                 </div>
 
             {/* Content Refresh Controls */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-                <div className="border-b border-slate-200 dark:border-slate-800 px-8 py-6 bg-slate-50 dark:bg-slate-950/30">
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-4">
+            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden">
+                <div className="border-b border-gray-200 dark:border-gray-800 px-8 py-6 bg-gray-50 dark:bg-gray-950/30">
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-4">
                         <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
                             <RefreshCw className="w-4 h-4 text-sky-500" />
                         </div>
@@ -345,10 +345,10 @@ export default function AutomationControls({ className = "" }: AutomationControl
                 </div>
                 <div className="p-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="flex items-center justify-between p-6 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl group hover:border-sky-500/30 transition-all">
+                        <div className="flex items-center justify-between p-6 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl group hover:border-sky-500/30 transition-all">
                             <div>
-                                <h4 className="font-bold text-slate-900 dark:text-white mb-1">Articles Buffer</h4>
-                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-1">Articles Buffer</h4>
+                                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                                     Refresh all article indices
                                 </p>
                             </div>
@@ -363,10 +363,10 @@ export default function AutomationControls({ className = "" }: AutomationControl
                                 Refresh
                             </ActionButton>
                         </div>
-                        <div className="flex items-center justify-between p-6 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl group hover:border-sky-500/30 transition-all">
+                        <div className="flex items-center justify-between p-6 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl group hover:border-sky-500/30 transition-all">
                             <div>
-                                <h4 className="font-bold text-slate-900 dark:text-white mb-1">Pillar Page Index</h4>
-                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-1">Pillar Page Index</h4>
+                                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                                     Synchronize cornerstone content
                                 </p>
                             </div>

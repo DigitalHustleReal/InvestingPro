@@ -98,10 +98,10 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
                 <div className="text-center">
                     <BookOpen className="w-12 h-12 text-primary-500 animate-pulse mx-auto mb-4" />
-                    <p className="text-slate-600 dark:text-slate-400">Loading article...</p>
+                    <p className="text-gray-600 dark:text-gray-400">Loading article...</p>
                 </div>
             </div>
         );
@@ -109,11 +109,11 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
 
     if (!termData) {
         return (
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
                 <div className="text-center max-w-md mx-auto px-4">
-                    <BookOpen className="w-16 h-16 text-slate-300 mb-4 mx-auto" />
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Term Not Found</h1>
-                    <p className="text-slate-600 dark:text-slate-400 mb-6">The term you are looking for doesn't exist in our glossary.</p>
+                    <BookOpen className="w-16 h-16 text-gray-300 mb-4 mx-auto" />
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Term Not Found</h1>
+                    <p className="text-gray-600 dark:text-gray-400 mb-6">The term you are looking for doesn't exist in our glossary.</p>
                     <Button asChild>
                         <Link href="/glossary">Return to Glossary</Link>
                     </Button>
@@ -162,23 +162,23 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
         : [];
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <SEOHead
                 title={seoTitle}
                 description={seoDescription}
                 structuredData={structuredData}
             />
             {/* Breadcrumbs */}
-            <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+            <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
                     <nav className="flex items-center gap-2 text-sm">
-                        <Link href="/" className="text-slate-500 hover:text-primary-600 transition-colors">Home</Link>
-                        <ChevronRight className="w-4 h-4 text-slate-400" />
-                        <Link href="/glossary" className="text-slate-500 hover:text-primary-600 transition-colors">Glossary</Link>
-                        <ChevronRight className="w-4 h-4 text-slate-400" />
-                        <span className="text-slate-500 capitalize">{termData.category}</span>
-                        <ChevronRight className="w-4 h-4 text-slate-400" />
-                        <span className="text-slate-900 dark:text-white font-medium truncate">{termData.term}</span>
+                        <Link href="/" className="text-gray-500 hover:text-primary-600 transition-colors">Home</Link>
+                        <ChevronRight className="w-4 h-4 text-gray-400" />
+                        <Link href="/glossary" className="text-gray-500 hover:text-primary-600 transition-colors">Glossary</Link>
+                        <ChevronRight className="w-4 h-4 text-gray-400" />
+                        <span className="text-gray-500 capitalize">{termData.category}</span>
+                        <ChevronRight className="w-4 h-4 text-gray-400" />
+                        <span className="text-gray-900 dark:text-white font-medium truncate">{termData.term}</span>
                     </nav>
                 </div>
             </div>
@@ -187,27 +187,27 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
                     {/* Main Content */}
-                    <article className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm">
+                    <article className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm">
                         {/* Article Header */}
-                        <header className="p-8 pb-6 border-b border-slate-100 dark:border-slate-800">
+                        <header className="p-8 pb-6 border-b border-gray-100 dark:border-gray-800">
                             <div className="flex flex-wrap items-center gap-3 mb-6">
                                 <Badge className="rounded-md px-3 py-1 text-xs font-bold uppercase tracking-wider bg-primary-50 text-primary-700 dark:bg-primary-900/20 border-0">
                                     {termData.category}
                                 </Badge>
-                                <div className="flex items-center gap-2 text-sm text-slate-500">
+                                <div className="flex items-center gap-2 text-sm text-gray-500">
                                     <CheckCircle className="w-4 h-4 text-success-600" />
                                     <span>Fact-Checked</span>
                                 </div>
                             </div>
 
-                            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                                 {termData.term}
                             </h1>
 
-                            <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 dark:text-slate-400 mb-6">
+                            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-6">
                                 <div className="flex items-center gap-2">
                                     <User className="w-4 h-4" />
-                                    <span>By <strong className="text-slate-900 dark:text-white">InvestingPro Editorial Team</strong></span>
+                                    <span>By <strong className="text-gray-900 dark:text-white">InvestingPro Editorial Team</strong></span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Calendar className="w-4 h-4" />
@@ -216,7 +216,7 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                             </div>
 
                             <div className="flex gap-2">
-                                <Button variant="outline" size="sm" className="text-slate-600">
+                                <Button variant="outline" size="sm" className="text-gray-600">
                                     <Share2 className="w-4 h-4 mr-2" />
                                     Share
                                 </Button>
@@ -228,11 +228,11 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                             <div className="m-8 p-6 bg-gradient-to-br from-primary-50 to-primary-100/50 dark:from-primary-950/50 dark:to-primary-900/30 rounded-xl border border-primary-200 dark:border-primary-800">
                                 <div className="flex items-start gap-3 mb-4">
                                     <Lightbulb className="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5" />
-                                    <h2 className="text-lg font-bold text-slate-900 dark:text-white">Key Takeaways</h2>
+                                    <h2 className="text-lg font-bold text-gray-900 dark:text-white">Key Takeaways</h2>
                                 </div>
                                 <ul className="space-y-2">
                                     {keyTakeaways.map((point, i) => (
-                                        <li key={i} className="flex gap-3 text-slate-700 dark:text-slate-300">
+                                        <li key={i} className="flex gap-3 text-gray-700 dark:text-gray-300">
                                             <span className="text-primary-600 dark:text-primary-400 font-bold flex-shrink-0">•</span>
                                             <span>{point}</span>
                                         </li>
@@ -245,11 +245,11 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                         <div className="p-8 space-y-12">
                             {/* What Is [Term]? */}
                             <section id="definition" className="scroll-mt-24">
-                                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                                     What Is {termData.term}?
                                 </h2>
                                 <div className="prose prose-lg dark:prose-invert max-w-none">
-                                    <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+                                    <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                                         {termData.definition}
                                     </p>
                                 </div>
@@ -258,11 +258,11 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                             {/* Understanding [Term] */}
                             {termData.why_it_matters && (
                                 <section id="understanding" className="scroll-mt-24">
-                                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                                         Understanding {termData.term}
                                     </h2>
                                     <div className="prose prose-lg dark:prose-invert max-w-none">
-                                        <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+                                        <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                                             {termData.why_it_matters}
                                         </p>
                                     </div>
@@ -272,17 +272,17 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                             {/* Examples & Calculations */}
                             {(termData.example_numeric || termData.example_text) && (
                                 <section id="examples" className="scroll-mt-24">
-                                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                                         Examples & Calculations
                                     </h2>
                                     {termData.example_numeric && (
-                                        <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 mb-4">
-                                            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                                        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 mb-4">
+                                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                                                 <Calculator className="w-5 h-5 text-primary-600" />
                                                 Numeric Example
                                             </h3>
                                             <div className="prose dark:prose-invert max-w-none">
-                                                <pre className="whitespace-pre-wrap font-mono text-sm text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 p-4 rounded-lg">
+                                                <pre className="whitespace-pre-wrap font-mono text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-4 rounded-lg">
                                                     {termData.example_numeric}
                                                 </pre>
                                             </div>
@@ -290,7 +290,7 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                                     )}
                                     {termData.example_text && (
                                         <div className="prose prose-lg dark:prose-invert max-w-none">
-                                            <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+                                            <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                                                 {termData.example_text}
                                             </p>
                                         </div>
@@ -301,11 +301,11 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                             {/* How to Use */}
                             {termData.how_to_use && (
                                 <section id="how-to-use" className="scroll-mt-24">
-                                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                                         How to Use {termData.term}
                                     </h2>
                                     <div className="prose prose-lg dark:prose-invert max-w-none">
-                                        <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+                                        <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                                             {termData.how_to_use}
                                         </p>
                                     </div>
@@ -315,7 +315,7 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                             {/* Common Mistakes */}
                             {termData.common_mistakes && termData.common_mistakes.length > 0 && (
                                 <section id="common-mistakes" className="scroll-mt-24">
-                                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                                         Common Mistakes to Avoid
                                     </h2>
                                     <div className="bg-danger-50 dark:bg-danger-950/20 rounded-xl p-6 border border-danger-200 dark:border-danger-900">
@@ -333,27 +333,27 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
 
                             {/* FAQ Section */}
                             <section id="faq" className="scroll-mt-24">
-                                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">
+                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                                     Frequently Asked Questions
                                 </h2>
                                 <div className="space-y-4">
-                                    <details className="group bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 cursor-pointer">
-                                        <summary className="text-lg font-semibold text-slate-900 dark:text-white list-none flex items-center justify-between">
+                                    <details className="group bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 cursor-pointer">
+                                        <summary className="text-lg font-semibold text-gray-900 dark:text-white list-none flex items-center justify-between">
                                             <span>Why is {termData.term} important?</span>
-                                            <ChevronRight className="w-5 h-5 text-slate-400 group-open:rotate-90 transition-transform" />
+                                            <ChevronRight className="w-5 h-5 text-gray-400 group-open:rotate-90 transition-transform" />
                                         </summary>
-                                        <p className="mt-4 text-slate-700 dark:text-slate-300 leading-relaxed">
+                                        <p className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">
                                             {termData.why_it_matters?.split('\n')[0] || `Understanding ${termData.term} is crucial for making informed financial decisions.`}
                                         </p>
                                     </details>
                                     
                                     {termData.related_calculators && termData.related_calculators.length > 0 && (
-                                        <details className="group bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 cursor-pointer">
-                                            <summary className="text-lg font-semibold text-slate-900 dark:text-white list-none flex items-center justify-between">
+                                        <details className="group bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 cursor-pointer">
+                                            <summary className="text-lg font-semibold text-gray-900 dark:text-white list-none flex items-center justify-between">
                                                 <span>How do I calculate {termData.term}?</span>
-                                                <ChevronRight className="w-5 h-5 text-slate-400 group-open:rotate-90 transition-transform" />
+                                                <ChevronRight className="w-5 h-5 text-gray-400 group-open:rotate-90 transition-transform" />
                                             </summary>
-                                            <p className="mt-4 text-slate-700 dark:text-slate-300 leading-relaxed">
+                                            <p className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">
                                                 You can use our free calculators to compute {termData.term}. Check out the related calculators section below.
                                             </p>
                                         </details>
@@ -363,11 +363,11 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
 
                             {/* The Bottom Line */}
                             <section id="bottom-line" className="scroll-mt-24">
-                                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                                     The Bottom Line
                                 </h2>
-                                <div className="bg-slate-100 dark:bg-slate-800 rounded-xl p-6 border-l-4 border-primary-600">
-                                    <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+                                <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 border-l-4 border-primary-600">
+                                    <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                                         {termData.definition.split('.')[0]}. Understanding this concept is essential for {termData.category.replace(/-/g, ' ')} decisions in the Indian financial market.
                                     </p>
                                 </div>
@@ -375,21 +375,21 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
 
                             {/* Related Calculators */}
                             {termData.related_calculators && termData.related_calculators.length > 0 && (
-                                <section className="pt-8 border-t border-slate-200 dark:border-slate-800">
-                                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Try It Yourself</h2>
+                                <section className="pt-8 border-t border-gray-200 dark:border-gray-800">
+                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Try It Yourself</h2>
                                     <div className="grid md:grid-cols-2 gap-4">
                                         {termData.related_calculators.map((calc: string) => (
                                             <Link
                                                 key={calc}
                                                 href={`/calculators/${calc}`}
-                                                className="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 transition-all group"
+                                                className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-all group"
                                             >
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center gap-3">
                                                         <Calculator className="w-5 h-5 text-primary-600" />
-                                                        <span className="font-bold capitalize text-slate-900 dark:text-white">{calc.replace(/-/g, ' ')} Calculator</span>
+                                                        <span className="font-bold capitalize text-gray-900 dark:text-white">{calc.replace(/-/g, ' ')} Calculator</span>
                                                     </div>
-                                                    <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
+                                                    <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
                                                 </div>
                                             </Link>
                                         ))}
@@ -402,8 +402,8 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                     {/* Sticky Sidebar */}
                     <aside className="lg:sticky lg:top-24 lg:self-start space-y-6">
                         {/* Table of Contents */}
-                        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm p-6">
-                            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
+                        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-6">
+                            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4">
                                 In This Article
                             </h3>
                             <nav className="space-y-2">
@@ -418,7 +418,7 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                                         className={`block text-sm py-2 px-3 rounded-lg transition-colors ${
                                             activeSection === item.id
                                                 ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 font-semibold'
-                                                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                                         }`}
                                     >
                                         {item.title}
@@ -429,8 +429,8 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
 
                         {/* Related Terms */}
                         {termData.related_terms && termData.related_terms.length > 0 && (
-                            <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm p-6">
-                                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
+                            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-6">
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4">
                                     Related Terms
                                 </h3>
                                 <div className="space-y-2">
@@ -443,7 +443,7 @@ export default function GlossaryArticlePage({ params }: { params: Promise<{ slug
                                             <Link
                                                 key={relatedTerm}
                                                 href={`/glossary/${relatedSlug}`}
-                                                className="block text-sm py-2 px-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-400 transition-colors font-medium"
+                                                className="block text-sm py-2 px-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-400 transition-colors font-medium"
                                             >
                                                 {relatedTerm}
                                             </Link>

@@ -52,7 +52,7 @@ export default function SmartCTA({
     
     const variantStyles = {
         primary: "bg-primary-600 hover:bg-primary-700 text-white shadow-lg shadow-primary-500/20 hover:shadow-primary-500/30",
-        secondary: "bg-slate-800 hover:bg-slate-700 text-white",
+        secondary: "bg-gray-800 hover:bg-gray-700 text-white",
         gradient: "bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 text-white shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 hover:scale-105",
         outline: "border-2 border-primary-500 text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-500/10",
         premium: "bg-gradient-to-r from-accent-500 to-orange-500 text-white shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40"

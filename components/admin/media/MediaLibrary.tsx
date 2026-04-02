@@ -71,7 +71,7 @@ export function MediaLibrary({ onSelect, selectionMode = false }: MediaLibraryPr
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-surface-darker/50 dark:bg-surface-darker/50 p-4 rounded-xl border border-slate-800">
+            <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-surface-darker/50 dark:bg-surface-darker/50 p-4 rounded-xl border border-gray-800">
                 <div className="relative w-full sm:w-96">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-wt-text-muted dark:text-wt-text-muted" />
                     <input
@@ -127,7 +127,7 @@ export function MediaLibrary({ onSelect, selectionMode = false }: MediaLibraryPr
                                     group relative rounded-xl border transition-all cursor-pointer overflow-hidden
                                     ${selectedId === item.id 
                                         ? 'border-brand-500 ring-2 ring-brand-500/20 bg-muted dark:bg-muted' 
-                                        : 'border-slate-800 bg-surface-darker/50 dark:bg-surface-darker/50 hover:border-wt-border/70 dark:border-wt-border/70 hover:shadow-lg'
+                                        : 'border-gray-800 bg-surface-darker/50 dark:bg-surface-darker/50 hover:border-wt-border/70 dark:border-wt-border/70 hover:shadow-lg'
                                     }
                                     ${viewMode === 'list' ? 'flex items-center p-4 gap-4' : 'aspect-square flex flex-col'}
                                 `}
@@ -175,7 +175,7 @@ export function MediaLibrary({ onSelect, selectionMode = false }: MediaLibraryPr
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="p-3 border-t border-slate-800">
+                                        <div className="p-3 border-t border-gray-800">
                                             <p className="text-xs font-medium text-wt-text/80 dark:text-wt-text/80 truncate" title={item.name}>
                                                 {item.name}
                                             </p>
@@ -207,7 +207,7 @@ export function MediaLibrary({ onSelect, selectionMode = false }: MediaLibraryPr
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button onClick={(e) => copyUrl(e, item.url)} className="p-2 hover:bg-slate-700 rounded-lg text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text">
+                                            <button onClick={(e) => copyUrl(e, item.url)} className="p-2 hover:bg-gray-700 rounded-lg text-wt-text-muted dark:text-wt-text-muted hover:text-wt-text dark:text-wt-text">
                                                 <Copy className="w-4 h-4" />
                                             </button>
                                             <button onClick={(e) => handleDelete(e, item)} className="p-2 hover:bg-wt-danger/20 rounded-lg text-wt-text-muted dark:text-wt-text-muted hover:text-wt-danger">

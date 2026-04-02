@@ -82,7 +82,7 @@ export function ComparisonCard({
         "relative border transition-all duration-150",
         isSelected
           ? "border-2 border-primary-600 bg-primary-50 shadow-lg"
-          : "border-slate-200 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 hover:-translate-y-1 hover:shadow-lg",
+          : "border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 hover:-translate-y-1 hover:shadow-lg",
         isCompact ? "p-4" : "p-6 md:p-8",
         className
       )}
@@ -121,7 +121,7 @@ export function ComparisonCard({
         <div className="flex items-start gap-3 flex-1">
           {/* Logo */}
           {product.logo ? (
-            <div className="flex-shrink-0 w-16 h-16 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-2 flex items-center justify-center">
+            <div className="flex-shrink-0 w-16 h-16 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-2 flex items-center justify-center">
               <Image
                 src={product.logo}
                 alt={product.name}
@@ -139,13 +139,13 @@ export function ComparisonCard({
           {/* Name & Provider */}
           <div className="flex-1 min-w-0">
             <h3 className={cn(
-              "font-bold text-slate-900 dark:text-white tracking-tight leading-tight",
+              "font-bold text-gray-900 dark:text-white tracking-tight leading-tight",
               isCompact ? "text-lg" : "text-xl"
             )}>
               {product.name}
             </h3>
             <p className={cn(
-              "text-slate-600 dark:text-slate-400 mt-0.5",
+              "text-gray-600 dark:text-gray-400 mt-0.5",
               isCompact ? "text-sm" : "text-base"
             )}>
               {product.provider}
@@ -158,14 +158,14 @@ export function ComparisonCard({
           <div className="flex flex-col items-end ml-2">
             <div className="flex items-center gap-1">
               <Star className="w-5 h-5 fill-accent-500 text-accent-500" />
-              <span className="text-lg font-bold text-slate-900 dark:text-white">
+              <span className="text-lg font-bold text-gray-900 dark:text-white">
                 {typeof product.rating === 'number' && !isNaN(product.rating) 
                   ? (typeof product.rating === 'number' ? product.rating : Number(product.rating) || 4.5).toFixed(1) 
                   : '4.0'}
               </span>
             </div>
             {product.reviewCount && (
-              <span className="text-xs text-slate-500 dark:text-slate-600">
+              <span className="text-xs text-gray-500 dark:text-gray-600">
                 ({product.reviewCount} reviews)
               </span>
             )}
@@ -216,7 +216,7 @@ export function ComparisonCard({
         {product.features.slice(0, isCompact ? 3 : 5).map((feature, index) => (
           <li
             key={index}
-            className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300"
+            className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300"
           >
             <Check
               className="w-4 h-4 text-success-600 mt-0.5 flex-shrink-0"

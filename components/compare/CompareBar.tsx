@@ -37,7 +37,7 @@ export default function CompareBar() {
           isCollapsed ? "h-16" : "h-auto"
         )}
       >
-        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border-t-2 sm:border-2 border-primary-500 sm:rounded-xl shadow-2xl shadow-primary-900/20 ring-1 ring-white/20">
+        <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl border-t-2 sm:border-2 border-primary-500 sm:rounded-xl shadow-2xl shadow-primary-900/20 ring-1 ring-white/20">
             {/* Collapse/Expand Button (Mobile) */}
             <button
             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -55,11 +55,11 @@ export default function CompareBar() {
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center shadow-lg shadow-primary-500/30">
                     <Sparkles className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-xs text-slate-500 dark:text-slate-600 font-bold uppercase tracking-wider">
+                    <span className="text-xs text-gray-500 dark:text-gray-600 font-bold uppercase tracking-wider">
                     Comparing
                     </span>
                 </div>
-                <span className="text-lg font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+                <span className="text-lg font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
                     {selectedProducts.length}/4 Products
                 </span>
                 </div>
@@ -69,11 +69,11 @@ export default function CompareBar() {
                     {selectedProducts.map((product) => (
                     <div
                         key={product.id}
-                        className="flex-shrink-0 relative group flex items-center gap-3 px-3 py-2 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 min-w-[140px] transition-all hover:bg-white dark:hover:bg-slate-800 hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-md"
+                        className="flex-shrink-0 relative group flex items-center gap-3 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700 min-w-[140px] transition-all hover:bg-white dark:hover:bg-gray-800 hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-md"
                     >
                         {/* Product Image */}
                         {product.image_url && (
-                        <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white p-1 shadow-sm border border-slate-100 dark:border-slate-700 flex-shrink-0">
+                        <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white p-1 shadow-sm border border-gray-100 dark:border-gray-700 flex-shrink-0">
                             <Image
                                 src={product.image_url}
                                 alt={product.name}
@@ -86,12 +86,12 @@ export default function CompareBar() {
 
                         {/* Product Info */}
                         <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                        <p className="text-xs font-bold text-gray-900 dark:text-white truncate">
                             {product.name}
                         </p>
                         <div className="flex items-center gap-1">
                             <span className="text-[10px] text-accent-600 dark:text-accent-400">â˜…</span>
-                            <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-600">
+                            <span className="text-[10px] font-semibold text-gray-500 dark:text-gray-600">
                             {/* Handle both object and primitive rating structures */}
                             {typeof product.rating === 'object' 
                                 ? Number(product.rating?.overall || 0).toFixed(1) 
@@ -107,7 +107,7 @@ export default function CompareBar() {
                         className="p-1 hover:bg-danger-100 dark:hover:bg-danger-900/30 rounded-full group/remove transition-colors"
                         aria-label="Remove"
                         >
-                        <X className="w-3.5 h-3.5 text-slate-600 group-hover/remove:text-danger-500" />
+                        <X className="w-3.5 h-3.5 text-gray-600 group-hover/remove:text-danger-500" />
                         </button>
                     </div>
                     ))}
@@ -121,7 +121,7 @@ export default function CompareBar() {
                     variant="ghost"
                     size="sm"
                     onClick={clearAll}
-                    className="hidden sm:flex text-xs font-semibold text-slate-500 hover:text-danger-600 hover:bg-danger-50 dark:hover:bg-danger-900/10"
+                    className="hidden sm:flex text-xs font-semibold text-gray-500 hover:text-danger-600 hover:bg-danger-50 dark:hover:bg-danger-900/10"
                 >
                     Clear All
                 </Button>

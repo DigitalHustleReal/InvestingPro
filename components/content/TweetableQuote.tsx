@@ -171,11 +171,11 @@ export default function TweetableQuote({
             <div className={cn("my-6 flex items-start gap-3 group", className)}>
                 <Quote className="w-5 h-5 text-primary-500 flex-shrink-0 mt-1" />
                 <div className="flex-1">
-                    <blockquote className="text-lg font-medium text-slate-900 dark:text-white italic border-l-4 border-primary-500 pl-4 py-2">
+                    <blockquote className="text-lg font-medium text-gray-900 dark:text-white italic border-l-4 border-primary-500 pl-4 py-2">
                         {text}
                     </blockquote>
                     {author && (
-                        <p className="text-sm text-slate-500 dark:text-slate-600 mt-2">
+                        <p className="text-sm text-gray-500 dark:text-gray-600 mt-2">
                             — {author}
                         </p>
                     )}
@@ -212,7 +212,7 @@ export default function TweetableQuote({
 
     // Standalone variant (card with full features)
     return (
-        <Card className={cn("border-primary-200 dark:border-primary-800 bg-gradient-to-br from-primary-50/50 to-slate-50 dark:from-slate-900/50 dark:to-slate-950 overflow-hidden", className)}>
+        <Card className={cn("border-primary-200 dark:border-primary-800 bg-gradient-to-br from-primary-50/50 to-gray-50 dark:from-gray-900/50 dark:to-gray-950 overflow-hidden", className)}>
             <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                     <div className="flex-shrink-0">
@@ -221,19 +221,19 @@ export default function TweetableQuote({
                         </div>
                     </div>
                     <div className="flex-1 min-w-0">
-                        <blockquote className="text-lg font-semibold text-slate-900 dark:text-white leading-relaxed mb-4">
+                        <blockquote className="text-lg font-semibold text-gray-900 dark:text-white leading-relaxed mb-4">
                             "{text}"
                         </blockquote>
                         
                         {(author || source) && (
                             <div className="mb-4">
                                 {author && (
-                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                         — {author}
                                     </p>
                                 )}
                                 {source && (
-                                    <p className="text-xs text-slate-500 dark:text-slate-600 mt-1">
+                                    <p className="text-xs text-gray-500 dark:text-gray-600 mt-1">
                                         Source: {source}
                                     </p>
                                 )}

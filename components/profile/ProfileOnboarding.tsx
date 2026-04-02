@@ -107,9 +107,9 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[550px] p-0 overflow-hidden border-0 shadow-2xl rounded-2xl bg-white dark:bg-slate-950">
+      <DialogContent className="sm:max-w-[550px] p-0 overflow-hidden border-0 shadow-2xl rounded-2xl bg-white dark:bg-gray-950">
         {/* Progress Bar */}
-        <div className="absolute top-0 left-0 w-full h-1.5 bg-slate-100 dark:bg-slate-900">
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-gray-100 dark:bg-gray-900">
           <div 
             className="h-full bg-primary-600 transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
@@ -125,13 +125,13 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
               <p className="text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">
                 Step {currentStep + 1} of {STEPS.length}
               </p>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                 {STEPS[currentStep].title}
               </h2>
             </div>
           </div>
 
-          <p className="text-slate-500 dark:text-slate-600 mb-8">
+          <p className="text-gray-500 dark:text-gray-600 mb-8">
             {STEPS[currentStep].description}
           </p>
 
@@ -141,12 +141,12 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
                 <div className="space-y-3">
                   <Label htmlFor="income" className="text-sm font-semibold">Annual Income (INR)</Label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-600">₹</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-gray-600">₹</span>
                     <Input
                       id="income"
                       type="number"
                       placeholder="e.g. 1200000"
-                      className="pl-10 h-14 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl focus:ring-primary-500 font-bold text-lg"
+                      className="pl-10 h-14 bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800 rounded-xl focus:ring-primary-500 font-bold text-lg"
                       value={formData.income || ''}
                       onChange={(e) => setFormData({...formData, income: parseInt(e.target.value) || 0})}
                     />
@@ -164,7 +164,7 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
                           "h-12 rounded-xl border-2 transition-all font-semibold capitalize",
                           formData.employmentType === type
                             ? "border-primary-600 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 shadow-md shadow-primary-500/10"
-                            : "border-slate-100 dark:border-slate-800 text-slate-500 hover:border-slate-200 dark:hover:border-slate-700"
+                            : "border-gray-100 dark:border-gray-800 text-gray-500 hover:border-gray-200 dark:hover:border-gray-700"
                         )}
                       >
                         {type.replace('-', ' ')}
@@ -195,9 +195,9 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
                     step="10"
                     value={formData.creditScore}
                     onChange={(e) => setFormData({...formData, creditScore: parseInt(e.target.value)})}
-                    className="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                    className="w-full h-3 bg-gray-100 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-primary-600"
                   />
-                  <div className="flex justify-between text-[10px] font-bold text-slate-600 uppercase tracking-tighter">
+                  <div className="flex justify-between text-[10px] font-bold text-gray-600 uppercase tracking-tighter">
                     <span>Poor (300)</span>
                     <span>Fair (650)</span>
                     <span>Excellent (900)</span>
@@ -205,10 +205,10 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
                 </div>
 
                 <div className="p-4 bg-primary-50 dark:bg-primary-900/20 rounded-2xl border border-primary-100 dark:border-primary-800/50 flex gap-4">
-                  <div className="p-2 bg-white dark:bg-slate-900 rounded-xl text-primary-600 shadow-sm flex-shrink-0">
+                  <div className="p-2 bg-white dark:bg-gray-900 rounded-xl text-primary-600 shadow-sm flex-shrink-0">
                     <Sparkles size={20} />
                   </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                     Most premium cards require a score of <span className="font-bold text-primary-700 dark:text-primary-400">750+</span>. 
                     Don't worry if yours is lower, we'll suggest cards to help you rebuild.
                   </p>
@@ -233,18 +233,18 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
                         "flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left",
                         formData.goals.includes(goal.id)
                           ? "border-primary-600 bg-primary-50 dark:bg-primary-900/20 shadow-md shadow-primary-500/10"
-                          : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700"
+                          : "border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700"
                       )}
                     >
                       <div className={cn(
                         "p-2 rounded-lg",
-                        formData.goals.includes(goal.id) ? "bg-primary-600 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500"
+                        formData.goals.includes(goal.id) ? "bg-primary-600 text-white" : "bg-gray-100 dark:bg-gray-800 text-gray-500"
                       )}>
                         <goal.icon size={18} />
                       </div>
                       <span className={cn(
                         "font-bold text-sm",
-                        formData.goals.includes(goal.id) ? "text-primary-900 dark:text-white" : "text-slate-600 dark:text-slate-400"
+                        formData.goals.includes(goal.id) ? "text-primary-900 dark:text-white" : "text-gray-600 dark:text-gray-400"
                       )}>
                         {goal.label}
                       </span>
@@ -264,7 +264,7 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
             variant="ghost"
             onClick={handleBack}
             className={cn(
-              "rounded-xl h-12 px-6 font-bold text-slate-600 hover:text-slate-900 dark:hover:text-white transition-all",
+              "rounded-xl h-12 px-6 font-bold text-gray-600 hover:text-gray-900 dark:hover:text-white transition-all",
               currentStep === 0 && "opacity-0 pointer-events-none"
             )}
           >
@@ -275,7 +275,7 @@ export default function ProfileOnboarding({ open, onOpenChange, onComplete }: Pr
           <Button
             onClick={handleNext}
             disabled={saving || (currentStep === 0 && !formData.income)}
-            className="rounded-xl h-12 px-8 bg-slate-900 dark:bg-primary-600 hover:bg-primary-700 text-white font-bold transition-all shadow-lg shadow-primary-500/20 min-w-[140px]"
+            className="rounded-xl h-12 px-8 bg-gray-900 dark:bg-primary-600 hover:bg-primary-700 text-white font-bold transition-all shadow-lg shadow-primary-500/20 min-w-[140px]"
           >
             {saving ? (
               "Building Profile..."

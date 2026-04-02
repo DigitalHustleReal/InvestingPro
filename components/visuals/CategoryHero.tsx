@@ -21,12 +21,12 @@ export default function CategoryHero({
     const colorScheme = getCategoryColors(category);
     
     return (
-        <div className="relative w-full h-96 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+        <div className="relative w-full h-96 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
             {/* Background Pattern */}
             <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" className="text-slate-600"/>
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" className="text-gray-600"/>
                     </pattern>
                 </defs>
                 <rect width="100%" height="100%" fill="url(#grid)" />
@@ -40,7 +40,7 @@ export default function CategoryHero({
                         {title}
                     </h1>
                     {description && (
-                        <p className="text-xl text-slate-300 mb-8 leading-relaxed">
+                        <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                             {description}
                         </p>
                     )}
@@ -262,6 +262,6 @@ function getCategoryColors(category: string) {
         'small-business': { gradient: 'from-accent-500 to-orange-500' },
     };
     
-    return schemes[category] || { gradient: 'from-slate-500 to-slate-600' };
+    return schemes[category] || { gradient: 'from-gray-500 to-gray-600' };
 }
 

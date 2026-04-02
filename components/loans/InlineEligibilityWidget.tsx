@@ -27,7 +27,7 @@ export function InlineEligibilityWidget() {
     };
 
     return (
-        <Card className="w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl rounded-[2rem] border-0 relative overflow-hidden">
+        <Card className="w-full max-w-sm bg-white dark:bg-gray-900 shadow-2xl rounded-[2rem] border-0 relative overflow-hidden">
             {/* Visual Header */}
             <div className="bg-primary-600 h-2 bg-gradient-to-r from-primary-500 to-secondary-500" />
             
@@ -35,13 +35,13 @@ export function InlineEligibilityWidget() {
                 {step === 1 ? (
                     <div className="space-y-4">
                         <div className="mb-4">
-                            <h3 className="font-bold text-lg text-slate-900 dark:text-white">Check Eligibility Instantly</h3>
-                            <p className="text-xs text-slate-500">Get pre-approved offers in 30 seconds</p>
+                            <h3 className="font-bold text-lg text-gray-900 dark:text-white">Check Eligibility Instantly</h3>
+                            <p className="text-xs text-gray-500">Get pre-approved offers in 30 seconds</p>
                         </div>
 
                         <div className="space-y-3">
                             <div className="space-y-1">
-                                <Label className="text-xs font-semibold text-slate-600">Monthly Income</Label>
+                                <Label className="text-xs font-semibold text-gray-600">Monthly Income</Label>
                                 <Input 
                                     placeholder="e.g. 50000" 
                                     className="h-10 rounded-xl" 
@@ -51,7 +51,7 @@ export function InlineEligibilityWidget() {
                             </div>
 
                             <div className="space-y-1">
-                                <Label className="text-xs font-semibold text-slate-600">Employment Type</Label>
+                                <Label className="text-xs font-semibold text-gray-600">Employment Type</Label>
                                 <Select defaultValue="salaried">
                                     <SelectTrigger className="h-10 rounded-xl">
                                         <SelectValue placeholder="Select" />
@@ -64,7 +64,7 @@ export function InlineEligibilityWidget() {
                             </div>
 
                             <div className="space-y-1">
-                                <Label className="text-xs font-semibold text-slate-600">Credit Score (Approx)</Label>
+                                <Label className="text-xs font-semibold text-gray-600">Credit Score (Approx)</Label>
                                 <Select defaultValue="750+">
                                     <SelectTrigger className="h-10 rounded-xl">
                                         <SelectValue placeholder="Select" />
@@ -93,13 +93,13 @@ export function InlineEligibilityWidget() {
                         <div className="w-16 h-16 bg-success-50 text-success-600 rounded-full flex items-center justify-center mx-auto mb-4">
                             <CheckCircle2 className="w-8 h-8" />
                         </div>
-                        <h3 className="font-bold text-xl text-slate-900 dark:text-white mb-1">Make You Eligible!</h3>
-                        <p className="text-sm text-slate-500 mb-6">
-                            Based on your profile, you qualify for loans up to <span className="font-bold text-slate-900 dark:text-white">₹15 Lakhs</span>.
+                        <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-1">Make You Eligible!</h3>
+                        <p className="text-sm text-gray-500 mb-6">
+                            Based on your profile, you qualify for loans up to <span className="font-bold text-gray-900 dark:text-white">₹15 Lakhs</span>.
                         </p>
                         
-                        <div className="bg-slate-50 rounded-xl p-3 mb-6 text-left">
-                            <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Your Pre-approved Offers</p>
+                        <div className="bg-gray-50 rounded-xl p-3 mb-6 text-left">
+                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Your Pre-approved Offers</p>
                             <div className="flex items-center gap-2 mb-2">
                                 <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-[8px] font-bold">H</div>
                                 <span className="text-sm font-bold">HDFC Bank</span>
@@ -113,13 +113,13 @@ export function InlineEligibilityWidget() {
                         </div>
 
                         <Button 
-                            className="w-full h-11 rounded-xl bg-slate-900 text-white font-bold"
+                            className="w-full h-11 rounded-xl bg-gray-900 text-white font-bold"
                             onClick={() => window.location.hash = '#results'} // Scroll to list
                         >
                             View All 12 Offers
                         </Button>
                         <button 
-                            className="text-xs text-slate-600 mt-3 hover:text-primary-600 hover:underline"
+                            className="text-xs text-gray-600 mt-3 hover:text-primary-600 hover:underline"
                             onClick={() => setStep(1)}
                         >
                             Check for someone else

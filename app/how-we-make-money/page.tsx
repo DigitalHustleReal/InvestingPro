@@ -6,7 +6,7 @@ import { STAT_STRINGS } from '@/lib/constants/platform-stats';
 
 export default function HowWeMakeMoneyPage() {
     return (
-        <div className="min-h-screen bg-white dark:bg-slate-950">
+        <div className="min-h-screen bg-white dark:bg-gray-950">
             <SEOHead
                 title="How We Make Money | InvestingPro"
                 description="Learn how InvestingPro maintains editorial independence while funding our free comparison platform through affiliate partnerships."
@@ -24,7 +24,7 @@ export default function HowWeMakeMoneyPage() {
                     <h1 className="text-4xl sm:text-5xl font-bold text-stone-900 dark:text-white mb-6">
                         How We Make Money
                     </h1>
-                    <p className="text-xl text-stone-600 dark:text-slate-600 max-w-2xl mx-auto">
+                    <p className="text-xl text-stone-600 dark:text-gray-600 max-w-2xl mx-auto">
                         We're committed to complete transparency about how we fund our platform
                         while maintaining 100% editorial independence.
                     </p>
@@ -54,7 +54,7 @@ export default function HowWeMakeMoneyPage() {
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     Editorial Independence Guaranteed
                                 </h3>
-                                <p className="text-stone-700 dark:text-slate-300">
+                                <p className="text-stone-700 dark:text-gray-300">
                                     Our recommendations are <strong>NEVER</strong> influenced by affiliate commissions. 
                                     We analyze all products equally, regardless of partnership status.
                                 </p>
@@ -67,7 +67,7 @@ export default function HowWeMakeMoneyPage() {
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     Firewall Between Editorial & Commercial
                                 </h3>
-                                <p className="text-stone-700 dark:text-slate-300">
+                                <p className="text-stone-700 dark:text-gray-300">
                                     Our editorial team has <strong>ZERO access</strong> to commercial deals or partnership agreements. 
                                     They don't know which products pay more or less.
                                 </p>
@@ -80,7 +80,7 @@ export default function HowWeMakeMoneyPage() {
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     We Recommend Against Partners Too
                                 </h3>
-                                <p className="text-stone-700 dark:text-slate-300">
+                                <p className="text-stone-700 dark:text-gray-300">
                                     We analyze 500+ products but only recommend ~20 best per category. 
                                     If a partner's product doesn't make the cut, we'll tell you why to avoid it.
                                 </p>
@@ -93,7 +93,7 @@ export default function HowWeMakeMoneyPage() {
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     Transparent Labeling
                                 </h3>
-                                <p className="text-stone-700 dark:text-slate-300">
+                                <p className="text-stone-700 dark:text-gray-300">
                                     We clearly mark which products are affiliate partners vs. non-partners. 
                                     Both receive equal editorial treatment.
                                 </p>
@@ -120,14 +120,14 @@ export default function HowWeMakeMoneyPage() {
                         </li>
                     </ol>
 
-                    <div className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 my-8">
+                    <div className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 my-8">
                         <div className="flex items-start gap-3">
-                            <AlertCircle className="w-5 h-5 text-slate-600 dark:text-slate-400 flex-shrink-0 mt-1" />
+                            <AlertCircle className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-1" />
                             <div>
                                 <h3 className="text-lg font-bold text-stone-900 dark:text-white mt-0 mb-2">
                                     Important Note
                                 </h3>
-                                <p className="text-stone-700 dark:text-slate-300 mb-0">
+                                <p className="text-stone-700 dark:text-gray-300 mb-0">
                                     Not all products we recommend are affiliate partners. We recommend many products 
                                     from which we earn nothing, simply because they're the best option for specific situations.
                                 </p>
@@ -139,7 +139,7 @@ export default function HowWeMakeMoneyPage() {
                         Why This Model Works
                     </h2>
 
-                    <p className="text-stone-700 dark:text-slate-300">
+                    <p className="text-stone-700 dark:text-gray-300">
                         The affiliate model allows us to:
                     </p>
 
@@ -151,7 +151,7 @@ export default function HowWeMakeMoneyPage() {
                         <li>Build better tools like <strong>calculators and comparison tables</strong></li>
                     </ul>
 
-                    <p className="text-stone-700 dark:text-slate-300">
+                    <p className="text-stone-700 dark:text-gray-300">
                         Without affiliate revenue, we'd need to charge subscription fees or display intrusive ads, 
                         making our services inaccessible to many Indians who need them most.
                     </p>
@@ -160,7 +160,7 @@ export default function HowWeMakeMoneyPage() {
                         Our Editorial Standards
                     </h2>
 
-                    <p className="text-stone-700 dark:text-slate-300">
+                    <p className="text-stone-700 dark:text-gray-300">
                         Every product recommendation goes through:
                     </p>
 
@@ -172,7 +172,7 @@ export default function HowWeMakeMoneyPage() {
                         <li><strong>User Feedback:</strong> We incorporate real user reviews and experiences</li>
                     </ul>
 
-                    <p className="text-stone-700 dark:text-slate-300 mt-6">
+                    <p className="text-stone-700 dark:text-gray-300 mt-6">
                         <Link href="/methodology" className="text-primary-600 dark:text-primary-400 font-semibold hover:underline">
                             Read our full methodology â†’
                         </Link>
@@ -182,7 +182,7 @@ export default function HowWeMakeMoneyPage() {
                         Questions?
                     </h2>
 
-                    <p className="text-stone-700 dark:text-slate-300">
+                    <p className="text-stone-700 dark:text-gray-300">
                         We're committed to transparency. If you have questions about our business model 
                         or how we maintain editorial independence, please contact us at{' '}
                         <a href="mailto:editorial@investingpro.in" className="text-primary-600 dark:text-primary-400 font-semibold">
@@ -196,7 +196,7 @@ export default function HowWeMakeMoneyPage() {
                     <h3 className="text-2xl font-bold text-stone-900 dark:text-white mb-3">
                         Ready to Find Your Best Financial Product?
                     </h3>
-                    <p className="text-stone-600 dark:text-slate-600 mb-6">
+                    <p className="text-stone-600 dark:text-gray-600 mb-6">
                         {STAT_STRINGS.testimonial}
                     </p>
                     <Link

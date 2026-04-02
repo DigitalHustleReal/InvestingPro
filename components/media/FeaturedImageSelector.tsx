@@ -31,7 +31,7 @@ export function FeaturedImageSelector({
 
     return (
         <div className="space-y-2">
-            <label className="block text-sm font-medium text-slate-700">
+            <label className="block text-sm font-medium text-gray-700">
                 {label}
             </label>
 
@@ -42,7 +42,7 @@ export function FeaturedImageSelector({
                         <img
                             src={value}
                             alt="Featured"
-                            className="max-w-full max-h-64 rounded-lg border border-slate-300 shadow-sm"
+                            className="max-w-full max-h-64 rounded-lg border border-gray-300 shadow-sm"
                         />
                         <div className="absolute top-2 right-2 bg-black/50 rounded px-2 py-1">
                             <p className="text-xs text-white">Featured Image</p>
@@ -81,11 +81,11 @@ export function FeaturedImageSelector({
                 <button
                     type="button"
                     onClick={() => setShowLibrary(true)}
-                    className="w-full border-2 border-dashed border-slate-300 rounded-lg p-8 hover:border-slate-400 transition-colors"
+                    className="w-full border-2 border-dashed border-gray-300 rounded-lg p-8 hover:border-gray-400 transition-colors"
                 >
                     <div className="text-center">
                         <svg
-                            className="mx-auto h-12 w-12 text-slate-600"
+                            className="mx-auto h-12 w-12 text-gray-600"
                             stroke="currentColor"
                             fill="none"
                             viewBox="0 0 48 48"
@@ -97,10 +97,10 @@ export function FeaturedImageSelector({
                                 strokeLinejoin="round"
                             />
                         </svg>
-                        <p className="mt-2 text-sm font-medium text-slate-700">
+                        <p className="mt-2 text-sm font-medium text-gray-700">
                             Select Featured Image
                         </p>
-                        <p className="text-xs text-slate-500 mt-1">
+                        <p className="text-xs text-gray-500 mt-1">
                             Click to browse media library
                         </p>
                     </div>
@@ -112,13 +112,13 @@ export function FeaturedImageSelector({
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-lg w-full max-w-6xl h-[80vh] flex flex-col shadow-2xl">
                         {/* Modal Header */}
-                        <div className="flex items-center justify-between p-4 border-b bg-slate-50">
-                            <h3 className="text-lg font-bold text-slate-900">
+                        <div className="flex items-center justify-between p-4 border-b bg-gray-50">
+                            <h3 className="text-lg font-bold text-gray-900">
                                 Select Featured Image
                             </h3>
                             <button
                                 onClick={() => setShowLibrary(false)}
-                                className="text-slate-500 hover:text-slate-700 text-2xl leading-none"
+                                className="text-gray-500 hover:text-gray-700 text-2xl leading-none"
                                 aria-label="Close"
                             >
                                 ✕
@@ -135,8 +135,8 @@ export function FeaturedImageSelector({
                         </div>
 
                         {/* Modal Footer */}
-                        <div className="border-t p-4 bg-slate-50 flex items-center justify-between">
-                            <p className="text-sm text-slate-600">
+                        <div className="border-t p-4 bg-gray-50 flex items-center justify-between">
+                            <p className="text-sm text-gray-600">
                                 💡 Tip: Upload images in 16:9 ratio (1200×675px) for best results
                             </p>
                             <Button

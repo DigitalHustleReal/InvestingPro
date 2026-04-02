@@ -40,23 +40,23 @@ export default function StickyMobileCTA({
 
   return (
     <div className={cn(
-      "fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200/50 dark:border-slate-800/50 p-4 shadow-[0_-8px_30px_rgb(0,0,0,0.12)] md:hidden transition-all duration-500 ease-in-out",
+      "fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-800/50 p-4 shadow-[0_-8px_30px_rgb(0,0,0,0.12)] md:hidden transition-all duration-500 ease-in-out",
       isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
     )}>
       <div className="max-w-md mx-auto flex items-center gap-3">
         {/* Visual Anchor */}
-        <div className="w-14 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 flex-shrink-0 overflow-hidden relative border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+        <div className="w-14 h-9 rounded-lg bg-gray-100 dark:bg-gray-800 flex-shrink-0 overflow-hidden relative border border-gray-200/50 dark:border-gray-700/50 shadow-sm">
            {image ? (
                <img src={image} alt={productName} className="w-full h-full object-cover" />
            ) : (
-               <div className="w-full h-full bg-slate-900 text-[8px] text-white flex items-center justify-center font-bold">CARD</div>
+               <div className="w-full h-full bg-gray-900 text-[8px] text-white flex items-center justify-center font-bold">CARD</div>
            )}
         </div>
 
         {/* Info Stack */}
         <div className="flex-1 min-w-0">
           <p className="text-[10px] font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider truncate mb-0.5">{providerName}</p>
-          <p className="text-sm font-bold text-slate-900 dark:text-white truncate font-heading leading-none">{productName}</p>
+          <p className="text-sm font-bold text-gray-900 dark:text-white truncate font-heading leading-none">{productName}</p>
         </div>
 
         {/* Action button - High Contrast */}

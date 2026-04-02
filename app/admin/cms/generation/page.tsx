@@ -64,11 +64,11 @@ export default function CMSGenerationPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-3 tracking-tight">
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-3 tracking-tight">
                             <Zap className="w-8 h-8 text-amber-500" />
                             Content Generation
                         </h1>
-                        <p className="text-slate-500 dark:text-slate-400 text-lg">Generate articles using the CMS orchestrator</p>
+                        <p className="text-gray-500 dark:text-gray-400 text-lg">Generate articles using the CMS orchestrator</p>
                     </div>
                     <div className="flex gap-3">
                         <Button
@@ -92,9 +92,9 @@ export default function CMSGenerationPage() {
                 </div>
 
                 {/* Bulk Generation Panel */}
-                <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-sm">
-                    <CardHeader className="border-b border-slate-200 dark:border-slate-800">
-                        <CardTitle className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 shadow-sm">
+                    <CardHeader className="border-b border-gray-200 dark:border-gray-800">
+                        <CardTitle className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-3">
                             <Zap className="w-5 h-5 text-amber-500" />
                             Bulk Content Generation
                         </CardTitle>

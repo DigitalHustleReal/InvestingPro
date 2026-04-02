@@ -81,7 +81,7 @@ export function MediaUploader({ onUploadComplete, folder = 'uploads', className 
 
     const wrapperClass = [
         "relative border-2 border-dashed rounded-xl p-8 transition-colors text-center",
-        dragActive ? "border-primary-500 bg-primary-50" : "border-slate-300 hover:border-slate-400",
+        dragActive ? "border-primary-500 bg-primary-50" : "border-gray-300 hover:border-gray-400",
         isUploading ? "pointer-events-none opacity-80" : ""
     ].join(" ");
 
@@ -106,35 +106,35 @@ export function MediaUploader({ onUploadComplete, folder = 'uploads', className 
                 {isUploading ? (
                     <div className="flex flex-col items-center justify-center py-4">
                         <div className="w-10 h-10 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mb-4" />
-                        <div className="w-full max-w-xs bg-slate-200 rounded-full h-2 mb-2 overflow-hidden">
+                        <div className="w-full max-w-xs bg-gray-200 rounded-full h-2 mb-2 overflow-hidden">
                             <div
                                 className="bg-primary-600 h-2 rounded-full transition-all duration-300"
                                 style={{ width: progress + "%" }}
                             />
                         </div>
-                        <p className="text-sm font-medium text-slate-700">
+                        <p className="text-sm font-medium text-gray-700">
                             {status} ({Math.round(progress)}%)
                         </p>
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center py-4 space-y-4">
-                        <div className="p-4 bg-slate-100 rounded-full">
-                            <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div className="p-4 bg-gray-100 rounded-full">
+                            <svg className="w-8 h-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                             </svg>
                         </div>
                         <div>
-                            <p className="text-base font-medium text-slate-900">
+                            <p className="text-base font-medium text-gray-900">
                                 Click or drag image to upload
                             </p>
-                            <p className="text-sm text-slate-500 mt-1">
+                            <p className="text-sm text-gray-500 mt-1">
                                 Supports JPG, PNG, WebP (max 10MB)
                             </p>
                         </div>
                         <button
                             type="button"
                             onClick={() => inputRef.current?.click()}
-                            className="px-4 py-2 bg-white text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 font-medium transition-colors"
+                            className="px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium transition-colors"
                         >
                             Select File
                         </button>

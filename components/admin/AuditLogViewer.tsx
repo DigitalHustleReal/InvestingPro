@@ -167,7 +167,7 @@ export default function AuditLogViewer({ initialFilters }: AuditLogViewerProps) 
             case 'delete':
                 return 'bg-danger-100 text-danger-800';
             default:
-                return 'bg-wt-card text-slate-800';
+                return 'bg-wt-card text-gray-800';
         }
     };
 

@@ -37,14 +37,14 @@ export default function ContextualLinks({
     return (
         <nav
             className={cn(
-                'rounded-xl border border-slate-200 dark:border-slate-700',
-                'bg-white dark:bg-slate-900',
+                'rounded-xl border border-gray-200 dark:border-gray-700',
+                'bg-white dark:bg-gray-900',
                 'p-4',
                 className,
             )}
             aria-label={heading}
         >
-            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3">
+            <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 mb-3">
                 {heading}
             </h3>
 
@@ -55,14 +55,14 @@ export default function ContextualLinks({
                             href={link.href}
                             className={cn(
                                 'group flex items-center gap-2 rounded-lg px-2 py-1.5',
-                                'text-sm text-slate-700 dark:text-slate-300',
+                                'text-sm text-gray-700 dark:text-gray-300',
                                 'transition-colors duration-150',
                                 'hover:bg-green-50 dark:hover:bg-green-950/30',
                                 'hover:text-green-700 dark:hover:text-green-400',
                                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600',
                             )}
                         >
-                            <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-green-600 dark:group-hover:text-green-500 shrink-0 transition-colors" />
+                            <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-500 shrink-0 transition-colors" />
                             <span className="line-clamp-1">{link.title}</span>
                         </Link>
                     </li>

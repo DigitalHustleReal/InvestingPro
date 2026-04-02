@@ -34,7 +34,7 @@ function HealthIndicator({ label, status, icon: Icon }: HealthIndicatorProps) {
             </div>
 
             <div className="flex-1 min-w-0">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-0.5 truncate">
+                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-0.5 truncate">
                     {label}
                 </p>
 

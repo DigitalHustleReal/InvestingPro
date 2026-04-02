@@ -41,8 +41,8 @@ interface TrackedAffiliateLinkProps {
 const variantStyles = {
     default: 'text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center gap-1',
     button: 'inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors',
-    card: 'block w-full p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-primary-500 hover:shadow-md transition-all',
-    text: 'text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 underline-offset-2 hover:underline',
+    card: 'block w-full p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-500 hover:shadow-md transition-all',
+    text: 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 underline-offset-2 hover:underline',
 };
 
 /**

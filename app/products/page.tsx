@@ -28,16 +28,16 @@ export default async function ProductsPage({
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <SEOHead 
                 title="Best Financial Products | InvestingPro" 
                 description="Compare the best credit cards, brokers, and loans in India." 
             />
             
-            <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+            <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <h1 className="text-4xl font-bold text-slate-900 mb-4">Financial Products</h1>
-                    <p className="text-xl text-slate-600 max-w-2xl">
+                    <h1 className="text-4xl font-bold text-gray-900 mb-4">Financial Products</h1>
+                    <p className="text-xl text-gray-600 max-w-2xl">
                         Handpicked credit cards, brokers, and tools accelerated for your financial growth.
                         Compare side-by-side to choose the best.
                     </p>
@@ -57,8 +57,8 @@ export default async function ProductsPage({
                     </div>
                 ) : products.length === 0 ? (
                    <div className="text-center py-20">
-                       <p className="text-slate-500 mb-4">No products found.</p>
-                       <p className="text-sm text-slate-600">Run: npx tsx scripts/seed-products.ts</p>
+                       <p className="text-gray-500 mb-4">No products found.</p>
+                       <p className="text-sm text-gray-600">Run: npx tsx scripts/seed-products.ts</p>
                    </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

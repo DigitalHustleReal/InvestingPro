@@ -146,7 +146,7 @@ const AccordionItemWithContext = React.forwardRef<HTMLDivElement, AccordionItemP
             <AccordionItemContext.Provider value={{ value }}>
                 <div
                     ref={ref}
-                    className={cn("border-b border-slate-200", className)}
+                    className={cn("border-b border-gray-200", className)}
                     {...props}
                 >
                     {children}

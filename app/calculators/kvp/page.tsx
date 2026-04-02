@@ -35,7 +35,7 @@ export default function KVPCalculatorPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
             <SEOHead
                 title="KVP Calculator 2026 - Kisan Vikas Patra Doubling Calculator | InvestingPro"
                 description="Calculate KVP maturity date and amount. See when your money will double with current KVP 7.5% interest rate. Free Kisan Vikas Patra calculator."
@@ -61,10 +61,10 @@ export default function KVPCalculatorPage() {
                 />
 
                 <div className="text-center mb-8 mt-6">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                         KVP Calculator - Kisan Vikas Patra
                     </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
                         A government scheme that guarantees to double your money. Calculate exactly when your investment will mature.
                     </p>
                 </div>
@@ -77,9 +77,9 @@ export default function KVPCalculatorPage() {
 
             {/* FAQ Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                <Card className="border-0 shadow-lg rounded-2xl dark:bg-slate-900 dark:border dark:border-slate-800">
+                <Card className="border-0 shadow-lg rounded-2xl dark:bg-gray-900 dark:border dark:border-gray-800">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                        <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
                             <Info className="w-6 h-6 text-primary-600" />
                             KVP FAQs
                         </CardTitle>
@@ -87,12 +87,12 @@ export default function KVPCalculatorPage() {
                     <CardContent>
                         <div className="space-y-6">
                             {faqs.map((faq, idx) => (
-                                <div key={idx} className="border-b border-slate-200 dark:border-slate-800 pb-6 last:border-0">
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2 text-lg flex items-start gap-3">
+                                <div key={idx} className="border-b border-gray-200 dark:border-gray-800 pb-6 last:border-0">
+                                    <h3 className="font-bold text-gray-900 dark:text-white mb-2 text-lg flex items-start gap-3">
                                         <span className="text-primary-600 font-bold">Q{idx + 1}.</span>
                                         <span>{faq.question}</span>
                                     </h3>
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed ml-8">
+                                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed ml-8">
                                         {faq.answer}
                                     </p>
                                 </div>

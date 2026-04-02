@@ -283,7 +283,7 @@ export default function EditArticlePage() {
         return (
             <AdminLayout>
                 <div className="flex flex-col items-center justify-center min-h-screen">
-                    <h1 className="text-2xl font-bold text-slate-900 mb-4">Article Not Found</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
                     <p className="text-muted-foreground/50 dark:text-muted-foreground/50 mb-6">The article you're looking for doesn't exist.</p>
                     <button
                         onClick={() => router.push('/admin/articles')}
@@ -324,7 +324,7 @@ export default function EditArticlePage() {
         >
             <div className="flex flex-col h-screen">
                 {/* Header */}
-                <div className="border-b border-slate-200 p-6 bg-slate-50">
+                <div className="border-b border-gray-200 p-6 bg-gray-50">
                     <div className="flex items-center justify-between">
                         <div className="flex-1">
                             <Input

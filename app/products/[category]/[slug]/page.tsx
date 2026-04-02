@@ -32,10 +32,10 @@ export default function ProductDetailPage() {
 
     if (!category || !slug) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="text-2xl font-bold text-slate-900 mb-2">Invalid Product URL</h1>
-                    <p className="text-slate-500 mb-6">The product URL is malformed.</p>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-2">Invalid Product URL</h1>
+                    <p className="text-gray-500 mb-6">The product URL is malformed.</p>
                     <Link href="/products">
                         <Button variant="outline">
                             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Products
@@ -48,7 +48,7 @@ export default function ProductDetailPage() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
             </div>
         );
@@ -56,10 +56,10 @@ export default function ProductDetailPage() {
 
     if (error || !product) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="text-2xl font-bold text-slate-900 mb-2">Product Not Found</h1>
-                    <p className="text-slate-500 mb-6">The product you're looking for doesn't exist.</p>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-2">Product Not Found</h1>
+                    <p className="text-gray-500 mb-6">The product you're looking for doesn't exist.</p>
                     <Link href={`/products/${category}`}>
                         <Button variant="outline">
                             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Products
@@ -77,18 +77,18 @@ export default function ProductDetailPage() {
     console.log('[ProductDetailPage] Rendering with:', { category, slug, product: product?.name });
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-gray-50">
             <SEOHead
                 title={`${product.name} Review | InvestingPro`}
                 description={product.description || `Complete review and analysis of ${product.name} from ${product.provider_name}.`}
             />
 
             {/* Hero */}
-            <div className="bg-slate-900 border-b border-slate-800">
+            <div className="bg-gray-900 border-b border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <Link 
                         href={`/products/${category}`}
-                        className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-6 text-sm"
+                        className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6 text-sm"
                     >
                         <ArrowLeft className="w-4 h-4" /> Back to {categoryLabel}
                     </Link>
@@ -116,7 +116,7 @@ export default function ProductDetailPage() {
                             <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-2">
                                 {product.name}
                             </h1>
-                            <p className="text-lg text-slate-400 mb-4">
+                            <p className="text-lg text-gray-400 mb-4">
                                 by {product.provider_name}
                             </p>
                             
@@ -126,7 +126,7 @@ export default function ProductDetailPage() {
                                     <div className="flex items-center gap-2 bg-emerald-500/10 px-4 py-2 rounded-xl">
                                         <TrendingUp className="w-5 h-5 text-emerald-400" />
                                         <span className="text-xl font-bold text-white">{product.trust_score}</span>
-                                        <span className="text-slate-400">/100</span>
+                                        <span className="text-gray-400">/100</span>
                                     </div>
                                 )}
                                 {product.trust_score && product.trust_score >= 80 && (
@@ -160,8 +160,8 @@ export default function ProductDetailPage() {
                         {/* Description */}
                         <Card>
                             <CardContent className="p-6">
-                                <h2 className="text-xl font-bold text-slate-900 mb-4">Overview</h2>
-                                <p className="text-slate-600 leading-relaxed">
+                                <h2 className="text-xl font-bold text-gray-900 mb-4">Overview</h2>
+                                <p className="text-gray-600 leading-relaxed">
                                     {product.description || `${product.name} is a ${categoryLabel.toLowerCase()} from ${product.provider_name}. This product offers competitive features and benefits for users looking for reliable financial solutions.`}
                                 </p>
                             </CardContent>
@@ -170,24 +170,24 @@ export default function ProductDetailPage() {
                         {/* Product Details */}
                         <Card>
                             <CardContent className="p-6">
-                                <h2 className="text-xl font-bold text-slate-900 mb-4">Product Details</h2>
+                                <h2 className="text-xl font-bold text-gray-900 mb-4">Product Details</h2>
                                 <div className="grid sm:grid-cols-2 gap-4">
-                                    <div className="p-4 bg-slate-50 rounded-xl">
-                                        <div className="text-sm text-slate-500 mb-1">Provider</div>
-                                        <div className="text-lg font-bold text-slate-900">{product.provider_name}</div>
+                                    <div className="p-4 bg-gray-50 rounded-xl">
+                                        <div className="text-sm text-gray-500 mb-1">Provider</div>
+                                        <div className="text-lg font-bold text-gray-900">{product.provider_name}</div>
                                     </div>
-                                    <div className="p-4 bg-slate-50 rounded-xl">
-                                        <div className="text-sm text-slate-500 mb-1">Category</div>
-                                        <div className="text-lg font-bold text-slate-900 capitalize">{product.category.replace('_', ' ')}</div>
+                                    <div className="p-4 bg-gray-50 rounded-xl">
+                                        <div className="text-sm text-gray-500 mb-1">Category</div>
+                                        <div className="text-lg font-bold text-gray-900 capitalize">{product.category.replace('_', ' ')}</div>
                                     </div>
-                                    <div className="p-4 bg-slate-50 rounded-xl">
-                                        <div className="text-sm text-slate-500 mb-1">Rating</div>
-                                        <div className="text-lg font-bold text-slate-900">{product.rating.overall}/5</div>
+                                    <div className="p-4 bg-gray-50 rounded-xl">
+                                        <div className="text-sm text-gray-500 mb-1">Rating</div>
+                                        <div className="text-lg font-bold text-gray-900">{product.rating.overall}/5</div>
                                     </div>
                                     {product.trust_score > 0 && (
-                                        <div className="p-4 bg-slate-50 rounded-xl">
-                                            <div className="text-sm text-slate-500 mb-1">Trust Score</div>
-                                            <div className="text-lg font-bold text-slate-900">{product.trust_score}/100</div>
+                                        <div className="p-4 bg-gray-50 rounded-xl">
+                                            <div className="text-sm text-gray-500 mb-1">Trust Score</div>
+                                            <div className="text-lg font-bold text-gray-900">{product.trust_score}/100</div>
                                         </div>
                                     )}
                                 </div>
@@ -221,37 +221,37 @@ export default function ProductDetailPage() {
                         {/* Trust Indicators */}
                         <Card>
                             <CardContent className="p-6">
-                                <h3 className="font-bold text-slate-900 mb-4">Trust & Verification</h3>
+                                <h3 className="font-bold text-gray-900 mb-4">Trust & Verification</h3>
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-3">
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                                             product.verification_status === 'verified' 
                                                 ? 'bg-success-100' 
-                                                : 'bg-slate-100'
+                                                : 'bg-gray-100'
                                         }`}>
                                             <Shield className={`w-4 h-4 ${
                                                 product.verification_status === 'verified' 
                                                     ? 'text-success-600' 
-                                                    : 'text-slate-400'
+                                                    : 'text-gray-400'
                                             }`} />
                                         </div>
                                         <div>
-                                            <div className="font-medium text-slate-900 capitalize">
+                                            <div className="font-medium text-gray-900 capitalize">
                                                 {product.verification_status || 'Pending Review'}
                                             </div>
-                                            <div className="text-xs text-slate-500">Verification Status</div>
+                                            <div className="text-xs text-gray-500">Verification Status</div>
                                         </div>
                                     </div>
                                     {product.updated_at && (
                                         <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-                                                <Clock className="w-4 h-4 text-slate-400" />
+                                            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                                                <Clock className="w-4 h-4 text-gray-400" />
                                             </div>
                                             <div>
-                                                <div className="font-medium text-slate-900">
+                                                <div className="font-medium text-gray-900">
                                                     {new Date(product.updated_at).toLocaleDateString('en-IN')}
                                                 </div>
-                                                <div className="text-xs text-slate-500">Last Updated</div>
+                                                <div className="text-xs text-gray-500">Last Updated</div>
                                             </div>
                                         </div>
                                     )}

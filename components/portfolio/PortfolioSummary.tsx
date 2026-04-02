@@ -26,8 +26,8 @@ export default function PortfolioSummary({ holdings = [] }: PortfolioSummaryProp
             label: "Total Investment",
             value: `₹${totalInvestment.toLocaleString('en-IN')}`,
             icon: DollarSign,
-            color: "text-slate-600",
-            bg: "bg-slate-50"
+            color: "text-gray-600",
+            bg: "bg-gray-50"
         },
         {
             label: "Overall Profit",
@@ -54,8 +54,8 @@ export default function PortfolioSummary({ holdings = [] }: PortfolioSummaryProp
                                 </span>
                             )}
                         </div>
-                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
-                        <h3 className="text-3xl font-bold text-slate-900 tracking-tight">{stat.value}</h3>
+                        <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
+                        <h3 className="text-3xl font-bold text-gray-900 tracking-tight">{stat.value}</h3>
                     </CardContent>
                 </Card>
             ))}

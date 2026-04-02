@@ -42,10 +42,10 @@ interface CategoryCTAProps {
 export function CategoryCTA({ categoryName, description, href }: CategoryCTAProps) {
   return (
     <div className="bg-gradient-to-r from-success-50 to-primary-50 dark:from-success-900/20 dark:to-primary-900/20 rounded-xl p-8 text-center">
-      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
+      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
         Explore {categoryName}
       </h3>
-      <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto">
+      <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
         {description}
       </p>
       <CTAButton 

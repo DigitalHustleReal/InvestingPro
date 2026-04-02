@@ -34,21 +34,21 @@ export default function DocumentChecklist({ documents, productName, className }:
   const progress = (checkedDocs.size / documents.length) * 100;
 
   return (
-    <div className={cn("bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6", className)}>
+    <div className={cn("bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6", className)}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-          <h3 className="font-bold text-slate-900 dark:text-white">Required Documents</h3>
+          <h3 className="font-bold text-gray-900 dark:text-white">Required Documents</h3>
         </div>
-        <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+        <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
           {checkedDocs.size}/{documents.length} ready
         </span>
       </div>
 
       {/* Progress Bar */}
       <div className="mb-6">
-        <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
           <div 
             className="h-full bg-gradient-to-r from-primary-500 to-primary-600 transition-all duration-300"
             style={{ width: `${progress}%` }}
@@ -62,14 +62,14 @@ export default function DocumentChecklist({ documents, productName, className }:
           <button
             key={doc.id}
             onClick={() => toggleDocument(doc.id)}
-            className="w-full flex items-start gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left"
+            className="w-full flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left"
           >
             {/* Checkbox */}
             <div className="flex-shrink-0 mt-0.5">
               {checkedDocs.has(doc.id) ? (
                 <CheckCircle2 className="w-5 h-5 text-success-600 dark:text-success-400" />
               ) : (
-                <Circle className="w-5 h-5 text-slate-300 dark:text-slate-600" />
+                <Circle className="w-5 h-5 text-gray-300 dark:text-gray-600" />
               )}
             </div>
 
@@ -79,8 +79,8 @@ export default function DocumentChecklist({ documents, productName, className }:
                 <p className={cn(
                   "font-semibold text-sm",
                   checkedDocs.has(doc.id) 
-                    ? "text-slate-500 dark:text-slate-600 line-through" 
-                    : "text-slate-900 dark:text-white"
+                    ? "text-gray-500 dark:text-gray-600 line-through" 
+                    : "text-gray-900 dark:text-white"
                 )}>
                   {doc.name}
                 </p>
@@ -90,7 +90,7 @@ export default function DocumentChecklist({ documents, productName, className }:
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400">
+              <p className="text-xs text-gray-600 dark:text-gray-400">
                 {doc.description}
               </p>
             </div>
@@ -112,7 +112,7 @@ export default function DocumentChecklist({ documents, productName, className }:
       </Button>
 
       {/* Helper Text */}
-      <p className="text-xs text-slate-500 dark:text-slate-600 mt-4 text-center">
+      <p className="text-xs text-gray-500 dark:text-gray-600 mt-4 text-center">
         Keep these documents ready before applying for {productName}
       </p>
     </div>

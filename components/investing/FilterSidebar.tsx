@@ -52,14 +52,14 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
     };
 
     return (
-        <div className="w-full bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden flex flex-col h-full max-h-[calc(100vh-120px)] sticky top-28">
+        <div className="w-full bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col h-full max-h-[calc(100vh-120px)] sticky top-28">
             {/* Header */}
-            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900 z-10">
-                <h3 className="font-bold text-slate-800 dark:text-white flex items-center gap-2">
+            <div className="p-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between bg-white dark:bg-gray-900 z-10">
+                <h3 className="font-bold text-gray-800 dark:text-white flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-primary-500" />
                     Fund Finder
                 </h3>
-                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-slate-500 hover:text-primary-600">
+                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 text-xs text-gray-500 hover:text-primary-600">
                     <RotateCcw className="w-3 h-3 mr-1" /> Reset
                 </Button>
             </div>
@@ -69,7 +69,7 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                 
                 {/* 1. Fund Type */}
                 <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Investment Type</label>
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wider">Investment Type</label>
                     <div className="flex flex-wrap gap-2">
                         {FUND_TYPES.map(type => (
                             <button
@@ -77,8 +77,8 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                                 onClick={() => toggleArrayItem('fundTypes', type)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
                                     filters.fundTypes.includes(type)
-                                        ? 'bg-slate-900 dark:bg-primary-500 text-white border-slate-900 dark:border-primary-500 shadow-lg shadow-slate-900/20'
-                                        : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'
+                                        ? 'bg-gray-900 dark:bg-primary-500 text-white border-gray-900 dark:border-primary-500 shadow-lg shadow-gray-900/20'
+                                        : 'bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-300'
                                 }`}
                             >
                                 {type}
@@ -87,12 +87,12 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                     </div>
                 </div>
 
-                <div className="w-full h-px bg-slate-100 dark:bg-slate-800" />
+                <div className="w-full h-px bg-gray-100 dark:bg-gray-800" />
 
                 {/* 2. CAGR Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Min CAGR (3Y)</label>
+                         <label className="text-xs font-bold text-gray-600 uppercase tracking-wider">Min CAGR (3Y)</label>
                          <span className="text-sm font-bold text-primary-600">{filters.minCAGR}%</span>
                     </div>
                     <Slider
@@ -104,12 +104,12 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                     />
                 </div>
 
-                 <div className="w-full h-px bg-slate-100 dark:bg-slate-800" />
+                 <div className="w-full h-px bg-gray-100 dark:bg-gray-800" />
 
                 {/* 3. Risk Profile */}
                 <Accordion type="single" collapsible defaultValue="risk" className="w-full">
                     <AccordionItem value="risk" className="border-0">
-                        <AccordionTrigger className="text-sm font-bold text-slate-800 dark:text-white py-2 hover:no-underline">
+                        <AccordionTrigger className="text-sm font-bold text-gray-800 dark:text-white py-2 hover:no-underline">
                             Risk Profile
                         </AccordionTrigger>
                         <AccordionContent>
@@ -121,7 +121,7 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                                             checked={filters.riskLevels.includes(risk)}
                                             onCheckedChange={() => toggleArrayItem('riskLevels', risk)}
                                         />
-                                        <Label htmlFor={`risk-${risk}`} className="text-sm font-medium text-slate-600 dark:text-slate-300 cursor-pointer">
+                                        <Label htmlFor={`risk-${risk}`} className="text-sm font-medium text-gray-600 dark:text-gray-300 cursor-pointer">
                                             {risk}
                                         </Label>
                                     </div>
@@ -131,14 +131,14 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                     </AccordionItem>
                 </Accordion>
 
-                 <div className="w-full h-px bg-slate-100 dark:bg-slate-800" />
+                 <div className="w-full h-px bg-gray-100 dark:bg-gray-800" />
 
                  {/* 4. Fund House */}
                  <div className="space-y-3">
-                     <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Fund House / Provider</label>
+                     <label className="text-xs font-bold text-gray-600 uppercase tracking-wider">Fund House / Provider</label>
                      <div className="relative">
-                         <Search className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-600" />
-                         <Input className="h-9 pl-8 bg-slate-50 dark:bg-slate-800 border-0" placeholder="Search provider..." />
+                         <Search className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-gray-600" />
+                         <Input className="h-9 pl-8 bg-gray-50 dark:bg-gray-800 border-0" placeholder="Search provider..." />
                      </div>
                      <div className="max-h-32 overflow-y-auto space-y-2 pr-2 scrollbar-thin">
                         {FUND_HOUSES.map(house => (
@@ -148,7 +148,7 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                                     checked={filters.fundHouses.includes(house)}
                                     onCheckedChange={() => toggleArrayItem('fundHouses', house)}
                                 />
-                                <Label htmlFor={`house-${house}`} className="text-sm text-slate-600 dark:text-slate-400">
+                                <Label htmlFor={`house-${house}`} className="text-sm text-gray-600 dark:text-gray-400">
                                     {house}
                                 </Label>
                             </div>
@@ -156,12 +156,12 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                      </div>
                  </div>
                  
-                 <div className="w-full h-px bg-slate-100 dark:bg-slate-800" />
+                 <div className="w-full h-px bg-gray-100 dark:bg-gray-800" />
                  
                  {/* 5. Expense Ratio */}
                  <div className="space-y-4">
                      <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Max Expense Ratio</label>
+                         <label className="text-xs font-bold text-gray-600 uppercase tracking-wider">Max Expense Ratio</label>
                          <span className="text-sm font-bold text-danger-600">{filters.maxExpenseRatio}%</span>
                     </div>
                     <Slider
@@ -172,13 +172,13 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                     />
                  </div>
 
-                 <div className="w-full h-px bg-slate-100 dark:bg-slate-800" />
+                 <div className="w-full h-px bg-gray-100 dark:bg-gray-800" />
 
                  {/* 6. Min Investment */}
                  <div className="space-y-4">
                      <div className="flex items-center justify-between">
-                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Min Investment</label>
-                         <span className="text-sm font-bold text-slate-700 dark:text-slate-300">₹{filters.minInvestment.toLocaleString()}</span>
+                         <label className="text-xs font-bold text-gray-600 uppercase tracking-wider">Min Investment</label>
+                         <span className="text-sm font-bold text-gray-700 dark:text-gray-300">₹{filters.minInvestment.toLocaleString()}</span>
                     </div>
                     <Slider
                         defaultValue={[filters.minInvestment]}
@@ -186,7 +186,7 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
                         step={500}
                         onValueChange={(val) => setFilters(prev => ({ ...prev, minInvestment: val[0] }))}
                     />
-                    <div className="flex justify-between text-xs text-slate-600">
+                    <div className="flex justify-between text-xs text-gray-600">
                         <span>₹0</span>
                         <span>₹10,000</span>
                     </div>
@@ -195,7 +195,7 @@ export function InvestingFilterSidebar({ filters, setFilters }: InvestingFilterS
             </div>
 
              {/* Footer Actions */}
-             <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800">
+             <div className="p-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800">
                  <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold h-11 rounded-xl shadow-lg shadow-primary-500/20">
                      Apply Filters
                  </Button>

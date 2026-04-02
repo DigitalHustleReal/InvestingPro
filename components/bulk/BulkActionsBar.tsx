@@ -110,7 +110,7 @@ export function BulkActionsBar({
 
     return (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
-            <div className="bg-slate-900 text-white rounded-lg shadow-2xl px-6 py-4 flex items-center gap-4 min-w-[500px]">
+            <div className="bg-gray-900 text-white rounded-lg shadow-2xl px-6 py-4 flex items-center gap-4 min-w-[500px]">
                 {/* Selection Count */}
                 <div className="flex items-center gap-2">
                     <CheckSquare className="w-5 h-5 text-secondary-400" />
@@ -118,7 +118,7 @@ export function BulkActionsBar({
                 </div>
 
                 {/* Divider */}
-                <div className="w-px h-6 bg-slate-700" />
+                <div className="w-px h-6 bg-gray-700" />
 
                 {/* Quick Actions */}
                 <div className="flex items-center gap-2">
@@ -149,7 +149,7 @@ export function BulkActionsBar({
                     <Button
                         size="sm"
                         variant="ghost"
-                        className="text-slate-600 hover:bg-slate-400/10"
+                        className="text-gray-600 hover:bg-gray-400/10"
                         onClick={() => handleBulkAction('archive')}
                         disabled={isProcessing}
                         title="Archive selected"
@@ -172,11 +172,11 @@ export function BulkActionsBar({
                 </div>
 
                 {/* Divider */}
-                <div className="w-px h-6 bg-slate-700" />
+                <div className="w-px h-6 bg-gray-700" />
 
                 {/* More Actions Dropdown */}
                 <Select value={action} onValueChange={handleActionChange} disabled={isProcessing}>
-                    <SelectTrigger className="w-[150px] bg-slate-800 border-slate-700 text-white">
+                    <SelectTrigger className="w-[150px] bg-gray-800 border-gray-700 text-white">
                         <SelectValue placeholder="More actions..." />
                     </SelectTrigger>
                     <SelectContent>
@@ -210,7 +210,7 @@ export function BulkActionsBar({
                 <Button
                     size="sm"
                     variant="ghost"
-                    className="text-slate-600 hover:bg-slate-800 ml-auto"
+                    className="text-gray-600 hover:bg-gray-800 ml-auto"
                     onClick={onClearSelection}
                     disabled={isProcessing}
                 >
