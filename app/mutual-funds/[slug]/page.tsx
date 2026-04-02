@@ -24,6 +24,7 @@ import DecisionFramework from '@/components/common/DecisionFramework'
 import DecisionCTA from '@/components/common/DecisionCTA'
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure'
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer'
+import TableOfContents from '@/components/content/TableOfContents'
 import Link from 'next/link'
 
 interface MutualFundDetail {
@@ -404,7 +405,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
           {/* Left Column: Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Investment Objective */}
-            <Card>
+            <Card id="investment-objective">
               <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
                   <Target className="w-6 h-6 text-green-600" />
@@ -417,7 +418,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
             </Card>
             
             {/* Key Features */}
-            <Card>
+            <Card id="key-features">
               <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
                   <CheckCircle2 className="w-6 h-6 text-green-600" />
@@ -437,7 +438,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
             </Card>
             
             {/* Portfolio Holdings */}
-            <Card>
+            <Card id="portfolio-holdings">
               <CardHeader>
                 <CardTitle className="flex items-center gap-6 md:p-8">
                   <BarChart3 className="w-6 h-6 text-green-600" />
@@ -499,7 +500,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
             </Card>
             
             {/* Pros & Cons */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div id="pros-cons" className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-green-600 bg-green-50">
                 <CardHeader>
                   <CardTitle className="text-green-600 flex items-center gap-6 md:p-8">
@@ -540,7 +541,7 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
             </div>
             
             {/* Fund Details */}
-            <Card>
+            <Card id="fund-details">
               <CardHeader>
                 <CardTitle>Fund Details</CardTitle>
               </CardHeader>
@@ -571,6 +572,15 @@ export default async function MutualFundDetailPage({ params }: { params: Promise
           {/* Right Column: Sidebar */}
           <div className="lg:col-span-1 space-y-6">
             
+            {/* Table of Contents */}
+            <TableOfContents items={[
+              { id: 'investment-objective', text: 'Investment Objective', level: 2 },
+              { id: 'key-features', text: 'Key Features', level: 2 },
+              { id: 'portfolio-holdings', text: 'Portfolio Holdings', level: 2 },
+              { id: 'pros-cons', text: 'Strengths & Limitations', level: 2 },
+              { id: 'fund-details', text: 'Fund Details', level: 2 },
+            ]} />
+
             {/* Differentiation Score Card */}
             <DifferentiationCard 
                 score={scoreMutualFund({
