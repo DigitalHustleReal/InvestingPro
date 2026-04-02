@@ -51,6 +51,7 @@ import AffiliateDisclosure from '@/components/common/AffiliateDisclosure'
 import { CreditCardSchema } from '@/components/seo/SchemaMarkup'
 import DataFreshnessIndicator from '@/components/common/DataFreshnessIndicator'
 import CreditCardVisual from '@/components/common/CreditCardVisual'
+import RelatedPages from '@/components/common/RelatedPages'
 
 interface CreditCardDetail {
   id: string
@@ -701,6 +702,15 @@ export default async function CreditCardDetailPage(props: { params: Promise<{ sl
             />
           </div>
           
+      </div>
+
+      {/* Related Pages — Internal Linking for SEO */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <RelatedPages
+          currentSlug={params.slug}
+          category={card.type.toLowerCase()}
+          maxLinks={6}
+        />
       </div>
 
       {/* Bottom CTA */}

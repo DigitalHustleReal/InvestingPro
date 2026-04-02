@@ -14,6 +14,7 @@ import { createServiceClient } from '@/lib/supabase/service';
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import SEOContentBlock from '@/components/common/SEOContentBlock';
+import RelatedPages from '@/components/common/RelatedPages';
 import CreditCardsClient from '../../CreditCardsClient';
 
 export const revalidate = 3600;
@@ -887,6 +888,13 @@ export default async function CategoryPage({ params }: PageProps) {
                         ))}
                     </div>
                 </section>
+
+                {/* Related Pages — Internal Linking */}
+                <RelatedPages
+                    currentSlug={`category-${params.type}`}
+                    category={params.type}
+                    maxLinks={6}
+                />
 
                 {/* Compliance */}
                 <ComplianceDisclaimer variant="compact" />

@@ -16,6 +16,7 @@ import {
 import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs';
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
+import RelatedPages from '@/components/common/RelatedPages';
 
 // ISR: Revalidate every hour
 export const revalidate = 3600;
@@ -949,6 +950,13 @@ export default async function AirportLoungeAccessPage() {
                         </div>
                     </div>
                 </div>
+
+                {/* Related Pages — Internal Linking */}
+                <RelatedPages
+                    currentSlug="airport-lounge-access-india"
+                    category="travel"
+                    maxLinks={6}
+                />
             </div>
         </>
     );

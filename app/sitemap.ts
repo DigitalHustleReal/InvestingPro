@@ -181,8 +181,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         // Credit Card salary bracket pages (programmatic SEO)
         const salaryBrackets = [
-            '15000-25000', '25000-40000', '40000-60000', '60000-100000',
-            'above-100000', 'students', 'self-employed', 'women',
+            '15000-25000', '25000-50000', '50000-75000', '75000-100000',
+            '100000-150000', '150000-300000', '300000-500000', '500000-plus',
         ];
         for (const bracket of salaryBrackets) {
             sitemap.push({
@@ -193,10 +193,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             });
         }
 
+        // Airport lounge guide (pillar content)
+        sitemap.push({
+            url: `${baseUrl}/credit-cards/airport-lounge-access-india`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        });
+
         // Credit Card category/type pages (programmatic SEO)
         const cardCategories = [
-            'travel', 'cashback', 'rewards', 'fuel', 'shopping',
-            'premium', 'business', 'lifetime-free',
+            'travel', 'cashback', 'rewards', 'fuel', 'shopping', 'premium',
         ];
         for (const category of cardCategories) {
             sitemap.push({

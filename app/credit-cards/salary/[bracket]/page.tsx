@@ -11,6 +11,7 @@ import { createServiceClient } from '@/lib/supabase/service';
 import AffiliateDisclosure from '@/components/common/AffiliateDisclosure';
 import ComplianceDisclaimer from '@/components/common/ComplianceDisclaimer';
 import SEOContentBlock from '@/components/common/SEOContentBlock';
+import RelatedPages from '@/components/common/RelatedPages';
 import CreditCardsClient from '../../CreditCardsClient';
 
 export const revalidate = 3600; // ISR: Revalidate every hour
@@ -612,6 +613,13 @@ export default async function SalaryBracketPage({ params }: PageProps) {
                         ))}
                     </div>
                 </section>
+
+                {/* Related Pages — Internal Linking */}
+                <RelatedPages
+                    currentSlug={`salary-${params.bracket}`}
+                    category="credit-cards"
+                    maxLinks={6}
+                />
 
                 {/* Compliance */}
                 <ComplianceDisclaimer variant="compact" />
