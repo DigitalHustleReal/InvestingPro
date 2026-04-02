@@ -49,7 +49,7 @@ export class AutoLinker {
     if (!terms) return;
 
     // Build fast lookup index
-    terms.forEach(term => {
+    terms.forEach((term: any) => {
       // Index by lowercase term
       const key = term.term.toLowerCase();
       this.glossaryIndex[key] = term;

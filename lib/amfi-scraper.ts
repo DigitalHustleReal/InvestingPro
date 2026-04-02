@@ -184,7 +184,7 @@ export async function exampleUsage() {
   
   // Get specific fund
   const fund = await getFundByCode('119551');
-  logger.info('Specific fund:', fund);
+  logger.info('Specific fund:', { fund });
   
   // Get top funds
   const topFunds = await getTopFunds(5);

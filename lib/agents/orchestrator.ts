@@ -254,10 +254,9 @@ export class CMSOrchestrator {
                             excerpt: article.excerpt || article.meta_description || `A comprehensive guide about ${topic.title}`,
                             featured_image: article.featured_image,
                             tags: article.tags || topic.keywords,
-                            author_name: assignedAuthor.name, // Use author name from persona system
-                            author_role: assignedAuthor.title,
-                            meta_title: article.meta_title || article.title,
-                            meta_description: article.meta_description || article.excerpt
+                            ai_metadata: { author_name: assignedAuthor.name, author_role: assignedAuthor.title },
+                            seo_title: article.meta_title || article.title,
+                            seo_description: article.meta_description || article.excerpt
                         }
                     );
                     

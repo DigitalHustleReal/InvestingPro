@@ -72,7 +72,7 @@ export class PerformanceLearner {
 
       // Filter by category if specified
       const filteredArticles = category
-        ? articles.filter(a => a.category === category)
+        ? articles.filter((a: any) => a.category === category)
         : articles;
 
       if (filteredArticles.length < min_sample_size) {
@@ -635,10 +635,10 @@ export class PerformanceLearner {
       }
 
       const avgScore = Math.round(
-        data.reduce((sum, a) => sum + (a.quality_score || 70), 0) / data.length
+        data.reduce((sum: any, a: any) => sum + (a.quality_score || 70), 0) / data.length
       );
       const avgTraffic = Math.round(
-        data.reduce((sum, a) => sum + (a.views || 0), 0) / data.length
+        data.reduce((sum: any, a: any) => sum + (a.views || 0), 0) / data.length
       );
 
       return {

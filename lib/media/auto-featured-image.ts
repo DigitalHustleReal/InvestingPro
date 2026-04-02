@@ -176,15 +176,12 @@ export class AutoFeaturedImageService {
     private static async searchLibrary(keywords: string[]): Promise<ImageSelection | null> {
         try {
             for (const keyword of keywords) {
-                const results = await mediaService.search({
-                    query: keyword,
-                    limit: 10
-                });
+                const results = await mediaService.searchMedia(keyword, 10);
 
                 if (results.length === 0) continue;
 
                 // Randomize selection
-                const availableResults = results.filter(r => !recentlyUsedImages.has(r.publicUrl));
+                const availableResults = results.filter((r: any) => !recentlyUsedImages.has(r.publicUrl));
                 if (availableResults.length === 0) continue;
 
                 const randomIndex = Math.floor(Math.random() * availableResults.length);
@@ -262,7 +259,7 @@ export class AutoFeaturedImageService {
         
         // Keep cache size manageable
         if (recentlyUsedImages.size > MAX_RECENT_CACHE) {
-            const firstItem = recentlyUsedImages.values().next().value;
+            const firstItem = recentlyUsedImages.values().next().value ?? '';
             recentlyUsedImages.delete(firstItem);
         }
     }

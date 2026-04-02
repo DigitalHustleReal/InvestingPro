@@ -118,29 +118,29 @@ export class QualityLearningEngine {
       if (!articles) return patterns;
 
       // Analyze word count patterns
-      const avgWordCount = articles.reduce((sum, a) => sum + (a.word_count || 0), 0) / articles.length;
+      const avgWordCount = articles.reduce((sum: any, a: any) => sum + (a.word_count || 0), 0) / articles.length;
       patterns.push({
         pattern: `Optimal word count: ${Math.round(avgWordCount)} words`,
         category: 'length',
         impact: 0.7,
         confidence: 0.8,
-        examples: articles.slice(0, 3).map(a => a.title)
+        examples: articles.slice(0, 3).map((a: any) => a.title)
       });
 
       // Analyze title patterns
-      const titlesWithNumbers = articles.filter(a => /\d+/.test(a.title)).length;
+      const titlesWithNumbers = articles.filter((a: any) => /\d+/.test(a.title)).length;
       if (titlesWithNumbers / articles.length > 0.6) {
         patterns.push({
           pattern: 'Titles with numbers perform better',
           category: 'structure',
           impact: 0.6,
           confidence: 0.7,
-          examples: articles.filter(a => /\d+/.test(a.title)).slice(0, 3).map(a => a.title)
+          examples: articles.filter((a: any) => /\d+/.test(a.title)).slice(0, 3).map((a: any) => a.title)
         });
       }
 
       // Analyze content structure (looking for lists, tables, etc.)
-      const articlesWithLists = articles.filter(a => 
+      const articlesWithLists = articles.filter((a: any) => 
         (a.content || '').includes('<ul>') || (a.content || '').includes('<ol>')
       ).length;
       
@@ -179,7 +179,7 @@ export class QualityLearningEngine {
       if (!articles) return patterns;
 
       // Analyze word count
-      const avgWordCount = articles.reduce((sum, a) => sum + (a.word_count || 0), 0) / articles.length;
+      const avgWordCount = articles.reduce((sum: any, a: any) => sum + (a.word_count || 0), 0) / articles.length;
       
       if (avgWordCount < 800) {
         patterns.push({
@@ -192,7 +192,7 @@ export class QualityLearningEngine {
       }
 
       // Check for missing CTAs
-      const articlesWithoutCTA = articles.filter(a => 
+      const articlesWithoutCTA = articles.filter((a: any) => 
         !(a.content || '').toLowerCase().includes('calculator') &&
         !(a.content || '').toLowerCase().includes('compare')
       ).length;

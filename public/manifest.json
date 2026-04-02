@@ -1,11 +1,11 @@
 {
-  "name": "InvestingPro - India's Smartest Financial Guide",
+  "name": "InvestingPro",
   "short_name": "InvestingPro",
-  "description": "Compare credit cards, loans, and mutual funds. Make smarter financial decisions.",
+  "description": "India's Independent Financial Comparison Platform",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0f172a",
+  "background_color": "#FFFFFF",
+  "theme_color": "#166534",
   "icons": [
     {
       "src": "/icons/icon-192x192.png",

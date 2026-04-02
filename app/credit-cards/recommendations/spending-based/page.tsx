@@ -60,7 +60,7 @@ export default function SpendingBasedRecommendationsPage() {
     const topCategory = getTopSpendingCategory();
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <SEOHead
                 title="Best Credit Cards Based on Your Spending Pattern | InvestingPro"
                 description="Get personalized credit card recommendations based on your monthly spending on groceries, fuel, travel, and online shopping. Find the best card that maximizes your rewards."
@@ -207,7 +207,7 @@ export default function SpendingBasedRecommendationsPage() {
 
                                 <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-4 border border-primary-200 dark:border-primary-800">
                                     <div className="flex justify-between items-center">
-                                        <span className="font-semibold text-slate-900 dark:text-white">Total Monthly Spending:</span>
+                                        <span className="font-semibold text-gray-900 dark:text-white">Total Monthly Spending:</span>
                                         <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
                                             {formatCurrency(spendingInput.monthlySpending)}
                                         </span>
@@ -221,11 +221,11 @@ export default function SpendingBasedRecommendationsPage() {
                             {spendingInput.monthlySpending === 0 ? (
                                 <Card>
                                     <CardContent className="py-12 text-center">
-                                        <TrendingUp className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                                        <TrendingUp className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                                             Enter Your Spending
                                         </h3>
-                                        <p className="text-slate-600 dark:text-slate-400">
+                                        <p className="text-gray-600 dark:text-gray-400">
                                             Fill in your monthly spending to get personalized credit card recommendations.
                                         </p>
                                     </CardContent>
@@ -234,13 +234,13 @@ export default function SpendingBasedRecommendationsPage() {
                                 <Card>
                                     <CardContent className="py-12 text-center">
                                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-                                        <p className="mt-4 text-slate-600 dark:text-slate-400">Loading recommendations...</p>
+                                        <p className="mt-4 text-gray-600 dark:text-gray-400">Loading recommendations...</p>
                                     </CardContent>
                                 </Card>
                             ) : recommendations.length === 0 ? (
                                 <Card>
                                     <CardContent className="py-12 text-center">
-                                        <p className="text-slate-600 dark:text-slate-400">No recommendations found. Try adjusting your spending amounts.</p>
+                                        <p className="text-gray-600 dark:text-gray-400">No recommendations found. Try adjusting your spending amounts.</p>
                                     </CardContent>
                                 </Card>
                             ) : (
@@ -250,11 +250,11 @@ export default function SpendingBasedRecommendationsPage() {
                                             <CardContent className="p-6">
                                                 <div className="flex items-center gap-3 mb-2">
                                                     {React.createElement(topCategory.icon, { className: "w-6 h-6 text-primary-600 dark:text-primary-400" })}
-                                                    <h3 className="font-semibold text-slate-900 dark:text-white">
+                                                    <h3 className="font-semibold text-gray-900 dark:text-white">
                                                         Top Spending Category: {topCategory.name === 'onlineShopping' ? 'Online Shopping' : topCategory.name.charAt(0).toUpperCase() + topCategory.name.slice(1)}
                                                     </h3>
                                                 </div>
-                                                <p className="text-sm text-slate-600 dark:text-slate-400">
+                                                <p className="text-sm text-gray-600 dark:text-gray-400">
                                                     You spend {formatCurrency(topCategory.amount)}/month on {topCategory.name === 'onlineShopping' ? 'online shopping' : topCategory.name}. 
                                                     We've prioritized cards that maximize rewards in this category.
                                                 </p>
@@ -263,7 +263,7 @@ export default function SpendingBasedRecommendationsPage() {
                                     )}
 
                                     <div>
-                                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                                             Recommended Credit Cards
                                         </h2>
                                         <div className="space-y-4">
@@ -273,21 +273,21 @@ export default function SpendingBasedRecommendationsPage() {
                                                         <div className="flex items-start justify-between gap-4 mb-4">
                                                             <div className="flex-1">
                                                                 <div className="flex items-center gap-2 mb-2">
-                                                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                                                                         {rec.card.name}
                                                                     </h3>
                                                                     <span className="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 px-2 py-1 rounded text-xs font-semibold">
                                                                         #{idx + 1} Match
                                                                     </span>
                                                                 </div>
-                                                                <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                                                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                                                     {(rec.card as any).provider}
                                                                 </p>
                                                                 <div className="flex items-center gap-4 text-sm">
-                                                                    <span className="text-slate-600 dark:text-slate-400">
+                                                                    <span className="text-gray-600 dark:text-gray-400">
                                                                         Estimated Rewards: <strong className="text-success-600 dark:text-success-400">{formatCurrency(rec.estimatedRewards)}/month</strong>
                                                                     </span>
-                                                                    <span className="text-slate-600 dark:text-slate-400">
+                                                                    <span className="text-gray-600 dark:text-gray-400">
                                                                         Match Score: <strong className="text-primary-600 dark:text-primary-400">{rec.score.toFixed(0)}</strong>
                                                                     </span>
                                                                 </div>
@@ -295,10 +295,10 @@ export default function SpendingBasedRecommendationsPage() {
                                                         </div>
 
                                                         <div className="mb-4">
-                                                            <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Why This Card:</h4>
+                                                            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Why This Card:</h4>
                                                             <ul className="space-y-1">
                                                                 {rec.reasons.map((reason, i) => (
-                                                                    <li key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                                                                    <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
                                                                         <CheckCircle2 className="w-4 h-4 text-success-600 dark:text-success-400 mt-0.5 shrink-0" />
                                                                         {reason}
                                                                     </li>
@@ -334,7 +334,7 @@ export default function SpendingBasedRecommendationsPage() {
                     {/* Quick Links */}
                     <Card className="mt-8">
                         <CardContent className="p-6">
-                            <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Popular Spending Patterns</h3>
+                            <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Popular Spending Patterns</h3>
                             <div className="grid md:grid-cols-4 gap-4">
                                 {[
                                     { label: "Best for Groceries", href: "/credit-cards/recommendations/groceries/15000", icon: ShoppingBag },
@@ -346,7 +346,7 @@ export default function SpendingBasedRecommendationsPage() {
                                         <Card className="hover:shadow-md transition-shadow cursor-pointer h-full">
                                             <CardContent className="p-4 text-center">
                                                 {React.createElement(link.icon, { className: "w-8 h-8 text-primary-600 dark:text-primary-400 mx-auto mb-2" })}
-                                                <p className="text-sm font-medium text-slate-900 dark:text-white">{link.label}</p>
+                                                <p className="text-sm font-medium text-gray-900 dark:text-white">{link.label}</p>
                                             </CardContent>
                                         </Card>
                                     </Link>

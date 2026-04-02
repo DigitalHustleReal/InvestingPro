@@ -14,7 +14,7 @@ import { createServiceClient } from '@/lib/supabase/service'
 import { computeLeadScore, LeadProfile, BehavioralSignal } from '@/lib/user/lead-scorer'
 
 export async function POST(req: NextRequest) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const service = createServiceClient()
 
   const { data: { user } } = await supabase.auth.getUser()

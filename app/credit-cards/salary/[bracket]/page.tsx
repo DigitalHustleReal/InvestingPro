@@ -616,7 +616,7 @@ export default async function SalaryBracketPage({ params }: PageProps) {
 
                 {/* Related Pages — Internal Linking */}
                 <RelatedPages
-                    currentSlug={`salary-${params.bracket}`}
+                    currentSlug={`salary-${bracket}`}
                     category="credit-cards"
                     maxLinks={6}
                 />

@@ -55,7 +55,7 @@ export async function generateFeaturedImage(articleTitle: string, category: stri
       style: 'natural' // More professional than 'vivid'
     })
     
-    return response.data[0]?.url || null
+    return response.data?.[0]?.url || null
   } catch (error) {
     logger.error('Error generating featured image:', error)
     return null
@@ -69,7 +69,7 @@ export async function generateArticleIllustration(concept: string, style: 'chart
   try {
     const openai = getOpenAI();
     const prompt = createIllustrationPrompt(concept, style)
-    
+
     const response = await openai.images.generate({
       model: 'dall-e-3',
       prompt,
@@ -78,8 +78,8 @@ export async function generateArticleIllustration(concept: string, style: 'chart
       n: 1,
       style: 'natural'
     })
-    
-    return response.data[0]?.url || null
+
+    return response.data?.[0]?.url || null
   } catch (error) {
     logger.error('Error generating illustration:', error)
     return null

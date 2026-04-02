@@ -23,7 +23,7 @@ export const CreditCardScraperSchema = z.object({
   // Lists
   pros: z.array(z.string()).optional(),
   cons: z.array(z.string()).optional(),
-  features: z.union([z.array(z.string()), z.record(z.any())]).optional(),
+  features: z.array(z.string()).or(z.record(z.string(), z.any())).optional(),
 });
 
 export type ScrapedCreditCard = z.infer<typeof CreditCardScraperSchema>;

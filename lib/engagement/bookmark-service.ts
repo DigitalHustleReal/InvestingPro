@@ -243,8 +243,8 @@ class BookmarkService {
             
             return {
                 totalArticles: progress.length,
-                completedArticles: progress.filter(p => p.completed_at).length,
-                totalReadTime: progress.reduce((sum, p) => sum + (p.read_time || 0), 0),
+                completedArticles: progress.filter((p: any) => p.completed_at).length,
+                totalReadTime: progress.reduce((sum: any, p: any) => sum + (p.read_time || 0), 0),
                 bookmarkCount: bookmarkResult.count || 0
             };
 

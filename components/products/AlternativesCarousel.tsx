@@ -56,7 +56,7 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
                   <div className="flex items-center gap-1 mb-3">
                     <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                     <span className="text-sm font-semibold text-slate-900 dark:text-white">
-                      {product.rating.toFixed(1)}
+                      {(typeof product.rating === 'number' ? product.rating : product.rating?.overall ?? 0).toFixed(1)}
                     </span>
                     <span className="text-xs text-slate-500 dark:text-slate-600">
                       ({Math.floor(Math.random() * 500) + 100} reviews)

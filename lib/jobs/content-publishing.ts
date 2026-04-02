@@ -135,7 +135,7 @@ export const contentPublishingJob = inngest.createFunction(
         description: 'Publishes 10 decision-focused articles/day in Credit Cards + Mutual Funds'
     },
     { cron: '0 6 * * *' }, // Daily at 6 AM
-    async ({ step }) => {
+    async ({ step }: any) => {
         const results = {
             creditCards: { success: 0, failed: 0, errors: [] as string[] },
             mutualFunds: { success: 0, failed: 0, errors: [] as string[] }

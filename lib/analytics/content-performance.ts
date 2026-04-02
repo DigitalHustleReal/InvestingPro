@@ -180,8 +180,8 @@ export async function getContentGaps(category?: string): Promise<Array<{
         const existingTopics = new Set<string>();
         articles?.forEach(article => {
             // Extract keywords from titles
-            const words = article.title.toLowerCase().split(/\s+/).filter(w => w.length > 3);
-            words.forEach(word => existingTopics.add(word));
+            const words = article.title.toLowerCase().split(/\s+/).filter((w: any) => w.length > 3);
+            words.forEach((word: any) => existingTopics.add(word));
             
             // Add tags
             if (article.tags) {

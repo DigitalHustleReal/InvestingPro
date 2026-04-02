@@ -18,7 +18,7 @@ export const contentCleanupJob = inngest.createFunction(
     name: 'Content Cleanup Job',
   },
   { cron: '0 3 * * 0' }, // Weekly on Sunday at 3 AM
-  async ({ step }) => {
+  async ({ step }: any) => {
     const lowPerforming = await step.run('identify-low-performing', async () => {
       logger.info('Identifying low-performing content');
       

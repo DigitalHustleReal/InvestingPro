@@ -169,7 +169,7 @@ export function generateNewsletterPrompt(options: NewsletterPromptOptions): Gene
  */
 function buildNewsletterSections(params: {
     newsletterType: string;
-    typeDef: typeof NEWSLETTER_TYPES[string];
+    typeDef: (typeof NEWSLETTER_TYPES)[keyof typeof NEWSLETTER_TYPES];
     curatedArticles: Array<{ title: string; excerpt: string; url: string; category: string }>;
     category?: string;
     personalization?: { subscriberName?: string; preferences?: string[] };

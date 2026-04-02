@@ -98,15 +98,17 @@ class MetricsCollector {
         enabled: cacheStats.enabled,
         keys: cacheStats.keys,
       },
-      performance: Object.entries(perfSummary).reduce((acc, [key, stats]) => {
-        acc[key] = {
-          count: stats.count,
-          average: stats.average,
-          p95: stats.p95,
-          p99: stats.p99,
-        };
-        return acc;
-      }, {} as Record<string, any>),
+      performance: {
+        operations: Object.entries(perfSummary).reduce((acc, [key, stats]) => {
+          acc[key] = {
+            count: stats.count,
+            average: stats.average,
+            p95: stats.p95,
+            p99: stats.p99,
+          };
+          return acc;
+        }, {} as Record<string, any>),
+      },
     };
   }
 

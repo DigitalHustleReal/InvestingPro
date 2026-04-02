@@ -98,7 +98,7 @@ export default function AutonomyDashboardPage() {
                     score: 82,
                     reason: 'Score below threshold',
                     anomalies: [
-                        { type: 'compliance_risk', severity: 'medium', message: 'Missing disclaimer' }
+                        { type: 'compliance_risk' as const, severity: 'medium' as const, message: 'Missing disclaimer', requiresReview: true }
                     ],
                     createdAt: new Date().toISOString(),
                 },
@@ -110,7 +110,7 @@ export default function AutonomyDashboardPage() {
                     score: 88,
                     reason: 'Sensitive category',
                     anomalies: [
-                        { type: 'sensitive_content', severity: 'high', message: 'Regulatory' }
+                        { type: 'sensitive_content' as const, severity: 'high' as const, message: 'Regulatory', requiresReview: true }
                     ],
                     createdAt: new Date(Date.now() - 3600000).toISOString(),
                 },

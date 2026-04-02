@@ -113,14 +113,14 @@ export default function GoalPlannerPage() {
     const selectedGoalData = goals.find(g => g.id === selectedGoal);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+        <div className="min-h-screen bg-white">
             <SEOHead
                 title="Goal-Based Mutual Fund Planner | InvestingPro"
                 description="Find the perfect mutual funds for your financial goals. Calculate required SIP, get AI-powered recommendations based on your retirement, education, or wealth creation goals."
             />
 
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white pt-28 pb-16">
+            <div className="bg-white border-b border-gray-200 text-white pt-28 pb-16">
                 <div className="container mx-auto px-4">
                     <AutoBreadcrumbs className="mb-6 text-white/70" />
                     
@@ -177,14 +177,14 @@ export default function GoalPlannerPage() {
                                                     "p-6 rounded-2xl border-2 text-left transition-all hover:scale-[1.02] hover:shadow-lg",
                                                     selectedGoal === goal.id
                                                         ? "border-primary-500 bg-primary-50 dark:bg-primary-950"
-                                                        : "border-slate-200 dark:border-slate-700 hover:border-primary-300"
+                                                        : "border-gray-200 dark:border-gray-700 hover:border-primary-300"
                                                 )}
                                             >
                                                 <div className={cn("w-12 h-12 rounded-xl bg-gradient-to-br flex items-center justify-center mb-4", goal.color)}>
                                                     <Icon className="w-6 h-6 text-white" />
                                                 </div>
-                                                <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-1">{goal.label}</h3>
-                                                <p className="text-sm text-slate-500 dark:text-slate-600">{goal.description}</p>
+                                                <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-1">{goal.label}</h3>
+                                                <p className="text-sm text-gray-500 dark:text-gray-600">{goal.description}</p>
                                             </button>
                                         );
                                     })}
@@ -205,7 +205,7 @@ export default function GoalPlannerPage() {
                                     </div>
                                     <div>
                                         <CardTitle className="text-2xl">{selectedGoalData.label}</CardTitle>
-                                        <p className="text-slate-500">{selectedGoalData.description}</p>
+                                        <p className="text-gray-500">{selectedGoalData.description}</p>
                                     </div>
                                 </div>
                             </CardHeader>
@@ -214,7 +214,7 @@ export default function GoalPlannerPage() {
                                 <div className="space-y-3">
                                     <Label className="text-base font-semibold">How much do you need?</Label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">₹</span>
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 font-bold">₹</span>
                                         <Input
                                             type="number"
                                             value={targetAmount}
@@ -232,7 +232,7 @@ export default function GoalPlannerPage() {
                                                     "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
                                                     targetAmount === amt
                                                         ? "bg-primary-600 text-white"
-                                                        : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200"
+                                                        : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200"
                                                 )}
                                             >
                                                 {formatCurrency(amt)}
@@ -251,9 +251,9 @@ export default function GoalPlannerPage() {
                                             max="30"
                                             value={timeline}
                                             onChange={(e) => setTimeline(Number(e.target.value))}
-                                            className="flex-1 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                                            className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
                                         />
-                                        <span className="text-2xl font-bold text-slate-900 dark:text-white w-20 text-center">
+                                        <span className="text-2xl font-bold text-gray-900 dark:text-white w-20 text-center">
                                             {timeline} {timeline === 1 ? 'year' : 'years'}
                                         </span>
                                     </div>
@@ -263,7 +263,7 @@ export default function GoalPlannerPage() {
                                 <div className="space-y-3">
                                     <Label className="text-base font-semibold">Monthly SIP budget (optional)</Label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">₹</span>
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 font-bold">₹</span>
                                         <Input
                                             type="number"
                                             value={monthlyBudget || ''}
@@ -272,7 +272,7 @@ export default function GoalPlannerPage() {
                                             placeholder="Leave empty to calculate required SIP"
                                         />
                                     </div>
-                                    <p className="text-sm text-slate-500">
+                                    <p className="text-sm text-gray-500">
                                         If left empty, we'll calculate the required monthly SIP for your goal.
                                     </p>
                                 </div>
@@ -323,17 +323,17 @@ export default function GoalPlannerPage() {
 
                         {/* Recommended Funds */}
                         <div className="space-y-4">
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">Recommended Funds</h3>
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Recommended Funds</h3>
                             
                             {recommendations.map((rec, index) => (
-                                <Card key={rec.fund.id} className="rounded-2xl border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
+                                <Card key={rec.fund.id} className="rounded-2xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
                                     <CardContent className="p-6">
                                         <div className="flex flex-col md:flex-row md:items-center gap-6">
                                             {/* Rank Badge */}
                                             <div className={cn(
                                                 "w-12 h-12 rounded-2xl flex items-center justify-center font-black text-lg shrink-0",
                                                 index === 0 ? "bg-amber-100 text-amber-700" :
-                                                index === 1 ? "bg-slate-100 text-slate-600" :
+                                                index === 1 ? "bg-gray-100 text-gray-600" :
                                                 "bg-orange-50 text-orange-600"
                                             )}>
                                                 #{index + 1}
@@ -343,10 +343,10 @@ export default function GoalPlannerPage() {
                                             <div className="flex-1">
                                                 <div className="flex items-start justify-between gap-4">
                                                     <div>
-                                                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                                                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
                                                             {rec.fund.fund_house}
                                                         </p>
-                                                        <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                                                        <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                                                             {rec.fund.name}
                                                         </h4>
                                                         <ProductScoreBadges
@@ -364,7 +364,7 @@ export default function GoalPlannerPage() {
                                                             "text-xs",
                                                             rec.riskMatch >= 80 ? "border-green-200 text-green-700 bg-green-50" :
                                                             rec.riskMatch >= 60 ? "border-amber-200 text-amber-700 bg-amber-50" :
-                                                            "border-slate-200 text-slate-600"
+                                                            "border-gray-200 text-gray-600"
                                                         )}>
                                                             {rec.riskMatch}% Risk Match
                                                         </Badge>
@@ -372,25 +372,25 @@ export default function GoalPlannerPage() {
                                                 </div>
 
                                                 {/* Returns Grid */}
-                                                <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                                                <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
                                                     <div>
-                                                        <p className="text-xs text-slate-500">3Y Returns</p>
+                                                        <p className="text-xs text-gray-500">3Y Returns</p>
                                                         <p className="text-lg font-bold text-green-600">{rec.fund.returns_3y?.toFixed(1) || 'N/A'}%</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-xs text-slate-500">Projected Value</p>
+                                                        <p className="text-xs text-gray-500">Projected Value</p>
                                                         <p className="text-lg font-bold text-primary-600">{formatCurrency(rec.projectedValue)}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-xs text-slate-500">Expense Ratio</p>
-                                                        <p className="text-lg font-bold text-slate-700 dark:text-slate-300">{rec.fund.expense_ratio?.toFixed(2) || 'N/A'}%</p>
+                                                        <p className="text-xs text-gray-500">Expense Ratio</p>
+                                                        <p className="text-lg font-bold text-gray-700 dark:text-gray-300">{rec.fund.expense_ratio?.toFixed(2) || 'N/A'}%</p>
                                                     </div>
                                                 </div>
 
                                                 {/* Reasons */}
                                                 <div className="mt-4 flex flex-wrap gap-2">
                                                     {rec.reasons.map((reason, i) => (
-                                                        <div key={i} className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400">
+                                                        <div key={i} className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-400">
                                                             <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
                                                             {reason}
                                                         </div>

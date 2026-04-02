@@ -280,7 +280,7 @@ export class ContentGapAnalyzer {
 
       // Calculate coverage score
       const coveredTopics = essentialTopics.filter(topic =>
-        articles.some(a => 
+        articles.some((a: any) => 
           a.title?.toLowerCase().includes(topic.toLowerCase()) ||
           a.primary_keyword?.toLowerCase().includes(topic.toLowerCase())
         )

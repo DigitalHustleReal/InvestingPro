@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/badge';
 import { Star, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 import Link from 'next/link';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from '@/components/ui/Skeleton';
 
 interface SmartContextualOffersProps {
     category?: string;
@@ -27,10 +27,8 @@ export default function SmartContextualOffers({
         queryKey: ['smart-offers', category, limit],
         queryFn: async () => {
             // Using our unified API (which we just fixed)
-            return await api.entities.AffiliateProduct.filter({ 
-                category,
-                is_active: true 
-            });
+            const all = await api.entities.AffiliateProduct.list('-clicks', limit);
+            return (all || []).filter((p: any) => p.category === category && p.is_active !== false);
         },
         staleTime: 60000 // 1 minute
     });

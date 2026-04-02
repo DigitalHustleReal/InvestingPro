@@ -21,12 +21,12 @@ export default function UsersPage() {
         u.full_name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const getRoleVariant = (role: string): 'default' | 'success' | 'warning' | 'danger' | 'info' => {
+    const getRoleVariant = (role: string): 'neutral' | 'completed' | 'processing' | 'warning' | 'error' => {
         switch (role) {
-            case 'admin': return 'danger';
-            case 'editor': return 'info';
-            case 'author': return 'success';
-            default: return 'default';
+            case 'admin': return 'error';
+            case 'editor': return 'processing';
+            case 'author': return 'completed';
+            default: return 'neutral';
         }
     };
 
@@ -93,7 +93,7 @@ export default function UsersPage() {
                                             </div>
                                         </div>
                                     </div>
-                                    <StatusBadge variant={getRoleVariant(user.role || 'user')}>
+                                    <StatusBadge status={getRoleVariant(user.role || 'user')}>
                                         {user.role || 'user'}
                                     </StatusBadge>
                                 </div>

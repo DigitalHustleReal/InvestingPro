@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 /**
  * Pexels Stock Image API Integration
  * 

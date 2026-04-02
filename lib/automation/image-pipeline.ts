@@ -141,7 +141,7 @@ export async function generateArticleImages(params: {
                 });
                 
                 featuredImageUrl = featuredImageResult.url;
-                totalCost += featuredImageResult.cost || 0.08; // Estimate if not provided
+                totalCost += featuredImageResult.cost_usd || 0.08; // Estimate if not provided
             } catch (aiError) {
                 logger.warn('AI image generation failed', aiError as Error);
             }

@@ -248,9 +248,8 @@ async function getTrendingKeywords(): Promise<string[]> {
         // 2. Get trending from Google Trends (via GhostScraper)
         try {
             const { GhostScraper } = await import('../scraper/ghost_scraper');
-            const scraper = new GhostScraper();
-            const googleTrends = await scraper.scanTrendingTopics();
-            allTrends.push(...googleTrends);
+            const googleTrends = await GhostScraper.scanTrends();
+            allTrends.push(...googleTrends.map(t => t.topic));
             logger.info('Google Trends fetched', { count: googleTrends.length });
         } catch (error) {
             logger.warn('Failed to fetch Google Trends', error as Error);

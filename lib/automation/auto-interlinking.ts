@@ -83,7 +83,7 @@ export async function findRelatedArticles(
     }
 
     // Calculate relevance scores
-    const related = candidates.map(candidate => {
+    const related = candidates.map((candidate: any) => {
         let score = 0;
 
         // Category match: +0.4
@@ -94,7 +94,7 @@ export async function findRelatedArticles(
         // Tag overlap: +0.1 per matching tag
         const currentTags = currentArticle.tags || [];
         const candidateTags = candidate.tags || [];
-        const commonTags = currentTags.filter(tag => candidateTags.includes(tag));
+        const commonTags = currentTags.filter((tag: any) => candidateTags.includes(tag));
         score += commonTags.length * 0.1;
 
         // Keyword match: +0.2 per matching keyword
@@ -119,7 +119,7 @@ export async function findRelatedArticles(
         // Title similarity: +0.1 if words match
         const currentTitleWords = (currentArticle.title || '').toLowerCase().split(/\s+/);
         const candidateTitleWords = (candidate.title || '').toLowerCase().split(/\s+/);
-        const commonWords = currentTitleWords.filter(word =>
+        const commonWords = currentTitleWords.filter((word: any) =>
             word.length > 3 && candidateTitleWords.includes(word)
         );
         score += commonWords.length * 0.05;
@@ -136,8 +136,8 @@ export async function findRelatedArticles(
 
     // Sort by relevance and filter by minimum score
     return related
-        .filter(r => r.relevanceScore >= minRelevance)
-        .sort((a, b) => b.relevanceScore - a.relevanceScore)
+        .filter((r: any) => r.relevanceScore >= minRelevance)
+        .sort((a: any, b: any) => b.relevanceScore - a.relevanceScore)
         .slice(0, maxResults);
 }
 

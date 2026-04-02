@@ -5,7 +5,7 @@
  */
 
 // Existing jobs
-export { articleGenerationWorkflow } from './article-generation-workflow';
+// export { articleGenerationWorkflow } from './article-generation-workflow'; // Module not yet created
 
 // New jobs
 export { contentScoringJob } from './content-scoring';

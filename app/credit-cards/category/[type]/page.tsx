@@ -891,8 +891,8 @@ export default async function CategoryPage({ params }: PageProps) {
 
                 {/* Related Pages — Internal Linking */}
                 <RelatedPages
-                    currentSlug={`category-${params.type}`}
-                    category={params.type}
+                    currentSlug={`category-${type}`}
+                    category={type}
                     maxLinks={6}
                 />
 

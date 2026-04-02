@@ -217,21 +217,21 @@ class EngagementTracker {
 
       // Calculate aggregates
       const totalViews = allMetrics.length;
-      const avgTimeOnPage = allMetrics.reduce((sum, m) => sum + (m.time_on_page || 0), 0) / totalViews;
-      const avgScrollDepth = allMetrics.reduce((sum, m) => sum + (m.scroll_depth || 0), 0) / totalViews;
-      const avgReadingProgress = allMetrics.reduce((sum, m) => sum + (m.reading_progress || 0), 0) / totalViews;
+      const avgTimeOnPage = allMetrics.reduce((sum: any, m: any) => sum + (m.time_on_page || 0), 0) / totalViews;
+      const avgScrollDepth = allMetrics.reduce((sum: any, m: any) => sum + (m.scroll_depth || 0), 0) / totalViews;
+      const avgReadingProgress = allMetrics.reduce((sum: any, m: any) => sum + (m.reading_progress || 0), 0) / totalViews;
       
-      const bounceRate = allMetrics.filter(m => m.bounced).length / totalViews;
-      const completionRate = allMetrics.filter(m => m.completed).length / totalViews;
-      const engagementRate = allMetrics.filter(m => m.engaged).length / totalViews;
+      const bounceRate = allMetrics.filter((m: any) => m.bounced).length / totalViews;
+      const completionRate = allMetrics.filter((m: any) => m.completed).length / totalViews;
+      const engagementRate = allMetrics.filter((m: any) => m.engaged).length / totalViews;
       
-      const conversions = allMetrics.filter(m => 
+      const conversions = allMetrics.filter((m: any) => 
         m.calculator_used || m.affiliate_link_clicked || m.product_compared
       ).length;
       const conversionRate = conversions / totalViews;
       
-      const totalShares = allMetrics.reduce((sum, m) => sum + (m.shares || 0), 0);
-      const totalBookmarks = allMetrics.reduce((sum, m) => sum + (m.bookmarks || 0), 0);
+      const totalShares = allMetrics.reduce((sum: any, m: any) => sum + (m.shares || 0), 0);
+      const totalBookmarks = allMetrics.reduce((sum: any, m: any) => sum + (m.bookmarks || 0), 0);
 
       // Calculate quality score (0-1)
       const qualityScore = this.calculateQualityScore({
@@ -355,7 +355,7 @@ class EngagementTracker {
 
       if (!data) return [];
 
-      return data.map(d => ({
+      return data.map((d: any) => ({
         articleId: d.article_id,
         avgTimeOnPage: d.avg_time_on_page,
         avgScrollDepth: d.avg_scroll_depth,
@@ -390,7 +390,7 @@ class EngagementTracker {
 
       if (!data) return [];
 
-      return data.map(d => ({
+      return data.map((d: any) => ({
         articleId: d.article_id,
         avgTimeOnPage: d.avg_time_on_page,
         avgScrollDepth: d.avg_scroll_depth,

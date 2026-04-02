@@ -73,7 +73,7 @@ export default function ContextualProducts({ category }: { category: string }) {
                                      )}
                                 </div>
                                 <div className="text-accent-400 flex items-center gap-1.5 text-xs font-bold bg-slate-900/80 px-2.5 py-1 rounded-full border border-slate-700">
-                                    <Star className="w-3.5 h-3.5 fill-current" /> {p.rating}
+                                    <Star className="w-3.5 h-3.5 fill-current" /> {typeof p.rating === 'number' ? p.rating : p.rating?.overall ?? 0}
                                 </div>
                             </div>
                             

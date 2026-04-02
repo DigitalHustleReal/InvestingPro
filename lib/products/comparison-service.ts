@@ -24,7 +24,7 @@ export async function getComparisonVerdict(p1: Product, p2: Product): Promise<st
             logger.info(`⚡ Serving cached verdict for ${slugKey}`);
             return cached.verdict_content;
         }
-    } catch (e) {
+    } catch (e: any) {
         logger.warn('Cache lookup failed, falling back to live generation:', e);
     }
 
@@ -70,7 +70,7 @@ export async function getComparisonVerdict(p1: Product, p2: Product): Promise<st
         if (error) logger.error('Failed to cache verdict:', error);
 
         return verdict;
-    } catch (error) {
+    } catch (error: any) {
         logger.error("AI Verdict Error:", error);
         return "Comparison verdict currently unavailable. Please check back later.";
     }

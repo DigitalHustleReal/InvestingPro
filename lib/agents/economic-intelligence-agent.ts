@@ -192,7 +192,7 @@ export class EconomicIntelligenceAgent extends BaseAgent {
             
             // Calculate averages and identify profitable/unprofitable
             const profitableKeywords = Object.entries(keywordROI)
-                .filter(([_, data]) => data.avgROI > 0 && data.count >= 2)
+                .filter(([_, data]) => (data.totalROI / data.count) > 0 && data.count >= 2)
                 .map(([keyword, data]) => ({
                     keyword,
                     avgROI: data.totalROI / data.count,
@@ -300,7 +300,7 @@ export class EconomicIntelligenceAgent extends BaseAgent {
         
         try {
             if (context.action === 'calculate') {
-                const roi = await this.calculateROI(context.articleId, context.days);
+                const roi = await this.calculateROI(context.articleId ?? '', context.days);
                 return {
                     success: true,
                     data: roi,
@@ -314,7 +314,7 @@ export class EconomicIntelligenceAgent extends BaseAgent {
                     executionTime: Date.now() - startTime
                 };
             } else if (context.action === 'update') {
-                await this.updateContentEconomics(context.articleId, context.days);
+                await this.updateContentEconomics(context.articleId ?? '', context.days);
                 return {
                     success: true,
                     data: { updated: true },

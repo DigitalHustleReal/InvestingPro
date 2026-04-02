@@ -24,7 +24,7 @@ export const keywordDiscoveryJob = inngest.createFunction(
         description: 'Discovers long-tail keyword opportunities and auto-generates content'
     },
     { cron: '0 2 * * 1' }, // Every Monday at 2 AM
-    async ({ step }) => {
+    async ({ step }: any) => {
         const results = {
             creditCards: { discovered: 0, generated: 0, failed: 0, errors: [] as string[] },
             mutualFunds: { discovered: 0, generated: 0, failed: 0, errors: [] as string[] }

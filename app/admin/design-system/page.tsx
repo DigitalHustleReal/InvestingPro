@@ -105,11 +105,11 @@ export default function DesignSystemPage() {
                 {/* Status Badges */}
                 <ContentSection title="Status Badges" subtitle="Semantic color-coded status indicators">
                     <div className="flex flex-wrap gap-4">
-                        <StatusBadge variant="success">Published</StatusBadge>
-                        <StatusBadge variant="warning">Pending</StatusBadge>
-                        <StatusBadge variant="danger">Archived</StatusBadge>
-                        <StatusBadge variant="info">Draft</StatusBadge>
-                        <StatusBadge variant="default">Default</StatusBadge>
+                        <StatusBadge status="completed">Published</StatusBadge>
+                        <StatusBadge status="warning">Pending</StatusBadge>
+                        <StatusBadge status="error">Archived</StatusBadge>
+                        <StatusBadge status="processing">Draft</StatusBadge>
+                        <StatusBadge status="neutral">Default</StatusBadge>
                     </div>
                 </ContentSection>
 

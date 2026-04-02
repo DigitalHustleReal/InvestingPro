@@ -13,7 +13,7 @@ import { computeLeadScore, LeadProfile, BehavioralSignal } from '@/lib/user/lead
 import { generateRecommendations, ProductCandidate } from '@/lib/recommendations/personalized-engine'
 
 export async function GET(req: NextRequest) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })

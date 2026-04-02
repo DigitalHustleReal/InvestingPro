@@ -63,7 +63,7 @@ export async function checkRankingDropTriggers(
                 details: {
                     keyword: alert.keyword,
                     previousPosition: alert.previousPosition,
-                    currentPosition: alert.currentPosition,
+                    currentPosition: alert.currentPosition ?? undefined,
                     change: alert.change,
                     message: alert.message
                 },
@@ -106,7 +106,7 @@ export async function checkStaleContentTriggers(
             return [];
         }
 
-        const triggers: RefreshTrigger[] = articles.map(article => ({
+        const triggers: RefreshTrigger[] = articles.map((article: any) => ({
             articleId: article.id,
             articleSlug: article.slug,
             triggerReason: 'stale_content',

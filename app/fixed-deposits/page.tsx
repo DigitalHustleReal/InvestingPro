@@ -1,332 +1,90 @@
-"use client";
-
-import React, { useState } from 'react';
-import { apiClient as api } from '@/lib/api-client';
-import LoadingSpinner from "@/components/common/LoadingSpinner";
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import SEOHead from "@/components/common/SEOHead";
-import {
-    Building2,
-    TrendingUp,
-    Shield,
-    Clock,
-    Star,
-    ArrowUpRight,
-    IndianRupee,
-    ChevronRight,
-    ShieldCheck,
-    Zap,
-    Percent,
-    Calculator,
-    Info,
-    ArrowRight,
-} from "lucide-react";
+import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
-import { useQuery } from "@tanstack/react-query";
+import { ChevronRight, Shield, CalendarDays } from 'lucide-react';
+import FixedDepositsClient from './FixedDepositsClient';
 
-const tenures = ["1 Year", "2 Years", "3 Years", "5 Years"];
+export const revalidate = 3600;
+export const metadata: Metadata = {
+  title: 'Best Fixed Deposit Rates in India (2026) — Compare FDs | InvestingPro',
+  description: 'Compare FD interest rates from 50+ banks and NBFCs. Find highest rates for regular and senior citizens. Tax-saving FDs, short-term, and corporate FDs.',
+  openGraph: { title: 'Best Fixed Deposit Rates in India (2026)', url: 'https://investingpro.in/fixed-deposits' },
+};
 
 export default function FixedDepositsPage() {
-    const [selectedTenure, setSelectedTenure] = useState<any>("1 Year");
-    const [sortBy, setSortBy] = useState("rate");
-
-    const { data: fdRates = [], isLoading } = useQuery({
-        queryKey: ['fixed-deposits'],
-        queryFn: () => api.entities.FixedDeposit.list()
-    });
-
-    // Ensure fdRates is always an array before sorting
-    const safeRates = Array.isArray(fdRates) ? fdRates : [];
-    const sortedRates = [...safeRates].sort((a: any, b: any) => {
-        if (sortBy === "rate") return (b.rates?.[selectedTenure] || 0) - (a.rates?.[selectedTenure] || 0);
-        if (sortBy === "bank") return (a.bank || '').localeCompare(b.bank || '');
-        return 0;
-    });
-
-    const highestRate = safeRates.length > 0 ? Math.max(...safeRates.map((fd: any) => fd.rates?.[selectedTenure] || 0)) : 0;
-
-    if (isLoading) {
-        return (
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
-                <LoadingSpinner text="Fetching latest FD rates..." />
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Best FD Rates India 2026',
+      description: 'Compare FD interest rates from 50+ banks and NBFCs. Find highest rates for regular and senior citizens. Tax-saving FDs, short-term, and corporate FDs.',
+      url: 'https://investingpro.in/fixed-deposits',
+      publisher: {
+        '@type': 'Organization',
+        name: 'InvestingPro',
+        url: 'https://investingpro.in',
+        logo: { '@type': 'ImageObject', url: 'https://investingpro.in/logo.png' },
+      },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://investingpro.in' },
+          { '@type': 'ListItem', position: 2, name: 'Fixed Deposits', item: 'https://investingpro.in/fixed-deposits' },
+        ],
+      },
+    },
+    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
+      { '@type': 'Question', name: 'Which bank gives the highest FD rate in India?', acceptedAnswer: { '@type': 'Answer', text: 'Small finance banks and NBFCs like Shriram Finance (8.35%), Unity SFB (8.25%) offer the highest rates. Among large banks, SBI offers up to 7.10%.' } },
+      { '@type': 'Question', name: 'Is FD interest taxable?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. FD interest is taxed at your income tax slab rate. TDS of 10% is deducted if annual interest exceeds ₹40,000 (₹50,000 for seniors).' } },
+    ] },
+  ];
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <section className="bg-white border-b border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pt-6 pb-8">
+          <nav aria-label="Breadcrumb" className="mb-5"><ol className="flex items-center gap-1.5 text-[13px] text-gray-400"><li><Link href="/" className="hover:text-green-600 transition-colors">Home</Link></li><li><ChevronRight size={12} /></li><li className="text-gray-700 font-medium">Fixed Deposits</li></ol></nav>
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">Best Fixed Deposit Rates in India</h1>
+              <p className="text-[15px] text-gray-500 mt-2 max-w-xl leading-relaxed">Compare FD rates from 50+ banks. Senior citizen rates, tax-saving FDs, and corporate deposits — all in one place.</p>
             </div>
-        );
-    }
-
-    return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-            <SEOHead
-                title="Best Fixed Deposit Rates in India 2024 - Compare Banks & NBFCs | InvestingPro"
-                description="Compare FD interest rates from top Indian banks and NBFCs. Get the highest returns on your savings with 100% safety and DICGC insurance."
-            />
-
-            {/* Premium Dark Hero */}
-            <div className="bg-slate-900 relative overflow-hidden pt-20 pb-32">
-                <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-accent-600 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-accent-600 rounded-full blur-[100px]" />
-                </div>
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="max-w-3xl">
-                        <div className="inline-flex items-center gap-2 bg-accent-500/10 backdrop-blur-md rounded-full px-4 py-2 mb-8 border border-accent-500/20">
-                            <ShieldCheck className="w-4 h-4 text-accent-500" />
-                            <span className="text-accent-500 font-bold text-xs uppercase tracking-[0.2em]">Sovereign Safety Guarantee</span>
-                        </div>
-                        <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-                            Grow Wealth with <span className="text-accent-500">Absolute Peace</span>
-                        </h1>
-                        <p className="text-xl text-slate-600 leading-relaxed mb-10">
-                            Compare the highest Fixed Deposit rates across 50+ Banks and NBFCs. Secure your future with guaranteed returns and zero market risk.
-                        </p>
-                        <div className="flex gap-4">
-                            <Button className="rounded-2xl bg-accent-500 hover:bg-accent-600 text-white font-bold h-14 px-8 shadow-lg shadow-accent-500/20 text-lg">
-                                Find Highest Rates
-                                <ChevronRight className="w-5 h-5 ml-2" />
-                            </Button>
-                            <Link href="/calculators">
-                                <Button variant="outline" className="rounded-2xl border-white/10 text-white hover:bg-white/5 font-bold h-14 px-8 text-lg">
-                                    FD Calculator
-                                </Button>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
+            <div className="flex items-center gap-5 text-[12px] text-gray-500 flex-shrink-0 mt-1">
+              <span className="flex items-center gap-1.5"><Shield size={13} className="text-green-600" />RBI-regulated banks</span>
+              <span className="flex items-center gap-1.5"><CalendarDays size={13} className="text-green-600" />Rates updated daily</span>
             </div>
-
-            {/* Trust Stats Bar */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    {[
-                        { label: "Bank Max Yield", value: "7.85%", sub: "For Senior Citizens", icon: Percent, color: "bg-primary-600" },
-                        { label: "NBFC Max Yield", value: "8.65%", sub: "Aggressive Returns", icon: Zap, color: "bg-accent-600" },
-                        { label: "Insured Amount", value: "₹5 Lakh", sub: "DICGC per Bank", icon: Shield, color: "bg-primary-600" },
-                        { label: "Minimum Lock-in", value: "7 Days", sub: "Maximum Liquidity", icon: Clock, color: "bg-secondary-600" },
-                    ].map((stat, index) => (
-                        <Card key={index} className="rounded-[2.5rem] border-0 shadow-2xl bg-white overflow-hidden group">
-                            <CardContent className="p-6 flex items-center gap-6 md:p-8">
-                                <div className={`w-12 h-12 rounded-2xl ${stat.color} flex items-center justify-center text-white shrink-0 shadow-lg group-hover:scale-110 transition-transform`}>
-                                    <stat.icon className="w-6 h-6" />
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-0.5">{stat.label}</p>
-                                    <p className="text-lg font-extrabold text-slate-900 dark:text-white leading-none mb-1">{stat.value}</p>
-                                    <p className="text-[10px] text-slate-600 font-medium">{stat.sub}</p>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                {/* Marketplace Controls */}
-                <div className="bg-white rounded-[2.5rem] p-8 shadow-xl shadow-slate-200/50 mb-12 border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="flex items-center gap-6">
-                        <div className="flex flex-col">
-                            <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2 flex items-center gap-2">
-                                <Clock className="w-3 h-3" />
-                                Desired Tenure
-                            </span>
-                            <Select value={selectedTenure} onValueChange={setSelectedTenure}>
-                                <SelectTrigger className="w-48 bg-slate-50 dark:bg-slate-800 border-0 rounded-xl h-12 font-bold focus:ring-accent-500 text-slate-900 dark:text-white">
-                                    <SelectValue placeholder="Select Tenure" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {tenures.map(tenure => (
-                                        <SelectItem key={tenure} value={tenure}>{tenure}</SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    </div>
-
-                    <div className="hidden md:block h-12 w-px bg-slate-100" />
-
-                    <div className="flex-1 flex flex-col items-center">
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2">
-                            <TrendingUp className="w-3 h-3 text-primary-500" />
-                            Best Market Opportunity
-                        </div>
-                        <p className="text-slate-900 font-bold text-xl">8.15% <span className="text-slate-600 text-sm font-bold">at Shriram Finance</span></p>
-                    </div>
-
-                    <div className="hidden md:block h-12 w-px bg-slate-100" />
-
-                    <div className="flex flex-col items-end">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2">Refine List</span>
-                        <Select value={sortBy} onValueChange={setSortBy}>
-                            <SelectTrigger className="w-52 bg-slate-50 dark:bg-slate-800 border-0 rounded-xl h-12 font-bold text-slate-900 dark:text-white">
-                                <SelectValue placeholder="Sort By" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="rate">Highest Yield First</SelectItem>
-                                <SelectItem value="bank">Alphabetical</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                </div>
-
-                {/* Dynamic FD Grid */}
-                <div className="space-y-6">
-                    {sortedRates.map((fd: any, index: number) => (
-                        <div
-                            key={index}
-                            className={`group bg-white rounded-[2.5rem] border-0 shadow-xl overflow-hidden transition-all hover:shadow-2xl hover:-translate-y-1 ${fd.rates[selectedTenure] === highestRate ? 'ring-2 ring-accent-500' : ''}`}
-                        >
-                            <div className="p-8">
-                                <div className="grid lg:grid-cols-4 gap-12 items-center">
-                                    {/* Bank Identity */}
-                                    <div className="lg:col-span-1 border-r border-slate-50 pr-8">
-                                        <div className="flex items-center gap-5">
-                                            <div className={`w-16 h-16 rounded-[2rem] bg-gradient-to-br ${fd.color} flex items-center justify-center text-white text-3xl font-bold shadow-xl shrink-0`}>
-                                                {fd.logo}
-                                            </div>
-                                            <div>
-                                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{fd.bank}</h3>
-                                                <div className="flex items-center gap-2 mt-1.5">
-                                                    <Badge className="bg-slate-100 text-slate-500 border-0 text-[9px] font-bold uppercase tracking-widest px-2 py-1">
-                                                        {fd.type}
-                                                    </Badge>
-                                                    {fd.featured && (
-                                                        <Badge className="bg-primary-500/10 text-primary-600 border-0 text-[9px] font-bold uppercase tracking-widest px-2 py-1">
-                                                            <Star className="w-2.5 h-2.5 mr-1 fill-success-600" />
-                                                            Top Pick
-                                                        </Badge>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Yield Breakdown */}
-                                    <div className="lg:col-span-2">
-                                        <div className="grid grid-cols-4 gap-6">
-                                            {tenures.map(tenure => (
-                                                <div
-                                                    key={tenure}
-                                                    className={`text-center p-4 rounded-3xl transition-all ${tenure === selectedTenure ? 'bg-accent-500 text-white shadow-lg shadow-accent-500/20 scale-110' : 'bg-slate-50/50 hover:bg-slate-50'}`}
-                                                >
-                                                    <p className={`text-[9px] font-bold uppercase tracking-tighter mb-1 ${tenure === selectedTenure ? 'text-white/70' : 'text-slate-600'}`}>{tenure}</p>
-                                                    <p className="text-xl font-bold tracking-tight">{fd.rates[tenure]}%</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Action & CTAs */}
-                                    <div className="lg:col-span-1">
-                                        <div className="flex flex-col gap-3">
-                                            <div className="flex justify-between items-center mb-1">
-                                                <div className="flex flex-col">
-                                                    <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.1em]">Senior Citizen</span>
-                                                    <span className="text-sm font-extrabold text-primary-600">{fd.seniorCitizenBonus > 0 ? `+${fd.seniorCitizenBonus}% Extra` : 'Standard Rates'}</span>
-                                                </div>
-                                                <div className="text-right">
-                                                    <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.1em]">Min Deposit</span>
-                                                    <span className="text-sm font-extrabold text-slate-900 dark:text-white">{fd.minDeposit}</span>
-                                                </div>
-                                            </div>
-                                            <Button className="w-full rounded-2xl bg-slate-900 hover:bg-accent-500 text-white font-bold py-7 h-auto transition-all text-base shadow-xl active:scale-95 group/btn">
-                                                Secure This Rate
-                                                <ArrowUpRight className="w-5 h-5 ml-2 group-hover/btn:rotate-45 transition-transform" />
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between text-[11px] font-bold text-slate-600 uppercase tracking-widest">
-                                    <div className="flex items-center gap-6">
-                                        <div className="flex items-center gap-2">
-                                            <ShieldCheck className="w-4 h-4 text-primary-500" />
-                                            DICGC Insured (5L)
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <IndianRupee className="w-4 h-4 text-secondary-500" />
-                                            Instant Liquidity Available
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-2 cursor-pointer hover:text-slate-600 dark:hover:text-slate-600 transition-colors text-slate-900 dark:text-white">
-                                        View Detailed T&C
-                                        <ChevronRight className="w-3.5 h-3.5" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Investor Education */}
-                <div className="mt-24 grid md:grid-cols-2 gap-8">
-                    <Card className="rounded-[3rem] border-0 shadow-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-6 md:p-8 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-accent-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-                        <CardHeader className="p-0 mb-8">
-                            <Badge className="bg-accent-500 text-white mb-6 border-0 text-[10px] font-bold tracking-widest">Expert Advice</Badge>
-                            <CardTitle className="text-3xl font-bold tracking-tight leading-tight">Mastering Fixed Income</CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-0 space-y-8">
-                            <div className="space-y-4">
-                                <h4 className="text-accent-500 font-bold flex items-center gap-2">
-                                    <Zap className="w-4 h-4" />
-                                    Guaranteed Capital
-                                </h4>
-                                <p className="text-slate-600 text-sm leading-relaxed font-medium">Unlike equities, FD returns are locked at the time of deposit. Your principal is shielded from market fluctuations and volatility.</p>
-                            </div>
-                            <div className="pt-8 border-t border-white/5 grid grid-cols-2 gap-6">
-                                <div>
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">DICGC Scheme</p>
-                                    <p className="text-xs text-white font-bold leading-relaxed">Insurance cover up to ₹5L per bank including principal + interest.</p>
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Section 80C</p>
-                                    <p className="text-xs text-white font-bold leading-relaxed">Tax Saver FDs offer deductions up to ₹1.5L yearly income.</p>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="rounded-[3rem] border-0 shadow-2xl bg-white p-6 md:p-8 overflow-hidden flex flex-col justify-between">
-                        <div>
-                            <CardHeader className="p-0 mb-10">
-                                <div className="w-16 h-16 bg-secondary-50 rounded-[2rem] flex items-center justify-center mb-6">
-                                    <Calculator className="w-8 h-8 text-primary-600" />
-                                </div>
-                                <CardTitle className="text-3xl font-bold text-slate-900 tracking-tight">Strategy: The FD Ladder</CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-0">
-                                <p className="text-slate-600 font-medium mb-8 leading-relaxed">Don't lock all your funds in a single tenure. Use the "Laddering Strategy" for better liquidity and rate advantage.</p>
-                                <div className="space-y-4 mb-8">
-                                    {[
-                                        { step: "01", text: "Divide your capital into 3 parts." },
-                                        { step: "02", text: "Invest in 1Y, 3Y, and 5Y FDs respectively." },
-                                        { step: "03", text: "Re-invest mature FDs at current highest rates." }
-                                    ].map((s, i) => (
-                                        <div key={i} className="flex gap-4 items-center">
-                                            <span className="text-xl font-bold text-slate-200">{s.step}</span>
-                                            <span className="text-sm font-extrabold text-slate-700">{s.text}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </CardContent>
-                        </div>
-                        <Link href="/calculators">
-                            <Button variant="outline" className="w-full rounded-2xl h-16 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-2">
-                                Start Laddering Strategy
-                                <ArrowRight className="w-5 h-5 ml-2" />
-                            </Button>
-                        </Link>
-                    </Card>
-                </div>
-            </div>
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+            {['All FDs','Highest Rate','Senior Citizen','Tax Saving','Short Term','Corporate','Small Finance'].map((p, i) => (
+              <Link key={p} href={i === 0 ? '/fixed-deposits' : `/fixed-deposits?filter=${p.toLowerCase().replace(' ', '-')}`} className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${i === 0 ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>{p}</Link>
+            ))}
+          </div>
         </div>
-    );
+      </section>
+      <section className="bg-gray-50 min-h-screen"><div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8"><FixedDepositsClient /></div></section>
+      <section className="bg-white border-t border-gray-200"><div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Related Tools</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[{ label: 'FD Calculator', desc: 'Calculate maturity amount and interest', href: '/calculators/fd' },{ label: 'Compare FD Rates', desc: 'Side-by-side bank comparison', href: '/fixed-deposits/compare' },{ label: 'RD Calculator', desc: 'Recurring deposit returns', href: '/calculators/rd' },{ label: 'Tax-Saving FDs', desc: '5-year FDs with 80C benefit', href: '/fixed-deposits?filter=tax-saving' }].map((t) => (
+            <Link key={t.href} href={t.href} className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"><p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{t.label}</p><p className="text-xs text-gray-500 mt-1 leading-relaxed">{t.desc}</p></Link>
+          ))}
+        </div>
+      </div></section>
+      <section className="bg-gray-50 border-t border-gray-200"><div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <h2 className="text-lg font-bold text-[--v2-ink] mb-5">FD FAQs</h2>
+        <div className="space-y-2">
+          {[
+            { q: 'Which bank gives the highest FD rate in India?', a: 'Small finance banks like Unity SFB (8.25%) and NBFCs like Shriram Finance (8.35%) offer the highest rates. Among large banks, SBI offers up to 7.10%. Rates vary by tenure and deposit amount.' },
+            { q: 'Is FD interest taxable in India?', a: 'Yes. FD interest is added to your taxable income and taxed at your slab rate. TDS of 10% is deducted if annual interest exceeds ₹40,000 (₹50,000 for senior citizens). Submit Form 15G/15H to avoid TDS if your total income is below taxable limit.' },
+            { q: 'What happens if I break my FD early?', a: 'Most banks charge a penalty of 0.5-1% on the applicable rate. Some banks have no-penalty FDs. Always check premature withdrawal terms before investing.' },
+            { q: 'Are corporate FDs safe?', a: 'Corporate FDs from AAA-rated companies are generally safe but not insured by DICGC (unlike bank FDs up to ₹5L). Always check credit rating before investing in corporate FDs.' },
+            { q: 'What is the difference between cumulative and non-cumulative FDs?', a: 'Cumulative FDs pay interest at maturity (interest compounds). Non-cumulative FDs pay interest monthly/quarterly/annually. Cumulative gives higher effective returns due to compounding.' },
+            { q: 'How does InvestingPro compare FD rates?', a: 'We track rates from 50+ banks and NBFCs daily. We compare regular rates, senior citizen rates, tenure options, and premature withdrawal penalties. No bank pays for higher placement.' },
+          ].map((f, i) => (
+            <details key={i} className="group bg-white border border-gray-200 rounded-xl overflow-hidden"><summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">{f.q}<ChevronRight size={16} className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4" /></summary><div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">{f.a}</div></details>
+          ))}
+        </div>
+      </div></section>
+    </>
+  );
 }

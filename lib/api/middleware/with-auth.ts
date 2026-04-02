@@ -18,7 +18,7 @@ export type AuthenticatedHandler = (
 export function withAuth(handler: AuthenticatedHandler) {
   return async (request: NextRequest, context?: { params?: any }) => {
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
       const { data: { user }, error } = await supabase.auth.getUser();
 
       if (error || !user) {
@@ -47,7 +47,7 @@ export function withAdmin(handler: AuthenticatedHandler) {
     const { user } = context;
 
     // Check if user has admin role
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data: profile } = await supabase
       .from('user_profiles')
       .select('role')
@@ -71,7 +71,7 @@ export function withAdmin(handler: AuthenticatedHandler) {
 export function withOptionalAuth(handler: AuthenticatedHandler) {
   return async (request: NextRequest, context?: { params?: any }) => {
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
       const { data: { user } } = await supabase.auth.getUser();
 
       return handler(request, { user: user || null, params: context?.params });

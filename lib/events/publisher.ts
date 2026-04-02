@@ -15,6 +15,7 @@ import { logger } from '@/lib/logger';
 export interface EventPublisher {
     publish<T extends BaseEvent>(event: Omit<T, 'id' | 'timestamp'>): Promise<T>;
     publishMany(events: Array<Omit<BaseEvent, 'id' | 'timestamp'>>): Promise<BaseEvent[]>;
+    subscribe(eventType: EventType, handler: (event: BaseEvent) => Promise<void>): () => void;
 }
 
 class EventPublisherImpl implements EventPublisher {

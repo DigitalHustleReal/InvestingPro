@@ -2,234 +2,118 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { DataTable, ColumnDef } from '@/components/data-table';
-import { Badge } from "@/components/ui/badge";
-import { GaugeMeter } from "@/components/ui/GaugeMeter";
-import { Button } from "@/components/ui/Button";
-import { Star, TrendingUp, CheckCircle2 } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
 import { useCompare } from '@/contexts/CompareContext';
-import { cn, formatCompactNumber } from '@/lib/utils';
-import { TrendSparkline } from '@/components/common/TrendSparkline';
 
 interface FundTableProps {
     funds: any[];
 }
 
 export function FundTable({ funds }: FundTableProps) {
-    const { addProduct, removeProduct, isSelected, selectedProducts } = useCompare();
-
-    // Define columns for the DataTable
-    const columns: ColumnDef[] = [
-        {
-            key: 'name',
-            header: 'Fund Name',
-            accessor: (row) => (
-                <div className="flex flex-col gap-1 min-w-[250px]">
-                    <Link 
-                        href={`/mutual-funds/${row.id}`} 
-                        className="font-bold text-slate-900 dark:text-white hover:text-primary-600 transition-colors"
-                    >
-                        {row.name}
-                    </Link>
-                    <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="text-[9px] h-4 rounded px-1.5 border-slate-200 text-slate-500 font-bold">
-                            {row.category}
-                        </Badge>
-                        <span className="text-[9px] text-slate-600 font-bold flex items-center gap-1 uppercase">
-                            <CheckCircle2 className="w-2.5 h-2.5 text-secondary-500" />
-                            Direct
-                        </span>
-                    </div>
-                </div>
-            ),
-            sortable: true,
-            width: '35%'
-        },
-        {
-            key: 'rating',
-            header: 'Rating',
-            accessor: (row) => (
-                <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                        <Star 
-                            key={i} 
-                            className={cn(
-                                "w-3.5 h-3.5", 
-                                i < (row.rating || 4) ? 'text-accent-400 fill-accent-400' : 'text-slate-200 dark:text-slate-700'
-                            )} 
-                        />
-                    ))}
-                </div>
-            ),
-            sortable: true,
-            align: 'center',
-            width: '12%',
-            // mobileHidden: true - showing on mobile now
-        },
-        {
-            key: 'risk',
-            header: 'Risk',
-
-            accessor: (row) => {
-                const riskMap: Record<string, number> = {
-                    "Very High": 90,
-                    "High": 75,
-                    "Moderate": 50,
-                    "Low to Moderate": 35,
-                    "Low": 20,
-                    "Very Low": 10
-                };
-                const riskValue = riskMap[row.risk] || 50;
-
-                return (
-                    <div className="flex flex-col items-center">
-                        <GaugeMeter 
-                            value={riskValue} 
-                            size={55} 
-                            showValue={false} 
-                            colors={{ low: '#10b981', medium: '#f59e0b', high: '#ef4444' }} // Green low risk, Red high risk
-                        />
-                        <span className="text-[9px] font-bold text-slate-500 uppercase -mt-2">{row.risk}</span>
-                    </div>
-                );
-            },
-            sortable: false,
-            align: 'center',
-            width: '12%'
-        },
-        {
-            key: 'returns_1y',
-            header: '1Y Return',
-            accessor: (row) => (
-                <div className="flex flex-col items-end">
-                    <span className={cn("text-sm font-bold", row.returns_1y >= 0 ? 'text-primary-600' : 'text-danger-600')}>
-                        {row.returns_1y}%
-                    </span>
-                    <span className="text-[9px] text-slate-600 font-bold uppercase">1Y</span>
-                </div>
-            ),
-            sortable: true,
-            align: 'right',
-            width: '10%',
-            // mobileHidden: true - showing on mobile now
-        },
-
-    // ... inside columns definition
-        {
-            key: 'returns_3y',
-            header: '3Y Return',
-            accessor: (row) => (
-                <div className="flex flex-col items-end gap-1">
-                    <div className="flex items-center gap-2">
-                        <TrendSparkline 
-                            width={60} 
-                            height={20} 
-                            data={[10, 12, row.returns_3y - 5, row.returns_3y - 2, row.returns_3y]} 
-                            trend={row.returns_3y >= 15 ? 'up' : 'neutral'}
-                        />
-                         <span className={cn("text-sm font-bold", row.returns_3y >= 15 ? 'text-primary-600' : 'text-slate-900 dark:text-white')}>
-                            {row.returns_3y}%
-                        </span>
-                    </div>
-                    <span className="text-[9px] text-slate-600 font-bold uppercase">3Y CAGR</span>
-                </div>
-            ),
-            sortable: true,
-            align: 'right',
-            width: '18%' // Increased width for sparkline
-        },
-        {
-            key: 'holdings',
-            header: 'Top Holdings',
-            accessor: (row) => (
-                 <div className="flex flex-col gap-1">
-                    <div className="flex -space-x-1.5 overflow-hidden py-1">
-                        {/* Mock Logos/Initials for Holdings */}
-                        {['HDFC', 'REL', 'INFY', 'ICICI'].map((h, i) => (
-                            <div key={i} className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-100 border border-white text-[8px] font-bold text-slate-600" title={h}>
-                                {h[0]}
-                            </div>
-                        ))}
-                        <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-50 border border-white text-[8px] text-slate-600 font-medium">
-                            +6
-                        </div>
-                    </div>
-                    <p className="text-[9px] text-slate-600 leading-tight truncate w-24">
-                        Financials, Tech, Energy
-                    </p>
-                </div>
-            ),
-            sortable: false,
-            width: '15%'
-        },
-        {
-            key: 'aum',
-            header: 'AUM (Cr)',
-            accessor: (row) => (
-                <span className="text-sm font-bold text-slate-600 dark:text-slate-400 tabular-nums">
-                    ₹{formatCompactNumber(row.aum)}
-                </span>
-            ),
-            sortable: true,
-            align: 'right',
-            width: '11%',
-            // mobileHidden: true - showing on mobile now
-        },
-        {
-            key: 'actions',
-            header: 'Action',
-            accessor: (row) => (
-                <div className="flex items-center justify-end gap-2">
-                    <Button 
-                        size="icon" 
-                        variant="ghost" 
-                        className="h-8 w-8 text-slate-600 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-500/10" 
-                        asChild
-                    >
-                        <Link href={`/mutual-funds/${row.id}`}>
-                            <TrendingUp className="w-4 h-4" />
-                        </Link>
-                    </Button>
-                    <Button 
-                        size="sm" 
-                        className="h-9 px-4 text-[10px] font-black bg-primary-600 hover:bg-primary-700 text-white rounded-xl uppercase tracking-widest transition-all shadow-lg hover:shadow-primary-500/25"
-                    >
-                        Invest
-                    </Button>
-                </div>
-            ),
-            sortable: false,
-            align: 'right',
-            width: '10%'
-        }
-    ];
-
-    // Handle selection changes
-    const handleSelectionChange = (selectedRows: any[]) => {
-        // Clear all first
-        selectedProducts.forEach(product => removeProduct(product.id));
-        
-        // Add new selections
-        selectedRows.forEach(row => {
-            if (!isSelected(row.id)) {
-                addProduct(row);
-            }
-        });
-    };
+    const { addProduct, removeProduct, isSelected } = useCompare();
 
     return (
-        <DataTable
-            columns={columns}
-            data={funds}
-            selectable={true}
-            onSelectionChange={handleSelectionChange}
-            sortable={true}
-            defaultSort={{ column: 'returns_3y', direction: 'desc' }}
-            onRowClick={(fund) => {
-                // Optional: navigate to fund detail page on row click
-                // window.location.href = `/mutual-funds/${fund.id}`;
-            }}
-            className="animate-in fade-in duration-500"
-        />
+        <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
+            <table className="w-full text-sm">
+                <thead>
+                    <tr className="border-b border-gray-100 bg-gray-50/50">
+                        <th className="text-left px-4 py-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider w-8" />
+                        <th className="text-left px-4 py-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Fund Name</th>
+                        <th className="text-center px-3 py-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Rating</th>
+                        <th className="text-center px-3 py-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Risk</th>
+                        <th className="text-right px-3 py-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">1Y</th>
+                        <th className="text-right px-3 py-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">3Y</th>
+                        <th className="text-right px-3 py-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">5Y</th>
+                        <th className="text-right px-3 py-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Exp. Ratio</th>
+                        <th className="text-right px-4 py-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider" />
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                    {funds.map((fund) => {
+                        const selected = isSelected(fund.id);
+                        return (
+                            <tr
+                                key={fund.id}
+                                className={`hover:bg-green-50/30 transition-colors ${selected ? 'bg-green-50/50' : ''}`}
+                            >
+                                {/* Checkbox */}
+                                <td className="px-4 py-3">
+                                    <input
+                                        type="checkbox"
+                                        checked={selected}
+                                        onChange={() => selected ? removeProduct(fund.id) : addProduct(fund)}
+                                        className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500/30 cursor-pointer"
+                                        aria-label={`Compare ${fund.name}`}
+                                    />
+                                </td>
+
+                                {/* Fund name + category + house */}
+                                <td className="px-4 py-3">
+                                    <Link href={`/mutual-funds/${fund.id}`} className="group">
+                                        <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors leading-tight">{fund.name}</p>
+                                        <div className="flex items-center gap-2 mt-0.5">
+                                            <span className="text-[10px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">{fund.category}</span>
+                                            <span className="text-[10px] text-gray-400">{fund.fund_house}</span>
+                                        </div>
+                                    </Link>
+                                </td>
+
+                                {/* Rating stars */}
+                                <td className="px-3 py-3 text-center">
+                                    <div className="flex gap-0.5 justify-center">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star key={i} size={11} className={i < (fund.rating || 0) ? 'text-amber-400 fill-amber-400' : 'text-gray-200'} />
+                                        ))}
+                                    </div>
+                                </td>
+
+                                {/* Risk — simple badge instead of gauge */}
+                                <td className="px-3 py-3 text-center">
+                                    <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded ${
+                                        fund.risk === 'Low' || fund.risk === 'Low to Moderate' ? 'bg-green-50 text-green-700' :
+                                        fund.risk === 'High' || fund.risk === 'Very High' ? 'bg-red-50 text-red-600' :
+                                        'bg-amber-50 text-amber-700'
+                                    }`}>
+                                        {fund.risk}
+                                    </span>
+                                </td>
+
+                                {/* Returns — colored by positive/negative */}
+                                <td className="px-3 py-3 text-right">
+                                    <span className={`text-sm font-semibold tabular-nums ${fund.returns_1y >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                                        {fund.returns_1y}%
+                                    </span>
+                                </td>
+                                <td className="px-3 py-3 text-right">
+                                    <span className={`text-sm font-bold tabular-nums ${fund.returns_3y >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                                        {fund.returns_3y}%
+                                    </span>
+                                </td>
+                                <td className="px-3 py-3 text-right">
+                                    <span className={`text-sm font-semibold tabular-nums ${fund.returns_5y >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                                        {fund.returns_5y}%
+                                    </span>
+                                </td>
+
+                                {/* Expense ratio */}
+                                <td className="px-3 py-3 text-right">
+                                    <span className="text-sm text-gray-700 tabular-nums">{fund.expense_ratio}%</span>
+                                </td>
+
+                                {/* Action */}
+                                <td className="px-4 py-3 text-right">
+                                    <Link
+                                        href={`/mutual-funds/${fund.id}`}
+                                        className="inline-flex items-center gap-1 text-xs font-medium text-green-600 hover:text-green-700 transition-colors"
+                                    >
+                                        Details <ArrowRight size={12} />
+                                    </Link>
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
     );
 }

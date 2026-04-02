@@ -481,7 +481,7 @@ export class ConfidenceScorer {
         .gte('quality_score', 0);
 
       if (categoryArticles && categoryArticles.length > 0) {
-        const avgScore = categoryArticles.reduce((sum, a) => sum + (a.quality_score || 0), 0) / categoryArticles.length;
+        const avgScore = categoryArticles.reduce((sum: any, a: any) => sum + (a.quality_score || 0), 0) / categoryArticles.length;
         const articleScore = article.quality_score || 50;
 
         // Score based on how this article compares to average
@@ -527,7 +527,7 @@ export class ConfidenceScorer {
 
       if (predictions && predictions.length > 0) {
         const avgAccuracy = predictions.reduce(
-          (sum, p) => sum + (p.prediction_accuracy || 0),
+          (sum: any, p: any) => sum + (p.prediction_accuracy || 0),
           0
         ) / predictions.length;
 

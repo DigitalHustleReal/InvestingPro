@@ -181,7 +181,7 @@ export async function getScheduledArticles(
             return [];
         }
 
-        return (data || []).map(article => ({
+        return (data || []).map((article: any) => ({
             articleId: article.id,
             title: article.title || '',
             slug: article.slug || '',
@@ -231,7 +231,7 @@ export async function publishScheduledArticles(): Promise<{
                 const { articleService } = await import('@/lib/cms/article-service');
 
                 // Publish the article
-                await articleService.publishArticle(article.id, {});
+                await articleService.publishArticle(article.id, {} as any, {} as any);
 
                 // Update scheduled_publish_at to null
                 await supabase

@@ -274,10 +274,10 @@ export class HealthChecker {
             ]);
             
             // Collect circuit breaker states
-            const circuitBreakerStates: Record<string, { state: string }> = {};
+            const circuitBreakerStates: Record<string, { state: "closed" | "open" | "half-open" }> = {};
             this.circuitBreakers.forEach((breaker, name) => {
                 circuitBreakerStates[name] = {
-                    state: breaker.getState(),
+                    state: breaker.getState() as "closed" | "open" | "half-open",
                 };
             });
             

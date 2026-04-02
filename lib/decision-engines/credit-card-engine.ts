@@ -81,7 +81,7 @@ export class CreditCardDecisionEngine {
                     if (shoppingSpending > 10000) {
                         reasons.push(`Maximize rewards on online shopping (₹${shoppingSpending}/month)`);
                     }
-                } else if (card.type === 'Fuel' || card.type === 'fuel') {
+                } else if ((card.type as string) === 'Fuel' || (card.type as string) === 'fuel') {
                     // Fuel cards: rewards for fuel spending
                     const fuelSpending = input.fuel;
                     const fuelRate = this.extractRewardRate(card);
@@ -168,7 +168,7 @@ export class CreditCardDecisionEngine {
                         reasons.push('Cashback on all purchases');
                     }
                 } else if (input.lifestyle === 'fuel_user') {
-                    if (card.type === 'Fuel' || card.type === 'fuel') {
+                    if ((card.type as string) === 'Fuel' || (card.type as string) === 'fuel') {
                         score += 100;
                         reasons.push('Best for fuel spending');
                     }

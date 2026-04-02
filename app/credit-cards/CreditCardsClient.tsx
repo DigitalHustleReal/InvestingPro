@@ -10,10 +10,7 @@ import { RichProduct } from "@/types/rich-product";
 import { FilterSidebar, CCFilterState } from '@/components/credit-cards/FilterSidebar';
 import { ResponsiveFilterContainer } from '@/components/products/ResponsiveFilterContainer';
 import { CreditCardTable } from '@/components/credit-cards/CreditCardTable';
-import UniversalSidebar from '@/components/common/UniversalSidebar';
 import { CompareTray } from "@/components/compare/CompareTray";
-import EligibilityPreChecker from '@/components/common/EligibilityPreChecker';
-import ScorePreferenceToggle from '@/components/products/ScorePreferenceToggle';
 import FilterPresets from '@/components/filters/FilterPresets';
 import { ScoringWeights, scoreCreditCard } from '@/lib/products/scoring-rules';
 
@@ -119,8 +116,9 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
 
             const scoreResult = scoreCreditCard(dummyCard, weights);
             const matchScore = Math.round(scoreResult.overall * 10); 
-            const popularity = Math.floor(Math.random() * 10000) + 1000; 
-            const trending = Math.random() > 0.7; 
+            // Derive popularity from match score + index position (deterministic, no Math.random)
+            const popularity = matchScore * 100 + (asset.rating?.overall || 4) * 500;
+            const trending = matchScore >= 8 && feeVal <= 1000; 
             
             return { 
                 ...asset, 
@@ -156,12 +154,12 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
         (filters.cardType.length > 0 ? 1 : 0) + 
         (filters.rewardsType.length > 0 ? 1 : 0);
 
-    const [visibleCount, setVisibleCount] = useState(12);
+    const [visibleCount, setVisibleCount] = useState(6);
     const displayedAssets = scoredAssets.slice(0, visibleCount);
     const hasMore = visibleCount < scoredAssets.length;
-    
+
     React.useEffect(() => {
-        setVisibleCount(12);
+        setVisibleCount(6);
     }, [filters, searchTerm, weights]);
 
     return (
@@ -169,23 +167,17 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
             {/* Filter Sidebar */}
             <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
                 <FilterSidebar filters={filters} setFilters={setFilters} />
-                    <div className="mt-8 space-y-6">
-                        <EligibilityPreChecker />
-                        <div className="bg-gradient-to-br from-primary-600 to-success-700 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-xl shadow-primary-500/20">
-                            <div className="relative z-10">
-                                <div className="h-10 w-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center mb-4">
-                                    <Zap className="w-6 h-6 text-accent-300" />
-                                </div>
-                                <h3 className="font-bold text-lg mb-2">Find Your Perfect Card</h3>
-                                <p className="text-primary-100 text-sm mb-4">Get personalized recommendations based on your spending, lifestyle, and eligibility.</p>
-                                <Link href="/credit-cards/find-your-card">
-                                    <Button size="sm" className="w-full bg-white dark:bg-slate-800 text-primary-700 dark:text-primary-400 font-bold hover:bg-primary-50 dark:hover:bg-primary-900/30">
-                                        Find My Card
-                                    </Button>
-                                </Link>
-                            </div>
+                    <div className="mt-4 p-4 bg-gradient-to-br from-green-600 to-green-700 rounded-xl text-white">
+                        <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mb-2.5">
+                            <Zap className="w-4 h-4 text-green-200" />
                         </div>
-                        <UniversalSidebar category="credit_card" />
+                        <h3 className="font-bold text-sm mb-1">Find Your Perfect Card</h3>
+                        <p className="text-green-200 text-[11px] mb-3 leading-relaxed">Answer 3 questions, get a personalized recommendation.</p>
+                        <Link href="/credit-cards/find-your-card">
+                            <Button size="sm" className="w-full bg-white text-green-700 font-semibold hover:bg-green-50 rounded-lg text-xs">
+                                Find My Card →
+                            </Button>
+                        </Link>
                     </div>
             </ResponsiveFilterContainer>
 
@@ -197,29 +189,8 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                             className="w-full h-12"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
+                            aria-label="Search credit cards"
                        />
-                </div>
-
-                <ScorePreferenceToggle 
-                    currentWeights={weights} 
-                    onWeightChange={setWeights} 
-                />
-
-                <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {[
-                        { label: "Trending This Week", value: "HDFC Regalia Gold", sub: "5.2k Views", icon: "🔥", color: "bg-orange-50 text-orange-600 dashed border-orange-200" },
-                        { label: "Top Rated", value: "SBI Cashback", sub: "4.9/5 Rating", icon: "⭐", color: "bg-yellow-50 text-yellow-600 dashed border-yellow-200" },
-                        { label: "Most Applied", value: "Axis Ace", sub: "1.2k Applications", icon: "🚀", color: "bg-blue-50 text-blue-600 dashed border-blue-200" }
-                    ].map((stat, i) => (
-                        <div key={i} className={`rounded-2xl p-4 border ${stat.color} flex items-center gap-4`}>
-                            <div className="text-2xl">{stat.icon}</div>
-                            <div>
-                                <div className="text-xs font-bold uppercase tracking-wider opacity-70">{stat.label}</div>
-                                <div className="font-bold text-slate-900 leading-tight">{stat.value}</div>
-                                <div className="text-xs opacity-80">{stat.sub}</div>
-                            </div>
-                        </div>
-                    ))}
                 </div>
 
                 <FilterPresets 
@@ -233,15 +204,16 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                 />
 
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                        Compare Cards <span className="text-slate-600 font-medium text-sm ml-2">({filteredAssets.length} found)</span>
+                    <h2 className="text-lg font-bold text-[--v2-ink]">
+                        Compare Cards <span className="text-gray-500 font-medium text-sm ml-2">({filteredAssets.length} found)</span>
                     </h2>
                     
                     <div className="flex items-center gap-3">
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value as any)}
-                            className="px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            aria-label="Sort cards by"
+                            className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500/30 focus:border-green-500 cursor-pointer"
                         >
                             <option value="match">Best Match</option>
                             <option value="popularity">Most Applied</option>
@@ -249,36 +221,36 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                             <option value="rating">Top Rated</option>
                         </select>
                         
-                        <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-1">
+                        <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-1">
                             <button
                                 onClick={() => setViewMode('table')}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                aria-pressed={viewMode === 'table'}
+                                className={`p-2 rounded-md transition-all cursor-pointer ${
                                     viewMode === 'table'
-                                        ? 'bg-primary-600 text-white'
-                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                        ? 'bg-green-600 text-white'
+                                        : 'text-gray-500 hover:text-gray-900'
                                 }`}
                             >
                                 <TableIcon className="w-4 h-4" />
-                                <span className="hidden sm:inline">Table</span>
                             </button>
                             <button
                                 onClick={() => setViewMode('grid')}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                                aria-pressed={viewMode === 'grid'}
+                                className={`p-2 rounded-md transition-all cursor-pointer ${
                                     viewMode === 'grid'
-                                        ? 'bg-primary-600 text-white'
-                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                        ? 'bg-green-600 text-white'
+                                        : 'text-gray-500 hover:text-gray-900'
                                 }`}
                             >
                                 <LayoutGrid className="w-4 h-4" />
-                                <span className="hidden sm:inline">Cards</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
                 {filteredAssets.length === 0 ? (
-                    <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
-                        <p className="text-slate-500 font-medium">No cards match your specific filters.</p>
+                    <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
+                        <p className="text-gray-500 font-medium">No cards match your filters. Try broadening your criteria.</p>
                     </div>
                 ) : (
                     <>
@@ -300,18 +272,10 @@ export default function CreditCardsClient({ initialAssets }: CreditCardsClientPr
                         )}
 
                         {hasMore && (
-                            <div className="mt-12 text-center">
-                                <Button 
-                                    onClick={() => setVisibleCount(prev => prev + 12)}
-                                    size="lg"
-                                    variant="outline"
-                                    className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 min-w-[200px]"
-                                >
-                                    Load More Cards (+{filteredAssets.length - visibleCount})
-                                </Button>
-                                <p className="text-xs text-slate-600 mt-3">
-                                    Showing {visibleCount} of {filteredAssets.length} cards
-                                </p>
+                            <div className="pt-6 text-center">
+                                <button onClick={() => setVisibleCount(prev => prev + 6)} className="px-5 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:border-green-500 hover:text-green-700 transition-colors cursor-pointer">
+                                    Show more
+                                </button>
                             </div>
                         )}
                     </>

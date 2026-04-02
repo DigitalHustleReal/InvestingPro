@@ -262,12 +262,13 @@ export class BulkGenerationAgent extends BaseAgent {
                             .then(result => ({
                                 batchNumber,
                                 result,
-                                success: true
+                                success: true as const,
+                                error: undefined as string | undefined
                             }))
-                            .catch(error => ({
+                            .catch((error: Error) => ({
                                 batchNumber,
                                 result: null,
-                                success: false,
+                                success: false as const,
                                 error: error.message
                             }))
                     );

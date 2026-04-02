@@ -102,44 +102,44 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
   }
   
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-secondary-900 to-secondary-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-secondary-500/20 text-secondary-200 px-3 py-1 rounded-full text-sm font-medium">
+                <span className="bg-blue-100/20 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">
                   Demat Account
                 </span>
                 <div className="flex items-center gap-1">
                   <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
                   <span className="font-bold text-lg">{account.rating}</span>
-                  <span className="text-secondary-200 text-sm">/5</span>
+                  <span className="text-blue-600 text-sm">/5</span>
                 </div>
               </div>
               
               <h1 className="text-3xl md:text-4xl font-bold mb-2">{account.name}</h1>
-              <p className="text-secondary-100 mb-6">{account.provider}</p>
-              <p className="text-lg text-secondary-100 mb-8 max-w-2xl">{account.description}</p>
+              <p className="text-blue-600 mb-6">{account.provider}</p>
+              <p className="text-lg text-blue-600 mb-8 max-w-2xl">{account.description}</p>
               
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 rounded-xl p-4">
                 <div>
-                  <p className="text-sm text-secondary-200">Account Opening</p>
+                  <p className="text-sm text-blue-600">Account Opening</p>
                   <p className="text-xl font-bold">₹{account.accountOpeningFee}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-200">AMC</p>
+                  <p className="text-sm text-blue-600">AMC</p>
                   <p className="text-xl font-bold">₹{account.annualMaintenanceFee}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-200">Equity Delivery</p>
+                  <p className="text-sm text-blue-600">Equity Delivery</p>
                   <p className="text-xl font-bold">{account.equityDeliveryBrokerage}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-200">Intraday</p>
+                  <p className="text-sm text-blue-600">Intraday</p>
                   <p className="text-xl font-bold">{account.intradayBrokerage}</p>
                 </div>
               </div>
@@ -147,15 +147,15 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
             
             {/* Right: Apply Card */}
             <div className="lg:col-span-1">
-              <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+              <Card className="bg-gray-50 border border-gray-200">
                 <CardContent className="p-6">
-                  <p className="text-sm text-secondary-200 mb-4">Open your demat account in 15 minutes</p>
+                  <p className="text-sm text-blue-600 mb-4">Open your demat account in 15 minutes</p>
                   <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-6 text-lg mb-3">
+                    <Button className="w-full bg-green-600 hover:bg-green-600 text-white font-semibold py-6 text-lg mb-3">
                       Open Account <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <div className="flex items-center justify-center gap-2 text-secondary-200 text-sm">
+                  <div className="flex items-center justify-center gap-2 text-blue-600 text-sm">
                     <Zap className="w-4 h-4" />
                     <span>100% Digital • Paperless KYC</span>
                   </div>
@@ -167,7 +167,7 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
@@ -175,15 +175,15 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Smartphone className="w-5 h-5 text-primary-600" />
+                  <Smartphone className="w-5 h-5 text-green-600" />
                   Trading Platforms
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {account.tradingPlatforms.map((platform, index) => (
-                    <div key={index} className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg text-center">
-                      <Smartphone className="w-8 h-8 text-primary-600 mx-auto mb-2" />
+                    <div key={index} className="bg-gray-100 p-4 rounded-lg text-center">
+                      <Smartphone className="w-8 h-8 text-green-600 mx-auto mb-2" />
                       <p className="font-medium">{platform}</p>
                     </div>
                   ))}
@@ -195,7 +195,7 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-primary-600" />
+                  <TrendingUp className="w-5 h-5 text-green-600" />
                   Key Features
                 </CardTitle>
               </CardHeader>
@@ -203,8 +203,8 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
                 <ul className="space-y-3">
                   {account.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-slate-700 dark:text-slate-300">{feature}</span>
+                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-600">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -215,7 +215,7 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <IndianRupee className="w-5 h-5 text-primary-600" />
+                  <IndianRupee className="w-5 h-5 text-green-600" />
                   Fee Structure
                 </CardTitle>
               </CardHeader>
@@ -230,8 +230,8 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
                     </thead>
                     <tbody>
                       {account.fees.map((fee, index) => (
-                        <tr key={index} className="border-b border-slate-100 dark:border-slate-800">
-                          <td className="py-3 text-slate-600 dark:text-slate-400">{fee.name}</td>
+                        <tr key={index} className="border-b border-gray-200">
+                          <td className="py-3 text-gray-600">{fee.name}</td>
                           <td className="py-3 text-right font-semibold">{fee.amount}</td>
                         </tr>
                       ))}
@@ -243,9 +243,9 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-success-200 dark:border-success-800">
-                <CardHeader className="bg-success-50 dark:bg-success-900/20">
-                  <CardTitle className="text-success-700 dark:text-success-400 flex items-center gap-2">
+              <Card className="border-green-600">
+                <CardHeader className="bg-green-100">
+                  <CardTitle className="text-green-600 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
                   </CardTitle>
@@ -254,7 +254,7 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
                   <ul className="space-y-2">
                     {account.pros.map((pro, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <CheckCircle2 className="w-4 h-4 text-success-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
                         <span>{pro}</span>
                       </li>
                     ))}
@@ -262,9 +262,9 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
                 </CardContent>
               </Card>
               
-              <Card className="border-danger-200 dark:border-danger-800">
-                <CardHeader className="bg-danger-50 dark:bg-danger-900/20">
-                  <CardTitle className="text-danger-700 dark:text-danger-400 flex items-center gap-2">
+              <Card className="border-red-200">
+                <CardHeader className="bg-red-100">
+                  <CardTitle className="text-red-600 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -273,7 +273,7 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
                   <ul className="space-y-2">
                     {account.cons.map((con, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <XCircle className="w-4 h-4 text-danger-500 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
                         <span>{con}</span>
                       </li>
                     ))}
@@ -287,16 +287,16 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
           <div className="space-y-6">
             {/* Sticky CTA */}
             <div className="sticky top-6">
-              <Card className="bg-gradient-to-br from-secondary-600 to-secondary-700 text-white">
+              <Card className="bg-white border-b border-gray-200">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Ready to Start Trading?</h3>
-                  <p className="text-sm text-secondary-100 mb-4">Open your account in minutes</p>
+                  <p className="text-sm text-blue-600 mb-4">Open your account in minutes</p>
                   <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-white text-secondary-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-white text-blue-600 hover:bg-gray-100 font-semibold py-6 mb-3">
                       Open Account <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <p className="text-xs text-secondary-100 text-center">
+                  <p className="text-xs text-blue-600 text-center">
                     Free account opening • 2-3 min process
                   </p>
                 </CardContent>
@@ -306,21 +306,21 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
               <Card className="mt-6">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-primary-600" />
+                    <ShieldCheck className="w-5 h-5 text-green-600" />
                     Eligibility
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm space-y-3">
                   <div>
-                    <p className="text-slate-500 dark:text-slate-400">Minimum Age</p>
+                    <p className="text-gray-600">Minimum Age</p>
                     <p className="font-semibold">{account.eligibility.minAge} years</p>
                   </div>
                   <div className="pt-3 border-t">
                     <p className="font-medium mb-2">Required Documents:</p>
                     <ul className="space-y-1.5">
                       {account.eligibility.requiredDocuments.map((doc, index) => (
-                        <li key={index} className="text-slate-600 dark:text-slate-400 text-xs flex items-start gap-2">
-                          <CheckCircle2 className="w-3 h-3 text-primary-500 flex-shrink-0 mt-0.5" />
+                        <li key={index} className="text-gray-600 text-xs flex items-start gap-2">
+                          <CheckCircle2 className="w-3 h-3 text-green-600 flex-shrink-0 mt-0.5" />
                           {doc}
                         </li>
                       ))}
@@ -330,11 +330,11 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
               </Card>
               
               {/* Disclaimer */}
-              <Card className="mt-6 bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800">
+              <Card className="mt-6 bg-amber-50 border-amber-200">
                 <CardContent className="p-4">
                   <div className="flex gap-3">
                     <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                    <div className="text-xs text-amber-800 dark:text-amber-200">
+                    <div className="text-xs text-amber-800">
                       <p className="font-semibold mb-1">Investment Risk</p>
                       <p>Trading in securities market is subject to market risks. Read all related documents before investing.</p>
                     </div>
@@ -346,13 +346,34 @@ export default async function DematAccountDetailPage({ params }: { params: Promi
         </div>
       </div>
       
+
+      {/* FAQ */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <h2 className="text-lg font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+        <div className="space-y-2">
+          {[
+            { q: 'What is a demat account?', a: 'A demat account holds your shares and securities in electronic form. You need one to buy stocks, mutual funds, bonds, and ETFs on Indian exchanges.' },
+            { q: 'How much does it cost to open a demat account?', a: 'Most discount brokers offer free account opening. Annual maintenance (AMC) ranges from ₹0-₹750. Some brokers charge ₹200-₹300 for account opening.' },
+            { q: 'What is the difference between a demat account and trading account?', a: 'Demat account stores your securities. Trading account is used to place buy/sell orders. You need both to trade. Most brokers open both together.' },
+            { q: 'Can I have multiple demat accounts?', a: 'Yes. There is no legal limit. Some investors use different brokers for different purposes (one for long-term, another for trading).' },
+            { q: 'What documents do I need?', a: 'PAN card, Aadhaar (for eKYC), bank account details, and a recent photograph. Most brokers offer instant digital account opening via eKYC.' },
+            { q: 'Is my money safe in a demat account?', a: 'Securities in demat are held by NSDL/CDSL (depositories), not the broker. Even if the broker shuts down, your securities are safe. Cash balance should be kept minimal.' },
+          ].map((f, i) => (
+            <details key={i} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">{f.q}<span className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4">›</span></summary>
+              <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">{f.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+
       {/* Bottom CTA */}
-      <div className="bg-slate-900 text-white py-12">
+      <div className="bg-gray-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Start Investing with {account.name}</h2>
-          <p className="text-slate-300 mb-8">Join millions of investors. Open your account today!</p>
+          <p className="text-gray-500 mb-8">Join millions of investors. Open your account today!</p>
           <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-green-600 hover:bg-green-600 text-white font-semibold px-12 py-6 text-lg">
               Open Free Account <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

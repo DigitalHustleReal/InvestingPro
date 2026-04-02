@@ -1,0 +1,1067 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - link "Groww Logo" [ref=e10]:
+          - /url: /
+          - generic [ref=e12]:
+            - img [ref=e14]
+            - img "Groww Logo" [ref=e15]
+        - generic [ref=e16]:
+          - generic [ref=e19] [cursor=pointer]: Stocks
+          - generic [ref=e22] [cursor=pointer]: F&O
+          - generic [ref=e25] [cursor=pointer]: Mutual Funds
+          - generic [ref=e29] [cursor=pointer]: More
+      - generic [ref=e30]:
+        - generic [ref=e35] [cursor=pointer]:
+          - img [ref=e37]
+          - generic [ref=e40]: Search Groww...
+          - generic [ref=e41]: Ctrl+K
+        - button "Login/Sign up" [ref=e42] [cursor=pointer]:
+          - generic [ref=e43]: Login/Sign up
+    - generic [ref=e45]:
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - banner [ref=e51]:
+              - generic [ref=e52]:
+                - link "SBI Large Cap Direct Plan Growth" [ref=e53] [cursor=pointer]:
+                  - /url: /mutual-funds/amc/sbi-mutual-funds
+                  - generic [ref=e55]:
+                    - img [ref=e57]
+                    - img "SBI Large Cap Direct Plan Growth" [ref=e58]
+                - img [ref=e60] [cursor=pointer]
+              - generic [ref=e62]:
+                - heading "SBI Large Cap Direct Plan Growth" [level=1] [ref=e63]
+                - generic [ref=e64]:
+                  - link "Equity" [ref=e65] [cursor=pointer]:
+                    - /url: /mutual-funds/filter?category=%5B%22Equity%22%5D
+                    - generic [ref=e67]: Equity
+                  - link "Large Cap" [ref=e68] [cursor=pointer]:
+                    - /url: /mutual-funds/filter?subCategory=%5B%22Large+Cap%22%5D
+                    - generic [ref=e70]: Large Cap
+                  - link "Very High Risk" [ref=e71] [cursor=pointer]:
+                    - /url: /mutual-funds/filter?risk=%5B%22Very+High%22%5D
+                    - generic [ref=e73]: Very High Risk
+            - generic [ref=e74]:
+              - generic [ref=e75]:
+                - generic [ref=e76]:
+                  - generic [ref=e77]:
+                    - generic [ref=e78]: +
+                    - generic [ref=e80]:
+                      - generic [ref=e81]: "0"
+                      - generic [ref=e82]: "1"
+                      - generic [ref=e83]: "2"
+                      - generic [ref=e84]: "3"
+                      - generic [ref=e85]: "4"
+                      - generic [ref=e86]: "5"
+                      - generic [ref=e87]: "6"
+                      - generic [ref=e88]: "7"
+                      - generic [ref=e89]: "8"
+                      - generic [ref=e90]: "9"
+                    - generic [ref=e92]:
+                      - generic [ref=e93]: "0"
+                      - generic [ref=e94]: "1"
+                      - generic [ref=e95]: "2"
+                      - generic [ref=e96]: "3"
+                      - generic [ref=e97]: "4"
+                      - generic [ref=e98]: "5"
+                      - generic [ref=e99]: "6"
+                      - generic [ref=e100]: "7"
+                      - generic [ref=e101]: "8"
+                      - generic [ref=e102]: "9"
+                    - generic [ref=e103]: .
+                    - generic [ref=e105]:
+                      - generic [ref=e106]: "0"
+                      - generic [ref=e107]: "1"
+                      - generic [ref=e108]: "2"
+                      - generic [ref=e109]: "3"
+                      - generic [ref=e110]: "4"
+                      - generic [ref=e111]: "5"
+                      - generic [ref=e112]: "6"
+                      - generic [ref=e113]: "7"
+                      - generic [ref=e114]: "8"
+                      - generic [ref=e115]: "9"
+                    - generic [ref=e117]:
+                      - generic [ref=e118]: "0"
+                      - generic [ref=e119]: "1"
+                      - generic [ref=e120]: "2"
+                      - generic [ref=e121]: "3"
+                      - generic [ref=e122]: "4"
+                      - generic [ref=e123]: "5"
+                      - generic [ref=e124]: "6"
+                      - generic [ref=e125]: "7"
+                      - generic [ref=e126]: "8"
+                      - generic [ref=e127]: "9"
+                  - generic [ref=e128]: "%"
+                - generic [ref=e129]: 3Y annualised
+              - generic [ref=e130]:
+                - generic [ref=e131]: 0.00%
+                - generic [ref=e132]: 1D
+            - generic [ref=e133]:
+              - img [ref=e1105]
+              - generic [ref=e1109]:
+                - generic [ref=e1111] [cursor=pointer]: 1M
+                - generic [ref=e1113] [cursor=pointer]: 6M
+                - generic [ref=e1115] [cursor=pointer]: 1Y
+                - generic [ref=e1117] [cursor=pointer]: 3Y
+                - generic [ref=e1119] [cursor=pointer]: 5Y
+                - generic [ref=e1121] [cursor=pointer]: All
+            - generic [ref=e153]:
+              - generic [ref=e154]:
+                - generic [ref=e155]: "NAV: 31 Mar '26"
+                - generic [ref=e156]: ₹93.26
+              - generic [ref=e157]:
+                - generic [ref=e158]: Min. for SIP
+                - generic [ref=e159]: ₹500
+              - generic [ref=e160]:
+                - generic [ref=e161]: Fund size (AUM)
+                - generic [ref=e162]: ₹55,246.19 Cr
+              - generic [ref=e163]:
+                - generic [ref=e164]:
+                  - text: Expense ratio
+                  - img [ref=e166] [cursor=pointer]
+                - generic [ref=e169]: 0.84%
+              - generic [ref=e170]:
+                - generic [ref=e171]: Rating
+                - generic [ref=e172]:
+                  - text: "4"
+                  - img [ref=e173]
+            - generic [ref=e177]:
+              - heading "Return calculator" [level=3] [ref=e178]
+              - generic [ref=e179]:
+                - generic [ref=e180]:
+                  - button "Monthly SIP" [ref=e181] [cursor=pointer]
+                  - button "One time" [ref=e182] [cursor=pointer]
+                - generic [ref=e183]:
+                  - generic [ref=e184]: Monthly investment
+                  - generic [ref=e185]: ₹500
+                - slider [ref=e191] [cursor=pointer]
+                - table [ref=e192]:
+                  - rowgroup [ref=e193]:
+                    - row "Over the past Total investment Would've become Historic returns Returns" [ref=e194]:
+                      - columnheader "Over the past" [ref=e195]
+                      - columnheader "Total investment" [ref=e196]
+                      - columnheader "Would've become" [ref=e197]
+                      - columnheader "Historic returns" [ref=e198]
+                      - columnheader "Returns" [ref=e199]
+                  - rowgroup [ref=e200]:
+                    - row "1 year ₹6,000 ₹5,544 -7.60%" [ref=e201]:
+                      - cell "1 year" [ref=e202]
+                      - cell "₹6,000" [ref=e203]
+                      - cell "₹5,544" [ref=e204]
+                      - cell [ref=e205]
+                      - cell "-7.60%" [ref=e209]:
+                        - generic [ref=e210]: "-7.60%"
+                    - row "3 years ₹18,000 ₹18,500 +2.78%" [ref=e211]:
+                      - cell "3 years" [ref=e212]
+                      - cell "₹18,000" [ref=e213]
+                      - cell "₹18,500" [ref=e214]
+                      - cell [ref=e215]
+                      - cell "+2.78%" [ref=e219]:
+                        - generic [ref=e220]: +2.78%
+                    - row "5 years ₹30,000 ₹35,765 +19.22%" [ref=e221]:
+                      - cell "5 years" [ref=e222]
+                      - cell "₹30,000" [ref=e223]
+                      - cell "₹35,765" [ref=e224]
+                      - cell [ref=e225]
+                      - cell "+19.22%" [ref=e229]:
+                        - generic [ref=e230]: +19.22%
+                    - row "10 years ₹60,000 ₹1,08,158 +80.26%" [ref=e231]:
+                      - cell "10 years" [ref=e232]
+                      - cell "₹60,000" [ref=e233]
+                      - cell "₹1,08,158" [ref=e234]
+                      - cell [ref=e235]
+                      - cell "+80.26%" [ref=e239]:
+                        - generic [ref=e240]: +80.26%
+            - generic [ref=e241]:
+              - heading "Holdings (48)" [level=2] [ref=e242]
+              - generic [ref=e243]:
+                - table [ref=e244]:
+                  - rowgroup [ref=e245]:
+                    - row "Name Sector Instruments Assets" [ref=e246]:
+                      - columnheader "Name" [ref=e247]
+                      - columnheader "Sector" [ref=e248]
+                      - columnheader "Instruments" [ref=e249]
+                      - columnheader "Assets" [ref=e250]
+                  - rowgroup [ref=e251]:
+                    - row "ICICI Bank Ltd. Financial Equity 8.20%" [ref=e252]:
+                      - cell "ICICI Bank Ltd." [ref=e253]:
+                        - link "ICICI Bank Ltd." [ref=e254] [cursor=pointer]:
+                          - /url: /stocks/icici-bank-ltd
+                      - cell "Financial" [ref=e255]
+                      - cell "Equity" [ref=e256]
+                      - cell "8.20%" [ref=e257]
+                    - row "HDFC Bank Ltd. Financial Equity 6.54%" [ref=e258]:
+                      - cell "HDFC Bank Ltd." [ref=e259]:
+                        - link "HDFC Bank Ltd." [ref=e260] [cursor=pointer]:
+                          - /url: /stocks/hdfc-bank-ltd
+                      - cell "Financial" [ref=e261]
+                      - cell "Equity" [ref=e262]
+                      - cell "6.54%" [ref=e263]
+                    - row "Reliance Industries Ltd. Energy Equity 6.18%" [ref=e264]:
+                      - cell "Reliance Industries Ltd." [ref=e265]:
+                        - link "Reliance Industries Ltd." [ref=e266] [cursor=pointer]:
+                          - /url: /stocks/reliance-industries-ltd
+                      - cell "Energy" [ref=e267]
+                      - cell "Equity" [ref=e268]
+                      - cell "6.18%" [ref=e269]
+                    - row "Larsen & Toubro Ltd. Construction Equity 5.73%" [ref=e270]:
+                      - cell "Larsen & Toubro Ltd." [ref=e271]:
+                        - link "Larsen & Toubro Ltd." [ref=e272] [cursor=pointer]:
+                          - /url: /stocks/larsen-toubro-ltd
+                      - cell "Construction" [ref=e273]
+                      - cell "Equity" [ref=e274]
+                      - cell "5.73%" [ref=e275]
+                    - row "State Bank of India Financial Equity 4.16%" [ref=e276]:
+                      - cell "State Bank of India" [ref=e277]:
+                        - link "State Bank of India" [ref=e278] [cursor=pointer]:
+                          - /url: /stocks/state-bank-of-india
+                      - cell "Financial" [ref=e279]
+                      - cell "Equity" [ref=e280]
+                      - cell "4.16%" [ref=e281]
+                    - row "HDFC Life Insurance Co Ltd. Insurance Equity 3.75%" [ref=e282]:
+                      - cell "HDFC Life Insurance Co Ltd." [ref=e283]:
+                        - link "HDFC Life Insurance Co Ltd." [ref=e284] [cursor=pointer]:
+                          - /url: /stocks/hdfc-standard-life-insurance-co-ltd
+                      - cell "Insurance" [ref=e285]
+                      - cell "Equity" [ref=e286]
+                      - cell "3.75%" [ref=e287]
+                    - row "Asian Paints Ltd. Chemicals Equity 3.57%" [ref=e288]:
+                      - cell "Asian Paints Ltd." [ref=e289]:
+                        - link "Asian Paints Ltd." [ref=e290] [cursor=pointer]:
+                          - /url: /stocks/asian-paints-ltd
+                      - cell "Chemicals" [ref=e291]
+                      - cell "Equity" [ref=e292]
+                      - cell "3.57%" [ref=e293]
+                    - row "Tata Motors Ltd. Automobile Equity 3.48%" [ref=e294]:
+                      - cell "Tata Motors Ltd." [ref=e295]:
+                        - link "Tata Motors Ltd." [ref=e296] [cursor=pointer]:
+                          - /url: /stocks/tata-motors-ltd-22
+                      - cell "Automobile" [ref=e297]
+                      - cell "Equity" [ref=e298]
+                      - cell "3.48%" [ref=e299]
+                    - row "Kotak Mahindra Bank Ltd. Financial Equity 3.46%" [ref=e300]:
+                      - cell "Kotak Mahindra Bank Ltd." [ref=e301]:
+                        - link "Kotak Mahindra Bank Ltd." [ref=e302] [cursor=pointer]:
+                          - /url: /stocks/kotak-mahindra-bank-ltd
+                      - cell "Financial" [ref=e303]
+                      - cell "Equity" [ref=e304]
+                      - cell "3.46%" [ref=e305]
+                    - row "Axis Bank Ltd. Financial Equity 3.44%" [ref=e306]:
+                      - cell "Axis Bank Ltd." [ref=e307]:
+                        - link "Axis Bank Ltd." [ref=e308] [cursor=pointer]:
+                          - /url: /stocks/axis-bank-ltd
+                      - cell "Financial" [ref=e309]
+                      - cell "Equity" [ref=e310]
+                      - cell "3.44%" [ref=e311]
+                - generic [ref=e313] [cursor=pointer]: See All
+            - generic [ref=e314]:
+              - heading "Minimum investments" [level=3] [ref=e315]
+              - generic [ref=e316]:
+                - generic [ref=e317]:
+                  - generic [ref=e318]:
+                    - generic [ref=e319]: Min. for 1st investment
+                    - generic [ref=e320]: ₹5,000
+                  - generic [ref=e321]:
+                    - generic [ref=e322]: Min. for 2nd investment
+                    - generic [ref=e323]: ₹1,000
+                - generic [ref=e326]:
+                  - generic [ref=e327]: Min. for SIP
+                  - generic [ref=e328]: ₹500
+            - generic [ref=e329]:
+              - generic [ref=e330]:
+                - heading "Returns and rankings" [level=3] [ref=e331]
+                - img [ref=e332] [cursor=pointer]
+              - generic [ref=e335]:
+                - generic [ref=e337] [cursor=pointer]: Annualised returns
+                - generic [ref=e339] [cursor=pointer]: Absolute returns
+              - table [ref=e341]:
+                - rowgroup [ref=e342]:
+                  - row "Name 3Y 5Y 10Y All" [ref=e343]:
+                    - columnheader "Name" [ref=e344]
+                    - columnheader "3Y" [ref=e345]
+                    - columnheader "5Y" [ref=e346]
+                    - columnheader "10Y" [ref=e347]
+                    - columnheader "All" [ref=e348]
+                - rowgroup [ref=e349]:
+                  - row "Fund returns +11.5% +10.9% +12.5% +13.8%" [ref=e350]:
+                    - cell "Fund returns" [ref=e351]
+                    - cell "+11.5%" [ref=e352]
+                    - cell "+10.9%" [ref=e353]
+                    - cell "+12.5%" [ref=e354]
+                    - cell "+13.8%" [ref=e355]
+                  - row "Category average (Equity Large Cap) +15.1% +15.0% +13.2% --" [ref=e356]:
+                    - cell "Category average (Equity Large Cap)" [ref=e357]
+                    - cell "+15.1%" [ref=e358]
+                    - cell "+15.0%" [ref=e359]
+                    - cell "+13.2%" [ref=e360]
+                    - cell "--" [ref=e361]
+                  - row "Rank (Equity Large Cap) 45 28 15 --" [ref=e362]:
+                    - cell "Rank (Equity Large Cap)" [ref=e363]
+                    - cell "45" [ref=e364]
+                    - cell "28" [ref=e365]
+                    - cell "15" [ref=e366]
+                    - cell "--" [ref=e367]
+            - generic [ref=e368]:
+              - generic [ref=e369]:
+                - heading "Exit load, stamp duty and tax" [level=3] [ref=e370]
+                - img [ref=e371] [cursor=pointer]
+              - generic [ref=e374]:
+                - generic [ref=e375]:
+                  - heading "Exit load" [level=4] [ref=e376]
+                  - generic [ref=e377]: Exit load of 0.25% if redeemed within 30 days and 0.10% if redeemed after 30 days but on or before 90 days.
+                - generic [ref=e378]:
+                  - 'heading "Stamp duty on investment: 0.005% (from July 1st, 2020)" [level=4] [ref=e379]'
+                  - generic [ref=e380]: from July 1st 2020
+                - generic [ref=e381]:
+                  - heading "Tax implication" [level=4] [ref=e382]
+                  - generic [ref=e383]: Returns are taxed at 20%, if you redeem before one year. After 1 year, you are required to pay LTCG tax of 12.5% on returns of Rs 1.25 lakh+ in a financial year.
+                - generic [ref=e384] [cursor=pointer]: Check past data
+            - generic [ref=e1122]:
+              - heading "Compare similar funds" [level=3] [ref=e1123]
+              - table [ref=e1125]:
+                - rowgroup [ref=e1126]:
+                  - row "Name 1Y 3Y Fund Size(Cr)" [ref=e1127]:
+                    - columnheader [ref=e1128]
+                    - columnheader "Name" [ref=e1129]
+                    - columnheader "1Y" [ref=e1130]
+                    - columnheader "3Y" [ref=e1131]
+                    - columnheader "Fund Size(Cr)" [ref=e1132]
+                - rowgroup [ref=e1133]:
+                  - row "WhiteOak Capital Large Cap Fund Direct Growth WhiteOak Capital Large Cap Fund Direct Growth +1.77% +16.15% 1,148.98" [ref=e1134]:
+                    - cell [ref=e1135]:
+                      - img [ref=e1138]
+                    - cell "WhiteOak Capital Large Cap Fund Direct Growth WhiteOak Capital Large Cap Fund Direct Growth" [ref=e1140]:
+                      - link "WhiteOak Capital Large Cap Fund Direct Growth WhiteOak Capital Large Cap Fund Direct Growth" [ref=e1141] [cursor=pointer]:
+                        - /url: /mutual-funds/whiteoak-capital-large-cap-fund-direct-growth
+                        - generic [ref=e1142]:
+                          - generic [ref=e1144]:
+                            - img [ref=e1146]
+                            - img "WhiteOak Capital Large Cap Fund Direct Growth" [ref=e1147]
+                          - generic [ref=e1148]: WhiteOak Capital Large Cap Fund Direct Growth
+                    - cell "+1.77%" [ref=e1149]
+                    - cell "+16.15%" [ref=e1150]
+                    - cell "1,148.98" [ref=e1151]
+                  - row "Nippon India Large Cap Fund Direct Growth Nippon India Large Cap Fund Direct Growth -1.53% +15.68% 51,403.80" [ref=e1152]:
+                    - cell [ref=e1153]:
+                      - img [ref=e1156]
+                    - cell "Nippon India Large Cap Fund Direct Growth Nippon India Large Cap Fund Direct Growth" [ref=e1158]:
+                      - link "Nippon India Large Cap Fund Direct Growth Nippon India Large Cap Fund Direct Growth" [ref=e1159] [cursor=pointer]:
+                        - /url: /mutual-funds/nippon-india-large-cap-fund-direct-growth
+                        - generic [ref=e1160]:
+                          - generic [ref=e1162]:
+                            - img [ref=e1164]
+                            - img "Nippon India Large Cap Fund Direct Growth" [ref=e1165]
+                          - generic [ref=e1166]: Nippon India Large Cap Fund Direct Growth
+                    - cell "-1.53%" [ref=e1167]
+                    - cell "+15.68%" [ref=e1168]
+                    - cell "51,403.80" [ref=e1169]
+                  - row "DSP Large Cap Fund Direct Growth DSP Large Cap Fund Direct Growth -4.64% +14.96% 7,269.64" [ref=e1170]:
+                    - cell [ref=e1171]:
+                      - img [ref=e1174]
+                    - cell "DSP Large Cap Fund Direct Growth DSP Large Cap Fund Direct Growth" [ref=e1176]:
+                      - link "DSP Large Cap Fund Direct Growth DSP Large Cap Fund Direct Growth" [ref=e1177] [cursor=pointer]:
+                        - /url: /mutual-funds/dsp-large-cap-fund-direct-growth
+                        - generic [ref=e1178]:
+                          - generic [ref=e1180]:
+                            - img [ref=e1182]
+                            - img "DSP Large Cap Fund Direct Growth" [ref=e1183]
+                          - generic [ref=e1184]: DSP Large Cap Fund Direct Growth
+                    - cell "-4.64%" [ref=e1185]
+                    - cell "+14.96%" [ref=e1186]
+                    - cell "7,269.64" [ref=e1187]
+                  - row "ICICI Prudential Large Cap Fund Direct Growth ICICI Prudential Large Cap Fund Direct Growth -2.41% +14.56% 77,451.59" [ref=e1188]:
+                    - cell [ref=e1189]:
+                      - img [ref=e1192]
+                    - cell "ICICI Prudential Large Cap Fund Direct Growth ICICI Prudential Large Cap Fund Direct Growth" [ref=e1194]:
+                      - link "ICICI Prudential Large Cap Fund Direct Growth ICICI Prudential Large Cap Fund Direct Growth" [ref=e1195] [cursor=pointer]:
+                        - /url: /mutual-funds/icici-prudential-large-cap-fund-direct-growth
+                        - generic [ref=e1196]:
+                          - generic [ref=e1198]:
+                            - img [ref=e1200]
+                            - img "ICICI Prudential Large Cap Fund Direct Growth" [ref=e1201]
+                          - generic [ref=e1202]: ICICI Prudential Large Cap Fund Direct Growth
+                    - cell "-2.41%" [ref=e1203]
+                    - cell "+14.56%" [ref=e1204]
+                    - cell "77,451.59" [ref=e1205]
+                  - row "HDFC Large Cap Fund Direct Growth HDFC Large Cap Fund Direct Growth -2.14% +12.53% 40,085.19" [ref=e1206]:
+                    - cell [ref=e1207]:
+                      - img [ref=e1210]
+                    - cell "HDFC Large Cap Fund Direct Growth HDFC Large Cap Fund Direct Growth" [ref=e1212]:
+                      - link "HDFC Large Cap Fund Direct Growth HDFC Large Cap Fund Direct Growth" [ref=e1213] [cursor=pointer]:
+                        - /url: /mutual-funds/hdfc-large-cap-fund-direct-growth
+                        - generic [ref=e1214]:
+                          - generic [ref=e1216]:
+                            - img [ref=e1218]
+                            - img "HDFC Large Cap Fund Direct Growth" [ref=e1219]
+                          - generic [ref=e1220]: HDFC Large Cap Fund Direct Growth
+                    - cell "-2.14%" [ref=e1221]
+                    - cell "+12.53%" [ref=e1222]
+                    - cell "40,085.19" [ref=e1223]
+                - rowgroup [ref=e1224]:
+                  - row "Compare" [ref=e1225]:
+                    - cell "Compare" [ref=e1226]:
+                      - link "Compare" [ref=e1227] [cursor=pointer]:
+                        - /url: /mutual-funds/compare/sbi-large-cap-direct-plan-growth
+                        - text: Compare
+                        - img [ref=e1228]
+            - generic [ref=e494]:
+              - heading "Fund management" [level=3] [ref=e495]
+              - generic [ref=e496]:
+                - generic [ref=e497] [cursor=pointer]:
+                  - generic [ref=e498]:
+                    - heading "SP Saurabh Pant Apr 2024 - Present View details" [level=3] [ref=e499]:
+                      - generic [ref=e500]:
+                        - generic [ref=e501]:
+                          - generic [ref=e502]: SP
+                          - generic [ref=e503]:
+                            - generic [ref=e504]: Saurabh Pant
+                            - generic [ref=e505]: Apr 2024 - Present
+                        - generic [ref=e506]: View details
+                    - img [ref=e507]
+                  - generic [ref=e511]:
+                    - generic [ref=e512]:
+                      - generic [ref=e513]: Education
+                      - generic [ref=e514]: Mr. Pant is a B.Com (H), MBE and CFA (Level III).
+                    - generic [ref=e515]:
+                      - generic [ref=e516]: Experience
+                      - generic [ref=e517]: He has been associated with SBI Mutual Fund since 2007.
+                    - generic [ref=e518]:
+                      - generic [ref=e519]: Also manages these schemes
+                      - generic [ref=e520]:
+                        - link "SBI Multicap Fund Direct Growth" [ref=e522]:
+                          - /url: /mutual-funds/sbi-multicap-fund-direct-growth
+                        - link "SBI Conservative Hybrid Fund Direct Growth" [ref=e524]:
+                          - /url: /mutual-funds/sbi-magnum-monthly-i-come-plan-direct-growth
+                        - link "SBI Large Cap Direct Plan Growth" [ref=e526]:
+                          - /url: /mutual-funds/sbi-large-cap-direct-plan-growth
+                        - link "SBI Large & Midcap Fund Direct Plan Growth" [ref=e528]:
+                          - /url: /mutual-funds/sbi-magnum-multiplier-fund-direct-growth
+                - generic [ref=e529] [cursor=pointer]:
+                  - generic [ref=e530]:
+                    - heading "PK Pradeep Kesavan Dec 2023 - Present View details" [level=3] [ref=e531]:
+                      - generic [ref=e532]:
+                        - generic [ref=e533]:
+                          - generic [ref=e534]: PK
+                          - generic [ref=e535]:
+                            - generic [ref=e536]: Pradeep Kesavan
+                            - generic [ref=e537]: Dec 2023 - Present
+                        - generic [ref=e538]: View details
+                    - img [ref=e539]
+                  - generic [ref=e543]:
+                    - generic [ref=e544]:
+                      - generic [ref=e545]: Education
+                      - generic [ref=e546]: Mr. Kesavan has done B.Com, MBA (Finance) and CFA
+                    - generic [ref=e547]:
+                      - generic [ref=e548]: Experience
+                      - generic [ref=e549]: Prior to joining SBI MF, he has worked with Elara Capital, Accenture Strategy, Morgan Stanley and 3i Infotech
+                    - generic [ref=e550]:
+                      - generic [ref=e551]: Also manages these schemes
+                      - generic [ref=e552]:
+                        - link "SBI Corporate Bond Fund Direct Growth" [ref=e554]:
+                          - /url: /mutual-funds/sbi-corporate-bond-fund-direct-growth
+                        - link "SBI Banking and PSU Fund Direct Growth" [ref=e556]:
+                          - /url: /mutual-funds/sbi-treasury-advantage-fund-direct-growth
+                        - link "SBI Multicap Fund Direct Growth" [ref=e558]:
+                          - /url: /mutual-funds/sbi-multicap-fund-direct-growth
+                        - link "SBI Focused Fund Direct Plan Growth" [ref=e560]:
+                          - /url: /mutual-funds/sbi-focused-fund-direct-plan-growth
+                        - link "SBI Equity Hybrid Fund Direct Plan Growth" [ref=e562]:
+                          - /url: /mutual-funds/sbi-magnum-balanced-fund-direct-growth
+                        - link "SBI Banking & Financial Services Fund Direct Growth" [ref=e564]:
+                          - /url: /mutual-funds/sbi-banking-financial-services-fund-direct-growth
+                        - link "SBI Floating Rate Debt Fund Direct Growth" [ref=e566]:
+                          - /url: /mutual-funds/sbi-floating-rate-debt-fund-direct-growth
+                        - link "SBI Balanced Advantage Fund Direct Growth" [ref=e568]:
+                          - /url: /mutual-funds/sbi-balanced-advantage-fund-direct-growth
+                        - link "SBI Energy Opportunities Fund Direct Growth" [ref=e570]:
+                          - /url: /mutual-funds/sbi-energy-opportunities-fund-direct-growth
+                        - link "SBI Automotive Opportunities Fund Direct Growth" [ref=e572]:
+                          - /url: /mutual-funds/sbi-automotive-opportunities-fund-direct-growth
+                        - link "SBI Credit Risk Fund Direct Growth" [ref=e574]:
+                          - /url: /mutual-funds/sbi-corporate-credit-risk-bond-fund-direct-growth
+                        - link "SBI Long Duration Fund Direct Growth" [ref=e576]:
+                          - /url: /mutual-funds/sbi-long-duration-fund-direct-growth
+                        - link "SBI Dynamic Bond Direct Plan Growth" [ref=e578]:
+                          - /url: /mutual-funds/sbi-dynamic-bond-fund-direct-growth
+                        - link "SBI Healthcare Opportunities Fund Direct Plan Growth" [ref=e580]:
+                          - /url: /mutual-funds/sbi-pharma-fund-direct-growth
+                        - link "SBI Gold Direct Plan Growth" [ref=e582]:
+                          - /url: /mutual-funds/sbi-gold-fund-direct-growth
+                        - link "SBI Quant Fund Direct Growth" [ref=e584]:
+                          - /url: /mutual-funds/sbi-quant-fund-direct-growth
+                        - link "SBI Children's Fund Investment Plan Direct Growth" [ref=e586]:
+                          - /url: /mutual-funds/sbi-children's-fund-investment-plan-direct-growth
+                        - link "SBI Equity Savings Fund Direct Growth" [ref=e588]:
+                          - /url: /mutual-funds/sbi-equity-savings-fund-direct-growth
+                        - link "SBI Consumption Opportunities Fund Direct Growth" [ref=e590]:
+                          - /url: /mutual-funds/sbi-fmcg-fund-direct-growth
+                        - link "SBI Large Cap Direct Plan Growth" [ref=e592]:
+                          - /url: /mutual-funds/sbi-large-cap-direct-plan-growth
+                        - link "SBI Technology Opportunities Fund Direct Growth" [ref=e594]:
+                          - /url: /mutual-funds/sbi-it-fund-direct-growth
+                        - link "SBI Equity Minimum Variance Fund Direct Growth" [ref=e596]:
+                          - /url: /mutual-funds/sbi-equity-minimum-variance-fund-direct-growth
+                        - link "SBI Arbitrage Opportunities Fund Direct Growth" [ref=e598]:
+                          - /url: /mutual-funds/sbi-arbitrage-opportunities-fund-direct-growth
+                        - link "SBI Retirement Benefit Fund Aggressive Plan Direct Growth" [ref=e600]:
+                          - /url: /mutual-funds/sbi-retirement-benefit-fund-aggressive-plan-direct-growth
+                        - link "SBI Mid Cap Direct Plan Growth" [ref=e602]:
+                          - /url: /mutual-funds/sbi-mid-cap-direct-plan-growth
+                        - link "SBI Retirement Benefit Fund Aggressive Hybrid Plan Direct Growth" [ref=e604]:
+                          - /url: /mutual-funds/sbi-retirement-benefit-fund-aggressive-hybrid-plan-direct-growth
+                        - link "SBI Medium to Long Duration Fund Direct Growth" [ref=e606]:
+                          - /url: /mutual-funds/sbi-medium-to-long-duration-fund-direct-growth
+                        - link "SBI Contra Direct Plan Growth" [ref=e608]:
+                          - /url: /mutual-funds/sbi-contra-fund-direct-growth
+                        - link "SBI Children's Fund Savings Plan Direct Growth" [ref=e610]:
+                          - /url: /mutual-funds/sbi-children's-fund-savings-plan-direct-growth
+                        - link "SBI Flexicap Fund Direct Growth" [ref=e612]:
+                          - /url: /mutual-funds/sbi-flexicap-fund-direct-growth
+                        - link "SBI Multi Asset Allocation Fund Direct Growth" [ref=e614]:
+                          - /url: /mutual-funds/sbi-magnum-monthly-i-come-plan-floater-direct-growth
+                        - link "SBI Large & Midcap Fund Direct Plan Growth" [ref=e616]:
+                          - /url: /mutual-funds/sbi-magnum-multiplier-fund-direct-growth
+                        - link "SBI Comma Fund Direct Growth" [ref=e618]:
+                          - /url: /mutual-funds/sbi-comma-fund-direct-growth
+                        - link "SBI Medium Duration Fund Direct Growth" [ref=e620]:
+                          - /url: /mutual-funds/sbi-medium-duration-fund-direct-growth
+                        - link "SBI Retirement Benefit Fund Conservative Hybrid Plan Direct Growth" [ref=e622]:
+                          - /url: /mutual-funds/sbi-retirement-benefit-fund-conservative-hybrid-plan-direct-growth
+                        - link "SBI ESG Exclusionary Strategy Fund Direct Plan Growth" [ref=e624]:
+                          - /url: /mutual-funds/sbi-esg-exclusionary-strategy-fund-direct-plan-growth
+                        - link "SBI Nifty Index Direct Plan Growth" [ref=e626]:
+                          - /url: /mutual-funds/sbi-nifty-index-fund-direct-growth
+                        - link "SBI Ultra Short Duration Fund Direct Growth" [ref=e628]:
+                          - /url: /mutual-funds/sbi-ultra-short-duration-fund-direct-growth
+                        - link "SBI MNC Direct Plan Growth" [ref=e630]:
+                          - /url: /mutual-funds/sbi-mnc-direct-plan-growth
+                        - link "SBI Retirement Benefit Fund Conservative Plan Direct Growth" [ref=e632]:
+                          - /url: /mutual-funds/sbi-retirement-benefit-fund-conservative-plan-direct-growth
+                        - link "SBI Low Duration Fund Direct Growth" [ref=e634]:
+                          - /url: /mutual-funds/sbi-low-duration-fund-direct-growth
+                        - link "SBI Short Term Debt Fund Direct Growth" [ref=e636]:
+                          - /url: /mutual-funds/sbi-short-term-debt-fund-direct-growth
+                        - link "SBI Infrastructure Fund Direct Growth" [ref=e638]:
+                          - /url: /mutual-funds/sbi-infrastructure-fund-direct-growth
+                        - link "SBI Savings Fund Direct Growth" [ref=e640]:
+                          - /url: /mutual-funds/sbi-savings-fund-direct-growth
+                        - link "SBI Small Cap Fund Direct Growth" [ref=e642]:
+                          - /url: /mutual-funds/sbi-small-midcap-fund-direct-growth
+            - generic [ref=e644]:
+              - generic [ref=e645] [cursor=pointer]:
+                - heading "About SBI Large Cap Direct Plan Growth" [level=3] [ref=e646]:
+                  - heading "About SBI Large Cap Direct Plan Growth" [level=3] [ref=e647]
+                - img [ref=e648]
+              - generic [ref=e651]:
+                - generic [ref=e1231]:
+                  - generic [ref=e1236]:
+                    - text: SBI Large Cap Direct Plan Growth is a Equity Mutual Fund Scheme launched by SBI Mutual Fund. This scheme was made available to investors on 29 Jun 1987. Saurabh Pant is the Current Fund Manager of SBI Large Cap Direct Plan Growth fund. The fund currently has an Asset Under Management(AUM) of ₹12,68,213 Cr and the Latest NAV as of 31 Mar 2026 is ₹93.26. The SBI Large Cap Direct Plan Growth is rated Very High risk. Minimum SIP Investment is set to ₹500. Minimum Lumpsum Investment is ₹5,000. Exit load of 0.25% if redeemed within 30 days and 0.10% if redeemed after 30 days but on or before 90 days.
+                    - generic [ref=e1237] [cursor=pointer]: ...Read more
+                  - generic [ref=e1238]:
+                    - heading "Investment Objective" [level=4] [ref=e1239]
+                    - generic [ref=e1241]: The scheme seeks to provide investors with opportunities for long-term growth in capital through an active management of investments in a diversified basket of large cap equity stocks (as specified by SEBI/AMFI from time to time).
+                - generic [ref=e1242]:
+                  - generic [ref=e1243]:
+                    - generic [ref=e1244]: Fund benchmark
+                    - generic [ref=e1245]: BSE 100 Total Return Index
+                  - link "Scheme Information Document(SID)" [ref=e1247] [cursor=pointer]:
+                    - /url: https://www.sbimf.com
+                    - generic [ref=e1248]: Scheme Information Document(SID)
+                    - img [ref=e1249]
+            - generic [ref=e676]:
+              - generic [ref=e677] [cursor=pointer]:
+                - heading "Fund house" [level=3] [ref=e678]:
+                  - heading "Fund house" [level=3] [ref=e679]
+                - img [ref=e680]
+              - generic [ref=e683]:
+                - link "AMC Image SBI Mutual Fund" [ref=e685] [cursor=pointer]:
+                  - /url: /mutual-funds/amc/sbi-mutual-funds
+                  - generic [ref=e686]:
+                    - img "AMC Image" [ref=e688]
+                    - generic [ref=e689]: SBI Mutual Fund
+                - generic [ref=e691]:
+                  - generic [ref=e692]:
+                    - generic [ref=e693]:
+                      - generic [ref=e694]: Rank (total assets)
+                      - generic [ref=e695]: "#1 in India"
+                    - generic [ref=e696]:
+                      - generic [ref=e697]: Total AUM
+                      - generic [ref=e698]: ₹12,68,212.64 Cr
+                    - generic [ref=e699]:
+                      - generic [ref=e700]: Date of Incorporation
+                      - generic [ref=e701]: 29 Jun 1987
+                  - generic [ref=e702]:
+                    - generic [ref=e703]:
+                      - generic [ref=e704]: Phone
+                      - generic [ref=e705]: 022-61793000 / 1800-425-5425
+                    - generic [ref=e706]:
+                      - generic [ref=e707]: E-mail
+                      - link "Customer.Delight@sbimf.com" [ref=e708] [cursor=pointer]:
+                        - /url: https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=Customer.Delight@sbimf.com&su=Hello&shva=1
+                    - generic [ref=e709]:
+                      - generic [ref=e710]: Website
+                      - link "http://www.sbimf.com" [ref=e711] [cursor=pointer]:
+                        - /url: http://www.sbimf.com
+                  - generic [ref=e712]:
+                    - generic [ref=e713]:
+                      - generic [ref=e714]: Launch Date
+                      - generic [ref=e715]: 29 Jun 1987
+                    - generic [ref=e716]:
+                      - generic [ref=e717]: Address
+                      - generic [ref=e718]: 9th Floor & Unit no. 1002, 1003 and 1004 of 10th floor,Crescenzo, C-38 & 39, G Block, Bandra Kurla Complex,Bandra (East) Mumbai 400051
+                - generic [ref=e720]:
+                  - generic [ref=e721]:
+                    - generic [ref=e722]:
+                      - generic [ref=e723]: Custodian
+                      - generic [ref=e724]: Citibank NA
+                    - generic [ref=e725]:
+                      - generic [ref=e726]: Registrar & Transfer Agent
+                      - generic [ref=e727]: Cams
+                    - generic [ref=e728]:
+                      - generic [ref=e729]: Email
+                      - link "enq_h@camsonline.com" [ref=e730] [cursor=pointer]:
+                        - /url: https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=enq_h@camsonline.com&su=Hello&shva=1
+                  - generic [ref=e731]:
+                    - generic [ref=e732]:
+                      - generic [ref=e733]: Website
+                      - link "www.camsonline.com" [ref=e734] [cursor=pointer]:
+                        - /url: https://www.camsonline.com
+                    - generic [ref=e735]:
+                      - generic [ref=e736]: Address
+                      - generic [ref=e737]: 7th Floor, Tower II, Rayala Towers, 158, Anna Salai,
+          - generic [ref=e738]:
+            - heading "FAQs" [level=2] [ref=e739]
+            - generic [ref=e740]:
+              - generic [ref=e741] [cursor=pointer]:
+                - generic [ref=e742]:
+                  - heading "How to Invest in SBI Large Cap Direct Plan Growth?" [level=3] [ref=e743]
+                  - img [ref=e744]
+                - generic [ref=e749]:
+                  - paragraph [ref=e750]: "You can easily invest in SBI Large Cap Direct Plan Growth in a hassle-free manner on Groww. The process is extremely simple, quick and completely paperless. Invest in a few minutes with the following steps:"
+                  - list [ref=e751]:
+                    - listitem [ref=e752]: Log on to your Groww account
+                    - listitem [ref=e753]: Search for SBI Large Cap Direct Plan Growth from the search box
+                    - listitem [ref=e754]: In order to invest, you will have to complete all the KYC formalities which are completely online and paperless and take a few minutes to complete
+                    - listitem [ref=e755]: Once you are done with that, you can start investing in SBI Large Cap Direct Plan Growth as SIP or lumpsum as per your investment objective and risk tolerance
+                  - paragraph
+              - generic [ref=e756] [cursor=pointer]:
+                - generic [ref=e757]:
+                  - heading "What kind of returns does SBI Large Cap Direct Plan Growth provide?" [level=3] [ref=e758]
+                  - img [ref=e759]
+                - paragraph [ref=e765]: The SBI Large Cap Direct Plan Growth has been there from 01 Jan 2013 and the average annual returns provided by this fund is -2.50% since its inception.
+              - generic [ref=e766] [cursor=pointer]:
+                - generic [ref=e767]:
+                  - heading "How much expense ratio is charged by SBI Large Cap Direct Plan Growth?" [level=3] [ref=e768]
+                  - img [ref=e769]
+                - paragraph [ref=e775]:
+                  - text: The term
+                  - link "Expense Ratio" [ref=e776]:
+                    - /url: https://groww.in/p/expense-ratio/
+                  - text: used for SBI Large Cap Direct Plan Growth or any other mutual fund is the annual charges one needs to pay to the Mutual Fund company for managing your investments in that fund.
+                  - text: The Expense Ratio of SBI Large Cap Direct Plan Growth is 0.84% as of 02 Apr 2026...
+              - generic [ref=e777] [cursor=pointer]:
+                - generic [ref=e778]:
+                  - heading "What is the AUM of SBI Large Cap Direct Plan Growth?" [level=3] [ref=e779]
+                  - img [ref=e780]
+                - paragraph [ref=e786]:
+                  - text: The AUM, short for
+                  - link "Assets Under Management" [ref=e787]:
+                    - /url: https://groww.in/p/asset-under-management/
+                  - text: of SBI Large Cap Direct Plan Growth is ₹55,246.19Cr as of 02 Apr 2026.
+              - generic [ref=e788] [cursor=pointer]:
+                - generic [ref=e789]:
+                  - heading "How to Redeem SBI Large Cap Direct Plan Growth?" [level=3] [ref=e790]
+                  - img [ref=e791]
+                - paragraph [ref=e797]: If you want to sell your SBI Large Cap Direct Plan Growth holdings, go to your holding on the app or web and simply click on it. You will get two options - redeem & invest more; click on redeem and enter your desired amount or if you wish to redeem the entire holding amount then select the 'redeem all' checkbox.
+              - generic [ref=e798] [cursor=pointer]:
+                - generic [ref=e799]:
+                  - heading "Can I invest in SIP and Lump Sum of SBI Large Cap Direct Plan Growth?" [level=3] [ref=e800]
+                  - img [ref=e801]
+                - paragraph [ref=e807]:
+                  - text: You can select either
+                  - link "SIP" [ref=e808]:
+                    - /url: https://groww.in/p/sip-systematic-investment-plan/
+                  - text: or
+                  - link "Lumpsum" [ref=e809]:
+                    - /url: https://groww.in/p/lump-sum/
+                  - text: investment of SBI Large Cap Direct Plan Growth based on your investment objective and risk tolerance.
+              - generic [ref=e810] [cursor=pointer]:
+                - generic [ref=e811]:
+                  - heading "What is the NAV of SBI Large Cap Direct Plan Growth?" [level=3] [ref=e812]
+                  - img [ref=e813]
+                - paragraph [ref=e819]: The NAV of SBI Large Cap Direct Plan Growth is ₹93.26 as of 31 Mar 2026.
+              - generic [ref=e820] [cursor=pointer]:
+                - generic [ref=e821]:
+                  - heading "What is the PE and PB ratio of SBI Large Cap Direct Plan Growth?" [level=3] [ref=e822]
+                  - img [ref=e823]
+                - paragraph [ref=e829]:
+                  - text: The
+                  - link "PE ratio" [ref=e830]:
+                    - /url: https://groww.in/p/pe-ratio
+                  - text: ratio of SBI Large Cap Direct Plan Growth is determined by dividing the market price by its earnings per share and the
+                  - link "PB ratio" [ref=e831]:
+                    - /url: https://groww.in/p/price-to-book-ratio/
+                  - text: of the same is evaluated by dividing the stock price per share by its book value per share (BVPS).
+        - generic [ref=e834]:
+          - img "Looking to invest in mutual funds?" [ref=e836]
+          - generic [ref=e837]: Looking to invest in mutual funds?
+          - generic [ref=e838]: Explore diversified funds designed for every investor
+          - button "Invest Now" [ref=e839] [cursor=pointer]:
+            - generic [ref=e840]: Invest Now
+      - generic [ref=e842]:
+        - generic [ref=e845]:
+          - link "Home" [ref=e846] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e847]: ">"
+          - link "Mutual Funds" [ref=e848] [cursor=pointer]:
+            - /url: /mutual-funds/filter
+          - generic [ref=e849]: ">"
+          - link "SBI Mutual Fund" [ref=e850] [cursor=pointer]:
+            - /url: /mutual-funds/amc/sbi-mutual-funds
+          - generic [ref=e851]: ">"
+          - generic [ref=e852]: SBI Large Cap Direct Plan Growth
+        - generic [ref=e853]:
+          - generic [ref=e854]:
+            - generic [ref=e855]:
+              - link "Groww Logo" [ref=e856] [cursor=pointer]:
+                - /url: /
+                - generic [ref=e858]:
+                  - img [ref=e860]
+                  - img "Groww Logo" [ref=e861]
+              - generic [ref=e862]:
+                - generic [ref=e863]:
+                  - generic [ref=e864]: Vaishnavi Tech Park, South Tower, 3rd Floor
+                  - generic [ref=e865]: Sarjapur Main Road, Bellandur, Bengaluru – 560103
+                  - generic [ref=e866]: Karnataka
+                - generic [ref=e867]:
+                  - generic [ref=e868]:
+                    - link "Social Media Links" [ref=e870] [cursor=pointer]:
+                      - /url: /help/my-account/searchable/how-to-call-groww-customer-care
+                      - text: Contact Us
+                    - generic [ref=e871]:
+                      - link "Social Media Links" [ref=e872] [cursor=pointer]:
+                        - /url: https://twitter.com/_groww
+                      - link "Social Media Links" [ref=e875] [cursor=pointer]:
+                        - /url: https://www.instagram.com/groww_official/
+                      - link "Social Media Links" [ref=e878] [cursor=pointer]:
+                        - /url: https://www.facebook.com/growwapp
+                      - link "Social Media Links" [ref=e881] [cursor=pointer]:
+                        - /url: https://in.linkedin.com/company/groww.in
+                      - link "Social Media Links" [ref=e884] [cursor=pointer]:
+                        - /url: http://bit.ly/2rjkBHu
+                  - generic [ref=e887]:
+                    - generic [ref=e888]: Download the App
+                    - generic [ref=e889]:
+                      - generic [ref=e890]:
+                        - generic:
+                          - link "Social Media Links":
+                            - /url: https://app.groww.in/v3cO/4a6424fe
+                      - generic [ref=e891]:
+                        - generic:
+                          - link "Social Media Links":
+                            - /url: https://app.groww.in/v3cO/4a6424fe
+            - generic [ref=e892]:
+              - generic [ref=e893]:
+                - generic [ref=e894]: GROWW
+                - generic [ref=e895]:
+                  - link "About Us" [ref=e896] [cursor=pointer]:
+                    - /url: /about-us
+                  - link "Pricing" [ref=e897] [cursor=pointer]:
+                    - /url: /pricing
+                  - link "Blog" [ref=e898] [cursor=pointer]:
+                    - /url: /blog
+                  - link "Media & Press" [ref=e899] [cursor=pointer]:
+                    - /url: /press
+                  - link "Careers" [ref=e900] [cursor=pointer]:
+                    - /url: /careers
+                  - link "Help & Support" [ref=e901] [cursor=pointer]:
+                    - /url: /help
+                  - link "Trust & Safety" [ref=e902] [cursor=pointer]:
+                    - /url: /trust-and-safety
+                  - link "Investor Relations" [ref=e903] [cursor=pointer]:
+                    - /url: /investor-relations
+              - generic [ref=e904]:
+                - generic [ref=e905]: PRODUCTS
+                - generic [ref=e906]:
+                  - link "Stocks" [ref=e907] [cursor=pointer]:
+                    - /url: /stocks
+                  - link "F&O" [ref=e908] [cursor=pointer]:
+                    - /url: /futures-and-options
+                  - link "MTF" [ref=e909] [cursor=pointer]:
+                    - /url: /stocks/mtf
+                  - link "ETF" [ref=e910] [cursor=pointer]:
+                    - /url: /invest-in-etfs
+                  - link "IPO" [ref=e911] [cursor=pointer]:
+                    - /url: /ipo
+                  - link "Mutual Funds" [ref=e912] [cursor=pointer]:
+                    - /url: /mutual-funds
+                  - link "Commodities" [ref=e913] [cursor=pointer]:
+                    - /url: /commodities
+                  - link "Groww Terminal" [ref=e914] [cursor=pointer]:
+                    - /url: /charts
+                  - link "915 Terminal" [ref=e915] [cursor=pointer]:
+                    - /url: https://915.groww.in
+                  - link "Stock Screens" [ref=e916] [cursor=pointer]:
+                    - /url: /stocks/screens
+                  - link "Algo Trading" [ref=e917] [cursor=pointer]:
+                    - /url: /trade-api
+                  - link "Groww Charts" [ref=e918] [cursor=pointer]:
+                    - /url: /groww-charts
+                  - link "Groww Digest" [ref=e919] [cursor=pointer]:
+                    - /url: /digest
+                  - link "Demat Account" [ref=e920] [cursor=pointer]:
+                    - /url: /open-demat-account
+                  - link "Groww AMC" [ref=e921] [cursor=pointer]:
+                    - /url: /mutual-funds/amc
+                  - link "PMS" [ref=e922] [cursor=pointer]:
+                    - /url: /pms
+          - generic [ref=e923]:
+            - generic [ref=e924]: © 2016-2026 Groww. All rights reserved.
+            - generic [ref=e925]: "Version: 7.4.8"
+          - generic [ref=e926]:
+            - generic [ref=e928]:
+              - generic [ref=e930] [cursor=pointer]: Share Market
+              - generic [ref=e932] [cursor=pointer]: Indices
+              - generic [ref=e934] [cursor=pointer]: F&O
+              - generic [ref=e936] [cursor=pointer]: Mutual Funds
+              - generic [ref=e938] [cursor=pointer]: ETFs
+              - generic [ref=e940] [cursor=pointer]: Funds By Groww
+              - generic [ref=e942] [cursor=pointer]: Calculators
+              - generic [ref=e944] [cursor=pointer]: IPO
+              - generic [ref=e946] [cursor=pointer]: Miscellaneous
+            - generic [ref=e949]:
+              - generic [ref=e950]:
+                - generic [ref=e951]:
+                  - link "Top Gainers Stocks" [ref=e952] [cursor=pointer]:
+                    - /url: /markets/top-gainers
+                  - link "52 Weeks High Stocks" [ref=e953] [cursor=pointer]:
+                    - /url: /markets/52-week-high
+                  - link "Tata Motors" [ref=e954] [cursor=pointer]:
+                    - /url: /stocks/tata-motors-ltd
+                  - link "NHPC" [ref=e955] [cursor=pointer]:
+                    - /url: /stocks/nhpc-ltd
+                  - link "ITC" [ref=e956] [cursor=pointer]:
+                    - /url: /stocks/itc-ltd
+                  - link "Wipro" [ref=e957] [cursor=pointer]:
+                    - /url: /stocks/wipro-ltd
+                  - link "BSE" [ref=e958] [cursor=pointer]:
+                    - /url: /stocks/bse-ltd
+                  - link "NTPC" [ref=e959] [cursor=pointer]:
+                    - /url: /stocks/ntpc-green-energy-ltd
+                - generic [ref=e960]:
+                  - link "Top Losers Stocks" [ref=e961] [cursor=pointer]:
+                    - /url: /markets/top-losers
+                  - link "52 Weeks Low Stocks" [ref=e962] [cursor=pointer]:
+                    - /url: /markets/52-week-low
+                  - link "IREDA" [ref=e963] [cursor=pointer]:
+                    - /url: /stocks/indian-renewable-energy-development-agency-ltd-1569588972606
+                  - link "State Bank of India" [ref=e964] [cursor=pointer]:
+                    - /url: /stocks/state-bank-of-india
+                  - link "Adani Power" [ref=e965] [cursor=pointer]:
+                    - /url: /stocks/adani-power-ltd
+                  - link "CDSL" [ref=e966] [cursor=pointer]:
+                    - /url: /stocks/central-depository-services-india-ltd
+                  - link "Cochin Shipyard" [ref=e967] [cursor=pointer]:
+                    - /url: /stocks/cochin-shipyard-ltd
+                  - link "SJVN" [ref=e968] [cursor=pointer]:
+                    - /url: /stocks/sjvn-ltd
+                - generic [ref=e969]:
+                  - link "Most Traded Stocks" [ref=e970] [cursor=pointer]:
+                    - /url: /stocks/most-bought-stocks-on-groww
+                  - link "Stocks Market Calender" [ref=e971] [cursor=pointer]:
+                    - /url: /stocks/calendar
+                  - link "Tata Steel" [ref=e972] [cursor=pointer]:
+                    - /url: /stocks/tata-steel-ltd
+                  - link "Tata Power" [ref=e973] [cursor=pointer]:
+                    - /url: /stocks/tata-power-company-ltd
+                  - link "Bharat Heavy Electricals" [ref=e974] [cursor=pointer]:
+                    - /url: /stocks/bharat-heavy-electricals-ltd
+                  - link "Indian Oil Corporation" [ref=e975] [cursor=pointer]:
+                    - /url: /stocks/indian-oil-corporation-ltd
+                  - link "HUDCO" [ref=e976] [cursor=pointer]:
+                    - /url: /stocks/housing-urban-development-corporation-ltd
+                  - link "SAIL" [ref=e977] [cursor=pointer]:
+                    - /url: /stocks/steel-authority-of-india-ltd
+                - generic [ref=e978]:
+                  - link "Stocks Feed" [ref=e979] [cursor=pointer]:
+                    - /url: /stock-feed
+                  - link "Suzlon Energy" [ref=e980] [cursor=pointer]:
+                    - /url: /stocks/suzlon-energy-ltd
+                  - link "Zomato (Eternal)" [ref=e981] [cursor=pointer]:
+                    - /url: /stocks/zomato-ltd
+                  - link "Yes Bank" [ref=e982] [cursor=pointer]:
+                    - /url: /stocks/yes-bank-ltd
+                  - link "Infosys" [ref=e983] [cursor=pointer]:
+                    - /url: /stocks/infosys-ltd
+                  - link "NBCC" [ref=e984] [cursor=pointer]:
+                    - /url: /stocks/nbcc-india-ltd
+                  - link "IRCTC" [ref=e985] [cursor=pointer]:
+                    - /url: /stocks/indian-railway-catering-tourism-corpn-ltd
+                  - link "Share Market Live Update" [ref=e986] [cursor=pointer]:
+                    - /url: /share-market-today
+                - generic [ref=e987]:
+                  - link "FII DII Activity" [ref=e988] [cursor=pointer]:
+                    - /url: /fii-dii-data
+                  - link "IRFC" [ref=e989] [cursor=pointer]:
+                    - /url: /stocks/indian-railway-finance-corporation-ltd
+                  - link "Bharat Electronics" [ref=e990] [cursor=pointer]:
+                    - /url: /stocks/bharat-electronics-ltd
+                  - link "HDFC Bank" [ref=e991] [cursor=pointer]:
+                    - /url: /stocks/hdfc-bank-ltd
+                  - link "Vedanta" [ref=e992] [cursor=pointer]:
+                    - /url: /stocks/vedanta-ltd
+                  - link "Reliance Power" [ref=e993] [cursor=pointer]:
+                    - /url: /stocks/reliance-power-ltd
+                  - link "Jaiprakash Power Ventures" [ref=e994] [cursor=pointer]:
+                    - /url: /stocks/jaiprakash-power-ventures-ltd
+                  - link "Stocks Sectors" [ref=e995] [cursor=pointer]:
+                    - /url: /stocks/sectors
+              - button "Show More" [ref=e997] [cursor=pointer]:
+                - generic [ref=e998]: Show More
+                - img [ref=e999]
+        - generic [ref=e1004]:
+          - generic [ref=e1005]: "Others:"
+          - generic [ref=e1006]:
+            - link "NSE" [ref=e1008] [cursor=pointer]:
+              - /url: https://www.nseindia.com/
+            - link "BSE" [ref=e1011] [cursor=pointer]:
+              - /url: https://www.bseindia.com/
+            - link "MCX" [ref=e1014] [cursor=pointer]:
+              - /url: https://www.mcxindia.com/
+            - link "Terms and Conditions" [ref=e1017] [cursor=pointer]:
+              - /url: https://groww.in/terms-and-conditions/
+            - link "Policies and Procedures" [ref=e1020] [cursor=pointer]:
+              - /url: https://groww.in/p/policies/
+            - link "Regulatory & Other Info" [ref=e1023] [cursor=pointer]:
+              - /url: /regulatory-and-other-information
+            - link "Privacy Policy" [ref=e1026] [cursor=pointer]:
+              - /url: https://groww.in/privacy-policy/
+            - link "Disclosure" [ref=e1029] [cursor=pointer]:
+              - /url: https://groww.in/p/disclosure/
+            - link "SMART ODR" [ref=e1032] [cursor=pointer]:
+              - /url: https://smartodr.in/
+            - link "Download Forms" [ref=e1035] [cursor=pointer]:
+              - /url: /download-forms
+            - link "Information Security Practices" [ref=e1038] [cursor=pointer]:
+              - /url: /p/security
+            - link "Investor Charter and Grievance" [ref=e1041] [cursor=pointer]:
+              - /url: /investor-charters-and-grievance
+            - link "Bug Bounty" [ref=e1044] [cursor=pointer]:
+              - /url: https://security.groww.in
+        - generic:
+          - generic: "Mutual Funds:"
+          - generic:
+            - link "A" [ref=e1045] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/a
+            - link "B" [ref=e1046] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/b
+            - link "C" [ref=e1047] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/c
+            - link "D" [ref=e1048] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/d
+            - link "E" [ref=e1049] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/e
+            - link "F" [ref=e1050] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/f
+            - link "G" [ref=e1051] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/g
+            - link "H" [ref=e1052] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/h
+            - link "I" [ref=e1053] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/i
+            - link "J" [ref=e1054] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/j
+            - link "K" [ref=e1055] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/k
+            - link "L" [ref=e1056] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/l
+            - link "M" [ref=e1057] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/m
+            - link "N" [ref=e1058] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/n
+            - link "O" [ref=e1059] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/o
+            - link "P" [ref=e1060] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/p
+            - link "Q" [ref=e1061] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/q
+            - link "R" [ref=e1062] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/r
+            - link "S" [ref=e1063] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/s
+            - link "T" [ref=e1064] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/t
+            - link "U" [ref=e1065] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/u
+            - link "V" [ref=e1066] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/v
+            - link "W" [ref=e1067] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/w
+            - link "X" [ref=e1068] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/x
+            - link "Y" [ref=e1069] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/y
+            - link "Z" [ref=e1070] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/z
+            - link "Others" [ref=e1071] [cursor=pointer]:
+              - /url: /mutual-funds/fund-list/others
+        - generic [ref=e1072]:
+          - generic [ref=e1073]: "Stocks:"
+          - generic [ref=e1074]:
+            - link "A" [ref=e1075] [cursor=pointer]:
+              - /url: /stocks/stocks-list/a
+            - link "B" [ref=e1076] [cursor=pointer]:
+              - /url: /stocks/stocks-list/b
+            - link "C" [ref=e1077] [cursor=pointer]:
+              - /url: /stocks/stocks-list/c
+            - link "D" [ref=e1078] [cursor=pointer]:
+              - /url: /stocks/stocks-list/d
+            - link "E" [ref=e1079] [cursor=pointer]:
+              - /url: /stocks/stocks-list/e
+            - link "F" [ref=e1080] [cursor=pointer]:
+              - /url: /stocks/stocks-list/f
+            - link "G" [ref=e1081] [cursor=pointer]:
+              - /url: /stocks/stocks-list/g
+            - link "H" [ref=e1082] [cursor=pointer]:
+              - /url: /stocks/stocks-list/h
+            - link "I" [ref=e1083] [cursor=pointer]:
+              - /url: /stocks/stocks-list/i
+            - link "J" [ref=e1084] [cursor=pointer]:
+              - /url: /stocks/stocks-list/j
+            - link "K" [ref=e1085] [cursor=pointer]:
+              - /url: /stocks/stocks-list/k
+            - link "L" [ref=e1086] [cursor=pointer]:
+              - /url: /stocks/stocks-list/l
+            - link "M" [ref=e1087] [cursor=pointer]:
+              - /url: /stocks/stocks-list/m
+            - link "N" [ref=e1088] [cursor=pointer]:
+              - /url: /stocks/stocks-list/n
+            - link "O" [ref=e1089] [cursor=pointer]:
+              - /url: /stocks/stocks-list/o
+            - link "P" [ref=e1090] [cursor=pointer]:
+              - /url: /stocks/stocks-list/p
+            - link "Q" [ref=e1091] [cursor=pointer]:
+              - /url: /stocks/stocks-list/q
+            - link "R" [ref=e1092] [cursor=pointer]:
+              - /url: /stocks/stocks-list/r
+            - link "S" [ref=e1093] [cursor=pointer]:
+              - /url: /stocks/stocks-list/s
+            - link "T" [ref=e1094] [cursor=pointer]:
+              - /url: /stocks/stocks-list/t
+            - link "U" [ref=e1095] [cursor=pointer]:
+              - /url: /stocks/stocks-list/u
+            - link "V" [ref=e1096] [cursor=pointer]:
+              - /url: /stocks/stocks-list/v
+            - link "W" [ref=e1097] [cursor=pointer]:
+              - /url: /stocks/stocks-list/w
+            - link "X" [ref=e1098] [cursor=pointer]:
+              - /url: /stocks/stocks-list/x
+            - link "Y" [ref=e1099] [cursor=pointer]:
+              - /url: /stocks/stocks-list/y
+            - link "Z" [ref=e1100] [cursor=pointer]:
+              - /url: /stocks/stocks-list/z
+            - link "Others" [ref=e1101] [cursor=pointer]:
+              - /url: /stocks/stocks-list/others
+  - alert [ref=e1102]

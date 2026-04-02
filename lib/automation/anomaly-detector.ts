@@ -377,7 +377,7 @@ export class AnomalyDetector {
 
       if (authorArticles && authorArticles.length >= 5) {
         const avgScore = authorArticles.reduce(
-          (sum, a) => sum + (a.quality_score || 0),
+          (sum: any, a: any) => sum + (a.quality_score || 0),
           0
         ) / authorArticles.length;
 
@@ -766,7 +766,7 @@ export class AnomalyDetector {
       'xxx', 'porn', 'nude',
     ];
 
-    const category = article.category || '';
+    const category = (article.category || '') as string;
     if (category !== 'crypto' && category !== 'investing') {
       for (const word of inappropriateWords.slice(0, 4)) {
         if (content.includes(word)) {

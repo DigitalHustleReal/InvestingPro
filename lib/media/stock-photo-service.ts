@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger';
 /**
  * Stock Photo Service
  * Integrates with Pexels and Pixabay for free stock images

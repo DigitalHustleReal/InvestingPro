@@ -151,11 +151,11 @@ export default function SpendingPatternPage({
                                         <div className="flex gap-3">
                                             <DecisionCTA
                                                 text="Apply Instantly"
-                                                href={rec.card.apply_link || rec.card.affiliate_link || `/apply/credit-card/${rec.card.id}`}
+                                                href={rec.card.apply_link || `/apply/credit-card/${rec.card.id}`}
                                                 productId={rec.card.id}
                                                 variant="primary"
                                                 className="flex-1"
-                                                isExternal={!!(rec.card.apply_link || rec.card.affiliate_link)}
+                                                isExternal={!!rec.card.apply_link}
                                             />
                                             <Link href={`/credit-cards/${rec.card.slug || rec.card.id}`}>
                                                 <button className="flex-1 px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">

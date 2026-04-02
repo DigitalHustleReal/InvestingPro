@@ -29,8 +29,8 @@ export function ResponsiveFilterContainer({
 
     return (
         <div className={cn("w-full lg:w-[300px] shrink-0", className)}>
-            {/* Desktop View: Static Sidebar */}
-            <div className="hidden lg:block">
+            {/* Desktop View: Sticky Sidebar */}
+            <div className="hidden lg:block sticky top-20 max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-hide">
                 {children}
             </div>
 

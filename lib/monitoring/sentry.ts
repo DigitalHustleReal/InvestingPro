@@ -47,11 +47,8 @@ export function initSentry() {
             
             // Integrations
             integrations: [
-                new Sentry.BrowserTracing({
-                    // Set sampling rate for performance monitoring
-                    tracePropagationTargets: ['localhost', /^https:\/\/yourserver\.io\/api/],
-                }),
-                new Sentry.Replay({
+                Sentry.browserTracingIntegration(),
+                Sentry.replayIntegration({
                     maskAllText: true,
                     blockAllMedia: true,
                 }),
@@ -135,14 +132,11 @@ export function captureException(error: Error, context?: Record<string, any>) {
  */
 export function captureMessage(message: string, level: 'info' | 'warning' | 'error' = 'info', context?: Record<string, any>) {
     if (!sentryInitialized) {
-        logger.info(message, undefined, context);
+        logger.info(message, context);
         return;
     }
 
-    Sentry.captureMessage(message, {
-        level,
-        extra: context,
-    });
+    Sentry.captureMessage(message, level);
 }
 
 /**
@@ -211,7 +205,7 @@ export function withErrorTracking<T extends (...args: any[]) => Promise<any>>(
 export function startTransaction(name: string, op: string) {
     if (!sentryInitialized) return null;
 
-    return Sentry.startTransaction({
+    return Sentry.startInactiveSpan({
         name,
         op,
     });

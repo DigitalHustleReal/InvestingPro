@@ -233,7 +233,7 @@ export class AutonomousContentOrchestrator {
 
       if (!searches) return [];
 
-      return searches.map(s => ({
+      return searches.map((s: any) => ({
         topic: s.query,
         score: s.count / 100,
         source: 'user_searches' as const,

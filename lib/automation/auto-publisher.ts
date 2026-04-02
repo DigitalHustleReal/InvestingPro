@@ -545,22 +545,22 @@ export class AutoPublisher {
 
       const stats: AutoPublishStats = {
         totalProcessed: data.length,
-        autoPublished: data.filter(d => d.action === 'auto_publish_auto_published').length,
-        queuedForReview: data.filter(d => d.action === 'auto_publish_queued_for_review').length,
-        rejected: data.filter(d => d.action === 'auto_publish_rejected').length,
-        skipped: data.filter(d => d.action === 'auto_publish_skipped').length,
+        autoPublished: data.filter((d: any) => d.action === 'auto_publish_auto_published').length,
+        queuedForReview: data.filter((d: any) => d.action === 'auto_publish_queued_for_review').length,
+        rejected: data.filter((d: any) => d.action === 'auto_publish_rejected').length,
+        skipped: data.filter((d: any) => d.action === 'auto_publish_skipped').length,
         avgConfidence: 0,
         lastProcessed: data[0]?.performed_at || null,
       };
 
       // Calculate average confidence
       const confidenceScores = data
-        .map(d => d.metadata?.confidence_score)
-        .filter(s => typeof s === 'number');
+        .map((d: any) => d.metadata?.confidence_score)
+        .filter((s: any) => typeof s === 'number');
 
       if (confidenceScores.length > 0) {
         stats.avgConfidence = Math.round(
-          confidenceScores.reduce((sum, s) => sum + s, 0) / confidenceScores.length
+          confidenceScores.reduce((sum: any, s: any) => sum + s, 0) / confidenceScores.length
         );
       }
 

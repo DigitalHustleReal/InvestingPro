@@ -235,21 +235,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             logger.error('Error fetching versus pages for sitemap', error as Error);
         }
 
-        // Product pages (if products table exists)
+        // Product pages (mutual funds, credit cards, etc.)
         try {
             const { data: products } = await supabase
                 .from('products')
-                .select('slug, product_type, updated_at')
+                .select('slug, category, updated_at')
                 .eq('is_active', true)
                 .limit(10000);
 
             if (products) {
+                // Map category to URL path
+                const categoryToPath: Record<string, string> = {
+                    'mutual_fund': 'mutual-funds',
+                    'credit_card': 'credit-cards',
+                    'loan': 'loans',
+                    'fixed_deposit': 'fixed-deposits',
+                    'demat_account': 'demat-accounts',
+                    'insurance': 'insurance',
+                };
+
                 for (const product of products) {
+                    const pathPrefix = categoryToPath[product.category] || product.category;
                     sitemap.push({
-                        url: `${baseUrl}/${product.product_type}/${product.slug}`,
+                        url: `${baseUrl}/${pathPrefix}/${product.slug}`,
                         lastModified: product.updated_at ? new Date(product.updated_at) : new Date(),
-                        changeFrequency: 'weekly',
-                        priority: 0.8,
+                        changeFrequency: 'daily',
+                        priority: product.category === 'mutual_fund' ? 0.7 : 0.8,
                     });
                 }
             }

@@ -25,7 +25,8 @@ export default function ProductReviews({ productSlug, productType }: ProductRevi
   // Check auth status
   useEffect(() => {
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    supabase.auth.getUser().then(({ data }: any) => {
+      const user = data?.user;
       setUserId(user?.id || null);
     });
   }, []);

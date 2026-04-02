@@ -93,7 +93,7 @@ export class AffiliateAgent extends BaseAgent {
         const startTime = Date.now();
         
         try {
-            const metrics = await this.trackArticle(context.articleId);
+            const metrics = await this.trackArticle(context.articleId ?? '');
             
             return {
                 success: true,
