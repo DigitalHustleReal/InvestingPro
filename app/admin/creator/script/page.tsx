@@ -38,63 +38,29 @@ interface GeneratedScript {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Mock script generation                                             */
+/*  AI script generation via API                                       */
 /* ------------------------------------------------------------------ */
 
-function generateMockScript(
+async function generateScriptFromAI(
   topic: string,
   length: string,
   style: string,
   audience: string,
-): GeneratedScript {
-  const durationMap: Record<string, string> = {
-    "5": "5 minutes",
-    "10": "10 minutes",
-    "15": "15 minutes",
-    "20": "20 minutes",
-  };
+  keyPoints: string,
+): Promise<GeneratedScript> {
+  const response = await fetch("/api/admin/creator/generate-script", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ topic, length, style, audience, keyPoints }),
+  });
 
-  return {
-    title: `${topic} — Complete ${style.charAt(0).toUpperCase() + style.slice(1)} Guide`,
-    totalDuration: durationMap[length] || "10 minutes",
-    sections: [
-      {
-        title: "Hook (First 30 seconds)",
-        duration: "0:00 — 0:30",
-        content: `[OPEN ON: Dynamic text overlay with trending graph]\n\n"Did you know that most ${audience === "beginners" ? "new investors" : "investors"} make this one critical mistake with ${topic.toLowerCase()}? In the next ${length} minutes, I'll show you exactly how to avoid it — and what the smart money is doing instead."\n\n[CUT TO: Host on camera, energetic delivery]\n\n"What's going on everyone — welcome back to the channel. If you're new here, hit that subscribe button because we break down complex finance topics into actionable strategies."`,
-      },
-      {
-        title: "Introduction",
-        duration: "0:30 — 1:30",
-        content: `"So today we're diving deep into ${topic.toLowerCase()}. ${style === "educational" ? "I'm going to break this down step by step so even if you've never looked at this before, you'll walk away with a complete understanding." : style === "news analysis" ? "There's been a lot of movement in this space recently, and I want to give you the full picture of what's happening and why it matters for your portfolio." : style === "tutorial" ? "I'll walk you through the exact process I use, screen by screen, so you can replicate this yourself." : "We're going to keep this fun and easy to follow — no boring jargon, I promise."}\n\n[B-ROLL: Relevant charts/data visualizations]\n\nHere's what we'll cover:\n1. The fundamentals you need to know\n2. Common mistakes and how to avoid them\n3. A proven strategy that actually works\n4. My personal recommendations for ${audience === "beginners" ? "getting started" : audience === "intermediate" ? "leveling up" : "optimizing returns"}"`,
-      },
-      {
-        title: "Main Content — Section 1: Fundamentals",
-        duration: "1:30 — 4:00",
-        content: `"Let's start with the basics of ${topic.toLowerCase()}.\n\n[SCREEN RECORDING / GRAPHICS]\n\nFirst thing to understand — ${topic.toLowerCase()} isn't as complicated as people make it sound. At its core, it's about [key principle].\n\n${audience === "beginners" ? "Think of it like this: imagine you're building a house. You wouldn't start with the roof, right? Same thing here — we need to lay the foundation first." : "You probably already know the basics, so let me skip ahead to what actually moves the needle."}\n\nHere are the three numbers that matter most:\n- [Metric 1] — this tells you [explanation]\n- [Metric 2] — watch this closely because [reason]\n- [Metric 3] — most people ignore this, but it's crucial"`,
-      },
-      {
-        title: "Main Content — Section 2: Common Mistakes",
-        duration: "4:00 — 7:00",
-        content: `"Now here's where most people go wrong.\n\n[TEXT OVERLAY: Mistake #1]\n\nMistake number one: [specific mistake related to ${topic.toLowerCase()}]. I see this ALL the time in the comments. People think [misconception], but the data shows [reality].\n\n[SHOW DATA/CHART]\n\nMistake number two: timing the market instead of time IN the market. Whether it's ${topic.toLowerCase()} or anything else, consistency beats trying to be clever.\n\nMistake number three: ignoring the tax implications. In India, ${topic.toLowerCase()} has specific tax rules under Section [X] that can save you — or cost you — lakhs over time."`,
-      },
-      {
-        title: "Main Content — Section 3: Proven Strategy",
-        duration: "7:00 — 10:00",
-        content: `"Alright, now for the good stuff — here's the strategy.\n\n[ANIMATED BREAKDOWN]\n\nStep 1: ${audience === "beginners" ? "Open a demat account with a SEBI-registered broker" : "Review your current allocation"}\nStep 2: Research using the criteria I just showed you\nStep 3: Start with [specific amount/approach] and scale from there\nStep 4: Set up automatic [investments/reviews] every [period]\n\nI personally use this exact approach, and here are my results over the last [timeframe]:\n\n[SHOW RESULTS SCREENSHOT]\n\nNow, I'm not a financial advisor — this is what works for me. Always do your own research."`,
-      },
-      {
-        title: "Call to Action",
-        duration: `${parseInt(length) - 1}:00 — ${parseInt(length) - 0}:30`,
-        content: `"If you found this helpful, smash that like button — it really helps the channel. And if you want more content like this, subscribe and hit the bell icon so you never miss an upload.\n\n[END SCREEN OVERLAY]\n\nI also made a detailed video on [related topic] — I'll link it right here. Go check it out next.\n\nDrop a comment below telling me: what's YOUR biggest question about ${topic.toLowerCase()}? I read every single comment and might feature yours in the next video."`,
-      },
-      {
-        title: "Outro",
-        duration: `${parseInt(length) - 0}:30 — ${length}:00`,
-        content: `"That's it for today's video. Remember — ${audience === "beginners" ? "everyone starts somewhere, and the fact that you're watching this puts you ahead of 90% of people" : "the key to success is consistency and continuous learning"}.\n\nI'll see you in the next one. Until then — invest smart, stay informed.\n\n[END SCREEN: Subscribe + Next Video + Playlist]\n[MUSIC FADES OUT]"`,
-      },
-    ],
-  };
+  const json = await response.json();
+
+  if (!response.ok || !json.success) {
+    throw new Error(json.error || "Script generation failed");
+  }
+
+  return json.data as GeneratedScript;
 }
 
 /* ------------------------------------------------------------------ */
@@ -110,7 +76,7 @@ export default function ScriptGeneratorPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [script, setScript] = useState<GeneratedScript | null>(null);
 
-  const handleGenerate = useCallback(() => {
+  const handleGenerate = useCallback(async () => {
     if (!topic.trim()) {
       toast.error("Please enter a video topic");
       return;
@@ -119,16 +85,26 @@ export default function ScriptGeneratorPage() {
     setIsGenerating(true);
     setScript(null);
 
-    // Mock generation with setTimeout
-    setTimeout(() => {
-      const generated = generateMockScript(topic, length, style, audience);
+    try {
+      const generated = await generateScriptFromAI(
+        topic,
+        length,
+        style,
+        audience,
+        keyPoints,
+      );
       setScript(generated);
-      setIsGenerating(false);
       toast.success("Script generated successfully!", {
         description: `${generated.sections.length} sections — ${generated.totalDuration} total`,
       });
-    }, 2500);
-  }, [topic, length, style, audience]);
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Script generation failed";
+      toast.error("Generation failed", { description: message });
+    } finally {
+      setIsGenerating(false);
+    }
+  }, [topic, length, style, audience, keyPoints]);
 
   const handleCopySection = useCallback((section: ScriptSection) => {
     navigator.clipboard.writeText(section.content).then(() => {

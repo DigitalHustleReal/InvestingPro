@@ -40,107 +40,27 @@ interface ShortScript {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Mock shorts generation                                             */
+/*  AI shorts generation via API                                       */
 /* ------------------------------------------------------------------ */
 
-function generateMockShorts(
+async function generateShortsFromAI(
   topic: string,
   platform: string,
   tone: string,
-): ShortScript[] {
-  const topicLower = topic.toLowerCase();
+): Promise<ShortScript[]> {
+  const response = await fetch("/api/admin/creator/generate-shorts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ topic, platform, tone }),
+  });
 
-  return [
-    {
-      id: 1,
-      hookLine:
-        tone === "urgent"
-          ? `STOP scrolling — you need to know this about ${topicLower} RIGHT NOW`
-          : tone === "casual"
-            ? `Okay so here's the thing about ${topicLower} nobody talks about...`
-            : `Here's what every Indian investor needs to know about ${topicLower}`,
-      keyPoints: [
-        `Most people get ${topicLower} completely wrong — here's the reality`,
-        `The #1 rule: never invest more than you can afford to lose`,
-        `In India, tax implications under Section 80C can save you up to Rs 1.5 lakh`,
-        `Start with as little as Rs 500/month — consistency beats amount`,
-      ],
-      cta:
-        platform === "youtube"
-          ? "Follow for more finance tips — link to full breakdown in description!"
-          : platform === "instagram"
-            ? "Save this for later and follow @investingpro for daily finance tips!"
-            : "Save this and follow for more! Full breakdown linked in bio.",
-      hashtags: [
-        "PersonalFinance",
-        "InvestingTips",
-        "MoneyMatters",
-        topicLower.replace(/\s+/g, ""),
-        "FinanceIndia",
-        "WealthBuilding",
-        platform === "instagram" ? "FinanceReels" : "FinanceShorts",
-      ],
-    },
-    {
-      id: 2,
-      hookLine:
-        tone === "urgent"
-          ? `Your money is losing value EVERY DAY if you're not doing this with ${topicLower}`
-          : tone === "casual"
-            ? `POV: you just discovered ${topicLower} and your portfolio changed forever`
-            : `3 things I wish I knew about ${topicLower} before I started investing`,
-      keyPoints: [
-        `Thing #1: Inflation eats 6-7% of your money every year — ${topicLower} can beat that`,
-        `Thing #2: Compounding is the 8th wonder — even Rs 1,000/month becomes Rs 10+ lakh in 15 years`,
-        `Thing #3: Diversification isn't optional — spread across at least 3-4 instruments`,
-      ],
-      cta:
-        platform === "youtube"
-          ? "Subscribe for Part 2 where I show my exact portfolio setup!"
-          : platform === "instagram"
-            ? "Double tap if you learned something new! Share with a friend who needs this."
-            : "Follow for daily finance wisdom! Link in bio for the full guide.",
-      hashtags: [
-        "InvestSmart",
-        "FinancialFreedom",
-        "IndianInvestor",
-        "MutualFunds",
-        topicLower.replace(/\s+/g, ""),
-        "MoneyTips",
-        platform === "instagram" ? "ReelsIndia" : "YouTubeShorts",
-      ],
-    },
-    {
-      id: 3,
-      hookLine:
-        tone === "urgent"
-          ? `Banks DON'T want you to know this about ${topicLower} — here's the truth`
-          : tone === "casual"
-            ? `My dad never taught me about ${topicLower} so I taught myself — here's what I found`
-            : `The beginner's guide to ${topicLower} in 60 seconds`,
-      keyPoints: [
-        `Step 1: Open a free demat account (takes 10 minutes)`,
-        `Step 2: Start with an index fund SIP — lowest risk, proven returns`,
-        `Step 3: Increase your SIP by 10% every year — this is the real cheat code`,
-        `Bonus: Use the 50-30-20 rule — 50% needs, 30% wants, 20% investments`,
-      ],
-      cta:
-        platform === "youtube"
-          ? "Hit that subscribe button — I post finance shorts every single day!"
-          : platform === "instagram"
-            ? "Follow @investingpro for bite-sized finance education every day!"
-            : "Save + share this with someone who needs to hear it! Follow for more.",
-      hashtags: [
-        "FinanceTips",
-        "BeginnerInvestor",
-        "SIPInvesting",
-        "IndexFunds",
-        topicLower.replace(/\s+/g, ""),
-        "FinancialLiteracy",
-        platform === "instagram" ? "FinanceReels" : "MoneyShorts",
-      ],
-    },
-  ];
+  const json = await response.json();
+
+  if (!response.ok || !json.success) {
+    throw new Error(json.error || "Shorts generation failed");
+  }
+
+  return json.data as ShortScript[];
 }
 
 /* ------------------------------------------------------------------ */
@@ -154,7 +74,7 @@ export default function ShortsGeneratorPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [shorts, setShorts] = useState<ShortScript[]>([]);
 
-  const handleGenerate = useCallback(() => {
+  const handleGenerate = useCallback(async () => {
     if (!topic.trim()) {
       toast.error("Please enter a topic");
       return;
@@ -163,14 +83,19 @@ export default function ShortsGeneratorPage() {
     setIsGenerating(true);
     setShorts([]);
 
-    setTimeout(() => {
-      const generated = generateMockShorts(topic, platform, tone);
+    try {
+      const generated = await generateShortsFromAI(topic, platform, tone);
       setShorts(generated);
-      setIsGenerating(false);
-      toast.success("3 script variations generated!", {
+      toast.success(`${generated.length} script variations generated!`, {
         description: `Platform: ${platform === "both" ? "YouTube Shorts + Instagram Reels" : platform === "youtube" ? "YouTube Shorts" : "Instagram Reels"}`,
       });
-    }, 2000);
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Shorts generation failed";
+      toast.error("Generation failed", { description: message });
+    } finally {
+      setIsGenerating(false);
+    }
   }, [topic, platform, tone]);
 
   const handleCopyShort = useCallback((short: ShortScript) => {

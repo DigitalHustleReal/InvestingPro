@@ -189,7 +189,7 @@ function formatLastRun(iso: string): string {
 export default function AgentsDashboardPage() {
   const [agents, setAgents] = useState<Agent[]>(INITIAL_AGENTS);
 
-  const handleRunNow = useCallback((agent: Agent) => {
+  const handleRunNow = useCallback(async (agent: Agent) => {
     // Set agent to working
     setAgents((prev) =>
       prev.map((a) =>
@@ -197,27 +197,118 @@ export default function AgentsDashboardPage() {
       ),
     );
     toast.success(`${agent.name} started`, {
-      description: "Task queued — check back in a few moments.",
+      description: "Task queued — running now...",
     });
 
-    // Simulate completion after 3 seconds
-    setTimeout(() => {
+    try {
+      let response: Response;
+
+      switch (agent.id) {
+        case "content-writer":
+          response = await fetch("/api/content-pipeline", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ count: 1, mode: "auto" }),
+          });
+          break;
+
+        case "seo-optimizer":
+          response = await fetch("/api/cron/seo-rankings-update");
+          break;
+
+        case "research":
+          response = await fetch("/api/content-pipeline", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ count: 1, mode: "trending" }),
+          });
+          break;
+
+        case "editor":
+          // Editor agent triggers a batch proofread via editor-tools
+          response = await fetch("/api/admin/editor-tools", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "proofread",
+              content: "__batch_run__",
+            }),
+          });
+          break;
+
+        case "social-media":
+          response = await fetch("/api/cron/content-distribution");
+          break;
+
+        case "data-scraper":
+          response = await fetch("/api/cron/scrape-credit-cards");
+          break;
+
+        case "analytics":
+          response = await fetch("/api/cron/analytics-sync");
+          break;
+
+        case "compliance":
+          // No backend endpoint yet — placeholder
+          toast.info(`${agent.name} — no endpoint configured yet`, {
+            description: "Compliance checking endpoint coming soon.",
+          });
+          setAgents((prev) =>
+            prev.map((a) =>
+              a.id === agent.id ? { ...a, status: "idle" as AgentStatus } : a,
+            ),
+          );
+          return;
+
+        default:
+          toast.error(`Unknown agent: ${agent.id}`);
+          setAgents((prev) =>
+            prev.map((a) =>
+              a.id === agent.id ? { ...a, status: "error" as AgentStatus } : a,
+            ),
+          );
+          return;
+      }
+
+      if (response.ok) {
+        setAgents((prev) =>
+          prev.map((a) =>
+            a.id === agent.id
+              ? {
+                  ...a,
+                  status: "idle" as AgentStatus,
+                  lastRun: new Date().toISOString(),
+                  tasksCompleted: a.tasksCompleted + 1,
+                }
+              : a,
+          ),
+        );
+        toast.success(`${agent.name} completed`, {
+          description: "Task finished successfully.",
+        });
+      } else {
+        const errorData = await response.json().catch(() => null);
+        const errorMsg = errorData?.error || `HTTP ${response.status}`;
+        setAgents((prev) =>
+          prev.map((a) =>
+            a.id === agent.id ? { ...a, status: "error" as AgentStatus } : a,
+          ),
+        );
+        toast.error(`${agent.name} failed`, {
+          description: errorMsg,
+        });
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Network error";
       setAgents((prev) =>
         prev.map((a) =>
-          a.id === agent.id
-            ? {
-                ...a,
-                status: "idle" as AgentStatus,
-                lastRun: new Date().toISOString(),
-                tasksCompleted: a.tasksCompleted + 1,
-              }
-            : a,
+          a.id === agent.id ? { ...a, status: "error" as AgentStatus } : a,
         ),
       );
-      toast.success(`${agent.name} completed`, {
-        description: "Task finished successfully.",
+      toast.error(`${agent.name} failed`, {
+        description: message,
       });
-    }, 3000);
+    }
   }, []);
 
   const handleConfigure = useCallback((agent: Agent) => {

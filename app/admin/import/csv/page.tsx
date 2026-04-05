@@ -60,6 +60,8 @@ export default function CsvImportPage() {
   );
   const [isDragging, setIsDragging] = useState(false);
   const [importedCount, setImportedCount] = useState(0);
+  const [failedCount, setFailedCount] = useState(0);
+  const [importProgress, setImportProgress] = useState(0);
 
   // --- File Handling ---
 
@@ -178,28 +180,95 @@ export default function CsvImportPage() {
 
   // --- Import ---
 
+  const generateSlug = (title: string): string => {
+    return title
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
+  };
+
   const handleImport = async () => {
     setStep("importing");
+    setImportProgress(0);
+    setImportedCount(0);
+    setFailedCount(0);
 
-    // Build mapped articles
-    const articles = csvData.map((row) => {
-      const article: Record<string, string> = {};
-      for (const field of ARTICLE_FIELDS) {
-        const value = getMappedValue(row, field.key);
-        if (value) article[field.key] = value;
+    let successCount = 0;
+    let errorCount = 0;
+
+    for (let i = 0; i < csvData.length; i++) {
+      const row = csvData[i];
+      setImportProgress(i + 1);
+
+      const title = getMappedValue(row, "title");
+      const body = getMappedValue(row, "body");
+      const slug = getMappedValue(row, "slug") || generateSlug(title);
+      const category = getMappedValue(row, "category") || "investing-basics";
+      const tagsRaw = getMappedValue(row, "tags");
+      const tags = tagsRaw
+        ? tagsRaw
+            .split(",")
+            .map((t: string) => t.trim())
+            .filter(Boolean)
+        : [];
+      const seoTitle = getMappedValue(row, "meta_title") || title;
+      const seoDescription = getMappedValue(row, "meta_description") || "";
+      const status = getMappedValue(row, "status") || "draft";
+
+      const payload = {
+        content: {
+          body_markdown: body,
+          body_html: "",
+          content: body,
+        },
+        metadata: {
+          title,
+          slug,
+          excerpt: "",
+          category,
+          tags,
+          seo_title: seoTitle,
+          seo_description: seoDescription,
+          language: "en",
+          status,
+        },
+      };
+
+      try {
+        const res = await fetch("/api/admin/articles", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          console.error(
+            `Failed to import row ${i + 1}: ${errData.error || res.statusText}`,
+          );
+          errorCount++;
+        } else {
+          successCount++;
+        }
+      } catch (err) {
+        console.error(`Network error importing row ${i + 1}:`, err);
+        errorCount++;
       }
-      return article;
-    });
+    }
 
-    // Simulate import with a brief delay (replace with real API call)
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setImportedCount(articles.length);
-      setStep("done");
-      toast.success(`Successfully imported ${articles.length} articles`);
-    } catch {
-      toast.error("Import failed. Please try again.");
-      setStep("preview");
+    setImportedCount(successCount);
+    setFailedCount(errorCount);
+    setStep("done");
+
+    if (errorCount === 0) {
+      toast.success(`Successfully imported ${successCount} articles`);
+    } else if (successCount === 0) {
+      toast.error(`Import failed: all ${errorCount} articles failed`);
+    } else {
+      toast.warning(`Imported ${successCount} articles, ${errorCount} failed`);
     }
   };
 
@@ -212,6 +281,8 @@ export default function CsvImportPage() {
     setCsvData([]);
     setColumnMapping({});
     setImportedCount(0);
+    setFailedCount(0);
+    setImportProgress(0);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -498,10 +569,18 @@ export default function CsvImportPage() {
           <div className="flex flex-col items-center justify-center gap-4 py-16">
             <Loader2 className="w-10 h-10 text-primary animate-spin" />
             <p className="text-sm font-medium text-foreground font-inter">
-              Importing {csvData.length} articles...
+              Importing {importProgress}/{csvData.length} articles...
             </p>
+            <div className="w-64 h-2 bg-muted rounded-full overflow-hidden">
+              <div
+                className="h-full bg-primary rounded-full transition-all duration-300"
+                style={{
+                  width: `${csvData.length > 0 ? (importProgress / csvData.length) * 100 : 0}%`,
+                }}
+              />
+            </div>
             <p className="text-xs text-muted-foreground">
-              This may take a moment.
+              Please do not close this page.
             </p>
           </div>
         )}
@@ -509,8 +588,23 @@ export default function CsvImportPage() {
         {/* ============ STEP: DONE ============ */}
         {step === "done" && (
           <div className="flex flex-col items-center justify-center gap-6 py-16">
-            <div className="p-4 rounded-full bg-green-100 dark:bg-green-900/40">
-              <Check className="w-10 h-10 text-green-600 dark:text-green-400" />
+            <div
+              className={cn(
+                "p-4 rounded-full",
+                failedCount === 0
+                  ? "bg-green-100 dark:bg-green-900/40"
+                  : importedCount === 0
+                    ? "bg-red-100 dark:bg-red-900/40"
+                    : "bg-amber-100 dark:bg-amber-900/40",
+              )}
+            >
+              {failedCount === 0 ? (
+                <Check className="w-10 h-10 text-green-600 dark:text-green-400" />
+              ) : importedCount === 0 ? (
+                <X className="w-10 h-10 text-red-600 dark:text-red-400" />
+              ) : (
+                <AlertCircle className="w-10 h-10 text-amber-600 dark:text-amber-400" />
+              )}
             </div>
             <div className="text-center space-y-2">
               <h3 className="text-xl font-bold text-foreground font-inter">
@@ -523,6 +617,13 @@ export default function CsvImportPage() {
                   {fileName}
                 </code>
               </p>
+              {failedCount > 0 && (
+                <p className="text-sm text-red-600 dark:text-red-400">
+                  <strong>{failedCount}</strong> article
+                  {failedCount !== 1 ? "s" : ""} failed to import. Check the
+                  browser console for details.
+                </p>
+              )}
             </div>
             <div className="flex items-center gap-3">
               <button
