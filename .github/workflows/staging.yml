@@ -1,61 +1,45 @@
-name: Deploy to Staging
+name: PR Quality Gate
 
 on:
-  push:
-    branches: [develop, staging]
   pull_request:
-    branches: [main, master, main]
-  workflow_dispatch:
+    branches: [master]
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 env:
   NODE_VERSION: '22'
 
+# Vercel automatically creates preview deployments for every PR via Git integration.
+# This workflow ensures code quality before the preview is reviewed.
+
 jobs:
-  deploy-staging:
-    name: Deploy to Staging
+  quality-gate:
+    name: Quality Gate
     runs-on: ubuntu-latest
-    
     steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-      
-      - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-      
-      - name: 📦 Install dependencies
-        run: npm ci
-      
-      - name: 🔍 Type check
+
+      - run: npm ci
+
+      - name: Type check
         run: npm run type-check
-      
-      - name: 🧹 Lint
+
+      - name: Lint
         run: npm run lint
-      
-      - name: 🏗️ Build
+
+      - name: Build
         run: npm run build
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-      
-      - name: 🧪 Run Tests
-        run: npm test -- --watchAll=false || echo "Tests skipped if not configured"
-        continue-on-error: true
-      
-      - name: 🚀 Deploy to Vercel Preview
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--yes'
-        if: github.event_name == 'pull_request'
-      
-      - name: ✅ Staging Deployment Success
-        if: success()
-        run: |
-          echo "✅ Staging deployment successful!"
-          echo "Environment: Staging/Preview"
-          echo "Commit: ${{ github.sha }}"
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Run tests
+        run: npm test -- --watchAll=false
