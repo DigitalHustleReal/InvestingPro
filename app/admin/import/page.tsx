@@ -46,7 +46,7 @@ const IMPORT_SOURCES: ImportSourceCard[] = [
     description:
       "Upload a JSON file, preview the data structure, and import articles.",
     icon: FileJson,
-    href: null,
+    href: "/admin/import/json",
     color:
       "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400",
   },
@@ -65,7 +65,7 @@ const IMPORT_SOURCES: ImportSourceCard[] = [
     description:
       "Upload .md files and convert them to articles with frontmatter parsing.",
     icon: FileText,
-    href: null,
+    href: "/admin/import/markdown",
     color:
       "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400",
   },

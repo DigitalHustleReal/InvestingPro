@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { toast } from "sonner";
 import AdminLayout from "@/components/admin/AdminLayout";
 import AdminPageContainer from "@/components/admin/AdminPageContainer";
@@ -33,6 +33,7 @@ import {
   RefreshCw,
   Globe,
   ShieldCheck,
+  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +46,33 @@ type WebhookStatus = "active" | "paused" | "failed";
 interface WebhookEvent {
   id: string;
   label: string;
+}
+
+/** Shape returned from the webhooks DB table */
+interface WebhookRow {
+  id: string;
+  url: string;
+  secret: string;
+  events: string[];
+  is_active: boolean;
+  last_triggered_at: string | null;
+  success_count: number;
+  failure_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Shape returned from the webhook_deliveries DB table */
+interface DeliveryRow {
+  id: string;
+  webhook_id: string;
+  event: string;
+  status_code: number | null;
+  response_time_ms: number | null;
+  request_body: unknown;
+  response_body: string | null;
+  error: string | null;
+  created_at: string;
 }
 
 interface WebhookEndpoint {
@@ -68,6 +96,44 @@ interface DeliveryLog {
 }
 
 /* ------------------------------------------------------------------ */
+/*  DB row → UI mappers                                                */
+/* ------------------------------------------------------------------ */
+
+function mapWebhookRow(row: WebhookRow): WebhookEndpoint {
+  const total = row.success_count + row.failure_count;
+  const successRate =
+    total > 0 ? Math.round((row.success_count / total) * 100) : 0;
+  let status: WebhookStatus = "paused";
+  if (row.is_active && row.failure_count > row.success_count && total > 0) {
+    status = "failed";
+  } else if (row.is_active) {
+    status = "active";
+  }
+  return {
+    id: row.id,
+    url: row.url,
+    secret: row.secret,
+    events: row.events,
+    status,
+    lastTriggered: row.last_triggered_at ?? "Never",
+    successRate,
+    active: row.is_active,
+  };
+}
+
+function mapDeliveryRow(row: DeliveryRow, webhooks: WebhookRow[]): DeliveryLog {
+  const wh = webhooks.find((w) => w.id === row.webhook_id);
+  return {
+    id: row.id,
+    timestamp: row.created_at,
+    event: row.event,
+    endpoint: wh?.url ?? "Unknown",
+    statusCode: row.status_code ?? 0,
+    responseTime: row.response_time_ms ?? 0,
+  };
+}
+
+/* ------------------------------------------------------------------ */
 /*  Constants                                                          */
 /* ------------------------------------------------------------------ */
 
@@ -81,12 +147,61 @@ const AVAILABLE_EVENTS: WebhookEvent[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Initial data (hardcoded — backend integration later)               */
+/*  API helpers                                                        */
 /* ------------------------------------------------------------------ */
 
-const INITIAL_WEBHOOKS: WebhookEndpoint[] = [];
+async function fetchWebhooks(): Promise<{
+  webhooks: WebhookRow[];
+  deliveries: DeliveryRow[];
+}> {
+  const res = await fetch("/api/admin/webhooks");
+  if (!res.ok) throw new Error("Failed to fetch webhooks");
+  const json = await res.json();
+  return json.data;
+}
 
-const INITIAL_DELIVERIES: DeliveryLog[] = [];
+async function createWebhookApi(payload: {
+  url: string;
+  events: string[];
+  is_active: boolean;
+}): Promise<WebhookRow> {
+  const res = await fetch("/api/admin/webhooks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const json = await res.json().catch(() => ({}));
+    throw new Error(json.error || "Failed to create webhook");
+  }
+  const json = await res.json();
+  return json.data;
+}
+
+async function updateWebhookApi(
+  id: string,
+  payload: { url?: string; events?: string[]; is_active?: boolean },
+): Promise<WebhookRow> {
+  const res = await fetch(`/api/admin/webhooks/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const json = await res.json().catch(() => ({}));
+    throw new Error(json.error || "Failed to update webhook");
+  }
+  const json = await res.json();
+  return json.data;
+}
+
+async function deleteWebhookApi(id: string): Promise<void> {
+  const res = await fetch(`/api/admin/webhooks/${id}`, { method: "DELETE" });
+  if (!res.ok) {
+    const json = await res.json().catch(() => ({}));
+    throw new Error(json.error || "Failed to delete webhook");
+  }
+}
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -187,8 +302,10 @@ function generateSecret(): string {
 /* ------------------------------------------------------------------ */
 
 export default function WebhooksPage() {
-  const [webhooks, setWebhooks] = useState<WebhookEndpoint[]>(INITIAL_WEBHOOKS);
-  const [deliveries] = useState<DeliveryLog[]>(INITIAL_DELIVERIES);
+  const [webhooks, setWebhooks] = useState<WebhookEndpoint[]>([]);
+  const [deliveries, setDeliveries] = useState<DeliveryLog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingWebhook, setEditingWebhook] = useState<WebhookEndpoint | null>(
     null,
@@ -199,6 +316,24 @@ export default function WebhooksPage() {
   const [formSecret, setFormSecret] = useState("");
   const [formEvents, setFormEvents] = useState<string[]>([]);
   const [formActive, setFormActive] = useState(true);
+
+  /* Fetch data from API */
+  const loadData = useCallback(async () => {
+    try {
+      setLoading(true);
+      const { webhooks: whRows, deliveries: delRows } = await fetchWebhooks();
+      setWebhooks(whRows.map(mapWebhookRow));
+      setDeliveries(delRows.map((d) => mapDeliveryRow(d, whRows)));
+    } catch {
+      toast.error("Failed to load webhooks");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   /* Reset form */
   const resetForm = useCallback(() => {
@@ -226,8 +361,8 @@ export default function WebhooksPage() {
     setDialogOpen(true);
   }, []);
 
-  /* Save webhook (add or edit) */
-  const handleSave = useCallback(() => {
+  /* Save webhook (add or edit) — calls API */
+  const handleSave = useCallback(async () => {
     if (!formUrl.trim()) {
       toast.error("URL is required");
       return;
@@ -237,68 +372,64 @@ export default function WebhooksPage() {
       return;
     }
 
-    if (editingWebhook) {
-      setWebhooks((prev) =>
-        prev.map((wh) =>
-          wh.id === editingWebhook.id
-            ? {
-                ...wh,
-                url: formUrl.trim(),
-                secret: formSecret,
-                events: formEvents,
-                active: formActive,
-                status: formActive
-                  ? ("active" as WebhookStatus)
-                  : ("paused" as WebhookStatus),
-              }
-            : wh,
-        ),
-      );
-      toast.success("Webhook updated");
-    } else {
-      const newWebhook: WebhookEndpoint = {
-        id: `wh-${Date.now()}`,
-        url: formUrl.trim(),
-        secret: formSecret,
-        events: formEvents,
-        status: formActive ? "active" : "paused",
-        lastTriggered: "Never",
-        successRate: 0,
-        active: formActive,
-      };
-      setWebhooks((prev) => [...prev, newWebhook]);
-      toast.success("Webhook created");
+    setSaving(true);
+    try {
+      if (editingWebhook) {
+        await updateWebhookApi(editingWebhook.id, {
+          url: formUrl.trim(),
+          events: formEvents,
+          is_active: formActive,
+        });
+        toast.success("Webhook updated");
+      } else {
+        await createWebhookApi({
+          url: formUrl.trim(),
+          events: formEvents,
+          is_active: formActive,
+        });
+        toast.success("Webhook created");
+      }
+
+      setDialogOpen(false);
+      resetForm();
+      await loadData();
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : "Operation failed";
+      toast.error(msg);
+    } finally {
+      setSaving(false);
     }
+  }, [formUrl, formEvents, formActive, editingWebhook, resetForm, loadData]);
 
-    setDialogOpen(false);
-    resetForm();
-  }, [formUrl, formSecret, formEvents, formActive, editingWebhook, resetForm]);
+  /* Delete webhook — calls API */
+  const handleDelete = useCallback(
+    async (wh: WebhookEndpoint) => {
+      try {
+        await deleteWebhookApi(wh.id);
+        toast.success("Webhook deleted", {
+          description: `Removed ${truncateUrl(wh.url, 30)}`,
+        });
+        await loadData();
+      } catch {
+        toast.error("Failed to delete webhook");
+      }
+    },
+    [loadData],
+  );
 
-  /* Delete webhook */
-  const handleDelete = useCallback((wh: WebhookEndpoint) => {
-    setWebhooks((prev) => prev.filter((w) => w.id !== wh.id));
-    toast.success("Webhook deleted", {
-      description: `Removed ${truncateUrl(wh.url, 30)}`,
-    });
-  }, []);
-
-  /* Toggle active/paused */
-  const handleToggle = useCallback((wh: WebhookEndpoint) => {
-    setWebhooks((prev) =>
-      prev.map((w) =>
-        w.id === wh.id
-          ? {
-              ...w,
-              active: !w.active,
-              status: !w.active
-                ? ("active" as WebhookStatus)
-                : ("paused" as WebhookStatus),
-            }
-          : w,
-      ),
-    );
-    toast.success(wh.active ? "Webhook paused" : "Webhook activated");
-  }, []);
+  /* Toggle active/paused — calls API */
+  const handleToggle = useCallback(
+    async (wh: WebhookEndpoint) => {
+      try {
+        await updateWebhookApi(wh.id, { is_active: !wh.active });
+        toast.success(wh.active ? "Webhook paused" : "Webhook activated");
+        await loadData();
+      } catch {
+        toast.error("Failed to toggle webhook");
+      }
+    },
+    [loadData],
+  );
 
   /* Toggle event in form */
   const toggleEvent = useCallback((eventId: string) => {
@@ -402,230 +533,246 @@ export default function WebhooksPage() {
           </Card>
         </div>
 
+        {/* Loading state */}
+        {loading && (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+            <span className="ml-2 text-sm text-muted-foreground">
+              Loading webhooks...
+            </span>
+          </div>
+        )}
+
         {/* Webhook Cards */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold">Endpoints</h2>
-          <div className="grid grid-cols-1 gap-4">
-            {webhooks.map((wh) => (
-              <Card
-                key={wh.id}
-                className={cn(
-                  "transition-shadow hover:shadow-md",
-                  wh.status === "failed" && "border-red-500/30",
-                  wh.status === "active" && "border-emerald-500/30",
-                )}
-              >
-                <CardContent className="p-5">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    {/* Left: URL + Events + Status */}
-                    <div className="flex-1 min-w-0 space-y-2">
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={cn(
-                            "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg",
-                            wh.status === "failed"
-                              ? "bg-red-500/10"
-                              : "bg-emerald-500/10",
-                          )}
-                        >
-                          <Globe
-                            className={cn(
-                              "h-4.5 w-4.5",
-                              wh.status === "failed"
-                                ? "text-red-600 dark:text-red-400"
-                                : "text-emerald-600 dark:text-emerald-400",
-                            )}
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <p
-                            className="text-sm font-semibold truncate"
-                            title={wh.url}
-                          >
-                            {wh.url}
-                          </p>
-                          <div className="flex flex-wrap gap-1.5 mt-1">
-                            {wh.events.map((event) => (
-                              <Badge
-                                key={event}
-                                variant="secondary"
-                                className="text-[10px] px-1.5 py-0"
+        {!loading && (
+          <>
+            <div className="space-y-4">
+              <h2 className="text-lg font-semibold">Endpoints</h2>
+              <div className="grid grid-cols-1 gap-4">
+                {webhooks.map((wh) => (
+                  <Card
+                    key={wh.id}
+                    className={cn(
+                      "transition-shadow hover:shadow-md",
+                      wh.status === "failed" && "border-red-500/30",
+                      wh.status === "active" && "border-emerald-500/30",
+                    )}
+                  >
+                    <CardContent className="p-5">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        {/* Left: URL + Events + Status */}
+                        <div className="flex-1 min-w-0 space-y-2">
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={cn(
+                                "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg",
+                                wh.status === "failed"
+                                  ? "bg-red-500/10"
+                                  : "bg-emerald-500/10",
+                              )}
+                            >
+                              <Globe
+                                className={cn(
+                                  "h-4.5 w-4.5",
+                                  wh.status === "failed"
+                                    ? "text-red-600 dark:text-red-400"
+                                    : "text-emerald-600 dark:text-emerald-400",
+                                )}
+                              />
+                            </div>
+                            <div className="min-w-0">
+                              <p
+                                className="text-sm font-semibold truncate"
+                                title={wh.url}
                               >
-                                {event}
-                              </Badge>
-                            ))}
+                                {wh.url}
+                              </p>
+                              <div className="flex flex-wrap gap-1.5 mt-1">
+                                {wh.events.map((event) => (
+                                  <Badge
+                                    key={event}
+                                    variant="secondary"
+                                    className="text-[10px] px-1.5 py-0"
+                                  >
+                                    {event}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
 
-                    {/* Center: Metrics */}
-                    <div className="flex items-center gap-6 text-center shrink-0">
-                      <div>
-                        <p className="text-xs text-muted-foreground">Status</p>
-                        <div className="mt-1">{statusBadge(wh.status)}</div>
-                      </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">
-                          Last Triggered
-                        </p>
-                        <p className="text-xs font-medium mt-1">
-                          <Clock className="inline h-3 w-3 mr-0.5 -mt-0.5" />
-                          {wh.lastTriggered === "Never"
-                            ? "Never"
-                            : formatTimestamp(wh.lastTriggered)}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">
-                          Success Rate
-                        </p>
-                        <p
-                          className={cn(
-                            "text-xs font-medium mt-1",
-                            wh.successRate >= 95
-                              ? "text-emerald-600 dark:text-emerald-400"
-                              : wh.successRate >= 85
-                                ? "text-amber-600 dark:text-amber-400"
-                                : "text-red-600 dark:text-red-400",
-                          )}
-                        >
-                          {wh.successRate > 0 ? `${wh.successRate}%` : "--"}
-                        </p>
-                      </div>
-                    </div>
+                        {/* Center: Metrics */}
+                        <div className="flex items-center gap-6 text-center shrink-0">
+                          <div>
+                            <p className="text-xs text-muted-foreground">
+                              Status
+                            </p>
+                            <div className="mt-1">{statusBadge(wh.status)}</div>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">
+                              Last Triggered
+                            </p>
+                            <p className="text-xs font-medium mt-1">
+                              <Clock className="inline h-3 w-3 mr-0.5 -mt-0.5" />
+                              {wh.lastTriggered === "Never"
+                                ? "Never"
+                                : formatTimestamp(wh.lastTriggered)}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">
+                              Success Rate
+                            </p>
+                            <p
+                              className={cn(
+                                "text-xs font-medium mt-1",
+                                wh.successRate >= 95
+                                  ? "text-emerald-600 dark:text-emerald-400"
+                                  : wh.successRate >= 85
+                                    ? "text-amber-600 dark:text-amber-400"
+                                    : "text-red-600 dark:text-red-400",
+                              )}
+                            >
+                              {wh.successRate > 0 ? `${wh.successRate}%` : "--"}
+                            </p>
+                          </div>
+                        </div>
 
-                    {/* Right: Actions */}
-                    <div className="flex items-center gap-2 shrink-0">
+                        {/* Right: Actions */}
+                        <div className="flex items-center gap-2 shrink-0">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleEdit(wh)}
+                            title="Edit"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleToggle(wh)}
+                            title={wh.active ? "Pause" : "Activate"}
+                          >
+                            {wh.active ? (
+                              <RefreshCw className="h-3.5 w-3.5" />
+                            ) : (
+                              <CheckCircle2 className="h-3.5 w-3.5" />
+                            )}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-red-600 hover:text-red-700 hover:border-red-300"
+                            onClick={() => handleDelete(wh)}
+                            title="Delete"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+
+                {webhooks.length === 0 && (
+                  <Card>
+                    <CardContent className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+                      <Webhook className="h-10 w-10 mb-3 opacity-40" />
+                      <p className="text-sm">No webhooks configured yet</p>
                       <Button
-                        size="sm"
                         variant="outline"
-                        onClick={() => handleEdit(wh)}
-                        title="Edit"
+                        size="sm"
+                        className="mt-3"
+                        onClick={handleAdd}
                       >
-                        <Pencil className="h-3.5 w-3.5" />
+                        <Plus className="h-3.5 w-3.5 mr-1.5" />
+                        Add your first webhook
                       </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleToggle(wh)}
-                        title={wh.active ? "Pause" : "Activate"}
-                      >
-                        {wh.active ? (
-                          <RefreshCw className="h-3.5 w-3.5" />
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </div>
+
+            {/* Recent Deliveries */}
+            <div className="space-y-4">
+              <h2 className="text-lg font-semibold">Recent Deliveries</h2>
+              <Card>
+                <CardContent className="p-0">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b bg-muted/30">
+                          <th className="text-left font-medium text-muted-foreground px-4 py-3">
+                            Timestamp
+                          </th>
+                          <th className="text-left font-medium text-muted-foreground px-4 py-3">
+                            Event
+                          </th>
+                          <th className="text-left font-medium text-muted-foreground px-4 py-3">
+                            Endpoint
+                          </th>
+                          <th className="text-left font-medium text-muted-foreground px-4 py-3">
+                            Status
+                          </th>
+                          <th className="text-right font-medium text-muted-foreground px-4 py-3">
+                            Response Time
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {deliveries.length === 0 ? (
+                          <tr>
+                            <td
+                              colSpan={5}
+                              className="px-4 py-8 text-center text-sm text-muted-foreground"
+                            >
+                              No deliveries yet
+                            </td>
+                          </tr>
                         ) : (
-                          <CheckCircle2 className="h-3.5 w-3.5" />
+                          deliveries.map((log) => (
+                            <tr
+                              key={log.id}
+                              className="border-b last:border-b-0 hover:bg-muted/20 transition-colors"
+                            >
+                              <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
+                                <Clock className="inline h-3 w-3 mr-1 -mt-0.5" />
+                                {formatDateTime(log.timestamp)}
+                              </td>
+                              <td className="px-4 py-3">
+                                <Badge variant="secondary" className="text-xs">
+                                  {log.event}
+                                </Badge>
+                              </td>
+                              <td
+                                className="px-4 py-3 font-mono text-xs text-muted-foreground truncate max-w-[250px]"
+                                title={log.endpoint}
+                              >
+                                {truncateUrl(log.endpoint)}
+                              </td>
+                              <td className="px-4 py-3">
+                                {statusCodeBadge(log.statusCode)}
+                              </td>
+                              <td className="px-4 py-3 text-right font-mono text-xs text-muted-foreground">
+                                {log.responseTime >= 1000
+                                  ? `${(log.responseTime / 1000).toFixed(1)}s`
+                                  : `${log.responseTime}ms`}
+                              </td>
+                            </tr>
+                          ))
                         )}
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="text-red-600 hover:text-red-700 hover:border-red-300"
-                        onClick={() => handleDelete(wh)}
-                        title="Delete"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </Button>
-                    </div>
+                      </tbody>
+                    </table>
                   </div>
                 </CardContent>
               </Card>
-            ))}
-
-            {webhooks.length === 0 && (
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center py-12 text-muted-foreground">
-                  <Webhook className="h-10 w-10 mb-3 opacity-40" />
-                  <p className="text-sm">No webhooks configured yet</p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="mt-3"
-                    onClick={handleAdd}
-                  >
-                    <Plus className="h-3.5 w-3.5 mr-1.5" />
-                    Add your first webhook
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        </div>
-
-        {/* Recent Deliveries */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold">Recent Deliveries</h2>
-          <Card>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b bg-muted/30">
-                      <th className="text-left font-medium text-muted-foreground px-4 py-3">
-                        Timestamp
-                      </th>
-                      <th className="text-left font-medium text-muted-foreground px-4 py-3">
-                        Event
-                      </th>
-                      <th className="text-left font-medium text-muted-foreground px-4 py-3">
-                        Endpoint
-                      </th>
-                      <th className="text-left font-medium text-muted-foreground px-4 py-3">
-                        Status
-                      </th>
-                      <th className="text-right font-medium text-muted-foreground px-4 py-3">
-                        Response Time
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {deliveries.length === 0 ? (
-                      <tr>
-                        <td
-                          colSpan={5}
-                          className="px-4 py-8 text-center text-sm text-muted-foreground"
-                        >
-                          No deliveries yet
-                        </td>
-                      </tr>
-                    ) : (
-                      deliveries.map((log) => (
-                        <tr
-                          key={log.id}
-                          className="border-b last:border-b-0 hover:bg-muted/20 transition-colors"
-                        >
-                          <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
-                            <Clock className="inline h-3 w-3 mr-1 -mt-0.5" />
-                            {formatDateTime(log.timestamp)}
-                          </td>
-                          <td className="px-4 py-3">
-                            <Badge variant="secondary" className="text-xs">
-                              {log.event}
-                            </Badge>
-                          </td>
-                          <td
-                            className="px-4 py-3 font-mono text-xs text-muted-foreground truncate max-w-[250px]"
-                            title={log.endpoint}
-                          >
-                            {truncateUrl(log.endpoint)}
-                          </td>
-                          <td className="px-4 py-3">
-                            {statusCodeBadge(log.statusCode)}
-                          </td>
-                          <td className="px-4 py-3 text-right font-mono text-xs text-muted-foreground">
-                            {log.responseTime >= 1000
-                              ? `${(log.responseTime / 1000).toFixed(1)}s`
-                              : `${log.responseTime}ms`}
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </>
+        )}
 
         {/* Add / Edit Webhook Dialog */}
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -737,8 +884,13 @@ export default function WebhooksPage() {
               <Button
                 className="bg-emerald-600 hover:bg-emerald-700 text-white"
                 onClick={handleSave}
+                disabled={saving}
               >
-                <ShieldCheck className="h-4 w-4 mr-2" />
+                {saving ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <ShieldCheck className="h-4 w-4 mr-2" />
+                )}
                 {editingWebhook ? "Update Webhook" : "Create Webhook"}
               </Button>
             </DialogFooter>
