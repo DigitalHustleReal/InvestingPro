@@ -108,3 +108,88 @@
 .admin-wealth-trust .prose-admin img {
     @apply rounded-xl shadow-md border border-gray-200 dark:border-gray-700;
 }
+
+/* ── Glass Card Glow on Hover ── */
+.admin-wealth-trust .glass-card-glow:hover {
+    box-shadow:
+        0 0 20px rgba(14, 165, 233, 0.15),
+        0 0 40px rgba(14, 165, 233, 0.08),
+        0 8px 32px rgba(0, 0, 0, 0.12);
+}
+.admin-wealth-trust.dark .glass-card-glow:hover {
+    box-shadow:
+        0 0 20px rgba(14, 165, 233, 0.25),
+        0 0 40px rgba(14, 165, 233, 0.12),
+        0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Gradient Text Utility ── */
+.admin-wealth-trust .gradient-text {
+    background: linear-gradient(135deg, hsl(199 89% 48%), hsl(188 86% 53%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Sidebar Width Classes ── */
+.admin-wealth-trust .sidebar-collapsed {
+    width: 72px;
+}
+.admin-wealth-trust .sidebar-expanded {
+    width: 260px;
+}
+
+/* ── Skeleton Shimmer Animation ── */
+@keyframes admin-shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+.admin-wealth-trust .skeleton-shimmer {
+    background: linear-gradient(
+        90deg,
+        hsl(210 40% 96%) 25%,
+        hsl(210 40% 92%) 50%,
+        hsl(210 40% 96%) 75%
+    );
+    background-size: 200% 100%;
+    animation: admin-shimmer 1.5s ease-in-out infinite;
+}
+.admin-wealth-trust.dark .skeleton-shimmer {
+    background: linear-gradient(
+        90deg,
+        hsl(217 33% 17%) 25%,
+        hsl(217 33% 22%) 50%,
+        hsl(217 33% 17%) 75%
+    );
+    background-size: 200% 100%;
+    animation: admin-shimmer 1.5s ease-in-out infinite;
+}
+
+/* ── Custom Scrollbar ── */
+.admin-wealth-trust ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.admin-wealth-trust ::-webkit-scrollbar-track {
+    background: transparent;
+}
+.admin-wealth-trust ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 3px;
+}
+.admin-wealth-trust ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--text-tertiary));
+}
+.admin-wealth-trust {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+}
+
+/* ── Smooth Transition Utility ── */
+.admin-wealth-trust .admin-transition {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
