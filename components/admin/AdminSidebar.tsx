@@ -3,11 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  getCategorySections,
-  getActiveCategory,
-  type NavItem,
-} from "@/lib/admin/navigation-config";
+import { NAV_SECTIONS, type NavItem } from "@/lib/admin/navigation-config";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -17,7 +13,7 @@ interface AdminSidebarProps {
 }
 
 /**
- * Contextual sidebar (Layer 2): Shows sections for the active main group from Header Nav.
+ * Single dark sidebar showing ALL navigation sections (Conduit-style).
  * Supports collapsed state (72px icons-only) and expanded state (260px icons + labels).
  */
 export default function AdminSidebar({
@@ -25,32 +21,54 @@ export default function AdminSidebar({
   onToggle,
 }: AdminSidebarProps) {
   const pathname = usePathname();
-  const activeCategory = getActiveCategory(pathname);
-  const navSections = getCategorySections(activeCategory);
+  const allSections = Object.values(NAV_SECTIONS);
 
   return (
     <div
       className={cn(
-        "h-full flex flex-col pt-5 pb-5 bg-card border-r border-border transition-all duration-300 ease-in-out overflow-hidden",
+        "h-full flex flex-col pt-0 pb-3 bg-gray-950 text-gray-300 border-r border-white/[0.06] transition-all duration-300 ease-in-out overflow-hidden",
         collapsed ? "w-[72px]" : "w-[260px]",
       )}
     >
+      {/* Brand / Logo area */}
+      <div
+        className={cn(
+          "shrink-0 flex items-center gap-2.5 border-b border-white/[0.06] h-16",
+          collapsed ? "justify-center px-2" : "px-4",
+        )}
+      >
+        <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-lg shadow-emerald-500/25 font-inter">
+          IP
+        </div>
+        {!collapsed && (
+          <span className="text-[15px] font-bold text-white tracking-tight font-inter">
+            InvestingPro
+          </span>
+        )}
+      </div>
+
       <nav
-        className={cn("flex-1 overflow-y-auto", collapsed ? "px-2" : "px-3")}
+        className={cn(
+          "flex-1 overflow-y-auto pt-4",
+          collapsed ? "px-2" : "px-3",
+        )}
         aria-label="Main navigation"
       >
-        {navSections.map((section, sectionIndex) => (
-          <div key={section.title} className="mb-6">
-            {sectionIndex > 0 && (
-              <div
-                className="mb-3 mt-1 border-t border-border-subtle"
-                aria-hidden="true"
-              />
-            )}
+        {allSections.map((section, sectionIndex) => (
+          <div
+            key={section.title}
+            className={cn("mb-4", sectionIndex > 0 && "mt-1")}
+          >
             {!collapsed && (
-              <h3 className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2.5 pl-3 font-inter">
+              <h3 className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-2 pl-3 font-inter">
                 {section.title}
               </h3>
+            )}
+            {collapsed && sectionIndex > 0 && (
+              <div
+                className="mb-3 mt-1 border-t border-white/[0.06]"
+                aria-hidden="true"
+              />
             )}
             <ul className="flex flex-col gap-0.5">
               {section.items.map((item) => {
@@ -75,25 +93,25 @@ export default function AdminSidebar({
       {/* User profile card */}
       <div
         className={cn(
-          "mt-auto border-t border-border pt-4 pb-2",
+          "mt-auto border-t border-white/[0.06] pt-4 pb-2",
           collapsed ? "px-2" : "px-3",
         )}
       >
         <div
           className={cn(
-            "flex items-center gap-3 rounded-xl bg-muted border border-border hover:bg-muted/80 transition-colors cursor-pointer group",
+            "flex items-center gap-3 rounded-xl bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.07] transition-colors cursor-pointer group",
             collapsed ? "p-2 justify-center" : "p-2.5",
           )}
         >
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-info flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-all font-inter">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-400 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/30 transition-all font-inter">
             DH
           </div>
           {!collapsed && (
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-foreground m-0 font-inter group-hover:text-foreground transition-colors">
+              <p className="text-sm font-medium text-white m-0 font-inter group-hover:text-white transition-colors">
                 Digital Hustle
               </p>
-              <p className="text-[11px] text-muted-foreground m-0 font-inter">
+              <p className="text-[11px] text-gray-500 m-0 font-inter">
                 Super Admin
               </p>
             </div>
@@ -112,7 +130,7 @@ export default function AdminSidebar({
           <button
             onClick={onToggle}
             className={cn(
-              "flex items-center justify-center rounded-lg border border-border bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-200",
+              "flex items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.04] hover:bg-white/[0.07] text-gray-400 hover:text-white transition-all duration-200",
               collapsed ? "w-10 h-10" : "w-full h-9 gap-2",
             )}
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -148,22 +166,19 @@ function SidebarLink({
       href={item.href}
       title={collapsed ? item.label : undefined}
       className={cn(
-        "flex items-center gap-3 py-3 rounded-md text-sm font-medium transition-all duration-200 group relative font-inter",
+        "flex items-center gap-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200 group relative font-inter",
         collapsed ? "px-0 justify-center" : "px-3",
         isActive
-          ? "text-primary bg-primary/10"
-          : "text-muted-foreground hover:bg-muted hover:text-foreground",
+          ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-500"
+          : "text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent",
       )}
     >
-      {isActive && (
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary rounded-r-full" />
-      )}
       <Icon
         className={cn(
           "w-4 h-4 transition-colors relative z-10 shrink-0",
           isActive
-            ? "text-primary"
-            : "text-muted-foreground group-hover:text-foreground",
+            ? "text-emerald-400"
+            : "text-gray-500 group-hover:text-white",
         )}
       />
       {!collapsed && (
@@ -176,8 +191,8 @@ function SidebarLink({
           className={cn(
             "ml-auto text-[10px] px-1.5 py-0.5 rounded-full relative z-10 transition-colors font-bold",
             isActive
-              ? "bg-primary/20 text-primary"
-              : "bg-muted text-muted-foreground",
+              ? "bg-emerald-500/20 text-emerald-400"
+              : "bg-white/5 text-gray-500",
           )}
         >
           {item.badge}

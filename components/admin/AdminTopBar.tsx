@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { ExternalLink, Settings, LogOut } from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
-import AdminHeaderNav from './AdminHeaderNav';
-import { cn } from '@/lib/utils';
+import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ExternalLink, Settings, LogOut } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { cn } from "@/lib/utils";
 
 export default function AdminTopBar() {
   const router = useRouter();
@@ -19,15 +18,15 @@ export default function AdminTopBar() {
         setUserMenuOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleSignOut = async () => {
     setUserMenuOpen(false);
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push('/admin/login');
+    router.push("/admin/login");
   };
 
   return (
@@ -50,10 +49,8 @@ export default function AdminTopBar() {
           </span>
         </div>
 
-        {/* Main navigation – Center Aligned */}
-        <div className="flex-1 flex justify-center min-w-0 mx-2">
-            <AdminHeaderNav />
-        </div>
+        {/* Spacer — navigation moved to sidebar */}
+        <div className="flex-1 min-w-0 mx-2" />
 
         {/* Right Actions */}
         <div className="flex items-center gap-3 shrink-0 justify-end min-w-[200px]">
@@ -74,9 +71,9 @@ export default function AdminTopBar() {
               onClick={() => setUserMenuOpen(!userMenuOpen)}
               className={cn(
                 "inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium border-none cursor-pointer transition-colors",
-                userMenuOpen 
-                    ? "bg-muted text-foreground" 
-                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                userMenuOpen
+                  ? "bg-muted text-foreground"
+                  : "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
               )}
               aria-expanded={userMenuOpen}
             >
@@ -101,4 +98,3 @@ export default function AdminTopBar() {
     </header>
   );
 }
-

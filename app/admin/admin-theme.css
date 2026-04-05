@@ -1,10 +1,14 @@
-/* Admin-Only Theme Scope: SaaS Professional */
+/* Admin-Only Theme Scope: Always-Dark Conduit Style */
 .admin-wealth-trust {
-  /* Brand Colors - Primary: Sky-500 #0ea5e9 */
-  --primary: 199 89% 48%;                     
-  --primary-foreground: 0 0% 100%;            
-  --primary-dark: 200 98% 39%;                /* Sky-700 #0369a1 */
-  
+  /* Force dark mode — admin is always dark like Conduit */
+  --background: 222 47% 5%;
+  --foreground: 210 40% 98%;
+  --card: 222 47% 8%;
+  --card-foreground: 210 40% 98%;
+  --primary: 151 76% 43%;                     /* Emerald green */
+  --primary-foreground: 0 0% 100%;
+  --primary-dark: 151 76% 35%;
+
   /* Semantic Colors */
   --success: 151 76% 53%;                     /* Emerald-500 #10b981 */
   --warning: 45 93% 47%;                      /* Amber-500 #f59e0b */
@@ -12,39 +16,50 @@
   --info: 188 86% 53%;                        /* Cyan-500 #06b6d4 */
 
   /* Text Colors */
-  --text-primary: 217 33% 17%;                /* Gray-900 #111827 - High Contrast */
-  --text-secondary: 215 25% 27%;              /* Gray-700 #374151 */
-  --text-tertiary: 215 16% 47%;               /* Gray-500 #6b7280 */
-  
+  --text-primary: 210 40% 98%;               /* Near-white */
+  --text-secondary: 215 20% 65%;             /* Muted light */
+  --text-tertiary: 215 20% 55%;              /* Subtle */
+
   /* UI Surfaces */
-  --surface: 0 0% 100%;                       /* White */
-  --surface-hover: 210 40% 96%;               /* Gray-50/100 Mix */
-  --border: 214 32% 91%;                      /* Gray-200 #e5e7eb */
-  
+  --muted: 222 47% 12%;
+  --muted-foreground: 215 20% 55%;
+  --surface: 222 47% 8%;
+  --surface-hover: 222 47% 12%;
+  --border: 222 47% 14%;
+  --input: 222 47% 12%;
+  --ring: 151 76% 43%;
+
   /* Legacy/Compatibility Mapping */
-  --accent: 199 89% 48%;                      
-  --accent-foreground: 0 0% 100%;             
+  --accent: 151 76% 43%;
+  --accent-foreground: 0 0% 100%;
+
+  color-scheme: dark;
 }
 
+/* Dark class override no longer needed — admin is always dark */
 .admin-wealth-trust.dark {
-    /* Dark Mode Adjustments */
-    --primary: 199 89% 48%;
-    --primary-dark: 200 98% 39%;
+    /* Same as base — kept for compatibility */
+    --background: 222 47% 5%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+    --primary: 151 76% 43%;
+    --primary-dark: 151 76% 35%;
     --text-primary: 210 40% 98%;
     --text-secondary: 215 20% 65%;
-    --surface: 222 47% 11%;
-    --border: 217 33% 17%;
+    --surface: 222 47% 8%;
+    --border: 222 47% 14%;
 }
 
-/* Universal Card Token */
+/* Universal Card Token — always-dark */
 .admin-wealth-trust .card {
-    @apply bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm transition-all duration-200;
+    @apply bg-gray-900 border border-gray-800 rounded-xl shadow-sm transition-all duration-200;
 }
 
 .admin-wealth-trust .card:hover {
     @apply shadow-md ring-1 translate-y-[-2px];
-    border-color: #0ea5e9; /* Sky-500 */
-    --tw-ring-color: rgba(14, 165, 233, 0.2);
+    border-color: hsl(151 76% 43%); /* Emerald */
+    --tw-ring-color: rgba(22, 163, 74, 0.2);
 }
 
 /* Glassmorphism Tokens - Refined for Premium Visuals */
@@ -55,19 +70,11 @@
     box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.05), 0 8px 32px rgba(0,0,0,0.4);
 }
 
-.admin-wealth-trust.dark .glass-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-    border-color: rgba(255, 255, 255, 0.12);
-}
 
 .admin-wealth-trust .glass-surface {
     @apply backdrop-blur-sm;
-    background-color: rgb(248 250 252 / 0.5); /* gray-50 / 0.5 */
-    border-width: 1px;
-    border-color: rgb(229 231 235 / 0.5);
-}
-.admin-wealth-trust.dark .glass-surface {
     background-color: rgb(15 23 42 / 0.5);
+    border-width: 1px;
     border-color: rgb(255 255 255 / 0.05);
 }
   
@@ -75,10 +82,7 @@
     @apply transition-all duration-200;
 }
 .admin-wealth-trust .glass-hover:hover {
-    background-color: #f0f9ff; /* sky-50 */
-}
-.admin-wealth-trust.dark .glass-hover:hover {
-    background-color: rgb(12 74 110 / 0.2); /* sky-900 / 0.2 */
+    background-color: rgb(6 78 59 / 0.2); /* emerald-900 / 0.2 */
 }
 
 /* Standardized Admin Prose */
@@ -87,11 +91,11 @@
 }
 
 .admin-wealth-trust .prose-admin :is(h1, h2, h3, h4, h5, h6) {
-    @apply font-bold tracking-tight text-gray-900 dark:text-white;
+    @apply font-bold tracking-tight text-white;
 }
 
 .admin-wealth-trust .prose-admin p {
-    @apply text-gray-700 dark:text-gray-300 leading-relaxed;
+    @apply text-gray-300 leading-relaxed;
 }
 
 .admin-wealth-trust .prose-admin a {
@@ -106,26 +110,20 @@
 }
 
 .admin-wealth-trust .prose-admin img {
-    @apply rounded-xl shadow-md border border-gray-200 dark:border-gray-700;
+    @apply rounded-xl shadow-md border border-gray-700;
 }
 
 /* ── Glass Card Glow on Hover ── */
 .admin-wealth-trust .glass-card-glow:hover {
     box-shadow:
-        0 0 20px rgba(14, 165, 233, 0.15),
-        0 0 40px rgba(14, 165, 233, 0.08),
-        0 8px 32px rgba(0, 0, 0, 0.12);
-}
-.admin-wealth-trust.dark .glass-card-glow:hover {
-    box-shadow:
-        0 0 20px rgba(14, 165, 233, 0.25),
-        0 0 40px rgba(14, 165, 233, 0.12),
+        0 0 20px rgba(22, 163, 74, 0.2),
+        0 0 40px rgba(22, 163, 74, 0.1),
         0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 /* ── Gradient Text Utility ── */
 .admin-wealth-trust .gradient-text {
-    background: linear-gradient(135deg, hsl(199 89% 48%), hsl(188 86% 53%));
+    background: linear-gradient(135deg, hsl(151 76% 43%), hsl(151 76% 60%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -149,16 +147,6 @@
     }
 }
 .admin-wealth-trust .skeleton-shimmer {
-    background: linear-gradient(
-        90deg,
-        hsl(210 40% 96%) 25%,
-        hsl(210 40% 92%) 50%,
-        hsl(210 40% 96%) 75%
-    );
-    background-size: 200% 100%;
-    animation: admin-shimmer 1.5s ease-in-out infinite;
-}
-.admin-wealth-trust.dark .skeleton-shimmer {
     background: linear-gradient(
         90deg,
         hsl(217 33% 17%) 25%,
