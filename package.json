@@ -197,7 +197,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "prettier --write"
+      "npx prettier --write"
     ]
   }
 }
