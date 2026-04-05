@@ -1,49 +1,58 @@
 /**
  * Analytics Sync Cron Job
- * 
+ *
  * Runs every 6 hours
  * Syncs analytics data and calculates content performance
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/logger';
-import { createClient } from '@/lib/supabase/server';
+import { NextRequest, NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
+import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: NextRequest) {
+  // Verify cron secret (if set)
+  const authHeader = request.headers.get("authorization");
+  const cronSecret = process.env.CRON_SECRET;
+
+  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+    logger.warn("Unauthorized analytics sync attempt");
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const supabase = await createClient();
 
     // Get top performing articles by views
     const { data: topArticles, error: articlesError } = await supabase
-      .from('articles')
-      .select('id, title, slug, views, category')
-      .eq('status', 'published')
-      .order('views', { ascending: false })
+      .from("articles")
+      .select("id, title, slug, views, category")
+      .eq("status", "published")
+      .order("views", { ascending: false })
       .limit(20);
 
     if (articlesError) throw articlesError;
 
     // Get articles needing attention (published but low/no views)
     const { data: lowPerformers, error: lowError } = await supabase
-      .from('articles')
-      .select('id, title, slug, views, published_at')
-      .eq('status', 'published')
-      .lt('views', 10)
-      .order('published_at', { ascending: true })
+      .from("articles")
+      .select("id, title, slug, views, published_at")
+      .eq("status", "published")
+      .lt("views", 10)
+      .order("published_at", { ascending: true })
       .limit(20);
 
     if (lowError) throw lowError;
 
     // Calculate overall stats
     const { count: totalPublished } = await supabase
-      .from('articles')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'published');
+      .from("articles")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "published");
 
     const { count: totalDrafts } = await supabase
-      .from('articles')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'draft');
+      .from("articles")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "draft");
 
     const analytics = {
       totalPublished: totalPublished || 0,
@@ -56,7 +65,7 @@ export async function GET(request: NextRequest) {
       needsAttention: lowPerformers?.length || 0,
     };
 
-    logger.info('[CRON] Analytics sync:', analytics);
+    logger.info("[CRON] Analytics sync:", analytics);
 
     return NextResponse.json({
       success: true,
@@ -64,10 +73,10 @@ export async function GET(request: NextRequest) {
       analytics,
     });
   } catch (error) {
-    logger.error('[CRON] Analytics sync error:', error);
+    logger.error("[CRON] Analytics sync error:", error);
     return NextResponse.json(
-      { error: 'Analytics sync failed' },
-      { status: 500 }
+      { error: "Analytics sync failed" },
+      { status: 500 },
     );
   }
 }
