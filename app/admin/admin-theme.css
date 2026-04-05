@@ -1,15 +1,15 @@
 /* Admin-Only Theme Scope: SaaS Professional */
 .admin-wealth-trust {
-  /* Brand Colors - Primary: Sky-500 #0ea5e9 */
-  --primary: 199 89% 48%;                     
-  --primary-foreground: 0 0% 100%;            
-  --primary-dark: 200 98% 39%;                /* Sky-700 #0369a1 */
-  
+  /* Brand Colors - Primary: Green-700 #166534 (matches site brand) */
+  --primary: 144 61% 24%;
+  --primary-foreground: 0 0% 100%;
+  --primary-dark: 144 61% 20%;                /* Green-800 #14532d */
+
   /* Semantic Colors */
   --success: 151 76% 53%;                     /* Emerald-500 #10b981 */
   --warning: 45 93% 47%;                      /* Amber-500 #f59e0b */
   --error: 0 84% 60%;                         /* Red-500 #ef4444 */
-  --info: 188 86% 53%;                        /* Cyan-500 #06b6d4 */
+  --info: 142 76% 36%;                        /* Green-600 #16a34a */
 
   /* Text Colors */
   --text-primary: 217 33% 17%;                /* Gray-900 #111827 - High Contrast */
@@ -22,14 +22,14 @@
   --border: 214 32% 91%;                      /* Gray-200 #e5e7eb */
   
   /* Legacy/Compatibility Mapping */
-  --accent: 199 89% 48%;                      
+  --accent: 144 61% 24%;
   --accent-foreground: 0 0% 100%;             
 }
 
 .admin-wealth-trust.dark {
     /* Dark Mode Adjustments */
-    --primary: 199 89% 48%;
-    --primary-dark: 200 98% 39%;
+    --primary: 142 76% 36%;
+    --primary-dark: 144 61% 24%;
     --text-primary: 210 40% 98%;
     --text-secondary: 215 20% 65%;
     --surface: 222 47% 11%;
@@ -43,8 +43,8 @@
 
 .admin-wealth-trust .card:hover {
     @apply shadow-md ring-1 translate-y-[-2px];
-    border-color: #0ea5e9; /* Sky-500 */
-    --tw-ring-color: rgba(14, 165, 233, 0.2);
+    border-color: hsl(var(--primary)); /* Brand green */
+    --tw-ring-color: hsl(var(--primary) / 0.2);
 }
 
 /* Glassmorphism Tokens - Refined for Premium Visuals */
@@ -75,10 +75,10 @@
     @apply transition-all duration-200;
 }
 .admin-wealth-trust .glass-hover:hover {
-    background-color: #f0f9ff; /* sky-50 */
+    background-color: #f0fdf4; /* green-50 */
 }
 .admin-wealth-trust.dark .glass-hover:hover {
-    background-color: rgb(12 74 110 / 0.2); /* sky-900 / 0.2 */
+    background-color: rgb(5 46 22 / 0.2); /* green-950 / 0.2 */
 }
 
 /* Standardized Admin Prose */
