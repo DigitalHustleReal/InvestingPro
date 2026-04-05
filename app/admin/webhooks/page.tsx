@@ -84,81 +84,9 @@ const AVAILABLE_EVENTS: WebhookEvent[] = [
 /*  Initial data (hardcoded — backend integration later)               */
 /* ------------------------------------------------------------------ */
 
-const INITIAL_WEBHOOKS: WebhookEndpoint[] = [
-  {
-    id: "wh-1",
-    url: "https://api.example.com/webhooks/content",
-    secret: "whsec_a1b2c3d4e5f6g7h8i9j0",
-    events: ["article.published", "article.updated", "content.generated"],
-    status: "active",
-    lastTriggered: "2026-04-05T09:12:00Z",
-    successRate: 99.2,
-    active: true,
-  },
-  {
-    id: "wh-2",
-    url: "https://hooks.slack.com/services/T00000/B00000/XXXXXXX",
-    secret: "whsec_k1l2m3n4o5p6q7r8s9t0",
-    events: ["article.published", "article.deleted"],
-    status: "paused",
-    lastTriggered: "2026-04-04T15:30:00Z",
-    successRate: 95.1,
-    active: false,
-  },
-  {
-    id: "wh-3",
-    url: "https://internal.investingpro.in/api/sync",
-    secret: "whsec_u1v2w3x4y5z6a7b8c9d0",
-    events: ["article.published", "scraper.completed", "agent.completed"],
-    status: "failed",
-    lastTriggered: "2026-04-05T08:45:00Z",
-    successRate: 72.8,
-    active: true,
-  },
-];
+const INITIAL_WEBHOOKS: WebhookEndpoint[] = [];
 
-const INITIAL_DELIVERIES: DeliveryLog[] = [
-  {
-    id: "dl-1",
-    timestamp: "2026-04-05T09:12:00Z",
-    event: "article.published",
-    endpoint: "https://api.example.com/webhooks/content",
-    statusCode: 200,
-    responseTime: 142,
-  },
-  {
-    id: "dl-2",
-    timestamp: "2026-04-05T08:58:00Z",
-    event: "content.generated",
-    endpoint: "https://api.example.com/webhooks/content",
-    statusCode: 200,
-    responseTime: 89,
-  },
-  {
-    id: "dl-3",
-    timestamp: "2026-04-05T08:45:00Z",
-    event: "scraper.completed",
-    endpoint: "https://internal.investingpro.in/api/sync",
-    statusCode: 504,
-    responseTime: 30000,
-  },
-  {
-    id: "dl-4",
-    timestamp: "2026-04-05T07:30:00Z",
-    event: "article.updated",
-    endpoint: "https://api.example.com/webhooks/content",
-    statusCode: 200,
-    responseTime: 156,
-  },
-  {
-    id: "dl-5",
-    timestamp: "2026-04-05T06:15:00Z",
-    event: "agent.completed",
-    endpoint: "https://internal.investingpro.in/api/sync",
-    statusCode: 422,
-    responseTime: 210,
-  },
-];
+const INITIAL_DELIVERIES: DeliveryLog[] = [];
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -651,36 +579,47 @@ export default function WebhooksPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {deliveries.map((log) => (
-                      <tr
-                        key={log.id}
-                        className="border-b last:border-b-0 hover:bg-muted/20 transition-colors"
-                      >
-                        <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
-                          <Clock className="inline h-3 w-3 mr-1 -mt-0.5" />
-                          {formatDateTime(log.timestamp)}
-                        </td>
-                        <td className="px-4 py-3">
-                          <Badge variant="secondary" className="text-xs">
-                            {log.event}
-                          </Badge>
-                        </td>
+                    {deliveries.length === 0 ? (
+                      <tr>
                         <td
-                          className="px-4 py-3 font-mono text-xs text-muted-foreground truncate max-w-[250px]"
-                          title={log.endpoint}
+                          colSpan={5}
+                          className="px-4 py-8 text-center text-sm text-muted-foreground"
                         >
-                          {truncateUrl(log.endpoint)}
-                        </td>
-                        <td className="px-4 py-3">
-                          {statusCodeBadge(log.statusCode)}
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono text-xs text-muted-foreground">
-                          {log.responseTime >= 1000
-                            ? `${(log.responseTime / 1000).toFixed(1)}s`
-                            : `${log.responseTime}ms`}
+                          No deliveries yet
                         </td>
                       </tr>
-                    ))}
+                    ) : (
+                      deliveries.map((log) => (
+                        <tr
+                          key={log.id}
+                          className="border-b last:border-b-0 hover:bg-muted/20 transition-colors"
+                        >
+                          <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
+                            <Clock className="inline h-3 w-3 mr-1 -mt-0.5" />
+                            {formatDateTime(log.timestamp)}
+                          </td>
+                          <td className="px-4 py-3">
+                            <Badge variant="secondary" className="text-xs">
+                              {log.event}
+                            </Badge>
+                          </td>
+                          <td
+                            className="px-4 py-3 font-mono text-xs text-muted-foreground truncate max-w-[250px]"
+                            title={log.endpoint}
+                          >
+                            {truncateUrl(log.endpoint)}
+                          </td>
+                          <td className="px-4 py-3">
+                            {statusCodeBadge(log.statusCode)}
+                          </td>
+                          <td className="px-4 py-3 text-right font-mono text-xs text-muted-foreground">
+                            {log.responseTime >= 1000
+                              ? `${(log.responseTime / 1000).toFixed(1)}s`
+                              : `${log.responseTime}ms`}
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>

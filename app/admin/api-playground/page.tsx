@@ -75,81 +75,8 @@ const QUICK_ENDPOINTS: { method: HttpMethod; path: string; label: string }[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Mock responses (used when endpoints don't exist yet)               */
+/*  Mock responses removed — playground shows real API responses only   */
 /* ------------------------------------------------------------------ */
-
-const MOCK_RESPONSES: Record<string, object> = {
-  "/api/v1/articles": {
-    data: [
-      {
-        id: "art_01",
-        title: "Best Credit Cards in India 2026",
-        slug: "best-credit-cards-india-2026",
-        status: "published",
-        created_at: "2026-03-15T10:00:00Z",
-      },
-      {
-        id: "art_02",
-        title: "SIP vs Lumpsum: Which is Better?",
-        slug: "sip-vs-lumpsum",
-        status: "draft",
-        created_at: "2026-03-20T14:30:00Z",
-      },
-    ],
-    meta: { total: 2, page: 1, per_page: 20 },
-  },
-  "/api/v1/articles/:id": {
-    data: {
-      id: "art_01",
-      title: "Best Credit Cards in India 2026",
-      slug: "best-credit-cards-india-2026",
-      body: "<p>Comprehensive guide to the best credit cards...</p>",
-      status: "published",
-      author: "InvestingPro Team",
-      seo_score: 92,
-      created_at: "2026-03-15T10:00:00Z",
-      updated_at: "2026-04-01T08:00:00Z",
-    },
-  },
-  "/api/v1/products": {
-    data: [
-      {
-        id: "prod_01",
-        name: "HDFC Regalia Gold",
-        category: "credit-cards",
-        rating: 4.5,
-        affiliate_url: "https://example.com/apply",
-      },
-      {
-        id: "prod_02",
-        name: "SBI SimplySAVE",
-        category: "credit-cards",
-        rating: 4.2,
-        affiliate_url: "https://example.com/apply",
-      },
-    ],
-    meta: { total: 2, page: 1, per_page: 20 },
-  },
-  "/api/v1/calculators": {
-    data: [
-      { id: "sip", name: "SIP Calculator", category: "mutual-funds" },
-      { id: "emi", name: "EMI Calculator", category: "loans" },
-      { id: "fd", name: "FD Calculator", category: "fixed-deposits" },
-      { id: "ppf", name: "PPF Calculator", category: "savings" },
-      { id: "nps", name: "NPS Calculator", category: "retirement" },
-    ],
-  },
-  "/api/v1/categories": {
-    data: [
-      { slug: "credit-cards", name: "Credit Cards", count: 48 },
-      { slug: "loans", name: "Loans", count: 32 },
-      { slug: "mutual-funds", name: "Mutual Funds", count: 156 },
-      { slug: "demat-accounts", name: "Demat Accounts", count: 12 },
-      { slug: "fixed-deposits", name: "Fixed Deposits", count: 24 },
-      { slug: "insurance", name: "Insurance", count: 18 },
-    ],
-  },
-};
 
 /* ------------------------------------------------------------------ */
 /*  API documentation                                                  */
@@ -164,7 +91,7 @@ const API_DOCS: EndpointDoc[] = [
     parameters:
       "page (int), per_page (int), status (string: draft|published|archived), category (string)",
     exampleResponse: JSON.stringify(
-      MOCK_RESPONSES["/api/v1/articles"],
+      { data: [], meta: { page: 1, total: 0 } },
       null,
       2,
     ),
@@ -176,7 +103,7 @@ const API_DOCS: EndpointDoc[] = [
       "Retrieve a single article by ID. Returns full content body, metadata, and SEO score.",
     parameters: "id (string, required) — Article ID or slug",
     exampleResponse: JSON.stringify(
-      MOCK_RESPONSES["/api/v1/articles/:id"],
+      { data: { id: "...", title: "...", status: "published" } },
       null,
       2,
     ),
@@ -202,7 +129,7 @@ const API_DOCS: EndpointDoc[] = [
     parameters:
       "page (int), per_page (int), category (string), sort_by (string: rating|name|created_at)",
     exampleResponse: JSON.stringify(
-      MOCK_RESPONSES["/api/v1/products"],
+      { data: [], meta: { page: 1, total: 0 } },
       null,
       2,
     ),
@@ -212,7 +139,7 @@ const API_DOCS: EndpointDoc[] = [
     path: "/api/v1/calculators",
     description: "List available financial calculators and their metadata.",
     exampleResponse: JSON.stringify(
-      MOCK_RESPONSES["/api/v1/calculators"],
+      { data: [{ id: "sip", name: "SIP Calculator" }] },
       null,
       2,
     ),
@@ -222,7 +149,7 @@ const API_DOCS: EndpointDoc[] = [
     path: "/api/v1/categories",
     description: "List all content categories with product counts.",
     exampleResponse: JSON.stringify(
-      MOCK_RESPONSES["/api/v1/categories"],
+      { data: [{ slug: "credit-cards", name: "Credit Cards", count: 0 }] },
       null,
       2,
     ),
@@ -341,13 +268,7 @@ export default function ApiPlaygroundPage() {
       if (h.key.trim()) reqHeaders[h.key.trim()] = h.value;
     });
 
-    /* Check if we have a mock for this path */
-    const mockKey = Object.keys(MOCK_RESPONSES).find(
-      (k) => k === endpoint.trim(),
-    );
-
     try {
-      /* Try the real endpoint first */
       const baseUrl =
         typeof window !== "undefined" ? window.location.origin : "";
       const url = `${baseUrl}${endpoint.trim()}`;
@@ -365,31 +286,18 @@ export default function ApiPlaygroundPage() {
       const elapsed = Math.round(performance.now() - startTime);
       const text = await res.text();
 
-      /* If we got a 404 and have a mock, use mock instead */
-      if (res.status === 404 && mockKey) {
-        const mockBody = JSON.stringify(MOCK_RESPONSES[mockKey], null, 2);
-        setResponse({
-          status: 200,
-          statusText: "OK (Mock)",
-          body: mockBody,
-          time: Math.round(Math.random() * 80 + 40),
-        });
-        toast.info("Endpoint not live — showing mock response");
-      } else {
-        /* Format JSON if possible */
-        let formatted = text;
-        try {
-          formatted = JSON.stringify(JSON.parse(text), null, 2);
-        } catch {
-          /* not JSON — use raw text */
-        }
-        setResponse({
-          status: res.status,
-          statusText: res.statusText,
-          body: formatted,
-          time: elapsed,
-        });
+      let formatted = text;
+      try {
+        formatted = JSON.stringify(JSON.parse(text), null, 2);
+      } catch {
+        /* not JSON — use raw text */
       }
+      setResponse({
+        status: res.status,
+        statusText: res.statusText,
+        body: formatted,
+        time: elapsed,
+      });
     } catch (err: unknown) {
       const elapsed = Math.round(performance.now() - startTime);
 
@@ -397,32 +305,20 @@ export default function ApiPlaygroundPage() {
         return;
       }
 
-      /* Network error — fall back to mock */
-      if (mockKey) {
-        const mockBody = JSON.stringify(MOCK_RESPONSES[mockKey], null, 2);
-        setResponse({
-          status: 200,
-          statusText: "OK (Mock)",
-          body: mockBody,
-          time: Math.round(Math.random() * 80 + 40),
-        });
-        toast.info("Could not reach endpoint — showing mock response");
-      } else {
-        setResponse({
-          status: 0,
-          statusText: "Network Error",
-          body: JSON.stringify(
-            {
-              error: "Failed to reach endpoint",
-              detail: err instanceof Error ? err.message : "Unknown error",
-            },
-            null,
-            2,
-          ),
-          time: elapsed,
-        });
-        toast.error("Request failed");
-      }
+      setResponse({
+        status: 0,
+        statusText: "Network Error",
+        body: JSON.stringify(
+          {
+            error: "Failed to reach endpoint",
+            detail: err instanceof Error ? err.message : "Unknown error",
+          },
+          null,
+          2,
+        ),
+        time: elapsed,
+      });
+      toast.error("Request failed");
     } finally {
       setLoading(false);
       abortRef.current = null;

@@ -55,9 +55,9 @@ const INITIAL_AGENTS: Agent[] = [
       "Generates articles with finance-aware context and compliance checks.",
     icon: PenTool,
     status: "idle",
-    lastRun: "2026-04-05T08:30:00Z",
-    successRate: 94,
-    tasksCompleted: 1247,
+    lastRun: "",
+    successRate: 0,
+    tasksCompleted: 0,
   },
   {
     id: "seo-optimizer",
@@ -65,10 +65,10 @@ const INITIAL_AGENTS: Agent[] = [
     description:
       "Optimizes content for search — keywords, meta, internal links.",
     icon: Search,
-    status: "working",
-    lastRun: "2026-04-05T09:15:00Z",
-    successRate: 97,
-    tasksCompleted: 982,
+    status: "idle",
+    lastRun: "",
+    successRate: 0,
+    tasksCompleted: 0,
   },
   {
     id: "research",
@@ -76,9 +76,9 @@ const INITIAL_AGENTS: Agent[] = [
     description: "Discovers trending topics and market opportunities.",
     icon: BookOpen,
     status: "idle",
-    lastRun: "2026-04-05T07:00:00Z",
-    successRate: 91,
-    tasksCompleted: 634,
+    lastRun: "",
+    successRate: 0,
+    tasksCompleted: 0,
   },
   {
     id: "editor",
@@ -86,9 +86,9 @@ const INITIAL_AGENTS: Agent[] = [
     description: "Reviews, polishes grammar, and enforces style guidelines.",
     icon: Sparkles,
     status: "idle",
-    lastRun: "2026-04-05T06:45:00Z",
-    successRate: 98,
-    tasksCompleted: 1105,
+    lastRun: "",
+    successRate: 0,
+    tasksCompleted: 0,
   },
   {
     id: "social-media",
@@ -96,20 +96,20 @@ const INITIAL_AGENTS: Agent[] = [
     description:
       "Creates social posts for Twitter/X and LinkedIn distribution.",
     icon: Share2,
-    status: "error",
-    lastRun: "2026-04-05T05:30:00Z",
-    successRate: 86,
-    tasksCompleted: 412,
+    status: "idle",
+    lastRun: "",
+    successRate: 0,
+    tasksCompleted: 0,
   },
   {
     id: "data-scraper",
     name: "Data Scraper Agent",
     description: "Updates product data — rates, fees, eligibility criteria.",
     icon: Database,
-    status: "working",
-    lastRun: "2026-04-05T09:00:00Z",
-    successRate: 92,
-    tasksCompleted: 2089,
+    status: "idle",
+    lastRun: "",
+    successRate: 0,
+    tasksCompleted: 0,
   },
   {
     id: "analytics",
@@ -118,9 +118,9 @@ const INITIAL_AGENTS: Agent[] = [
       "Generates performance reports and identifies growth opportunities.",
     icon: BarChart3,
     status: "idle",
-    lastRun: "2026-04-04T23:00:00Z",
-    successRate: 99,
-    tasksCompleted: 356,
+    lastRun: "",
+    successRate: 0,
+    tasksCompleted: 0,
   },
   {
     id: "compliance",
@@ -129,9 +129,9 @@ const INITIAL_AGENTS: Agent[] = [
       "Checks financial disclaimers, SEBI/RBI compliance, and legal copy.",
     icon: ShieldCheck,
     status: "idle",
-    lastRun: "2026-04-05T08:00:00Z",
-    successRate: 100,
-    tasksCompleted: 891,
+    lastRun: "",
+    successRate: 0,
+    tasksCompleted: 0,
   },
 ];
 
@@ -169,6 +169,7 @@ function statusBadge(status: AgentStatus) {
 }
 
 function formatLastRun(iso: string): string {
+  if (!iso) return "Not yet run";
   const date = new Date(iso);
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
@@ -372,7 +373,7 @@ export default function AgentsDashboardPage() {
                               : "text-red-600 dark:text-red-400",
                         )}
                       >
-                        {agent.successRate}%
+                        {agent.successRate > 0 ? `${agent.successRate}%` : "--"}
                       </p>
                     </div>
                     <div>
