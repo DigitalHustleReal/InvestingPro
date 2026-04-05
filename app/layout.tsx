@@ -19,23 +19,23 @@ import { SearchProvider } from "@/components/search/SearchProvider";
 import { CompareProvider } from "@/contexts/CompareContext";
 import CompareBar from "@/components/compare/CompareBar";
 import PerformanceMonitor from "@/components/performance/PerformanceMonitor";
+import SentryInit from "@/components/monitoring/SentryInit";
 import { ConditionalPublicElements } from "@/components/common/ConditionalPublicElements";
 import { ConditionalPublicFloating } from "@/components/common/ConditionalPublicFloating";
 import CookieConsent from "@/components/legal/CookieConsent";
 
-
 // Font configurations — v2 Design System (DM Sans + DM Mono + Georgia system)
 const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: '--font-dm-sans',
-  display: 'swap',
+  variable: "--font-dm-sans",
+  display: "swap",
 });
 
 const dmMono = DM_Mono({
-  weight: ['400', '500'],
+  weight: ["400", "500"],
   subsets: ["latin"],
-  variable: '--font-dm-mono',
-  display: 'swap',
+  variable: "--font-dm-mono",
+  display: "swap",
 });
 
 // Georgia is a system font — no import needed, declared in CSS
@@ -47,56 +47,68 @@ import { NavigationProvider } from "@/contexts/NavigationContext";
 import { initializeEventSystem } from "@/lib/events/setup";
 import { initializeLogging } from "@/lib/logging/initialize";
 import { validateEnvOnStartup } from "@/lib/env";
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 // Tracing is disabled - file exists as .disabled
 // import { initializeTracing } from "@/lib/tracing/opentelemetry";
 
 // Global metadata for the application
 export const metadata: Metadata = {
-  metadataBase: new URL('https://investingpro.in'),
+  metadataBase: new URL("https://investingpro.in"),
   title: {
-    default: 'InvestingPro - Smart Financial Decisions Made Simple',
-    template: '%s | InvestingPro'
+    default: "InvestingPro - Smart Financial Decisions Made Simple",
+    template: "%s | InvestingPro",
   },
-  description: 'Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations and expert reviews to make smarter financial decisions.',
-  keywords: ['personal finance', 'credit cards', 'loans', 'mutual funds', 'investment', 'India', 'financial planning', 'government schemes'],
-  authors: [{ name: 'InvestingPro Team' }],
-  creator: 'InvestingPro',
-  publisher: 'InvestingPro',
+  description:
+    "Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations and expert reviews to make smarter financial decisions.",
+  keywords: [
+    "personal finance",
+    "credit cards",
+    "loans",
+    "mutual funds",
+    "investment",
+    "India",
+    "financial planning",
+    "government schemes",
+  ],
+  authors: [{ name: "InvestingPro Team" }],
+  creator: "InvestingPro",
+  publisher: "InvestingPro",
   verification: {
-    google: 'frJEpYhU206CZdHR23QlUvVr-4SFZbllQlQ2bQ_h0Uc',
+    google: "frJEpYhU206CZdHR23QlUvVr-4SFZbllQlQ2bQ_h0Uc",
   },
   openGraph: {
-    type: 'website',
-    locale: 'en_IN',
-    url: 'https://investingpro.in',
-    siteName: 'InvestingPro',
-    title: 'InvestingPro - Smart Financial Decisions Made Simple',
-    description: 'Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.',
+    type: "website",
+    locale: "en_IN",
+    url: "https://investingpro.in",
+    siteName: "InvestingPro",
+    title: "InvestingPro - Smart Financial Decisions Made Simple",
+    description:
+      "Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'InvestingPro - Smart Financial Decisions Made Simple',
-    description: 'Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.',
+    card: "summary_large_image",
+    title: "InvestingPro - Smart Financial Decisions Made Simple",
+    description:
+      "Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.",
   },
-  manifest: '/manifest.json',
+  manifest: "/manifest.json",
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
 };
 
 export const viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#166534' },
-    { media: '(prefers-color-scheme: dark)', color: '#0A1F14' },
+    { media: "(prefers-color-scheme: light)", color: "#166534" },
+    { media: "(prefers-color-scheme: dark)", color: "#0A1F14" },
   ],
 };
 
@@ -107,17 +119,17 @@ export default async function RootLayout({
 }>) {
   // Validate environment variables first (fails fast on missing required vars)
   validateEnvOnStartup();
-  
+
   // Initialize logging (runs once per server instance)
   initializeLogging();
-  
+
   // Initialize tracing (runs once per server instance)
   // Tracing is disabled - uncomment when needed
   // initializeTracing();
-  
+
   // Initialize event system (runs once per server instance)
   initializeEventSystem();
-  
+
   // Navigation is now handled by v2 Navbar component directly
   // const navConfig = await getNavigation();
 
@@ -128,62 +140,69 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body suppressHydrationWarning className={cn(
-        dmSans.className,
-        dmSans.variable,
-        dmMono.variable,
-        "min-h-screen flex flex-col bg-background text-foreground antialiased"
-      )}>
-        <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
+      <body
+        suppressHydrationWarning
+        className={cn(
+          dmSans.className,
+          dmSans.variable,
+          dmMono.variable,
+          "min-h-screen flex flex-col bg-background text-foreground antialiased",
+        )}
+      >
+        <GoogleAnalytics
+          GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""}
+        />
         <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem={false}
-            disableTransitionOnChange
-          >
-        <ErrorBoundaryProvider>
-          <QueryProvider>
-            <SearchProvider>
-              <CompareProvider>
-                <NavigationProvider>
-                  <Suspense fallback={null}>
-                    <Analytics />
-                    {/* <PerformanceMonitor /> */}
-                  </Suspense>
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <ErrorBoundaryProvider>
+            <QueryProvider>
+              <SearchProvider>
+                <CompareProvider>
+                  <NavigationProvider>
+                    <Suspense fallback={null}>
+                      <Analytics />
+                      <SentryInit />
+                      {/* <PerformanceMonitor /> */}
+                    </Suspense>
 
-                  {/* Skip to Content Link - Accessibility (UI/UX Phase 1) */}
-                  <a 
-                    href="#main-content" 
-                    className="skip-to-content"
-                  >
-                    Skip to main content
-                  </a>
+                    {/* Skip to Content Link - Accessibility (UI/UX Phase 1) */}
+                    <a href="#main-content" className="skip-to-content">
+                      Skip to main content
+                    </a>
 
-                  <AdminShell>
-                    <ConditionalTopBarV2 />
-                    <main id="main-content" className="flex-grow pb-20 md:pb-0" tabIndex={-1}>
-                      <PageErrorBoundary pageName="Root Layout">
-                        <ConditionalPublicElements>
-                          {children}
-                        </ConditionalPublicElements>
-                      </PageErrorBoundary>
-                    </main>
-                  </AdminShell>
-                  <ConditionalPublicFloating>
-                    <CompareBar />
-                    <MobileNav />
-                  </ConditionalPublicFloating>
-                  {/* 
+                    <AdminShell>
+                      <ConditionalTopBarV2 />
+                      <main
+                        id="main-content"
+                        className="flex-grow pb-20 md:pb-0"
+                        tabIndex={-1}
+                      >
+                        <PageErrorBoundary pageName="Root Layout">
+                          <ConditionalPublicElements>
+                            {children}
+                          </ConditionalPublicElements>
+                        </PageErrorBoundary>
+                      </main>
+                    </AdminShell>
+                    <ConditionalPublicFloating>
+                      <CompareBar />
+                      <MobileNav />
+                    </ConditionalPublicFloating>
+                    {/* 
                      AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)
                      Uncomment and add your ID here to auto-monetize 1000s of links
                   */}
-                  {/* <script async src="https://cuelinks.com/js/..." /> */}
-                  <Toaster />
-                </NavigationProvider>
-              </CompareProvider>
-            </SearchProvider>
-          </QueryProvider>
-        </ErrorBoundaryProvider>
+                    {/* <script async src="https://cuelinks.com/js/..." /> */}
+                    <Toaster />
+                  </NavigationProvider>
+                </CompareProvider>
+              </SearchProvider>
+            </QueryProvider>
+          </ErrorBoundaryProvider>
         </ThemeProvider>
         {/* Legal-only: Cookie consent (Accept/Decline bar). All other popups removed —
              ExitIntentPopup, WhatsAppButton, Tawk.to, OnboardingTrigger, LeadCapture.
