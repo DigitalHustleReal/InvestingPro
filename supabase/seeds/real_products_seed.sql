@@ -1,8 +1,32 @@
 -- =====================================================
 -- SEED: Real Financial Products Data
 -- =====================================================
+--
+-- WARNING: This script contains a destructive DELETE FROM products statement.
+-- It will WIPE ALL existing product data before inserting seed rows.
+--
+-- DO NOT run this in production without backing up the products table first.
+-- For production use, comment out the DELETE and use INSERT ... ON CONFLICT instead.
+--
+-- Safe usage:
+--   1. Verify you are on a dev/staging database
+--   2. Back up: CREATE TABLE products_backup AS SELECT * FROM products;
+--   3. Then run this script
+-- =====================================================
+
+-- ENVIRONMENT GUARD: Abort if this looks like a production database (>100 real products)
+DO $$
+DECLARE
+    product_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO product_count FROM products WHERE is_active = true;
+    IF product_count > 100 THEN
+        RAISE EXCEPTION 'SAFETY ABORT: products table has % active rows. This looks like production. Refusing to DELETE FROM products. Comment out this guard if you really mean it.', product_count;
+    END IF;
+END $$;
 
 -- 1. DELETE EXISTING DEMO DATA (Clean slate)
+-- WARNING: This deletes ALL products. See guard above.
 DELETE FROM products;
 
 -- 2. INSERT REAL PRODUCTS

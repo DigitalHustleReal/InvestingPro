@@ -1,65 +1,136 @@
-import React from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { ChevronRight, Shield, CalendarDays, TrendingUp, BarChart3, PiggyBank, Layers, ArrowRight } from 'lucide-react';
-import MutualFundsClient from './MutualFundsClient';
+import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
+import {
+  ChevronRight,
+  Shield,
+  CalendarDays,
+  TrendingUp,
+  BarChart3,
+  PiggyBank,
+  Layers,
+  ArrowRight,
+} from "lucide-react";
+import MutualFundsClient from "./MutualFundsClient";
+import { getMutualFundsServer } from "@/lib/products/get-mutual-funds-server";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Best Mutual Funds in India (2026) — Compare & Invest | InvestingPro',
-  description: 'Compare 2,000+ mutual funds across equity, debt, hybrid, and index categories. Track NAV, returns, expense ratios. Independent ratings — no paid placements.',
-  openGraph: { title: 'Best Mutual Funds in India (2026)', description: 'Compare 2,000+ mutual funds. Independent research.', url: 'https://investingpro.in/mutual-funds' },
+  title: "Best Mutual Funds in India (2026) — Compare & Invest | InvestingPro",
+  description:
+    "Compare mutual funds across equity, debt, hybrid, and index categories. Track NAV, returns, expense ratios. Independent ratings — no paid placements.",
+  openGraph: {
+    title: "Best Mutual Funds in India (2026)",
+    description:
+      "Compare mutual funds across all categories. Independent research.",
+    url: "https://investingpro.in/mutual-funds",
+  },
 };
 
-export default function MutualFundsPage() {
+export default async function MutualFundsPage() {
+  let initialFunds: any[] = [];
+  try {
+    initialFunds = await getMutualFundsServer();
+  } catch {
+    initialFunds = [];
+  }
   const structuredData = [
     {
-      '@context': 'https://schema.org',
-      '@type': 'CollectionPage',
-      name: 'Best Mutual Funds in India 2026',
-      description: 'Compare 2,000+ mutual funds across equity, debt, hybrid, and index categories. Track NAV, returns, expense ratios. Independent ratings — no paid placements.',
-      url: 'https://investingpro.in/mutual-funds',
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Best Mutual Funds in India 2026",
+      description:
+        "Compare mutual funds across equity, debt, hybrid, and index categories. Track NAV, returns, expense ratios. Independent ratings — no paid placements.",
+      url: "https://investingpro.in/mutual-funds",
       publisher: {
-        '@type': 'Organization',
-        name: 'InvestingPro',
-        url: 'https://investingpro.in',
-        logo: { '@type': 'ImageObject', url: 'https://investingpro.in/logo.png' },
+        "@type": "Organization",
+        name: "InvestingPro",
+        url: "https://investingpro.in",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://investingpro.in/logo.png",
+        },
       },
       breadcrumb: {
-        '@type': 'BreadcrumbList',
+        "@type": "BreadcrumbList",
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://investingpro.in' },
-          { '@type': 'ListItem', position: 2, name: 'Mutual Funds', item: 'https://investingpro.in/mutual-funds' },
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://investingpro.in",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Mutual Funds",
+            item: "https://investingpro.in/mutual-funds",
+          },
         ],
       },
     },
-    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
-      { '@type': 'Question', name: 'What is the best mutual fund to invest in India?', acceptedAnswer: { '@type': 'Answer', text: 'For long-term wealth, Nifty 50 index funds have averaged 12% returns. For tax saving, ELSS funds offer 80C deduction up to ₹1.5L.' } },
-      { '@type': 'Question', name: 'Is SIP better than lump sum?', acceptedAnswer: { '@type': 'Answer', text: 'SIP reduces timing risk through rupee cost averaging. Lump sum works better in rising markets. For most investors, SIP is recommended.' } },
-      { '@type': 'Question', name: 'How are mutual funds taxed in India?', acceptedAnswer: { '@type': 'Answer', text: 'Equity: LTCG above ₹1.25L taxed at 12.5% (held >1yr). Debt: taxed at slab rate. ELSS qualifies for 80C.' } },
-    ] },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What is the best mutual fund to invest in India?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "For long-term wealth, Nifty 50 index funds have averaged 12% returns. For tax saving, ELSS funds offer 80C deduction up to ₹1.5L.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Is SIP better than lump sum?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "SIP reduces timing risk through rupee cost averaging. Lump sum works better in rising markets. For most investors, SIP is recommended.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How are mutual funds taxed in India?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Equity: LTCG above ₹1.25L taxed at 12.5% (held >1yr). Debt: taxed at slab rate. ELSS qualifies for 80C.",
+          },
+        },
+      ],
+    },
   ];
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
       {/* ── Asset ticker — multi-asset context bar ── */}
       <div className="bg-[--v2-ink] text-white">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-2 flex items-center gap-6 overflow-x-auto scrollbar-hide text-[12px]">
           <span className="text-white/40 font-medium flex-shrink-0">Rates</span>
           {[
-            { name: 'Nifty 50', value: '23,842', change: '+0.45%', up: true },
-            { name: 'Gold', value: '₹87,450/10g', change: '+1.2%', up: true },
-            { name: 'Crude Oil', value: '$74.30', change: '-0.8%', up: false },
-            { name: 'USD/INR', value: '₹84.12', change: '+0.05%', up: true },
-            { name: 'SBI FD 1yr', value: '6.90%', change: '-0.15%', up: false },
+            { name: "Nifty 50", value: "23,842", change: "+0.45%", up: true },
+            { name: "Gold", value: "₹87,450/10g", change: "+1.2%", up: true },
+            { name: "Crude Oil", value: "$74.30", change: "-0.8%", up: false },
+            { name: "USD/INR", value: "₹84.12", change: "+0.05%", up: true },
+            { name: "SBI FD 1yr", value: "6.90%", change: "-0.15%", up: false },
           ].map((idx) => (
-            <span key={idx.name} className="flex items-center gap-2 flex-shrink-0">
+            <span
+              key={idx.name}
+              className="flex items-center gap-2 flex-shrink-0"
+            >
               <span className="text-white/60 font-medium">{idx.name}</span>
               <span className="font-semibold tabular-nums">{idx.value}</span>
-              <span className={`font-semibold tabular-nums ${idx.up ? 'text-green-400' : 'text-red-400'}`}>{idx.change}</span>
+              <span
+                className={`font-semibold tabular-nums ${idx.up ? "text-green-400" : "text-red-400"}`}
+              >
+                {idx.change}
+              </span>
             </span>
           ))}
         </div>
@@ -69,27 +140,66 @@ export default function MutualFundsPage() {
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-[13px] text-gray-400">
-              <li><Link href="/" className="hover:text-green-600 transition-colors">Home</Link></li>
-              <li><ChevronRight size={12} /></li>
+            <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-400">
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-green-600 transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <ChevronRight size={12} />
+              </li>
               <li className="text-gray-700 font-medium">Mutual Funds</li>
             </ol>
           </nav>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">Best Mutual Funds in India</h1>
+              <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">
+                Best Mutual Funds in India
+              </h1>
               <p className="text-[15px] text-gray-500 mt-2 max-w-xl leading-relaxed">
-                Compare 2,000+ funds by returns, expense ratio, and risk grade. Ranked by real performance — not what pays us most.
+                Compare mutual funds by returns, expense ratio, and risk grade.
+                Ranked by real performance — not what pays us most.
               </p>
             </div>
             <div className="flex items-center gap-5 text-[12px] text-gray-500 flex-shrink-0 mt-1">
-              <span className="flex items-center gap-1.5"><Shield size={13} className="text-green-600" />Independent ratings</span>
-              <span className="flex items-center gap-1.5"><CalendarDays size={13} className="text-green-600" />NAV updated daily</span>
+              <span className="flex items-center gap-1.5">
+                <Shield size={13} className="text-green-600" />
+                Independent ratings
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CalendarDays size={13} className="text-green-600" />
+                NAV updated daily
+              </span>
             </div>
           </div>
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-            {['All Funds','Equity','Debt','Hybrid','Index','ELSS','Large Cap','Mid Cap','Small Cap','Flexi Cap'].map((p, i) => (
-              <Link key={p} href={i === 0 ? '/mutual-funds' : `/mutual-funds?type=${p.toLowerCase().replace(' ', '-')}`} className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${i === 0 ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>{p}</Link>
+            {[
+              "All Funds",
+              "Equity",
+              "Debt",
+              "Hybrid",
+              "Index",
+              "ELSS",
+              "Large Cap",
+              "Mid Cap",
+              "Small Cap",
+              "Flexi Cap",
+            ].map((p, i) => (
+              <Link
+                key={p}
+                href={
+                  i === 0
+                    ? "/mutual-funds"
+                    : `/mutual-funds?type=${p.toLowerCase().replace(" ", "-")}`
+                }
+                className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${i === 0 ? "bg-green-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
+              >
+                {p}
+              </Link>
             ))}
           </div>
         </div>
@@ -100,19 +210,51 @@ export default function MutualFundsPage() {
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { icon: TrendingUp, label: 'Equity Funds', sub: 'Higher returns, higher risk', href: '/mutual-funds?type=equity', color: 'text-blue-600 bg-blue-50' },
-              { icon: PiggyBank, label: 'Debt Funds', sub: 'Stable returns, lower risk', href: '/mutual-funds?type=debt', color: 'text-green-600 bg-green-50' },
-              { icon: Layers, label: 'Hybrid Funds', sub: 'Mix of equity + debt', href: '/mutual-funds?type=hybrid', color: 'text-purple-600 bg-purple-50' },
-              { icon: BarChart3, label: 'Index Funds', sub: 'Low cost, market returns', href: '/mutual-funds?type=index', color: 'text-amber-600 bg-amber-50' },
+              {
+                icon: TrendingUp,
+                label: "Equity Funds",
+                sub: "Higher returns, higher risk",
+                href: "/mutual-funds?type=equity",
+                color: "text-blue-600 bg-blue-50",
+              },
+              {
+                icon: PiggyBank,
+                label: "Debt Funds",
+                sub: "Stable returns, lower risk",
+                href: "/mutual-funds?type=debt",
+                color: "text-green-600 bg-green-50",
+              },
+              {
+                icon: Layers,
+                label: "Hybrid Funds",
+                sub: "Mix of equity + debt",
+                href: "/mutual-funds?type=hybrid",
+                color: "text-purple-600 bg-purple-50",
+              },
+              {
+                icon: BarChart3,
+                label: "Index Funds",
+                sub: "Low cost, market returns",
+                href: "/mutual-funds?type=index",
+                color: "text-amber-600 bg-amber-50",
+              },
             ].map((cat) => {
               const Icon = cat.icon;
               return (
-                <Link key={cat.label} href={cat.href} className="flex items-center gap-3 p-3.5 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group">
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${cat.color}`}>
+                <Link
+                  key={cat.label}
+                  href={cat.href}
+                  className="flex items-center gap-3 p-3.5 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
+                >
+                  <div
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${cat.color}`}
+                  >
                     <Icon size={18} />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{cat.label}</p>
+                    <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                      {cat.label}
+                    </p>
                     <p className="text-[11px] text-gray-500">{cat.sub}</p>
                   </div>
                 </Link>
@@ -125,7 +267,7 @@ export default function MutualFundsPage() {
       {/* ── Main content ── */}
       <section className="bg-gray-50 min-h-screen">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8">
-          <MutualFundsClient />
+          <MutualFundsClient initialFunds={initialFunds} />
         </div>
       </section>
 
@@ -137,9 +279,13 @@ export default function MutualFundsPage() {
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-green-100 rounded-full text-[10px] font-bold text-green-700 uppercase tracking-wider mb-2">
                 Free Tool
               </div>
-              <h3 className="text-lg font-bold text-[--v2-ink] mb-1">Mutual Fund Overlap Checker</h3>
+              <h3 className="text-lg font-bold text-[--v2-ink] mb-1">
+                Mutual Fund Overlap Checker
+              </h3>
               <p className="text-sm text-gray-500 leading-relaxed max-w-md">
-                Holding 3+ funds? Check if they're investing in the same stocks. Avoid paying multiple expense ratios for the same exposure. Paste your funds — see the overlap instantly.
+                Holding 3+ funds? Check if they're investing in the same stocks.
+                Avoid paying multiple expense ratios for the same exposure.
+                Paste your funds — see the overlap instantly.
               </p>
             </div>
             <Link
@@ -156,18 +302,48 @@ export default function MutualFundsPage() {
       {/* ── Related Tools ── */}
       <section className="bg-white">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pb-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Related Tools</h2>
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
+            Related Tools
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {[
-              { label: 'SIP Calculator', desc: 'See how ₹10K/month grows', href: '/calculators/sip' },
-              { label: 'Compare Funds', desc: 'Side-by-side comparison', href: '/mutual-funds/compare' },
-              { label: 'Goal Planner', desc: 'SIP needed for your goal', href: '/mutual-funds/goal-planner' },
-              { label: 'Find Your Fund', desc: 'Personalized pick', href: '/mutual-funds/find-your-fund' },
-              { label: 'Overlap Checker', desc: 'Portfolio duplication', href: '/mutual-funds/overlap-checker' },
+              {
+                label: "SIP Calculator",
+                desc: "See how ₹10K/month grows",
+                href: "/calculators/sip",
+              },
+              {
+                label: "Compare Funds",
+                desc: "Side-by-side comparison",
+                href: "/mutual-funds/compare",
+              },
+              {
+                label: "Goal Planner",
+                desc: "SIP needed for your goal",
+                href: "/mutual-funds/goal-planner",
+              },
+              {
+                label: "Find Your Fund",
+                desc: "Personalized pick",
+                href: "/mutual-funds/find-your-fund",
+              },
+              {
+                label: "Overlap Checker",
+                desc: "Portfolio duplication",
+                href: "/mutual-funds/overlap-checker",
+              },
             ].map((t) => (
-              <Link key={t.href} href={t.href} className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group">
-                <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{t.label}</p>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">{t.desc}</p>
+              <Link
+                key={t.href}
+                href={t.href}
+                className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
+              >
+                <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                  {t.label}
+                </p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                  {t.desc}
+                </p>
               </Link>
             ))}
           </div>
@@ -177,21 +353,57 @@ export default function MutualFundsPage() {
       {/* ── Popular comparisons — MF specific ── */}
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Popular Fund Comparisons</h2>
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
+            Popular Fund Comparisons
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[
-              { title: 'Index Funds vs Active Funds', desc: '10 years of data — when does active actually win?', href: '/mutual-funds/compare/index-vs-active' },
-              { title: 'ELSS vs PPF vs NPS', desc: 'Best tax-saving investment under 80C', href: '/mutual-funds/compare/elss-vs-ppf-vs-nps' },
-              { title: 'Large Cap vs Flexi Cap', desc: 'Stability vs growth — which to choose?', href: '/mutual-funds/compare/large-cap-vs-flexi-cap' },
-              { title: 'Direct vs Regular Plans', desc: 'How much do distributor fees actually cost you?', href: '/mutual-funds/compare/direct-vs-regular' },
-              { title: 'SIP vs Lump Sum', desc: 'Timing the market vs time in the market', href: '/mutual-funds/compare/sip-vs-lumpsum' },
-              { title: 'Debt Funds vs FDs', desc: 'After-tax returns compared across tenures', href: '/mutual-funds/compare/debt-vs-fd' },
+              {
+                title: "Index Funds vs Active Funds",
+                desc: "10 years of data — when does active actually win?",
+                href: "/mutual-funds/compare/index-vs-active",
+              },
+              {
+                title: "ELSS vs PPF vs NPS",
+                desc: "Best tax-saving investment under 80C",
+                href: "/mutual-funds/compare/elss-vs-ppf-vs-nps",
+              },
+              {
+                title: "Large Cap vs Flexi Cap",
+                desc: "Stability vs growth — which to choose?",
+                href: "/mutual-funds/compare/large-cap-vs-flexi-cap",
+              },
+              {
+                title: "Direct vs Regular Plans",
+                desc: "How much do distributor fees actually cost you?",
+                href: "/mutual-funds/compare/direct-vs-regular",
+              },
+              {
+                title: "SIP vs Lump Sum",
+                desc: "Timing the market vs time in the market",
+                href: "/mutual-funds/compare/sip-vs-lumpsum",
+              },
+              {
+                title: "Debt Funds vs FDs",
+                desc: "After-tax returns compared across tenures",
+                href: "/mutual-funds/compare/debt-vs-fd",
+              },
             ].map((comp) => (
-              <Link key={comp.href} href={comp.href} className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group">
-                <span className="text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded mt-0.5 flex-shrink-0">VS</span>
+              <Link
+                key={comp.href}
+                href={comp.href}
+                className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
+              >
+                <span className="text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded mt-0.5 flex-shrink-0">
+                  VS
+                </span>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{comp.title}</p>
-                  <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{comp.desc}</p>
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                    {comp.title}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
+                    {comp.desc}
+                  </p>
                 </div>
               </Link>
             ))}
@@ -202,26 +414,64 @@ export default function MutualFundsPage() {
       {/* ── How We Rate ── */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">How We Rate Mutual Funds</h2>
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
+            How We Rate Mutual Funds
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             {[
-              { num: '2,000+', label: 'Funds tracked', desc: 'Across equity, debt, hybrid, and thematic categories' },
-              { num: '5', label: 'Return periods', desc: '1yr, 3yr, 5yr, 7yr, and 10yr returns compared' },
-              { num: 'Daily', label: 'NAV updates', desc: 'Net Asset Value refreshed every market day' },
-              { num: '₹0', label: 'Paid placements', desc: 'No AMC pays for higher ranking. Editorial is independent.' },
+              {
+                num: "40+",
+                label: "AMCs tracked",
+                desc: "Across equity, debt, hybrid, and thematic categories",
+              },
+              {
+                num: "5",
+                label: "Return periods",
+                desc: "1yr, 3yr, 5yr, 7yr, and 10yr returns compared",
+              },
+              {
+                num: "Daily",
+                label: "NAV updates",
+                desc: "Net Asset Value refreshed every market day",
+              },
+              {
+                num: "₹0",
+                label: "Paid placements",
+                desc: "No AMC pays for higher ranking. Editorial is independent.",
+              },
             ].map((stat) => (
-              <div key={stat.label} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+              <div
+                key={stat.label}
+                className="p-4 bg-gray-50 rounded-xl border border-gray-100"
+              >
                 <p className="text-2xl font-black text-green-600">{stat.num}</p>
-                <p className="text-sm font-semibold text-gray-900 mt-1">{stat.label}</p>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">{stat.desc}</p>
+                <p className="text-sm font-semibold text-gray-900 mt-1">
+                  {stat.label}
+                </p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                  {stat.desc}
+                </p>
               </div>
             ))}
           </div>
           <p className="text-sm text-gray-500 leading-relaxed max-w-2xl">
-            We evaluate funds on returns (1-10yr), expense ratio, Sharpe ratio, fund manager consistency, AUM stability, and category rank.
-            When you invest through our links, we may earn a commission. This never influences ratings.{' '}
-            <Link href="/methodology" className="text-green-600 font-medium hover:text-green-700">Our methodology</Link> ·{' '}
-            <Link href="/how-we-make-money" className="text-green-600 font-medium hover:text-green-700">How we make money</Link>
+            We evaluate funds on returns (1-10yr), expense ratio, Sharpe ratio,
+            fund manager consistency, AUM stability, and category rank. When you
+            invest through our links, we may earn a commission. This never
+            influences ratings.{" "}
+            <Link
+              href="/methodology"
+              className="text-green-600 font-medium hover:text-green-700"
+            >
+              Our methodology
+            </Link>{" "}
+            ·{" "}
+            <Link
+              href="/how-we-make-money"
+              className="text-green-600 font-medium hover:text-green-700"
+            >
+              How we make money
+            </Link>
           </p>
         </div>
       </section>
@@ -229,23 +479,54 @@ export default function MutualFundsPage() {
       {/* ── FAQs ── */}
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Mutual Fund FAQs</h2>
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
+            Mutual Fund FAQs
+          </h2>
           <div className="space-y-2">
             {[
-              { q: 'What is the best mutual fund to invest in India?', a: 'It depends on your goals and risk tolerance. For long-term wealth creation, index funds tracking Nifty 50 have averaged 12% annual returns. For tax saving, ELSS funds offer Section 80C deduction up to ₹1.5L. For stability, debt funds or hybrid funds are better.' },
-              { q: 'Is SIP better than lump sum investment?', a: 'SIP reduces timing risk through rupee cost averaging — you buy more units when prices are low. Lump sum works better in consistently rising markets. For most investors, monthly SIP is the recommended approach as it builds discipline.' },
-              { q: 'How are mutual funds taxed in India?', a: 'Equity funds held >1 year: LTCG above ₹1.25L taxed at 12.5%. Short-term (<1yr): 20%. Debt funds: taxed at your income tax slab rate regardless of holding period. ELSS qualifies for 80C deduction up to ₹1.5L with a 3-year lock-in.' },
-              { q: 'What is expense ratio and why does it matter?', a: 'Expense ratio is the annual fee charged by the fund house for managing your money. A 1% vs 0.1% difference means lakhs over 20 years. Index funds typically have the lowest ratios (0.1-0.5%). Always compare expense ratios within the same category.' },
-              { q: 'How do I choose between direct and regular plans?', a: 'Direct plans have 0.5-1% lower expense ratios (no distributor commission) and deliver higher returns over time. Regular plans include distributor fees. The fund itself is identical — only the fee structure differs. We always recommend direct plans.' },
-              { q: 'What does "risk grade" mean for mutual funds?', a: 'SEBI mandates risk labels: Low, Low to Moderate, Moderate, Moderately High, High, Very High. This is based on the fund\'s portfolio volatility. Equity funds are typically High/Very High. Debt funds range from Low to Moderate. Match your risk grade to your investment horizon.' },
-              { q: 'How does InvestingPro rate mutual funds?', a: 'We evaluate funds on returns across 5 time periods (1yr to 10yr), expense ratio, risk-adjusted performance (Sharpe ratio), fund manager track record, and AUM stability. Ratings update daily with NAV changes. No AMC pays for higher placement.' },
+              {
+                q: "What is the best mutual fund to invest in India?",
+                a: "It depends on your goals and risk tolerance. For long-term wealth creation, index funds tracking Nifty 50 have averaged 12% annual returns. For tax saving, ELSS funds offer Section 80C deduction up to ₹1.5L. For stability, debt funds or hybrid funds are better.",
+              },
+              {
+                q: "Is SIP better than lump sum investment?",
+                a: "SIP reduces timing risk through rupee cost averaging — you buy more units when prices are low. Lump sum works better in consistently rising markets. For most investors, monthly SIP is the recommended approach as it builds discipline.",
+              },
+              {
+                q: "How are mutual funds taxed in India?",
+                a: "Equity funds held >1 year: LTCG above ₹1.25L taxed at 12.5%. Short-term (<1yr): 20%. Debt funds: taxed at your income tax slab rate regardless of holding period. ELSS qualifies for 80C deduction up to ₹1.5L with a 3-year lock-in.",
+              },
+              {
+                q: "What is expense ratio and why does it matter?",
+                a: "Expense ratio is the annual fee charged by the fund house for managing your money. A 1% vs 0.1% difference means lakhs over 20 years. Index funds typically have the lowest ratios (0.1-0.5%). Always compare expense ratios within the same category.",
+              },
+              {
+                q: "How do I choose between direct and regular plans?",
+                a: "Direct plans have 0.5-1% lower expense ratios (no distributor commission) and deliver higher returns over time. Regular plans include distributor fees. The fund itself is identical — only the fee structure differs. We always recommend direct plans.",
+              },
+              {
+                q: 'What does "risk grade" mean for mutual funds?',
+                a: "SEBI mandates risk labels: Low, Low to Moderate, Moderate, Moderately High, High, Very High. This is based on the fund's portfolio volatility. Equity funds are typically High/Very High. Debt funds range from Low to Moderate. Match your risk grade to your investment horizon.",
+              },
+              {
+                q: "How does InvestingPro rate mutual funds?",
+                a: "We evaluate funds on returns across 5 time periods (1yr to 10yr), expense ratio, risk-adjusted performance (Sharpe ratio), fund manager track record, and AUM stability. Ratings update daily with NAV changes. No AMC pays for higher placement.",
+              },
             ].map((f, i) => (
-              <details key={i} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <details
+                key={i}
+                className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
+              >
                 <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
                   {f.q}
-                  <ChevronRight size={16} className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4" />
+                  <ChevronRight
+                    size={16}
+                    className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
+                  />
                 </summary>
-                <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">{f.a}</div>
+                <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+                  {f.a}
+                </div>
               </details>
             ))}
           </div>
@@ -255,19 +536,42 @@ export default function MutualFundsPage() {
       {/* ── Next steps ── */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Not sure where to start?</h2>
+          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
+            Not sure where to start?
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <Link href="/calculators/sip" className="p-5 bg-green-50 border border-green-200 rounded-xl hover:bg-green-100 transition-colors text-center">
-              <p className="text-sm font-semibold text-green-800">Try the SIP Calculator</p>
-              <p className="text-xs text-green-600 mt-1">See how ₹10K/month grows</p>
+            <Link
+              href="/calculators/sip"
+              className="p-5 bg-green-50 border border-green-200 rounded-xl hover:bg-green-100 transition-colors text-center"
+            >
+              <p className="text-sm font-semibold text-green-800">
+                Try the SIP Calculator
+              </p>
+              <p className="text-xs text-green-600 mt-1">
+                See how ₹10K/month grows
+              </p>
             </Link>
-            <Link href="/mutual-funds/compare" className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors text-center">
-              <p className="text-sm font-semibold text-gray-900">Compare Funds Side-by-Side</p>
-              <p className="text-xs text-gray-500 mt-1">Pick 2-3 funds and see the difference</p>
+            <Link
+              href="/mutual-funds/compare"
+              className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors text-center"
+            >
+              <p className="text-sm font-semibold text-gray-900">
+                Compare Funds Side-by-Side
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                Pick 2-3 funds and see the difference
+              </p>
             </Link>
-            <Link href="/mutual-funds/find-your-fund" className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors text-center">
-              <p className="text-sm font-semibold text-gray-900">Find Your Fund</p>
-              <p className="text-xs text-gray-500 mt-1">Personalized recommendation quiz</p>
+            <Link
+              href="/mutual-funds/find-your-fund"
+              className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors text-center"
+            >
+              <p className="text-sm font-semibold text-gray-900">
+                Find Your Fund
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                Personalized recommendation quiz
+              </p>
             </Link>
           </div>
         </div>

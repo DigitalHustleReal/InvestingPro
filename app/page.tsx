@@ -3,26 +3,30 @@
 
 export const revalidate = 300; // ISR: 5 minutes
 
-import React, { Suspense } from 'react';
-import { Metadata } from 'next';
-import Hero from '@/components/v2/home/Hero';
-import TrustBar from '@/components/v2/home/TrustBar';
-import MarketPulse from '@/components/v2/home/MarketPulse';
-import TopPicks from '@/components/v2/home/TopPicks';
-import CalculatorSpotlight from '@/components/v2/home/CalculatorSpotlight';
-import Editorial from '@/components/v2/home/Editorial';
-import ExploreCategories from '@/components/v2/home/ExploreCategories';
-import NewsletterTrust from '@/components/v2/home/NewsletterTrust';
+import React, { Suspense } from "react";
+import { Metadata } from "next";
+import MarketTicker from "@/components/common/MarketTicker";
+import Hero from "@/components/v2/home/Hero";
+import TrustBar from "@/components/v2/home/TrustBar";
+import MarketPulse from "@/components/v2/home/MarketPulse";
+import TopPicks from "@/components/v2/home/TopPicks";
+import CalculatorSpotlight from "@/components/v2/home/CalculatorSpotlight";
+import Editorial from "@/components/v2/home/Editorial";
+import ExploreCategories from "@/components/v2/home/ExploreCategories";
+import NewsletterTrust from "@/components/v2/home/NewsletterTrust";
+import TrustMethodology from "@/components/v2/home/TrustMethodology";
 
 export const metadata: Metadata = {
-  title: 'InvestingPro — India\'s Independent Financial Comparison Platform',
-  description: 'Compare 500+ credit cards, 2,000+ mutual funds, and 60+ loan products. Independent research, AI-powered recommendations, 25 free calculators. No paid rankings.',
+  title: "InvestingPro — India's Independent Financial Comparison Platform",
+  description:
+    "Compare credit cards, mutual funds, loans, and more across 50+ Indian banks. Independent research, AI-powered recommendations, 25 free calculators. No paid rankings.",
   openGraph: {
-    title: 'InvestingPro — India\'s Independent Financial Comparison Platform',
-    description: 'Compare credit cards, mutual funds, loans, insurance, and more. Free. Independent. Updated daily.',
-    url: 'https://investingpro.in',
-    type: 'website',
-    locale: 'en_IN',
+    title: "InvestingPro — India's Independent Financial Comparison Platform",
+    description:
+      "Compare credit cards, mutual funds, loans, insurance, and more. Free. Independent. Updated daily.",
+    url: "https://investingpro.in",
+    type: "website",
+    locale: "en_IN",
   },
 };
 
@@ -34,7 +38,10 @@ function SectionSkeleton() {
         <div className="h-7 w-64 bg-gray-200 rounded mb-7 animate-pulse" />
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white border border-gray-200 rounded-xl p-4 space-y-3 animate-pulse">
+            <div
+              key={i}
+              className="bg-white border border-gray-200 rounded-xl p-4 space-y-3 animate-pulse"
+            >
               <div className="h-4 bg-gray-100 rounded w-1/3" />
               <div className="h-5 bg-gray-100 rounded w-3/4" />
               <div className="h-3 bg-gray-100 rounded w-full" />
@@ -49,18 +56,18 @@ function SectionSkeleton() {
 
 export default function Home() {
   const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'InvestingPro',
-    url: 'https://investingpro.in',
-    description: 'India\'s independent financial comparison platform',
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "InvestingPro",
+    url: "https://investingpro.in",
+    description: "India's independent financial comparison platform",
     potentialAction: {
-      '@type': 'SearchAction',
+      "@type": "SearchAction",
       target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://investingpro.in/search?q={search_term_string}',
+        "@type": "EntryPoint",
+        urlTemplate: "https://investingpro.in/search?q={search_term_string}",
       },
-      'query-input': 'required name=search_term_string',
+      "query-input": "required name=search_term_string",
     },
   };
 
@@ -70,6 +77,9 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+
+      {/* Market Ticker — Sensex, Nifty, Gold with live data */}
+      <MarketTicker />
 
       {/* S3: Hero — centered, geometric bg, category cards */}
       <Hero />
@@ -93,10 +103,13 @@ export default function Home() {
       {/* S9: Explore — NerdWallet-style category navigator */}
       <ExploreCategories />
 
-      {/* S10: Newsletter + Trust — green gradient, geometric lines */}
+      {/* S10: Trust & Methodology — authority signals */}
+      <TrustMethodology />
+
+      {/* S11: Newsletter + Trust — green gradient, geometric lines */}
       <NewsletterTrust />
 
-      {/* S11: Editorial — article cards */}
+      {/* S12: Editorial — article cards */}
       <Editorial />
     </>
   );

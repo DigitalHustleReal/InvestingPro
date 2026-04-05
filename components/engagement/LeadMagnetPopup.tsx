@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 /**
  * Lead Magnet Popup System
- * 
+ *
  * Features:
  * - Exit intent detection
  * - Timed popups
@@ -11,30 +11,39 @@
  * - Cookie-based frequency capping
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { X, Gift, Mail, Download, ArrowRight, Loader2, CheckCircle, Sparkles } from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  X,
+  Gift,
+  Mail,
+  Download,
+  ArrowRight,
+  Loader2,
+  CheckCircle,
+  Sparkles,
+} from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 interface LeadMagnetPopupProps {
   // When to show
-  trigger: 'exit-intent' | 'timed' | 'scroll';
+  trigger: "exit-intent" | "timed" | "scroll";
   delay?: number; // For timed trigger (ms)
   scrollPercent?: number; // For scroll trigger (0-100)
-  
+
   // What to offer
-  variant: 'newsletter' | 'guide' | 'calculator-results' | 'comparison';
-  
+  variant: "newsletter" | "guide" | "calculator-results" | "comparison";
+
   // Content customization
   title?: string;
   description?: string;
   buttonText?: string;
   imageSrc?: string;
   guideTitle?: string;
-  
+
   // Callbacks
   onSubscribe?: (email: string, name?: string) => Promise<void>;
   onClose?: () => void;
-  
+
   // Feature flags
   cookieKey?: string;
   cookieDays?: number;
@@ -42,35 +51,40 @@ interface LeadMagnetPopupProps {
 }
 
 export function LeadMagnetPopup({
-  trigger = 'exit-intent',
+  trigger = "exit-intent",
   delay = 30000,
   scrollPercent = 50,
-  variant = 'newsletter',
+  variant = "newsletter",
   title,
   description,
   buttonText,
   imageSrc,
-  guideTitle = 'Free PDF Guide',
+  guideTitle = "Free PDF Guide",
   onSubscribe,
   onClose,
-  cookieKey = 'investingpro_lead_popup',
+  cookieKey = "investingpro_lead_popup",
   cookieDays = 7,
   disabled = false,
 }: LeadMagnetPopupProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const supabase = createClient();
 
   // Default content based on variant
-  const content = getVariantContent(variant, { title, description, buttonText, guideTitle });
+  const content = getVariantContent(variant, {
+    title,
+    description,
+    buttonText,
+    guideTitle,
+  });
 
   // Check if popup was already shown
   const wasShown = useCallback(() => {
-    if (typeof window === 'undefined') return true;
+    if (typeof window === "undefined") return true;
     return document.cookie.includes(`${cookieKey}=shown`);
   }, [cookieKey]);
 
@@ -83,7 +97,7 @@ export function LeadMagnetPopup({
 
   // Exit intent detection
   useEffect(() => {
-    if (disabled || wasShown() || trigger !== 'exit-intent') return;
+    if (disabled || wasShown() || trigger !== "exit-intent") return;
 
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY <= 0) {
@@ -92,13 +106,13 @@ export function LeadMagnetPopup({
       }
     };
 
-    document.addEventListener('mouseleave', handleMouseLeave);
-    return () => document.removeEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener("mouseleave", handleMouseLeave);
+    return () => document.removeEventListener("mouseleave", handleMouseLeave);
   }, [trigger, disabled, wasShown, markAsShown]);
 
   // Timed trigger
   useEffect(() => {
-    if (disabled || wasShown() || trigger !== 'timed') return;
+    if (disabled || wasShown() || trigger !== "timed") return;
 
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -110,19 +124,22 @@ export function LeadMagnetPopup({
 
   // Scroll trigger
   useEffect(() => {
-    if (disabled || wasShown() || trigger !== 'scroll') return;
+    if (disabled || wasShown() || trigger !== "scroll") return;
 
     const handleScroll = () => {
-      const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      const scrolled =
+        (window.scrollY /
+          (document.documentElement.scrollHeight - window.innerHeight)) *
+        100;
       if (scrolled >= scrollPercent) {
         setIsVisible(true);
         markAsShown();
-        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener("scroll", handleScroll);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [trigger, scrollPercent, disabled, wasShown, markAsShown]);
 
   // Handle form submission
@@ -131,12 +148,12 @@ export function LeadMagnetPopup({
     if (!email) return;
 
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       // Save to newsletter_subscribers table
       const { error: dbError } = await supabase
-        .from('newsletter_subscribers')
+        .from("newsletter_subscribers")
         .insert({
           email,
           name: name || null,
@@ -144,7 +161,8 @@ export function LeadMagnetPopup({
           subscribed_at: new Date().toISOString(),
         });
 
-      if (dbError && dbError.code !== '23505') { // Ignore duplicate
+      if (dbError && dbError.code !== "23505") {
+        // Ignore duplicate
         throw dbError;
       }
 
@@ -155,8 +173,8 @@ export function LeadMagnetPopup({
 
       setSuccess(true);
     } catch (err: any) {
-      setError('Something went wrong. Please try again.');
-      console.error('Lead magnet error:', err);
+      setError("Something went wrong. Please try again.");
+      console.error("Lead magnet error:", err);
     } finally {
       setLoading(false);
     }
@@ -191,9 +209,9 @@ export function LeadMagnetPopup({
               You're in! ðŸŽ‰
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              {variant === 'newsletter' 
-                ? 'Check your inbox for a welcome email.'
-                : 'Your download link is on the way!'}
+              {variant === "newsletter"
+                ? "Check your inbox for a welcome email."
+                : "Your download link is on the way!"}
             </p>
             <button
               onClick={handleClose}
@@ -235,7 +253,7 @@ export function LeadMagnetPopup({
               )}
 
               <form onSubmit={handleSubmit} className="space-y-3">
-                {variant !== 'newsletter' && (
+                {variant !== "newsletter" && (
                   <input
                     type="text"
                     placeholder="Your name"
@@ -283,28 +301,36 @@ export function LeadMagnetPopup({
 function getVariantContent(variant: string, custom: any) {
   const defaults: Record<string, any> = {
     newsletter: {
-      title: custom.title || 'Get Weekly Finance Tips',
-      description: custom.description || 'Join 25,000+ Indians getting our best money-saving tips every Tuesday.',
-      buttonText: custom.buttonText || 'Subscribe Free',
-      tagline: 'Weekly Insights',
+      title: custom.title || "Get Weekly Finance Tips",
+      description:
+        custom.description ||
+        "Get our best money-saving tips delivered free every Tuesday.",
+      buttonText: custom.buttonText || "Subscribe Free",
+      tagline: "Weekly Insights",
     },
     guide: {
       title: custom.title || `Download: ${custom.guideTitle}`,
-      description: custom.description || 'Get our comprehensive guide delivered to your inbox instantly.',
-      buttonText: custom.buttonText || 'Get Free PDF',
-      tagline: 'Free Download',
+      description:
+        custom.description ||
+        "Get our comprehensive guide delivered to your inbox instantly.",
+      buttonText: custom.buttonText || "Get Free PDF",
+      tagline: "Free Download",
     },
-    'calculator-results': {
-      title: custom.title || 'Email Your Results',
-      description: custom.description || 'Get your calculation results with detailed breakdown sent to your inbox.',
-      buttonText: custom.buttonText || 'Send Results',
-      tagline: 'Save Results',
+    "calculator-results": {
+      title: custom.title || "Email Your Results",
+      description:
+        custom.description ||
+        "Get your calculation results with detailed breakdown sent to your inbox.",
+      buttonText: custom.buttonText || "Send Results",
+      tagline: "Save Results",
     },
     comparison: {
-      title: custom.title || 'Download Comparison Report',
-      description: custom.description || 'Get a detailed PDF comparison you can review offline.',
-      buttonText: custom.buttonText || 'Get PDF Report',
-      tagline: 'PDF Report',
+      title: custom.title || "Download Comparison Report",
+      description:
+        custom.description ||
+        "Get a detailed PDF comparison you can review offline.",
+      buttonText: custom.buttonText || "Get PDF Report",
+      tagline: "PDF Report",
     },
   };
 
@@ -312,13 +338,13 @@ function getVariantContent(variant: string, custom: any) {
 }
 
 function getVariantIcon(variant: string) {
-  const iconClass = 'w-16 h-16 text-white/90';
+  const iconClass = "w-16 h-16 text-white/90";
   switch (variant) {
-    case 'guide':
+    case "guide":
       return <Download className={iconClass} />;
-    case 'calculator-results':
+    case "calculator-results":
       return <Sparkles className={iconClass} />;
-    case 'comparison':
+    case "comparison":
       return <Download className={iconClass} />;
     default:
       return <Mail className={iconClass} />;
@@ -326,13 +352,13 @@ function getVariantIcon(variant: string) {
 }
 
 function getVariantIconSmall(variant: string) {
-  const iconClass = 'w-6 h-6 text-white';
+  const iconClass = "w-6 h-6 text-white";
   switch (variant) {
-    case 'guide':
+    case "guide":
       return <Download className={iconClass} />;
-    case 'calculator-results':
+    case "calculator-results":
       return <Sparkles className={iconClass} />;
-    case 'comparison':
+    case "comparison":
       return <Download className={iconClass} />;
     default:
       return <Mail className={iconClass} />;

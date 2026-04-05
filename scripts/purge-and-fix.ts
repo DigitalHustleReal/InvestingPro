@@ -1,19 +1,42 @@
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
 
-import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
-
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: ".env.local" });
 
 const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
 
 async function purgeAndFix() {
-    console.log("🧨 EMERGENCY PURGE & REBUILD OF PRODUCTS TABLE...");
-    
-    // We use RPC to execute raw SQL to fix the table structure once and for all
-    const sql = `
+  // ⚠️ ENVIRONMENT GUARD: Block running in production
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_APP_URL || "";
+  if (
+    baseUrl.includes("investingpro.in") ||
+    process.env.NODE_ENV === "production" ||
+    process.env.VERCEL_ENV === "production"
+  ) {
+    console.error(
+      "============================================================",
+    );
+    console.error(
+      "  SAFETY ABORT: This script DROP TABLEs the products table.",
+    );
+    console.error("  It must NEVER be run against a production database.");
+    console.error(
+      `  Detected environment: ${baseUrl || process.env.NODE_ENV || "unknown"}`,
+    );
+    console.error(
+      "============================================================",
+    );
+    process.exit(1);
+  }
+
+  console.log("🧨 EMERGENCY PURGE & REBUILD OF PRODUCTS TABLE...");
+
+  // We use RPC to execute raw SQL to fix the table structure once and for all
+  const sql = `
         -- 1. Drop the table if it exists (CASCADE to handle triggers/indexes)
         DROP TABLE IF EXISTS products CASCADE;
 
@@ -46,15 +69,15 @@ async function purgeAndFix() {
         CREATE INDEX idx_products_category ON products(category);
     `;
 
-    // Try to execute via exec_sql RPC which we know the system has for migrations
-    const { error } = await supabase.rpc('exec_sql', { sql });
-    
-    if (error) {
-        console.error("❌ PURGE FAILED:", error.message);
-        console.log("⚠️  Attempting fallback via direct API calls...");
-    } else {
-        console.log("✅ TABLE REBUILT SUCCESSFULLY.");
-    }
+  // Try to execute via exec_sql RPC which we know the system has for migrations
+  const { error } = await supabase.rpc("exec_sql", { sql });
+
+  if (error) {
+    console.error("❌ PURGE FAILED:", error.message);
+    console.log("⚠️  Attempting fallback via direct API calls...");
+  } else {
+    console.log("✅ TABLE REBUILT SUCCESSFULLY.");
+  }
 }
 
 purgeAndFix();

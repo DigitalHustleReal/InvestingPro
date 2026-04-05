@@ -1,58 +1,39 @@
 /**
  * Platform Statistics - Single Source of Truth
- * 
+ *
  * ALL social proof stats should reference this file.
  * Update here to change across entire platform.
- * 
- * Last Updated: January 5, 2026
+ *
+ * IMPORTANT: Only use verified, real numbers here.
+ * Do NOT fabricate user counts, ratings, or engagement metrics.
+ *
+ * Last Updated: April 5, 2026
  */
 
 export const PLATFORM_STATS = {
-  // User Metrics
-  usersHelped: '2.1M+',
-  usersHelpedFull: '2.1 Million+',
-  usersHelpedNumeric: 2100000,
-  
-  // Trust Signals
-  rating: '4.9',
-  ratingNumeric: 4.9,
-  ratingOutOf: 5,
-  
-  // Product Coverage
-  productsTracked: '500+',
-  productsTrackedNumeric: 500,
-  banksPartnered: '50+',
+  // Product Coverage (verifiable from DB)
+  productCategories: "7",
+  productsTracked: "100+",
+  productsTrackedNumeric: 100,
+  banksPartnered: "50+",
   banksPartneredNumeric: 50,
-  
+
   // Platform Attributes
-  independence: '100%',
+  independence: "100%",
   adFree: true,
-  updateFrequency: 'Daily',
-  
+  updateFrequency: "Daily",
+
   // Credibility
-  established: '2024',
-  trustScore: '95%',
+  established: "2024",
 } as const;
 
 /**
  * Pre-formatted stat strings for common use cases
  */
 export const STAT_STRINGS = {
-  heroTagline: `${PLATFORM_STATS.usersHelped} Indians Helped`,
-  trustBadge: `${PLATFORM_STATS.rating}/5 Rating`,
+  heroTagline: `India's Independent Finance Platform`,
+  trustBadge: `100% Independent Research`,
   coverage: `${PLATFORM_STATS.productsTracked} products from ${PLATFORM_STATS.banksPartnered} banks`,
-  fullDescription: `Compare. Decide. Apply. India's Smartest Financial Choices. Compare 1000+ products, make smart decisions, and apply instantly. ${PLATFORM_STATS.usersHelped} Indians helped.`,
-  testimonial: `We've already helped ${PLATFORM_STATS.usersHelped} Indians save money. You're next.`,
-} as const;
-
-/**
- * Structured data for SEO
- */
-export const STRUCTURED_DATA_STATS = {
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    'ratingValue': PLATFORM_STATS.rating,
-    'bestRating': PLATFORM_STATS.ratingOutOf.toString(),
-    'ratingCount': '21000' // Based on usersHelped
-  }
+  fullDescription: `Compare. Decide. Apply. India's Independent Financial Comparison Platform. Compare ${PLATFORM_STATS.productsTracked} products across ${PLATFORM_STATS.banksPartnered} banks. Make smart, data-driven decisions.`,
+  testimonial: `Compare financial products with transparent, data-driven insights. No marketing fluff — just real numbers.`,
 } as const;

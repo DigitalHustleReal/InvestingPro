@@ -54,6 +54,14 @@ const COMPANY = [
   { name: "Blog", href: "/blog" },
 ];
 
+const TRUST = [
+  { name: "Editorial Methodology", href: "/editorial-methodology" },
+  { name: "Our Team", href: "/authors" },
+  { name: "Corrections Policy", href: "/corrections" },
+  { name: "About Our Data", href: "/about-our-data" },
+  { name: "Editorial Standards", href: "/about/editorial-standards" },
+];
+
 const LEGAL = [
   { name: "Terms of Service", href: "/terms-of-service" },
   { name: "Privacy Policy", href: "/privacy-policy" },
@@ -342,7 +350,7 @@ export function Footer() {
         </div>
 
         {/* ── 5-column link grid ── */}
-        <div className="py-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
+        <div className="py-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-6">
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Logo variant="light" size="md" showText />
             <p className="mt-4 text-[13px] text-gray-400 leading-relaxed max-w-[240px]">
@@ -377,6 +385,18 @@ export function Footer() {
             <h4 className={headingClass}>Company</h4>
             <ul className="space-y-2">
               {COMPANY.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={linkClass}>
+                    {l.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className={headingClass}>Trust & Transparency</h4>
+            <ul className="space-y-2">
+              {TRUST.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className={linkClass}>
                     {l.name}

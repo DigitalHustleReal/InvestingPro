@@ -19,7 +19,12 @@ import { NextRequest } from "next/server";
 
 // Mock dependencies used by cron routes
 jest.mock("@/lib/logger", () => ({
-  logger: { info: jest.fn(), warn: jest.fn(), error: jest.fn(), debug: jest.fn() },
+  logger: {
+    info: jest.fn(),
+    warn: jest.fn(),
+    error: jest.fn(),
+    debug: jest.fn(),
+  },
 }));
 
 jest.mock("@/lib/supabase/server", () => ({
@@ -84,7 +89,7 @@ function makeCronRequest(authHeaderValue?: string): NextRequest {
  */
 function describeCronAuth(
   routeName: string,
-  importRoute: () => Promise<{ GET: (req: NextRequest) => Promise<Response> }>
+  importRoute: () => Promise<{ GET: (req: NextRequest) => Promise<Response> }>,
 ) {
   describe(`${routeName} — cron auth`, () => {
     let GET: (req: NextRequest) => Promise<Response>;
@@ -154,16 +159,16 @@ function describeCronAuth(
 
 // Test three representative cron routes to confirm the pattern is consistent
 
-describeCronAuth("analytics-sync", () =>
-  import("@/app/api/cron/analytics-sync/route")
+describeCronAuth(
+  "analytics-sync",
+  () => import("@/app/api/cron/analytics-sync/route"),
 );
 
-describeCronAuth("cleanup", () =>
-  import("@/app/api/cron/cleanup/route")
-);
+describeCronAuth("cleanup", () => import("@/app/api/cron/cleanup/route"));
 
-describeCronAuth("sitemap-ping", () =>
-  import("@/app/api/cron/sitemap-ping/route")
+describeCronAuth(
+  "sitemap-ping",
+  () => import("@/app/api/cron/sitemap-ping/route"),
 );
 
 // Additional edge-case tests on a single route

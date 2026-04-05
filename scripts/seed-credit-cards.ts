@@ -10,15 +10,33 @@
  * Requires: SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in .env.local
  */
 
-import { createClient } from '@supabase/supabase-js';
-import * as fs from 'fs';
-import * as path from 'path';
+import { createClient } from "@supabase/supabase-js";
+import * as fs from "fs";
+import * as path from "path";
 
-const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseUrl =
+  process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-  console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
+  console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
+  process.exit(1);
+}
+
+// ⚠️ ENVIRONMENT GUARD: Block running in production
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_APP_URL || "";
+if (
+  baseUrl.includes("investingpro.in") ||
+  process.env.NODE_ENV === "production" ||
+  process.env.VERCEL_ENV === "production"
+) {
+  console.error(
+    "SAFETY ABORT: This seed script should NEVER be run against a production database.",
+  );
+  console.error(
+    `Detected environment: ${baseUrl || process.env.NODE_ENV || "unknown"}`,
+  );
   process.exit(1);
 }
 
@@ -46,14 +64,16 @@ interface CreditCardSeed {
 }
 
 async function loadBatchFiles(): Promise<CreditCardSeed[]> {
-  const seedDir = path.join(process.cwd(), 'data', 'seed');
+  const seedDir = path.join(process.cwd(), "data", "seed");
   const allCards: CreditCardSeed[] = [];
 
-  const files = fs.readdirSync(seedDir).filter(f => f.startsWith('credit-cards-batch') && f.endsWith('.json'));
+  const files = fs
+    .readdirSync(seedDir)
+    .filter((f) => f.startsWith("credit-cards-batch") && f.endsWith(".json"));
 
   for (const file of files) {
     const filePath = path.join(seedDir, file);
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
     const cards = Array.isArray(data) ? data : [];
     console.log(`📄 ${file}: ${cards.length} cards`);
     allCards.push(...cards);
@@ -63,12 +83,14 @@ async function loadBatchFiles(): Promise<CreditCardSeed[]> {
 }
 
 async function seedCreditCards() {
-  console.log('\n🏦 InvestingPro Credit Card Seeder\n');
+  console.log("\n🏦 InvestingPro Credit Card Seeder\n");
 
   const cards = await loadBatchFiles();
 
   if (cards.length === 0) {
-    console.error('No credit card data found in data/seed/credit-cards-batch*.json');
+    console.error(
+      "No credit card data found in data/seed/credit-cards-batch*.json",
+    );
     process.exit(1);
   }
 
@@ -80,7 +102,7 @@ async function seedCreditCards() {
 
   for (const card of cards) {
     // Ensure product_type is set
-    card.product_type = 'credit_card';
+    card.product_type = "credit_card";
 
     // Build the product record
     const record = {
@@ -98,7 +120,7 @@ async function seedCreditCards() {
       tags: card.tags,
       is_active: card.is_active ?? true,
       is_featured: card.is_featured ?? false,
-      data_source: card.data_source || 'manual',
+      data_source: card.data_source || "manual",
       image_url: card.image_url || null,
       apply_url: card.apply_url || null,
       official_link: card.official_link || null,
@@ -107,9 +129,9 @@ async function seedCreditCards() {
     };
 
     const { data, error } = await supabase
-      .from('products')
-      .upsert(record, { onConflict: 'slug' })
-      .select('id')
+      .from("products")
+      .upsert(record, { onConflict: "slug" })
+      .select("id")
       .single();
 
     if (error) {
@@ -122,11 +144,11 @@ async function seedCreditCards() {
     }
   }
 
-  console.log(`\n${'='.repeat(50)}`);
+  console.log(`\n${"=".repeat(50)}`);
   console.log(`✅ Seeded: ${inserted}`);
   console.log(`❌ Errors: ${errors}`);
   console.log(`📊 Total: ${cards.length}`);
-  console.log(`${'='.repeat(50)}\n`);
+  console.log(`${"=".repeat(50)}\n`);
 
   // Print summary by provider
   const byProvider: Record<string, number> = {};
@@ -134,7 +156,7 @@ async function seedCreditCards() {
     byProvider[card.provider_name] = (byProvider[card.provider_name] || 0) + 1;
   }
 
-  console.log('Cards by provider:');
+  console.log("Cards by provider:");
   Object.entries(byProvider)
     .sort((a, b) => b[1] - a[1])
     .forEach(([provider, count]) => {

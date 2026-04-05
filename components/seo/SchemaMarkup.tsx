@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface FAQItem {
   question: string;
@@ -13,14 +13,14 @@ export function FAQSchema({ faqs }: FAQSchemaProps) {
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
+    mainEntity: faqs.map((faq) => ({
       "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
+      name: faq.question,
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": faq.answer
-      }
-    }))
+        text: faq.answer,
+      },
+    })),
   };
 
   return (
@@ -38,26 +38,31 @@ interface CalculatorSchemaProps {
   category?: string;
 }
 
-export function CalculatorSchema({ name, description, url, category = "FinanceApplication" }: CalculatorSchemaProps) {
+export function CalculatorSchema({
+  name,
+  description,
+  url,
+  category = "FinanceApplication",
+}: CalculatorSchemaProps) {
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": name,
-    "description": description,
-    "url": `https://investingpro.in${url}`,
-    "applicationCategory": category,
-    "operatingSystem": "Any",
-    "browserRequirements": "Requires JavaScript. Requires HTML5.",
-    "offers": {
+    name: name,
+    description: description,
+    url: `https://investingpro.in${url}`,
+    applicationCategory: category,
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript. Requires HTML5.",
+    offers: {
       "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "INR"
+      price: "0",
+      priceCurrency: "INR",
     },
-    "provider": {
+    provider: {
       "@type": "Organization",
-      "name": "InvestingPro",
-      "url": "https://investingpro.in"
-    }
+      name: "InvestingPro",
+      url: "https://investingpro.in",
+    },
   };
 
   return (
@@ -77,19 +82,19 @@ interface OrganizationSchemaProps {
 export function OrganizationSchema({
   name = "InvestingPro",
   url = "https://investingpro.in",
-  logo = "https://investingpro.in/logo.png"
+  logo = "https://investingpro.in/logo.png",
 }: OrganizationSchemaProps) {
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": name,
-    "url": url,
-    "logo": logo,
-    "sameAs": [
+    name: name,
+    url: url,
+    logo: logo,
+    sameAs: [
       "https://twitter.com/investingpro",
       "https://facebook.com/investingpro",
-      "https://linkedin.com/company/investingpro"
-    ]
+      "https://linkedin.com/company/investingpro",
+    ],
   };
 
   return (
@@ -129,43 +134,38 @@ export function CreditCardSchema({
   interestRate,
   faqs,
 }: CreditCardSchemaProps) {
-  const baseUrl = 'https://investingpro.in';
+  const baseUrl = "https://investingpro.in";
 
   const financialProductSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": name,
-    "description": description,
-    "brand": {
+    name: name,
+    description: description,
+    brand: {
       "@type": "Organization",
-      "name": provider,
+      name: provider,
     },
-    "category": "Credit Card",
-    ...(image ? { "image": image } : {}),
-    "offers": {
+    category: "Credit Card",
+    ...(image ? { image: image } : {}),
+    offers: {
       "@type": "Offer",
-      "price": String(annualFee),
-      "priceCurrency": "INR",
-      "description": `Annual fee: ₹${annualFee}. Interest rate: ${interestRate}`,
-      "availability": "https://schema.org/InStock",
+      price: String(annualFee),
+      priceCurrency: "INR",
+      description: `Annual fee: ₹${annualFee}. Interest rate: ${interestRate}`,
+      availability: "https://schema.org/InStock",
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": String(rating),
-      "bestRating": "5",
-      "worstRating": "1",
-      "ratingCount": String(Math.max(10, Math.round(rating * 25))),
-    },
-    "additionalProperty": [
+    // AggregateRating removed — ratingCount was fabricated (Math.round(rating * 25)).
+    // Google policy requires ratingCount based on actual user reviews.
+    additionalProperty: [
       {
         "@type": "PropertyValue",
-        "name": "Annual Fee",
-        "value": `₹${annualFee}`,
+        name: "Annual Fee",
+        value: `₹${annualFee}`,
       },
       {
         "@type": "PropertyValue",
-        "name": "Interest Rate",
-        "value": interestRate,
+        name: "Interest Rate",
+        value: interestRate,
       },
     ],
   };
@@ -173,12 +173,12 @@ export function CreditCardSchema({
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
+    mainEntity: faqs.map((faq) => ({
       "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
+      name: faq.question,
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": faq.answer,
+        text: faq.answer,
       },
     })),
   };
@@ -186,24 +186,24 @@ export function CreditCardSchema({
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": baseUrl,
+        position: 1,
+        name: "Home",
+        item: baseUrl,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Credit Cards",
-        "item": `${baseUrl}/credit-cards`,
+        position: 2,
+        name: "Credit Cards",
+        item: `${baseUrl}/credit-cards`,
       },
       {
         "@type": "ListItem",
-        "position": 3,
-        "name": name,
-        "item": `${baseUrl}/credit-cards/${slug}`,
+        position: 3,
+        name: name,
+        item: `${baseUrl}/credit-cards/${slug}`,
       },
     ],
   };
@@ -212,7 +212,9 @@ export function CreditCardSchema({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(financialProductSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(financialProductSchema),
+        }}
       />
       <script
         type="application/ld+json"
@@ -257,28 +259,28 @@ export function VersusSchema({
   combination,
   category,
 }: VersusSchemaProps) {
-  const baseUrl = 'https://investingpro.in';
+  const baseUrl = "https://investingpro.in";
 
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": `${product1Name} vs ${product2Name} Comparison`,
-    "description": `Side-by-side comparison of ${product1Name} and ${product2Name}.`,
-    "numberOfItems": 2,
-    "itemListElement": [
+    name: `${product1Name} vs ${product2Name} Comparison`,
+    description: `Side-by-side comparison of ${product1Name} and ${product2Name}.`,
+    numberOfItems: 2,
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": product1Name,
-        "url": `${baseUrl}/credit-cards/${product1Slug}`,
-        ...(product1Image ? { "image": product1Image } : {}),
+        position: 1,
+        name: product1Name,
+        url: `${baseUrl}/credit-cards/${product1Slug}`,
+        ...(product1Image ? { image: product1Image } : {}),
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": product2Name,
-        "url": `${baseUrl}/credit-cards/${product2Slug}`,
-        ...(product2Image ? { "image": product2Image } : {}),
+        position: 2,
+        name: product2Name,
+        url: `${baseUrl}/credit-cards/${product2Slug}`,
+        ...(product2Image ? { image: product2Image } : {}),
       },
     ],
   };
@@ -286,24 +288,24 @@ export function VersusSchema({
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": baseUrl,
+        position: 1,
+        name: "Home",
+        item: baseUrl,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Compare",
-        "item": `${baseUrl}/compare`,
+        position: 2,
+        name: "Compare",
+        item: `${baseUrl}/compare`,
       },
       {
         "@type": "ListItem",
-        "position": 3,
-        "name": `${product1Name} vs ${product2Name}`,
-        "item": `${baseUrl}/compare/${combination}`,
+        position: 3,
+        name: `${product1Name} vs ${product2Name}`,
+        item: `${baseUrl}/compare/${combination}`,
       },
     ],
   };

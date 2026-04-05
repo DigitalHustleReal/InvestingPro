@@ -50,6 +50,7 @@ import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import { getSimilarProducts } from "@/lib/utils/product-similarity";
 import WhatsAppAlerts from "@/components/common/WhatsAppAlerts";
 import AffiliateDisclosure from "@/components/common/AffiliateDisclosure";
+import ApplyNowCTA from "@/components/products/ApplyNowCTA";
 
 interface CreditCardDetail {
   id: string;
@@ -319,7 +320,7 @@ export default async function CreditCardDetailPage(props: {
                   {card.minCreditScore && card.minCreditScore > 750
                     ? "Excellent Credit Req."
                     : "Good Chance"}
-                  <span className="text-gray-400 font-normal ml-1">
+                  <span className="text-gray-500 dark:text-gray-400 font-normal ml-1">
                     ({card.minCreditScore}+)
                   </span>
                 </p>
@@ -376,7 +377,9 @@ export default async function CreditCardDetailPage(props: {
                   <p className="text-xl font-bold text-gray-900">
                     ₹{card.annualFee}
                   </p>
-                  <p className="text-xs text-gray-400">+ GST</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    + GST
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 uppercase font-bold mb-1">
@@ -385,7 +388,9 @@ export default async function CreditCardDetailPage(props: {
                   <p className="text-xl font-bold text-green-600">
                     ~1.5% - 3.3%
                   </p>
-                  <p className="text-xs text-gray-400">Real Return</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Real Return
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 uppercase font-bold mb-1">
@@ -396,7 +401,9 @@ export default async function CreditCardDetailPage(props: {
                     <span className="text-xl font-bold text-gray-900">
                       {card.rating}
                     </span>
-                    <span className="text-sm text-gray-400">/5</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      /5
+                    </span>
                   </div>
                 </div>
               </div>
@@ -415,16 +422,17 @@ export default async function CreditCardDetailPage(props: {
 
               {/* CTA Area */}
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <a
+                <ApplyNowCTA
                   href={`/go/${params.slug}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  productName={card.name}
+                  productSlug={params.slug}
+                  productId={card.id}
+                  category="credit_card"
+                  providerName={card.provider}
+                  sourcePage="credit-card-detail"
+                  variant="hero"
                   className="flex-1 sm:flex-none"
-                >
-                  <Button className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold text-lg px-8 py-6 h-auto rounded-xl shadow-xl shadow-green-600/20 transition-all hover:scale-105 active:scale-95">
-                    Apply Now <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </a>
+                />
                 <Button
                   variant="outline"
                   className="h-auto py-3 px-6 rounded-xl border-gray-200 text-gray-700 font-medium hover:bg-gray-50"
@@ -433,7 +441,7 @@ export default async function CreditCardDetailPage(props: {
                 </Button>
               </div>
 
-              <p className="text-xs text-gray-400 flex items-center gap-1">
+              <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                 <ShieldCheck className="w-3 h-3" />
                 Secure application via {card.provider} official site.
               </p>
@@ -834,15 +842,16 @@ export default async function CreditCardDetailPage(props: {
             Apply for the {card.name} today and start earning rewards on every
             spend.
           </p>
-          <a
+          <ApplyNowCTA
             href={`/go/${params.slug}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button className="bg-green-600 hover:bg-green-500 text-white font-bold px-12 py-6 text-lg rounded-full shadow-lg hover:shadow-green-600/30 transition-all hover:-translate-y-1">
-              Apply Now <ExternalLink className="w-5 h-5 ml-2" />
-            </Button>
-          </a>
+            productName={card.name}
+            productSlug={params.slug}
+            productId={card.id}
+            category="credit_card"
+            providerName={card.provider}
+            sourcePage="credit-card-detail"
+            variant="bottom"
+          />
           <p className="text-gray-500 text-xs mt-6">
             Application processed securely by {card.provider}
           </p>

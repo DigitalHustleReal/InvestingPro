@@ -1,26 +1,29 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/logger';
-import { planContentCalendar } from '@/lib/automation/research-strategist';
+import { NextRequest, NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
+import { planContentCalendar } from "@/lib/automation/research-strategist";
+import { requireAdminApi } from "@/lib/auth/require-admin-api";
 
 export async function POST(req: NextRequest) {
-    try {
-        const body = await req.json();
-        const { topic } = body;
+  try {
+    const { error: authError } = await requireAdminApi();
+    if (authError) return authError;
 
-        if (!topic) {
-            return NextResponse.json({ error: 'Topic is required' }, { status: 400 });
-        }
+    const body = await req.json();
+    const { topic } = body;
 
-        const plannedArticles = await planContentCalendar(topic);
-
-        return NextResponse.json({ 
-            success: true, 
-            count: plannedArticles.length,
-            articles: plannedArticles 
-        });
-
-    } catch (error: any) {
-        logger.error('Strategist Error:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    if (!topic) {
+      return NextResponse.json({ error: "Topic is required" }, { status: 400 });
     }
+
+    const plannedArticles = await planContentCalendar(topic);
+
+    return NextResponse.json({
+      success: true,
+      count: plannedArticles.length,
+      articles: plannedArticles,
+    });
+  } catch (error: any) {
+    logger.error("Strategist Error:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
