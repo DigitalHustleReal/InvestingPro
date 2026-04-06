@@ -97,7 +97,7 @@ const STAGE_CONFIG: Record<
   // SERP pipeline stages
   serp_scraping: {
     icon: Search,
-    color: "text-cyan-400",
+    color: "text-green-400",
     label: "SERP Scraping",
     order: 1,
   },
@@ -363,7 +363,10 @@ export default function ContentFactoryPage() {
               setEvents((prev) => [...prev, event]);
               setCurrentStage(event.stage);
 
-              if (event.stage === "result" && event.data) {
+              if (
+                (event.stage === "result" || event.stage === "complete") &&
+                event.data
+              ) {
                 setPipelineResult(event.data);
               }
 
@@ -423,7 +426,7 @@ export default function ContentFactoryPage() {
           </div>
 
           {/* Mode Selector */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {MODE_OPTIONS.map((opt) => {
               const Icon = opt.icon;
               return (
@@ -465,7 +468,7 @@ export default function ContentFactoryPage() {
           {/* Controls */}
           <div className="bg-card rounded-xl border border-border p-6 mb-8 shadow-sm">
             <div
-              className={`grid grid-cols-1 gap-6 ${mode === "keyword" ? "md:grid-cols-5" : "md:grid-cols-4"}`}
+              className={`grid grid-cols-1 gap-6 ${mode === "keyword" || mode === "serp" ? "md:grid-cols-5" : "md:grid-cols-4"}`}
             >
               {/* Article Count */}
               <div className="space-y-2">
@@ -539,20 +542,30 @@ export default function ContentFactoryPage() {
                 </div>
               </div>
 
-              {/* Seed Keyword (keyword mode only) */}
-              {mode === "keyword" && (
+              {/* Seed Keyword (keyword & serp modes) */}
+              {(mode === "keyword" || mode === "serp") && (
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-muted-foreground mb-2">
-                    Seed Keyword
+                    {mode === "serp" ? "Target Keyword" : "Seed Keyword"}
                   </label>
                   <input
                     type="text"
                     value={seedKeyword}
                     onChange={(e) => setSeedKeyword(e.target.value)}
                     disabled={isRunning}
-                    placeholder="e.g. best credit cards 2026"
+                    placeholder={
+                      mode === "serp"
+                        ? "e.g. best credit cards India 2026"
+                        : "e.g. best credit cards 2026"
+                    }
                     className="w-full bg-background border border-input rounded-md px-4 py-2.5 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
+                  {mode === "serp" && (
+                    <p className="text-xs text-muted-foreground">
+                      Analyzes top 10 Google results, generates a superior
+                      article that outranks them
+                    </p>
+                  )}
                 </div>
               )}
 
@@ -564,7 +577,9 @@ export default function ContentFactoryPage() {
                 <Button
                   onClick={startPipeline}
                   disabled={
-                    isRunning || (mode === "keyword" && !seedKeyword.trim())
+                    isRunning ||
+                    ((mode === "keyword" || mode === "serp") &&
+                      !seedKeyword.trim())
                   }
                   className="w-full h-[42px] font-semibold flex items-center justify-center gap-2"
                   variant={isRunning ? "secondary" : "default"}
@@ -595,10 +610,32 @@ export default function ContentFactoryPage() {
               {/* Stage Pills */}
               <div className="flex flex-wrap gap-2 mb-6">
                 {Object.entries(STAGE_CONFIG)
-                  .filter(
-                    ([key]) =>
-                      !["error", "result", "initializing"].includes(key),
-                  )
+                  .filter(([key]) => {
+                    if (["error", "result", "initializing"].includes(key))
+                      return false;
+                    // Show only relevant stages per mode
+                    const serpStages = [
+                      "serp_scraping",
+                      "competitor_analysis",
+                      "outline_generation",
+                      "content_generation",
+                      "image_generation",
+                      "saving",
+                      "distributing",
+                      "complete",
+                    ];
+                    const standardStages = [
+                      "trend_discovery",
+                      "keyword_research",
+                      "topic_selection",
+                      "deduplication",
+                      "generating",
+                      "seo_audit",
+                      "complete",
+                    ];
+                    if (mode === "serp") return serpStages.includes(key);
+                    return standardStages.includes(key);
+                  })
                   .sort(([, a], [, b]) => a.order - b.order)
                   .map(([key, cfg]) => {
                     const Icon = cfg.icon;
@@ -643,7 +680,41 @@ export default function ContentFactoryPage() {
               </div>
 
               {/* Stats (on completion) */}
-              {pipelineResult && (
+              {pipelineResult && mode === "serp" && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 mt-4 border-t border-border">
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-emerald-400">
+                      {pipelineResult.success ? "✓" : "✗"}
+                    </div>
+                    <div className="text-xs text-muted-foreground">Status</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-amber-400">
+                      {pipelineResult.article?.wordCount || 0}
+                    </div>
+                    <div className="text-xs text-muted-foreground">Words</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-emerald-400">
+                      {pipelineResult.article?.qualityScore || "—"}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Quality Score
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-blue-400">
+                      {pipelineResult.timings?.totalMs
+                        ? `${Math.round(pipelineResult.timings.totalMs / 1000)}s`
+                        : "—"}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Total Time
+                    </div>
+                  </div>
+                </div>
+              )}
+              {pipelineResult && mode !== "serp" && (
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4 pt-4 mt-4 border-t border-border">
                   <div className="text-center">
                     <div className="text-xl font-bold text-emerald-400">
