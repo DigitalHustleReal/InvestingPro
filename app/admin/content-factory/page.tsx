@@ -94,6 +94,49 @@ const STAGE_CONFIG: Record<
     label: "Complete",
     order: 7,
   },
+  // SERP pipeline stages
+  serp_scraping: {
+    icon: Search,
+    color: "text-cyan-400",
+    label: "SERP Scraping",
+    order: 1,
+  },
+  competitor_analysis: {
+    icon: BarChart3,
+    color: "text-amber-400",
+    label: "Competitor Analysis",
+    order: 2,
+  },
+  outline_generation: {
+    icon: Target,
+    color: "text-emerald-400",
+    label: "Outline Generation",
+    order: 3,
+  },
+  content_generation: {
+    icon: Brain,
+    color: "text-emerald-400",
+    label: "Content Generation",
+    order: 4,
+  },
+  image_generation: {
+    icon: Star,
+    color: "text-pink-400",
+    label: "Image Generation",
+    order: 5,
+  },
+  saving: {
+    icon: Check,
+    color: "text-blue-400",
+    label: "Saving",
+    order: 6,
+  },
+  distributing: {
+    icon: Rocket,
+    color: "text-purple-400",
+    label: "Distributing",
+    order: 7,
+  },
   error: {
     icon: AlertTriangle,
     color: "text-rose-500",
@@ -104,6 +147,13 @@ const STAGE_CONFIG: Record<
 };
 
 const MODE_OPTIONS = [
+  {
+    value: "serp",
+    label: "SERP-First (NerdWallet Grade)",
+    description:
+      "Scrape top 10 → Analyze competitors → Generate superior article",
+    icon: Target,
+  },
   {
     value: "auto",
     label: "Auto (Full Pipeline)",
@@ -228,7 +278,9 @@ export default function ContentFactoryPage() {
   const [isRunning, setIsRunning] = useState(false);
   const [events, setEvents] = useState<PipelineEvent[]>([]);
   const [count, setCount] = useState(3);
-  const [mode, setMode] = useState<"auto" | "trending" | "keyword">("auto");
+  const [mode, setMode] = useState<"auto" | "trending" | "keyword" | "serp">(
+    "serp",
+  );
   const [category, setCategory] = useState("");
   const [selectedAuthor, setSelectedAuthor] = useState("");
   const [seedKeyword, setSeedKeyword] = useState("");
@@ -250,19 +302,39 @@ export default function ContentFactoryPage() {
     setPipelineResult(null);
 
     try {
-      const response = await fetch("/api/content-pipeline", {
+      // Route to SERP pipeline or standard pipeline based on mode
+      const isSerpMode = mode === "serp";
+      const endpoint = isSerpMode
+        ? "/api/admin/serp-pipeline"
+        : "/api/content-pipeline";
+
+      const requestBody = isSerpMode
+        ? {
+            keyword: seedKeyword || "best credit cards India",
+            category: category || undefined,
+            authorId: selectedAuthor || undefined,
+            authorName: selectedAuthor
+              ? AUTHOR_OPTIONS.find((a) => a.value === selectedAuthor)?.name
+              : undefined,
+            generateImages: true,
+            autoDistribute: false,
+            style: "nerdwallet",
+          }
+        : {
+            count,
+            mode,
+            category: category || undefined,
+            seedKeyword: mode === "keyword" ? seedKeyword : undefined,
+            authorId: selectedAuthor || undefined,
+            authorName: selectedAuthor
+              ? AUTHOR_OPTIONS.find((a) => a.value === selectedAuthor)?.name
+              : undefined,
+          };
+
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          count,
-          mode,
-          category: category || undefined,
-          seedKeyword: mode === "keyword" ? seedKeyword : undefined,
-          authorId: selectedAuthor || undefined,
-          authorName: selectedAuthor
-            ? AUTHOR_OPTIONS.find((a) => a.value === selectedAuthor)?.name
-            : undefined,
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {
