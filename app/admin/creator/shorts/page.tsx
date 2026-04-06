@@ -135,7 +135,7 @@ export default function ShortsGeneratorPage() {
           </Link>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <Smartphone className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <Smartphone className="h-5 w-5 text-emerald-400" />
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight">
@@ -225,7 +225,7 @@ export default function ShortsGeneratorPage() {
           <Card>
             <CardContent className="flex flex-col items-center justify-center py-16 text-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-emerald-500/10 mb-4">
-                <Smartphone className="h-7 w-7 text-emerald-600 dark:text-emerald-400" />
+                <Smartphone className="h-7 w-7 text-emerald-400" />
               </div>
               <h3 className="text-lg font-semibold mb-1">
                 No shorts generated yet
@@ -242,7 +242,7 @@ export default function ShortsGeneratorPage() {
         {isGenerating && (
           <Card>
             <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-              <Loader2 className="h-10 w-10 animate-spin text-emerald-600 dark:text-emerald-400 mb-4" />
+              <Loader2 className="h-10 w-10 animate-spin text-emerald-400 mb-4" />
               <h3 className="text-lg font-semibold mb-1">
                 Generating variations...
               </h3>
@@ -264,7 +264,7 @@ export default function ShortsGeneratorPage() {
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/10 text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/10 text-sm font-bold text-emerald-400">
                         {short.id}
                       </span>
                       <CardTitle className="text-sm font-semibold">
@@ -285,7 +285,7 @@ export default function ShortsGeneratorPage() {
                 <CardContent className="flex-1 space-y-4">
                   {/* Hook */}
                   <div>
-                    <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
+                    <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">
                       Hook Line
                     </p>
                     <p className="text-sm font-medium leading-snug">
@@ -295,7 +295,7 @@ export default function ShortsGeneratorPage() {
 
                   {/* Key Points */}
                   <div>
-                    <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1.5">
+                    <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1.5">
                       Key Points
                     </p>
                     <ul className="space-y-1.5">
@@ -315,7 +315,7 @@ export default function ShortsGeneratorPage() {
 
                   {/* CTA */}
                   <div>
-                    <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
+                    <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">
                       Call to Action
                     </p>
                     <p className="text-sm text-muted-foreground italic">
@@ -325,7 +325,7 @@ export default function ShortsGeneratorPage() {
 
                   {/* Hashtags */}
                   <div>
-                    <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1.5">
+                    <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1.5">
                       <Hash className="inline h-3 w-3 mr-0.5 -mt-0.5" />
                       Hashtags
                     </p>

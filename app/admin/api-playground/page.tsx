@@ -163,24 +163,24 @@ const API_DOCS: EndpointDoc[] = [
 function methodColor(method: HttpMethod): string {
   switch (method) {
     case "GET":
-      return "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30";
+      return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
     case "POST":
-      return "bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/30";
+      return "bg-blue-500/15 text-blue-400 border-blue-500/30";
     case "PUT":
-      return "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30";
+      return "bg-amber-500/15 text-amber-400 border-amber-500/30";
     case "DELETE":
-      return "bg-red-500/15 text-red-700 dark:text-red-400 border-red-500/30";
+      return "bg-red-500/15 text-red-400 border-red-500/30";
   }
 }
 
 function statusColor(status: number): string {
   if (status >= 200 && status < 300)
-    return "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30";
+    return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
   if (status >= 300 && status < 400)
-    return "bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/30";
+    return "bg-blue-500/15 text-blue-400 border-blue-500/30";
   if (status >= 400 && status < 500)
-    return "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30";
-  return "bg-red-500/15 text-red-700 dark:text-red-400 border-red-500/30";
+    return "bg-amber-500/15 text-amber-400 border-amber-500/30";
+  return "bg-red-500/15 text-red-400 border-red-500/30";
 }
 
 let headerId = 0;
@@ -334,7 +334,7 @@ export default function ApiPlaygroundPage() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <Terminal className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <Terminal className="h-5 w-5 text-emerald-400" />
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight">
@@ -380,7 +380,7 @@ export default function ApiPlaygroundPage() {
           <Card className="lg:col-span-3">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Send className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                <Send className="h-4 w-4 text-emerald-400" />
                 Request
               </CardTitle>
             </CardHeader>
@@ -514,7 +514,7 @@ export default function ApiPlaygroundPage() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2 text-base">
-                  <FileJson className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                  <FileJson className="h-4 w-4 text-emerald-400" />
                   Response
                 </CardTitle>
                 {response && (
@@ -578,7 +578,7 @@ export default function ApiPlaygroundPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <BookOpen className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+              <BookOpen className="h-4 w-4 text-emerald-400" />
               API Documentation
             </CardTitle>
           </CardHeader>

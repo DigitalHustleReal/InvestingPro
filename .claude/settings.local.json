@@ -32,7 +32,16 @@
       "mcp__plugin_playwright_playwright__browser_resize",
       "mcp__plugin_playwright_playwright__browser_navigate",
       "mcp__plugin_playwright_playwright__browser_take_screenshot",
-      "mcp__plugin_playwright_playwright__browser_evaluate"
+      "mcp__plugin_playwright_playwright__browser_evaluate",
+      "Bash(npm run:*)",
+      "Bash(export NODE_OPTIONS='--max-old-space-size=8192')",
+      "Bash(find /c/Users/shivp/Desktop/InvestingPro_App -type f \\\\\\(-name *cost* -o -name *budget* -o -name *rate* \\\\\\))",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|js\\)$\")",
+      "Bash(find /c/Users/shivp/Desktop/InvestingPro_App -type f -path *ai* -name *cost*)",
+      "Bash(grep -r \"articles\\\\|content\\\\|seed\" /c/Users/shivp/Desktop/InvestingPro_App/app --include=*.ts -l)",
+      "Bash(grep -r \"Apply Now\\\\|Get Started\\\\|Sign Up\\\\|CTA\\\\|conversion\" /c/Users/shivp/Desktop/InvestingPro_App/app --include=*.tsx --include=*.ts)",
+      "Bash(find /c/Users/shivp/Desktop/InvestingPro_App/lib -name *analytics* -o -name *posthog* -o -name *social*)",
+      "Bash(grep -r \"social.*generate\\\\|twitter\\\\|linkedin\\\\|whatsapp\" /c/Users/shivp/Desktop/InvestingPro_App/app/api --include=*.ts -l)"
     ]
   }
 }

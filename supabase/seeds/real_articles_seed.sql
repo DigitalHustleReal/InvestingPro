@@ -1,8 +1,24 @@
 -- =====================================================
 -- SEED: Real Financial Articles
 -- =====================================================
+--
+-- WARNING: This script contains a destructive DELETE FROM articles statement.
+-- DO NOT run in production without a backup.
+-- =====================================================
+
+-- ENVIRONMENT GUARD: Abort if this looks like a production database
+DO $$
+DECLARE
+    article_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO article_count FROM articles WHERE status = 'published';
+    IF article_count > 50 THEN
+        RAISE EXCEPTION 'SAFETY ABORT: articles table has % published rows. This looks like production. Refusing to DELETE FROM articles.', article_count;
+    END IF;
+END $$;
 
 -- 1. DELETE EXISTING DEMO ARTICLES
+-- WARNING: This deletes ALL articles. See guard above.
 DELETE FROM articles;
 
 -- 2. INSERT REAL ARTICLES

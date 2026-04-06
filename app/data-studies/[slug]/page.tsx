@@ -1,7 +1,11 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { getDataStudyBySlug, getAllDataStudies } from '@/lib/linkable-assets/data-studies-service';
-import DataStudyDetail from './DataStudyDetail';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import {
+  getDataStudyBySlug,
+  getAllDataStudies,
+} from "@/lib/linkable-assets/data-studies-service";
+import { logger } from "@/lib/logger";
+import DataStudyDetail from "./DataStudyDetail";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -10,9 +14,9 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const study = await getDataStudyBySlug(slug);
-  
+
   if (!study) {
-    return { title: 'Study Not Found' };
+    return { title: "Study Not Found" };
   }
 
   return {
@@ -21,11 +25,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: study.title,
       description: study.description,
-      type: 'article',
+      type: "article",
       publishedTime: study.lastUpdated.toISOString(),
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: study.title,
       description: study.description,
     },
@@ -40,7 +44,9 @@ export async function generateStaticParams() {
     }));
   } catch (error) {
     // Return empty array during build if DB is unavailable
-    console.warn('generateStaticParams: Unable to fetch data studies, using fallback');
+    logger.warn(
+      "generateStaticParams: Unable to fetch data studies, using fallback",
+    );
     return [];
   }
 }

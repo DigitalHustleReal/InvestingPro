@@ -1,51 +1,58 @@
 import { createClient } from "@/lib/supabase/client";
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 import { NextResponse } from "next/server";
+import { requireAdminApi } from "@/lib/auth/require-admin-api";
 
 export async function GET(request: Request) {
-    try {
-        const { searchParams } = new URL(request.url);
-        const timeRange = searchParams.get('timeRange') || '30d';
-        
-        const supabase = createClient();
+  try {
+    const { error: authError } = await requireAdminApi();
+    if (authError) return authError;
 
-        // 1. Get total keyword count
-        const { count: totalKeywords, error: countError } = await supabase
-            .from('keyword_data_cache')
-            .select('*', { count: 'exact', head: true });
+    const { searchParams } = new URL(request.url);
+    const timeRange = searchParams.get("timeRange") || "30d";
 
-        if (countError) throw countError;
+    const supabase = createClient();
 
-        // 2. Get active keywords (keywords with search volume > 0 or verified)
-        const { count: activeKeywords, error: activeError } = await supabase
-            .from('keyword_data_cache')
-            .select('*', { count: 'exact', head: true })
-            .gt('search_volume', 0);
+    // 1. Get total keyword count
+    const { count: totalKeywords, error: countError } = await supabase
+      .from("keyword_data_cache")
+      .select("*", { count: "exact", head: true });
 
-        if (activeError) throw activeError;
+    if (countError) throw countError;
 
-        // 3. Get trending keywords (top by volume)
-        const { data: trendingKeywords, error: trendingError } = await supabase
-            .from('keyword_data_cache')
-            .select('keyword, search_volume, difficulty')
-            .order('search_volume', { ascending: false })
-            .limit(10);
+    // 2. Get active keywords (keywords with search volume > 0 or verified)
+    const { count: activeKeywords, error: activeError } = await supabase
+      .from("keyword_data_cache")
+      .select("*", { count: "exact", head: true })
+      .gt("search_volume", 0);
 
-        if (trendingError) throw trendingError;
+    if (activeError) throw activeError;
 
-        return NextResponse.json({
-            totalKeywords: totalKeywords || 0,
-            activeKeywords: activeKeywords || 0,
-            trendingKeywords: trendingKeywords || [],
-            timeRange
-        });
-    } catch (error: any) {
-        logger.error('Error fetching keyword stats:', error);
-        return NextResponse.json({ 
-            totalKeywords: 0, 
-            activeKeywords: 0, 
-            trendingKeywords: [],
-            error: error.message 
-        }, { status: 500 });
-    }
+    // 3. Get trending keywords (top by volume)
+    const { data: trendingKeywords, error: trendingError } = await supabase
+      .from("keyword_data_cache")
+      .select("keyword, search_volume, difficulty")
+      .order("search_volume", { ascending: false })
+      .limit(10);
+
+    if (trendingError) throw trendingError;
+
+    return NextResponse.json({
+      totalKeywords: totalKeywords || 0,
+      activeKeywords: activeKeywords || 0,
+      trendingKeywords: trendingKeywords || [],
+      timeRange,
+    });
+  } catch (error: any) {
+    logger.error("Error fetching keyword stats:", error);
+    return NextResponse.json(
+      {
+        totalKeywords: 0,
+        activeKeywords: 0,
+        trendingKeywords: [],
+        error: error.message,
+      },
+      { status: 500 },
+    );
+  }
 }

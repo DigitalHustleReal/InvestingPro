@@ -1,20 +1,30 @@
 /**
  * API Route: Autonomy Configuration
- * 
+ *
  * Purpose: Configure autonomy levels for auto-publishing system
- * 
+ *
  * Endpoints:
  * - GET: Get current autonomy configuration
  * - POST: Update autonomy configuration
  * - PATCH: Update specific settings
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/logger';
-import { createClient } from '@/lib/supabase/server';
-import { confidenceScorer, ConfidenceThresholds, CategoryRule } from '@/lib/automation/confidence-scorer';
-import { autoPublisher, AutoPublishConfig } from '@/lib/automation/auto-publisher';
-import { anomalyDetector, DetectorConfig } from '@/lib/automation/anomaly-detector';
+import { NextRequest, NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
+import { requireAdminApi } from "@/lib/auth/require-admin-api";
+import {
+  confidenceScorer,
+  ConfidenceThresholds,
+  CategoryRule,
+} from "@/lib/automation/confidence-scorer";
+import {
+  autoPublisher,
+  AutoPublishConfig,
+} from "@/lib/automation/auto-publisher";
+import {
+  anomalyDetector,
+  DetectorConfig,
+} from "@/lib/automation/anomaly-detector";
 
 // ============================================
 // TYPES
@@ -22,20 +32,20 @@ import { anomalyDetector, DetectorConfig } from '@/lib/automation/anomaly-detect
 
 interface AutonomyConfig {
   // Overall autonomy level
-  autonomyLevel: 'manual' | 'assisted' | 'semi-autonomous' | 'autonomous';
-  
+  autonomyLevel: "manual" | "assisted" | "semi-autonomous" | "autonomous";
+
   // Auto-publish settings
   autoPublish: AutoPublishConfig;
-  
+
   // Confidence thresholds
   confidenceThresholds: ConfidenceThresholds;
-  
+
   // Category-specific rules
   categoryRules: CategoryRule[];
-  
+
   // Anomaly detection settings
   anomalyDetection: DetectorConfig;
-  
+
   // Metadata
   lastUpdated: string;
   updatedBy?: string;
@@ -47,13 +57,14 @@ interface AutonomyConfig {
 
 export async function GET() {
   try {
-    const supabase = await createClient();
+    const { user, supabase, error: adminAuthError } = await requireAdminApi();
+    if (adminAuthError) return adminAuthError;
 
     // Get stored config from database
     const { data: storedConfig } = await supabase
-      .from('system_settings')
-      .select('value')
-      .eq('key', 'autonomy_config')
+      .from("system_settings")
+      .select("value")
+      .eq("key", "autonomy_config")
       .single();
 
     // Build current config from all components
@@ -81,10 +92,10 @@ export async function GET() {
       presets: getAutonomyPresets(),
     });
   } catch (error) {
-    logger.error('Error getting autonomy config:', error);
+    logger.error("Error getting autonomy config:", error);
     return NextResponse.json(
-      { success: false, error: 'Failed to get configuration' },
-      { status: 500 }
+      { success: false, error: "Failed to get configuration" },
+      { status: 500 },
     );
   }
 }
@@ -95,8 +106,10 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const { user, supabase, error: adminAuthError } = await requireAdminApi();
+    if (adminAuthError) return adminAuthError;
+
     const body = await request.json();
-    const supabase = await createClient();
 
     // Validate request
     const {
@@ -139,27 +152,25 @@ export async function POST(request: NextRequest) {
       categoryRules: confidenceScorer.getCategoryRules(),
       anomalyDetection: anomalyDetector.getConfig(),
       lastUpdated: new Date().toISOString(),
-      updatedBy: body.updatedBy || 'admin',
+      updatedBy: body.updatedBy || "admin",
     };
 
-    await supabase
-      .from('system_settings')
-      .upsert({
-        key: 'autonomy_config',
-        value: configToSave,
-        updated_at: new Date().toISOString(),
-      });
+    await supabase.from("system_settings").upsert({
+      key: "autonomy_config",
+      value: configToSave,
+      updated_at: new Date().toISOString(),
+    });
 
     return NextResponse.json({
       success: true,
-      message: 'Configuration updated successfully',
+      message: "Configuration updated successfully",
       config: configToSave,
     });
   } catch (error) {
-    logger.error('Error updating autonomy config:', error);
+    logger.error("Error updating autonomy config:", error);
     return NextResponse.json(
-      { success: false, error: 'Failed to update configuration' },
-      { status: 500 }
+      { success: false, error: "Failed to update configuration" },
+      { status: 500 },
     );
   }
 }
@@ -170,11 +181,14 @@ export async function POST(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
+    const { user, error: adminAuthError } = await requireAdminApi();
+    if (adminAuthError) return adminAuthError;
+
     const body = await request.json();
     const { action, ...params } = body;
 
     switch (action) {
-      case 'setAutonomyLevel':
+      case "setAutonomyLevel":
         if (params.level) {
           applyAutonomyPreset(params.level);
           return NextResponse.json({
@@ -184,39 +198,39 @@ export async function PATCH(request: NextRequest) {
         }
         break;
 
-      case 'enableAutoPublish':
+      case "enableAutoPublish":
         autoPublisher.setEnabled(true);
         return NextResponse.json({
           success: true,
-          message: 'Auto-publish enabled',
+          message: "Auto-publish enabled",
         });
 
-      case 'disableAutoPublish':
+      case "disableAutoPublish":
         autoPublisher.setEnabled(false);
         return NextResponse.json({
           success: true,
-          message: 'Auto-publish disabled',
+          message: "Auto-publish disabled",
         });
 
-      case 'setDryRun':
+      case "setDryRun":
         autoPublisher.setDryRun(params.enabled ?? true);
         return NextResponse.json({
           success: true,
-          message: `Dry run mode ${params.enabled ? 'enabled' : 'disabled'}`,
+          message: `Dry run mode ${params.enabled ? "enabled" : "disabled"}`,
         });
 
-      case 'updateThresholds':
+      case "updateThresholds":
         if (params.thresholds) {
           confidenceScorer.updateThresholds(params.thresholds);
           return NextResponse.json({
             success: true,
-            message: 'Thresholds updated',
+            message: "Thresholds updated",
             thresholds: confidenceScorer.getThresholds(),
           });
         }
         break;
 
-      case 'updateCategoryRule':
+      case "updateCategoryRule":
         if (params.rule) {
           confidenceScorer.updateCategoryRule(params.rule);
           return NextResponse.json({
@@ -226,7 +240,7 @@ export async function PATCH(request: NextRequest) {
         }
         break;
 
-      case 'setSensitivity':
+      case "setSensitivity":
         if (params.sensitivity) {
           anomalyDetector.setSensitivity(params.sensitivity);
           return NextResponse.json({
@@ -238,20 +252,20 @@ export async function PATCH(request: NextRequest) {
 
       default:
         return NextResponse.json(
-          { success: false, error: 'Unknown action' },
-          { status: 400 }
+          { success: false, error: "Unknown action" },
+          { status: 400 },
         );
     }
 
     return NextResponse.json(
-      { success: false, error: 'Invalid parameters' },
-      { status: 400 }
+      { success: false, error: "Invalid parameters" },
+      { status: 400 },
     );
   } catch (error) {
-    logger.error('Error in PATCH autonomy config:', error);
+    logger.error("Error in PATCH autonomy config:", error);
     return NextResponse.json(
-      { success: false, error: 'Failed to update setting' },
-      { status: 500 }
+      { success: false, error: "Failed to update setting" },
+      { status: 500 },
     );
   }
 }
@@ -263,16 +277,19 @@ export async function PATCH(request: NextRequest) {
 /**
  * Get current autonomy level based on config
  */
-function getAutonomyLevel(): AutonomyConfig['autonomyLevel'] {
+function getAutonomyLevel(): AutonomyConfig["autonomyLevel"] {
   const config = autoPublisher.getConfig();
   const thresholds = confidenceScorer.getThresholds();
 
-  if (!config.enabled) return 'manual';
-  if (config.dryRun) return 'assisted';
-  if (thresholds.autoPublishMinScore >= 90 && thresholds.autoPublishMinConfidence >= 0.95) {
-    return 'semi-autonomous';
+  if (!config.enabled) return "manual";
+  if (config.dryRun) return "assisted";
+  if (
+    thresholds.autoPublishMinScore >= 90 &&
+    thresholds.autoPublishMinConfidence >= 0.95
+  ) {
+    return "semi-autonomous";
   }
-  return 'autonomous';
+  return "autonomous";
 }
 
 /**
@@ -281,37 +298,40 @@ function getAutonomyLevel(): AutonomyConfig['autonomyLevel'] {
 function getAutonomyPresets() {
   return {
     manual: {
-      name: 'Manual',
-      description: 'All articles require human review before publishing',
+      name: "Manual",
+      description: "All articles require human review before publishing",
       autoPublishEnabled: false,
       confidenceThreshold: 100,
-      riskLevel: 'none',
+      riskLevel: "none",
     },
     assisted: {
-      name: 'Assisted',
-      description: 'AI suggests, human approves. Dry-run mode for auto-publish.',
+      name: "Assisted",
+      description:
+        "AI suggests, human approves. Dry-run mode for auto-publish.",
       autoPublishEnabled: true,
       dryRun: true,
       confidenceThreshold: 90,
-      riskLevel: 'low',
+      riskLevel: "low",
     },
-    'semi-autonomous': {
-      name: 'Semi-Autonomous',
-      description: 'Auto-publish high-confidence content (>95%), review exceptions',
+    "semi-autonomous": {
+      name: "Semi-Autonomous",
+      description:
+        "Auto-publish high-confidence content (>95%), review exceptions",
       autoPublishEnabled: true,
       dryRun: false,
       confidenceThreshold: 95,
       minScore: 90,
-      riskLevel: 'medium',
+      riskLevel: "medium",
     },
     autonomous: {
-      name: 'Autonomous',
-      description: 'Auto-publish most content (>85% confidence), minimal human intervention',
+      name: "Autonomous",
+      description:
+        "Auto-publish most content (>85% confidence), minimal human intervention",
       autoPublishEnabled: true,
       dryRun: false,
       confidenceThreshold: 85,
       minScore: 80,
-      riskLevel: 'high',
+      riskLevel: "high",
     },
   };
 }
@@ -319,9 +339,9 @@ function getAutonomyPresets() {
 /**
  * Apply autonomy preset
  */
-function applyAutonomyPreset(level: AutonomyConfig['autonomyLevel']) {
+function applyAutonomyPreset(level: AutonomyConfig["autonomyLevel"]) {
   switch (level) {
-    case 'manual':
+    case "manual":
       autoPublisher.updateConfig({
         enabled: false,
         dryRun: false,
@@ -330,10 +350,10 @@ function applyAutonomyPreset(level: AutonomyConfig['autonomyLevel']) {
         autoPublishMinScore: 100,
         autoPublishMinConfidence: 1.0,
       });
-      anomalyDetector.setSensitivity('high');
+      anomalyDetector.setSensitivity("high");
       break;
 
-    case 'assisted':
+    case "assisted":
       autoPublisher.updateConfig({
         enabled: true,
         dryRun: true,
@@ -344,10 +364,10 @@ function applyAutonomyPreset(level: AutonomyConfig['autonomyLevel']) {
         autoPublishMinScore: 90,
         autoPublishMinConfidence: 0.95,
       });
-      anomalyDetector.setSensitivity('high');
+      anomalyDetector.setSensitivity("high");
       break;
 
-    case 'semi-autonomous':
+    case "semi-autonomous":
       autoPublisher.updateConfig({
         enabled: true,
         dryRun: false,
@@ -358,10 +378,10 @@ function applyAutonomyPreset(level: AutonomyConfig['autonomyLevel']) {
         autoPublishMinScore: 90,
         autoPublishMinConfidence: 0.95,
       });
-      anomalyDetector.setSensitivity('medium');
+      anomalyDetector.setSensitivity("medium");
       break;
 
-    case 'autonomous':
+    case "autonomous":
       autoPublisher.updateConfig({
         enabled: true,
         dryRun: false,
@@ -372,7 +392,7 @@ function applyAutonomyPreset(level: AutonomyConfig['autonomyLevel']) {
         autoPublishMinScore: 85,
         autoPublishMinConfidence: 0.9,
       });
-      anomalyDetector.setSensitivity('medium');
+      anomalyDetector.setSensitivity("medium");
       break;
   }
 }

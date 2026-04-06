@@ -1,25 +1,36 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { repurposeArticle, RepurposeFormat } from '@/lib/automation/repurposer';
+import { NextRequest, NextResponse } from "next/server";
+import { repurposeArticle, RepurposeFormat } from "@/lib/automation/repurposer";
+import { requireAdminApi } from "@/lib/auth/require-admin-api";
 
 export async function POST(req: NextRequest) {
-    try {
-        const body = await req.json();
-        const { title, content, format } = body;
+  try {
+    const { error: authError } = await requireAdminApi();
+    if (authError) return authError;
 
-        if (!title || !content || !format) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-        }
+    const body = await req.json();
+    const { title, content, format } = body;
 
-        const result = await repurposeArticle(content, title, format as RepurposeFormat);
-
-        return NextResponse.json({
-            success: true,
-            data: result.content
-        });
-    } catch (error: any) {
-        return NextResponse.json(
-            { error: error.message || 'Repurposing failed' },
-            { status: 500 }
-        );
+    if (!title || !content || !format) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 },
+      );
     }
+
+    const result = await repurposeArticle(
+      content,
+      title,
+      format as RepurposeFormat,
+    );
+
+    return NextResponse.json({
+      success: true,
+      data: result.content,
+    });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message || "Repurposing failed" },
+      { status: 500 },
+    );
+  }
 }

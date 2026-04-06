@@ -136,7 +136,7 @@ export default function ScriptGeneratorPage() {
           </Link>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <Video className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <Video className="h-5 w-5 text-emerald-400" />
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight">
@@ -253,7 +253,7 @@ export default function ScriptGeneratorPage() {
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-16 text-center">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-emerald-500/10 mb-4">
-                    <Video className="h-7 w-7 text-emerald-600 dark:text-emerald-400" />
+                    <Video className="h-7 w-7 text-emerald-400" />
                   </div>
                   <h3 className="text-lg font-semibold mb-1">
                     No script generated yet
@@ -269,7 +269,7 @@ export default function ScriptGeneratorPage() {
             {isGenerating && (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-                  <Loader2 className="h-10 w-10 animate-spin text-emerald-600 dark:text-emerald-400 mb-4" />
+                  <Loader2 className="h-10 w-10 animate-spin text-emerald-400 mb-4" />
                   <h3 className="text-lg font-semibold mb-1">
                     Generating your script...
                   </h3>
@@ -309,7 +309,7 @@ export default function ScriptGeneratorPage() {
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-bold text-emerald-400">
                             {i + 1}
                           </span>
                           <CardTitle className="text-sm font-semibold">

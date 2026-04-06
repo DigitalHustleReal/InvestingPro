@@ -223,10 +223,10 @@ export function calculateProductTags(product: any, category: string): string[] {
     // Fee detection
     if (
       product.annualFee === 0 ||
-      String(product.annual_fee || "")
+      String(product.annual_fee ?? "")
         .toLowerCase()
         .includes("free") ||
-      String(product.annual_fee || "").toLowerCase() === "0"
+      String(product.annual_fee ?? "") === "0"
     ) {
       tags.push("Lifetime Free");
     }

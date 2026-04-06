@@ -1,9 +1,15 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import React, { useState, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
@@ -31,53 +37,70 @@ import {
   Wallet,
   CircleDollarSign,
 } from "lucide-react";
-import { getAllDataStudies, type DataStudy, type StudyCategory } from "@/lib/linkable-assets/data-studies-service";
+import {
+  getAllDataStudies,
+  type DataStudy,
+  type StudyCategory,
+} from "@/lib/linkable-assets/data-studies-service";
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  'credit-cards': <CreditCard className="w-5 h-5" />,
-  'mutual-funds': <TrendingUp className="w-5 h-5" />,
-  'fixed-deposits': <PiggyBank className="w-5 h-5" />,
-  'loans': <Building2 className="w-5 h-5" />,
-  'insurance': <Shield className="w-5 h-5" />,
-  'policy-rates': <Landmark className="w-5 h-5" />,
-  'banking': <Wallet className="w-5 h-5" />,
-  'investments': <CircleDollarSign className="w-5 h-5" />,
-  'gold-silver': <Coins className="w-5 h-5" />,
-  'government-schemes': <FileText className="w-5 h-5" />,
+  "credit-cards": <CreditCard className="w-5 h-5" />,
+  "mutual-funds": <TrendingUp className="w-5 h-5" />,
+  "fixed-deposits": <PiggyBank className="w-5 h-5" />,
+  loans: <Building2 className="w-5 h-5" />,
+  insurance: <Shield className="w-5 h-5" />,
+  "policy-rates": <Landmark className="w-5 h-5" />,
+  banking: <Wallet className="w-5 h-5" />,
+  investments: <CircleDollarSign className="w-5 h-5" />,
+  "gold-silver": <Coins className="w-5 h-5" />,
+  "government-schemes": <FileText className="w-5 h-5" />,
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  'credit-cards': 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
-  'mutual-funds': 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
-  'fixed-deposits': 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-  'loans': 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-  'insurance': 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300',
-  'policy-rates': 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
-  'banking': 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
-  'investments': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
-  'gold-silver': 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-  'government-schemes': 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
+  "credit-cards":
+    "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+  "mutual-funds":
+    "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+  "fixed-deposits":
+    "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+  loans:
+    "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
+  insurance: "bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300",
+  "policy-rates":
+    "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300",
+  banking:
+    "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+  investments:
+    "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300",
+  "gold-silver":
+    "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+  "government-schemes":
+    "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300",
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
-  'credit-cards': 'Credit Cards',
-  'mutual-funds': 'Mutual Funds',
-  'fixed-deposits': 'Fixed Deposits',
-  'loans': 'Loans',
-  'insurance': 'Insurance',
-  'policy-rates': 'RBI Policy Rates',
-  'banking': 'Banking',
-  'investments': 'Investments',
-  'gold-silver': 'Gold & Silver',
-  'government-schemes': 'Govt Schemes',
+  "credit-cards": "Credit Cards",
+  "mutual-funds": "Mutual Funds",
+  "fixed-deposits": "Fixed Deposits",
+  loans: "Loans",
+  insurance: "Insurance",
+  "policy-rates": "RBI Policy Rates",
+  banking: "Banking",
+  investments: "Investments",
+  "gold-silver": "Gold & Silver",
+  "government-schemes": "Govt Schemes",
 };
 
 export default function DataStudiesPage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string>("all");
 
-  const { data: studies, isLoading, error } = useQuery({
-    queryKey: ['data-studies'],
+  const {
+    data: studies,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["data-studies"],
     queryFn: getAllDataStudies,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
@@ -85,18 +108,20 @@ export default function DataStudiesPage() {
   // Get unique categories
   const categories = useMemo(() => {
     if (!studies || !Array.isArray(studies)) return [];
-    const cats = [...new Set(studies.map(s => s.category))];
+    const cats = [...new Set(studies.map((s) => s.category))];
     return cats.sort();
   }, [studies]);
 
   // Filter studies
   const filteredStudies = useMemo(() => {
     if (!studies || !Array.isArray(studies)) return [];
-    return studies.filter(study => {
-      const matchesSearch = searchTerm === '' || 
+    return studies.filter((study) => {
+      const matchesSearch =
+        searchTerm === "" ||
         study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         study.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = activeCategory === 'all' || study.category === activeCategory;
+      const matchesCategory =
+        activeCategory === "all" || study.category === activeCategory;
       return matchesSearch && matchesCategory;
     });
   }, [studies, searchTerm, activeCategory]);
@@ -104,16 +129,21 @@ export default function DataStudiesPage() {
   // Group studies by category
   const studiesByCategory = useMemo(() => {
     if (!filteredStudies) return {};
-    return filteredStudies.reduce((acc, study) => {
-      if (!acc[study.category]) {
-        acc[study.category] = [];
-      }
-      acc[study.category].push(study);
-      return acc;
-    }, {} as Record<string, DataStudy[]>);
+    return filteredStudies.reduce(
+      (acc, study) => {
+        if (!acc[study.category]) {
+          acc[study.category] = [];
+        }
+        acc[study.category].push(study);
+        return acc;
+      },
+      {} as Record<string, DataStudy[]>,
+    );
   }, [filteredStudies]);
 
-  const liveStudiesCount = Array.isArray(studies) ? studies.filter(s => s.isLive).length : 0;
+  const liveStudiesCount = Array.isArray(studies)
+    ? studies.filter((s) => s.isLive).length
+    : 0;
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
@@ -128,8 +158,9 @@ export default function DataStudiesPage() {
             India Finance Data Studies
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
-            Authoritative data on loans, insurance, investments, banking, and government schemes. 
-            Updated from official RBI, IRDAI, SEBI, and government sources.
+            Authoritative data on loans, insurance, investments, banking, and
+            government schemes. Updated from official RBI, IRDAI, SEBI, and
+            government sources.
           </p>
           <div className="flex items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-600">
             <span className="flex items-center gap-1">
@@ -166,19 +197,19 @@ export default function DataStudiesPage() {
           {/* Category Tabs */}
           <div className="flex flex-wrap gap-2 mb-8">
             <Button
-              variant={activeCategory === 'all' ? 'default' : 'outline'}
+              variant={activeCategory === "all" ? "default" : "outline"}
               size="sm"
-              onClick={() => setActiveCategory('all')}
+              onClick={() => setActiveCategory("all")}
             >
               All Studies
               <Badge variant="secondary" className="ml-2">
                 {studies?.length || 0}
               </Badge>
             </Button>
-            {categories.map(cat => (
+            {categories.map((cat) => (
               <Button
                 key={cat}
-                variant={activeCategory === cat ? 'default' : 'outline'}
+                variant={activeCategory === cat ? "default" : "outline"}
                 size="sm"
                 onClick={() => setActiveCategory(cat)}
                 className="gap-2"
@@ -186,7 +217,9 @@ export default function DataStudiesPage() {
                 {CATEGORY_ICONS[cat]}
                 {CATEGORY_LABELS[cat] || cat}
                 <Badge variant="secondary" className="ml-1">
-                  {Array.isArray(studies) ? studies.filter(s => s.category === cat).length : 0}
+                  {Array.isArray(studies)
+                    ? studies.filter((s) => s.category === cat).length
+                    : 0}
                 </Badge>
               </Button>
             ))}
@@ -206,31 +239,52 @@ export default function DataStudiesPage() {
               Error loading studies. Please try again.
             </div>
           ) : filteredStudies.length === 0 ? (
-            <div className="text-center py-20 text-muted-foreground">
-              No studies found matching your search.
-            </div>
-          ) : activeCategory === 'all' ? (
-            // Show by category when "All" is selected
-            Object.entries(studiesByCategory).map(([category, categoryStudies]) => (
-              <div key={category} className="mb-12">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className={`p-2 rounded-lg ${CATEGORY_COLORS[category]}`}>
-                    {CATEGORY_ICONS[category]}
-                  </span>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {CATEGORY_LABELS[category] || category}
-                  </h2>
-                  <Badge variant="outline">
-                    {categoryStudies.length} studies
-                  </Badge>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {categoryStudies.map((study) => (
-                    <StudyCard key={study.id} study={study} />
-                  ))}
-                </div>
+            <div className="text-center py-20">
+              <div className="w-14 h-14 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                <svg
+                  className="w-7 h-7 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
               </div>
-            ))
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                No studies found
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Try a different search term or browse all categories above.
+              </p>
+            </div>
+          ) : activeCategory === "all" ? (
+            // Show by category when "All" is selected
+            Object.entries(studiesByCategory).map(
+              ([category, categoryStudies]) => (
+                <div key={category} className="mb-12">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span
+                      className={`p-2 rounded-lg ${CATEGORY_COLORS[category]}`}
+                    >
+                      {CATEGORY_ICONS[category]}
+                    </span>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                      {CATEGORY_LABELS[category] || category}
+                    </h2>
+                    <Badge variant="outline">
+                      {categoryStudies.length} studies
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {categoryStudies.map((study) => (
+                      <StudyCard key={study.id} study={study} />
+                    ))}
+                  </div>
+                </div>
+              ),
+            )
           ) : (
             // Show flat grid when specific category is selected
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -243,30 +297,30 @@ export default function DataStudiesPage() {
       </section>
 
       {/* Popular Studies Highlight */}
-      {!searchTerm && activeCategory === 'all' && (
+      {!searchTerm && activeCategory === "all" && (
         <section className="py-12 px-4 bg-gray-100 dark:bg-gray-800/50">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
               Most Popular Data Studies
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <QuickLinkCard 
-                title="Home Loan Rates" 
+              <QuickLinkCard
+                title="Home Loan Rates"
                 href="/data-studies/home-loan-interest-rates-india"
                 icon={<Home className="w-5 h-5" />}
               />
-              <QuickLinkCard 
-                title="Term Insurance" 
+              <QuickLinkCard
+                title="Term Insurance"
                 href="/data-studies/best-term-insurance-plans-india"
                 icon={<Shield className="w-5 h-5" />}
               />
-              <QuickLinkCard 
-                title="Gold Price Today" 
+              <QuickLinkCard
+                title="Gold Price Today"
                 href="/data-studies/gold-silver-price-today-india"
                 icon={<Coins className="w-5 h-5" />}
               />
-              <QuickLinkCard 
-                title="PPF Interest Rate" 
+              <QuickLinkCard
+                title="PPF Interest Rate"
                 href="/data-studies/ppf-interest-rate-history-india"
                 icon={<FileText className="w-5 h-5" />}
               />
@@ -282,19 +336,16 @@ export default function DataStudiesPage() {
             Use Our Data in Your Content
           </h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Journalists, bloggers, and researchers can cite our data studies. 
-            All data is sourced from official government and regulatory bodies (RBI, IRDAI, SEBI, AMFI).
+            Journalists, bloggers, and researchers can cite our data studies.
+            All data is sourced from official government and regulatory bodies
+            (RBI, IRDAI, SEBI, AMFI).
           </p>
           <div className="flex items-center justify-center gap-4">
             <Button asChild>
-              <Link href="/embed">
-                Get Embed Code
-              </Link>
+              <Link href="/embed">Get Embed Code</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/api/data-studies">
-                API Access
-              </Link>
+              <Link href="/api/data-studies">API Access</Link>
             </Button>
           </div>
         </div>
@@ -303,9 +354,17 @@ export default function DataStudiesPage() {
   );
 }
 
-function QuickLinkCard({ title, href, icon }: { title: string; href: string; icon: React.ReactNode }) {
+function QuickLinkCard({
+  title,
+  href,
+  icon,
+}: {
+  title: string;
+  href: string;
+  icon: React.ReactNode;
+}) {
   return (
-    <Link 
+    <Link
       href={href}
       className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow"
     >
@@ -319,8 +378,11 @@ function QuickLinkCard({ title, href, icon }: { title: string; href: string; ico
 }
 
 function StudyCard({ study }: { study: DataStudy }) {
-  const categoryColor = CATEGORY_COLORS[study.category] || 'bg-gray-100 text-gray-700';
-  const categoryIcon = CATEGORY_ICONS[study.category] || <BarChart3 className="w-5 h-5" />;
+  const categoryColor =
+    CATEGORY_COLORS[study.category] || "bg-gray-100 text-gray-700";
+  const categoryIcon = CATEGORY_ICONS[study.category] || (
+    <BarChart3 className="w-5 h-5" />
+  );
 
   // Get top 3 data points for preview
   const topDataPoints = study.dataPoints.slice(0, 3);
@@ -331,10 +393,15 @@ function StudyCard({ study }: { study: DataStudy }) {
         <div className="flex items-start justify-between mb-2">
           <Badge className={categoryColor}>
             {categoryIcon}
-            <span className="ml-1 capitalize">{study.category.replace('-', ' ')}</span>
+            <span className="ml-1 capitalize">
+              {study.category.replace("-", " ")}
+            </span>
           </Badge>
           {study.isLive && (
-            <Badge variant="outline" className="text-green-600 border-green-600">
+            <Badge
+              variant="outline"
+              className="text-green-600 border-green-600"
+            >
               <span className="w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse" />
               Live
             </Badge>
@@ -351,7 +418,7 @@ function StudyCard({ study }: { study: DataStudy }) {
         {/* Data Preview */}
         <div className="space-y-2 mb-4">
           {topDataPoints.map((point, idx) => (
-            <div 
+            <div
               key={idx}
               className="flex items-center justify-between text-sm py-1 border-b border-gray-100 dark:border-gray-800 last:border-0"
             >
@@ -359,7 +426,8 @@ function StudyCard({ study }: { study: DataStudy }) {
                 {point.label}
               </span>
               <span className="font-semibold">
-                {point.value}{point.unit}
+                {point.value}
+                {point.unit}
               </span>
             </div>
           ))}

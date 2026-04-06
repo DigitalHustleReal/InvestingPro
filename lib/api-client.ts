@@ -142,8 +142,11 @@ export const apiClient = {
       list: async () => {
         const { data, error } = await supabase
           .from("brokers")
-          .select("*")
-          .eq("is_active", true);
+          .select(
+            "id, slug, name, type, brokerage_delivery, brokerage_intraday, account_opening_fee, amc, trading_platform, mobile_app, research, rating, is_active, features, pros, cons, apply_link, official_link, image_url, updated_at",
+          )
+          .eq("is_active", true)
+          .limit(100);
         if (error) {
           logger.error("Error fetching brokers", error);
           return [];
@@ -246,7 +249,12 @@ export const apiClient = {
 
     Insurance: {
       list: async () => {
-        const { data } = await supabase.from("insurance").select("*");
+        const { data } = await supabase
+          .from("insurance")
+          .select(
+            "id, slug, name, provider_name, type, cover_amount, min_premium, claim_settlement_ratio, features, rating, updated_at",
+          )
+          .limit(200);
 
         return (data || []).map((i: any) => ({
           id: i.id,
@@ -265,7 +273,12 @@ export const apiClient = {
 
     Loan: {
       list: async () => {
-        const { data } = await supabase.from("loans").select("*");
+        const { data } = await supabase
+          .from("loans")
+          .select(
+            "id, slug, name, bank_name, description, type, interest_rate_min, interest_rate_max, max_tenure_months, max_amount, processing_fee, apply_link, features, pros, cons, rating, updated_at",
+          )
+          .limit(200);
 
         // Map to Generic Asset/UI format
         return (data || []).map((l: any) => ({
@@ -301,7 +314,12 @@ export const apiClient = {
 
     CreditCard: {
       list: async () => {
-        const { data, error } = await supabase.from("credit_cards").select("*");
+        const { data, error } = await supabase
+          .from("credit_cards")
+          .select(
+            "id, slug, name, bank, image_url, description, rating, type, features, pros, cons, apply_link, source_url, joining_fee, annual_fee, rewards, lounge_access, updated_at",
+          )
+          .limit(200);
 
         if (error) {
           logger.error("Error fetching credit cards:", error);
@@ -448,7 +466,7 @@ export const apiClient = {
         if (error) throw error;
         return data;
       },
-      delete: async (id: string, permanent: boolean = false) => {
+      delete: async (id: string, permanent: boolean = true) => {
         const url = permanent
           ? `/api/admin/articles/${id}?permanent=true`
           : `/api/admin/articles/${id}`;
@@ -536,7 +554,10 @@ export const apiClient = {
 
         let query = supabase
           .from("mutual_funds")
-          .select("*", { count: "exact" });
+          .select(
+            "id, slug, name, category, fund_house, aum, returns_1y, returns_3y, returns_5y, rating, risk, expense_ratio, min_investment, description, nav, updated_at",
+            { count: "exact" },
+          );
 
         if (categoryType && categoryType !== "All") {
           if (categoryType === "Equity") {

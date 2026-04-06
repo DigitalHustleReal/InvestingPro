@@ -73,7 +73,7 @@ export default function CreatorStudioPage() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <Clapperboard className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <Clapperboard className="h-5 w-5 text-emerald-400" />
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight">
@@ -106,10 +106,10 @@ export default function CreatorStudioPage() {
                 <CardHeader className="pb-2">
                   <div className="flex items-start justify-between">
                     <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-emerald-500/10">
-                      <Icon className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                      <Icon className="h-5 w-5 text-emerald-400" />
                     </div>
                     {tool.badge && (
-                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
                         {tool.badge}
                       </span>
                     )}
@@ -123,7 +123,7 @@ export default function CreatorStudioPage() {
                     {tool.description}
                   </p>
                   {!isDisabled && (
-                    <div className="flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-400 pt-1 group-hover:translate-x-0.5 transition-transform">
+                    <div className="flex items-center text-sm font-medium text-emerald-400 pt-1 group-hover:translate-x-0.5 transition-transform">
                       Open tool
                       <ArrowRight className="h-4 w-4 ml-1" />
                     </div>

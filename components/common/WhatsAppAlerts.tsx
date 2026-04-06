@@ -1,29 +1,38 @@
 "use client";
 
-import React, { useState } from 'react';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
+import React, { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
   DialogDescription,
-  DialogFooter
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MessageCircle, Bell, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
+import {
+  MessageCircle,
+  Bell,
+  CheckCircle2,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface WhatsAppAlertsProps {
   productName?: string;
   trigger?: React.ReactNode;
 }
 
-export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsProps) {
+export default function WhatsAppAlerts({
+  productName,
+  trigger,
+}: WhatsAppAlertsProps) {
   const [open, setOpen] = useState(false);
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -36,16 +45,18 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
 
     setLoading(true);
     // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     setSubscribed(true);
     setLoading(false);
     toast.success("Subscribed to WhatsApp alerts!");
 
     // Redirect to WhatsApp with a pre-filled message (optional, but good for engagement)
-    const message = encodeURIComponent(`Hi InvestingPro! I want to receive alerts for ${productName || 'financial products'}. My number is ${phone}.`);
+    const message = encodeURIComponent(
+      `Hi InvestingPro! I want to receive alerts for ${productName || "financial products"}. My number is ${phone}.`,
+    );
     const whatsappUrl = `https://wa.me/919999999999?text=${message}`; // Replace with actual support number
-    
+
     // In a real app, you might not redirect immediately if you just want to collect the lead
     // window.open(whatsappUrl, '_blank');
   };
@@ -54,7 +65,10 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
     <>
       <div onClick={() => setOpen(true)}>
         {trigger || (
-          <Button variant="outline" className="gap-2 border-success-600 text-success-600 hover:bg-success-50 rounded-xl font-bold">
+          <Button
+            variant="outline"
+            className="gap-2 border-success-600 text-success-600 hover:bg-success-50 rounded-xl font-bold"
+          >
             <MessageCircle size={18} />
             Get WhatsApp Alerts
           </Button>
@@ -69,31 +83,47 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
                 <MessageCircle size={28} />
               </div>
               <div className="flex gap-1">
-                {[1, 2, 3].map(i => (
-                  <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="w-1.5 h-1.5 rounded-full bg-white/40"
+                  />
                 ))}
               </div>
             </div>
             <h2 className="text-2xl font-black tracking-tight leading-tight">
-              Instant Updates <br />on WhatsApp
+              Instant Updates <br />
+              on WhatsApp
             </h2>
             <p className="text-success-100 text-xs font-bold mt-2 uppercase tracking-widest">
-              Join 50,000+ Smart Investors
+              Get Instant Financial Updates
             </p>
           </div>
 
           {!subscribed ? (
             <div className="p-8 space-y-6">
               <p className="text-gray-500 dark:text-gray-600 text-sm leading-relaxed">
-                Be the first to know about interest rate changes, new card launches, and exclusive offers for 
-                <span className="font-bold text-gray-900 dark:text-white"> {productName || 'top financial products'}</span>.
+                Be the first to know about interest rate changes, new card
+                launches, and exclusive offers for
+                <span className="font-bold text-gray-900 dark:text-white">
+                  {" "}
+                  {productName || "top financial products"}
+                </span>
+                .
               </p>
 
               <form onSubmit={handleSubscribe} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="whatsapp-phone" className="text-[10px] font-black uppercase text-gray-600 tracking-widest px-1">WhatsApp Number</Label>
+                  <Label
+                    htmlFor="whatsapp-phone"
+                    className="text-[10px] font-black uppercase text-gray-600 tracking-widest px-1"
+                  >
+                    WhatsApp Number
+                  </Label>
                   <div className="relative group">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-gray-600">+91</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-gray-600">
+                      +91
+                    </span>
                     <Input
                       id="whatsapp-phone"
                       type="tel"
@@ -106,8 +136,8 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
                   </div>
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   disabled={loading}
                   className="w-full h-14 bg-success-600 hover:bg-success-700 text-white font-black rounded-xl shadow-xl shadow-success-500/20 transition-all hover:-translate-y-1"
                 >
@@ -117,12 +147,16 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
 
               <div className="flex items-center gap-3 pt-2">
                 <div className="flex -space-x-2">
-                  {[1, 2, 3].map(i => (
-                    <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 bg-gray-200" />
+                  {[1, 2, 3].map((i) => (
+                    <div
+                      key={i}
+                      className="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 bg-gray-200"
+                    />
                   ))}
                 </div>
                 <p className="text-[10px] text-gray-600 font-bold uppercase tracking-tight">
-                  <span className="text-success-600">4.9/5</span> Rated by Active Users
+                  <span className="text-success-600">4.9/5</span> Rated by
+                  Active Users
                 </p>
               </div>
             </div>
@@ -135,10 +169,13 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
                 You're In!
               </h3>
               <p className="text-gray-500 dark:text-gray-600 text-sm mb-8 leading-relaxed">
-                We've activated your WhatsApp alerts for <span className="font-bold text-gray-900 dark:text-white">{productName || 'financial products'}</span>. 
-                Expect high-value updates twice a week. No Spam. Guaranteed.
+                We've activated your WhatsApp alerts for{" "}
+                <span className="font-bold text-gray-900 dark:text-white">
+                  {productName || "financial products"}
+                </span>
+                . Expect high-value updates twice a week. No Spam. Guaranteed.
               </p>
-              <Button 
+              <Button
                 onClick={() => setOpen(false)}
                 className="w-full h-14 bg-gray-900 dark:bg-gray-800 text-white font-black rounded-xl"
               >
@@ -150,11 +187,15 @@ export default function WhatsAppAlerts({ productName, trigger }: WhatsAppAlertsP
           <div className="p-4 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800 flex justify-center gap-6">
             <div className="flex items-center gap-1.5 opacity-60">
               <ShieldCheck size={12} className="text-success-600" />
-              <span className="text-[10px] font-bold uppercase text-gray-500">End-to-End Encrypted</span>
+              <span className="text-[10px] font-bold uppercase text-gray-500">
+                End-to-End Encrypted
+              </span>
             </div>
             <div className="flex items-center gap-1.5 opacity-60">
               <Sparkles size={12} className="text-primary-600" />
-              <span className="text-[10px] font-bold uppercase text-gray-500">Opt-out Anytime</span>
+              <span className="text-[10px] font-bold uppercase text-gray-500">
+                Opt-out Anytime
+              </span>
             </div>
           </div>
         </DialogContent>

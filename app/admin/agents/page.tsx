@@ -143,7 +143,7 @@ function statusBadge(status: AgentStatus) {
   switch (status) {
     case "working":
       return (
-        <Badge className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30">
+        <Badge className="bg-emerald-500/15 text-emerald-400 border-emerald-500/30">
           <span className="relative mr-1.5 flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -153,7 +153,7 @@ function statusBadge(status: AgentStatus) {
       );
     case "error":
       return (
-        <Badge className="bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30">
+        <Badge className="bg-red-500/15 text-red-400 border-red-500/30">
           <span className="mr-1.5 h-2 w-2 rounded-full bg-red-500 inline-block" />
           Error
         </Badge>
@@ -161,7 +161,7 @@ function statusBadge(status: AgentStatus) {
     default:
       return (
         <Badge variant="secondary" className="text-muted-foreground">
-          <span className="mr-1.5 h-2 w-2 rounded-full bg-gray-400 dark:bg-gray-500 inline-block" />
+          <span className="mr-1.5 h-2 w-2 rounded-full bg-gray-500 inline-block" />
           Idle
         </Badge>
       );
@@ -334,7 +334,7 @@ export default function AgentsDashboardPage() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <Bot className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <Bot className="h-5 w-5 text-emerald-400" />
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight">AI Agents</h1>
@@ -351,7 +351,7 @@ export default function AgentsDashboardPage() {
           <Card>
             <CardContent className="flex items-center gap-3 p-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                <Bot className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <Bot className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Total Agents</p>
@@ -362,7 +362,7 @@ export default function AgentsDashboardPage() {
           <Card>
             <CardContent className="flex items-center gap-3 p-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                <Activity className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <Activity className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Active Now</p>
@@ -373,7 +373,7 @@ export default function AgentsDashboardPage() {
           <Card>
             <CardContent className="flex items-center gap-3 p-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <CheckCircle2 className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Total Tasks</p>
@@ -386,7 +386,7 @@ export default function AgentsDashboardPage() {
           <Card>
             <CardContent className="flex items-center gap-3 p-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                <Zap className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <Zap className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">
@@ -426,8 +426,8 @@ export default function AgentsDashboardPage() {
                           className={cn(
                             "h-4.5 w-4.5",
                             agent.status === "error"
-                              ? "text-red-600 dark:text-red-400"
-                              : "text-emerald-600 dark:text-emerald-400",
+                              ? "text-red-400"
+                              : "text-emerald-400",
                           )}
                         />
                       </div>
@@ -458,10 +458,10 @@ export default function AgentsDashboardPage() {
                         className={cn(
                           "text-xs font-medium mt-0.5",
                           agent.successRate >= 95
-                            ? "text-emerald-600 dark:text-emerald-400"
+                            ? "text-emerald-400"
                             : agent.successRate >= 90
-                              ? "text-amber-600 dark:text-amber-400"
-                              : "text-red-600 dark:text-red-400",
+                              ? "text-amber-400"
+                              : "text-red-400",
                         )}
                       >
                         {agent.successRate > 0 ? `${agent.successRate}%` : "--"}

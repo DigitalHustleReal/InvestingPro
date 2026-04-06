@@ -1,7 +1,7 @@
 /**
  * Enhanced Comparison Table Component - Week 3, Task 3.2
  * Purpose: Side-by-side product comparison with sorting, highlighting
- * 
+ *
  * Features:
  * - Side-by-side product comparison
  * - Zebra striping for readability
@@ -30,11 +30,11 @@ export interface ComparisonTableColumn {
 }
 
 export interface ComparisonTableRow {
-  category?: string;  // Optional category header
+  category?: string; // Optional category header
   feature: string;
-  type: 'text' | 'currency' | 'percentage' | 'boolean' | 'rating';
+  type: "text" | "currency" | "percentage" | "boolean" | "rating";
   values: (string | number | boolean | null)[];
-  highlight?: boolean;  // Highlight this row
+  highlight?: boolean; // Highlight this row
   tooltip?: string;
 }
 
@@ -54,35 +54,35 @@ export function ComparisonTable({
   // Format cell value based on type
   const formatValue = (
     value: string | number | boolean | null,
-    type: ComparisonTableRow['type']
+    type: ComparisonTableRow["type"],
   ): React.ReactNode => {
     if (value === null || value === undefined) {
       return <span className="text-gray-600 dark:text-gray-500">—</span>;
     }
 
     switch (type) {
-      case 'currency':
+      case "currency":
         return (
           <span className="font-mono font-medium">
             {formatINR(value as number)}
           </span>
         );
-      
-      case 'percentage':
+
+      case "percentage":
         return (
           <span className="font-mono font-medium">
             {formatPercentage(value as number)}
           </span>
         );
-      
-      case 'boolean':
+
+      case "boolean":
         return value ? (
           <Check className="w-5 h-5 text-success-600 mx-auto" />
         ) : (
           <X className="w-5 h-5 text-gray-300 dark:text-gray-600 mx-auto" />
         );
-      
-      case 'rating':
+
+      case "rating":
         return (
           <div className="flex items-center justify-center gap-1">
             {[...Array(5)].map((_, i) => (
@@ -90,7 +90,9 @@ export function ComparisonTable({
                 key={i}
                 className={cn(
                   "text-base",
-                  i < (value as number) ? "text-accent-500" : "text-gray-300 dark:text-gray-600"
+                  i < (value as number)
+                    ? "text-accent-500"
+                    : "text-gray-300 dark:text-gray-600",
                 )}
               >
                 ★
@@ -98,7 +100,7 @@ export function ComparisonTable({
             ))}
           </div>
         );
-      
+
       default:
         return <span>{value.toString()}</span>;
     }
@@ -107,19 +109,23 @@ export function ComparisonTable({
   // Check if a column has the best value for a numeric row
   const isBestValue = (rowIndex: number, colIndex: number): boolean => {
     const row = rows[rowIndex];
-    if (row.type !== 'currency' && row.type !== 'percentage' && row.type !== 'rating') {
+    if (
+      row.type !== "currency" &&
+      row.type !== "percentage" &&
+      row.type !== "rating"
+    ) {
       return false;
     }
 
-    const values = row.values.filter(v => typeof v === 'number') as number[];
+    const values = row.values.filter((v) => typeof v === "number") as number[];
     if (values.length === 0) return false;
 
     const currentValue = row.values[colIndex];
-    if (typeof currentValue !== 'number') return false;
+    if (typeof currentValue !== "number") return false;
 
     // For currency/percentage: lower is better (fees, interest rates)
     // For ratings: higher is better
-    if (row.type === 'rating') {
+    if (row.type === "rating") {
       return currentValue === Math.max(...values);
     } else {
       // Assume lower is better for fees/rates
@@ -137,11 +143,11 @@ export function ComparisonTable({
               {/* Feature column header */}
               <th
                 className="px-4 py-4 text-left text-sm font-semibold"
-                style={{ minWidth: '200px' }}
+                style={{ minWidth: "200px" }}
               >
                 Feature
               </th>
-              
+
               {/* Product column headers */}
               {columns.map((col, index) => (
                 <th
@@ -149,9 +155,9 @@ export function ComparisonTable({
                   className={cn(
                     "px-4 py-4 text-center text-sm font-semibold transition-colors",
                     hoveredCol === index && "bg-primary-700",
-                    col.isBestValue && "bg-accent-600"
+                    col.isBestValue && "bg-accent-600",
                   )}
-                  style={{ minWidth: '180px' }}
+                  style={{ minWidth: "180px" }}
                   onMouseEnter={() => setHoveredCol(index)}
                   onMouseLeave={() => setHoveredCol(null)}
                 >
@@ -195,23 +201,21 @@ export function ComparisonTable({
                   key={`row-${rowIndex}`}
                   className={cn(
                     "border-b border-gray-200 dark:border-gray-700",
-                    rowIndex % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800",
-                    row.highlight && "bg-accent-50 dark:bg-accent-950"
+                    rowIndex % 2 === 0
+                      ? "bg-white dark:bg-gray-900"
+                      : "bg-gray-50 dark:bg-gray-800",
+                    row.highlight && "bg-accent-50 dark:bg-accent-950",
                   )}
                 >
                   {/* Feature name */}
                   <td className="px-4 py-3 text-sm text-gray-900 dark:text-white">
                     <div className="flex items-center gap-2">
-                      <span className={cn(
-                        row.highlight && "font-semibold"
-                      )}>
+                      <span className={cn(row.highlight && "font-semibold")}>
                         {row.feature}
                       </span>
                       {row.tooltip && (
                         <span title={row.tooltip}>
-                          <AlertCircle
-                            className="w-4 h-4 text-gray-600 dark:text-gray-500"
-                          />
+                          <AlertCircle className="w-4 h-4 text-gray-600 dark:text-gray-500" />
                         </span>
                       )}
                     </div>
@@ -229,7 +233,8 @@ export function ComparisonTable({
                           "px-4 py-3 text-sm text-center transition-colors",
                           hoveredCol === colIndex && "bg-primary-50",
                           isColumnBestValue && "bg-accent-50",
-                          isRowBestValue && "bg-success-50 border-l-2 border-success-600"
+                          isRowBestValue &&
+                            "bg-success-50 border-l-2 border-success-600",
                         )}
                       >
                         <div className="flex items-center justify-center gap-1">
@@ -255,15 +260,24 @@ export function ComparisonTable({
               {columns.map((col) => (
                 <td key={`footer-${col.id}`} className="px-4 py-4 text-center">
                   {col.applyUrl ? (
-                    <Button
-                      size="sm"
-                      className="w-full bg-primary-700 hover:bg-primary-800"
-                      asChild
-                    >
-                      <a href={col.applyUrl} target="_blank" rel="noopener noreferrer">
-                        Apply Now
-                      </a>
-                    </Button>
+                    <div className="flex flex-col items-center gap-1">
+                      <Button
+                        size="sm"
+                        className="w-full bg-primary-700 hover:bg-primary-800"
+                        asChild
+                      >
+                        <a
+                          href={col.applyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Apply Now
+                        </a>
+                      </Button>
+                      <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                        Secure application · No CIBIL impact
+                      </span>
+                    </div>
                   ) : (
                     <Button
                       size="sm"
@@ -295,10 +309,10 @@ export function ComparisonTable({
  */
 export function createComparisonSection(
   categoryName: string,
-  rows: Omit<ComparisonTableRow, 'category'>[]
+  rows: Omit<ComparisonTableRow, "category">[],
 ): ComparisonTableRow[] {
   return [
-    { category: categoryName, feature: '', type: 'text', values: [] },
+    { category: categoryName, feature: "", type: "text", values: [] },
     ...rows,
   ];
 }

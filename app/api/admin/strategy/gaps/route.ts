@@ -1,25 +1,26 @@
 /**
  * API Route: Content Strategy - Gap Analysis
- * 
+ *
  * Purpose: Provide content gap data and opportunity scoring
- * 
+ *
  * Endpoints:
  * - GET: Get content gaps and opportunities
  * - POST: Analyze specific category or keywords
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/logger';
-import { 
-  contentGapAnalyzer, 
-  analyzeContentGaps, 
-  getCategoryCoverage, 
-  getHighPriorityGaps 
-} from '@/lib/intelligence/content-gap-analyzer';
-import { 
-  opportunityScorer, 
-  discoverCategoryOpportunities 
-} from '@/lib/intelligence/opportunity-scorer';
+import { NextRequest, NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
+import {
+  contentGapAnalyzer,
+  analyzeContentGaps,
+  getCategoryCoverage,
+  getHighPriorityGaps,
+} from "@/lib/intelligence/content-gap-analyzer";
+import {
+  opportunityScorer,
+  discoverCategoryOpportunities,
+} from "@/lib/intelligence/opportunity-scorer";
+import { requireAdminApi } from "@/lib/auth/require-admin-api";
 
 // ============================================
 // GET - Get gaps and opportunities
@@ -27,13 +28,16 @@ import {
 
 export async function GET(request: NextRequest) {
   try {
+    const { error: authError } = await requireAdminApi();
+    if (authError) return authError;
+
     const { searchParams } = new URL(request.url);
-    const category = searchParams.get('category');
-    const type = searchParams.get('type') || 'overview';
-    const limit = parseInt(searchParams.get('limit') || '20');
+    const category = searchParams.get("category");
+    const type = searchParams.get("type") || "overview";
+    const limit = parseInt(searchParams.get("limit") || "20");
 
     // Overview - get all high-priority gaps
-    if (type === 'overview' || !category) {
+    if (type === "overview" || !category) {
       const [highPriorityGaps, categoryCoverage] = await Promise.all([
         getHighPriorityGaps(limit),
         getCategoryCoverage(),
@@ -48,11 +52,14 @@ export async function GET(request: NextRequest) {
           summary: {
             categoriesAnalyzed: categoryCoverage.length,
             avgCoverage: Math.round(
-              categoryCoverage.reduce((sum, c) => sum + c.coveragePercentage, 0) / categoryCoverage.length
+              categoryCoverage.reduce(
+                (sum, c) => sum + c.coveragePercentage,
+                0,
+              ) / categoryCoverage.length,
             ),
             highGrowthCategories: categoryCoverage
-              .filter(c => c.growthPotential === 'high')
-              .map(c => c.category),
+              .filter((c) => c.growthPotential === "high")
+              .map((c) => c.category),
           },
         },
         analyzedAt: new Date().toISOString(),
@@ -60,7 +67,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Category-specific analysis
-    if (type === 'category') {
+    if (type === "category") {
       const gapAnalysis = await analyzeContentGaps(category);
       const opportunities = await discoverCategoryOpportunities(category);
 
@@ -81,7 +88,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Opportunities only
-    if (type === 'opportunities') {
+    if (type === "opportunities") {
       const opportunities = await discoverCategoryOpportunities(category);
 
       return NextResponse.json({
@@ -95,14 +102,14 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { success: false, error: 'Invalid type parameter' },
-      { status: 400 }
+      { success: false, error: "Invalid type parameter" },
+      { status: 400 },
     );
   } catch (error) {
-    logger.error('Error in strategy gaps API:', error);
+    logger.error("Error in strategy gaps API:", error);
     return NextResponse.json(
-      { success: false, error: 'Failed to analyze content gaps' },
-      { status: 500 }
+      { success: false, error: "Failed to analyze content gaps" },
+      { status: 500 },
     );
   }
 }
@@ -113,11 +120,14 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const { error: authError } = await requireAdminApi();
+    if (authError) return authError;
+
     const body = await request.json();
     const { action, category, keywords } = body;
 
     // Analyze category
-    if (action === 'analyzeCategory' && category) {
+    if (action === "analyzeCategory" && category) {
       const [gapAnalysis, opportunities] = await Promise.all([
         analyzeContentGaps(category),
         discoverCategoryOpportunities(category),
@@ -133,10 +143,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Score keywords
-    if (action === 'scoreKeywords' && keywords && Array.isArray(keywords)) {
+    if (action === "scoreKeywords" && keywords && Array.isArray(keywords)) {
       const result = await opportunityScorer.scoreOpportunities(
         keywords.map((k: string) => ({ keyword: k, category })),
-        { category }
+        { category },
       );
 
       return NextResponse.json({
@@ -151,9 +161,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Discover opportunities
-    if (action === 'discover' && category) {
+    if (action === "discover" && category) {
       const keywords = await opportunityScorer.discoverOpportunities(category);
-      const result = await opportunityScorer.scoreOpportunities(keywords, { category });
+      const result = await opportunityScorer.scoreOpportunities(keywords, {
+        category,
+      });
 
       return NextResponse.json({
         success: true,
@@ -169,7 +181,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Compare coverage
-    if (action === 'compareCoverage') {
+    if (action === "compareCoverage") {
       const coverage = await getCategoryCoverage();
 
       return NextResponse.json({
@@ -179,10 +191,11 @@ export async function POST(request: NextRequest) {
           summary: {
             totalCategories: coverage.length,
             avgCoverage: Math.round(
-              coverage.reduce((sum, c) => sum + c.coveragePercentage, 0) / coverage.length
+              coverage.reduce((sum, c) => sum + c.coveragePercentage, 0) /
+                coverage.length,
             ),
-            lowestCoverage: coverage.reduce((min, c) => 
-              c.coveragePercentage < min.coveragePercentage ? c : min
+            lowestCoverage: coverage.reduce((min, c) =>
+              c.coveragePercentage < min.coveragePercentage ? c : min,
             ),
           },
         },
@@ -190,14 +203,14 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { success: false, error: 'Invalid action' },
-      { status: 400 }
+      { success: false, error: "Invalid action" },
+      { status: 400 },
     );
   } catch (error) {
-    logger.error('Error in strategy gaps POST:', error);
+    logger.error("Error in strategy gaps POST:", error);
     return NextResponse.json(
-      { success: false, error: 'Failed to process request' },
-      { status: 500 }
+      { success: false, error: "Failed to process request" },
+      { status: 500 },
     );
   }
 }

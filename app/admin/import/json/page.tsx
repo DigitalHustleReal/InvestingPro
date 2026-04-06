@@ -358,7 +358,7 @@ export default function JsonImportPage() {
                   className={cn(
                     "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors",
                     isActive && "bg-primary/10 text-primary font-semibold",
-                    isComplete && "text-green-600 dark:text-green-400",
+                    isComplete && "text-green-400",
                     !isActive && !isComplete && "text-muted-foreground",
                   )}
                 >
@@ -395,7 +395,7 @@ export default function JsonImportPage() {
               className="hidden"
               onChange={onFileInputChange}
             />
-            <div className="p-4 rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400">
+            <div className="p-4 rounded-xl bg-amber-900/40 text-amber-400">
               <Upload className="w-8 h-8" />
             </div>
             <div className="text-center space-y-1">
@@ -429,7 +429,7 @@ export default function JsonImportPage() {
               </div>
               <button
                 onClick={handleReset}
-                className="p-2 text-muted-foreground hover:text-red-600 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                className="p-2 text-muted-foreground hover:text-red-600 rounded-md hover:bg-red-900/20 transition-colors"
                 title="Remove file"
               >
                 <Trash2 className="w-4 h-4" />
@@ -463,7 +463,7 @@ export default function JsonImportPage() {
                         "flex-1 text-sm rounded-lg border px-3 py-2 bg-background text-foreground transition-colors",
                         "focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary",
                         keyMapping[field.key]
-                          ? "border-green-300 dark:border-green-700"
+                          ? "border-green-700"
                           : "border-border",
                       )}
                     >
@@ -481,7 +481,7 @@ export default function JsonImportPage() {
 
             {/* Required fields warning */}
             {!requiredFieldsMapped && (
-              <div className="flex items-center gap-2 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 text-sm">
+              <div className="flex items-center gap-2 p-3 rounded-lg bg-amber-900/20 border border-amber-800 text-amber-400 text-sm">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 Map all required fields (marked with *) to continue.
               </div>
@@ -569,7 +569,7 @@ export default function JsonImportPage() {
             </div>
 
             {/* Summary */}
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-green-900/20 border border-green-800 text-green-400 text-sm">
               <Check className="w-4 h-4 shrink-0" />
               Ready to import <strong>{jsonData.length}</strong> articles with{" "}
               <strong>{mappedFields.length}</strong> mapped fields.
@@ -623,18 +623,18 @@ export default function JsonImportPage() {
               className={cn(
                 "p-4 rounded-full",
                 failedCount === 0
-                  ? "bg-green-100 dark:bg-green-900/40"
+                  ? "bg-green-900/40"
                   : importedCount === 0
-                    ? "bg-red-100 dark:bg-red-900/40"
-                    : "bg-amber-100 dark:bg-amber-900/40",
+                    ? "bg-red-900/40"
+                    : "bg-amber-900/40",
               )}
             >
               {failedCount === 0 ? (
-                <Check className="w-10 h-10 text-green-600 dark:text-green-400" />
+                <Check className="w-10 h-10 text-green-400" />
               ) : importedCount === 0 ? (
-                <X className="w-10 h-10 text-red-600 dark:text-red-400" />
+                <X className="w-10 h-10 text-red-400" />
               ) : (
-                <AlertCircle className="w-10 h-10 text-amber-600 dark:text-amber-400" />
+                <AlertCircle className="w-10 h-10 text-amber-400" />
               )}
             </div>
             <div className="text-center space-y-2">
@@ -649,7 +649,7 @@ export default function JsonImportPage() {
                 </code>
               </p>
               {failedCount > 0 && (
-                <p className="text-sm text-red-600 dark:text-red-400">
+                <p className="text-sm text-red-400">
                   <strong>{failedCount}</strong> article
                   {failedCount !== 1 ? "s" : ""} failed to import. Check the
                   browser console for details.

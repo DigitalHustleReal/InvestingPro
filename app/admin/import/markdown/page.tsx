@@ -346,7 +346,7 @@ export default function MarkdownImportPage() {
                   className={cn(
                     "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors",
                     isActive && "bg-primary/10 text-primary font-semibold",
-                    isComplete && "text-green-600 dark:text-green-400",
+                    isComplete && "text-green-400",
                     !isActive && !isComplete && "text-muted-foreground",
                   )}
                 >
@@ -384,7 +384,7 @@ export default function MarkdownImportPage() {
               className="hidden"
               onChange={onFileInputChange}
             />
-            <div className="p-4 rounded-xl bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400">
+            <div className="p-4 rounded-xl bg-purple-900/40 text-purple-400">
               <Upload className="w-8 h-8" />
             </div>
             <div className="text-center space-y-1">
@@ -419,7 +419,7 @@ export default function MarkdownImportPage() {
               </div>
               <button
                 onClick={handleReset}
-                className="p-2 text-muted-foreground hover:text-red-600 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                className="p-2 text-muted-foreground hover:text-red-600 rounded-md hover:bg-red-900/20 transition-colors"
                 title="Clear all files"
               >
                 <Trash2 className="w-4 h-4" />
@@ -494,7 +494,7 @@ export default function MarkdownImportPage() {
                         <td className="px-4 py-3">
                           <button
                             onClick={() => removeFile(idx)}
-                            className="p-1 text-muted-foreground hover:text-red-600 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                            className="p-1 text-muted-foreground hover:text-red-600 rounded hover:bg-red-900/20 transition-colors"
                             title="Remove file"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -508,7 +508,7 @@ export default function MarkdownImportPage() {
             </div>
 
             {/* Ready summary */}
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-green-900/20 border border-green-800 text-green-400 text-sm">
               <Check className="w-4 h-4 shrink-0" />
               Ready to import <strong>{files.length}</strong> article
               {files.length !== 1 ? "s" : ""} as drafts.
@@ -562,18 +562,18 @@ export default function MarkdownImportPage() {
               className={cn(
                 "p-4 rounded-full",
                 failedCount === 0
-                  ? "bg-green-100 dark:bg-green-900/40"
+                  ? "bg-green-900/40"
                   : importedCount === 0
-                    ? "bg-red-100 dark:bg-red-900/40"
-                    : "bg-amber-100 dark:bg-amber-900/40",
+                    ? "bg-red-900/40"
+                    : "bg-amber-900/40",
               )}
             >
               {failedCount === 0 ? (
-                <Check className="w-10 h-10 text-green-600 dark:text-green-400" />
+                <Check className="w-10 h-10 text-green-400" />
               ) : importedCount === 0 ? (
-                <X className="w-10 h-10 text-red-600 dark:text-red-400" />
+                <X className="w-10 h-10 text-red-400" />
               ) : (
-                <AlertCircle className="w-10 h-10 text-amber-600 dark:text-amber-400" />
+                <AlertCircle className="w-10 h-10 text-amber-400" />
               )}
             </div>
             <div className="text-center space-y-2">
@@ -586,7 +586,7 @@ export default function MarkdownImportPage() {
                 file{files.length !== 1 ? "s" : ""}
               </p>
               {failedCount > 0 && (
-                <p className="text-sm text-red-600 dark:text-red-400">
+                <p className="text-sm text-red-400">
                   <strong>{failedCount}</strong> article
                   {failedCount !== 1 ? "s" : ""} failed to import. Check the
                   browser console for details.

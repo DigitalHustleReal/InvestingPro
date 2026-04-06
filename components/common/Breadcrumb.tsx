@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
-import { ChevronRight, Home } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import { ChevronRight, Home } from "lucide-react";
 
 interface BreadcrumbItem {
   label: string;
@@ -16,12 +16,12 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => ({
+    itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
-      "position": index + 1,
-      "name": item.label,
-      ...(item.href && { "item": `https://investingpro.in${item.href}` })
-    }))
+      position: index + 1,
+      name: item.label,
+      ...(item.href && { item: `https://investingpro.in${item.href}` }),
+    })),
   };
 
   return (
@@ -34,11 +34,11 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
 
       {/* Visual Breadcrumb */}
       <nav aria-label="Breadcrumb" className="mb-6">
-        <ol className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+        <ol className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
           {/* Home Icon */}
           <li>
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="flex items-center hover:text-primary-600 transition-colors"
               aria-label="Home"
             >
@@ -48,9 +48,9 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
 
           {items.map((item, index) => (
             <li key={index} className="flex items-center gap-2">
-              <ChevronRight className="w-4 h-4 text-gray-600" />
+              <ChevronRight className="w-4 h-4 text-gray-600 dark:text-gray-300" />
               {item.href ? (
-                <Link 
+                <Link
                   href={item.href}
                   className="hover:text-primary-600 transition-colors"
                 >

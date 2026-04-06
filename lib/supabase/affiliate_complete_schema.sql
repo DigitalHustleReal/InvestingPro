@@ -249,10 +249,22 @@ DO $$ BEGIN DROP POLICY IF EXISTS "Admins can view conversions" ON affiliate_con
 CREATE POLICY "Public can read active partners" ON affiliate_partners FOR SELECT USING (is_active = true);
 CREATE POLICY "Public can read active links" ON affiliate_links FOR SELECT USING (is_active = true);
 CREATE POLICY "Public can insert clicks" ON affiliate_clicks FOR INSERT WITH CHECK (true);
-CREATE POLICY "Admins can view clicks" ON affiliate_clicks FOR SELECT USING (true);
-CREATE POLICY "System can update clicks" ON affiliate_clicks FOR UPDATE USING (true);
-CREATE POLICY "System can insert conversions" ON affiliate_conversions FOR INSERT WITH CHECK (true);
-CREATE POLICY "Admins can view conversions" ON affiliate_conversions FOR SELECT USING (true);
+CREATE POLICY "Admins can view clicks" ON affiliate_clicks FOR SELECT USING (
+    EXISTS (SELECT 1 FROM public.user_roles WHERE user_id = auth.uid() AND role = 'admin')
+    OR EXISTS (SELECT 1 FROM public.user_profiles WHERE id = auth.uid() AND role = 'admin')
+);
+CREATE POLICY "System can update clicks" ON affiliate_clicks FOR UPDATE USING (
+    EXISTS (SELECT 1 FROM public.user_roles WHERE user_id = auth.uid() AND role = 'admin')
+    OR EXISTS (SELECT 1 FROM public.user_profiles WHERE id = auth.uid() AND role = 'admin')
+);
+CREATE POLICY "System can insert conversions" ON affiliate_conversions FOR INSERT WITH CHECK (
+    EXISTS (SELECT 1 FROM public.user_roles WHERE user_id = auth.uid() AND role = 'admin')
+    OR EXISTS (SELECT 1 FROM public.user_profiles WHERE id = auth.uid() AND role = 'admin')
+);
+CREATE POLICY "Admins can view conversions" ON affiliate_conversions FOR SELECT USING (
+    EXISTS (SELECT 1 FROM public.user_roles WHERE user_id = auth.uid() AND role = 'admin')
+    OR EXISTS (SELECT 1 FROM public.user_profiles WHERE id = auth.uid() AND role = 'admin')
+);
 
 -- ================================================
 -- GRANT SERVICE ROLE ACCESS

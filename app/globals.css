@@ -395,6 +395,12 @@ html, body {
     scrollbar-width: none;
   }
 
+  /* Horizontal scroll fade affordance — apply to parent of overflow-x-auto container */
+  .scroll-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+  }
+
   /* Reduced motion preference support */
   @media (prefers-reduced-motion: reduce) {
     *,

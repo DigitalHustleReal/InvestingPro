@@ -10,6 +10,7 @@ import AdminShell from "@/components/layout/AdminShell";
 import { cn } from "@/lib/utils";
 import Analytics from "@/components/common/Analytics";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics"; // Import GA
+import { PostHogProvider } from "@/lib/analytics/posthog-service";
 import QueryProvider from "@/components/providers/QueryProvider";
 import ErrorBoundaryProvider from "@/components/providers/ErrorBoundaryProvider";
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
@@ -158,51 +159,53 @@ export default async function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <ErrorBoundaryProvider>
-            <QueryProvider>
-              <SearchProvider>
-                <CompareProvider>
-                  <NavigationProvider>
-                    <Suspense fallback={null}>
-                      <Analytics />
-                      <SentryInit />
-                      {/* <PerformanceMonitor /> */}
-                    </Suspense>
+          <PostHogProvider>
+            <ErrorBoundaryProvider>
+              <QueryProvider>
+                <SearchProvider>
+                  <CompareProvider>
+                    <NavigationProvider>
+                      <Suspense fallback={null}>
+                        <Analytics />
+                        <SentryInit />
+                        {/* <PerformanceMonitor /> */}
+                      </Suspense>
 
-                    {/* Skip to Content Link - Accessibility (UI/UX Phase 1) */}
-                    <a href="#main-content" className="skip-to-content">
-                      Skip to main content
-                    </a>
+                      {/* Skip to Content Link - Accessibility (UI/UX Phase 1) */}
+                      <a href="#main-content" className="skip-to-content">
+                        Skip to main content
+                      </a>
 
-                    <AdminShell>
-                      <ConditionalTopBarV2 />
-                      <main
-                        id="main-content"
-                        className="flex-grow pb-20 md:pb-0"
-                        tabIndex={-1}
-                      >
-                        <PageErrorBoundary pageName="Root Layout">
-                          <ConditionalPublicElements>
-                            {children}
-                          </ConditionalPublicElements>
-                        </PageErrorBoundary>
-                      </main>
-                    </AdminShell>
-                    <ConditionalPublicFloating>
-                      <CompareBar />
-                      <MobileNav />
-                    </ConditionalPublicFloating>
-                    {/* 
+                      <AdminShell>
+                        <ConditionalTopBarV2 />
+                        <main
+                          id="main-content"
+                          className="flex-grow pb-20 md:pb-0"
+                          tabIndex={-1}
+                        >
+                          <PageErrorBoundary pageName="Root Layout">
+                            <ConditionalPublicElements>
+                              {children}
+                            </ConditionalPublicElements>
+                          </PageErrorBoundary>
+                        </main>
+                      </AdminShell>
+                      <ConditionalPublicFloating>
+                        <CompareBar />
+                        <MobileNav />
+                      </ConditionalPublicFloating>
+                      {/*
                      AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)
                      Uncomment and add your ID here to auto-monetize 1000s of links
                   */}
-                    {/* <script async src="https://cuelinks.com/js/..." /> */}
-                    <Toaster />
-                  </NavigationProvider>
-                </CompareProvider>
-              </SearchProvider>
-            </QueryProvider>
-          </ErrorBoundaryProvider>
+                      {/* <script async src="https://cuelinks.com/js/..." /> */}
+                      <Toaster />
+                    </NavigationProvider>
+                  </CompareProvider>
+                </SearchProvider>
+              </QueryProvider>
+            </ErrorBoundaryProvider>
+          </PostHogProvider>
         </ThemeProvider>
         {/* Legal-only: Cookie consent (Accept/Decline bar). All other popups removed —
              ExitIntentPopup, WhatsAppButton, Tawk.to, OnboardingTrigger, LeadCapture.

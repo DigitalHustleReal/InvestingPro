@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
 /**
  * Global Lead Capture Provider
- * 
+ *
  * Wraps the app to provide site-wide lead capture popups
  * Add this to your root layout
  */
 
-import React from 'react';
-import { LeadMagnetPopup } from './LeadMagnetPopup';
+import React from "react";
+import { LeadMagnetPopup } from "./LeadMagnetPopup";
 
 interface LeadCaptureProviderProps {
   children: React.ReactNode;
@@ -27,20 +27,20 @@ export function LeadCaptureProvider({
   return (
     <>
       {children}
-      
+
       {/* Exit Intent Popup - Newsletter */}
       {enableExitIntent && (
         <LeadMagnetPopup
           trigger="exit-intent"
           variant="newsletter"
           title="Wait! Don't miss out 👋"
-          description="Get our best finance tips delivered weekly. Join 25,000+ savvy Indians."
+          description="Get our best finance tips delivered weekly. 100% free, no spam."
           buttonText="Yes, Subscribe Me"
           cookieKey="ip_exit_popup"
           cookieDays={7}
         />
       )}
-      
+
       {/* Timed Popup - Guide Offer */}
       {enableTimedPopup && (
         <LeadMagnetPopup

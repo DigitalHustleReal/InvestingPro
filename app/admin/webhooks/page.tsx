@@ -211,7 +211,7 @@ function statusBadge(status: WebhookStatus) {
   switch (status) {
     case "active":
       return (
-        <Badge className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30">
+        <Badge className="bg-emerald-500/15 text-emerald-400 border-emerald-500/30">
           <span className="relative mr-1.5 flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -221,7 +221,7 @@ function statusBadge(status: WebhookStatus) {
       );
     case "failed":
       return (
-        <Badge className="bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30">
+        <Badge className="bg-red-500/15 text-red-400 border-red-500/30">
           <span className="mr-1.5 h-2 w-2 rounded-full bg-red-500 inline-block" />
           Failed
         </Badge>
@@ -229,7 +229,7 @@ function statusBadge(status: WebhookStatus) {
     default:
       return (
         <Badge variant="secondary" className="text-muted-foreground">
-          <span className="mr-1.5 h-2 w-2 rounded-full bg-gray-400 dark:bg-gray-500 inline-block" />
+          <span className="mr-1.5 h-2 w-2 rounded-full bg-gray-500 inline-block" />
           Paused
         </Badge>
       );
@@ -239,20 +239,20 @@ function statusBadge(status: WebhookStatus) {
 function statusCodeBadge(code: number) {
   if (code >= 200 && code < 300) {
     return (
-      <Badge className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 font-mono text-xs">
+      <Badge className="bg-emerald-500/15 text-emerald-400 border-emerald-500/30 font-mono text-xs">
         {code}
       </Badge>
     );
   }
   if (code >= 400 && code < 500) {
     return (
-      <Badge className="bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 font-mono text-xs">
+      <Badge className="bg-amber-500/15 text-amber-400 border-amber-500/30 font-mono text-xs">
         {code}
       </Badge>
     );
   }
   return (
-    <Badge className="bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30 font-mono text-xs">
+    <Badge className="bg-red-500/15 text-red-400 border-red-500/30 font-mono text-xs">
       {code}
     </Badge>
   );
@@ -464,7 +464,7 @@ export default function WebhooksPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                <Webhook className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <Webhook className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold tracking-tight">Webhooks</h1>
@@ -488,7 +488,7 @@ export default function WebhooksPage() {
           <Card>
             <CardContent className="flex items-center gap-3 p-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                <Globe className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <Globe className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Total Endpoints</p>
@@ -499,7 +499,7 @@ export default function WebhooksPage() {
           <Card>
             <CardContent className="flex items-center gap-3 p-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                <Activity className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <Activity className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Active</p>
@@ -510,7 +510,7 @@ export default function WebhooksPage() {
           <Card>
             <CardContent className="flex items-center gap-3 p-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-500/10">
-                <XCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
+                <XCircle className="h-5 w-5 text-red-400" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Failed</p>
@@ -521,7 +521,7 @@ export default function WebhooksPage() {
           <Card>
             <CardContent className="flex items-center gap-3 p-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                <Zap className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <Zap className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">
@@ -575,8 +575,8 @@ export default function WebhooksPage() {
                                 className={cn(
                                   "h-4.5 w-4.5",
                                   wh.status === "failed"
-                                    ? "text-red-600 dark:text-red-400"
-                                    : "text-emerald-600 dark:text-emerald-400",
+                                    ? "text-red-400"
+                                    : "text-emerald-400",
                                 )}
                               />
                             </div>
@@ -629,10 +629,10 @@ export default function WebhooksPage() {
                               className={cn(
                                 "text-xs font-medium mt-1",
                                 wh.successRate >= 95
-                                  ? "text-emerald-600 dark:text-emerald-400"
+                                  ? "text-emerald-400"
                                   : wh.successRate >= 85
-                                    ? "text-amber-600 dark:text-amber-400"
-                                    : "text-red-600 dark:text-red-400",
+                                    ? "text-amber-400"
+                                    : "text-red-400",
                               )}
                             >
                               {wh.successRate > 0 ? `${wh.successRate}%` : "--"}

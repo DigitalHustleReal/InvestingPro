@@ -37,8 +37,7 @@ const IMPORT_SOURCES: ImportSourceCard[] = [
       "Drag & drop a CSV file, map columns to article fields, and import in bulk.",
     icon: FileSpreadsheet,
     href: "/admin/import/csv",
-    color:
-      "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400",
+    color: "bg-green-900/40 text-green-400",
   },
   {
     id: "json",
@@ -47,8 +46,7 @@ const IMPORT_SOURCES: ImportSourceCard[] = [
       "Upload a JSON file, preview the data structure, and import articles.",
     icon: FileJson,
     href: "/admin/import/json",
-    color:
-      "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400",
+    color: "bg-amber-900/40 text-amber-400",
   },
   {
     id: "sheets",
@@ -57,7 +55,7 @@ const IMPORT_SOURCES: ImportSourceCard[] = [
       "Paste a public Google Sheets URL to fetch and import rows as articles.",
     icon: Sheet,
     href: null,
-    color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400",
+    color: "bg-blue-900/40 text-blue-400",
   },
   {
     id: "markdown",
@@ -66,8 +64,7 @@ const IMPORT_SOURCES: ImportSourceCard[] = [
       "Upload .md files and convert them to articles with frontmatter parsing.",
     icon: FileText,
     href: "/admin/import/markdown",
-    color:
-      "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400",
+    color: "bg-purple-900/40 text-purple-400",
   },
 ];
 
@@ -122,17 +119,17 @@ function StatusBadge({ status }: { status: RecentImport["status"] }) {
     success: {
       label: "Success",
       icon: CheckCircle2,
-      cls: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+      cls: "bg-green-900/30 text-green-400",
     },
     partial: {
       label: "Partial",
       icon: Clock,
-      cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+      cls: "bg-amber-900/30 text-amber-400",
     },
     failed: {
       label: "Failed",
       icon: XCircle,
-      cls: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+      cls: "bg-red-900/30 text-red-400",
     },
   }[status];
 

@@ -304,7 +304,7 @@ export class BreakEvenCalculator {
 
     // Lounge access value
     if (card.loungeAccess) {
-      const loungeText = card.loungeAccess.toLowerCase();
+      const loungeText = String(card.loungeAccess).toLowerCase();
       if (loungeText.includes("unlimited")) {
         value += profile.categories.travel > 5000 ? 12000 : 4000; // ₹1000/visit estimate
       } else {
@@ -318,7 +318,7 @@ export class BreakEvenCalculator {
 
     // Welcome bonus (amortized over 1 year)
     if (card.welcomeBonus) {
-      const bonusMatch = card.welcomeBonus.match(/₹?\s*(\d+(?:,\d+)?)/);
+      const bonusMatch = String(card.welcomeBonus).match(/₹?\s*(\d+(?:,\d+)?)/);
       if (bonusMatch) {
         value += parseFloat(bonusMatch[1].replace(/,/g, ""));
       }
@@ -1062,7 +1062,7 @@ export class DecisionMatrixGenerator {
         if (type.includes("premium")) travelScore += 20;
         if (
           card.loungeAccess &&
-          !card.loungeAccess.toLowerCase().includes("nil")
+          !String(card.loungeAccess).toLowerCase().includes("nil")
         ) {
           travelScore += 30;
         }
@@ -1140,7 +1140,8 @@ export class DecisionMatrixGenerator {
 
   private static parseMinIncome(card: CreditCard): number {
     if (!card.min_income) return 25000;
-    const match = card.min_income.match(/(\d+(?:,\d+)?)/);
+    const match = String(card.min_income).match(/(\d+(?:,\d+)?)/);
+
     return match ? parseFloat(match[1].replace(/,/g, "")) : 25000;
   }
 

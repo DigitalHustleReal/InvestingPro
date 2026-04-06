@@ -224,15 +224,15 @@ export default function EmailDashboard() {
                 </DialogHeader>
 
                 {stats && !stats.resendConfigured ? (
-                  <div className="flex items-start gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30">
+                  <div className="flex items-start gap-3 rounded-lg border border-amber-800 bg-amber-950/30 p-4">
                     <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
                     <div>
-                      <p className="font-medium text-amber-800 dark:text-amber-200">
+                      <p className="font-medium text-amber-200">
                         Resend not configured
                       </p>
-                      <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                      <p className="text-sm text-amber-300 mt-1">
                         Add{" "}
-                        <code className="bg-amber-100 dark:bg-amber-900 px-1 rounded text-xs">
+                        <code className="bg-amber-900 px-1 rounded text-xs">
                           RESEND_API_KEY
                         </code>{" "}
                         to your environment variables to enable email sending.
@@ -409,16 +409,16 @@ export default function EmailDashboard() {
 
             {/* Resend Status Banner */}
             {stats && !stats.resendConfigured && (
-              <Card className="border-amber-200 bg-amber-50/50 dark:border-amber-800 dark:bg-amber-950/20">
+              <Card className="border-amber-800 bg-amber-950/20">
                 <CardContent className="flex items-center gap-3 py-4">
                   <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
                   <div>
-                    <p className="font-medium text-amber-800 dark:text-amber-200">
+                    <p className="font-medium text-amber-200">
                       Email provider not configured
                     </p>
-                    <p className="text-sm text-amber-700 dark:text-amber-300">
+                    <p className="text-sm text-amber-300">
                       Add{" "}
-                      <code className="bg-amber-100 dark:bg-amber-900 px-1 rounded text-xs">
+                      <code className="bg-amber-900 px-1 rounded text-xs">
                         RESEND_API_KEY
                       </code>{" "}
                       to your environment variables to enable sending
@@ -430,14 +430,14 @@ export default function EmailDashboard() {
             )}
 
             {stats && stats.resendConfigured && (
-              <Card className="border-green-200 bg-green-50/50 dark:border-green-800 dark:bg-green-950/20">
+              <Card className="border-green-800 bg-green-950/20">
                 <CardContent className="flex items-center gap-3 py-4">
-                  <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />
                   <div>
-                    <p className="font-medium text-green-800 dark:text-green-200">
+                    <p className="font-medium text-green-200">
                       Resend connected
                     </p>
-                    <p className="text-sm text-green-700 dark:text-green-300">
+                    <p className="text-sm text-green-300">
                       Email sending is active. Use the &quot;Send
                       Newsletter&quot; button to reach your subscribers.
                     </p>
@@ -500,7 +500,7 @@ export default function EmailDashboard() {
                               <span
                                 className={
                                   campaign.openRate >= 20
-                                    ? "text-green-600"
+                                    ? "text-green-400"
                                     : "text-muted-foreground"
                                 }
                               >
@@ -511,7 +511,7 @@ export default function EmailDashboard() {
                               <span
                                 className={
                                   campaign.clickRate >= 3
-                                    ? "text-green-600"
+                                    ? "text-green-400"
                                     : "text-muted-foreground"
                                 }
                               >

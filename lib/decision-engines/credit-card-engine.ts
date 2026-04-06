@@ -356,12 +356,15 @@ export class CreditCardDecisionEngine {
   }
 
   private isLifetimeFree(card: CreditCard): boolean {
-    const feeStr = String(card.annual_fee || "").toLowerCase();
+    const feeStr = String(card.annual_fee ?? "")
+      .toLowerCase()
+      .trim();
     return (
+      feeStr === "0" ||
+      feeStr === "" ||
       feeStr.includes("lifetime free") ||
       feeStr.includes("ltf") ||
-      feeStr === "free" ||
-      feeStr === "0"
+      feeStr === "free"
     );
   }
 

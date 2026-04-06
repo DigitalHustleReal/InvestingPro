@@ -7,25 +7,23 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   typescript: {
-    // Temporarily enabled to unblock production deploy.
-    // TypeScript errors exist across many files; address them incrementally.
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   // Satisfy Next 16 when webpack is used via --webpack flag (avoids Turbopack/webpack conflict message)
   turbopack: {},
   images: {
     unoptimized: false,
     remotePatterns: [
-      { protocol: 'https', hostname: '**.supabase.co' },
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'res.cloudinary.com' },
-      { protocol: 'https', hostname: 'logo.clearbit.com' },
+      { protocol: "https", hostname: "**.supabase.co" },
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "logo.clearbit.com" },
     ],
   },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      'isomorphic-dompurify': require.resolve('isomorphic-dompurify'),
+      "isomorphic-dompurify": require.resolve("isomorphic-dompurify"),
     };
     return config;
   },

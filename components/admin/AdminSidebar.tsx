@@ -3,7 +3,12 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_SECTIONS, type NavItem } from "@/lib/admin/navigation-config";
+import {
+  NAV_SECTIONS,
+  getCategorySections,
+  getActiveCategory,
+  type NavItem,
+} from "@/lib/admin/navigation-config";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -103,15 +108,15 @@ export default function AdminSidebar({
             collapsed ? "p-2 justify-center" : "p-2.5",
           )}
         >
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-400 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/30 transition-all font-inter">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-emerald-500 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-all font-inter">
             DH
           </div>
           {!collapsed && (
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-white m-0 font-inter group-hover:text-white transition-colors">
+              <p className="text-sm font-medium text-foreground m-0 font-inter group-hover:text-foreground transition-colors">
                 Digital Hustle
               </p>
-              <p className="text-[11px] text-gray-500 m-0 font-inter">
+              <p className="text-[11px] text-muted-foreground m-0 font-inter">
                 Super Admin
               </p>
             </div>
@@ -169,16 +174,16 @@ function SidebarLink({
         "flex items-center gap-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200 group relative font-inter",
         collapsed ? "px-0 justify-center" : "px-3",
         isActive
-          ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-500"
-          : "text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent",
+          ? "text-primary bg-primary/10 border-l-2 border-primary"
+          : "text-muted-foreground hover:text-foreground hover:bg-white/5 border-l-2 border-transparent",
       )}
     >
       <Icon
         className={cn(
           "w-4 h-4 transition-colors relative z-10 shrink-0",
           isActive
-            ? "text-emerald-400"
-            : "text-gray-500 group-hover:text-white",
+            ? "text-primary"
+            : "text-muted-foreground group-hover:text-foreground",
         )}
       />
       {!collapsed && (
@@ -191,8 +196,8 @@ function SidebarLink({
           className={cn(
             "ml-auto text-[10px] px-1.5 py-0.5 rounded-full relative z-10 transition-colors font-bold",
             isActive
-              ? "bg-emerald-500/20 text-emerald-400"
-              : "bg-white/5 text-gray-500",
+              ? "bg-primary/20 text-primary"
+              : "bg-muted text-muted-foreground",
           )}
         >
           {item.badge}
