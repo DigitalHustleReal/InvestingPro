@@ -300,11 +300,12 @@ NO text, NO watermarks. Magazine-quality editorial image.`;
         .replace(/^-|-$/g, "")
         .substring(0, 100);
 
+      const faqData = generatedArticle.schema_faq || outline.faqs;
       const articleData = {
         title: generatedArticle.title || outline.title,
         slug,
         body_markdown: generatedArticle.content,
-        body_html: "", // Will be rendered from markdown
+        body_html: "",
         excerpt: generatedArticle.excerpt,
         seo_title: generatedArticle.seo_title || outline.seoTitle,
         seo_description:
@@ -316,6 +317,25 @@ NO text, NO watermarks. Magazine-quality editorial image.`;
         author_name: authorName,
         featured_image: featuredImageUrl || null,
         ai_generated: true,
+        is_ai_generated: true,
+        primary_keyword: keyword,
+        secondary_keywords: outline.keywords.slice(1),
+        word_count: contentWordCount,
+        reading_time: Math.ceil(contentWordCount / 250),
+        quality_score: generatedArticle.quality_score || null,
+        schema_markup: {
+          "@type": "FAQPage",
+          mainEntity: faqData.map(
+            (faq: { question: string; answer: string }) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            }),
+          ),
+        },
         ai_metadata: {
           pipeline: "serp-first",
           keyword,
@@ -333,7 +353,6 @@ NO text, NO watermarks. Magazine-quality editorial image.`;
           competitive_edge: outline.competitiveEdge,
           generated_at: new Date().toISOString(),
         },
-        schema_faq: generatedArticle.schema_faq || outline.faqs,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
