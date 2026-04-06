@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Shield, CalendarDays } from "lucide-react";
 import InsuranceClient from "./InsuranceClient";
+import { getInsuranceServer } from "@/lib/products/get-insurance-server";
 
 export const revalidate = 3600;
 export const metadata: Metadata = {
@@ -15,7 +16,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function InsurancePage() {
+export default async function InsurancePage() {
+  let initialPlans: any[] = [];
+  try {
+    initialPlans = await getInsuranceServer();
+  } catch {
+    initialPlans = [];
+  }
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -146,7 +153,7 @@ export default function InsurancePage() {
       </section>
       <section className="bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
-          <InsuranceClient />
+          <InsuranceClient initialPlans={initialPlans} />
         </div>
       </section>
       <section className="bg-white border-t border-gray-200">

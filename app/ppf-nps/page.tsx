@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Shield, CalendarDays } from "lucide-react";
 import PPFNPSClient from "./PPFNPSClient";
+import { getGovtSchemesServer } from "@/lib/products/get-govt-schemes-server";
 
 export const revalidate = 3600;
 export const metadata: Metadata = {
@@ -16,7 +17,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PPFNPSPage() {
+export default async function PPFNPSPage() {
+  let initialSchemes: any[] = [];
+  try {
+    initialSchemes = await getGovtSchemesServer();
+  } catch {
+    initialSchemes = [];
+  }
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -147,7 +154,7 @@ export default function PPFNPSPage() {
       </section>
       <section className="bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
-          <PPFNPSClient />
+          <PPFNPSClient initialSchemes={initialSchemes} />
         </div>
       </section>
       <section className="bg-white border-t border-gray-200">

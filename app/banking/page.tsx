@@ -11,6 +11,8 @@ import {
   Wallet,
   ArrowRight,
 } from "lucide-react";
+import SavingsAccountsClient from "./SavingsAccountsClient";
+import { getSavingsAccountsServer } from "@/lib/products/get-savings-accounts-server";
 
 export const revalidate = 3600;
 
@@ -71,7 +73,13 @@ const BANKING_PRODUCTS = [
   },
 ];
 
-export default function BankingPage() {
+export default async function BankingPage() {
+  let initialAccounts: any[] = [];
+  try {
+    initialAccounts = await getSavingsAccountsServer();
+  } catch {
+    initialAccounts = [];
+  }
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -197,6 +205,18 @@ export default function BankingPage() {
           </div>
         </div>
       </section>
+
+      {/* Savings Accounts listing */}
+      {initialAccounts.length > 0 && (
+        <section className="bg-white border-t border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
+            <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
+              Compare Savings Account Rates
+            </h2>
+            <SavingsAccountsClient initialAccounts={initialAccounts} />
+          </div>
+        </section>
+      )}
 
       {/* Related tools */}
       <section className="bg-white border-t border-gray-200">

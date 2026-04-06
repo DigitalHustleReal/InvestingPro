@@ -247,7 +247,14 @@ export class ProductService {
         logger.error("Failed to create product", error, { input });
         throw error;
       }
-      return this.normalizeProduct(data);
+
+      // Sync to category-specific table (fire-and-forget)
+      const product = this.normalizeProduct(data);
+      this.syncToCategoryTable(product, supabase).catch((e) =>
+        logger.warn("Category table sync failed on create", e),
+      );
+
+      return product;
     } catch (e: any) {
       logger.error("Unexpected error in createProduct", e);
       throw e;
@@ -274,7 +281,14 @@ export class ProductService {
         logger.error(`Failed to update product ${id}`, error, { updates });
         throw error;
       }
-      return this.normalizeProduct(data);
+
+      // Sync to category-specific table (fire-and-forget)
+      const product = this.normalizeProduct(data);
+      this.syncToCategoryTable(product, supabase).catch((e) =>
+        logger.warn("Category table sync failed on update", e),
+      );
+
+      return product;
     } catch (e: any) {
       logger.error(`Unexpected error in updateProduct for ${id}`, e);
       throw e;
@@ -284,14 +298,165 @@ export class ProductService {
   async deleteProduct(id: string): Promise<void> {
     try {
       const supabase = createClient();
+
+      // Get product to know which category table to clean up
+      const product = await this.getProductById(id, supabase);
+
       const { error } = await supabase.from("products").delete().eq("id", id);
       if (error) {
         logger.error(`Failed to delete product ${id}`, error);
         throw error;
       }
+
+      // Also delete from category table if product was found
+      if (product?.slug) {
+        const tableName = this.getCategoryTable(product.category);
+        if (tableName) {
+          await supabase
+            .from(tableName)
+            .delete()
+            .eq("slug", product.slug)
+            .catch(() => {});
+        }
+      }
     } catch (e: any) {
       logger.error(`Unexpected error in deleteProduct for ${id}`, e);
       throw e;
+    }
+  }
+
+  /**
+   * Maps product category to its database table name.
+   */
+  private getCategoryTable(category: ProductCategory | string): string | null {
+    const map: Record<string, string> = {
+      credit_card: "credit_cards",
+      loan: "loans",
+      mutual_fund: "mutual_funds",
+      broker: "brokers",
+      demat_account: "brokers",
+      insurance: "insurance",
+      fixed_deposit: "fixed_deposits",
+      ppf: "govt_schemes",
+      nps: "govt_schemes",
+      ppf_nps: "govt_schemes",
+    };
+    return map[category] || null;
+  }
+
+  /**
+   * Syncs a product from the unified `products` table to its category-specific table.
+   * Uses upsert (on slug) so it works for both create and update.
+   */
+  private async syncToCategoryTable(
+    product: Product,
+    supabase: SupabaseClient,
+  ): Promise<void> {
+    const tableName = this.getCategoryTable(product.category);
+    if (!tableName) return;
+
+    const baseRow: Record<string, any> = {
+      slug: product.slug,
+      name: product.name,
+      description: product.description,
+      rating: product.rating?.overall || 0,
+      image_url: product.image_url,
+      pros: product.pros,
+      cons: product.cons,
+      apply_link: product.affiliate_link,
+      official_link: product.official_link,
+      is_active: product.is_active,
+      updated_at: new Date().toISOString(),
+    };
+
+    // Add category-specific columns from features
+    const features = product.features || {};
+    switch (product.category) {
+      case "credit_card":
+        Object.assign(baseRow, {
+          bank: product.provider_name,
+          type: features.card_type || features.type,
+          best_for: features.best_for,
+          features: product.features,
+        });
+        break;
+      case "loan":
+        Object.assign(baseRow, {
+          bank_name: product.provider_name,
+          type: features.loan_type || features.type || "Personal",
+          interest_rate_min: features.interest_rate_min,
+          interest_rate_max: features.interest_rate_max,
+          features: product.features,
+        });
+        break;
+      case "insurance":
+        Object.assign(baseRow, {
+          provider_name: product.provider_name,
+          type: features.insurance_type || features.type || "Health",
+          cover_amount: features.cover_amount,
+          claim_settlement_ratio: features.claim_settlement_ratio,
+          network_hospitals: features.network_hospitals,
+          features: product.features,
+          best_for: features.best_for,
+        });
+        break;
+      case "broker":
+      case "demat_account":
+        Object.assign(baseRow, {
+          type: features.broker_type || features.type || "Discount",
+          brokerage_delivery: features.brokerage_delivery,
+          brokerage_intraday: features.brokerage_intraday,
+          account_opening_fee: features.account_opening_fee,
+          amc: features.amc,
+          features: product.features,
+        });
+        break;
+      case "fixed_deposit":
+        Object.assign(baseRow, {
+          bank_name: product.provider_name,
+          type: features.fd_type || features.type || "Bank",
+          interest_rate: features.interest_rate,
+          senior_citizen_rate: features.senior_citizen_rate,
+          min_deposit: features.min_deposit,
+          max_deposit: features.max_deposit,
+          tenure_min: features.tenure_min,
+          tenure_max: features.tenure_max,
+        });
+        break;
+      case "ppf":
+      case "nps":
+      case "ppf_nps":
+        Object.assign(baseRow, {
+          scheme_type: features.scheme_type || product.category.toUpperCase(),
+          provider: product.provider_name || "Government of India",
+          current_interest_rate: features.current_interest_rate,
+          min_investment: features.min_investment,
+          max_investment: features.max_investment,
+          lock_in_period: features.lock_in_period,
+          maturity_period: features.maturity_period,
+          tax_benefit: features.tax_benefit,
+          tax_on_returns: features.tax_on_returns,
+          risk_level: features.risk_level || "Zero Risk",
+          best_for: features.best_for,
+        });
+        break;
+      default:
+        return; // No category table for this type
+    }
+
+    try {
+      const { error } = await supabase
+        .from(tableName)
+        .upsert(baseRow, { onConflict: "slug" });
+
+      if (error) {
+        logger.warn(
+          `Failed to sync product ${product.slug} to ${tableName}`,
+          error,
+        );
+      }
+    } catch (e: any) {
+      logger.warn(`Sync to ${tableName} failed for ${product.slug}`, e);
     }
   }
 

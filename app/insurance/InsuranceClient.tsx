@@ -35,9 +35,15 @@ function csrBadge(csr: number | string) {
   return { label: `${val}% Poor`, class: "bg-red-50 text-red-600" };
 }
 
-export default function InsuranceClient() {
-  const [assets, setAssets] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+interface InsuranceClientProps {
+  initialPlans?: any[];
+}
+
+export default function InsuranceClient({
+  initialPlans = [],
+}: InsuranceClientProps) {
+  const [assets, setAssets] = useState<any[]>(initialPlans);
+  const [loading, setLoading] = useState(initialPlans.length === 0);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "table">("table");
   const [policyType, setPolicyType] = useState<string>("all");
@@ -77,6 +83,8 @@ export default function InsuranceClient() {
     (filters.policyTypes.length > 0 ? 1 : 0);
 
   useEffect(() => {
+    // Skip client fetch if server already provided data
+    if (initialPlans && initialPlans.length > 0) return;
     (async () => {
       try {
         const data = (await api.entities.Insurance?.list()) || [];
@@ -87,7 +95,7 @@ export default function InsuranceClient() {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [initialPlans]);
 
   const filtered = assets.filter((a) => {
     const name = (a.name || "").toLowerCase();
