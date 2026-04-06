@@ -67,7 +67,7 @@ const CATEGORY_COLORS: Record<string, string> = {
     "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
   insurance: "bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300",
   "policy-rates":
-    "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300",
+    "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
   banking:
     "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
   investments:

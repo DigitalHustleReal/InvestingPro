@@ -1,10 +1,16 @@
-'use client';
+"use client";
 
-import { useMemo, useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/Button';
-import { 
+import { useMemo, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/Button";
+import {
   Grid3X3,
   Trophy,
   Plane,
@@ -13,14 +19,14 @@ import {
   Crown,
   CheckCircle,
   Star,
-  ArrowRight
-} from 'lucide-react';
-import { CreditCard as CreditCardType } from '@/types/credit-card';
-import { 
+  ArrowRight,
+} from "lucide-react";
+import { CreditCard as CreditCardType } from "@/types/credit-card";
+import {
   DecisionMatrixGenerator,
   DecisionMatrixData,
-  UserSpendingProfile 
-} from '@/lib/decision-engines/smart-comparison-engine';
+  UserSpendingProfile,
+} from "@/lib/decision-engines/smart-comparison-engine";
 
 interface DecisionMatrixProps {
   cards: CreditCardType[];
@@ -28,9 +34,15 @@ interface DecisionMatrixProps {
   onCardSelect?: (cardId: string) => void;
 }
 
-export function DecisionMatrixComponent({ cards, profile, onCardSelect }: DecisionMatrixProps) {
+export function DecisionMatrixComponent({
+  cards,
+  profile,
+  onCardSelect,
+}: DecisionMatrixProps) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const [selectedDimension, setSelectedDimension] = useState<string | null>(null);
+  const [selectedDimension, setSelectedDimension] = useState<string | null>(
+    null,
+  );
 
   const matrixData = useMemo(() => {
     if (cards.length === 0) return null;
@@ -58,15 +70,15 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
 
   const getDimensionIcon = (key: string) => {
     switch (key) {
-      case 'travel':
+      case "travel":
         return <Plane className="h-4 w-4" />;
-      case 'shopping':
+      case "shopping":
         return <ShoppingCart className="h-4 w-4" />;
-      case 'cost':
+      case "cost":
         return <Wallet className="h-4 w-4" />;
-      case 'premium':
+      case "premium":
         return <Crown className="h-4 w-4" />;
-      case 'eligibility':
+      case "eligibility":
         return <CheckCircle className="h-4 w-4" />;
       default:
         return <Star className="h-4 w-4" />;
@@ -74,11 +86,11 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'bg-green-500';
-    if (score >= 60) return 'bg-emerald-400';
-    if (score >= 40) return 'bg-amber-400';
-    if (score >= 20) return 'bg-orange-400';
-    return 'bg-red-400';
+    if (score >= 80) return "bg-green-500";
+    if (score >= 60) return "bg-emerald-400";
+    if (score >= 40) return "bg-amber-400";
+    if (score >= 20) return "bg-orange-400";
+    return "bg-red-400";
   };
 
   const getScoreWidth = (score: number) => `${Math.max(score, 5)}%`;
@@ -98,7 +110,10 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
           Visual comparison across {matrixData.dimensions.length} key dimensions
           {matrixData.userBestMatch && (
             <span className="ml-2">
-              • Best match: <strong>{cards.find(c => c.id === matrixData.userBestMatch)?.name}</strong>
+              • Best match:{" "}
+              <strong>
+                {cards.find((c) => c.id === matrixData.userBestMatch)?.name}
+              </strong>
             </span>
           )}
         </CardDescription>
@@ -107,7 +122,7 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
         {/* Dimension Filter */}
         <div className="flex flex-wrap gap-2">
           <Button
-            variant={selectedDimension === null ? 'default' : 'outline'}
+            variant={selectedDimension === null ? "default" : "outline"}
             size="sm"
             onClick={() => setSelectedDimension(null)}
           >
@@ -116,7 +131,7 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
           {matrixData.dimensions.map((dim) => (
             <Button
               key={dim.key}
-              variant={selectedDimension === dim.key ? 'default' : 'outline'}
+              variant={selectedDimension === dim.key ? "default" : "outline"}
               size="sm"
               onClick={() => setSelectedDimension(dim.key)}
               className="flex items-center gap-1"
@@ -136,10 +151,13 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
                   Card
                 </th>
                 {matrixData.dimensions
-                  .filter(dim => !selectedDimension || dim.key === selectedDimension)
+                  .filter(
+                    (dim) =>
+                      !selectedDimension || dim.key === selectedDimension,
+                  )
                   .map((dim) => (
-                    <th 
-                      key={dim.key} 
+                    <th
+                      key={dim.key}
                       className="text-center py-3 px-4 font-medium text-muted-foreground"
                     >
                       <div className="flex flex-col items-center gap-1">
@@ -157,13 +175,16 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
               {matrixData.cards.map((card) => {
                 const isUserBest = matrixData.userBestMatch === card.id;
                 const isHovered = hoveredCard === card.id;
-                
+
                 return (
-                  <tr 
+                  <tr
                     key={card.id}
                     className={`border-b transition-colors cursor-pointer ${
-                      isUserBest ? 'bg-blue-50 dark:bg-blue-950' : 
-                      isHovered ? 'bg-muted/50' : ''
+                      isUserBest
+                        ? "bg-blue-50 dark:bg-blue-950"
+                        : isHovered
+                          ? "bg-muted/50"
+                          : ""
                     }`}
                     onMouseEnter={() => setHoveredCard(card.id)}
                     onMouseLeave={() => setHoveredCard(null)}
@@ -176,30 +197,37 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
                         )}
                         <div>
                           <p className="font-medium">{card.name}</p>
-                          <p className="text-xs text-muted-foreground">{card.provider}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {card.provider}
+                          </p>
                         </div>
                       </div>
                     </td>
                     {matrixData.dimensions
-                      .filter(dim => !selectedDimension || dim.key === selectedDimension)
+                      .filter(
+                        (dim) =>
+                          !selectedDimension || dim.key === selectedDimension,
+                      )
                       .map((dim) => {
                         const score = dim.scores[card.id] || 0;
                         const isBest = isBestForDimension(card.id, dim.key);
-                        
+
                         return (
                           <td key={dim.key} className="py-4 px-4">
                             <div className="flex flex-col items-center gap-2">
                               {/* Score Bar */}
                               <div className="w-full max-w-24 h-3 bg-muted rounded-full overflow-hidden">
-                                <div 
+                                <div
                                   className={`h-full ${getScoreColor(score)} transition-all duration-300`}
                                   style={{ width: getScoreWidth(score) }}
                                 />
                               </div>
-                              
+
                               {/* Score Value */}
                               <div className="flex items-center gap-1">
-                                <span className="text-sm font-medium">{Math.round(score)}</span>
+                                <span className="text-sm font-medium">
+                                  {Math.round(score)}
+                                </span>
                                 {isBest && (
                                   <Badge className="text-[10px] h-4 px-1 bg-green-500 hover:bg-green-500">
                                     BEST
@@ -225,10 +253,10 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {matrixData.dimensions.map((dim) => {
               const winnerId = matrixData.bestFor[dim.key];
-              const winnerCard = cards.find(c => c.id === winnerId);
-              
+              const winnerCard = cards.find((c) => c.id === winnerId);
+
               return (
-                <div 
+                <div
                   key={dim.key}
                   className="p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors cursor-pointer"
                   onClick={() => winnerCard && onCardSelect?.(winnerCard.id)}
@@ -240,7 +268,7 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
                   <div className="flex items-center gap-1">
                     <Trophy className="h-3 w-3 text-amber-500" />
                     <span className="text-sm font-medium truncate">
-                      {winnerCard?.name || 'N/A'}
+                      {winnerCard?.name || "N/A"}
                     </span>
                   </div>
                 </div>
@@ -251,19 +279,21 @@ export function DecisionMatrixComponent({ cards, profile, onCardSelect }: Decisi
 
         {/* User Best Match */}
         {matrixData.userBestMatch && (
-          <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 border border-blue-200 dark:border-blue-800 rounded-lg">
+          <div className="p-4 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950 border border-blue-200 dark:border-blue-800 rounded-lg">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Trophy className="h-6 w-6 text-amber-500" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Best match for YOUR spending pattern</p>
+                  <p className="text-sm text-muted-foreground">
+                    Best match for YOUR spending pattern
+                  </p>
                   <p className="font-semibold text-lg">
-                    {cards.find(c => c.id === matrixData.userBestMatch)?.name}
+                    {cards.find((c) => c.id === matrixData.userBestMatch)?.name}
                   </p>
                 </div>
               </div>
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 onClick={() => onCardSelect?.(matrixData.userBestMatch!)}
                 className="shrink-0"
               >

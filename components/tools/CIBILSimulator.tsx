@@ -379,7 +379,7 @@ export default function CIBILSimulator() {
             </div>
 
             <Link
-              href="/tools/credit-score"
+              href="/calculators"
               className="mt-4 block text-center text-xs text-green-600 font-medium hover:text-green-700"
             >
               Learn how to improve your score →

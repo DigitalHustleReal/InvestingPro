@@ -1,11 +1,12 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { ExternalLink, DollarSign, Shield, FileText } from 'lucide-react';
+import { Metadata } from "next";
+import Link from "next/link";
+import { ExternalLink, DollarSign, Shield, FileText } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'Affiliate Disclosure | InvestingPro',
-  description: 'Learn how InvestingPro earns commissions through affiliate partnerships and our commitment to editorial independence.',
-  robots: 'index, follow',
+  title: "Affiliate Disclosure | InvestingPro",
+  description:
+    "Learn how InvestingPro earns commissions through affiliate partnerships and our commitment to editorial independence.",
+  robots: "index, follow",
 };
 
 export default function AffiliateDisclosurePage() {
@@ -33,8 +34,10 @@ export default function AffiliateDisclosurePage() {
                 📢 Quick Summary
               </p>
               <p className="text-sm text-blue-800 dark:text-blue-300">
-                InvestingPro earns commissions when you apply for financial products through our affiliate links. 
-                This helps us keep the platform free. Our recommendations remain unbiased and based on thorough research.
+                InvestingPro earns commissions when you apply for financial
+                products through our affiliate links. This helps us keep the
+                platform free. Our recommendations remain unbiased and based on
+                thorough research.
               </p>
             </div>
 
@@ -50,16 +53,25 @@ export default function AffiliateDisclosurePage() {
               </div>
               <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
-                  Affiliate marketing is a performance-based marketing model where we earn a commission when you:
+                  Affiliate marketing is a performance-based marketing model
+                  where we earn a commission when you:
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Click on an "Apply Now" or affiliate link on our platform</li>
-                  <li>Complete an application for a financial product (credit card, loan, insurance, etc.)</li>
+                  <li>
+                    Click on an "Apply Now" or affiliate link on our platform
+                  </li>
+                  <li>
+                    Complete an application for a financial product (credit
+                    card, loan, insurance, etc.)
+                  </li>
                   <li>Get approved and activate the product</li>
-                  <li>Make a purchase or investment through our partner links</li>
+                  <li>
+                    Make a purchase or investment through our partner links
+                  </li>
                 </ul>
                 <p>
-                  These commissions help us maintain and improve InvestingPro at no cost to you.
+                  These commissions help us maintain and improve InvestingPro at
+                  no cost to you.
                 </p>
               </div>
             </section>
@@ -76,47 +88,52 @@ export default function AffiliateDisclosurePage() {
               </div>
               <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
-                  We participate in affiliate programs with various financial institutions and service providers:
+                  We participate in affiliate programs with various financial
+                  institutions and service providers:
                 </p>
-                
+
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Credit Cards
                 </h3>
                 <p>
-                  When you apply for a credit card through our affiliate links and get approved, we earn a commission 
-                  from the card issuer. Commission rates vary by card and issuer.
+                  When you apply for a credit card through our affiliate links
+                  and get approved, we earn a commission from the card issuer.
+                  Commission rates vary by card and issuer.
                 </p>
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Loans (Personal, Home, Auto)
                 </h3>
                 <p>
-                  We earn commissions when you apply for and are approved for loans through our partner banks and NBFCs. 
-                  The commission is typically a percentage of the loan amount.
+                  We earn commissions when you apply for and are approved for
+                  loans through our partner banks and NBFCs. The commission is
+                  typically a percentage of the loan amount.
                 </p>
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Mutual Funds & Investments
                 </h3>
                 <p>
-                  Some mutual fund platforms and investment services pay us a commission when you open an account or 
-                  make investments through our referral links.
+                  Some mutual fund platforms and investment services pay us a
+                  commission when you open an account or make investments
+                  through our referral links.
                 </p>
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Insurance Products
                 </h3>
                 <p>
-                  Insurance companies pay us commissions when you purchase policies (life, health, motor, etc.) through 
-                  our affiliate links.
+                  Insurance companies pay us commissions when you purchase
+                  policies (life, health, motor, etc.) through our affiliate
+                  links.
                 </p>
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2">
                   Banking Products
                 </h3>
                 <p>
-                  We earn commissions when you open savings accounts, fixed deposits, or other banking products through 
-                  our partner banks.
+                  We earn commissions when you open savings accounts, fixed
+                  deposits, or other banking products through our partner banks.
                 </p>
               </div>
             </section>
@@ -128,11 +145,14 @@ export default function AffiliateDisclosurePage() {
                   3. You Don't Pay Extra
                 </h2>
                 <p className="text-green-800 dark:text-green-300">
-                  <strong>Important:</strong> Affiliate commissions do NOT increase the cost to you. You pay the same price, 
-                  interest rate, or fees whether you use our affiliate link or go directly to the provider's website.
+                  <strong>Important:</strong> Affiliate commissions do NOT
+                  increase the cost to you. You pay the same price, interest
+                  rate, or fees whether you use our affiliate link or go
+                  directly to the provider's website.
                 </p>
                 <p className="text-green-800 dark:text-green-300 mt-3">
-                  The commission is paid by the financial institution from their marketing budget, not from your pocket.
+                  The commission is paid by the financial institution from their
+                  marketing budget, not from your pocket.
                 </p>
               </div>
             </section>
@@ -140,8 +160,8 @@ export default function AffiliateDisclosurePage() {
             {/* Section 4: Editorial Independence */}
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
-                  <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                  <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white m-0">
                   4. Our Commitment to Editorial Independence
@@ -149,18 +169,36 @@ export default function AffiliateDisclosurePage() {
               </div>
               <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
-                  <strong>We maintain strict editorial independence.</strong> Our affiliate relationships do NOT influence:
+                  <strong>We maintain strict editorial independence.</strong>{" "}
+                  Our affiliate relationships do NOT influence:
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li><strong>Product Rankings:</strong> Products are ranked based on objective criteria (features, fees, benefits)</li>
-                  <li><strong>Recommendations:</strong> We recommend products based on merit, not commission rates</li>
-                  <li><strong>Reviews:</strong> Our reviews are honest and unbiased</li>
-                  <li><strong>Comparisons:</strong> Comparison tables show all relevant products, not just those with high commissions</li>
-                  <li><strong>Editorial Content:</strong> Articles and guides are written to educate, not to promote specific products</li>
+                  <li>
+                    <strong>Product Rankings:</strong> Products are ranked based
+                    on objective criteria (features, fees, benefits)
+                  </li>
+                  <li>
+                    <strong>Recommendations:</strong> We recommend products
+                    based on merit, not commission rates
+                  </li>
+                  <li>
+                    <strong>Reviews:</strong> Our reviews are honest and
+                    unbiased
+                  </li>
+                  <li>
+                    <strong>Comparisons:</strong> Comparison tables show all
+                    relevant products, not just those with high commissions
+                  </li>
+                  <li>
+                    <strong>Editorial Content:</strong> Articles and guides are
+                    written to educate, not to promote specific products
+                  </li>
                 </ul>
                 <p className="mt-4">
-                  <strong>Our Promise:</strong> We only recommend products we believe provide genuine value to our users. 
-                  If a product doesn't meet our quality standards, we won't promote it, regardless of commission rates.
+                  <strong>Our Promise:</strong> We only recommend products we
+                  believe provide genuine value to our users. If a product
+                  doesn't meet our quality standards, we won't promote it,
+                  regardless of commission rates.
                 </p>
               </div>
             </section>
@@ -172,17 +210,34 @@ export default function AffiliateDisclosurePage() {
               </h2>
               <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
-                  We partner with financial institutions and service providers based on:
+                  We partner with financial institutions and service providers
+                  based on:
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li><strong>Reputation:</strong> Established, trustworthy companies with good customer reviews</li>
-                  <li><strong>Product Quality:</strong> Competitive features, fees, and benefits</li>
-                  <li><strong>Customer Service:</strong> Responsive support and fair practices</li>
-                  <li><strong>Regulatory Compliance:</strong> Proper licensing and regulatory approvals (RBI, SEBI, IRDAI)</li>
-                  <li><strong>User Experience:</strong> Easy application process and transparent terms</li>
+                  <li>
+                    <strong>Reputation:</strong> Established, trustworthy
+                    companies with good customer reviews
+                  </li>
+                  <li>
+                    <strong>Product Quality:</strong> Competitive features,
+                    fees, and benefits
+                  </li>
+                  <li>
+                    <strong>Customer Service:</strong> Responsive support and
+                    fair practices
+                  </li>
+                  <li>
+                    <strong>Regulatory Compliance:</strong> Proper licensing and
+                    regulatory approvals (RBI, SEBI, IRDAI)
+                  </li>
+                  <li>
+                    <strong>User Experience:</strong> Easy application process
+                    and transparent terms
+                  </li>
                 </ul>
                 <p className="mt-4">
-                  We regularly review our affiliate partnerships and remove partners that don't meet our standards.
+                  We regularly review our affiliate partnerships and remove
+                  partners that don't meet our standards.
                 </p>
               </div>
             </section>
@@ -199,17 +254,30 @@ export default function AffiliateDisclosurePage() {
               </div>
               <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
-                  We clearly disclose affiliate relationships in the following ways:
+                  We clearly disclose affiliate relationships in the following
+                  ways:
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li><strong>Affiliate Badges:</strong> "Affiliate Link" badges next to partner links</li>
-                  <li><strong>Page Disclaimers:</strong> Disclosure notices on product comparison pages</li>
-                  <li><strong>This Page:</strong> Comprehensive disclosure on this dedicated page</li>
-                  <li><strong>Footer Links:</strong> Link to this disclosure in our website footer</li>
+                  <li>
+                    <strong>Affiliate Badges:</strong> "Affiliate Link" badges
+                    next to partner links
+                  </li>
+                  <li>
+                    <strong>Page Disclaimers:</strong> Disclosure notices on
+                    product comparison pages
+                  </li>
+                  <li>
+                    <strong>This Page:</strong> Comprehensive disclosure on this
+                    dedicated page
+                  </li>
+                  <li>
+                    <strong>Footer Links:</strong> Link to this disclosure in
+                    our website footer
+                  </li>
                 </ul>
                 <p className="mt-4">
-                  We comply with FTC (Federal Trade Commission) guidelines and Indian advertising standards (ASCI) 
-                  for affiliate disclosure.
+                  We comply with FTC (Federal Trade Commission) guidelines and
+                  Indian advertising standards (ASCI) for affiliate disclosure.
                 </p>
               </div>
             </section>
@@ -221,16 +289,29 @@ export default function AffiliateDisclosurePage() {
               </h2>
               <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <p>
-                  Not all content on InvestingPro is monetized through affiliate links:
+                  Not all content on InvestingPro is monetized through affiliate
+                  links:
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li><strong>Educational Articles:</strong> Guides, tutorials, and financial literacy content</li>
-                  <li><strong>Calculators:</strong> Free financial calculators (SIP, EMI, Tax, etc.)</li>
-                  <li><strong>Research:</strong> Market analysis and financial news</li>
-                  <li><strong>Glossary:</strong> Financial terms and definitions</li>
+                  <li>
+                    <strong>Educational Articles:</strong> Guides, tutorials,
+                    and financial literacy content
+                  </li>
+                  <li>
+                    <strong>Calculators:</strong> Free financial calculators
+                    (SIP, EMI, Tax, etc.)
+                  </li>
+                  <li>
+                    <strong>Research:</strong> Market analysis and financial
+                    news
+                  </li>
+                  <li>
+                    <strong>Glossary:</strong> Financial terms and definitions
+                  </li>
                 </ul>
                 <p className="mt-4">
-                  This content is provided free of charge to help you make informed financial decisions.
+                  This content is provided free of charge to help you make
+                  informed financial decisions.
                 </p>
               </div>
             </section>
@@ -252,7 +333,8 @@ export default function AffiliateDisclosurePage() {
                 <li>✅ Respond to user feedback and concerns</li>
               </ul>
               <p className="text-primary-800 dark:text-primary-300 mt-4">
-                <strong>Our Mission:</strong> To help you make informed financial decisions, not to maximize commissions.
+                <strong>Our Mission:</strong> To help you make informed
+                financial decisions, not to maximize commissions.
               </p>
             </section>
 
@@ -262,12 +344,15 @@ export default function AffiliateDisclosurePage() {
                 9. Questions or Concerns?
               </h2>
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-                If you have any questions about our affiliate relationships or how we earn revenue, please contact us:
+                If you have any questions about our affiliate relationships or
+                how we earn revenue, please contact us:
               </p>
               <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
                 <p className="text-gray-700 dark:text-gray-300">
-                  <strong>Email:</strong> partnerships@investingpro.in<br />
-                  <strong>General Inquiries:</strong> support@investingpro.in<br />
+                  <strong>Email:</strong> partnerships@investingpro.in
+                  <br />
+                  <strong>General Inquiries:</strong> support@investingpro.in
+                  <br />
                   <strong>Address:</strong> InvestingPro, India
                 </p>
               </div>
@@ -279,47 +364,63 @@ export default function AffiliateDisclosurePage() {
                 Related Legal Documents
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
-                <Link 
+                <Link
                   href="/terms-of-service"
                   className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
                 >
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-white">Terms of Service</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">Platform usage terms</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">
+                      Terms of Service
+                    </p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                      Platform usage terms
+                    </p>
                   </div>
                 </Link>
 
-                <Link 
+                <Link
                   href="/privacy-policy"
                   className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
                 >
                   <Shield className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-white">Privacy Policy</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">Data protection</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">
+                      Privacy Policy
+                    </p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                      Data protection
+                    </p>
                   </div>
                 </Link>
 
-                <Link 
+                <Link
                   href="/disclaimer"
                   className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
                 >
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-white">Disclaimer</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">Risk disclosures</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">
+                      Disclaimer
+                    </p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                      Risk disclosures
+                    </p>
                   </div>
                 </Link>
 
-                <Link 
+                <Link
                   href="/cookie-policy"
                   className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
                 >
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-white">Cookie Policy</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">Cookie usage</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">
+                      Cookie Policy
+                    </p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                      Cookie usage
+                    </p>
                   </div>
                 </Link>
               </div>
@@ -328,8 +429,9 @@ export default function AffiliateDisclosurePage() {
             {/* Final Note */}
             <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
               <p className="text-sm text-blue-900 dark:text-blue-200">
-                <strong>Thank You:</strong> By using InvestingPro, you help us continue providing free, high-quality 
-                financial information and tools. We appreciate your trust and support.
+                <strong>Thank You:</strong> By using InvestingPro, you help us
+                continue providing free, high-quality financial information and
+                tools. We appreciate your trust and support.
               </p>
             </div>
           </div>

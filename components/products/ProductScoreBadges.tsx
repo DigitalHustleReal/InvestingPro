@@ -66,8 +66,8 @@ const badgeConfig: Record<
   },
   "Flexible Tenure": {
     icon: Clock,
-    color: "text-indigo-700",
-    bg: "bg-indigo-50 border-indigo-200",
+    color: "text-green-700",
+    bg: "bg-green-50 border-green-200",
   },
   "Home Buyer Choice": {
     icon: Award,
@@ -120,8 +120,8 @@ const badgeConfig: Record<
   },
   "Editor's Choice": {
     icon: Award,
-    color: "text-violet-700",
-    bg: "bg-violet-50 border-violet-200",
+    color: "text-emerald-700",
+    bg: "bg-emerald-50 border-emerald-200",
   },
 };
 

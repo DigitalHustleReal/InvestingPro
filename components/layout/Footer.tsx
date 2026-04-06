@@ -157,14 +157,14 @@ export function Footer() {
                       (window as any).__pwaInstallPrompt.prompt();
                       return;
                     }
-                    window.location.href = "/app";
+                    window.location.href = "/downloads";
                   }}
                   className="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-xl transition-colors"
                 >
                   Install Web App
                 </button>
                 <Link
-                  href="/app"
+                  href="/downloads"
                   className="px-5 py-2.5 bg-white/[.05] hover:bg-white/[.08] border border-white/[.08] text-white/70 text-sm font-medium rounded-xl transition-colors"
                 >
                   Join waitlist

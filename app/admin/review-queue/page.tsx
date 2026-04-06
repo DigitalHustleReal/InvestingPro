@@ -1,257 +1,326 @@
 "use client";
 
-import { useState } from 'react';
-import AdminLayout from '@/components/admin/AdminLayout';
-import AdminPageContainer from '@/components/admin/AdminPageContainer';
-import { useQuery } from '@tanstack/react-query';
-import { createClient } from '@/lib/supabase/client';
-import { 
-    CheckCircle2, 
-    XCircle, 
-    Eye, 
-    Clock, 
-    FileText,
-    AlertCircle,
-    User,
-    Inbox
-} from 'lucide-react';
-import { Textarea } from '@/components/ui/textarea';
+import { useState } from "react";
+import AdminLayout from "@/components/admin/AdminLayout";
+import AdminPageContainer from "@/components/admin/AdminPageContainer";
+import { useQuery } from "@tanstack/react-query";
+import { createClient } from "@/lib/supabase/client";
 import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogFooter
-} from '@/components/ui/dialog';
-import { toast } from 'sonner';
-import { formatDistanceToNow } from 'date-fns';
-import Link from 'next/link';
-import { AdminPageHeader, ContentSection, StatCard, StatusBadge, ActionButton } from '@/components/admin/AdminUIKit';
+  CheckCircle2,
+  XCircle,
+  Eye,
+  Clock,
+  FileText,
+  AlertCircle,
+  User,
+  Inbox,
+} from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { toast } from "sonner";
+import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
+import {
+  AdminPageHeader,
+  ContentSection,
+  StatCard,
+  StatusBadge,
+  ActionButton,
+} from "@/components/admin/AdminUIKit";
 
 const supabase = createClient();
 
 export default function ReviewQueuePage() {
-    const [selectedArticle, setSelectedArticle] = useState<any>(null);
-    const [reviewNotes, setReviewNotes] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const [actionType, setActionType] = useState<'approve' | 'reject'>('approve');
+  const [selectedArticle, setSelectedArticle] = useState<any>(null);
+  const [reviewNotes, setReviewNotes] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [actionType, setActionType] = useState<"approve" | "reject">("approve");
 
-    const { data: reviews = [], refetch, isLoading } = useQuery({
-        queryKey: ['review-queue'],
-        queryFn: async () => {
-            const { data, error } = await supabase
-                .from('articles')
-                .select('id, title, excerpt, category, author_id, updated_at, status')
-                .eq('status', 'review')
-                .order('updated_at', { ascending: false });
-            
-            if (error) throw error;
-            return data || [];
-        }
-    });
+  const {
+    data: reviews = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["review-queue"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("id, title, excerpt, category, author_id, updated_at, status")
+        .eq("status", "review")
+        .order("updated_at", { ascending: false });
 
-    const handleReviewAction = async () => {
-        if (!selectedArticle) return;
-        setIsSubmitting(true);
+      if (error) throw error;
+      return data || [];
+    },
+  });
 
-        try {
-            const { error: reviewError } = await supabase
-                .from('article_reviews')
-                .insert({
-                    article_id: selectedArticle.id,
-                    status: actionType === 'approve' ? 'approved' : 'changes_requested',
-                    notes: reviewNotes,
-                });
+  const handleReviewAction = async () => {
+    if (!selectedArticle) return;
+    setIsSubmitting(true);
 
-            if (reviewError) throw reviewError;
+    try {
+      const { error: reviewError } = await supabase
+        .from("article_reviews")
+        .insert({
+          article_id: selectedArticle.id,
+          status: actionType === "approve" ? "approved" : "changes_requested",
+          notes: reviewNotes,
+        });
 
-            const newStatus = actionType === 'approve' ? 'published' : 'draft';
-            const { error: updateError } = await supabase
-                .from('articles')
-                .update({ 
-                    status: newStatus,
-                    published_at: actionType === 'approve' ? new Date().toISOString() : null
-                })
-                .eq('id', selectedArticle.id);
+      if (reviewError) throw reviewError;
 
-            if (updateError) throw updateError;
+      const newStatus = actionType === "approve" ? "published" : "draft";
+      const { error: updateError } = await supabase
+        .from("articles")
+        .update({
+          status: newStatus,
+          published_at:
+            actionType === "approve" ? new Date().toISOString() : null,
+        })
+        .eq("id", selectedArticle.id);
 
-            toast.success(actionType === 'approve' ? 'Article approved & published!' : 'Changes requested. Sent back to draft.');
-            setDialogOpen(false);
-            setReviewNotes('');
-            refetch();
+      if (updateError) throw updateError;
 
-        } catch (error: any) {
-            toast.error(error.message);
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+      toast.success(
+        actionType === "approve"
+          ? "Article approved & published!"
+          : "Changes requested. Sent back to draft.",
+      );
+      setDialogOpen(false);
+      setReviewNotes("");
+      refetch();
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-    const openReviewDialog = (article: any, type: 'approve' | 'reject') => {
-        setSelectedArticle(article);
-        setActionType(type);
-        setDialogOpen(true);
-    };
+  const openReviewDialog = (article: any, type: "approve" | "reject") => {
+    setSelectedArticle(article);
+    setActionType(type);
+    setDialogOpen(true);
+  };
 
-    return (
-        <AdminLayout>
-            <AdminPageContainer>
-                <AdminPageHeader
-                    title="Review Queue"
-                    subtitle="Approve or request changes for pending articles"
-                    icon={Inbox}
-                    iconColor="purple"
-                    actions={
-                        <div className="px-4 py-2 bg-secondary-500/20 rounded-xl border border-secondary-500/30">
-                            <span className="text-secondary-400 text-sm font-medium">{reviews.length} Pending</span>
-                        </div>
-                    }
-                />
+  return (
+    <AdminLayout>
+      <AdminPageContainer>
+        <AdminPageHeader
+          title="Review Queue"
+          subtitle="Approve or request changes for pending articles"
+          icon={Inbox}
+          iconColor="purple"
+          actions={
+            <div className="px-4 py-2 bg-secondary-500/20 rounded-xl border border-secondary-500/30">
+              <span className="text-secondary-400 text-sm font-medium">
+                {reviews.length} Pending
+              </span>
+            </div>
+          }
+        />
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <StatCard label="Pending" value={reviews.length} icon={Clock} color="amber" />
-                    <StatCard label="Approved Today" value="--" icon={CheckCircle2} color="teal" />
-                    <StatCard label="Rejected Today" value="--" icon={XCircle} color="rose" />
-                    <StatCard label="Avg Review Time" value="--" icon={Clock} color="blue" />
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <StatCard
+            label="Pending"
+            value={reviews.length}
+            icon={Clock}
+            color="amber"
+          />
+          <StatCard
+            label="Approved Today"
+            value="--"
+            icon={CheckCircle2}
+            color="teal"
+          />
+          <StatCard
+            label="Rejected Today"
+            value="--"
+            icon={XCircle}
+            color="rose"
+          />
+          <StatCard
+            label="Avg Review Time"
+            value="--"
+            icon={Clock}
+            color="blue"
+          />
+        </div>
+
+        {isLoading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="w-10 h-10 border-4 border-secondary-500/30 border-t-purple-500 rounded-full animate-spin" />
+          </div>
+        ) : reviews.length === 0 ? (
+          <ContentSection>
+            <div className="text-center py-16">
+              <div className="w-20 h-20 rounded-2xl bg-primary-500/10 flex items-center justify-center mx-auto mb-4">
+                <CheckCircle2 className="w-10 h-10 text-primary-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground dark:text-foreground mb-2">
+                All Caught Up!
+              </h3>
+              <p className="text-muted-foreground dark:text-muted-foreground">
+                No articles pending review.
+              </p>
+            </div>
+          </ContentSection>
+        ) : (
+          <div className="grid gap-4">
+            {reviews.map((article: any) => (
+              <ContentSection key={article.id}>
+                <div className="flex flex-col md:flex-row items-start gap-6">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-secondary-500/20 to-pink-500/20 border border-secondary-500/30 flex items-center justify-center shrink-0">
+                    <FileText className="w-7 h-7 text-secondary-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-2">
+                      {article.category && (
+                        <span className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white/5 text-muted-foreground dark:text-muted-foreground border border-border dark:border-border">
+                          {article.category.replace(/-/g, " ")}
+                        </span>
+                      )}
+                      <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {formatDistanceToNow(new Date(article.updated_at), {
+                          addSuffix: true,
+                        })}
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground dark:text-foreground mb-2 hover:text-secondary-400 transition-colors">
+                      {article.title}
+                    </h3>
+                    <p className="text-muted-foreground dark:text-muted-foreground text-sm line-clamp-2 mb-4">
+                      {article.excerpt || "No excerpt provided..."}
+                    </p>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center">
+                        <User className="w-3 h-3 text-foreground/80 dark:text-foreground/80" />
+                      </div>
+                      <span className="text-xs">
+                        Author: {article.author_id?.slice(0, 8) || "Unknown"}...
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-row md:flex-col gap-2 w-full md:w-auto">
+                    <Link
+                      href={`/admin/review-queue/${article.id}`}
+                      className="flex-1 md:flex-none"
+                    >
+                      <button className="w-full px-4 py-2 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 transition-all">
+                        <Eye className="w-4 h-4" /> Fact Check
+                      </button>
+                    </Link>
+                    <button
+                      className="flex-1 md:flex-none px-4 py-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                      onClick={() => openReviewDialog(article, "approve")}
+                    >
+                      <CheckCircle2 className="w-4 h-4" /> Approve
+                    </button>
+                    <button
+                      className="flex-1 md:flex-none px-4 py-2 bg-danger-500/20 hover:bg-danger-500/30 text-danger-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                      onClick={() => openReviewDialog(article, "reject")}
+                    >
+                      <XCircle className="w-4 h-4" /> Changes
+                    </button>
+                  </div>
                 </div>
+              </ContentSection>
+            ))}
+          </div>
+        )}
 
-                {isLoading ? (
-                    <div className="flex items-center justify-center py-20">
-                        <div className="w-10 h-10 border-4 border-secondary-500/30 border-t-purple-500 rounded-full animate-spin" />
-                    </div>
-                ) : reviews.length === 0 ? (
-                    <ContentSection>
-                        <div className="text-center py-16">
-                            <div className="w-20 h-20 rounded-2xl bg-primary-500/10 flex items-center justify-center mx-auto mb-4">
-                                <CheckCircle2 className="w-10 h-10 text-primary-400" />
-                            </div>
-                            <h3 className="text-xl font-semibold text-foreground dark:text-foreground mb-2">All Caught Up!</h3>
-                            <p className="text-muted-foreground dark:text-muted-foreground">No articles pending review.</p>
-                        </div>
-                    </ContentSection>
-                ) : (
-                    <div className="grid gap-4">
-                        {reviews.map((article: any) => (
-                            <ContentSection key={article.id}>
-                                <div className="flex flex-col md:flex-row items-start gap-6">
-                                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-secondary-500/20 to-pink-500/20 border border-secondary-500/30 flex items-center justify-center shrink-0">
-                                        <FileText className="w-7 h-7 text-secondary-400" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-3 mb-2">
-                                            {article.category && (
-                                                <span className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white/5 text-muted-foreground dark:text-muted-foreground border border-border dark:border-border">
-                                                    {article.category.replace(/-/g, ' ')}
-                                                </span>
-                                            )}
-                                            <span className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 flex items-center gap-1">
-                                                <Clock className="w-3 h-3" />
-                                                {formatDistanceToNow(new Date(article.updated_at), { addSuffix: true })}
-                                            </span>
-                                        </div>
-                                        <h3 className="text-lg font-bold text-foreground dark:text-foreground mb-2 hover:text-secondary-400 transition-colors">
-                                            {article.title}
-                                        </h3>
-                                        <p className="text-muted-foreground dark:text-muted-foreground text-sm line-clamp-2 mb-4">
-                                            {article.excerpt || 'No excerpt provided...'}
-                                        </p>
-                                        <div className="flex items-center gap-2 text-sm text-muted-foreground/70 dark:text-muted-foreground/70">
-                                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center">
-                                                <User className="w-3 h-3 text-foreground/80 dark:text-foreground/80" />
-                                            </div>
-                                            <span className="text-xs">Author: {article.author_id?.slice(0, 8) || 'Unknown'}...</span>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-row md:flex-col gap-2 w-full md:w-auto">
-                                        <Link href={`/admin/review-queue/${article.id}`} className="flex-1 md:flex-none">
-                                            <button className="w-full px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 transition-all">
-                                                <Eye className="w-4 h-4" /> Fact Check
-                                            </button>
-                                        </Link>
-                                        <button 
-                                            className="flex-1 md:flex-none px-4 py-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
-                                            onClick={() => openReviewDialog(article, 'approve')}
-                                        >
-                                            <CheckCircle2 className="w-4 h-4" /> Approve
-                                        </button>
-                                        <button 
-                                            className="flex-1 md:flex-none px-4 py-2 bg-danger-500/20 hover:bg-danger-500/30 text-danger-400 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
-                                            onClick={() => openReviewDialog(article, 'reject')}
-                                        >
-                                            <XCircle className="w-4 h-4" /> Changes
-                                        </button>
-                                    </div>
-                                </div>
-                            </ContentSection>
-                        ))}
-                    </div>
-                )}
+        {/* Review Dialog */}
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <DialogContent className="bg-surface-darker dark:bg-surface-darker border-border dark:border-border text-foreground dark:text-foreground">
+            <DialogHeader>
+              <DialogTitle className="text-foreground dark:text-foreground">
+                {actionType === "approve"
+                  ? "Approve Article"
+                  : "Request Changes"}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              {actionType === "approve" ? (
+                <div className="bg-primary-500/10 border border-primary-500/30 p-4 rounded-lg flex items-start gap-3 text-primary-400 text-sm">
+                  <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Ready to publish?</p>
+                    <p className="text-primary-400/80">
+                      This will change status to 'Published' and make it live
+                      immediately.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-accent-500/10 border border-accent-500/30 p-4 rounded-lg flex items-start gap-3 text-accent-400 text-sm">
+                  <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Requesting Changes</p>
+                    <p className="text-accent-400/80">
+                      This will send the article back to 'Draft' status for
+                      revision.
+                    </p>
+                  </div>
+                </div>
+              )}
 
-                {/* Review Dialog */}
-                <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                    <DialogContent className="bg-surface-darker dark:bg-surface-darker border-border dark:border-border text-foreground dark:text-foreground">
-                        <DialogHeader>
-                            <DialogTitle className="text-foreground dark:text-foreground">
-                                {actionType === 'approve' ? 'Approve Article' : 'Request Changes'}
-                            </DialogTitle>
-                        </DialogHeader>
-                        <div className="space-y-4 py-4">
-                            {actionType === 'approve' ? (
-                                <div className="bg-primary-500/10 border border-primary-500/30 p-4 rounded-lg flex items-start gap-3 text-primary-400 text-sm">
-                                    <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
-                                    <div>
-                                        <p className="font-semibold">Ready to publish?</p>
-                                        <p className="text-primary-400/80">This will change status to 'Published' and make it live immediately.</p>
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="bg-accent-500/10 border border-accent-500/30 p-4 rounded-lg flex items-start gap-3 text-accent-400 text-sm">
-                                    <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
-                                    <div>
-                                        <p className="font-semibold">Requesting Changes</p>
-                                        <p className="text-accent-400/80">This will send the article back to 'Draft' status for revision.</p>
-                                    </div>
-                                </div>
-                            )}
-                            
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-foreground/80 dark:text-foreground/80">
-                                    Editorial Notes {actionType === 'reject' && <span className="text-danger-400">*</span>}
-                                </label>
-                                <Textarea 
-                                    placeholder={actionType === 'approve' ? "Optional: Great work on..." : "Required: Please fix..."}
-                                    value={reviewNotes}
-                                    onChange={e => setReviewNotes(e.target.value)}
-                                    className="min-h-[100px] bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground placeholder-gray-500"
-                                />
-                            </div>
-                        </div>
-                        <DialogFooter className="gap-2">
-                            <button 
-                                onClick={() => setDialogOpen(false)} 
-                                disabled={isSubmitting}
-                                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-lg text-sm font-medium transition-colors"
-                            >
-                                Cancel
-                            </button>
-                            <button 
-                                onClick={handleReviewAction}
-                                disabled={isSubmitting || (actionType === 'reject' && !reviewNotes.trim())}
-                                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${
-                                    actionType === 'approve' 
-                                        ? 'bg-primary-500 hover:bg-primary-600 text-foreground dark:text-foreground' 
-                                        : 'bg-danger-500 hover:bg-danger-600 text-foreground dark:text-foreground'
-                                }`}
-                            >
-                                {isSubmitting ? 'Processing...' : (actionType === 'approve' ? 'Confirm Approval' : 'Send Request')}
-                            </button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
-            </AdminPageContainer>
-        </AdminLayout>
-    );
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground/80 dark:text-foreground/80">
+                  Editorial Notes{" "}
+                  {actionType === "reject" && (
+                    <span className="text-danger-400">*</span>
+                  )}
+                </label>
+                <Textarea
+                  placeholder={
+                    actionType === "approve"
+                      ? "Optional: Great work on..."
+                      : "Required: Please fix..."
+                  }
+                  value={reviewNotes}
+                  onChange={(e) => setReviewNotes(e.target.value)}
+                  className="min-h-[100px] bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground placeholder-gray-500"
+                />
+              </div>
+            </div>
+            <DialogFooter className="gap-2">
+              <button
+                onClick={() => setDialogOpen(false)}
+                disabled={isSubmitting}
+                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-foreground dark:text-foreground rounded-lg text-sm font-medium transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleReviewAction}
+                disabled={
+                  isSubmitting ||
+                  (actionType === "reject" && !reviewNotes.trim())
+                }
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${
+                  actionType === "approve"
+                    ? "bg-primary-500 hover:bg-primary-600 text-foreground dark:text-foreground"
+                    : "bg-danger-500 hover:bg-danger-600 text-foreground dark:text-foreground"
+                }`}
+              >
+                {isSubmitting
+                  ? "Processing..."
+                  : actionType === "approve"
+                    ? "Confirm Approval"
+                    : "Send Request"}
+              </button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </AdminPageContainer>
+    </AdminLayout>
+  );
 }
