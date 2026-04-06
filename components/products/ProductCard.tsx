@@ -163,18 +163,33 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* Friction-reduction copy */}
         {product.category === "credit_card" && (
-          <p className="w-full text-[10px] text-gray-400 text-center mt-1">
+          <p className="w-full text-[10px] text-gray-400 dark:text-gray-500 text-center mt-1">
             Takes 3-5 min · No impact on CIBIL score
           </p>
         )}
         {product.category === "loan" && (
-          <p className="w-full text-[10px] text-gray-400 text-center mt-1">
+          <p className="w-full text-[10px] text-gray-400 dark:text-gray-500 text-center mt-1">
             Check eligibility in 2 minutes
           </p>
         )}
         {product.category === "demat_account" && (
-          <p className="w-full text-[10px] text-gray-400 text-center mt-1">
+          <p className="w-full text-[10px] text-gray-400 dark:text-gray-500 text-center mt-1">
             Free account opening · No hidden charges
+          </p>
+        )}
+        {product.category === "mutual_fund" && (
+          <p className="w-full text-[10px] text-gray-400 dark:text-gray-500 text-center mt-1">
+            Start with as little as &#8377;500/month
+          </p>
+        )}
+        {product.category === "insurance" && (
+          <p className="w-full text-[10px] text-gray-400 dark:text-gray-500 text-center mt-1">
+            Compare quotes in 2 minutes
+          </p>
+        )}
+        {product.category === "fixed_deposit" && (
+          <p className="w-full text-[10px] text-gray-400 dark:text-gray-500 text-center mt-1">
+            Book online · No paperwork
           </p>
         )}
 

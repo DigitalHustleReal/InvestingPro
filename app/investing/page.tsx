@@ -151,7 +151,7 @@ export default function InvestingPage() {
 
       {/* Hero */}
       <section className="bg-white border-b border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pt-6 pb-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
             <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-400">
               <li>
@@ -180,7 +180,7 @@ export default function InvestingPage() {
 
       {/* Investment categories */}
       <section className="bg-gray-50">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Explore Investment Options
           </h2>
@@ -229,7 +229,7 @@ export default function InvestingPage() {
 
       {/* Investing tools */}
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Free Investing Tools
           </h2>
@@ -253,7 +253,7 @@ export default function InvestingPage() {
 
       {/* Beginner's guide */}
       <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             How to Start Investing
           </h2>
@@ -299,7 +299,7 @@ export default function InvestingPage() {
 
       {/* FAQ */}
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Investing FAQs
           </h2>

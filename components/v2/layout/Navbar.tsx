@@ -118,7 +118,7 @@ export default function Navbar() {
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="max-w-[1200px] mx-auto h-full flex items-center px-4 lg:px-8">
+        <div className="max-w-7xl mx-auto h-full flex items-center px-4 lg:px-8">
           {/* Logo */}
           <Link
             href="/"

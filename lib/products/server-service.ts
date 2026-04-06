@@ -5,7 +5,9 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("products")
-    .select("*")
+    .select(
+      "id, slug, name, category, provider_name, provider_slug, description, image_url, rating, features, key_features, pros, cons, affiliate_link, official_link, is_active, trust_score, verification_status, updated_at",
+    )
     .eq("slug", slug)
     .single();
 

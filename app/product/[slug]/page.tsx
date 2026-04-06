@@ -23,7 +23,9 @@ async function getProduct(slug: string) {
   const supabase = createClient();
   const { data } = await supabase
     .from("products")
-    .select("*")
+    .select(
+      "id, slug, name, category, provider_name, provider_slug, description, image_url, rating, features, key_features, pros, cons, affiliate_link, official_link, is_active, trust_score, verification_status, updated_at",
+    )
     .eq("slug", slug)
     .maybeSingle(); // Use maybeSingle() to handle 0 rows gracefully
   if (!data) return null;
@@ -108,19 +110,26 @@ export default async function ProductPage({
             </p>
 
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                className="bg-primary-600 hover:bg-primary-700 text-white font-bold px-8 h-12 rounded-xl text-lg shadow-lg shadow-primary-500/20"
-                asChild
-              >
-                <a
-                  href={product.affiliate_link || product.official_link || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="flex flex-col items-center gap-1">
+                <Button
+                  size="lg"
+                  className="bg-primary-600 hover:bg-primary-700 text-white font-bold px-8 h-12 rounded-xl text-lg shadow-lg shadow-primary-500/20"
+                  asChild
                 >
-                  Apply Now <ArrowRight className="ml-2 w-5 h-5" />
-                </a>
-              </Button>
+                  <a
+                    href={
+                      product.affiliate_link || product.official_link || "#"
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Apply Now <ArrowRight className="ml-2 w-5 h-5" />
+                  </a>
+                </Button>
+                <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                  Secure application · No impact on CIBIL score
+                </span>
+              </div>
               <Button
                 size="lg"
                 variant="outline"

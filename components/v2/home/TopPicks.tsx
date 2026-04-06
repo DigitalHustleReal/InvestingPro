@@ -61,7 +61,7 @@ const PICKS = [
 export default function TopPicks() {
   return (
     <section className="py-12 md:py-16 px-4 lg:px-8">
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="flex items-end justify-between flex-wrap gap-2 mb-7">
           <div>
             <div className="text-xs font-semibold text-green-600 uppercase tracking-wider mb-2">

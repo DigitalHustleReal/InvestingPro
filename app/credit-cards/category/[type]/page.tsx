@@ -29,6 +29,7 @@ import ComplianceDisclaimer from "@/components/common/ComplianceDisclaimer";
 import SEOContentBlock from "@/components/common/SEOContentBlock";
 import RelatedPages from "@/components/common/RelatedPages";
 import CreditCardsClient from "../../CreditCardsClient";
+import { logger } from "@/lib/logger";
 
 export const revalidate = 3600;
 export const dynamic = "force-static";
@@ -983,18 +984,24 @@ export default async function CategoryPage({ params }: PageProps) {
     const supabase = createServiceClient();
     const { data, error } = await supabase
       .from("credit_cards")
-      .select("*")
-      .order("rating", { ascending: false });
+      .select(
+        "id, slug, name, bank, type, description, annual_fee, joining_fee, interest_rate, rewards, rating, image_url, apply_link, source_url, pros, cons, features, best_for, updated_at, metadata",
+      )
+      .order("rating", { ascending: false })
+      .limit(200);
 
     if (error) {
-      console.error(`[CategoryPage] DB error for category "${type}":`, error);
+      logger.error(
+        `[CategoryPage] DB error for category "${type}"`,
+        error instanceof Error ? error : undefined,
+      );
     } else {
       allCards = (data || []).filter(config.filterFn);
     }
   } catch (error) {
-    console.error(
-      `[CategoryPage] CRITICAL: Failed to load cards for "${type}":`,
-      error,
+    logger.error(
+      `[CategoryPage] CRITICAL: Failed to load cards for "${type}"`,
+      error instanceof Error ? error : undefined,
     );
     allCards = [];
   }

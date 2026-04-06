@@ -13,7 +13,12 @@ import {
 } from "@/components/credit-cards/FilterSidebar";
 import { ResponsiveFilterContainer } from "@/components/products/ResponsiveFilterContainer";
 import { CreditCardTable } from "@/components/credit-cards/CreditCardTable";
-import { CompareTray } from "@/components/compare/CompareTray";
+import dynamic from "next/dynamic";
+const CompareTray = dynamic(
+  () =>
+    import("@/components/compare/CompareTray").then((mod) => mod.CompareTray),
+  { ssr: false },
+);
 import FilterPresets from "@/components/filters/FilterPresets";
 import { ScoringWeights, scoreCreditCard } from "@/lib/products/scoring-rules";
 

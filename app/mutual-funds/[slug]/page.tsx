@@ -101,7 +101,9 @@ async function getMutualFundData(
   // Fetch from products table (category = 'mutual_fund')
   const { data: product, error } = await supabase
     .from("products")
-    .select("*")
+    .select(
+      "id, slug, name, category, provider_name, provider_slug, description, image_url, rating, features, key_features, pros, cons, affiliate_link, official_link, is_active, trust_score, verification_status, updated_at, best_for",
+    )
     .eq("slug", slug)
     .maybeSingle();
 
@@ -470,7 +472,7 @@ export default async function MutualFundDetailPage({
       />
       {/* Hero Section */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="mb-5">
             <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-400">
@@ -603,7 +605,7 @@ export default async function MutualFundDetailPage({
       </div>
 
       {/* NAV Chart — Interactive */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <NAVChart
           fundName={fund.name}
           navHistory={((fund as any).__navHistory || []).map((p: any) => ({
@@ -615,7 +617,7 @@ export default async function MutualFundDetailPage({
       </div>
 
       {/* Decision Framework */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
         <DecisionFramework
           productId={fund.id}
           productName={fund.name}
@@ -626,7 +628,7 @@ export default async function MutualFundDetailPage({
       </div>
 
       {/* Main Content */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column: Main Content */}
           <div className="lg:col-span-2 space-y-8">
@@ -969,7 +971,7 @@ export default async function MutualFundDetailPage({
       </div>
 
       {/* Returns vs Benchmark */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -1031,7 +1033,7 @@ export default async function MutualFundDetailPage({
       </div>
 
       {/* Interactive SIP Calculator */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <SIPCalculatorWidget
           fundName={fund.name}
           returns3Y={fund.returns["3Y"]}
@@ -1043,7 +1045,7 @@ export default async function MutualFundDetailPage({
 
       {/* Risk Explainer — Plain English */}
       {(fund as any).__riskMetrics?.max_drawdown > 0 && (
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -1154,7 +1156,7 @@ export default async function MutualFundDetailPage({
       )}
 
       {/* How to Invest */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <Card>
           <CardHeader>
             <CardTitle>How to Invest in {fund.name}</CardTitle>
@@ -1199,7 +1201,7 @@ export default async function MutualFundDetailPage({
       </div>
 
       {/* Compare Similar Funds */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <CompareSimilarFunds
           currentFund={{
             name: fund.name,
@@ -1212,7 +1214,7 @@ export default async function MutualFundDetailPage({
       </div>
 
       {/* FAQ */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <h2 className="text-lg font-bold text-gray-900 mb-4">
           Frequently Asked Questions
         </h2>

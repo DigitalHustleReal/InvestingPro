@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/static";
 import ExpertTeam from "@/components/experts/ExpertTeam";
 import SEOHead from "@/components/common/SEOHead";
 import CategoryHero from "@/components/common/CategoryHero";
+import { logger } from "@/lib/logger";
 
 // ISR: revalidate every hour
 export const revalidate = 3600;
@@ -18,13 +19,20 @@ export default async function ExpertsPage() {
 
   const { data: expertsData, error } = await supabase
     .from("authors")
-    .select("*")
+    .select(
+      "id, name, slug, role, avatar, bio, credentials, is_expert, expert_order, linkedin_url, twitter_handle, articles_count, years_of_experience",
+    )
     .eq("is_expert", true)
     .order("expert_order", { ascending: true, nullsFirst: false })
-    .order("name", { ascending: true });
+    .order("name", { ascending: true })
+    .limit(50);
 
   if (error) {
-    console.error("Error fetching experts:", error);
+    logger.error(
+      "Error fetching experts",
+      error instanceof Error ? error : undefined,
+      { details: String(error) },
+    );
   }
 
   // Ensure experts is always an array

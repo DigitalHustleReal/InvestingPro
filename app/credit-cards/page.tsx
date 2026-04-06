@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight, Shield, CalendarDays } from "lucide-react";
 import { getCreditCardsServer } from "@/lib/products/get-credit-cards-server";
 import CreditCardsClient from "./CreditCardsClient";
+import { logger } from "@/lib/logger";
 
 export const revalidate = 3600;
 
@@ -25,7 +26,10 @@ export default async function CreditCardsPage() {
   try {
     assets = await getCreditCardsServer();
   } catch (error) {
-    console.error("[CreditCardsPage] Failed to load credit cards:", error);
+    logger.error(
+      "[CreditCardsPage] Failed to load credit cards",
+      error instanceof Error ? error : undefined,
+    );
     assets = [];
   }
 
@@ -124,7 +128,7 @@ export default async function CreditCardsPage() {
 
       {/* ── Hero ── */}
       <section className="bg-white border-b border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pt-6 pb-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="mb-5">
             <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-400">
@@ -196,14 +200,14 @@ export default async function CreditCardsPage() {
 
       {/* ── Main content ── */}
       <section className="bg-gray-50 min-h-screen">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <CreditCardsClient initialAssets={assets as any} />
         </div>
       </section>
 
       {/* ── Related tools ── */}
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Related Tools
           </h2>
@@ -249,7 +253,7 @@ export default async function CreditCardsPage() {
 
       {/* ── Popular comparisons ── */}
       <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Popular Card Comparisons
           </h2>
@@ -310,7 +314,7 @@ export default async function CreditCardsPage() {
 
       {/* ── How we rate ── */}
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             How We Rate Credit Cards
           </h2>
@@ -369,7 +373,7 @@ export default async function CreditCardsPage() {
 
       {/* ── FAQ — with schema markup ── */}
       <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Credit Card FAQs
           </h2>
@@ -422,7 +426,7 @@ export default async function CreditCardsPage() {
 
       {/* ── Next steps CTAs ── */}
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Not sure yet?
           </h2>

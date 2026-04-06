@@ -80,7 +80,7 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-[1200px] mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Badge */}
         <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-green-50 border border-green-200 rounded-full text-xs text-green-700 font-medium mb-5">
           <Shield size={13} className="text-green-600" />

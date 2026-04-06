@@ -38,9 +38,10 @@ export default async function AboutPage() {
 
   const { data: teamMembers } = await supabase
     .from("authors")
-    .select("*")
+    .select("id, name, slug, role, avatar, bio, is_expert, expert_order")
     .eq("is_expert", true)
-    .order("expert_order");
+    .order("expert_order")
+    .limit(20);
 
   const members = teamMembers || [
     {

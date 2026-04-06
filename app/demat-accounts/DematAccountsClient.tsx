@@ -104,8 +104,31 @@ export default function DematAccountsClient({
           </div>
         </div>
       ) : filtered.length === 0 ? (
-        <div className="py-16 text-center bg-white rounded-xl border border-gray-200">
-          <p className="text-gray-500">No brokers found.</p>
+        <div className="py-16 text-center bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+          <div className="w-14 h-14 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+            <svg
+              className="w-7 h-7 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+            No brokers match your filters
+          </h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Try clearing your filters or adjusting your search criteria.
+          </p>
+          <a
+            href="/demat-accounts"
+            className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+          >
+            View all demat accounts &rarr;
+          </a>
         </div>
       ) : viewMode === "table" ? (
         <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">

@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 function SectionSkeleton() {
   return (
     <div className="py-12 md:py-16 px-4 lg:px-8">
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="h-5 w-20 bg-gray-200 rounded mb-2 animate-pulse" />
         <div className="h-7 w-64 bg-gray-200 rounded mb-7 animate-pulse" />
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

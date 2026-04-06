@@ -487,7 +487,7 @@ export default function MegaMenu() {
           onMouseLeave={closeMenu}
         >
           <div className="bg-white border-b border-gray-200 shadow-2xl shadow-black/[.08]">
-            <div className="max-w-[1200px] mx-auto px-4 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 lg:px-8">
               <div className="flex min-h-[360px]">
                 {/* Left — category tabs */}
                 <div className="w-[200px] border-r border-gray-100 py-4 pr-2 flex-shrink-0">

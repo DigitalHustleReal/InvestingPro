@@ -107,7 +107,9 @@ async function getCreditCardData(
   logger.info(`[CardPage] Fetching slug: ${slug}`);
   const { data: card, error } = await supabase
     .from("credit_cards")
-    .select("*")
+    .select(
+      "id, slug, name, type, bank, image_url, rating, annual_fee, joining_fee, rewards, interest_rate, description, apply_link, source_url, pros, cons, features, updated_at, metadata",
+    )
     .eq("slug", slug)
     .maybeSingle(); // Use maybeSingle() instead of single() to handle 0 rows gracefully
 
@@ -280,7 +282,7 @@ export default async function CreditCardDetailPage(props: {
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section - The "Decision Layer" */}
       <div className="bg-white border-b border-gray-200 pt-8 pb-12">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AutoBreadcrumbs />
           <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
             {/* Visual Anchor (Left) */}
@@ -451,7 +453,7 @@ export default async function CreditCardDetailPage(props: {
       </div>
 
       {/* Decision Framework */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <DecisionFramework

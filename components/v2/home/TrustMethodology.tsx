@@ -41,7 +41,7 @@ const TRUST_PILLARS = [
 export default function TrustMethodology() {
   return (
     <section className="py-12 md:py-16 px-4 lg:px-8 bg-white dark:bg-gray-900">
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
           <div className="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider mb-2">
             Trust & Transparency

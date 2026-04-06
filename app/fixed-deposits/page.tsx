@@ -89,7 +89,7 @@ export default async function FixedDepositsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <section className="bg-white border-b border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pt-6 pb-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
             <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-300">
               <li>
@@ -153,12 +153,12 @@ export default async function FixedDepositsPage() {
         </div>
       </section>
       <section className="bg-gray-50 min-h-screen">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <FixedDepositsClient initialFDs={initialFDs} />
         </div>
       </section>
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Related Tools
           </h2>
@@ -202,7 +202,7 @@ export default async function FixedDepositsPage() {
         </div>
       </section>
       <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">FD FAQs</h2>
           <div className="space-y-2">
             {[

@@ -109,7 +109,7 @@ export function Footer() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1200px] mx-auto px-4 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8">
         {/* ── App teaser — distinct bg from main footer ── */}
         <div className="py-12 lg:py-14 -mx-4 lg:-mx-8 px-4 lg:px-8 bg-[#0F2B1C] border-b border-white/[.06]">
           <div className="lg:grid lg:grid-cols-[1fr_340px] lg:gap-14 lg:items-center">

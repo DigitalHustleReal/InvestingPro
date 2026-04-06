@@ -111,7 +111,7 @@ export default async function MutualFundsPage() {
 
       {/* ── Asset ticker — multi-asset context bar ── */}
       <div className="bg-[--v2-ink] text-white">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-2 flex items-center gap-6 overflow-x-auto scrollbar-hide text-[12px]">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex items-center gap-6 overflow-x-auto scrollbar-hide text-[12px]">
           <span className="text-white/40 font-medium flex-shrink-0">Rates</span>
           {[
             { name: "Nifty 50", value: "23,842", change: "+0.45%", up: true },
@@ -138,7 +138,7 @@ export default async function MutualFundsPage() {
 
       {/* ── Hero ── */}
       <section className="bg-white border-b border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pt-6 pb-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
             <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-400">
               <li>
@@ -207,7 +207,7 @@ export default async function MutualFundsPage() {
 
       {/* ── Category highlights — Groww/ET Money pattern ── */}
       <section className="bg-white border-b border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-6">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               {
@@ -266,14 +266,14 @@ export default async function MutualFundsPage() {
 
       {/* ── Main content ── */}
       <section className="bg-gray-50 min-h-screen">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <MutualFundsClient initialFunds={initialFunds} />
         </div>
       </section>
 
       {/* ── Portfolio Overlap Checker — unique differentiator ── */}
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl">
             <div className="flex-1">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-green-100 rounded-full text-[10px] font-bold text-green-700 uppercase tracking-wider mb-2">
@@ -301,7 +301,7 @@ export default async function MutualFundsPage() {
 
       {/* ── Related Tools ── */}
       <section className="bg-white">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pb-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Related Tools
           </h2>
@@ -352,7 +352,7 @@ export default async function MutualFundsPage() {
 
       {/* ── Popular comparisons — MF specific ── */}
       <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Popular Fund Comparisons
           </h2>
@@ -413,7 +413,7 @@ export default async function MutualFundsPage() {
 
       {/* ── How We Rate ── */}
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             How We Rate Mutual Funds
           </h2>
@@ -478,7 +478,7 @@ export default async function MutualFundsPage() {
 
       {/* ── FAQs ── */}
       <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Mutual Fund FAQs
           </h2>
@@ -535,7 +535,7 @@ export default async function MutualFundsPage() {
 
       {/* ── Next steps ── */}
       <section className="bg-white border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
           <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
             Not sure where to start?
           </h2>

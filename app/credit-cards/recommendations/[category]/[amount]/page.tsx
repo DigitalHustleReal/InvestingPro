@@ -125,7 +125,9 @@ export default async function SpendingPatternDetailPage({ params }: PageProps) {
 
   const { data: cards, error } = await supabase
     .from("credit_cards")
-    .select("*")
+    .select(
+      "id, slug, name, bank, type, description, annual_fee, joining_fee, interest_rate, rewards, rating, image_url, apply_link, source_url, pros, cons, features, best_for, updated_at, metadata",
+    )
     .order("rating", { ascending: false })
     .limit(50);
 

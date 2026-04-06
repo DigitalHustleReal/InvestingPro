@@ -372,18 +372,33 @@ export function RichProductCard({
 
           {/* Friction-reduction copy */}
           {product.category === "credit_card" && (
-            <p className="text-[10px] text-gray-400 text-center">
+            <p className="text-[10px] text-gray-400 dark:text-gray-500 text-center">
               Takes 3-5 min · No impact on CIBIL score
             </p>
           )}
           {product.category === "loan" && (
-            <p className="text-[10px] text-gray-400 text-center">
+            <p className="text-[10px] text-gray-400 dark:text-gray-500 text-center">
               Check eligibility in 2 minutes
             </p>
           )}
           {product.category === "demat_account" && (
-            <p className="text-[10px] text-gray-400 text-center">
+            <p className="text-[10px] text-gray-400 dark:text-gray-500 text-center">
               Free account opening · No hidden charges
+            </p>
+          )}
+          {product.category === "mutual_fund" && (
+            <p className="text-[10px] text-gray-400 dark:text-gray-500 text-center">
+              Start with as little as &#8377;500/month
+            </p>
+          )}
+          {product.category === "insurance" && (
+            <p className="text-[10px] text-gray-400 dark:text-gray-500 text-center">
+              Compare quotes in 2 minutes
+            </p>
+          )}
+          {product.category === "fixed_deposit" && (
+            <p className="text-[10px] text-gray-400 dark:text-gray-500 text-center">
+              Book online · No paperwork
             </p>
           )}
 
