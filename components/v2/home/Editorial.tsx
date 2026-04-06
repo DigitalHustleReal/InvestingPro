@@ -5,31 +5,31 @@ const ARTICLES = [
     tag: "Credit Cards",
     tagBg: "bg-blue-600/80",
     gradient: "from-[#1B2A4A] to-[#2C4A6A]",
-    title: 'The hidden cost of "lifetime free" cards',
+    title: "Compare 81 credit cards ranked by real data",
     excerpt:
-      'Lifetime free sounds great until you see the 0.5% reward rate and 3.5% forex markup. We did the math on 12 "free" cards.',
-    time: "5 min",
-    href: "/articles/hidden-cost-lifetime-free-cards",
+      "Cashback, rewards, travel perks — find the best card for your spending pattern. Scored across 23 data points.",
+    time: "Compare",
+    href: "/credit-cards",
   },
   {
     tag: "Mutual Funds",
     tagBg: "bg-green-600/80",
     gradient: "from-[#14563B] to-[#1A6B4A]",
-    title: "Index funds vs active: the data is clear",
+    title: "SIP Calculator: see your real returns after inflation",
     excerpt:
-      "10 years of data shows when active wins — and when you're paying fees for nothing.",
-    time: "8 min",
-    href: "/articles/index-vs-active-funds",
+      "Most calculators ignore inflation and taxes. Ours shows what your money will actually buy in 10, 20, 30 years.",
+    time: "Calculator",
+    href: "/calculators/sip",
   },
   {
     tag: "Tax",
     tagBg: "bg-orange-600/80",
     gradient: "from-[#92400E] to-[#B45309]",
-    title: "Old vs New regime: the breakpoint most get wrong",
+    title: "Old vs New tax regime: which saves you more?",
     excerpt:
-      "Most tools ignore HRA, NPS, and employer PF. The real breakpoint is ₹14.2L, not ₹12L.",
-    time: "6 min",
-    href: "/articles/old-vs-new-tax-regime",
+      "Enter your salary, HRA, and deductions — our calculator shows exactly which regime wins for your situation.",
+    time: "Calculator",
+    href: "/calculators/income-tax",
   },
 ];
 

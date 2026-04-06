@@ -22,7 +22,7 @@ const PICKS = [
       { label: "LTF Option", color: "bg-orange-50 text-orange-700" },
     ],
     fee: "₹999",
-    href: "/credit-cards/sbi-cashback",
+    href: "/credit-cards/sbi-cashback-credit-card",
   },
   {
     logo: "ICICI",
@@ -38,7 +38,7 @@ const PICKS = [
       { label: "Amazon", color: "bg-blue-50 text-blue-700" },
     ],
     fee: "₹0",
-    href: "/credit-cards/amazon-pay-icici",
+    href: "/credit-cards/amazon-pay-icici-credit-card",
   },
   {
     logo: "HDFC",
