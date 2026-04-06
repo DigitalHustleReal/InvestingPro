@@ -70,6 +70,7 @@ export default function NewArticlePage() {
   const [isProofreading, setIsProofreading] = useState(false);
   const [editorKey, setEditorKey] = useState(0);
   const [showTemplates, setShowTemplates] = useState(false);
+  const pendingPublishRef = React.useRef(false);
 
   // Validate form on change
   useEffect(() => {
@@ -149,14 +150,47 @@ export default function NewArticlePage() {
 
       return await response.json();
     },
-    onSuccess: (result) => {
+    onSuccess: async (result) => {
       setSaving(false);
       setLastSaved(new Date());
       queryClient.invalidateQueries({ queryKey: ["articles", "admin"] });
 
       if (result && result.id) {
         setArticleId(result.id);
-        toast.success("Article created and saved as draft");
+
+        // If publish was requested, do it now that we have an ID
+        if (pendingPublishRef.current) {
+          pendingPublishRef.current = false;
+          try {
+            const response = await fetch(`/api/admin/articles/${result.id}`, {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                metadata: {
+                  status: "published",
+                  published_at: new Date().toISOString(),
+                },
+              }),
+            });
+            if (!response.ok) {
+              const err = await response
+                .json()
+                .catch(() => ({ error: "Failed to publish" }));
+              throw new Error(err.error || "Failed to publish");
+            }
+            queryClient.invalidateQueries({ queryKey: ["articles"] });
+            toast.success("Article published!");
+            router.push("/admin/articles");
+            return;
+          } catch (error: any) {
+            toast.error(
+              "Created as draft, but publish failed: " +
+                formatErrorForUI(error),
+            );
+          }
+        } else {
+          toast.success("Article created and saved as draft");
+        }
         // We stay on the page now as it supports auto-save once articleId is set
       }
     },
@@ -235,8 +269,20 @@ export default function NewArticlePage() {
 
     const meta = typeof metadata === "object" ? metadata : {};
 
-    // Validate
-    const validationValues = { title, excerpt, ...meta };
+    // Generate slug early so validation can check it
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    // Validate with slug and category included
+    const validationValues = {
+      title,
+      excerpt,
+      slug,
+      category: meta.category || "investing-basics",
+      ...meta,
+    };
     const errors = validateForm(validationValues, articleValidationRules);
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
@@ -250,10 +296,6 @@ export default function NewArticlePage() {
     }
 
     setSaving(true);
-    const slug = title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
 
     const saveData = {
       title,
@@ -306,7 +348,40 @@ export default function NewArticlePage() {
       "Publish this article? It will be visible to all users.",
     );
     if (!confirmed) return;
-    await handleSave({ ...metadata, status: "published" });
+
+    // If we already have an articleId, save content first then publish via PATCH
+    if (articleId) {
+      // First save the latest content
+      await handleSave({ ...metadata });
+      // Then publish via PATCH (uses quickSaveMetadata which respects status)
+      try {
+        const response = await fetch(`/api/admin/articles/${articleId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            metadata: {
+              status: "published",
+              published_at: new Date().toISOString(),
+            },
+          }),
+        });
+        if (!response.ok) {
+          const err = await response
+            .json()
+            .catch(() => ({ error: "Failed to publish" }));
+          throw new Error(err.error || "Failed to publish");
+        }
+        queryClient.invalidateQueries({ queryKey: ["articles", "admin"] });
+        toast.success("Article published!");
+        router.push("/admin/articles");
+      } catch (error: any) {
+        toast.error(formatErrorForUI(error));
+      }
+    } else {
+      // No articleId yet — create as draft first, then publish in onSuccess
+      pendingPublishRef.current = true;
+      await handleSave({ ...metadata });
+    }
   };
 
   const handlePreview = () => {
@@ -455,9 +530,9 @@ export default function NewArticlePage() {
             <ArticleEditor
               key={editorKey}
               initialContent={{
-                body_markdown: "",
-                body_html: "",
-                content: "",
+                body_markdown: editorContent?.markdown || "",
+                body_html: editorContent?.html || "",
+                content: editorContent?.markdown || "",
               }}
               onChange={(content) => {
                 setEditorContent(content);
