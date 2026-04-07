@@ -234,9 +234,9 @@ export async function generateStaticParams() {
 }
 
 // Force static generation with ISR (Incremental Static Regeneration)
-export const dynamic = "force-static";
 // Revalidate every hour to keep data fresh while maintaining static benefits
 export const revalidate = 3600; // 1 hour
+export const dynamicParams = true; // Allow ISR for slugs not in generateStaticParams
 
 export async function generateMetadata({
   params,

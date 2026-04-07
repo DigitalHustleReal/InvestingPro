@@ -9,87 +9,92 @@
  *   - Interactive islands: client components for bookmark, share, progress
  */
 
-import { Suspense } from 'react'
-import { notFound } from 'next/navigation'
-import { Metadata } from 'next'
-import Link from 'next/link'
-import Image from 'next/image'
-import { createServiceClient } from '@/lib/supabase/service'
-import { createClient } from '@/lib/supabase/static'
-import ArticleRenderer from '@/components/articles/ArticleRenderer'
-import RelatedArticles from '@/components/articles/RelatedArticles'
-import { AuthorBadge } from '@/components/articles/AuthorBadge'
-import { AdvertiserDisclosure } from '@/components/common/AdvertiserDisclosure'
-import TopPicksSidebar from '@/components/products/TopPicksSidebar'
-import ContextualProducts from '@/components/products/ContextualProducts'
-import SeamlessCTA from '@/components/articles/SeamlessCTA'
-import LeadMagnet from '@/components/monetization/LeadMagnet'
-import { Badge } from '@/components/ui/badge'
-import { Calendar, Clock, Eye } from 'lucide-react'
-import DifficultyBadge from '@/components/common/DifficultyBadge'
-import TrustBadge from '@/components/common/TrustBadge'
-import AutoBreadcrumbs from '@/components/common/AutoBreadcrumbs'
-import { generateSchema } from '@/lib/linking/schema'
-import { generateCanonicalUrl } from '@/lib/linking/canonical'
-import { generateBreadcrumbSchema } from '@/lib/linking/breadcrumbs'
-import DraggableTableOfContents from '@/components/blog/DraggableTableOfContents'
-import { ArticleClientShell } from './ArticleClientShell'
-import './article-content.css'
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
+import { createServiceClient } from "@/lib/supabase/service";
+import { createClient } from "@/lib/supabase/static";
+import ArticleRenderer from "@/components/articles/ArticleRenderer";
+import RelatedArticles from "@/components/articles/RelatedArticles";
+import { AuthorBadge } from "@/components/articles/AuthorBadge";
+import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
+import TopPicksSidebar from "@/components/products/TopPicksSidebar";
+import ContextualProducts from "@/components/products/ContextualProducts";
+import SeamlessCTA from "@/components/articles/SeamlessCTA";
+import LeadMagnet from "@/components/monetization/LeadMagnet";
+import { Badge } from "@/components/ui/badge";
+import { Calendar, Clock, Eye } from "lucide-react";
+import DifficultyBadge from "@/components/common/DifficultyBadge";
+import TrustBadge from "@/components/common/TrustBadge";
+import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
+import { generateSchema } from "@/lib/linking/schema";
+import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
+import DraggableTableOfContents from "@/components/blog/DraggableTableOfContents";
+import { ArticleClientShell } from "./ArticleClientShell";
+import ArticleFeedback from "@/components/articles/ArticleFeedback";
+import MidArticleCapture from "@/components/articles/MidArticleCapture";
+import InlineProductCard from "@/components/articles/InlineProductCard";
+import LastUpdatedBadge from "@/components/articles/LastUpdatedBadge";
+import "./article-content.css";
 
-export const revalidate = 3600 // Revalidate every hour
+export const revalidate = 3600; // Revalidate every hour
+export const dynamicParams = true; // Allow ISR for slugs not in generateStaticParams
 
 // Pre-build the top 100 most-viewed articles at deploy time
 export async function generateStaticParams() {
   try {
-    const supabase = createServiceClient()
+    const supabase = createServiceClient();
     const { data } = await supabase
-      .from('articles')
-      .select('slug')
-      .eq('status', 'published')
-      .order('views', { ascending: false })
-      .limit(100)
-    return (data || []).map((a) => ({ slug: a.slug }))
+      .from("articles")
+      .select("slug")
+      .eq("status", "published")
+      .order("views", { ascending: false })
+      .limit(100);
+    return (data || []).map((a) => ({ slug: a.slug }));
   } catch {
-    return []
+    return [];
   }
 }
 
 async function getArticle(slug: string, isPreview: boolean) {
-  const supabase = isPreview ? createServiceClient() : createClient()
+  const supabase = isPreview ? createServiceClient() : createClient();
 
   const query = supabase
-    .from('articles')
-    .select('*, author:authors!author_id(*)')
-    .eq('slug', slug)
+    .from("articles")
+    .select("*, author:authors!author_id(*)")
+    .eq("slug", slug);
 
   if (!isPreview) {
-    query.eq('status', 'published').not('published_at', 'is', null)
+    query.eq("status", "published").not("published_at", "is", null);
   }
 
-  const { data, error } = await query.single()
+  const { data, error } = await query.single();
 
   if (!data || error) {
     // Fallback: try without the join (if authors FK not set up)
     const { data: simple } = await supabase
-      .from('articles')
-      .select('*')
-      .eq('slug', slug)
-      .single()
-    return simple ?? null
+      .from("articles")
+      .select("*")
+      .eq("slug", slug)
+      .single();
+    return simple ?? null;
   }
 
-  return data
+  return data;
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: { slug: string };
 }): Promise<Metadata> {
-  const article = await getArticle(params.slug, false)
-  if (!article) return { title: 'Article Not Found | InvestingPro' }
+  const article = await getArticle(params.slug, false);
+  if (!article) return { title: "Article Not Found | InvestingPro" };
 
-  const canonical = generateCanonicalUrl(`/articles/${article.slug}`)
+  const canonical = generateCanonicalUrl(`/articles/${article.slug}`);
 
   return {
     title: article.seo_title || `${article.title} | InvestingPro`,
@@ -99,61 +104,64 @@ export async function generateMetadata({
       title: article.title,
       description: article.excerpt,
       url: canonical,
-      type: 'article',
+      type: "article",
       publishedTime: article.published_at,
       modifiedTime: article.updated_at,
-      images: article.featured_image ? [{ url: article.featured_image, width: 1200, height: 630 }] : [],
+      images: article.featured_image
+        ? [{ url: article.featured_image, width: 1200, height: 630 }]
+        : [],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: article.title,
       description: article.excerpt,
       images: article.featured_image ? [article.featured_image] : [],
     },
-  }
+  };
 }
 
 export default async function ArticlePage({
   params,
   searchParams,
 }: {
-  params: { slug: string }
-  searchParams: { preview?: string }
+  params: { slug: string };
+  searchParams: { preview?: string };
 }) {
-  const isPreview = !!searchParams.preview
-  const article = await getArticle(params.slug, isPreview)
+  const isPreview = !!searchParams.preview;
+  const article = await getArticle(params.slug, isPreview);
 
-  if (!article || (!isPreview && article.status !== 'published')) {
-    notFound()
+  if (!article || (!isPreview && article.status !== "published")) {
+    notFound();
   }
 
   // Increment view count asynchronously (fire & forget — doesn't block render)
   if (!isPreview) {
-    const supabase = createServiceClient()
+    const supabase = createServiceClient();
     try {
       await supabase
-        .from('articles')
+        .from("articles")
         .update({ views: (article.views || 0) + 1 })
-        .eq('id', article.id)
+        .eq("id", article.id);
     } catch {
       // Silently ignore view count errors
     }
   }
 
   const breadcrumbs = [
-    { label: 'Home', url: '/' },
-    { label: 'Articles', url: '/articles' },
+    { label: "Home", url: "/" },
+    { label: "Articles", url: "/articles" },
     { label: article.title, url: `/articles/${article.slug}` },
-  ]
+  ];
 
-  const canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`)
-  const structuredData = article.schema_markup?.articleSchema ?? generateSchema(article)
-  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs)
-  const faqSchema = article.schema_markup?.faqSchema
+  const canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`);
+  const structuredData =
+    article.schema_markup?.articleSchema ?? generateSchema(article);
+  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
+  const faqSchema = article.schema_markup?.faqSchema;
 
-  const schemas = [structuredData, breadcrumbSchema, faqSchema].filter(Boolean)
+  const schemas = [structuredData, breadcrumbSchema, faqSchema].filter(Boolean);
 
-  const leadMagnet = getLeadMagnet(article.category)
+  const leadMagnet = getLeadMagnet(article.category);
 
   return (
     <>
@@ -168,10 +176,13 @@ export default async function ArticlePage({
 
       <div className="min-h-screen bg-background relative">
         {/* Client shell: reading progress bar + bookmark + share state */}
-        <ArticleClientShell articleId={article.id} articleTitle={article.title} />
+        <ArticleClientShell
+          articleId={article.id}
+          articleTitle={article.title}
+        />
 
         {/* Preview banner */}
-        {isPreview && article.status !== 'published' && (
+        {isPreview && article.status !== "published" && (
           <div className="bg-amber-50 border-b border-amber-200 px-4 py-2.5 text-center">
             <p className="text-sm font-semibold text-amber-800">
               PREVIEW MODE — Status: {article.status}
@@ -199,9 +210,9 @@ export default async function ArticlePage({
               {/* Category + trust badges */}
               <div className="flex flex-wrap items-center gap-3 mb-5">
                 <Badge className="bg-primary/10 text-primary border-primary/20 font-black uppercase tracking-widest text-[10px]">
-                  {article.category?.replace(/-/g, ' ')}
+                  {article.category?.replace(/-/g, " ")}
                 </Badge>
-                <DifficultyBadge level={article.difficulty || 'beginner'} />
+                <DifficultyBadge level={article.difficulty || "beginner"} />
                 <TrustBadge type="fact-checked" />
               </div>
 
@@ -218,7 +229,11 @@ export default async function ArticlePage({
               {/* Meta row */}
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
                 <AuthorBadge
-                  name={article.author?.name || article.author_name || 'InvestingPro Team'}
+                  name={
+                    article.author?.name ||
+                    article.author_name ||
+                    "InvestingPro Team"
+                  }
                   role={article.author?.role || article.author_role}
                   avatarUrl={article.author?.photo_url || article.author_avatar}
                   slug={article.author?.slug}
@@ -230,20 +245,26 @@ export default async function ArticlePage({
                 {(article.published_at || article.published_date) && (
                   <span className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
-                    {new Date(article.published_at || article.published_date).toLocaleDateString('en-IN', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
+                    {new Date(
+                      article.published_at || article.published_date,
+                    ).toLocaleDateString("en-IN", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })}
                   </span>
                 )}
+                <LastUpdatedBadge
+                  publishedAt={article.published_at || article.published_date}
+                  updatedAt={article.updated_at}
+                />
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5" />
-                  {article.read_time || '5'} min read
+                  {article.read_time || "5"} min read
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Eye className="w-3.5 h-3.5" />
-                  {(article.views || 0).toLocaleString('en-IN')} views
+                  {(article.views || 0).toLocaleString("en-IN")} views
                 </span>
               </div>
 
@@ -271,7 +292,24 @@ export default async function ArticlePage({
                   body_markdown={article.body_markdown}
                   content={article.content}
                 />
+
+                {/* Mid-article email capture — appears at 50% scroll */}
+                <MidArticleCapture
+                  category={article.category}
+                  articleId={article.id}
+                />
+
+                {/* Inline product recommendations — mid-content */}
+                {article.category && (
+                  <InlineProductCard
+                    productType={article.category}
+                    maxProducts={2}
+                  />
+                )}
               </div>
+
+              {/* "Was this helpful?" feedback */}
+              <ArticleFeedback articleId={article.id} />
 
               {/* Post-content actions */}
               <SeamlessCTA category={article.category} />
@@ -288,7 +326,9 @@ export default async function ArticlePage({
               {/* Tags */}
               {article.tags?.length > 0 && (
                 <div className="mt-14 pt-8 border-t border-border">
-                  <p className="text-xs font-bold text-muted-foreground mb-3 uppercase tracking-widest">Tags</p>
+                  <p className="text-xs font-bold text-muted-foreground mb-3 uppercase tracking-widest">
+                    Tags
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {article.tags.map((tag: string) => (
                       <Link key={tag} href={`/tag/${tag}`}>
@@ -324,7 +364,7 @@ export default async function ArticlePage({
                     href={`/category/${article.category}`}
                     className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
                   >
-                    More in {article.category.replace(/-/g, ' ')} →
+                    More in {article.category.replace(/-/g, " ")} →
                   </Link>
                 )}
               </div>
@@ -342,29 +382,30 @@ export default async function ArticlePage({
         </div>
       </div>
     </>
-  )
+  );
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function getLeadMagnet(category: string) {
-  if (category === 'credit-cards') {
+  if (category === "credit-cards") {
     return {
-      title: 'Credit Card Rewards Tracker (Excel)',
-      description: 'Track your reward points, milestone benefits, and avoid expiry.',
-      type: 'excel' as const,
-    }
+      title: "Credit Card Rewards Tracker (Excel)",
+      description:
+        "Track your reward points, milestone benefits, and avoid expiry.",
+      type: "excel" as const,
+    };
   }
-  if (category === 'loans') {
+  if (category === "loans") {
     return {
-      title: 'EMI Comparison & Prepayment Calculator',
-      description: 'Find out how much you save with regular prepayments.',
-      type: 'excel' as const,
-    }
+      title: "EMI Comparison & Prepayment Calculator",
+      description: "Find out how much you save with regular prepayments.",
+      type: "excel" as const,
+    };
   }
   return {
-    title: 'Master Personal Finance Dashboard',
-    description: 'Track income, expenses, and net worth in one Google Sheet.',
-    type: 'google-sheet' as const,
-  }
+    title: "Master Personal Finance Dashboard",
+    description: "Track income, expenses, and net worth in one Google Sheet.",
+    type: "google-sheet" as const,
+  };
 }

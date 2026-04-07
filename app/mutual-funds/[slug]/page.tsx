@@ -19,6 +19,8 @@ import {
   Award,
 } from "lucide-react";
 import DifferentiationCard from "@/components/products/DifferentiationCard";
+import EditorialVerdict from "@/components/products/EditorialVerdict";
+import ArticleFeedback from "@/components/articles/ArticleFeedback";
 import { scoreMutualFund } from "@/lib/products/scoring-rules";
 import { MutualFund } from "@/types";
 import DecisionFramework from "@/components/common/DecisionFramework";
@@ -58,9 +60,9 @@ interface MutualFundDetail {
   launchDate: string;
   benchmarkName: string;
   benchmarkReturns: {
-    "1Y": number;
-    "3Y": number;
-    "5Y": number;
+    "1Y": number | null;
+    "3Y": number | null;
+    "5Y": number | null;
   };
 
   description: string;
@@ -83,7 +85,7 @@ interface MutualFundDetail {
 
   fundManager: {
     name: string;
-    experience: number;
+    experience: number | null;
   };
 }
 
@@ -162,9 +164,12 @@ async function getMutualFundData(
     benchmarkName:
       f.benchmark || (isEquity ? "Nifty 50 TRI" : "CRISIL Composite Bond"),
     benchmarkReturns: {
-      "1Y": isEquity ? 8.5 : 7.2,
-      "3Y": isEquity ? 14.2 : 6.8,
-      "5Y": isEquity ? 13.8 : 7.0,
+      "1Y":
+        f.benchmark_return_1y != null ? Number(f.benchmark_return_1y) : null,
+      "3Y":
+        f.benchmark_return_3y != null ? Number(f.benchmark_return_3y) : null,
+      "5Y":
+        f.benchmark_return_5y != null ? Number(f.benchmark_return_5y) : null,
     },
 
     description:
@@ -181,24 +186,14 @@ async function getMutualFundData(
     }. The fund follows a ${category} investment strategy managed by ${product.provider_name}.`,
 
     portfolioHoldings: {
-      topStocks: [],
-      sectorAllocation: [],
-      assetAllocation: isEquity
-        ? [
-            { type: "Equity", weight: 95 },
-            { type: "Debt", weight: 2 },
-            { type: "Cash", weight: 3 },
-          ]
-        : isDebt
-          ? [
-              { type: "Debt", weight: 90 },
-              { type: "Cash", weight: 10 },
-            ]
-          : [
-              { type: "Equity", weight: 65 },
-              { type: "Debt", weight: 30 },
-              { type: "Cash", weight: 5 },
-            ],
+      topStocks: Array.isArray(f.top_holdings) ? f.top_holdings : [],
+      sectorAllocation: Array.isArray(f.sector_allocation)
+        ? f.sector_allocation
+        : [],
+      assetAllocation:
+        Array.isArray(f.asset_allocation) && f.asset_allocation.length > 0
+          ? f.asset_allocation
+          : [],
     },
 
     keyFeatures: [
@@ -268,7 +263,7 @@ async function getMutualFundData(
 
     fundManager: {
       name: f.fund_manager || "Fund Management Team",
-      experience: 10,
+      experience: f.manager_experience ?? f.fund_manager_experience ?? null,
     },
 
     // Pass enriched data for SIP, Risk, and Chart sections
@@ -371,10 +366,9 @@ export async function generateStaticParams() {
   }
 }
 
-// Force static generation with ISR (Incremental Static Regeneration)
-export const dynamic = "force-static";
 // Revalidate every hour to keep NAV and returns data fresh
 export const revalidate = 3600; // 1 hour
+export const dynamicParams = true; // Allow ISR for slugs not in generateStaticParams
 
 export async function generateMetadata({
   params,
@@ -440,7 +434,7 @@ export default async function MutualFundDetailPage({
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen">
       {/* JSON-LD Structured Data for SEO */}
       <FundStructuredData
         fund={fund}
@@ -472,7 +466,7 @@ export default async function MutualFundDetailPage({
         ]}
       />
       {/* Hero Section */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="mb-5">
@@ -546,7 +540,7 @@ export default async function MutualFundDetailPage({
                 {Object.entries(fund.returns).map(([period, value]) => (
                   <div
                     key={period}
-                    className="bg-gray-50 rounded-lg p-3 text-center"
+                    className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 text-center"
                   >
                     <p className="text-sm text-green-600 mb-1">
                       {period === "sinceInception" ? "Since Inception" : period}
@@ -563,7 +557,7 @@ export default async function MutualFundDetailPage({
 
             {/* Right: Invest Card */}
             <div className="lg:col-span-1">
-              <Card className="bg-gray-50 border border-gray-200">
+              <Card className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                 <CardContent className="p-6">
                   <div className="mb-4">
                     <p className="text-sm text-green-600">Current NAV</p>
@@ -680,28 +674,34 @@ export default async function MutualFundDetailPage({
                   <h3 className="font-semibold text-lg mb-3">
                     Asset Allocation
                   </h3>
-                  <div className="space-y-2">
-                    {fund.portfolioHoldings.assetAllocation.map(
-                      (asset, index) => (
-                        <div key={index}>
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="text-sm text-gray-700">
-                              {asset.type}
-                            </span>
-                            <span className="text-sm font-semibold">
-                              {asset.weight}%
-                            </span>
+                  {fund.portfolioHoldings.assetAllocation.length === 0 ? (
+                    <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                      Asset allocation data not available for this fund.
+                    </p>
+                  ) : (
+                    <div className="space-y-2">
+                      {fund.portfolioHoldings.assetAllocation.map(
+                        (asset, index) => (
+                          <div key={index}>
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-sm text-gray-700">
+                                {asset.type}
+                              </span>
+                              <span className="text-sm font-semibold">
+                                {asset.weight}%
+                              </span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2">
+                              <div
+                                className="bg-green-600 h-2 rounded-full transition-all"
+                                style={{ width: `${asset.weight}%` }}
+                              />
+                            </div>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2">
-                            <div
-                              className="bg-green-600 h-2 rounded-full transition-all"
-                              style={{ width: `${asset.weight}%` }}
-                            />
-                          </div>
-                        </div>
-                      ),
-                    )}
-                  </div>
+                        ),
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Top Holdings */}
@@ -832,13 +832,17 @@ export default async function MutualFundDetailPage({
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Fund Manager</p>
-                    <p className="font-semibold text-gray-900">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      Fund Manager
+                    </p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-100">
                       {fund.fundManager.name}
                     </p>
-                    <p className="text-xs text-gray-500">
-                      {fund.fundManager.experience} years experience
-                    </p>
+                    {fund.fundManager.experience != null && (
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {fund.fundManager.experience} years experience
+                      </p>
+                    )}
                   </div>
                 </div>
               </CardContent>
@@ -903,7 +907,7 @@ export default async function MutualFundDetailPage({
 
             {/* Invest CTA (Sticky) */}
             <div className="sticky top-6">
-              <Card className="bg-white border-b border-gray-200">
+              <Card className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Start Investing</h3>
                   <p className="text-sm text-green-600 mb-4">
@@ -1003,10 +1007,14 @@ export default async function MutualFundDetailPage({
                   {(["1Y", "3Y", "5Y"] as const).map((period) => {
                     const fundReturn = fund.returns[period];
                     const benchReturn = fund.benchmarkReturns[period];
-                    const diff = fundReturn - benchReturn;
+                    const hasBench = benchReturn != null;
+                    const diff = hasBench ? fundReturn - benchReturn : null;
                     return (
-                      <tr key={period} className="border-b border-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-900">
+                      <tr
+                        key={period}
+                        className="border-b border-gray-50 dark:border-gray-800"
+                      >
+                        <td className="py-3 px-4 font-medium text-gray-900 dark:text-gray-100">
                           {period}
                         </td>
                         <td
@@ -1014,14 +1022,15 @@ export default async function MutualFundDetailPage({
                         >
                           {fundReturn}%
                         </td>
-                        <td className="py-3 px-4 text-right text-gray-600 tabular-nums">
-                          {benchReturn}%
+                        <td className="py-3 px-4 text-right text-gray-600 dark:text-gray-400 tabular-nums">
+                          {hasBench ? `${benchReturn}%` : "—"}
                         </td>
                         <td
-                          className={`py-3 px-4 text-right font-semibold tabular-nums ${diff >= 0 ? "text-green-600" : "text-red-500"}`}
+                          className={`py-3 px-4 text-right font-semibold tabular-nums ${diff != null ? (diff >= 0 ? "text-green-600" : "text-red-500") : "text-gray-400"}`}
                         >
-                          {diff >= 0 ? "+" : ""}
-                          {diff.toFixed(1)}%
+                          {diff != null
+                            ? `${diff >= 0 ? "+" : ""}${diff.toFixed(1)}%`
+                            : "—"}
                         </td>
                       </tr>
                     );
@@ -1250,20 +1259,58 @@ export default async function MutualFundDetailPage({
           ].map((f, i) => (
             <details
               key={i}
-              className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
+              className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden"
             >
-              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors list-none">
                 {f.q}
                 <span className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4">
                   ›
                 </span>
               </summary>
-              <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+              <div className="px-5 pb-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-3">
                 {f.a}
               </div>
             </details>
           ))}
         </div>
+      </div>
+
+      {/* Editorial Verdict */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <EditorialVerdict
+          productName={fund.name}
+          rating={fund.rating}
+          verdict={`${fund.name} is a ${fund.category} fund managed by ${fund.amc} with an expense ratio of ${fund.expenseRatio}%. ${fund.returns["3Y"] > 0 ? `It has delivered ${fund.returns["3Y"]}% CAGR over 3 years.` : ""} ${fund.riskLevel === "low" ? "Suitable for conservative investors." : fund.riskLevel === "moderate" ? "A balanced choice for moderate risk-takers." : "Best for investors with high risk appetite and long horizon."}`}
+          scores={[
+            {
+              label: "Returns",
+              score: Math.min(10, Math.round((fund.returns["3Y"] / 20) * 10)),
+            },
+            {
+              label: "Consistency",
+              score:
+                fund.returns["5Y"] > 0
+                  ? Math.min(10, Math.round((fund.returns["5Y"] / 18) * 10))
+                  : 5,
+            },
+            {
+              label: "Expense Ratio",
+              score: Math.min(
+                10,
+                Math.round(Math.max(0, (2 - fund.expenseRatio) / 2) * 10),
+              ),
+            },
+            {
+              label: "Fund Management",
+              score: Math.min(10, Math.round(fund.rating * 2)),
+            },
+          ]}
+        />
+      </div>
+
+      {/* User Feedback */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <ArticleFeedback articleId={fund.id} />
       </div>
 
       {/* Bottom CTA */}
