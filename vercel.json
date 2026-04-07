@@ -121,31 +121,31 @@
     },
     {
       "path": "/api/cron/agent-writer",
-      "schedule": "0 1,13 * * *"
+      "schedule": "0 1 * * *"
     },
     {
       "path": "/api/cron/agent-editor",
-      "schedule": "30 2,14 * * *"
+      "schedule": "30 2 * * *"
     },
     {
       "path": "/api/cron/agent-publisher",
-      "schedule": "30 4,10 * * *"
+      "schedule": "30 4 * * *"
     },
     {
       "path": "/api/cron/agent-distribution",
-      "schedule": "0 5,11,15 * * *"
+      "schedule": "0 5 * * *"
     },
     {
       "path": "/api/cron/agent-serp-analyst",
-      "schedule": "30 21,9 * * *"
+      "schedule": "30 21 * * *"
     },
     {
       "path": "/api/cron/agent-content-architect",
-      "schedule": "30 22,10 * * *"
+      "schedule": "30 22 * * *"
     },
     {
       "path": "/api/cron/agent-seo",
-      "schedule": "30 0,12 * * *"
+      "schedule": "30 0 * * *"
     },
     {
       "path": "/api/cron/agent-data",
@@ -157,7 +157,7 @@
     },
     {
       "path": "/api/cron/agent-supervisor",
-      "schedule": "0 0,6,12,18 * * *"
+      "schedule": "0 0 * * *"
     }
   ]
 }
