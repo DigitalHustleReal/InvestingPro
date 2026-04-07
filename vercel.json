@@ -158,6 +158,10 @@
     {
       "path": "/api/cron/agent-supervisor",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/content-sense",
+      "schedule": "0 6 * * *"
     }
   ]
 }
