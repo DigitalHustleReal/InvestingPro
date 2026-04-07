@@ -18,6 +18,12 @@ import {
   FileText,
 } from "lucide-react";
 import { getProductBySlug } from "@/lib/products/server-service";
+import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
+import EditorialVerdict from "@/components/products/EditorialVerdict";
+import SimilarProducts from "@/components/products/SimilarProducts";
+import { ProductFAQSchema } from "@/components/products/ProductFAQSchema";
+import { ProductSchemaMarkup } from "@/components/products/ProductSchemaMarkup";
+import ArticleFeedback from "@/components/articles/ArticleFeedback";
 
 interface InsuranceDetail {
   id: string;
@@ -43,6 +49,33 @@ interface InsuranceDetail {
   pros: string[];
   cons: string[];
 }
+
+const INSURANCE_FAQS = [
+  {
+    q: "What is claim settlement ratio and why does it matter?",
+    a: "CSR is the percentage of claims an insurer pays out of total claims received. Higher CSR (>95%) means the insurer is reliable. We track this data for every insurer.",
+  },
+  {
+    q: "How much health insurance cover do I need?",
+    a: "Minimum ₹10L for individuals, ₹25L+ for families in metros. Medical inflation runs at 14% annually — what costs ₹5L today will cost ₹20L in 10 years.",
+  },
+  {
+    q: "What is the waiting period for pre-existing conditions?",
+    a: "Most health insurance plans have a 2-4 year waiting period for pre-existing conditions. Some plans offer lower waiting periods at higher premiums.",
+  },
+  {
+    q: "Is the premium tax deductible?",
+    a: "Yes. Health insurance premiums qualify for deduction under Section 80D — up to ₹25,000 for self (₹50,000 for senior citizens), plus ₹25,000-₹50,000 for parents.",
+  },
+  {
+    q: "Can I switch my insurance provider?",
+    a: "Yes, health insurance is portable from the 2nd year. Your waiting periods carry over to the new insurer. File portability request 45 days before renewal.",
+  },
+  {
+    q: "What documents are needed to file a claim?",
+    a: "Typically: hospital bills, discharge summary, doctor prescriptions, policy copy, ID proof. Cashless claims need pre-authorization from the TPA/insurer.",
+  },
+];
 
 async function getInsuranceData(slug: string): Promise<InsuranceDetail | null> {
   const product = await getProductBySlug(slug);
@@ -148,52 +181,77 @@ export default async function InsuranceDetailPage({
   const InsuranceIcon = getInsuranceIcon();
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-background min-h-screen">
+      {/* Schema Markup for SEO */}
+      <ProductSchemaMarkup
+        product={{
+          name: insurance.name,
+          description: insurance.description,
+          image: insurance.image,
+          rating: insurance.rating,
+          category: "Insurance",
+          provider: insurance.provider,
+          url: `/insurance/${slug}`,
+        }}
+      />
+      <ProductFAQSchema faqs={INSURANCE_FAQS} />
+
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <AutoBreadcrumbs />
+      </div>
+
       {/* Hero Section */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Details */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-green-50 text-green-600 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                <span className="bg-green-50 dark:bg-green-950/40 text-green-600 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                   <InsuranceIcon className="w-4 h-4" />
                   {insurance.insuranceType}
                 </span>
                 <div className="flex items-center gap-1">
                   <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
-                  <span className="font-bold text-lg">{insurance.rating}</span>
+                  <span className="font-bold text-lg text-foreground">
+                    {insurance.rating}
+                  </span>
                   <span className="text-green-600 text-sm">/5</span>
                 </div>
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
                 {insurance.name}
               </h1>
               <p className="text-green-600 mb-6">{insurance.provider}</p>
-              <p className="text-lg text-green-600 mb-8 max-w-2xl">
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
                 {insurance.description}
               </p>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 rounded-xl p-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-background dark:bg-muted/50 rounded-xl p-4">
                 <div>
-                  <p className="text-sm text-green-600">Cover Amount</p>
-                  <p className="text-xl font-bold">{insurance.coverAmount}</p>
+                  <p className="text-sm text-muted-foreground">Cover Amount</p>
+                  <p className="text-xl font-bold text-foreground">
+                    {insurance.coverAmount}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-sm text-green-600">Premium</p>
-                  <p className="text-xl font-bold">{insurance.premium}</p>
+                  <p className="text-sm text-muted-foreground">Premium</p>
+                  <p className="text-xl font-bold text-foreground">
+                    {insurance.premium}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-sm text-green-600">Claim Ratio</p>
-                  <p className="text-xl font-bold">
+                  <p className="text-sm text-muted-foreground">Claim Ratio</p>
+                  <p className="text-xl font-bold text-foreground">
                     {insurance.claimSettlementRatio}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-green-600">Type</p>
-                  <p className="text-xl font-bold">
+                  <p className="text-sm text-muted-foreground">Type</p>
+                  <p className="text-xl font-bold text-foreground">
                     {insurance.insuranceType.split(" ")[0]}
                   </p>
                 </div>
@@ -202,9 +260,9 @@ export default async function InsuranceDetailPage({
 
             {/* Right: Apply Card */}
             <div className="lg:col-span-1">
-              <Card className="bg-gray-50 border border-gray-200">
+              <Card className="bg-background dark:bg-muted/50 border border-border">
                 <CardContent className="p-6">
-                  <p className="text-sm text-green-600 mb-4">
+                  <p className="text-sm text-muted-foreground mb-4">
                     Get covered in minutes
                   </p>
                   <a
@@ -212,13 +270,13 @@ export default async function InsuranceDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-green-600 hover:bg-green-600 text-white font-semibold py-6 text-lg mb-3">
+                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-6 text-lg mb-3">
                       Get Quote <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <div className="flex items-center justify-center gap-2 text-green-600 text-sm">
+                  <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>IRDAI Approved • Instant Policy</span>
+                    <span>IRDAI Approved &bull; Instant Policy</span>
                   </div>
                 </CardContent>
               </Card>
@@ -237,7 +295,7 @@ export default async function InsuranceDetailPage({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="w-5 h-5 text-green-600" />
-                  What's Covered
+                  What&apos;s Covered
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -245,7 +303,7 @@ export default async function InsuranceDetailPage({
                   {insurance.coverageDetails.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-600">{item}</span>
+                      <span className="text-muted-foreground">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -265,7 +323,7 @@ export default async function InsuranceDetailPage({
                   {insurance.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-600">{feature}</span>
+                      <span className="text-muted-foreground">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -277,7 +335,7 @@ export default async function InsuranceDetailPage({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-red-600">
                   <XCircle className="w-5 h-5" />
-                  What's Not Covered
+                  What&apos;s Not Covered
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -285,7 +343,7 @@ export default async function InsuranceDetailPage({
                   {insurance.exclusions.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-600">{item}</span>
+                      <span className="text-muted-foreground">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -295,7 +353,7 @@ export default async function InsuranceDetailPage({
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-green-600">
-                <CardHeader className="bg-green-100">
+                <CardHeader className="bg-green-100 dark:bg-green-950/40">
                   <CardTitle className="text-green-600 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
@@ -309,15 +367,15 @@ export default async function InsuranceDetailPage({
                         className="flex items-start gap-2 text-sm"
                       >
                         <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                        <span>{pro}</span>
+                        <span className="text-foreground">{pro}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
               </Card>
 
-              <Card className="border-red-200">
-                <CardHeader className="bg-red-100">
+              <Card className="border-red-200 dark:border-red-900">
+                <CardHeader className="bg-red-100 dark:bg-red-950/40">
                   <CardTitle className="text-red-600 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Cons
@@ -331,13 +389,48 @@ export default async function InsuranceDetailPage({
                         className="flex items-start gap-2 text-sm"
                       >
                         <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-                        <span>{con}</span>
+                        <span className="text-foreground">{con}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
               </Card>
             </div>
+
+            {/* Editorial Verdict */}
+            <EditorialVerdict
+              productName={insurance.name}
+              rating={insurance.rating}
+              verdict={`${insurance.name} by ${insurance.provider} offers ${insurance.coverAmount} coverage with a ${insurance.claimSettlementRatio} claim settlement ratio. ${insurance.insuranceType === "Health Insurance" ? "Strong health coverage with cashless hospitalization options." : "Reliable protection for you and your family."}`}
+              scores={[
+                {
+                  label: "Coverage",
+                  score: Math.min(insurance.rating + 0.2, 5),
+                },
+                {
+                  label: "Claim Process",
+                  score: Math.min(insurance.rating + 0.1, 5),
+                },
+                {
+                  label: "Premium Value",
+                  score: Math.min(insurance.rating - 0.1, 5),
+                },
+                {
+                  label: "Customer Service",
+                  score: Math.min(insurance.rating, 5),
+                },
+              ]}
+            />
+
+            {/* Similar Products */}
+            <SimilarProducts
+              category="insurance"
+              currentProductId={insurance.id}
+              maxProducts={4}
+            />
+
+            {/* Article Feedback */}
+            <ArticleFeedback articleId={insurance.id} />
           </div>
 
           {/* Right Column - Sidebar */}
@@ -348,7 +441,7 @@ export default async function InsuranceDetailPage({
                   <h3 className="text-xl font-bold mb-2">
                     Protect Your Family
                   </h3>
-                  <p className="text-sm text-green-600 mb-4">
+                  <p className="text-sm text-green-100 mb-4">
                     Get instant quotes now
                   </p>
                   <a
@@ -356,7 +449,7 @@ export default async function InsuranceDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-white text-green-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-white text-green-600 hover:bg-gray-100 dark:hover:bg-gray-200 font-semibold py-6 mb-3">
                       Get Quote <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
@@ -373,20 +466,22 @@ export default async function InsuranceDetailPage({
                 </CardHeader>
                 <CardContent className="text-sm space-y-3">
                   <div>
-                    <p className="text-gray-500">Age Requirement</p>
-                    <p className="font-semibold">
+                    <p className="text-muted-foreground">Age Requirement</p>
+                    <p className="font-semibold text-foreground">
                       {insurance.eligibility.minAge} -{" "}
                       {insurance.eligibility.maxAge} years
                     </p>
                   </div>
-                  <div className="pt-3 border-t">
-                    <p className="font-medium mb-2">Required Documents:</p>
+                  <div className="pt-3 border-t border-border">
+                    <p className="font-medium mb-2 text-foreground">
+                      Required Documents:
+                    </p>
                     <ul className="space-y-1.5">
                       {insurance.eligibility.requiredDocuments.map(
                         (doc, index) => (
                           <li
                             key={index}
-                            className="text-gray-600 text-xs flex items-start gap-2"
+                            className="text-muted-foreground text-xs flex items-start gap-2"
                           >
                             <FileText className="w-3 h-3 text-green-600 flex-shrink-0 mt-0.5" />
                             {doc}
@@ -399,11 +494,11 @@ export default async function InsuranceDetailPage({
               </Card>
 
               {/* Disclaimer */}
-              <Card className="mt-6 bg-amber-50 border-amber-200">
+              <Card className="mt-6 bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800">
                 <CardContent className="p-4">
                   <div className="flex gap-3">
                     <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                    <div className="text-xs text-amber-800">
+                    <div className="text-xs text-amber-800 dark:text-amber-200">
                       <p className="font-semibold mb-1">Important</p>
                       <p>
                         Insurance is subject to terms and conditions. Please
@@ -420,47 +515,22 @@ export default async function InsuranceDetailPage({
 
       {/* FAQ */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">
+        <h2 className="text-lg font-bold text-foreground mb-4">
           Frequently Asked Questions
         </h2>
         <div className="space-y-2">
-          {[
-            {
-              q: "What is claim settlement ratio and why does it matter?",
-              a: "CSR is the percentage of claims an insurer pays out of total claims received. Higher CSR (>95%) means the insurer is reliable. We track this data for every insurer.",
-            },
-            {
-              q: "How much health insurance cover do I need?",
-              a: "Minimum ₹10L for individuals, ₹25L+ for families in metros. Medical inflation runs at 14% annually — what costs ₹5L today will cost ₹20L in 10 years.",
-            },
-            {
-              q: "What is the waiting period for pre-existing conditions?",
-              a: "Most health insurance plans have a 2-4 year waiting period for pre-existing conditions. Some plans offer lower waiting periods at higher premiums.",
-            },
-            {
-              q: "Is the premium tax deductible?",
-              a: "Yes. Health insurance premiums qualify for deduction under Section 80D — up to ₹25,000 for self (₹50,000 for senior citizens), plus ₹25,000-₹50,000 for parents.",
-            },
-            {
-              q: "Can I switch my insurance provider?",
-              a: "Yes, health insurance is portable from the 2nd year. Your waiting periods carry over to the new insurer. File portability request 45 days before renewal.",
-            },
-            {
-              q: "What documents are needed to file a claim?",
-              a: "Typically: hospital bills, discharge summary, doctor prescriptions, policy copy, ID proof. Cashless claims need pre-authorization from the TPA/insurer.",
-            },
-          ].map((f, i) => (
+          {INSURANCE_FAQS.map((f, i) => (
             <details
               key={i}
-              className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
+              className="group bg-card border border-border rounded-xl overflow-hidden"
             >
-              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-foreground hover:bg-muted/50 transition-colors list-none">
                 {f.q}
-                <span className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4">
-                  ›
+                <span className="text-muted-foreground transition-transform group-open:rotate-90 flex-shrink-0 ml-4">
+                  &rsaquo;
                 </span>
               </summary>
-              <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+              <div className="px-5 pb-4 text-sm text-muted-foreground leading-relaxed border-t border-border pt-3">
                 {f.a}
               </div>
             </details>
@@ -469,16 +539,16 @@ export default async function InsuranceDetailPage({
       </div>
 
       {/* Bottom CTA */}
-      <div className="bg-gray-900 text-white py-12">
+      <div className="bg-gray-900 dark:bg-gray-950 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">
             Secure Your Future with {insurance.name}
           </h2>
-          <p className="text-gray-500 mb-8">
+          <p className="text-gray-400 mb-8">
             Get comprehensive coverage at the best rates!
           </p>
           <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-green-600 hover:bg-green-600 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-12 py-6 text-lg">
               Get Free Quote <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

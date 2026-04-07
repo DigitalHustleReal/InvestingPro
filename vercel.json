@@ -114,6 +114,50 @@
     {
       "path": "/api/cron/update-intelligence",
       "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/agent-content-scout",
+      "schedule": "30 20 * * *"
+    },
+    {
+      "path": "/api/cron/agent-writer",
+      "schedule": "0 1,13 * * *"
+    },
+    {
+      "path": "/api/cron/agent-editor",
+      "schedule": "30 2,14 * * *"
+    },
+    {
+      "path": "/api/cron/agent-publisher",
+      "schedule": "30 4,10 * * *"
+    },
+    {
+      "path": "/api/cron/agent-distribution",
+      "schedule": "0 5,11,15 * * *"
+    },
+    {
+      "path": "/api/cron/agent-serp-analyst",
+      "schedule": "30 21,9 * * *"
+    },
+    {
+      "path": "/api/cron/agent-content-architect",
+      "schedule": "30 22,10 * * *"
+    },
+    {
+      "path": "/api/cron/agent-seo",
+      "schedule": "30 0,12 * * *"
+    },
+    {
+      "path": "/api/cron/agent-data",
+      "schedule": "30 19 * * *"
+    },
+    {
+      "path": "/api/cron/agent-analytics",
+      "schedule": "0 22 * * *"
+    },
+    {
+      "path": "/api/cron/agent-supervisor",
+      "schedule": "0 0,6,12,18 * * *"
     }
   ]
 }

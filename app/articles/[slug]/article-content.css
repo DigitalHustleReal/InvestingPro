@@ -646,6 +646,101 @@
   animation: bounce-slow 3s ease-in-out infinite;
 }
 
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  /* Hide non-essential elements */
+  .fixed,
+  .sticky,
+  nav,
+  footer,
+  aside,
+  [data-widget],
+  .mid-article-capture,
+  .article-feedback,
+  .inline-product-card,
+  button {
+    display: none !important;
+  }
+
+  /* Reset backgrounds and shadows */
+  body,
+  .prose,
+  .key-takeaways,
+  .pro-tip,
+  .warning-box,
+  .quick-verdict {
+    background: white !important;
+    box-shadow: none !important;
+    color: #000 !important;
+  }
+
+  /* Ensure text is readable */
+  .prose p,
+  .prose li,
+  .prose td {
+    color: #333 !important;
+    font-size: 11pt !important;
+    line-height: 1.6 !important;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    color: #000 !important;
+    page-break-after: avoid;
+  }
+
+  /* Show link URLs */
+  .prose a {
+    color: #333 !important;
+    text-decoration: underline !important;
+    border: none !important;
+  }
+
+  .prose a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+  }
+
+  /* Prevent page breaks inside elements */
+  .key-takeaways,
+  .pro-tip,
+  .warning-box,
+  .prose table,
+  .prose blockquote {
+    page-break-inside: avoid;
+  }
+
+  /* Full width */
+  .prose {
+    max-width: 100% !important;
+  }
+
+  /* Table borders for print */
+  .prose table {
+    border: 1px solid #ccc !important;
+  }
+
+  .prose th,
+  .prose td {
+    border: 1px solid #ccc !important;
+    padding: 8px !important;
+  }
+
+  .prose thead {
+    background: #f0f0f0 !important;
+  }
+
+  .prose th {
+    color: #000 !important;
+  }
+}
+
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;

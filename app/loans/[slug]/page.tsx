@@ -2,10 +2,17 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import FAQAccordion from "@/components/common/FAQAccordion";
+import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
+import EditorialVerdict from "@/components/products/EditorialVerdict";
+import SimilarProducts from "@/components/products/SimilarProducts";
+import { ProductFAQSchema } from "@/components/products/ProductFAQSchema";
+import { ProductSchemaMarkup } from "@/components/products/ProductSchemaMarkup";
+import ArticleFeedback from "@/components/articles/ArticleFeedback";
 import AuthorByline from "@/components/common/AuthorByline";
 import RelatedArticles from "@/components/content/RelatedArticles";
-import { CREDIT_CARD_GENERAL_FAQS } from "@/lib/content/seo-content";
+import DifferentiationCard from "@/components/products/DifferentiationCard";
+import { scoreLoan } from "@/lib/products/scoring-rules";
+import { getProductBySlug } from "@/lib/products/server-service";
 import {
   Star,
   Percent,
@@ -18,18 +25,45 @@ import {
   FileText,
   AlertTriangle,
   ExternalLink,
-  CreditCard,
-  Home,
   TrendingDown,
 } from "lucide-react";
-import DifferentiationCard from "@/components/products/DifferentiationCard";
-import { scoreLoan } from "@/lib/products/scoring-rules";
-import { Loan } from "@/types";
+
+// ─── Loan-Specific FAQs ─────────────────────────────────────────────────────
+
+const LOAN_FAQS = [
+  {
+    q: "How is EMI calculated?",
+    a: "EMI is calculated using the formula: EMI = P x R x (1+R)^N / [(1+R)^N - 1], where P is the principal loan amount, R is the monthly interest rate (annual rate / 12 / 100), and N is the tenure in months. Most banks provide an online EMI calculator for quick estimates.",
+  },
+  {
+    q: "What is a floating vs fixed interest rate?",
+    a: "A fixed interest rate remains constant throughout the loan tenure, giving predictable EMIs. A floating rate is linked to the RBI repo rate or the bank's MCLR/EBLR and can change periodically — it may go up or down. Floating rates are usually 1-2% lower than fixed rates initially.",
+  },
+  {
+    q: "What happens if I miss an EMI?",
+    a: "Missing an EMI results in a late payment fee (typically 2-3% of the EMI amount), a negative impact on your CIBIL score, and potential penal interest charges. Consecutive missed EMIs can lead to the loan being classified as NPA and legal recovery action by the lender.",
+  },
+  {
+    q: "Can I prepay my loan? Are there charges?",
+    a: "Yes, most loans allow prepayment. For floating-rate loans, RBI has mandated zero prepayment/foreclosure charges for individual borrowers. Fixed-rate loans may attract prepayment charges of 2-5% of the outstanding principal. Check your loan agreement for specific terms.",
+  },
+  {
+    q: "What documents are needed for a personal loan?",
+    a: "Typically required: PAN Card, Aadhaar Card, last 3-6 months' salary slips, bank statements for 6 months, Form 16 or ITR for the last 2 years, passport-size photographs, and address proof. Self-employed applicants additionally need business proof and audited financials.",
+  },
+  {
+    q: "How does CIBIL score affect my loan approval?",
+    a: "A CIBIL score of 750+ is considered good and increases approval chances with competitive interest rates. Scores between 650-749 may get approval but at higher rates. Below 650, most banks will reject the application. You can improve your score by paying bills on time, keeping credit utilisation low, and maintaining a healthy credit mix.",
+  },
+];
+
+// ─── Types ───────────────────────────────────────────────────────────────────
 
 interface LoanDetail {
   id: string;
   name: string;
   provider: string;
+  image?: string;
   loanType: string;
   rating: number;
   interestRateMin: number;
@@ -45,7 +79,6 @@ interface LoanDetail {
   description: string;
   applyLink: string;
 
-  // Detailed features
   keyFeatures: string[];
   eligibility: {
     minAge: number;
@@ -76,7 +109,7 @@ interface LoanDetail {
   cons: string[];
 }
 
-import { getProductBySlug } from "@/lib/products/server-service";
+// ─── Data Fetcher ────────────────────────────────────────────────────────────
 
 async function getLoanData(slug: string): Promise<LoanDetail | null> {
   const product = await getProductBySlug(slug);
@@ -88,6 +121,7 @@ async function getLoanData(slug: string): Promise<LoanDetail | null> {
     id: product.id,
     name: product.name,
     provider: product.provider_name,
+    image: product.image_url || undefined,
     loanType: features.type || "Personal Loan",
     rating: product.rating.overall,
     interestRateMin: parseFloat(features.rate_min || "10.5"),
@@ -128,6 +162,7 @@ async function getLoanData(slug: string): Promise<LoanDetail | null> {
     ],
 
     benefits: features.benefit_items || product.pros.slice(0, 5) || [],
+    specialOffers: features.special_offers || undefined,
 
     emiExample: features.emi_example || {
       loanAmount: 500000,
@@ -137,13 +172,16 @@ async function getLoanData(slug: string): Promise<LoanDetail | null> {
       totalInterest: 100480,
     },
 
-    pros: product.pros,
-    cons: product.cons,
+    pros: product.pros || [],
+    cons: product.cons || [],
   };
 }
 
-// Enable dynamic rendering for routes not pre-generated
+// ─── Dynamic Params ──────────────────────────────────────────────────────────
+
 export const dynamicParams = true;
+
+// ─── Metadata ────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({
   params,
@@ -159,21 +197,34 @@ export async function generateMetadata({
     };
   }
 
+  const title = `${loan.name} - Interest Rate ${loan.interestRateMin}% onwards, Apply Online | InvestingPro`;
+  const description = `${loan.description} Interest: ${loan.interestRateMin}-${loan.interestRateMax}%. Loan amount: up to ₹${(loan.maxLoanAmount / 100000).toFixed(0)} Lakh. Rating: ${loan.rating}/5.`;
+
   return {
-    title: `${loan.name} - Interest Rate ${loan.interestRateMin}%, Apply Online | InvestingPro`,
-    description: `${loan.description} Interest: ${loan.interestRateMin}-${loan.interestRateMax}%. Loan amount: ₹${(loan.maxLoanAmount / 100000).toFixed(0)} Lakh. Rating: ${loan.rating}/5.`,
-    keywords: `${loan.name}, ${loan.provider} loan, personal loan, loan interest rate, ${loan.provider.toLowerCase()} loan apply online`,
+    title,
+    description,
+    keywords: `${loan.name}, ${loan.provider} loan, ${loan.loanType.toLowerCase()}, loan interest rate, ${loan.provider.toLowerCase()} loan apply online, EMI calculator`,
     openGraph: {
       title: `${loan.name} Review | InvestingPro`,
-      description: loan.description,
-      type: "article",
-      images: [], // Add loan image if available in future
+      description,
+      url: `https://investingpro.in/loans/${slug}`,
+      siteName: "InvestingPro",
+      type: "website",
+      ...(loan.image
+        ? {
+            images: [
+              { url: loan.image, width: 1200, height: 630, alt: loan.name },
+            ],
+          }
+        : {}),
     },
     alternates: {
       canonical: `/loans/${slug}`,
     },
   };
 }
+
+// ─── Page Component ──────────────────────────────────────────────────────────
 
 export default async function LoanDetailPage({
   params,
@@ -187,60 +238,100 @@ export default async function LoanDetailPage({
     notFound();
   }
 
+  // Compute editorial scores from loan data
+  const interestRateScore = Math.max(
+    2,
+    Math.min(5, 5 - (loan.interestRateMin - 8) * 0.3),
+  );
+  const processingSpeedScore = loan.processingFee.includes("Nil")
+    ? 4.8
+    : Math.min(4.5, loan.rating + 0.1);
+  const transparencyScore = Math.min(5, loan.rating + 0.2);
+  const prepaymentScore = loan.prepaymentCharges.toLowerCase().includes("nil")
+    ? 5.0
+    : loan.prepaymentCharges.includes("2%")
+      ? 4.0
+      : 3.5;
+
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-background min-h-screen">
+      {/* Schema Markup */}
+      <ProductSchemaMarkup
+        product={{
+          name: loan.name,
+          description: loan.description,
+          image: loan.image,
+          rating: loan.rating,
+          category: "Loan",
+          provider: loan.provider,
+          url: `/loans/${slug}`,
+        }}
+      />
+      <ProductFAQSchema faqs={LOAN_FAQS} />
+
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <AutoBreadcrumbs />
+      </div>
+
       {/* Hero Section */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left: Loan Info */}
             <div className="lg:col-span-2">
-              <div className="flex items-center gap-2 text-green-600 mb-3">
-                <IndianRupee className="w-5 h-5" />
-                <span className="text-sm font-semibold uppercase">
-                  {loan.provider} • {loan.loanType}
+              <div className="flex items-center gap-3 mb-4">
+                <span className="bg-emerald-500/20 text-green-600 dark:text-green-400 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                  <IndianRupee className="w-4 h-4" />
+                  {loan.loanType}
                 </span>
+                <div className="flex items-center gap-1">
+                  <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
+                  <span className="font-bold text-lg text-foreground">
+                    {loan.rating}
+                  </span>
+                  <span className="text-muted-foreground text-sm">/5</span>
+                </div>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
                 {loan.name}
               </h1>
-              <p className="text-lg text-green-600 mb-6">{loan.description}</p>
-              <AuthorByline className="text-green-600 border-green-100/20 mb-6" />
-
-              {/* Rating */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="flex items-center gap-2 bg-amber-500 px-4 py-2 rounded-lg">
-                  <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
-                  <span className="font-bold text-lg">{loan.rating}/5</span>
-                </div>
-                <span className="text-green-600">
-                  Trusted by 10 Lakh+ Customers
-                </span>
-              </div>
+              <p className="text-green-600 dark:text-green-400 mb-4">
+                {loan.provider}
+              </p>
+              <p className="text-lg text-muted-foreground mb-6 max-w-2xl">
+                {loan.description}
+              </p>
+              <AuthorByline className="text-muted-foreground border-border mb-6" />
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-background dark:bg-muted/50 rounded-xl p-4">
                 <div>
-                  <p className="text-sm text-green-600">Interest Rate</p>
-                  <p className="text-2xl font-bold">
+                  <p className="text-sm text-muted-foreground">Interest Rate</p>
+                  <p className="text-xl font-bold text-foreground">
                     {loan.interestRateMin}% - {loan.interestRateMax}%
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-green-600">Max Loan Amount</p>
-                  <p className="text-2xl font-bold">
+                  <p className="text-sm text-muted-foreground">
+                    Max Loan Amount
+                  </p>
+                  <p className="text-xl font-bold text-foreground">
                     ₹{(loan.maxLoanAmount / 100000).toFixed(0)}L
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-green-600">Processing Fee</p>
-                  <p className="text-2xl font-bold">
-                    {loan.processingFee.split(" ")[1]}
+                  <p className="text-sm text-muted-foreground">
+                    Processing Fee
+                  </p>
+                  <p className="text-xl font-bold text-foreground">
+                    {loan.processingFee}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-green-600">Tenure</p>
-                  <p className="text-2xl font-bold">
+                  <p className="text-sm text-muted-foreground">Tenure</p>
+                  <p className="text-xl font-bold text-foreground">
                     {loan.minTenureMonths / 12}-{loan.maxTenureMonths / 12}{" "}
                     Years
                   </p>
@@ -250,9 +341,9 @@ export default async function LoanDetailPage({
 
             {/* Right: Apply Card */}
             <div className="lg:col-span-1">
-              <Card className="bg-gray-50 border border-gray-200">
+              <Card className="bg-background dark:bg-muted/50 border border-border">
                 <CardContent className="p-6">
-                  <p className="text-sm text-green-600 mb-4">
+                  <p className="text-sm text-muted-foreground mb-4">
                     Get instant approval
                   </p>
                   <a
@@ -260,16 +351,16 @@ export default async function LoanDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-white text-green-600 hover:bg-gray-100 font-semibold py-6 text-lg mb-3">
+                    <Button className="w-full bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-500 text-white font-semibold py-6 text-lg mb-3">
                       Apply Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <p className="text-[10px] text-gray-400 text-center mb-3">
-                    Check eligibility in 2 min · No CIBIL impact
+                  <p className="text-[10px] text-muted-foreground text-center mb-3">
+                    Check eligibility in 2 min -- No CIBIL impact
                   </p>
-                  <div className="bg-green-50 border border-green-500/50 rounded-lg p-3 text-center">
-                    <Clock className="w-5 h-5 mx-auto mb-1 text-green-600" />
-                    <p className="text-sm text-green-600 font-semibold">
+                  <div className="bg-green-50 dark:bg-green-900/30 border border-green-500/50 rounded-lg p-3 text-center">
+                    <Clock className="w-5 h-5 mx-auto mb-1 text-green-600 dark:text-green-400" />
+                    <p className="text-sm text-green-600 dark:text-green-400 font-semibold">
                       Disbursal in 48 hours
                     </p>
                   </div>
@@ -288,7 +379,7 @@ export default async function LoanDetailPage({
             {/* EMI Calculator Example */}
             <Card className="bg-gradient-to-br from-green-700 to-green-800 text-white">
               <CardHeader>
-                <CardTitle className="flex items-center gap-6 md:p-8 text-white">
+                <CardTitle className="flex items-center gap-2 text-white">
                   <Calculator className="w-6 h-6" />
                   EMI Calculation Example
                 </CardTitle>
@@ -296,36 +387,36 @@ export default async function LoanDetailPage({
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   <div>
-                    <p className="text-sm text-green-600">Loan Amount</p>
+                    <p className="text-sm text-green-200">Loan Amount</p>
                     <p className="text-xl font-bold">
                       ₹{(loan.emiExample.loanAmount / 100000).toFixed(1)}L
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-green-600">Tenure</p>
+                    <p className="text-sm text-green-200">Tenure</p>
                     <p className="text-xl font-bold">
                       {loan.emiExample.tenure} Months
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-green-600">Interest Rate</p>
+                    <p className="text-sm text-green-200">Interest Rate</p>
                     <p className="text-xl font-bold">
                       {loan.emiExample.interestRate}%
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-green-600">Monthly EMI</p>
-                    <p className="text-2xl font-bold text-green-400">
+                    <p className="text-sm text-green-200">Monthly EMI</p>
+                    <p className="text-2xl font-bold text-green-300">
                       ₹{loan.emiExample.emi.toLocaleString()}
                     </p>
                   </div>
                 </div>
                 <div className="bg-white/10 rounded-lg p-3">
-                  <p className="text-sm text-green-600">
+                  <p className="text-sm text-green-200">
                     Total Interest: ₹
                     {loan.emiExample.totalInterest.toLocaleString()}
                   </p>
-                  <p className="text-sm text-green-600">
+                  <p className="text-sm text-green-200">
                     Total Amount Payable: ₹
                     {(
                       loan.emiExample.loanAmount + loan.emiExample.totalInterest
@@ -338,8 +429,8 @@ export default async function LoanDetailPage({
             {/* Key Features */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-6 md:p-8">
-                  <CheckCircle2 className="w-6 h-6 text-green-600" />
+                <CardTitle className="flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-green-600" />
                   Key Features
                 </CardTitle>
               </CardHeader>
@@ -348,7 +439,7 @@ export default async function LoanDetailPage({
                   {loan.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700">{feature}</span>
+                      <span className="text-muted-foreground">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -358,8 +449,8 @@ export default async function LoanDetailPage({
             {/* Benefits */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-6 md:p-8">
-                  <TrendingDown className="w-6 h-6 text-green-600" />
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingDown className="w-5 h-5 text-green-600" />
                   Loan Benefits
                 </CardTitle>
               </CardHeader>
@@ -367,18 +458,20 @@ export default async function LoanDetailPage({
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {loan.benefits.map((benefit, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-blue-600 flex-shrink-0 mt-1" />
-                      <span className="text-gray-700 text-sm">{benefit}</span>
+                      <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-1" />
+                      <span className="text-muted-foreground text-sm">
+                        {benefit}
+                      </span>
                     </li>
                   ))}
                 </ul>
 
                 {loan.specialOffers && (
-                  <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-4">
-                    <p className="text-sm font-semibold text-amber-800 mb-1">
+                  <div className="mt-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg p-4">
+                    <p className="text-sm font-semibold text-amber-800 dark:text-amber-400 mb-1">
                       Special Offer
                     </p>
-                    <p className="text-sm text-amber-800">
+                    <p className="text-sm text-amber-800 dark:text-amber-300">
                       {loan.specialOffers}
                     </p>
                   </div>
@@ -388,44 +481,44 @@ export default async function LoanDetailPage({
 
             {/* Pros & Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-green-200 bg-green-50">
-                <CardHeader>
-                  <CardTitle className="text-green-600 flex items-center gap-6 md:p-8">
+              <Card className="border-green-600 dark:border-green-500">
+                <CardHeader className="bg-green-100 dark:bg-green-900/30">
+                  <CardTitle className="text-green-600 dark:text-green-400 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Advantages
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-4">
                   <ul className="space-y-2">
                     {loan.pros.map((pro, index) => (
                       <li
                         key={index}
-                        className="flex items-start gap-2 text-gray-700"
+                        className="flex items-start gap-2 text-sm"
                       >
-                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-1" />
-                        <span className="text-sm">{pro}</span>
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground">{pro}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
               </Card>
 
-              <Card className="border-red-200 bg-red-100/30">
-                <CardHeader>
-                  <CardTitle className="text-red-600 flex items-center gap-6 md:p-8">
+              <Card className="border-red-200 dark:border-red-800">
+                <CardHeader className="bg-red-100 dark:bg-red-900/30">
+                  <CardTitle className="text-red-600 dark:text-red-400 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Disadvantages
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-4">
                   <ul className="space-y-2">
                     {loan.cons.map((con, index) => (
                       <li
                         key={index}
-                        className="flex items-start gap-2 text-gray-700"
+                        className="flex items-start gap-2 text-sm"
                       >
-                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
-                        <span className="text-sm">{con}</span>
+                        <XCircle className="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground">{con}</span>
                       </li>
                     ))}
                   </ul>
@@ -436,27 +529,29 @@ export default async function LoanDetailPage({
             {/* Fees & Charges */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-6 md:p-8">
-                  <FileText className="w-6 h-6 text-gray-600" />
-                  Fees & Charges
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-muted-foreground" />
+                  Fees &amp; Charges
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
+                <div className="space-y-0">
                   {loan.fees.map((fee, index) => (
                     <div
                       key={index}
-                      className="flex items-start justify-between p-6 md:p-8 border-b last:border-0"
+                      className="flex items-start justify-between p-4 border-b border-border last:border-0"
                     >
                       <div className="flex-1">
-                        <p className="font-medium text-gray-900">{fee.name}</p>
+                        <p className="font-medium text-foreground">
+                          {fee.name}
+                        </p>
                         {fee.details && (
-                          <p className="text-sm text-gray-500 mt-1">
+                          <p className="text-sm text-muted-foreground mt-1">
                             {fee.details}
                           </p>
                         )}
                       </div>
-                      <p className="font-semibold text-gray-900 ml-4">
+                      <p className="font-semibold text-foreground ml-4">
                         {fee.amount}
                       </p>
                     </div>
@@ -464,10 +559,45 @@ export default async function LoanDetailPage({
                 </div>
               </CardContent>
             </Card>
+
+            {/* Editorial Verdict */}
+            <EditorialVerdict
+              productName={loan.name}
+              rating={loan.rating}
+              verdict={`${loan.name} from ${loan.provider} offers ${loan.loanType.toLowerCase()} starting at ${loan.interestRateMin}% p.a. with loan amounts up to ₹${(loan.maxLoanAmount / 100000).toFixed(0)} Lakh. With a tenure range of ${loan.minTenureMonths / 12}-${loan.maxTenureMonths / 12} years and processing fee of ${loan.processingFee}, this loan is a ${loan.rating >= 4 ? "strong" : "reasonable"} option for borrowers with a CIBIL score of ${loan.minCreditScore}+.`}
+              scores={[
+                {
+                  label: "Interest Rate",
+                  score: Math.round(interestRateScore * 10) / 10,
+                },
+                {
+                  label: "Processing Speed",
+                  score: Math.round(processingSpeedScore * 10) / 10,
+                },
+                {
+                  label: "Transparency",
+                  score: Math.round(transparencyScore * 10) / 10,
+                },
+                {
+                  label: "Prepayment Flexibility",
+                  score: Math.round(prepaymentScore * 10) / 10,
+                },
+              ]}
+            />
+
+            {/* Similar Products */}
+            <SimilarProducts
+              category="loan"
+              currentProductId={loan.id}
+              maxProducts={4}
+            />
+
+            {/* Article Feedback */}
+            <ArticleFeedback articleId={`loan-${loan.id}`} />
           </div>
 
           {/* Right Column: Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="space-y-6">
             {/* Differentiation Score Card */}
             <DifferentiationCard
               score={scoreLoan({
@@ -501,7 +631,7 @@ export default async function LoanDetailPage({
               <Card className="bg-gradient-to-br from-green-600 to-green-700 text-white">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">Get Instant Loan</h3>
-                  <p className="text-sm text-green-600 mb-4">
+                  <p className="text-sm text-green-200 mb-4">
                     Approval in 10 seconds
                   </p>
                   <a
@@ -509,65 +639,68 @@ export default async function LoanDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-white text-green-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-white text-green-600 hover:bg-gray-100 dark:hover:bg-gray-200 font-semibold py-6 mb-3">
                       Check Eligibility{" "}
                       <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
-                  <p className="text-xs text-green-600 text-center">
-                    No impact on credit score • 100% paperless
+                  <p className="text-xs text-green-200 text-center">
+                    No impact on credit score -- 100% paperless
                   </p>
                 </CardContent>
               </Card>
 
               {/* Eligibility */}
-              <Card>
+              <Card className="mt-6">
                 <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-6 md:p-8">
+                  <CardTitle className="text-base flex items-center gap-2">
                     <ShieldCheck className="w-5 h-5 text-green-600" />
                     Eligibility Criteria
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm space-y-3">
                   <div>
-                    <p className="text-gray-600">Age Criteria</p>
-                    <p className="font-semibold text-gray-900">
+                    <p className="text-muted-foreground">Age Criteria</p>
+                    <p className="font-semibold text-foreground">
                       {loan.eligibility.minAge} - {loan.eligibility.maxAge}{" "}
                       years
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-600">Minimum Income</p>
-                    <p className="font-semibold text-gray-900">
+                    <p className="text-muted-foreground">Minimum Income</p>
+                    <p className="font-semibold text-foreground">
                       ₹{(loan.eligibility.minIncome / 1000).toFixed(0)}k/month
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-600">Credit Score</p>
-                    <p className="font-semibold text-gray-900">
+                    <p className="text-muted-foreground">Credit Score</p>
+                    <p className="font-semibold text-foreground">
                       {loan.minCreditScore}+ (Good to Excellent)
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-600">Employment Type</p>
+                    <p className="text-muted-foreground">Employment Type</p>
                     <div className="space-y-1 mt-1">
                       {loan.eligibility.employmentType.map((type, index) => (
-                        <p key={index} className="text-xs text-gray-600">
+                        <p
+                          key={index}
+                          className="text-xs text-muted-foreground"
+                        >
                           ✓ {type}
                         </p>
                       ))}
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t">
-                    <p className="font-medium text-gray-900 mb-2">
+                  <div className="pt-3 border-t border-border">
+                    <p className="font-medium text-foreground mb-2">
                       Required Documents:
                     </p>
                     <ul className="space-y-1.5">
                       {loan.eligibility.requiredDocuments.map((doc, index) => (
                         <li
                           key={index}
-                          className="text-gray-600 text-xs flex items-start gap-2"
+                          className="text-muted-foreground text-xs flex items-start gap-2"
                         >
                           <CheckCircle2 className="w-3 h-3 text-green-600 flex-shrink-0 mt-0.5" />
                           {doc}
@@ -579,11 +712,11 @@ export default async function LoanDetailPage({
               </Card>
 
               {/* Important Notice */}
-              <Card className="bg-red-100 border-red-200">
-                <CardContent className="p-6 md:p-8">
+              <Card className="mt-6 bg-red-100 dark:bg-red-900/30 border-red-200 dark:border-red-800">
+                <CardContent className="p-4">
                   <div className="flex gap-3">
-                    <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-xs text-red-600">
+                    <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                    <div className="text-xs text-red-600 dark:text-red-400">
                       <p className="font-semibold mb-1">Borrow Responsibly</p>
                       <p>
                         Failure to repay may impact your credit score and lead
@@ -598,26 +731,47 @@ export default async function LoanDetailPage({
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Related Articles */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
         <RelatedArticles />
-        <FAQAccordion
-          items={CREDIT_CARD_GENERAL_FAQS}
-          title="Personally Loan FAQs"
-          className="mb-12"
-        />
+      </div>
+
+      {/* FAQ Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <h2 className="text-lg font-bold text-foreground mb-4">
+          Frequently Asked Questions
+        </h2>
+        <div className="space-y-2">
+          {LOAN_FAQS.map((f, i) => (
+            <details
+              key={i}
+              className="group bg-card border border-border rounded-xl overflow-hidden"
+            >
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-foreground hover:bg-muted/50 transition-colors list-none">
+                {f.q}
+                <span className="text-muted-foreground transition-transform group-open:rotate-90 flex-shrink-0 ml-4">
+                  ›
+                </span>
+              </summary>
+              <div className="px-5 pb-4 text-sm text-muted-foreground leading-relaxed border-t border-border pt-3">
+                {f.a}
+              </div>
+            </details>
+          ))}
+        </div>
       </div>
 
       {/* Bottom CTA */}
-      <div className="bg-gray-900 text-white py-12">
+      <div className="bg-gray-900 dark:bg-gray-950 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">
             Apply for {loan.name} in Minutes
           </h2>
-          <p className="text-green-600 mb-8">
-            100% digital process • Quick approval • Instant disbursal
+          <p className="text-gray-400 mb-8">
+            100% digital process -- Quick approval -- Instant disbursal
           </p>
           <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-white text-green-600 hover:bg-gray-100 font-semibold px-12 py-6 text-lg">
+            <Button className="bg-green-600 hover:bg-green-700 dark:hover:bg-green-500 text-white font-semibold px-12 py-6 text-lg">
               Check Eligibility Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

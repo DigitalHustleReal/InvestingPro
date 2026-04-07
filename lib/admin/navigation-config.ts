@@ -118,6 +118,7 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
   OPERATIONS: {
     title: "OPERATIONS",
     items: [
+      { label: "Agent Swarm", href: "/admin/swarm-dashboard", icon: Bot },
       { label: "AI Agents", href: "/admin/agents", icon: Bot },
       { label: "Automation Hub", href: "/admin/automation", icon: Rss },
       {
@@ -305,6 +306,7 @@ export const CATEGORIES: Category[] = [
       "/admin/autonomy",
       "/admin/autonomy/settings",
       "/admin/agents",
+      "/admin/swarm-dashboard",
       "/admin/webhooks",
       "/admin/creator",
       "/admin/creator/script",

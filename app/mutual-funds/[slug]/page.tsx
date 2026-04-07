@@ -32,6 +32,7 @@ import NAVChart from "@/components/mutual-funds/NAVChart";
 import SIPCalculatorWidget from "@/components/mutual-funds/SIPCalculatorWidget";
 import CompareSimilarFunds from "@/components/mutual-funds/CompareSimilarFunds";
 import FundStructuredData from "@/components/mutual-funds/FundStructuredData";
+import { ProductFAQSchema } from "@/components/products/ProductFAQSchema";
 import Link from "next/link";
 
 interface MutualFundDetail {
@@ -918,7 +919,7 @@ export default async function MutualFundDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-white text-green-600 hover:bg-gray-100 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-6 mb-3">
                       Invest Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
@@ -1223,57 +1224,65 @@ export default async function MutualFundDetailPage({
         />
       </div>
 
-      {/* FAQ */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-2">
-          {[
-            {
-              q: `Is ${fund.name} a good investment?`,
-              a: `${fund.name} has delivered ${fund.returns["3Y"]}% returns over 3 years with a ${fund.riskLevel} risk profile. It's rated ${fund.rating}/5. Whether it's good for you depends on your investment horizon (we recommend 5+ years for equity funds) and risk tolerance.`,
-            },
-            {
-              q: `What is the minimum SIP amount for ${fund.name}?`,
-              a: `The minimum SIP amount is ₹${fund.sipMinInvestment}/month. For lumpsum investment, the minimum is ₹${fund.minInvestment.toLocaleString()}.`,
-            },
-            {
-              q: `What is the expense ratio of ${fund.name}?`,
-              a: `The expense ratio is ${fund.expenseRatio}%. This is the annual fee charged by ${fund.amc} for managing the fund. We recommend comparing with similar funds in the ${fund.category} category.`,
-            },
-            {
-              q: "Should I choose Direct or Regular plan?",
-              a: "Direct plans have 0.5-1% lower expense ratios (no distributor commission). Over 10+ years, this difference compounds to lakhs. We always recommend Direct plans for informed investors.",
-            },
-            {
-              q: `Can I withdraw from ${fund.name} anytime?`,
-              a: `Yes, you can redeem your investment anytime. Exit load: ${fund.exitLoad}. Redemption amount is typically credited within 1-3 business days.`,
-            },
-            {
-              q: "How are returns taxed?",
-              a:
-                fund.taxBenefits ||
-                "Equity funds: LTCG above ₹1.25L taxed at 12.5% (held >1yr). Short-term (<1yr): 20%. Debt funds: taxed at slab rate.",
-            },
-          ].map((f, i) => (
-            <details
-              key={i}
-              className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden"
-            >
-              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors list-none">
-                {f.q}
-                <span className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4">
-                  ›
-                </span>
-              </summary>
-              <div className="px-5 pb-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-3">
-                {f.a}
+      {/* FAQ with Schema */}
+      {(() => {
+        const mfFaqs = [
+          {
+            q: `Is ${fund.name} a good investment?`,
+            a: `${fund.name} has delivered ${fund.returns["3Y"]}% returns over 3 years with a ${fund.riskLevel} risk profile. It's rated ${fund.rating}/5. Whether it's good for you depends on your investment horizon (we recommend 5+ years for equity funds) and risk tolerance.`,
+          },
+          {
+            q: `What is the minimum SIP amount for ${fund.name}?`,
+            a: `The minimum SIP amount is ₹${fund.sipMinInvestment}/month. For lumpsum investment, the minimum is ₹${fund.minInvestment.toLocaleString()}.`,
+          },
+          {
+            q: `What is the expense ratio of ${fund.name}?`,
+            a: `The expense ratio is ${fund.expenseRatio}%. This is the annual fee charged by ${fund.amc} for managing the fund. We recommend comparing with similar funds in the ${fund.category} category.`,
+          },
+          {
+            q: "Should I choose Direct or Regular plan?",
+            a: "Direct plans have 0.5-1% lower expense ratios (no distributor commission). Over 10+ years, this difference compounds to lakhs. We always recommend Direct plans for informed investors.",
+          },
+          {
+            q: `Can I withdraw from ${fund.name} anytime?`,
+            a: `Yes, you can redeem your investment anytime. Exit load: ${fund.exitLoad}. Redemption amount is typically credited within 1-3 business days.`,
+          },
+          {
+            q: "How are returns taxed?",
+            a:
+              fund.taxBenefits ||
+              "Equity funds: LTCG above ₹1.25L taxed at 12.5% (held >1yr). Short-term (<1yr): 20%. Debt funds: taxed at slab rate.",
+          },
+        ];
+        return (
+          <>
+            <ProductFAQSchema faqs={mfFaqs} />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+              <h2 className="text-lg font-bold text-foreground mb-4">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-2">
+                {mfFaqs.map((f, i) => (
+                  <details
+                    key={i}
+                    className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden"
+                  >
+                    <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors list-none">
+                      {f.q}
+                      <span className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4">
+                        ›
+                      </span>
+                    </summary>
+                    <div className="px-5 pb-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-3">
+                      {f.a}
+                    </div>
+                  </details>
+                ))}
               </div>
-            </details>
-          ))}
-        </div>
-      </div>
+            </div>
+          </>
+        );
+      })()}
 
       {/* Editorial Verdict */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -1314,16 +1323,16 @@ export default async function MutualFundDetailPage({
       </div>
 
       {/* Bottom CTA */}
-      <div className="bg-gray-900 text-white py-12">
+      <div className="bg-gray-900 dark:bg-gray-950 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">
             Start Your Investment Journey with {fund.name}
           </h2>
-          <p className="text-green-600 mb-8">
+          <p className="text-green-400 mb-8">
             Build wealth systematically through SIP or invest lumpsum
           </p>
           <a href={fund.applyLink} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-green-600 hover:bg-green-600 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-12 py-6 text-lg">
               Invest Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

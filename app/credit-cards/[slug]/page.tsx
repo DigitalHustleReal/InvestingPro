@@ -51,6 +51,9 @@ import { getSimilarProducts } from "@/lib/utils/product-similarity";
 import WhatsAppAlerts from "@/components/common/WhatsAppAlerts";
 import AffiliateDisclosure from "@/components/common/AffiliateDisclosure";
 import ApplyNowCTA from "@/components/products/ApplyNowCTA";
+import { ProductFAQSchema } from "@/components/products/ProductFAQSchema";
+import { ProductSchemaMarkup } from "@/components/products/ProductSchemaMarkup";
+import ArticleFeedback from "@/components/articles/ArticleFeedback";
 
 interface CreditCardDetail {
   id: string;
@@ -279,9 +282,22 @@ export default async function CreditCardDetailPage(props: {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-background min-h-screen">
+      {/* Schema Markup for SEO */}
+      <ProductSchemaMarkup
+        product={{
+          name: card.name,
+          description: card.description,
+          image: card.image,
+          rating: card.rating,
+          category: "credit-cards",
+          provider: card.provider,
+          url: `/credit-cards/${params.slug}`,
+        }}
+      />
+
       {/* Hero Section - The "Decision Layer" */}
-      <div className="bg-white border-b border-gray-200 pt-8 pb-12">
+      <div className="bg-card border-b border-border pt-8 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AutoBreadcrumbs />
           <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
@@ -435,12 +451,14 @@ export default async function CreditCardDetailPage(props: {
                   variant="hero"
                   className="flex-1 sm:flex-none"
                 />
-                <Button
-                  variant="outline"
-                  className="h-auto py-3 px-6 rounded-xl border-gray-200 text-gray-700 font-medium hover:bg-gray-50"
-                >
-                  Check Eligibility
-                </Button>
+                <a href="#eligibility-checker">
+                  <Button
+                    variant="outline"
+                    className="h-auto py-3 px-6 rounded-xl border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
+                  >
+                    Check Eligibility
+                  </Button>
+                </a>
               </div>
 
               <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
@@ -464,7 +482,10 @@ export default async function CreditCardDetailPage(props: {
               variant="compact"
             />
           </div>
-          <div className="lg:col-span-1 space-y-8">
+          <div
+            id="eligibility-checker"
+            className="lg:col-span-1 space-y-8 scroll-mt-24"
+          >
             <InlineChecker
               productType="credit_card"
               cardType={
@@ -477,15 +498,15 @@ export default async function CreditCardDetailPage(props: {
             />
 
             {/* WhatsApp Alerts - NEW */}
-            <Card className="border-none bg-green-50 overflow-hidden group">
+            <Card className="border-none bg-green-50 dark:bg-green-950/30 overflow-hidden group">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 bg-green-600 text-white rounded-lg group-hover:scale-110 transition-transform">
                     <MessageCircle size={18} />
                   </div>
-                  <h4 className="font-bold text-gray-900">Rate Alerts</h4>
+                  <h4 className="font-bold text-foreground">Rate Alerts</h4>
                 </div>
-                <p className="text-xs text-gray-600 mb-6 leading-relaxed">
+                <p className="text-xs text-muted-foreground mb-6 leading-relaxed">
                   Get updates on WhatsApp about{" "}
                   <span className="font-bold">{card.name}</span> rates and
                   offers.
@@ -519,12 +540,12 @@ export default async function CreditCardDetailPage(props: {
                 {card.keyFeatures.map((feature, index) => (
                   <li
                     key={index}
-                    className="flex items-start gap-3 bg-gray-50 p-3 rounded-lg"
+                    className="flex items-start gap-3 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg"
                   >
-                    <div className="bg-white rounded-full p-1 mt-0.5 shadow-sm">
+                    <div className="bg-white dark:bg-gray-700 rounded-full p-1 mt-0.5 shadow-sm">
                       <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
                     </div>
-                    <span className="text-gray-700 font-medium leading-relaxed">
+                    <span className="text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
                       {feature}
                     </span>
                   </li>
@@ -587,7 +608,7 @@ export default async function CreditCardDetailPage(props: {
                     {card.eligibility.requiredDocuments.map((doc, i) => (
                       <span
                         key={i}
-                        className="text-xs font-medium px-2 py-1 bg-white rounded border border-gray-200"
+                        className="text-xs font-medium px-2 py-1 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700"
                       >
                         {doc}
                       </span>
@@ -816,8 +837,18 @@ export default async function CreditCardDetailPage(props: {
           {/* Related Articles */}
           <RelatedArticles />
 
-          {/* FAQ Section */}
-          <FAQAccordion items={CREDIT_CARD_GENERAL_FAQS} className="my-12" />
+          {/* "Was this helpful?" Feedback */}
+          <ArticleFeedback articleId={`cc-${card.id}`} />
+
+          {/* FAQ Section with Schema */}
+          <div className="my-12">
+            <ProductFAQSchema
+              faqs={CREDIT_CARD_GENERAL_FAQS.map((f: any) => ({
+                q: f.question || f.q,
+                a: f.answer || f.a,
+              }))}
+            />
+          </div>
 
           {/* User Reviews */}
           <ProductReviews productSlug={params.slug} productType="credit_card" />
