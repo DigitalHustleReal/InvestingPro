@@ -33,10 +33,10 @@ import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
 import DraggableTableOfContents from "@/components/blog/DraggableTableOfContents";
 import { ArticleClientShell } from "./ArticleClientShell";
-import ArticleFeedback from "@/components/articles/ArticleFeedback";
-import MidArticleCapture from "@/components/articles/MidArticleCapture";
-import InlineProductCard from "@/components/articles/InlineProductCard";
-import LastUpdatedBadge from "@/components/articles/LastUpdatedBadge";
+// import ArticleFeedback from "@/components/articles/ArticleFeedback";
+// import MidArticleCapture from "@/components/articles/MidArticleCapture";
+// import InlineProductCard from "@/components/articles/InlineProductCard";
+// import LastUpdatedBadge from "@/components/articles/LastUpdatedBadge";
 import "./article-content.css";
 
 export const revalidate = 3600; // Revalidate every hour
@@ -273,10 +273,7 @@ export default async function ArticlePage({
                     })}
                   </span>
                 )}
-                <LastUpdatedBadge
-                  publishedAt={article.published_at || article.published_date}
-                  updatedAt={article.updated_at}
-                />
+                {/* LastUpdatedBadge temporarily removed for debugging */}
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5" />
                   {article.read_time || "5"} min read
@@ -312,23 +309,10 @@ export default async function ArticlePage({
                   content={article.content}
                 />
 
-                {/* Mid-article email capture — appears at 50% scroll */}
-                <MidArticleCapture
-                  category={article.category}
-                  articleId={article.id}
-                />
-
-                {/* Inline product recommendations — mid-content */}
-                {article.category && (
-                  <InlineProductCard
-                    productType={article.category}
-                    maxProducts={2}
-                  />
-                )}
+                {/* MidArticleCapture + InlineProductCard temporarily removed for debugging */}
               </div>
 
-              {/* "Was this helpful?" feedback */}
-              <ArticleFeedback articleId={article.id} />
+              {/* ArticleFeedback temporarily removed for debugging */}
 
               {/* Post-content actions */}
               <SeamlessCTA category={article.category} />
