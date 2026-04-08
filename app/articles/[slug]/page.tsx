@@ -33,10 +33,10 @@ import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
 import DraggableTableOfContents from "@/components/blog/DraggableTableOfContents";
 import { ArticleClientShell } from "./ArticleClientShell";
-// import ArticleFeedback from "@/components/articles/ArticleFeedback";
-// import MidArticleCapture from "@/components/articles/MidArticleCapture";
-// import InlineProductCard from "@/components/articles/InlineProductCard";
-// import LastUpdatedBadge from "@/components/articles/LastUpdatedBadge";
+import ArticleFeedback from "@/components/articles/ArticleFeedback";
+import MidArticleCapture from "@/components/articles/MidArticleCapture";
+import InlineProductCard from "@/components/articles/InlineProductCard";
+import LastUpdatedBadge from "@/components/articles/LastUpdatedBadge";
 import "./article-content.css";
 
 export const revalidate = 3600; // Revalidate every hour
@@ -151,36 +151,21 @@ export default async function ArticlePage({
     }
   }
 
-  let breadcrumbs,
-    canonicalUrl,
-    structuredData,
-    breadcrumbSchema,
-    faqSchema,
-    schemas,
-    leadMagnet;
-  try {
-    breadcrumbs = [
-      { label: "Home", url: "/" },
-      { label: "Articles", url: "/articles" },
-      { label: article.title, url: `/articles/${article.slug}` },
-    ];
-    canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`);
-    structuredData =
-      article.schema_markup?.articleSchema ?? generateSchema(article);
-    breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
-    faqSchema = article.schema_markup?.faqSchema;
-    schemas = [structuredData, breadcrumbSchema, faqSchema].filter(Boolean);
-    leadMagnet = getLeadMagnet(article.category);
-  } catch (err: any) {
-    return (
-      <div style={{ padding: 40, fontFamily: "monospace" }}>
-        <h1>Debug: Article Page Error</h1>
-        <p>Article found: {article.title}</p>
-        <p style={{ color: "red" }}>Error: {err.message}</p>
-        <pre>{err.stack}</pre>
-      </div>
-    );
-  }
+  const breadcrumbs = [
+    { label: "Home", url: "/" },
+    { label: "Articles", url: "/articles" },
+    { label: article.title, url: `/articles/${article.slug}` },
+  ];
+
+  const canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`);
+  const structuredData =
+    article.schema_markup?.articleSchema ?? generateSchema(article);
+  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
+  const faqSchema = article.schema_markup?.faqSchema;
+
+  const schemas = [structuredData, breadcrumbSchema, faqSchema].filter(Boolean);
+
+  const leadMagnet = getLeadMagnet(article.category);
 
   return (
     <>
@@ -273,7 +258,10 @@ export default async function ArticlePage({
                     })}
                   </span>
                 )}
-                {/* LastUpdatedBadge temporarily removed for debugging */}
+                <LastUpdatedBadge
+                  publishedAt={article.published_at || article.published_date}
+                  updatedAt={article.updated_at}
+                />
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5" />
                   {article.read_time || "5"} min read
@@ -309,10 +297,19 @@ export default async function ArticlePage({
                   content={article.content}
                 />
 
-                {/* MidArticleCapture + InlineProductCard temporarily removed for debugging */}
+                <MidArticleCapture
+                  category={article.category}
+                  articleId={article.id}
+                />
+                {article.category && (
+                  <InlineProductCard
+                    productType={article.category}
+                    maxProducts={2}
+                  />
+                )}
               </div>
 
-              {/* ArticleFeedback temporarily removed for debugging */}
+              <ArticleFeedback articleId={article.id} />
 
               {/* Post-content actions */}
               <SeamlessCTA category={article.category} />

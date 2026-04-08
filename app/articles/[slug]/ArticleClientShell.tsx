@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 /**
  * ArticleClientShell — client island inside the ISR server article page.
@@ -6,40 +6,43 @@
  * Everything else is server-rendered.
  */
 
-import { useEffect, useState } from 'react'
-import { Bookmark, Share2 } from 'lucide-react'
-import { BookmarkButton } from '@/components/engagement'
+import { useEffect, useState } from "react";
+import { Bookmark, Share2 } from "lucide-react";
+import BookmarkButton from "@/components/engagement/BookmarkButton";
 
 interface Props {
-  articleId: string
-  articleTitle: string
+  articleId: string;
+  articleTitle: string;
 }
 
 export function ArticleClientShell({ articleId, articleTitle }: Props) {
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const update = () => {
-      const el = document.getElementById('article-content')
-      if (!el) return
-      const { top, height } = el.getBoundingClientRect()
-      const scrolled = Math.max(0, -top)
-      const pct = Math.min(100, (scrolled / height) * 100)
-      setProgress(pct)
-    }
-    window.addEventListener('scroll', update, { passive: true })
-    return () => window.removeEventListener('scroll', update)
-  }, [])
+      const el = document.getElementById("article-content");
+      if (!el) return;
+      const { top, height } = el.getBoundingClientRect();
+      const scrolled = Math.max(0, -top);
+      const pct = Math.min(100, (scrolled / height) * 100);
+      setProgress(pct);
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   const handleShare = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title: articleTitle, url: window.location.href })
+        await navigator.share({
+          title: articleTitle,
+          url: window.location.href,
+        });
       } catch {}
     } else {
-      await navigator.clipboard.writeText(window.location.href)
+      await navigator.clipboard.writeText(window.location.href);
     }
-  }
+  };
 
   return (
     <>
@@ -63,5 +66,5 @@ export function ArticleClientShell({ articleId, articleTitle }: Props) {
         </button>
       </div>
     </>
-  )
+  );
 }
