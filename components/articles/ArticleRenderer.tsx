@@ -6,7 +6,6 @@
  */
 
 import React from "react";
-import DOMPurify from "isomorphic-dompurify";
 import { normalizeArticleBody } from "@/lib/content/normalize";
 import { enrichContent } from "@/lib/content/link-manager";
 import CalculatorHydrator from "@/components/tools/CalculatorHydrator";
@@ -61,7 +60,7 @@ export default function ArticleRenderer({
       <>
         <div
           className={className}
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(enrichedHTML) }}
+          dangerouslySetInnerHTML={{ __html: enrichedHTML }}
         />
         <CalculatorHydrator />
       </>
