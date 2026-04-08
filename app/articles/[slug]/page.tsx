@@ -151,21 +151,36 @@ export default async function ArticlePage({
     }
   }
 
-  const breadcrumbs = [
-    { label: "Home", url: "/" },
-    { label: "Articles", url: "/articles" },
-    { label: article.title, url: `/articles/${article.slug}` },
-  ];
-
-  const canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`);
-  const structuredData =
-    article.schema_markup?.articleSchema ?? generateSchema(article);
-  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
-  const faqSchema = article.schema_markup?.faqSchema;
-
-  const schemas = [structuredData, breadcrumbSchema, faqSchema].filter(Boolean);
-
-  const leadMagnet = getLeadMagnet(article.category);
+  let breadcrumbs,
+    canonicalUrl,
+    structuredData,
+    breadcrumbSchema,
+    faqSchema,
+    schemas,
+    leadMagnet;
+  try {
+    breadcrumbs = [
+      { label: "Home", url: "/" },
+      { label: "Articles", url: "/articles" },
+      { label: article.title, url: `/articles/${article.slug}` },
+    ];
+    canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`);
+    structuredData =
+      article.schema_markup?.articleSchema ?? generateSchema(article);
+    breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
+    faqSchema = article.schema_markup?.faqSchema;
+    schemas = [structuredData, breadcrumbSchema, faqSchema].filter(Boolean);
+    leadMagnet = getLeadMagnet(article.category);
+  } catch (err: any) {
+    return (
+      <div style={{ padding: 40, fontFamily: "monospace" }}>
+        <h1>Debug: Article Page Error</h1>
+        <p>Article found: {article.title}</p>
+        <p style={{ color: "red" }}>Error: {err.message}</p>
+        <pre>{err.stack}</pre>
+      </div>
+    );
+  }
 
   return (
     <>
