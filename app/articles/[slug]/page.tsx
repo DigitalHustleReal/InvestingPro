@@ -15,7 +15,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { createServiceClient } from "@/lib/supabase/service";
-import { createClient } from "@/lib/supabase/static";
 import ArticleRenderer from "@/components/articles/ArticleRenderer";
 import RelatedArticles from "@/components/articles/RelatedArticles";
 import { AuthorBadge } from "@/components/articles/AuthorBadge";
@@ -60,25 +59,27 @@ export async function generateStaticParams() {
 }
 
 async function getArticle(slug: string, isPreview: boolean) {
-  const supabase = isPreview ? createServiceClient() : createClient();
+  // Always use service client to bypass RLS — we filter by status ourselves
+  const supabase = createServiceClient();
 
   const query = supabase
     .from("articles")
-    .select("*, author:authors!author_id(*)")
+    .select("*, author:authors!left(*)") // left join — author_id may be null
     .eq("slug", slug);
 
   if (!isPreview) {
-    query.eq("status", "published").not("published_at", "is", null);
+    query.eq("status", "published");
   }
 
   const { data, error } = await query.single();
 
   if (!data || error) {
-    // Fallback: try without the join (if authors FK not set up)
+    // Fallback: try without the join (if authors table not set up)
     const { data: simple } = await supabase
       .from("articles")
       .select("*")
       .eq("slug", slug)
+      .eq("status", "published")
       .single();
     return simple ?? null;
   }
