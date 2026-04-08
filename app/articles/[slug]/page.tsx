@@ -90,9 +90,10 @@ async function getArticle(slug: string, isPreview: boolean) {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const article = await getArticle(params.slug, false);
+  const { slug } = await params;
+  const article = await getArticle(slug, false);
   if (!article) return { title: "Article Not Found | InvestingPro" };
 
   const canonical = generateCanonicalUrl(`/articles/${article.slug}`);
@@ -125,11 +126,13 @@ export default async function ArticlePage({
   params,
   searchParams,
 }: {
-  params: { slug: string };
-  searchParams: { preview?: string };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ preview?: string }>;
 }) {
-  const isPreview = !!searchParams.preview;
-  const article = await getArticle(params.slug, isPreview);
+  const { slug } = await params;
+  const { preview } = await searchParams;
+  const isPreview = !!preview;
+  const article = await getArticle(slug, isPreview);
 
   if (!article || (!isPreview && article.status !== "published")) {
     notFound();
