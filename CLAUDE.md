@@ -200,13 +200,38 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 
 ---
 
-## 9. Known Issues / Current Status (March 2026)
+## 9. Current Status (April 9, 2026)
 
-- [ ] Test coverage is 1.13% — target 75% (not blocking launch)
-- [ ] Migration rollback scripts not yet created
-- [ ] GA4 + Hotjar tracking needs verification
-- [ ] ProductHunt launch pending
-- [ ] CMS article templates (5 standard) need creation
+### What's DONE (April 9 session — 32 commits):
+- [x] All DB queries fixed — 19/19 product + article pages verified working
+- [x] Autonomous content pipeline wired (sensor → generator → quality gate → auto-publish)
+- [x] 35+ Indian finance feed sources + X/Twitter + 30-event financial calendar
+- [x] Category interlinking wired into article generation
+- [x] 16 new calculators built (V2 architecture with 5 differentiators)
+- [x] Shared calculator components: SliderInput, ResultCard, AIInsight, WhatIfScenarios, ProductRecs, TrustStrip, PopularCalculators, SSR-safe charts
+- [x] Calculator design spec: docs/CALCULATOR_DESIGN_SPEC.md
+- [x] Master task list: docs/MASTER_TASK_LIST.md (120+ tasks, 11 phases)
+- [x] Autonomous executor: docs/AUTONOMOUS_EXECUTOR.md
+- [x] 65 apply/affiliate links populated in DB
+- [x] Homepage dynamic (TopPicks, Editorial, MarketPulse fetch from DB)
+- [x] RelatedArticles component fixed (was broken)
+- [x] Revalidation API fixed for Next.js 16
+
+### Calculators: 39 total (23 original + 16 new)
+New: CAGR, Gratuity, EPF, HRA, Salary CTC, TDS, Home Loan EMI, Personal Loan EMI, Step-Up SIP, Lumpsum vs SIP, Car Loan EMI, Education Loan EMI, Gold Investment, Rent vs Buy, FIRE India, Marriage Cost
+
+### What's NOT deployed yet:
+- 32 commits on local master — need `git push origin master`
+
+### Known Issues:
+- [ ] Test coverage is 1.13% — target 75%
+- [ ] GA4 not configured (needs NEXT_PUBLIC_GA_MEASUREMENT_ID)
+- [ ] PostHog not configured (needs NEXT_PUBLIC_POSTHOG_KEY)
+- [ ] Pexels API key missing (0/259 product images)
+- [ ] CRON_SECRET not set (crons run unsecured)
+- [ ] Twitter/LinkedIn API keys missing (social posting blocked)
+- [ ] Stripe not configured (payments blocked)
+- [ ] 19 loans + 2 FDs still missing apply links (niche NBFCs)
 - [ ] PWA manifest exists (`/manifest.json`) — needs full PWA audit
 - [ ] Mobile optimization audit pending
 - [x] UI overhaul Phase 1-3 complete: green brand, light mode default, mobile bottom nav
