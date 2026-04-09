@@ -22,51 +22,99 @@ export interface ScoredTopic {
   suggestedArticleType: "news" | "guide" | "comparison" | "analysis";
 }
 
-// Revenue weight per category
+// Revenue weight per category (reflects CPA commission potential)
 const CATEGORY_REVENUE: Record<string, number> = {
-  "credit-cards": 10,
-  loans: 9,
-  insurance: 8,
-  "mutual-funds": 7,
-  "fixed-deposits": 5,
-  tax: 6,
+  "credit-cards": 10, // ₹800-2500 per approval
+  loans: 9, // ₹500-3000 per disbursal
+  insurance: 8, // ₹200-1500 per policy
+  "demat-accounts": 8, // ₹200-500 per account
+  "mutual-funds": 7, // ₹50-200 per SIP
+  tax: 6, // Affiliate + tool conversion
+  "fixed-deposits": 5, // ₹100-300 per FD
+  "personal-finance": 6,
+  "investing-basics": 5,
   banking: 4,
   markets: 3,
-  regulatory: 8,
+  regulatory: 8, // High search volume on rate changes
   trending: 5,
   community: 4,
-  "personal-finance": 6,
   news: 3,
 };
 
-// Keywords that indicate high-intent topics
+// Keywords that indicate high-intent topics (Indian personal finance)
 const HIGH_INTENT_KEYWORDS = [
+  // Comparison & review intent
   "best",
   "top",
   "compare",
   "vs",
   "review",
+  "alternative",
+  "which is better",
+  // Time-sensitive
   "2026",
+  "2025",
   "new launch",
   "rate change",
+  "rate cut",
+  "rate hike",
+  "updated",
+  // Regulatory
   "rbi",
-  "interest rate",
+  "sebi",
+  "repo rate",
+  "monetary policy",
+  "budget",
+  // Credit & score
   "cibil",
   "credit score",
-  "tax saving",
-  "80c",
+  "credit card",
+  "lifetime free",
+  "lounge access",
+  "annual fee",
+  // Investments
   "sip",
+  "mutual fund",
+  "elss",
+  "index fund",
+  "nfo",
+  "nav",
+  "aum",
+  "fixed deposit",
+  "fd rate",
+  "nps",
+  "ppf",
+  "scss",
+  "nsc",
+  "demat",
+  "brokerage",
+  "zerodha",
+  "groww",
+  // Loans
   "emi",
   "home loan",
   "personal loan",
-  "credit card",
-  "mutual fund",
-  "fixed deposit",
-  "nps",
-  "ppf",
-  "budget 2026",
+  "loan rate",
+  "prepayment",
+  // Tax
+  "tax saving",
+  "80c",
+  "80d",
   "new regime",
   "old regime",
+  "itr",
+  "income tax",
+  // Insurance
+  "term insurance",
+  "health insurance",
+  "claim settlement",
+  // India-specific
+  "rupee",
+  "lakh",
+  "crore",
+  "aadhaar",
+  "pan card",
+  "upi",
 ];
 
 export function scoreTopics(

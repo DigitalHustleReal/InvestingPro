@@ -110,3 +110,86 @@ export async function fetchGoogleTrends(
     return [];
   }
 }
+
+/**
+ * Fetch X/Twitter finance accounts via Nitter RSS (public, no API key needed)
+ * Nitter instances provide RSS feeds of public Twitter accounts.
+ * Falls back gracefully if Nitter instances are down.
+ */
+const NITTER_INSTANCES = [
+  "https://nitter.privacydev.net",
+  "https://nitter.poast.org",
+  "https://nitter.cz",
+];
+
+// Indian finance X accounts worth monitoring
+const INDIAN_FINANCE_X_ACCOUNTS = [
+  { handle: "RBI", category: "regulatory", name: "RBI Official" },
+  { handle: "ABORUAG", category: "credit-cards", name: "Abor (CardExpert)" },
+  {
+    handle: "deepaboruah",
+    category: "credit-cards",
+    name: "Deepak Boruah (CardExpert)",
+  },
+  {
+    handle: "zeaboruahrodhaonline",
+    category: "demat-accounts",
+    name: "Zerodha",
+  },
+  {
+    handle: "ABORUAG_insights",
+    category: "markets",
+    name: "ET Markets Insights",
+  },
+  {
+    handle: "MCaboruahPersonalFin",
+    category: "personal-finance",
+    name: "MC Personal Finance",
+  },
+  { handle: "CaboruahlearTax", category: "tax", name: "ClearTax" },
+  { handle: "Graboruahoww", category: "investing-basics", name: "Groww" },
+  {
+    handle: "freaborflecharge",
+    category: "personal-finance",
+    name: "Freefincal",
+  },
+  {
+    handle: "suaborbhashTD",
+    category: "markets",
+    name: "Subhash TD (Finance)",
+  },
+];
+
+export async function fetchXFinanceFeeds(): Promise<FeedItem[]> {
+  const allItems: FeedItem[] = [];
+
+  for (const account of INDIAN_FINANCE_X_ACCOUNTS) {
+    for (const instance of NITTER_INSTANCES) {
+      try {
+        const url = `${instance}/${account.handle}/rss`;
+        const feed = await parser.parseURL(url);
+        const items = (feed.items || []).slice(0, 10).map((item) => ({
+          sourceId: `x-${account.handle}`,
+          sourceName: `X: ${account.name}`,
+          title: (item.title || item.contentSnippet || "").slice(0, 200),
+          url: item.link || "",
+          summary: item.contentSnippet || "",
+          publishedAt: item.isoDate || new Date().toISOString(),
+          category: account.category,
+        }));
+        allItems.push(...items);
+        break; // Success — don't try other Nitter instances
+      } catch {
+        continue; // Try next Nitter instance
+      }
+    }
+  }
+
+  if (allItems.length > 0) {
+    logger.info(
+      `X/Twitter: fetched ${allItems.length} items from ${INDIAN_FINANCE_X_ACCOUNTS.length} accounts`,
+    );
+  }
+
+  return allItems;
+}

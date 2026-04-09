@@ -13,6 +13,7 @@ import {
   fetchRSSFeed,
   fetchRedditFeed,
   fetchGoogleTrends,
+  fetchXFinanceFeeds,
   type FeedItem,
 } from "./feed-ingester";
 import { scoreTopics, type ScoredTopic } from "./topic-scorer";
@@ -91,8 +92,9 @@ export async function runContentSensor(
     }
   });
 
-  // Also fetch Google Trends
+  // Also fetch Google Trends and X/Twitter finance accounts
   fetchPromises.push(fetchGoogleTrends("IN"));
+  fetchPromises.push(fetchXFinanceFeeds());
 
   const results = await Promise.allSettled(fetchPromises);
   for (const result of results) {
@@ -128,7 +130,7 @@ export async function runContentSensor(
     topicsFound: allItems.length,
     topicsScoredAboveThreshold: aboveThreshold.length,
     topTopics,
-    sourcesChecked: sources.length + 1, // +1 for Google Trends
+    sourcesChecked: sources.length + 2, // +1 Google Trends, +1 X/Twitter
     errors,
   };
 }
