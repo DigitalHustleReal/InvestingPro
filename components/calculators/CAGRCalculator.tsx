@@ -1,54 +1,164 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import React, { useState, useMemo, useCallback } from "react";
 import { Slider } from "@/components/ui/slider";
-import { Badge } from "@/components/ui/badge";
 import {
   TrendingUp,
   IndianRupee,
   Calendar,
-  Percent,
-  Info,
-  ChevronDown,
-  ChevronUp,
-  ArrowRight,
   Target,
-  BarChart3,
+  ArrowUpRight,
+  ArrowDownRight,
+  Minus,
 } from "lucide-react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
+import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
 
+// Lazy load Recharts to avoid SSR hydration issues
+const AreaChart = dynamic(() => import("recharts").then((m) => m.AreaChart), {
+  ssr: false,
+});
+const Area = dynamic(() => import("recharts").then((m) => m.Area), {
+  ssr: false,
+});
+const XAxis = dynamic(() => import("recharts").then((m) => m.XAxis), {
+  ssr: false,
+});
+const YAxis = dynamic(() => import("recharts").then((m) => m.YAxis), {
+  ssr: false,
+});
+const Tooltip = dynamic(() => import("recharts").then((m) => m.Tooltip), {
+  ssr: false,
+});
+const ResponsiveContainer = dynamic(
+  () => import("recharts").then((m) => m.ResponsiveContainer),
+  { ssr: false },
+);
+const CartesianGrid = dynamic(
+  () => import("recharts").then((m) => m.CartesianGrid),
+  { ssr: false },
+);
+const PieChart = dynamic(() => import("recharts").then((m) => m.PieChart), {
+  ssr: false,
+});
+const Pie = dynamic(() => import("recharts").then((m) => m.Pie), {
+  ssr: false,
+});
+const Cell = dynamic(() => import("recharts").then((m) => m.Cell), {
+  ssr: false,
+});
+
+// ─── Editable Input + Slider combo (Groww pattern) ─────────────────────────
+function SliderInput({
+  label,
+  icon: Icon,
+  value,
+  onChange,
+  min,
+  max,
+  step,
+  prefix = "",
+  suffix = "",
+  formatDisplay,
+}: {
+  label: string;
+  icon: React.ElementType;
+  value: number;
+  onChange: (v: number) => void;
+  min: number;
+  max: number;
+  step: number;
+  prefix?: string;
+  suffix?: string;
+  formatDisplay?: (v: number) => string;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [inputVal, setInputVal] = useState(String(value));
+
+  const handleBlur = useCallback(() => {
+    setEditing(false);
+    const parsed = parseFloat(inputVal.replace(/[^0-9.]/g, ""));
+    if (!isNaN(parsed)) {
+      onChange(Math.min(Math.max(parsed, min), max));
+    } else {
+      setInputVal(String(value));
+    }
+  }, [inputVal, min, max, onChange, value]);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter") handleBlur();
+    },
+    [handleBlur],
+  );
+
+  const display = formatDisplay
+    ? formatDisplay(value)
+    : `${prefix}${value.toLocaleString("en-IN")}${suffix}`;
+
+  return (
+    <div className="space-y-2.5">
+      <div className="flex items-center justify-between">
+        <label className="text-[13px] font-medium text-gray-600 flex items-center gap-2">
+          <Icon size={15} className="text-green-600" />
+          {label}
+        </label>
+        {editing ? (
+          <input
+            type="text"
+            className="w-32 text-right text-sm font-semibold text-green-700 bg-green-50 border border-green-300 rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-green-200"
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+            autoFocus
+          />
+        ) : (
+          <button
+            onClick={() => {
+              setEditing(true);
+              setInputVal(String(value));
+            }}
+            className="text-sm font-bold text-green-700 bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg px-3 py-1.5 transition-colors cursor-text"
+          >
+            {display}
+          </button>
+        )}
+      </div>
+      <Slider
+        value={[value]}
+        onValueChange={([v]) => onChange(v)}
+        min={min}
+        max={max}
+        step={step}
+      />
+      <div className="flex justify-between text-[10px] text-gray-400 -mt-0.5">
+        <span>
+          {prefix}
+          {min.toLocaleString("en-IN")}
+          {suffix}
+        </span>
+        <span>
+          {prefix}
+          {max.toLocaleString("en-IN")}
+          {suffix}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Calculator ────────────────────────────────────────────────────────
 export function CAGRCalculator() {
   const [initialValue, setInitialValue] = useState(100000);
   const [finalValue, setFinalValue] = useState(250000);
   const [years, setYears] = useState(5);
-  const [inputsExpanded, setInputsExpanded] = useState(false);
 
   const formatCurrency = (num: number) => {
     if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
     if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
     return `₹${Math.round(num).toLocaleString("en-IN")}`;
   };
-
-  const formatPercent = (num: number) => `${num.toFixed(2)}%`;
 
   const result = useMemo(() => {
     if (initialValue <= 0 || finalValue <= 0 || years <= 0) {
@@ -61,486 +171,363 @@ export function CAGRCalculator() {
     return { cagr, absoluteReturn, absoluteReturnPct };
   }, [initialValue, finalValue, years]);
 
-  // Year-wise growth at calculated CAGR
   const growthData = useMemo(() => {
     const data = [];
     const rate = result.cagr / 100;
     for (let y = 0; y <= years; y++) {
-      const value = initialValue * Math.pow(1 + rate, y);
       data.push({
         year: `Y${y}`,
-        value: Math.round(value),
+        value: Math.round(initialValue * Math.pow(1 + rate, y)),
         invested: initialValue,
       });
     }
     return data;
   }, [initialValue, years, result.cagr]);
 
-  // Pie data
   const pieData = [
     { name: "Initial Investment", value: initialValue, color: "#166534" },
     {
       name: "Growth",
       value: Math.max(0, finalValue - initialValue),
-      color: "#16a34a",
+      color: "#22c55e",
     },
   ];
 
-  // CAGR rating
   const cagrRating =
     result.cagr >= 20
-      ? {
-          label: "Excellent",
-          color: "text-green-700 bg-green-50 border-green-200",
-        }
-      : result.cagr >= 15
-        ? {
-            label: "Very Good",
-            color: "text-green-600 bg-green-50 border-green-200",
-          }
-        : result.cagr >= 12
-          ? {
-              label: "Good",
-              color: "text-amber-700 bg-amber-50 border-amber-200",
-            }
-          : result.cagr >= 8
-            ? {
-                label: "Average",
-                color: "text-orange-700 bg-orange-50 border-orange-200",
-              }
-            : {
-                label: "Below Average",
-                color: "text-red-700 bg-red-50 border-red-200",
-              };
+      ? { label: "Excellent", icon: ArrowUpRight, color: "text-green-600" }
+      : result.cagr >= 12
+        ? { label: "Good", icon: ArrowUpRight, color: "text-green-600" }
+        : result.cagr >= 8
+          ? { label: "Average", icon: Minus, color: "text-amber-600" }
+          : {
+              label: "Below Avg",
+              icon: ArrowDownRight,
+              color: "text-red-500",
+            };
 
-  // Benchmark comparison
   const benchmarks = [
-    { name: "Nifty 50 (10Y avg)", cagr: 12.5 },
-    { name: "FD (SBI)", cagr: 7.0 },
-    { name: "Gold (10Y avg)", cagr: 10.5 },
+    { name: "Nifty 50 (10Y)", cagr: 12.5 },
+    { name: "Gold (10Y)", cagr: 10.5 },
     { name: "PPF", cagr: 7.1 },
+    { name: "FD (SBI)", cagr: 7.0 },
     { name: "Inflation", cagr: 5.5 },
   ];
 
-  const InputSection = () => (
-    <div className="space-y-6">
-      {/* Initial Value */}
-      <div>
-        <div className="flex justify-between items-center mb-2">
-          <label className="text-sm font-medium text-gray-700 flex items-center gap-1.5">
-            <IndianRupee size={14} className="text-green-600" />
-            Initial Investment
-          </label>
-          <span className="text-sm font-bold text-green-700 bg-green-50 px-2.5 py-1 rounded-lg">
-            {formatCurrency(initialValue)}
-          </span>
-        </div>
-        <Slider
-          value={[initialValue]}
-          onValueChange={([v]) => setInitialValue(v)}
-          min={1000}
-          max={10000000}
-          step={1000}
-          className="mt-1"
-        />
-        <div className="flex justify-between text-[10px] text-gray-400 mt-1">
-          <span>₹1K</span>
-          <span>₹1Cr</span>
-        </div>
-      </div>
-
-      {/* Final Value */}
-      <div>
-        <div className="flex justify-between items-center mb-2">
-          <label className="text-sm font-medium text-gray-700 flex items-center gap-1.5">
-            <Target size={14} className="text-green-600" />
-            Final Value
-          </label>
-          <span className="text-sm font-bold text-green-700 bg-green-50 px-2.5 py-1 rounded-lg">
-            {formatCurrency(finalValue)}
-          </span>
-        </div>
-        <Slider
-          value={[finalValue]}
-          onValueChange={([v]) => setFinalValue(v)}
-          min={1000}
-          max={50000000}
-          step={1000}
-          className="mt-1"
-        />
-        <div className="flex justify-between text-[10px] text-gray-400 mt-1">
-          <span>₹1K</span>
-          <span>₹5Cr</span>
-        </div>
-      </div>
-
-      {/* Duration */}
-      <div>
-        <div className="flex justify-between items-center mb-2">
-          <label className="text-sm font-medium text-gray-700 flex items-center gap-1.5">
-            <Calendar size={14} className="text-green-600" />
-            Investment Duration
-          </label>
-          <span className="text-sm font-bold text-green-700 bg-green-50 px-2.5 py-1 rounded-lg">
-            {years} {years === 1 ? "Year" : "Years"}
-          </span>
-        </div>
-        <Slider
-          value={[years]}
-          onValueChange={([v]) => setYears(v)}
-          min={1}
-          max={30}
-          step={1}
-          className="mt-1"
-        />
-        <div className="flex justify-between text-[10px] text-gray-400 mt-1">
-          <span>1Y</span>
-          <span>30Y</span>
-        </div>
-      </div>
-    </div>
-  );
-
   return (
-    <div className="space-y-6 pb-20 md:pb-6">
-      {/* Mobile: Collapsible Inputs */}
-      <div className="lg:hidden">
-        <Card className="border-border shadow-sm rounded-xl">
-          <CardHeader
-            className="cursor-pointer"
-            onClick={() => setInputsExpanded(!inputsExpanded)}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <CardTitle className="text-lg mb-1">CAGR Calculator</CardTitle>
-                <CardDescription className="text-xs">
-                  Tap to adjust values
-                </CardDescription>
-              </div>
-              {inputsExpanded ? (
-                <ChevronUp className="w-5 h-5 text-muted-foreground" />
-              ) : (
-                <ChevronDown className="w-5 h-5 text-muted-foreground" />
-              )}
-            </div>
-          </CardHeader>
-          {inputsExpanded && (
-            <CardContent className="space-y-4 pt-0">
-              <InputSection />
-            </CardContent>
-          )}
-        </Card>
-      </div>
-
-      {/* Desktop: Side-by-side layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* Inputs (Desktop) */}
-        <div className="hidden lg:block lg:col-span-2">
-          <Card className="border-border shadow-sm rounded-xl sticky top-24">
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <BarChart3 size={20} className="text-green-600" />
-                CAGR Calculator
-              </CardTitle>
-              <CardDescription>
-                Calculate Compound Annual Growth Rate of your investment
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <InputSection />
-            </CardContent>
-          </Card>
+    <div className="max-w-5xl mx-auto">
+      {/* ─── Top: Inputs + Result ────────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Inputs — always visible, never collapsed */}
+        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+          <h2 className="text-base font-semibold text-gray-900 mb-6">
+            Enter Investment Details
+          </h2>
+          <div className="space-y-6">
+            <SliderInput
+              label="Initial Investment"
+              icon={IndianRupee}
+              value={initialValue}
+              onChange={setInitialValue}
+              min={1000}
+              max={10000000}
+              step={1000}
+              formatDisplay={formatCurrency}
+            />
+            <SliderInput
+              label="Final Value"
+              icon={Target}
+              value={finalValue}
+              onChange={setFinalValue}
+              min={1000}
+              max={50000000}
+              step={1000}
+              formatDisplay={formatCurrency}
+            />
+            <SliderInput
+              label="Investment Duration"
+              icon={Calendar}
+              value={years}
+              onChange={setYears}
+              min={1}
+              max={30}
+              step={1}
+              suffix=" Yrs"
+            />
+          </div>
         </div>
 
-        {/* Results */}
-        <div className="lg:col-span-3 space-y-5">
-          {/* Main Result Card — Groww-style large number */}
-          <Card className="border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm rounded-xl overflow-hidden">
-            <CardContent className="p-6">
-              <div className="text-center">
-                <p className="text-sm text-gray-500 mb-1">Your CAGR</p>
-                <div className="text-5xl md:text-6xl font-bold text-green-700 tracking-tight">
-                  {formatPercent(result.cagr)}
-                </div>
-                <Badge
-                  variant="outline"
-                  className={cn("mt-3 text-xs font-semibold", cagrRating.color)}
-                >
-                  {cagrRating.label}
-                </Badge>
-              </div>
-
-              {/* Key Metrics Row */}
-              <div className="grid grid-cols-3 gap-4 mt-6 pt-5 border-t border-green-200">
-                <div className="text-center">
-                  <p className="text-[11px] text-gray-500">Initial</p>
-                  <p className="text-sm font-bold text-gray-900">
-                    {formatCurrency(initialValue)}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-[11px] text-gray-500">Final</p>
-                  <p className="text-sm font-bold text-green-700">
-                    {formatCurrency(finalValue)}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-[11px] text-gray-500">Absolute Return</p>
-                  <p className="text-sm font-bold text-green-700">
-                    {result.absoluteReturnPct.toFixed(1)}%
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Nudge */}
-          {result.cagr > 0 && (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-amber-800">
-              <strong>Insight:</strong>{" "}
-              {result.cagr >= 15
-                ? `Your investment grew at ${formatPercent(result.cagr)} — beating Nifty 50's 10-year average of 12.5%. Impressive!`
-                : result.cagr >= 8
-                  ? `Your growth of ${formatPercent(result.cagr)} is decent but below equity market averages. Consider diversifying into mutual funds.`
-                  : `At ${formatPercent(result.cagr)}, your money is barely beating inflation (5.5%). A SIP in index funds could significantly improve returns.`}
+        {/* Result Card — bold, Groww-style */}
+        <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 border border-green-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <p className="text-sm text-gray-500 font-medium">Your CAGR</p>
+            <div className="mt-2 flex items-end gap-3">
+              <span className="text-6xl md:text-7xl font-extrabold text-green-700 tracking-tight leading-none">
+                {result.cagr.toFixed(2)}%
+              </span>
+              <span
+                className={cn(
+                  "flex items-center gap-0.5 text-sm font-semibold mb-2",
+                  cagrRating.color,
+                )}
+              >
+                <cagrRating.icon size={16} />
+                {cagrRating.label}
+              </span>
             </div>
-          )}
-
-          {/* Growth Chart */}
-          <Card className="border-border shadow-sm rounded-xl">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base flex items-center gap-2">
-                <TrendingUp size={16} className="text-green-600" />
-                Growth Trajectory
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[250px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={growthData}>
-                    <defs>
-                      <linearGradient
-                        id="cagrGrowth"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="5%"
-                          stopColor="#16a34a"
-                          stopOpacity={0.3}
-                        />
-                        <stop
-                          offset="95%"
-                          stopColor="#16a34a"
-                          stopOpacity={0}
-                        />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis
-                      dataKey="year"
-                      fontSize={11}
-                      tick={{ fill: "#999" }}
-                    />
-                    <YAxis
-                      fontSize={11}
-                      tick={{ fill: "#999" }}
-                      tickFormatter={(v) =>
-                        v >= 10000000
-                          ? `${(v / 10000000).toFixed(1)}Cr`
-                          : v >= 100000
-                            ? `${(v / 100000).toFixed(0)}L`
-                            : `${(v / 1000).toFixed(0)}K`
-                      }
-                    />
-                    <Tooltip
-                      formatter={(value: any) => [
-                        formatCurrency(Number(value)),
-                        "Value",
-                      ]}
-                      labelFormatter={(label) => `Year ${label}`}
-                      contentStyle={{
-                        borderRadius: "8px",
-                        border: "1px solid #e5e7eb",
-                        fontSize: "12px",
-                      }}
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#16a34a"
-                      strokeWidth={2}
-                      fill="url(#cagrGrowth)"
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="invested"
-                      stroke="#166534"
-                      strokeWidth={1}
-                      strokeDasharray="5 5"
-                      fill="none"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Investment Split — Donut */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <Card className="border-border shadow-sm rounded-xl">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Investment Split</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="h-[180px] flex items-center justify-center">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={pieData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={50}
-                        outerRadius={75}
-                        dataKey="value"
-                        stroke="none"
-                      >
-                        {pieData.map((entry, i) => (
-                          <Cell key={i} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(value: any) =>
-                          formatCurrency(Number(value))
-                        }
-                        contentStyle={{ borderRadius: "8px", fontSize: "12px" }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="flex justify-center gap-6 mt-2">
-                  {pieData.map((d) => (
-                    <div
-                      key={d.name}
-                      className="flex items-center gap-1.5 text-xs"
-                    >
-                      <div
-                        className="w-2.5 h-2.5 rounded-full"
-                        style={{ backgroundColor: d.color }}
-                      />
-                      <span className="text-gray-600">{d.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Benchmark Comparison */}
-            <Card className="border-border shadow-sm rounded-xl">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">vs Benchmarks</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {benchmarks.map((bm) => (
-                    <div key={bm.name} className="flex items-center gap-3">
-                      <div className="flex-1">
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-xs text-gray-600">
-                            {bm.name}
-                          </span>
-                          <span className="text-xs font-semibold text-gray-900">
-                            {bm.cagr}%
-                          </span>
-                        </div>
-                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                          <div
-                            className={cn(
-                              "h-full rounded-full transition-all",
-                              result.cagr >= bm.cagr
-                                ? "bg-green-500"
-                                : "bg-gray-300",
-                            )}
-                            style={{
-                              width: `${Math.min((bm.cagr / Math.max(result.cagr, 25)) * 100, 100)}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {/* Your CAGR bar */}
-                  <div className="flex items-center gap-3 pt-2 border-t border-gray-100">
-                    <div className="flex-1">
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-xs font-semibold text-green-700">
-                          Your CAGR
-                        </span>
-                        <span className="text-xs font-bold text-green-700">
-                          {formatPercent(result.cagr)}
-                        </span>
-                      </div>
-                      <div className="h-2 bg-green-100 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-green-600 rounded-full"
-                          style={{
-                            width: `${Math.min((result.cagr / 25) * 100, 100)}%`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
 
-          {/* CAGR Formula Explainer */}
-          <Card className="border-border shadow-sm rounded-xl">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base flex items-center gap-2">
-                <Info size={16} className="text-green-600" />
-                How CAGR is Calculated
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="bg-gray-50 rounded-lg p-4 text-center mb-4">
-                <p className="text-lg font-mono text-gray-700">
-                  CAGR = (Final Value / Initial Value)
-                  <sup>1/n</sup> - 1
-                </p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-                <div className="bg-green-50 rounded-lg p-3 text-center">
-                  <p className="text-xs text-gray-500">Final / Initial</p>
-                  <p className="font-bold text-green-700">
-                    {(finalValue / initialValue).toFixed(2)}x
-                  </p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-3 text-center">
-                  <p className="text-xs text-gray-500">Power (1/n)</p>
-                  <p className="font-bold text-green-700">
-                    1/{years} = {(1 / years).toFixed(3)}
-                  </p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-3 text-center">
-                  <p className="text-xs text-gray-500">CAGR</p>
-                  <p className="font-bold text-green-700">
-                    {formatPercent(result.cagr)}
-                  </p>
-                </div>
-              </div>
-              <p className="text-xs text-gray-500 mt-3 leading-relaxed">
-                CAGR (Compound Annual Growth Rate) smooths out the return of an
-                investment over time, showing the rate at which it would have
-                grown if it grew at a steady rate. Unlike absolute returns, CAGR
-                accounts for compounding and is the best way to compare
-                investments of different durations.
+          <div className="grid grid-cols-3 gap-4 mt-8 pt-5 border-t border-green-200/60">
+            <div>
+              <p className="text-[11px] text-gray-500 font-medium">Invested</p>
+              <p className="text-[15px] font-bold text-gray-900 mt-0.5">
+                {formatCurrency(initialValue)}
               </p>
-            </CardContent>
-          </Card>
+            </div>
+            <div>
+              <p className="text-[11px] text-gray-500 font-medium">
+                Final Value
+              </p>
+              <p className="text-[15px] font-bold text-green-700 mt-0.5">
+                {formatCurrency(finalValue)}
+              </p>
+            </div>
+            <div>
+              <p className="text-[11px] text-gray-500 font-medium">
+                Absolute Return
+              </p>
+              <p className="text-[15px] font-bold text-green-700 mt-0.5">
+                {result.absoluteReturnPct.toFixed(1)}%
+              </p>
+            </div>
+          </div>
+
+          {/* Inline nudge */}
+          <p className="text-xs text-gray-500 mt-4 leading-relaxed">
+            {result.cagr >= 15
+              ? `Your investment beat Nifty 50's 10-year average (12.5%). Strong performance.`
+              : result.cagr >= 8
+                ? `Decent growth, but below equity averages. Consider diversifying into index funds.`
+                : `At ${result.cagr.toFixed(1)}%, your money barely beats inflation. A SIP in Nifty 50 could do significantly better.`}
+          </p>
+        </div>
+      </div>
+
+      {/* ─── Middle: Chart + Donut ───────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+        {/* Growth Chart — 2/3 width */}
+        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <TrendingUp size={15} className="text-green-600" />
+            Growth Trajectory
+          </h3>
+          <div className="h-[280px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={growthData}>
+                <defs>
+                  <linearGradient id="cagrGrowthV2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#22c55e" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="#22c55e" stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#f1f5f9"
+                  vertical={false}
+                />
+                <XAxis
+                  dataKey="year"
+                  fontSize={11}
+                  tick={{ fill: "#94a3b8" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <YAxis
+                  fontSize={11}
+                  tick={{ fill: "#94a3b8" }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(v: number) =>
+                    v >= 10000000
+                      ? `${(v / 10000000).toFixed(1)}Cr`
+                      : v >= 100000
+                        ? `${(v / 100000).toFixed(0)}L`
+                        : `${(v / 1000).toFixed(0)}K`
+                  }
+                />
+                <Tooltip
+                  formatter={(value: any) => [
+                    formatCurrency(Number(value)),
+                    "Value",
+                  ]}
+                  contentStyle={{
+                    borderRadius: "10px",
+                    border: "1px solid #e2e8f0",
+                    fontSize: "12px",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="invested"
+                  stroke="#166534"
+                  strokeWidth={1.5}
+                  strokeDasharray="6 4"
+                  fill="none"
+                  name="Invested"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#22c55e"
+                  strokeWidth={2.5}
+                  fill="url(#cagrGrowthV2)"
+                  name="Value"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Donut — 1/3 width */}
+        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+            Investment Split
+          </h3>
+          <div className="h-[200px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={55}
+                  outerRadius={80}
+                  dataKey="value"
+                  stroke="none"
+                  startAngle={90}
+                  endAngle={-270}
+                >
+                  {pieData.map((entry, i) => (
+                    <Cell key={i} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  formatter={(value: any) => formatCurrency(Number(value))}
+                  contentStyle={{
+                    borderRadius: "10px",
+                    fontSize: "12px",
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="flex justify-center gap-5 -mt-1">
+            {pieData.map((d) => (
+              <div
+                key={d.name}
+                className="flex items-center gap-1.5 text-[11px]"
+              >
+                <div
+                  className="w-2.5 h-2.5 rounded-full"
+                  style={{ backgroundColor: d.color }}
+                />
+                <span className="text-gray-500">{d.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Bottom: Benchmarks + Formula ────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        {/* Benchmark Comparison */}
+        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-semibold text-gray-900 mb-4">
+            Your CAGR vs Benchmarks
+          </h3>
+          <div className="space-y-3">
+            {benchmarks.map((bm) => {
+              const maxVal = Math.max(result.cagr, 25);
+              return (
+                <div key={bm.name}>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <span className="text-xs text-gray-500">{bm.name}</span>
+                    <span className="text-xs font-semibold text-gray-700">
+                      {bm.cagr}%
+                    </span>
+                  </div>
+                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gray-300 transition-all duration-500"
+                      style={{
+                        width: `${Math.min((bm.cagr / maxVal) * 100, 100)}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+            {/* Your CAGR */}
+            <div className="pt-3 border-t border-gray-100">
+              <div className="flex justify-between items-center mb-1.5">
+                <span className="text-xs font-bold text-green-700">
+                  Your CAGR
+                </span>
+                <span className="text-xs font-bold text-green-700">
+                  {result.cagr.toFixed(2)}%
+                </span>
+              </div>
+              <div className="h-2.5 bg-green-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-green-600 transition-all duration-500"
+                  style={{
+                    width: `${Math.min((result.cagr / Math.max(result.cagr, 25)) * 100, 100)}%`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Formula */}
+        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-semibold text-gray-900 mb-4">
+            How CAGR is Calculated
+          </h3>
+          <div className="bg-gray-50 rounded-xl p-4 text-center mb-5">
+            <p className="text-base font-mono text-gray-700 tracking-wide">
+              CAGR = (FV / IV)<sup className="text-xs">1/n</sup> − 1
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="bg-green-50 rounded-xl p-3 text-center">
+              <p className="text-[10px] text-gray-500 font-medium">FV / IV</p>
+              <p className="text-base font-bold text-green-700 mt-1">
+                {(finalValue / initialValue).toFixed(2)}x
+              </p>
+            </div>
+            <div className="bg-green-50 rounded-xl p-3 text-center">
+              <p className="text-[10px] text-gray-500 font-medium">
+                Power (1/n)
+              </p>
+              <p className="text-base font-bold text-green-700 mt-1">
+                {(1 / years).toFixed(3)}
+              </p>
+            </div>
+            <div className="bg-green-50 rounded-xl p-3 text-center">
+              <p className="text-[10px] text-gray-500 font-medium">CAGR</p>
+              <p className="text-base font-bold text-green-700 mt-1">
+                {result.cagr.toFixed(2)}%
+              </p>
+            </div>
+          </div>
+          <p className="text-[11px] text-gray-400 mt-4 leading-relaxed">
+            CAGR smooths out investment returns over time, showing the constant
+            annual rate needed to grow from initial to final value. Unlike
+            absolute returns, it accounts for compounding — making it the best
+            metric to compare investments of different durations.
+          </p>
         </div>
       </div>
     </div>
