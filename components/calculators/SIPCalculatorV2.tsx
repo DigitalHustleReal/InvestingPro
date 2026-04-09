@@ -1,18 +1,14 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import {
-  IndianRupee,
-  Calendar,
-  Percent,
-  Target,
-  ArrowLeftRight,
-} from "lucide-react";
+import { IndianRupee, Calendar, Percent, Target } from "lucide-react";
 import { SliderInput } from "./shared/SliderInput";
 import { ResultCard } from "./shared/ResultCard";
 import { AIInsight } from "./shared/AIInsight";
 import { WhatIfScenarios } from "./shared/WhatIfScenarios";
 import { ProductRecs } from "./shared/ProductRecs";
+import { PopularCalculators } from "./shared/PopularCalculators";
+import { TrustStrip } from "./shared/TrustStrip";
 import {
   AreaChart,
   Area,
@@ -29,16 +25,15 @@ import {
 } from "./shared/charts";
 import { cn } from "@/lib/utils";
 
-type Mode = "invest" | "goal";
+type Mode = "returns" | "goal";
 
 export function SIPCalculatorV2() {
-  const [mode, setMode] = useState<Mode>("invest");
+  const [mode, setMode] = useState<Mode>("returns");
   const [monthlyAmount, setMonthlyAmount] = useState(5000);
   const [years, setYears] = useState(10);
   const [expectedReturn, setExpectedReturn] = useState(12);
   const [goalAmount, setGoalAmount] = useState(2000000);
 
-  // ─── Core SIP Math ────────────────────────────────────────────────
   const calcSIP = (monthly: number, yrs: number, rate: number) => {
     const r = rate / 100 / 12;
     const n = yrs * 12;
@@ -48,7 +43,6 @@ export function SIPCalculatorV2() {
     return { fv, invested, returns: fv - invested };
   };
 
-  // Reverse: given goal, find monthly SIP needed
   const calcReverseSIP = (goal: number, yrs: number, rate: number) => {
     const r = rate / 100 / 12;
     const n = yrs * 12;
@@ -57,7 +51,7 @@ export function SIPCalculatorV2() {
   };
 
   const result = useMemo(() => {
-    if (mode === "invest") {
+    if (mode === "returns") {
       const { fv, invested, returns } = calcSIP(
         monthlyAmount,
         years,
@@ -66,7 +60,7 @@ export function SIPCalculatorV2() {
       return { fv, invested, returns, monthly: monthlyAmount };
     } else {
       const needed = calcReverseSIP(goalAmount, years, expectedReturn);
-      const { fv, invested, returns } = calcSIP(needed, years, expectedReturn);
+      const { invested } = calcSIP(needed, years, expectedReturn);
       return {
         fv: goalAmount,
         invested,
@@ -76,69 +70,62 @@ export function SIPCalculatorV2() {
     }
   }, [mode, monthlyAmount, years, expectedReturn, goalAmount]);
 
-  // ─── What-If Scenarios ────────────────────────────────────────────
   const scenarios = useMemo(() => {
-    const conservative = calcSIP(result.monthly, years, 8);
-    const moderate = calcSIP(result.monthly, years, 12);
-    const aggressive = calcSIP(result.monthly, years, 15);
+    const c = calcSIP(result.monthly, years, 8);
+    const m = calcSIP(result.monthly, years, 12);
+    const a = calcSIP(result.monthly, years, 15);
     return [
       {
-        label: "Conservative",
-        description: "Debt + Hybrid funds (8%)",
-        value: formatINR(conservative.fv),
-        subtext: `Returns: ${formatINR(conservative.returns)}`,
+        label: "Debt Funds (8%)",
+        description: "Low risk · Stable",
+        value: formatINR(c.fv),
+        subtext: `₹${Math.round(c.returns / 100000)}L returns`,
         type: "conservative" as const,
       },
       {
-        label: "Moderate",
-        description: "Large-cap index funds (12%)",
-        value: formatINR(moderate.fv),
-        subtext: `Returns: ${formatINR(moderate.returns)}`,
+        label: "Index Funds (12%)",
+        description: "Medium risk",
+        value: formatINR(m.fv),
+        subtext: `₹${Math.round(m.returns / 100000)}L returns`,
         type: "moderate" as const,
       },
       {
-        label: "Aggressive",
-        description: "Mid/Small-cap funds (15%)",
-        value: formatINR(aggressive.fv),
-        subtext: `Returns: ${formatINR(aggressive.returns)}`,
+        label: "Small-Cap (15%)",
+        description: "High risk · High reward",
+        value: formatINR(a.fv),
+        subtext: `₹${Math.round(a.returns / 100000)}L returns`,
         type: "aggressive" as const,
       },
     ];
   }, [result.monthly, years]);
 
-  // ─── AI Insights ──────────────────────────────────────────────────
   const insights = useMemo(() => {
     const ins: string[] = [];
-    // Rule of 72
     const doublingYears = (72 / expectedReturn).toFixed(1);
     ins.push(
-      `At ${expectedReturn}% CAGR, your money doubles every ${doublingYears} years (Rule of 72).`,
+      `At ${expectedReturn}% return, your money doubles every ${doublingYears} years. Compounding ka jaadu — jitna lamba invest karein, utna zyada faayda.`,
     );
-    // Delay cost
     if (years >= 5) {
-      const delayedFV = calcSIP(result.monthly, years - 1, expectedReturn).fv;
-      const delayCost = result.fv - delayedFV;
+      const delay = calcSIP(result.monthly, years - 1, expectedReturn).fv;
       ins.push(
-        `Starting 1 year late costs you ${formatINR(delayCost)}. Every year of delay gets more expensive.`,
+        `1 saal late start karne ka nuksan: ${formatINR(result.fv - delay)}. Kal se nahi, aaj se shuru karein!`,
       );
     }
-    // FD comparison
     const fdFV = calcSIP(result.monthly, years, 7).fv;
     if (expectedReturn > 7) {
       ins.push(
-        `SIP at ${expectedReturn}% gives ${formatINR(result.fv - fdFV)} more than an FD at 7% over ${years} years.`,
+        `Same amount FD mein rakhte toh ${formatINR(fdFV)} milta. SIP mein ${formatINR(result.fv - fdFV)} zyada — ${years} saal mein.`,
       );
     }
     return ins;
   }, [result, years, expectedReturn]);
 
-  // ─── Chart Data ───────────────────────────────────────────────────
   const chartData = useMemo(() => {
     const data = [];
     for (let y = 0; y <= years; y++) {
       const { fv, invested } = calcSIP(result.monthly, y, expectedReturn);
       data.push({
-        year: `Y${y}`,
+        year: y === 0 ? "Start" : `${y}Y`,
         value: Math.round(fv),
         invested: Math.round(invested),
       });
@@ -146,7 +133,6 @@ export function SIPCalculatorV2() {
     return data;
   }, [result.monthly, years, expectedReturn]);
 
-  // ─── Year-wise Breakdown ──────────────────────────────────────────
   const [showAllYears, setShowAllYears] = useState(false);
   const yearlyBreakdown = useMemo(() => {
     const data = [];
@@ -167,46 +153,82 @@ export function SIPCalculatorV2() {
   }, [result.monthly, years, expectedReturn]);
 
   const pieData = [
-    { name: "Invested", value: Math.round(result.invested), color: "#166534" },
-    { name: "Returns", value: Math.round(result.returns), color: "#22c55e" },
+    {
+      name: "You Invest",
+      value: Math.round(result.invested),
+      color: "#166534",
+    },
+    {
+      name: "You Earn",
+      value: Math.round(Math.max(0, result.returns)),
+      color: "#22c55e",
+    },
   ];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      {/* ─── Top: Inputs + Result ──────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Inputs */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          {/* Mode Toggle — our differentiator #3 */}
-          <div className="flex items-center gap-2 mb-6 p-1 bg-gray-100 rounded-xl">
+    <div className="max-w-6xl mx-auto space-y-4">
+      {/* Trust Strip */}
+      <TrustStrip />
+
+      {/* ─── MOBILE-FIRST: Result on top, inputs below ──────────── */}
+
+      {/* Result — shown FIRST on mobile (user sees answer immediately) */}
+      <div className="lg:hidden">
+        <ResultCard
+          title={mode === "returns" ? "Total Value" : "Your Goal"}
+          value={formatINR(result.fv)}
+          ratingLabel={`${((result.returns / Math.max(result.invested, 1)) * 100).toFixed(0)}% wealth gain`}
+          ratingType={result.returns > 0 ? "positive" : "negative"}
+          metrics={[
+            {
+              label: mode === "goal" ? "SIP Required" : "Monthly SIP",
+              value: `${formatINR(result.monthly)}/mo`,
+              highlight: mode === "goal",
+            },
+            { label: "You Invest", value: formatINR(result.invested) },
+            {
+              label: "You Earn",
+              value: formatINR(result.returns),
+              highlight: true,
+            },
+          ]}
+        />
+      </div>
+
+      {/* ─── Desktop: 3-column layout ────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        {/* Inputs — 5 cols on desktop, full width mobile */}
+        <div className="lg:col-span-5 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+          {/* Clear mode labels */}
+          <div className="flex items-center gap-1 mb-5 p-1 bg-gray-100 rounded-xl">
             <button
-              onClick={() => setMode("invest")}
+              onClick={() => setMode("returns")}
               className={cn(
-                "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-medium transition-all",
-                mode === "invest"
+                "flex-1 py-2.5 rounded-lg text-[13px] font-semibold transition-all",
+                mode === "returns"
                   ? "bg-white text-green-700 shadow-sm"
-                  : "text-gray-500 hover:text-gray-700",
+                  : "text-gray-500",
               )}
             >
-              <IndianRupee size={14} /> I know my SIP
+              SIP Returns
             </button>
             <button
               onClick={() => setMode("goal")}
               className={cn(
-                "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-medium transition-all",
+                "flex-1 py-2.5 rounded-lg text-[13px] font-semibold transition-all",
                 mode === "goal"
                   ? "bg-white text-green-700 shadow-sm"
-                  : "text-gray-500 hover:text-gray-700",
+                  : "text-gray-500",
               )}
             >
-              <Target size={14} /> I know my goal
+              Goal Planning
             </button>
           </div>
 
-          <div className="space-y-6">
-            {mode === "invest" ? (
+          <div className="space-y-5">
+            {mode === "returns" ? (
               <SliderInput
-                label="Monthly SIP Amount"
+                label="Monthly SIP"
                 icon={IndianRupee}
                 value={monthlyAmount}
                 onChange={setMonthlyAmount}
@@ -217,7 +239,7 @@ export function SIPCalculatorV2() {
               />
             ) : (
               <SliderInput
-                label="Target Goal Amount"
+                label="I want to save"
                 icon={Target}
                 value={goalAmount}
                 onChange={setGoalAmount}
@@ -228,7 +250,7 @@ export function SIPCalculatorV2() {
               />
             )}
             <SliderInput
-              label="Investment Period"
+              label="Time Period"
               icon={Calendar}
               value={years}
               onChange={setYears}
@@ -238,58 +260,64 @@ export function SIPCalculatorV2() {
               suffix=" Yrs"
             />
             <SliderInput
-              label="Expected Return (p.a.)"
+              label="Expected Return"
               icon={Percent}
               value={expectedReturn}
               onChange={setExpectedReturn}
               min={4}
               max={25}
               step={0.5}
-              suffix="%"
+              suffix="% p.a."
             />
           </div>
         </div>
 
-        {/* Result */}
-        <div className="space-y-4">
-          <ResultCard
-            title={mode === "invest" ? "Future Value" : "Goal Amount"}
-            value={formatINR(result.fv)}
-            ratingLabel={`${((result.returns / result.invested) * 100).toFixed(0)}% returns`}
-            ratingType={result.returns > 0 ? "positive" : "negative"}
-            metrics={[
-              {
-                label: mode === "goal" ? "SIP Needed" : "Monthly SIP",
-                value: formatINR(result.monthly),
-                highlight: mode === "goal",
-              },
-              { label: "Total Invested", value: formatINR(result.invested) },
-              {
-                label: "Est. Returns",
-                value: formatINR(result.returns),
-                highlight: true,
-              },
-            ]}
-          />
-          {/* AI Insight — our differentiator #1 */}
+        {/* Result + AI Insight — 4 cols on desktop, hidden on mobile (shown above) */}
+        <div className="lg:col-span-4 space-y-4">
+          <div className="hidden lg:block">
+            <ResultCard
+              title={mode === "returns" ? "Total Value" : "Your Goal"}
+              value={formatINR(result.fv)}
+              ratingLabel={`${((result.returns / Math.max(result.invested, 1)) * 100).toFixed(0)}% wealth gain`}
+              ratingType={result.returns > 0 ? "positive" : "negative"}
+              metrics={[
+                {
+                  label: mode === "goal" ? "SIP Required" : "Monthly SIP",
+                  value: `${formatINR(result.monthly)}/mo`,
+                  highlight: mode === "goal",
+                },
+                { label: "You Invest", value: formatINR(result.invested) },
+                {
+                  label: "You Earn",
+                  value: formatINR(result.returns),
+                  highlight: true,
+                },
+              ]}
+            />
+          </div>
           <AIInsight insights={insights} />
+        </div>
+
+        {/* Sidebar — desktop only */}
+        <div className="lg:col-span-3 hidden lg:block">
+          <PopularCalculators currentSlug="sip" variant="sidebar" />
         </div>
       </div>
 
-      {/* ─── What-If Scenarios — our differentiator #5 ──────────── */}
+      {/* ─── What-If Scenarios (scrollable on mobile) ─────────── */}
       <WhatIfScenarios scenarios={scenarios} />
 
-      {/* ─── Chart + Product Recs ───────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">
-            Wealth Growth Over {years} Years
+      {/* ─── Chart + Product Recs ─────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+            Your Wealth Journey — {years} Years
           </h3>
-          <div className="h-[280px]">
+          <div className="h-[240px] sm:h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={chartData}>
                 <defs>
-                  <linearGradient id="sipGrowthV2" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id="sipGrowthV3" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#22c55e" stopOpacity={0.25} />
                     <stop offset="95%" stopColor="#22c55e" stopOpacity={0.02} />
                   </linearGradient>
@@ -312,6 +340,7 @@ export function SIPCalculatorV2() {
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={yAxisINR}
+                  width={45}
                 />
                 <Tooltip
                   formatter={(value: any) => [formatINR(Number(value)), ""]}
@@ -319,7 +348,6 @@ export function SIPCalculatorV2() {
                     borderRadius: "10px",
                     border: "1px solid #e2e8f0",
                     fontSize: "12px",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                   }}
                 />
                 <Area
@@ -336,18 +364,18 @@ export function SIPCalculatorV2() {
                   dataKey="value"
                   stroke="#22c55e"
                   strokeWidth={2.5}
-                  fill="url(#sipGrowthV2)"
-                  name="Value"
+                  fill="url(#sipGrowthV3)"
+                  name="Total Value"
                 />
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          {/* Pie below chart */}
-          <div className="flex items-center justify-center gap-8 mt-4 pt-4 border-t border-gray-100">
+          {/* Inline legend — bigger, clearer */}
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
             {pieData.map((d) => (
               <div key={d.name} className="flex items-center gap-2">
                 <div
-                  className="w-3 h-3 rounded-full"
+                  className="w-3 h-3 rounded-sm"
                   style={{ backgroundColor: d.color }}
                 />
                 <div>
@@ -361,34 +389,33 @@ export function SIPCalculatorV2() {
           </div>
         </div>
 
-        {/* Product Recs — our differentiator #2 */}
         <ProductRecs
           category="mutual-funds"
-          title="Top Funds for SIP"
-          matchCriteria={`Matching ${expectedReturn}% return`}
+          title="Top SIP Funds"
+          matchCriteria={`${expectedReturn}%+ returns`}
         />
       </div>
 
-      {/* ─── Year-wise Breakdown ─────────────────────────────────── */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+      {/* ─── Year-wise Breakdown ─────────────────────────────── */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
         <h3 className="text-sm font-semibold text-gray-900 mb-3">
-          Year-wise Breakdown
+          Year-by-Year Breakdown
         </h3>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+        <div className="overflow-x-auto -mx-2 px-2">
+          <table className="w-full text-sm min-w-[400px]">
             <thead>
               <tr className="border-b border-gray-100">
-                <th className="text-left py-2 px-3 text-xs font-medium text-gray-500">
+                <th className="text-left py-2 px-2 text-xs font-medium text-gray-500">
                   Year
                 </th>
-                <th className="text-right py-2 px-3 text-xs font-medium text-gray-500">
+                <th className="text-right py-2 px-2 text-xs font-medium text-gray-500">
                   Invested
                 </th>
-                <th className="text-right py-2 px-3 text-xs font-medium text-gray-500">
-                  Returns
+                <th className="text-right py-2 px-2 text-xs font-medium text-gray-500">
+                  Earned
                 </th>
-                <th className="text-right py-2 px-3 text-xs font-medium text-gray-500">
-                  Total Value
+                <th className="text-right py-2 px-2 text-xs font-medium text-gray-500">
+                  Total
                 </th>
               </tr>
             </thead>
@@ -401,16 +428,16 @@ export function SIPCalculatorV2() {
                   key={row.year}
                   className="border-b border-gray-50 hover:bg-green-50/50 transition-colors"
                 >
-                  <td className="py-2.5 px-3 font-medium text-gray-700">
-                    Year {row.year}
+                  <td className="py-2 px-2 font-medium text-gray-700">
+                    Y{row.year}
                   </td>
-                  <td className="py-2.5 px-3 text-right text-gray-600">
+                  <td className="py-2 px-2 text-right text-gray-600">
                     {formatINR(row.invested)}
                   </td>
-                  <td className="py-2.5 px-3 text-right text-green-600 font-medium">
-                    {formatINR(row.returns)}
+                  <td className="py-2 px-2 text-right text-green-600 font-medium">
+                    +{formatINR(row.returns)}
                   </td>
-                  <td className="py-2.5 px-3 text-right font-bold text-gray-900">
+                  <td className="py-2 px-2 text-right font-bold text-gray-900">
                     {formatINR(row.total)}
                   </td>
                 </tr>
@@ -421,13 +448,18 @@ export function SIPCalculatorV2() {
         {yearlyBreakdown.length > 5 && (
           <button
             onClick={() => setShowAllYears(!showAllYears)}
-            className="w-full mt-3 py-2 text-xs font-semibold text-green-600 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors"
+            className="w-full mt-3 py-2.5 text-xs font-semibold text-green-600 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors"
           >
             {showAllYears
               ? "Show less"
-              : `Show all ${yearlyBreakdown.length} years`}
+              : `All ${yearlyBreakdown.length} years →`}
           </button>
         )}
+      </div>
+
+      {/* Mobile: Popular calculators strip */}
+      <div className="lg:hidden">
+        <PopularCalculators currentSlug="sip" variant="strip" />
       </div>
     </div>
   );
