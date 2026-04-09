@@ -174,6 +174,15 @@ export function scoreTopics(
       }
     }
 
+    // Financial calendar event boost (high-priority seasonal content)
+    if (item.raw?.calendarEvent) {
+      const daysUntil = (item.raw.daysUntil as number) || 30;
+      // Closer to event = higher urgency boost
+      const urgencyBoost = daysUntil <= 7 ? 15 : daysUntil <= 14 ? 10 : 6;
+      score += urgencyBoost;
+      reasons.push(`calendar:${item.raw.eventName}(${daysUntil}d)`);
+    }
+
     // Determine article type
     let articleType: ScoredTopic["suggestedArticleType"] = "news";
     if (/rate change|rbi|new policy|budget|announce/i.test(item.title))
