@@ -5,6 +5,8 @@ import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
 import AutoInternalLinks from "@/components/common/AutoInternalLinks";
 import SocialShareButtons from "@/components/common/SocialShareButtons";
 import FinancialDisclaimer from "@/components/legal/FinancialDisclaimer";
+import { TrustStrip } from "@/components/calculators/shared/TrustStrip";
+import { PopularCalculators } from "@/components/calculators/shared/PopularCalculators";
 
 export const metadata: Metadata = {
   title:
@@ -98,6 +100,7 @@ export default function HomeLoanEMIPage() {
       />
       <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6">
         <AutoBreadcrumbs />
+        <TrustStrip />
         <div className="mt-4 mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
             Home Loan EMI Calculator
@@ -148,6 +151,9 @@ export default function HomeLoanEMIPage() {
           />
         </div>
         <div className="mt-8">
+          <div className="mt-8">
+            <PopularCalculators currentSlug="home-loan-emi" variant="strip" />
+          </div>
           <FinancialDisclaimer />
         </div>
       </div>
