@@ -2,26 +2,24 @@
 
 import React, { useState, useMemo } from "react";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
-import { Badge } from "@/components/ui/badge";
-import {
   IndianRupee,
   Percent,
-  Info,
-  ChevronDown,
-  ChevronUp,
-  ShieldCheck,
   FileText,
   AlertTriangle,
   Receipt,
+  ShieldCheck,
 } from "lucide-react";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { SliderInput } from "./shared/SliderInput";
+import { ResultCard } from "./shared/ResultCard";
+import { AIInsight } from "./shared/AIInsight";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  formatINR,
+} from "./shared/charts";
 import { cn } from "@/lib/utils";
 
 type IncomeType =
@@ -32,75 +30,61 @@ type IncomeType =
   | "commission"
   | "lottery";
 
-interface TDSSection {
-  code: string;
-  name: string;
-  type: IncomeType;
-  defaultRate: number;
-  noPanRate: number;
-  threshold: number;
-  thresholdSenior?: number;
-  description: string;
-}
-
-const TDS_SECTIONS: TDSSection[] = [
+const SECTIONS = [
   {
     code: "192",
     name: "Salary",
-    type: "salary",
-    defaultRate: 0,
-    noPanRate: 20,
+    type: "salary" as const,
+    rate: 0,
+    noPan: 20,
     threshold: 250000,
-    description:
-      "TDS on salary — deducted as per income tax slab rates by employer",
+    desc: "TDS on salary — slab rate by employer",
   },
   {
     code: "194A",
-    name: "Interest on FD/RD",
-    type: "fd",
-    defaultRate: 10,
-    noPanRate: 20,
+    name: "FD/RD Interest",
+    type: "fd" as const,
+    rate: 10,
+    noPan: 20,
     threshold: 40000,
-    thresholdSenior: 50000,
-    description: "TDS on interest from bank/post office deposits",
+    seniorThreshold: 50000,
+    desc: "TDS on bank deposit interest",
   },
   {
     code: "194I",
-    name: "Rent Payment",
-    type: "rent",
-    defaultRate: 10,
-    noPanRate: 20,
+    name: "Rent",
+    type: "rent" as const,
+    rate: 10,
+    noPan: 20,
     threshold: 240000,
-    description:
-      "TDS on rent for land/building/furniture (10% for building, 2% for plant/machinery)",
+    desc: "TDS on rent (10% building, 2% machinery)",
   },
   {
     code: "194J",
-    name: "Professional Fees",
-    type: "professional",
-    defaultRate: 10,
-    noPanRate: 20,
+    name: "Professional",
+    type: "professional" as const,
+    rate: 10,
+    noPan: 20,
     threshold: 30000,
-    description: "TDS on professional/technical services fees",
+    desc: "TDS on professional/technical fees",
   },
   {
     code: "194H",
-    name: "Commission/Brokerage",
-    type: "commission",
-    defaultRate: 5,
-    noPanRate: 20,
+    name: "Commission",
+    type: "commission" as const,
+    rate: 5,
+    noPan: 20,
     threshold: 15000,
-    description: "TDS on commission or brokerage payments",
+    desc: "TDS on commission/brokerage",
   },
   {
     code: "194B",
-    name: "Lottery/Game Winnings",
-    type: "lottery",
-    defaultRate: 30,
-    noPanRate: 30,
+    name: "Lottery",
+    type: "lottery" as const,
+    rate: 30,
+    noPan: 30,
     threshold: 10000,
-    description:
-      "TDS on winnings from lottery, crossword puzzle, card game, etc.",
+    desc: "TDS on lottery/game winnings",
   },
 ];
 
@@ -110,446 +94,336 @@ export function TDSCalculator() {
   const [hasPAN, setHasPAN] = useState(true);
   const [isSenior, setIsSenior] = useState(false);
   const [hasForm15G, setHasForm15G] = useState(false);
-  const [inputsExpanded, setInputsExpanded] = useState(false);
 
-  const section = TDS_SECTIONS.find((s) => s.type === selectedType)!;
-
-  const formatCurrency = (num: number) => {
-    if (num >= 10000000) return `₹${(num / 10000000).toFixed(2)} Cr`;
-    if (num >= 100000) return `₹${(num / 100000).toFixed(2)} L`;
-    return `₹${Math.round(num).toLocaleString("en-IN")}`;
-  };
+  const section = SECTIONS.find((s) => s.type === selectedType)!;
 
   const result = useMemo(() => {
     const threshold =
-      isSenior && section.thresholdSenior
-        ? section.thresholdSenior
+      isSenior && section.seniorThreshold
+        ? section.seniorThreshold
         : section.threshold;
-
-    // Form 15G/15H exemption
-    if (hasForm15G && (selectedType === "fd" || selectedType === "rent")) {
+    if (hasForm15G && (selectedType === "fd" || selectedType === "rent"))
       return {
         tds: 0,
-        effectiveRate: 0,
-        netAmount: amount,
-        threshold,
-        isExempt: true,
-        exemptReason: "Form 15G/15H submitted",
+        rate: 0,
+        net: amount,
+        exempt: true,
+        reason: "Form 15G/15H submitted",
       };
-    }
-
-    // Below threshold
-    if (amount <= threshold && selectedType !== "salary") {
+    if (amount <= threshold && selectedType !== "salary")
       return {
         tds: 0,
-        effectiveRate: 0,
-        netAmount: amount,
-        threshold,
-        isExempt: true,
-        exemptReason: `Below ₹${threshold.toLocaleString("en-IN")} threshold`,
+        rate: 0,
+        net: amount,
+        exempt: true,
+        reason: `Below ₹${threshold.toLocaleString("en-IN")} threshold`,
       };
-    }
 
-    const rate = hasPAN ? section.defaultRate : section.noPanRate;
-
-    // For salary, TDS is calculated on slab basis — simplified as avg rate
+    const r = hasPAN ? section.rate : section.noPan;
     let tds: number;
     if (selectedType === "salary") {
-      // Simplified: estimate tax on salary using new regime slabs
       let tax = 0;
-      const taxable = Math.max(0, amount - 75000); // Standard deduction
+      const taxable = Math.max(0, amount - 75000);
       const slabs = [
-        { limit: 300000, rate: 0 },
-        { limit: 700000, rate: 5 },
-        { limit: 1000000, rate: 10 },
-        { limit: 1200000, rate: 15 },
-        { limit: 1500000, rate: 20 },
-        { limit: Infinity, rate: 30 },
+        { l: 300000, r: 0 },
+        { l: 700000, r: 5 },
+        { l: 1000000, r: 10 },
+        { l: 1200000, r: 15 },
+        { l: 1500000, r: 20 },
+        { l: Infinity, r: 30 },
       ];
-      let remaining = taxable;
-      let prev = 0;
-      for (const slab of slabs) {
-        const amt = Math.min(remaining, slab.limit - prev);
-        if (amt <= 0) break;
-        tax += amt * (slab.rate / 100);
-        remaining -= amt;
-        prev = slab.limit;
+      let rem = taxable,
+        prev = 0;
+      for (const s of slabs) {
+        const a = Math.min(rem, s.l - prev);
+        if (a <= 0) break;
+        tax += a * (s.r / 100);
+        rem -= a;
+        prev = s.l;
       }
       if (taxable <= 700000) tax = 0;
-      tds = tax + tax * 0.04; // + cess
+      tds = tax + tax * 0.04;
     } else {
-      tds = amount * (rate / 100);
+      tds = amount * (r / 100);
     }
 
-    const effectiveRate = amount > 0 ? (tds / amount) * 100 : 0;
     return {
       tds,
-      effectiveRate,
-      netAmount: amount - tds,
-      threshold,
-      isExempt: false,
-      exemptReason: "",
+      rate: amount > 0 ? (tds / amount) * 100 : 0,
+      net: amount - tds,
+      exempt: false,
+      reason: "",
     };
   }, [amount, selectedType, hasPAN, isSenior, hasForm15G, section]);
 
+  const insights = useMemo(() => {
+    const ins: string[] = [];
+    if (result.exempt) {
+      ins.push(
+        `No TDS deducted — ${result.reason}. You still need to report this income in ITR.`,
+      );
+    } else {
+      ins.push(
+        `${formatINR(result.tds)} will be deducted as TDS under Section ${section.code}. You receive ${formatINR(result.net)}.`,
+      );
+    }
+    if (selectedType === "fd" && !hasForm15G) {
+      ins.push(
+        `Submit Form ${isSenior ? "15H" : "15G"} to your bank at the start of financial year if total income is below taxable limit. This stops TDS entirely.`,
+      );
+    }
+    if (!hasPAN) {
+      ins.push(
+        `Without PAN, TDS jumps to 20% regardless of section. Submit PAN to deductor immediately to get the normal ${section.rate}% rate.`,
+      );
+    }
+    if (selectedType === "salary" && amount > 1500000) {
+      ins.push(
+        `At ${formatINR(amount)} salary, you're in 30% bracket. Declare HRA, 80C, NPS to employer before January to reduce monthly TDS.`,
+      );
+    }
+    return ins;
+  }, [result, selectedType, section, hasPAN, isSenior, hasForm15G, amount]);
+
   const pieData = [
-    {
-      name: "Net Amount",
-      value: Math.max(0, result.netAmount),
-      color: "#166534",
-    },
+    { name: "Net Amount", value: Math.max(0, result.net), color: "#166534" },
     ...(result.tds > 0
       ? [{ name: "TDS Deducted", value: result.tds, color: "#dc2626" }]
       : []),
   ];
 
-  const InputSection = () => (
-    <div className="space-y-5">
-      {/* Income Type */}
-      <div>
-        <label className="text-sm font-medium text-gray-700 mb-2 block">
-          Income Type (TDS Section)
-        </label>
-        <div className="grid grid-cols-2 gap-2">
-          {TDS_SECTIONS.map((s) => (
-            <button
-              key={s.type}
-              onClick={() => setSelectedType(s.type)}
-              className={cn(
-                "px-3 py-2 rounded-lg text-xs font-medium transition-all border text-left",
-                selectedType === s.type
-                  ? "bg-green-600 text-white border-green-600"
-                  : "bg-white text-gray-600 border-gray-200 hover:border-green-300",
-              )}
-            >
-              <div className="font-semibold">{s.name}</div>
-              <div
-                className={cn(
-                  "text-[10px]",
-                  selectedType === s.type ? "text-green-100" : "text-gray-400",
-                )}
-              >
-                Sec {s.code} · {s.defaultRate}%
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Amount */}
-      <div>
-        <div className="flex justify-between items-center mb-2">
-          <label className="text-sm font-medium text-gray-700 flex items-center gap-1.5">
-            <IndianRupee size={14} className="text-green-600" />
-            {selectedType === "salary" ? "Annual Salary" : "Payment Amount"}
-          </label>
-          <span className="text-sm font-bold text-green-700 bg-green-50 px-2.5 py-1 rounded-lg">
-            {formatCurrency(amount)}
-          </span>
-        </div>
-        <Slider
-          value={[amount]}
-          onValueChange={([v]) => setAmount(v)}
-          min={selectedType === "salary" ? 300000 : 10000}
-          max={selectedType === "salary" ? 10000000 : 5000000}
-          step={selectedType === "salary" ? 10000 : 5000}
-        />
-        <div className="flex justify-between text-[10px] text-gray-400 mt-1">
-          <span>{selectedType === "salary" ? "₹3L" : "₹10K"}</span>
-          <span>{selectedType === "salary" ? "₹1Cr" : "₹50L"}</span>
-        </div>
-      </div>
-
-      {/* Toggles */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-          <label className="text-sm text-gray-700">
-            PAN submitted to deductor?
-          </label>
-          <button
-            onClick={() => setHasPAN(!hasPAN)}
-            className={cn(
-              "px-3 py-1 rounded-full text-xs font-semibold",
-              hasPAN
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700",
-            )}
-          >
-            {hasPAN ? "Yes" : "No (20% TDS)"}
-          </button>
-        </div>
-
-        {selectedType === "fd" && (
-          <>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <label className="text-sm text-gray-700">
-                Senior Citizen (60+)?
-              </label>
-              <button
-                onClick={() => setIsSenior(!isSenior)}
-                className={cn(
-                  "px-3 py-1 rounded-full text-xs font-semibold",
-                  isSenior
-                    ? "bg-green-100 text-green-700"
-                    : "bg-gray-200 text-gray-600",
-                )}
-              >
-                {isSenior ? "Yes (₹50K limit)" : "No (₹40K limit)"}
-              </button>
-            </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <label className="text-sm text-gray-700">
-                Form 15G/15H submitted?
-              </label>
-              <button
-                onClick={() => setHasForm15G(!hasForm15G)}
-                className={cn(
-                  "px-3 py-1 rounded-full text-xs font-semibold",
-                  hasForm15G
-                    ? "bg-green-100 text-green-700"
-                    : "bg-gray-200 text-gray-600",
-                )}
-              >
-                {hasForm15G ? "Yes (No TDS)" : "No"}
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-
-      {!hasPAN && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-xs text-red-800">
-          <AlertTriangle size={14} className="inline mr-1" />
-          <strong>Warning:</strong> Without PAN, TDS is deducted at 20%
-          regardless of income type. Submit PAN to your deductor immediately.
-        </div>
-      )}
-    </div>
-  );
-
   return (
-    <div className="space-y-6 pb-20 md:pb-6">
-      <div className="lg:hidden">
-        <Card className="border-border shadow-sm rounded-xl">
-          <CardHeader
-            className="cursor-pointer"
-            onClick={() => setInputsExpanded(!inputsExpanded)}
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-lg mb-1">TDS Calculator</CardTitle>
-                <CardDescription className="text-xs">
-                  Tap to adjust inputs
-                </CardDescription>
-              </div>
-              {inputsExpanded ? (
-                <ChevronUp className="w-5 h-5" />
-              ) : (
-                <ChevronDown className="w-5 h-5" />
-              )}
-            </div>
-          </CardHeader>
-          {inputsExpanded && (
-            <CardContent className="pt-0">
-              <InputSection />
-            </CardContent>
-          )}
-        </Card>
-      </div>
+    <div className="max-w-5xl mx-auto space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+          <h2 className="text-base font-semibold text-gray-900 mb-5">
+            TDS Details
+          </h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <div className="hidden lg:block lg:col-span-2">
-          <Card className="border-border shadow-sm rounded-xl sticky top-24">
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Receipt size={20} className="text-green-600" /> TDS Calculator
-              </CardTitle>
-              <CardDescription>
-                Calculate Tax Deducted at Source under various sections
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <InputSection />
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="lg:col-span-3 space-y-5">
-          {/* Main Result */}
-          <Card
-            className={cn(
-              "shadow-sm rounded-xl",
-              result.isExempt
-                ? "border-green-200 bg-gradient-to-br from-green-50 to-emerald-50"
-                : "border-red-200 bg-gradient-to-br from-red-50 to-orange-50",
-            )}
-          >
-            <CardContent className="p-6">
-              <div className="text-center">
-                <p className="text-sm text-gray-500 mb-1">
-                  TDS Amount (Section {section.code})
-                </p>
+          {/* Section selector */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
+            {SECTIONS.map((s) => (
+              <button
+                key={s.type}
+                onClick={() => setSelectedType(s.type)}
+                className={cn(
+                  "px-3 py-2.5 rounded-xl text-xs font-medium transition-all border text-left",
+                  selectedType === s.type
+                    ? "bg-green-600 text-white border-green-600"
+                    : "bg-white text-gray-600 border-gray-200 hover:border-green-300",
+                )}
+              >
+                <div className="font-semibold">{s.name}</div>
                 <div
                   className={cn(
-                    "text-5xl md:text-6xl font-bold tracking-tight",
-                    result.isExempt ? "text-green-700" : "text-red-600",
+                    "text-[10px]",
+                    selectedType === s.type
+                      ? "text-green-100"
+                      : "text-gray-400",
                   )}
                 >
-                  {result.isExempt ? "₹0" : formatCurrency(result.tds)}
+                  Sec {s.code} · {s.rate}%
                 </div>
-                {result.isExempt ? (
-                  <Badge
-                    variant="outline"
-                    className="mt-2 text-green-700 bg-green-50 border-green-200 text-xs"
-                  >
-                    <ShieldCheck size={12} className="inline mr-1" />{" "}
-                    {result.exemptReason}
-                  </Badge>
-                ) : (
-                  <Badge
-                    variant="outline"
-                    className="mt-2 text-red-700 bg-red-50 border-red-200 text-xs"
-                  >
-                    Effective Rate: {result.effectiveRate.toFixed(2)}%
-                  </Badge>
+              </button>
+            ))}
+          </div>
+
+          <div className="space-y-5">
+            <SliderInput
+              label={
+                selectedType === "salary" ? "Annual Salary" : "Payment Amount"
+              }
+              icon={IndianRupee}
+              value={amount}
+              onChange={setAmount}
+              min={selectedType === "salary" ? 300000 : 10000}
+              max={selectedType === "salary" ? 10000000 : 5000000}
+              step={selectedType === "salary" ? 10000 : 5000}
+              formatDisplay={formatINR}
+            />
+          </div>
+
+          {/* Toggles */}
+          <div className="space-y-2 mt-5">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <span className="text-sm text-gray-700">PAN submitted?</span>
+              <button
+                onClick={() => setHasPAN(!hasPAN)}
+                className={cn(
+                  "px-3 py-1 rounded-full text-xs font-semibold",
+                  hasPAN
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700",
                 )}
-              </div>
+              >
+                {hasPAN ? "Yes" : "No (20% TDS)"}
+              </button>
+            </div>
+            {selectedType === "fd" && (
+              <>
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <span className="text-sm text-gray-700">
+                    Senior Citizen (60+)?
+                  </span>
+                  <button
+                    onClick={() => setIsSenior(!isSenior)}
+                    className={cn(
+                      "px-3 py-1 rounded-full text-xs font-semibold",
+                      isSenior
+                        ? "bg-green-100 text-green-700"
+                        : "bg-gray-200 text-gray-600",
+                    )}
+                  >
+                    {isSenior ? "Yes (₹50K limit)" : "No (₹40K limit)"}
+                  </button>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <span className="text-sm text-gray-700">
+                    Form 15G/15H submitted?
+                  </span>
+                  <button
+                    onClick={() => setHasForm15G(!hasForm15G)}
+                    className={cn(
+                      "px-3 py-1 rounded-full text-xs font-semibold",
+                      hasForm15G
+                        ? "bg-green-100 text-green-700"
+                        : "bg-gray-200 text-gray-600",
+                    )}
+                  >
+                    {hasForm15G ? "Yes (No TDS)" : "No"}
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
 
-              <div className="grid grid-cols-3 gap-4 mt-6 pt-5 border-t border-gray-200">
-                <div className="text-center">
-                  <p className="text-[11px] text-gray-500">Gross Amount</p>
-                  <p className="text-sm font-bold text-gray-900">
-                    {formatCurrency(amount)}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-[11px] text-gray-500">TDS Deducted</p>
-                  <p className="text-sm font-bold text-red-600">
-                    {formatCurrency(result.tds)}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-[11px] text-gray-500">Net You Receive</p>
-                  <p className="text-sm font-bold text-green-700">
-                    {formatCurrency(result.netAmount)}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {!hasPAN && (
+            <div className="mt-3 bg-red-50 border border-red-200 rounded-lg p-3 text-xs text-red-800">
+              <AlertTriangle size={14} className="inline mr-1" /> Without PAN,
+              TDS is 20% on everything. Submit PAN immediately.
+            </div>
+          )}
+        </div>
 
-          {/* Section Info */}
-          <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-sm text-blue-800">
+        <div className="space-y-4">
+          <ResultCard
+            title={`TDS (Section ${section.code})`}
+            value={result.exempt ? "₹0" : formatINR(result.tds)}
+            ratingLabel={
+              result.exempt
+                ? result.reason
+                : `Effective: ${result.rate.toFixed(1)}%`
+            }
+            ratingType={result.exempt ? "positive" : "negative"}
+            className={
+              result.exempt
+                ? undefined
+                : "from-red-50 via-orange-50 to-red-100 border-red-200"
+            }
+            metrics={[
+              { label: "Gross Amount", value: formatINR(amount) },
+              { label: "TDS Deducted", value: formatINR(result.tds) },
+              {
+                label: "Net You Receive",
+                value: formatINR(result.net),
+                highlight: true,
+              },
+            ]}
+          />
+          <AIInsight insights={insights} />
+
+          {/* Section info */}
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
             <FileText size={14} className="inline mr-1" />
-            <strong>Section {section.code}:</strong> {section.description}.{" "}
-            Rate: {section.defaultRate}% (with PAN) / {section.noPanRate}%
-            (without PAN). Threshold: ₹
-            {result.threshold.toLocaleString("en-IN")}/year.
+            <strong>Sec {section.code}:</strong> {section.desc}. Rate:{" "}
+            {section.rate}% (with PAN) / {section.noPan}% (without). Threshold:
+            ₹{section.threshold.toLocaleString("en-IN")}/yr.
           </div>
+        </div>
+      </div>
 
-          {/* Split */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <Card className="border-border shadow-sm rounded-xl">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Payment Split</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="h-[180px] flex items-center justify-center">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={pieData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={50}
-                        outerRadius={75}
-                        dataKey="value"
-                        stroke="none"
-                      >
-                        {pieData.map((entry, i) => (
-                          <Cell key={i} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(value: any) =>
-                          formatCurrency(Number(value))
-                        }
-                        contentStyle={{ borderRadius: "8px", fontSize: "12px" }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
+      {/* TDS Rate Card */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+            TDS Rate Card — All Sections
+          </h3>
+          <div className="space-y-2">
+            {SECTIONS.map((s) => (
+              <div
+                key={s.code}
+                className={cn(
+                  "flex items-center justify-between py-2.5 px-3 rounded-lg text-xs",
+                  s.type === selectedType
+                    ? "bg-green-50 border border-green-200"
+                    : "hover:bg-gray-50",
+                )}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-gray-700 w-12">
+                    Sec {s.code}
+                  </span>
+                  <span className="text-gray-500">{s.name}</span>
                 </div>
-                <div className="flex justify-center gap-6 mt-2">
-                  {pieData.map((d) => (
-                    <div
-                      key={d.name}
-                      className="flex items-center gap-1.5 text-xs"
-                    >
-                      <div
-                        className="w-2.5 h-2.5 rounded-full"
-                        style={{ backgroundColor: d.color }}
-                      />
-                      <span className="text-gray-600">{d.name}</span>
-                    </div>
-                  ))}
+                <div className="flex items-center gap-3">
+                  <span className="font-bold text-green-700">{s.rate}%</span>
+                  <span className="text-gray-300">|</span>
+                  <span className="font-semibold text-red-600">{s.noPan}%</span>
+                  <span className="text-gray-300">|</span>
+                  <span className="text-gray-400">
+                    ₹{s.threshold.toLocaleString("en-IN")}
+                  </span>
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* All Sections Reference */}
-            <Card className="border-border shadow-sm rounded-xl">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base flex items-center gap-2">
-                  <Info size={16} className="text-green-600" /> TDS Rate Card
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {TDS_SECTIONS.map((s) => (
-                    <div
-                      key={s.code}
-                      className={cn(
-                        "flex items-center justify-between py-1.5 px-2 rounded text-xs",
-                        s.type === selectedType
-                          ? "bg-green-50 border border-green-200"
-                          : "",
-                      )}
-                    >
-                      <div>
-                        <span className="font-semibold text-gray-700">
-                          Sec {s.code}
-                        </span>
-                        <span className="text-gray-400 ml-1">{s.name}</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <span className="font-bold text-gray-900">
-                          {s.defaultRate}%
-                        </span>
-                        <span className="text-gray-400">|</span>
-                        <span className="text-red-600 font-semibold">
-                          {s.noPanRate}%
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                  <div className="text-[10px] text-gray-400 mt-2 text-center">
-                    Left: with PAN | Right: without PAN
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+            ))}
+            <div className="text-[10px] text-gray-400 text-center mt-2">
+              With PAN | Without PAN | Annual Threshold
+            </div>
           </div>
+        </div>
 
-          {/* Tip */}
-          <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-amber-800">
-            <strong>Save TDS:</strong>{" "}
-            {selectedType === "fd"
-              ? "Submit Form 15G (below 60) or Form 15H (senior citizen) to your bank if your total income is below taxable limit. Zero TDS will be deducted."
-              : selectedType === "salary"
-                ? "Declare investments (80C, HRA, home loan) to your employer before January to reduce monthly TDS. Don't wait till March."
-                : selectedType === "rent"
-                  ? "Tenant must deduct TDS at 10% if annual rent exceeds ₹2,40,000. Use Form 26QC on TRACES portal."
-                  : "Ensure your PAN is linked with Aadhaar. Inoperative PAN attracts 20% TDS instead of normal rates."}
+        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+            Payment Split
+          </h3>
+          <div className="h-[200px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={55}
+                  outerRadius={80}
+                  dataKey="value"
+                  stroke="none"
+                  startAngle={90}
+                  endAngle={-270}
+                >
+                  {pieData.map((entry, i) => (
+                    <Cell key={i} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  formatter={(value: any) => formatINR(Number(value))}
+                  contentStyle={{ borderRadius: "10px", fontSize: "12px" }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="flex justify-center gap-5">
+            {pieData.map((d) => (
+              <div
+                key={d.name}
+                className="flex items-center gap-1.5 text-[11px]"
+              >
+                <div
+                  className="w-2.5 h-2.5 rounded-full"
+                  style={{ backgroundColor: d.color }}
+                />
+                <span className="text-gray-500">{d.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
