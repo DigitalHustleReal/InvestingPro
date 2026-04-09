@@ -14,9 +14,9 @@ export interface DematAccountListing {
   brokerage_intraday: string | null;
   account_opening_fee: string | null;
   amc: string | null;
-  trading_platform: string | null;
-  mobile_app: string | null;
-  research: string | null;
+  trading_platforms: string | null;
+  mobile_app_rating: number | null;
+  research_tools: string | null;
   rating: number | null;
   features: Record<string, any> | null;
   pros: string[] | null;
@@ -48,13 +48,16 @@ export async function getDematAccountsServer(): Promise<DematAccountListing[]> {
   const { data, error } = await supabase
     .from("brokers")
     .select(
-      "id, slug, name, type, brokerage_delivery, brokerage_intraday, account_opening_fee, amc, trading_platform, mobile_app, research, rating, features, pros, cons, apply_link, official_link, image_url, updated_at",
+      "id, slug, name, type, brokerage_delivery, brokerage_intraday, account_opening_fee, amc, trading_platforms, mobile_app_rating, research_tools, rating, features, pros, cons, affiliate_link, official_link, logo_url, updated_at, best_for",
     )
     .eq("is_active", true)
     .limit(100);
 
   if (error) {
-    logger.error("SERVER FETCH ERROR: brokers", error);
+    logger.error("SERVER FETCH ERROR: brokers", {
+      message: error.message,
+      code: error.code,
+    });
     return [];
   }
 
@@ -67,16 +70,16 @@ export async function getDematAccountsServer(): Promise<DematAccountListing[]> {
     brokerage_intraday: b.brokerage_intraday,
     account_opening_fee: b.account_opening_fee,
     amc: b.amc,
-    trading_platform: b.trading_platform,
-    mobile_app: b.mobile_app,
-    research: b.research,
+    trading_platforms: b.trading_platforms,
+    mobile_app_rating: b.mobile_app_rating,
+    research_tools: b.research_tools,
     rating: b.rating,
     features: b.features,
     pros: b.pros,
     cons: b.cons,
-    apply_link: b.apply_link,
+    apply_link: b.affiliate_link || b.official_link || "#",
     official_link: b.official_link,
-    image_url: b.image_url,
+    image_url: b.logo_url,
     updated_at: b.updated_at,
   }));
 

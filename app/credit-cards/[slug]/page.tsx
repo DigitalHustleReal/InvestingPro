@@ -111,7 +111,7 @@ async function getCreditCardData(
   const { data: card, error } = await supabase
     .from("credit_cards")
     .select(
-      "id, slug, name, type, bank, image_url, rating, annual_fee, joining_fee, rewards, interest_rate, description, apply_link, source_url, pros, cons, features, updated_at, metadata",
+      "id, slug, name, type, bank, image_url, rating, annual_fee, joining_fee, rewards, interest_rate_text, description, apply_link, pros, cons, features, updated_at, reward_rate, reward_type, min_income, annual_fee_text, joining_fee_text",
     )
     .eq("slug", slug)
     .maybeSingle(); // Use maybeSingle() instead of single() to handle 0 rows gracefully
@@ -146,11 +146,11 @@ async function getCreditCardData(
       : "Check detailed rewards",
     welcomeBonus: "Welcome benefits applicable", // Placeholder
     minCreditScore: 700,
-    interestRate: card.interest_rate || "3.5% pm",
+    interestRate: card.interest_rate_text || "3.5% pm",
     description:
       card.description ||
       `The ${card.name} from ${card.bank} is a ${card.type} credit card offering competitive benefits and rewards.`,
-    applyLink: card.apply_link || card.source_url || "#",
+    applyLink: card.apply_link || "#",
 
     keyFeatures: card.pros || [],
     rewardProgram: {

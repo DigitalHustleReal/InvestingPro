@@ -47,8 +47,9 @@ export async function getInsuranceServer(): Promise<InsuranceListing[]> {
   // 2. Fetch from DB
   const supabase = createClient();
 
+  // Note: insurance table may not exist yet — query will fail gracefully
   const { data, error } = await supabase
-    .from("insurance")
+    .from("insurance_products")
     .select(
       "id, slug, name, provider_name, type, cover_amount, min_premium, premium_range, claim_settlement_ratio, network_hospitals, rating, description, best_for, features, pros, cons, apply_link, official_link, image_url, is_active, updated_at",
     )

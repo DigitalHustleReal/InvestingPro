@@ -101,16 +101,65 @@ async function getMutualFundData(
 ): Promise<MutualFundDetail | null> {
   const supabase = createServiceClient();
 
-  // Fetch from products table (category = 'mutual_fund')
-  const { data: product, error } = await supabase
+  // Fetch from products table (category = 'mutual_fund'), fallback to mutual_funds table
+  let product: any = null;
+  const { data: productsData, error } = await supabase
     .from("products")
     .select(
-      "id, slug, name, category, provider_name, provider_slug, description, image_url, rating, features, key_features, pros, cons, affiliate_link, official_link, is_active, trust_score, verification_status, updated_at, best_for",
+      "id, slug, name, category, provider_name, description, image_url, rating, features, pros, cons, affiliate_link, official_link, is_active, trust_score, verification_status, updated_at, best_for",
     )
     .eq("slug", slug)
     .maybeSingle();
 
-  if (error || !product) return null;
+  if (!error && productsData) {
+    product = productsData;
+  } else {
+    // Fallback: try mutual_funds table directly
+    const { data: mfData } = await supabase
+      .from("mutual_funds")
+      .select("*")
+      .eq("slug", slug)
+      .maybeSingle();
+    if (!mfData) return null;
+    product = {
+      id: mfData.id,
+      slug: mfData.slug,
+      name: mfData.name,
+      category: "mutual_fund",
+      provider_name: mfData.fund_house,
+      description: mfData.description || "",
+      image_url: mfData.image_url,
+      rating: mfData.rating,
+      best_for: mfData.category,
+      pros: [],
+      cons: [],
+      is_active: true,
+      trust_score: 0,
+      updated_at: mfData.updated_at,
+      features: {
+        category: mfData.category,
+        fund_house: mfData.fund_house,
+        nav: mfData.nav,
+        aum: mfData.aum,
+        expense_ratio: mfData.expense_ratio,
+        min_lumpsum: mfData.min_investment,
+        min_sip: mfData.sip_minimum,
+        returns_1y: mfData.returns_1y,
+        returns_3y: mfData.returns_3y,
+        returns_5y: mfData.returns_5y,
+        returns_since_inception: mfData.returns_since_inception,
+        risk_level: mfData.risk || mfData.risk_level,
+        fund_manager: mfData.fund_manager,
+        exit_load: mfData.exit_load,
+        launch_date: mfData.launch_date || mfData.inception_date,
+        sharpe_ratio: mfData.sharpe_ratio,
+        alpha: mfData.alpha,
+        beta: mfData.beta,
+        standard_deviation: mfData.standard_deviation,
+      },
+    };
+  }
+  if (!product) return null;
 
   // Extract enriched data from features JSONB
   const f = product.features || ({} as Record<string, any>);

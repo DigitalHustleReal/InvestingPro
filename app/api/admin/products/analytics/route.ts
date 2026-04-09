@@ -15,24 +15,29 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
 
     // Fetch all products from all category tables
-    const [loans, insurance, creditCards, mutualFunds] = await Promise.all([
-      supabase.from("loans").select("*"),
-      supabase.from("insurance").select("*"),
-      supabase.from("credit_cards").select("*"),
-      supabase.from("mutual_funds").select("*"),
-    ]);
+    const [loans, creditCards, mutualFunds, brokers, fixedDeposits] =
+      await Promise.all([
+        supabase.from("loans").select("*"),
+        supabase.from("credit_cards").select("*"),
+        supabase.from("mutual_funds").select("*"),
+        supabase.from("brokers").select("*"),
+        supabase.from("fixed_deposits").select("*"),
+      ]);
 
     // Transform and combine data
     const products = [
       ...(loans.data || []).map((p: any) => transformProduct(p, "loan")),
-      ...(insurance.data || []).map((p: any) =>
-        transformProduct(p, "insurance"),
-      ),
       ...(creditCards.data || []).map((p: any) =>
         transformProduct(p, "credit-card"),
       ),
       ...(mutualFunds.data || []).map((p: any) =>
         transformProduct(p, "mutual-fund"),
+      ),
+      ...(brokers.data || []).map((p: any) =>
+        transformProduct(p, "demat-account"),
+      ),
+      ...(fixedDeposits.data || []).map((p: any) =>
+        transformProduct(p, "fixed-deposit"),
       ),
     ];
 
@@ -65,6 +70,7 @@ function transformProduct(product: any, category: string) {
       product.provider_name ||
       product.provider ||
       product.bank ||
+      product.bank_name ||
       product.fund_house ||
       "Unknown",
     clicks: clicks,

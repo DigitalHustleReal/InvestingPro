@@ -80,7 +80,8 @@ async function getDematAccountData(
   slug: string,
 ): Promise<DematAccountDetail | null> {
   const product = await getProductBySlug(slug);
-  if (!product || product.category !== "demat_account") return null;
+  if (!product || !["demat_account", "broker"].includes(product.category))
+    return null;
 
   const features = product.features || {};
 

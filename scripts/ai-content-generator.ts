@@ -1,111 +1,117 @@
 /**
  * AI Content Automation System
- * 
+ *
  * Generates bulk articles using OpenAI with proper HTML formatting
  * Automatically creates SEO-optimized content without manual intervention
- * 
+ *
  * Usage:
  *   npm run generate-content
  *   OR
  *   npx tsx scripts/ai-content-generator.ts
  */
 
-import dotenv from 'dotenv'
-dotenv.config({ path: '.env.local' })
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 
-import OpenAI from 'openai'
-import { createClient } from '@supabase/supabase-js'
+import OpenAI from "openai";
+import { createClient } from "@supabase/supabase-js";
 
 // Configuration - Hardcoded to avoid env issues
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY || 'sk-proj-Vu1Tz6Wy9kAZhZZfuNGCDGMlrKOJhBKkHUFqmPfZGWJXNlpTdmZnCJVPmNT3BlbkFJCqAqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPq'
-const SUPABASE_URL = 'https://txwxmbmbqltefwvilsii.supabase.co'
-const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4d3htYm1icWx0ZWZ3dmlsc2lpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NjMwNjEzMSwiZXhwIjoyMDgxODgyMTMxfQ.o4OncbjLpZg7eie2_WTnVhMMBB0tddiBmYFhl454t3U'
+const OPENAI_API_KEY =
+  process.env.OPENAI_API_KEY ||
+  "sk-proj-Vu1Tz6Wy9kAZhZZfuNGCDGMlrKOJhBKkHUFqmPfZGWJXNlpTdmZnCJVPmNT3BlbkFJCqAqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPq";
+const SUPABASE_URL = "https://txwxmbmbqltefwvilsii.supabase.co";
+const SUPABASE_SERVICE_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4d3htYm1icWx0ZWZ3dmlsc2lpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NjMwNjEzMSwiZXhwIjoyMDgxODgyMTMxfQ.o4OncbjLpZg7eie2_WTnVhMMBB0tddiBmYFhl454t3U";
 
-if (!OPENAI_API_KEY || OPENAI_API_KEY.includes('PqPqPq')) {
-  console.error('❌ Error: Valid OPENAI_API_KEY required')
-  console.error('Please set OPENAI_API_KEY environment variable')
-  process.exit(1)
+if (!OPENAI_API_KEY || OPENAI_API_KEY.includes("PqPqPq")) {
+  console.error("❌ Error: Valid OPENAI_API_KEY required");
+  console.error("Please set OPENAI_API_KEY environment variable");
+  process.exit(1);
 }
 
-const openai = new OpenAI({ apiKey: OPENAI_API_KEY })
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
 // Article topics to generate
 const ARTICLE_TOPICS = [
   {
-    category: 'investing',
-    title: 'SIP vs SWP: Complete Guide to Systematic Investment and Withdrawal Plans',
-    keywords: 'SIP, SWP, systematic investment plan, systematic withdrawal plan, mutual funds, retirement planning',
-    target_audience: 'Investors planning for wealth creation and retirement income'
+    category: "investing",
+    title:
+      "SIP vs SWP: Complete Guide to Systematic Investment and Withdrawal Plans",
+    keywords:
+      "SIP, SWP, systematic investment plan, systematic withdrawal plan, mutual funds, retirement planning",
+    target_audience:
+      "Investors planning for wealth creation and retirement income",
   },
   {
-    category: 'credit_cards',
-    title: 'Best Credit Cards in India 2025',
-    keywords: 'credit cards, rewards, cashback, travel cards',
-    target_audience: 'Indian consumers looking for credit cards'
+    category: "credit_cards",
+    title: "Best Credit Cards in India 2025",
+    keywords: "credit cards, rewards, cashback, travel cards",
+    target_audience: "Indian consumers looking for credit cards",
   },
   {
-    category: 'mutual_funds',
-    title: 'Top 10 SIP Mutual Funds for Long-Term Wealth Creation',
-    keywords: 'SIP, mutual funds, investment, wealth creation',
-    target_audience: 'New investors starting SIP investments'
+    category: "mutual_funds",
+    title: "Top 10 SIP Mutual Funds for Long-Term Wealth Creation",
+    keywords: "SIP, mutual funds, investment, wealth creation",
+    target_audience: "New investors starting SIP investments",
   },
   {
-    category: 'personal_loans',
-    title: 'How to Get Personal Loan Approval in 24 Hours',
-    keywords: 'personal loan, instant loan, loan approval, quick loan',
-    target_audience: 'People needing quick personal loans'
+    category: "personal_loans",
+    title: "How to Get Personal Loan Approval in 24 Hours",
+    keywords: "personal loan, instant loan, loan approval, quick loan",
+    target_audience: "People needing quick personal loans",
   },
   {
-    category: 'insurance',
-    title: 'Term Insurance vs. Whole Life Insurance: Which is Better?',
-    keywords: 'term insurance, life insurance, insurance comparison',
-    target_audience: 'Families looking for life insurance'
+    category: "insurance",
+    title: "Term Insurance vs. Whole Life Insurance: Which is Better?",
+    keywords: "term insurance, life insurance, insurance comparison",
+    target_audience: "Families looking for life insurance",
   },
   {
-    category: 'investing',
-    title: 'SIP vs Lumpsum Investment: Which Strategy Works Better?',
-    keywords: 'SIP, lumpsum, investment strategy, mutual funds',
-    target_audience: 'Investors deciding between SIP and lumpsum'
+    category: "investing",
+    title: "SIP vs Lumpsum Investment: Which Strategy Works Better?",
+    keywords: "SIP, lumpsum, investment strategy, mutual funds",
+    target_audience: "Investors deciding between SIP and lumpsum",
   },
   {
-    category: 'tax',
-    title: 'Complete Guide to Section 80C Tax Deductions in India',
-    keywords: 'tax saving, 80C, deductions, income tax',
-    target_audience: 'Taxpayers looking to save on income tax'
+    category: "tax",
+    title: "Complete Guide to Section 80C Tax Deductions in India",
+    keywords: "tax saving, 80C, deductions, income tax",
+    target_audience: "Taxpayers looking to save on income tax",
   },
   {
-    category: 'credit_score',
-    title: 'How to Check and Improve Your CIBIL Score for Free',
-    keywords: 'CIBIL score, credit score, free credit report',
-    target_audience: 'People wanting to check/improve their credit score'
+    category: "credit_score",
+    title: "How to Check and Improve Your CIBIL Score for Free",
+    keywords: "CIBIL score, credit score, free credit report",
+    target_audience: "People wanting to check/improve their credit score",
   },
   {
-    category: 'fixed_deposits',
-    title: 'Best FD Rates in India 2025: Banks vs. NBFCs Comparison',
-    keywords: 'FD rates, fixed deposit, interest rates, savings',
-    target_audience: 'Conservative investors looking for safe returns'
+    category: "fixed_deposits",
+    title: "Best FD Rates in India 2025: Banks vs. NBFCs Comparison",
+    keywords: "FD rates, fixed deposit, interest rates, savings",
+    target_audience: "Conservative investors looking for safe returns",
   },
   {
-    category: 'home_loans',
-    title: 'Home Loan EMI Calculator: How Much Can You Afford?',
-    keywords: 'home loan, EMI calculation, housing loan, mortgage',
-    target_audience: 'First-time home buyers'
+    category: "home_loans",
+    title: "Home Loan EMI Calculator: How Much Can You Afford?",
+    keywords: "home loan, EMI calculation, housing loan, mortgage",
+    target_audience: "First-time home buyers",
   },
   {
-    category: 'gold_investment',
-    title: 'Digital Gold vs. Physical Gold: Which is Better in 2025?',
-    keywords: 'gold investment, digital gold, physical gold',
-    target_audience: 'Investors interested in gold'
-  }
-]
+    category: "gold_investment",
+    title: "Digital Gold vs. Physical Gold: Which is Better in 2025?",
+    keywords: "gold investment, digital gold, physical gold",
+    target_audience: "Investors interested in gold",
+  },
+];
 
 /**
  * Generate article content using OpenAI
  */
-async function generateArticleContent(topic: typeof ARTICLE_TOPICS[0]) {
-  console.log(`\n📝 Generating: "${topic.title}"...`)
-  
+async function generateArticleContent(topic: (typeof ARTICLE_TOPICS)[0]) {
+  console.log(`\n📝 Generating: "${topic.title}"...`);
+
   const prompt = `You are a financial content writer for InvestingPro, India's leading financial comparison platform.
 
 Write a comprehensive, SEO-optimized article on: "${topic.title}"
@@ -293,54 +299,58 @@ MUST include:
   * If discussing allocation → Include PIE CHART or PROGRESS BARS
   * If explaining process → Include TIMELINE
   * If comparing options → Include COMPARISON SLIDER
-  * If showing key stats → Include METRIC CARDS`
+  * If showing key stats → Include METRIC CARDS`;
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini', // Faster and cheaper
+      model: "gpt-4o-mini", // Faster and cheaper
       messages: [
         {
-          role: 'system',
-          content: 'You are an expert financial content writer specializing in India-focused content. You write in clean HTML format only, never using Markdown.'
+          role: "system",
+          content:
+            "You are an expert financial content writer specializing in India-focused content. You write in clean HTML format only, never using Markdown.",
         },
         {
-          role: 'user',
-          content: prompt
-        }
+          role: "user",
+          content: prompt,
+        },
       ],
       temperature: 0.7,
-      max_tokens: 3000
-    })
-    
-    const body_html = completion.choices[0].message.content?.trim() || ''
-    
+      max_tokens: 3000,
+    });
+
+    const body_html = completion.choices[0].message.content?.trim() || "";
+
     if (!body_html || body_html.length < 500) {
-      throw new Error('Generated content too short or empty')
+      throw new Error("Generated content too short or empty");
     }
-    
+
     // Validate HTML structure
-    if (!body_html.includes('<h2>') || !body_html.includes('</p>')) {
-      throw new Error('Invalid HTML structure in generated content')
+    if (!body_html.includes("<h2>") || !body_html.includes("</p>")) {
+      throw new Error("Invalid HTML structure in generated content");
     }
-    
-    console.log(`✅ Generated ${body_html.length} characters`)
-    return body_html
+
+    console.log(`✅ Generated ${body_html.length} characters`);
+    return body_html;
   } catch (error: any) {
-    console.error(`❌ OpenAI Error: ${error.message}`)
-    return null
+    console.error(`❌ OpenAI Error: ${error.message}`);
+    return null;
   }
 }
 
 /**
  * Generate meta description using OpenAI
  */
-async function generateMetaDescription(title: string, bodyHtml: string): Promise<string> {
+async function generateMetaDescription(
+  title: string,
+  bodyHtml: string,
+): Promise<string> {
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: "gpt-4o-mini",
       messages: [
         {
-          role: 'user',
+          role: "user",
           content: `Write a compelling meta description (150-160 characters) for this article:
           
 Title: ${title}
@@ -349,17 +359,17 @@ Requirements:
 - Include primary keyword
 - Make it click-worthy
 - 150-160 characters
-- No quotes or special formatting`
-        }
+- No quotes or special formatting`,
+        },
       ],
       temperature: 0.7,
-      max_tokens: 100
-    })
-    
-    return completion.choices[0].message.content?.trim() || ''
+      max_tokens: 100,
+    });
+
+    return completion.choices[0].message.content?.trim() || "";
   } catch (error) {
     // Fallback to auto-generated
-    return `Comprehensive guide to ${title.toLowerCase()}. Learn expert tips, comparisons, and make informed financial decisions.`
+    return `Comprehensive guide to ${title.toLowerCase()}. Learn expert tips, comparisons, and make informed financial decisions.`;
   }
 }
 
@@ -369,17 +379,17 @@ Requirements:
 function createSlug(title: string): string {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 /**
  * Calculate reading time
  */
 function calculateReadingTime(html: string): number {
-  const text = html.replace(/<[^>]*>/g, '')
-  const words = text.split(/\s+/).length
-  return Math.ceil(words / 200) // 200 words per minute
+  const text = html.replace(/<[^>]*>/g, "");
+  const words = text.split(/\s+/).length;
+  return Math.ceil(words / 200); // 200 words per minute
 }
 
 /**
@@ -387,52 +397,57 @@ function calculateReadingTime(html: string): number {
  */
 async function saveArticle(articleData: any) {
   const { data, error } = await supabase
-    .from('articles')
+    .from("articles")
     .insert([articleData])
     .select()
-    .single()
-  
+    .single();
+
   if (error) {
-    throw new Error(`Database error: ${error.message}`)
+    throw new Error(`Database error: ${error.message}`);
   }
-  
-  return data
+
+  return data;
 }
 
 /**
  * Main generation function
  */
 async function generateArticles(count: number = 10) {
-  console.log(`\n🚀 AI Content Automation Started`)
-  console.log(`📊 Generating ${count} articles...\n`)
-  
-  const topics = ARTICLE_TOPICS.slice(0, count)
-  let successCount = 0
-  let failCount = 0
-  
+  console.log(`\n🚀 AI Content Automation Started`);
+  console.log(`📊 Generating ${count} articles...\n`);
+
+  const topics = ARTICLE_TOPICS.slice(0, count);
+  let successCount = 0;
+  let failCount = 0;
+
   for (const topic of topics) {
     try {
       // Step 1: Generate content
-      const body_html = await generateArticleContent(topic)
+      const body_html = await generateArticleContent(topic);
       if (!body_html) {
-        failCount++
-        continue
+        failCount++;
+        continue;
       }
-      
+
       // Step 2: Generate meta description
-      const meta_description = await generateMetaDescription(topic.title, body_html)
-      
+      const meta_description = await generateMetaDescription(
+        topic.title,
+        body_html,
+      );
+
       // Step 3: Create slug
-      const slug = createSlug(topic.title)
-      
+      const slug = createSlug(topic.title);
+
       // Step 4: Extract excerpt (first paragraph)
-      const excerptMatch = body_html.match(/<p>(.*?)<\/p>/)
-      const excerpt = excerptMatch ? excerptMatch[1].substring(0, 160) + '...' : ''
-      
+      const excerptMatch = body_html.match(/<p>(.*?)<\/p>/);
+      const excerpt = excerptMatch
+        ? excerptMatch[1].substring(0, 160) + "..."
+        : "";
+
       // Step 5: Calculate stats
-      const reading_time = calculateReadingTime(body_html)
-      const word_count = body_html.replace(/<[^>]*>/g, '').split(/\s+/).length
-      
+      const reading_time = calculateReadingTime(body_html);
+      const word_count = body_html.replace(/<[^>]*>/g, "").split(/\s+/).length;
+
       // Step 6: Prepare article data
       const articleData = {
         title: topic.title,
@@ -442,49 +457,47 @@ async function generateArticles(count: number = 10) {
         body_html,
         meta_title: `${topic.title} | InvestingPro`,
         meta_description,
-        status: 'published', // Auto-publish
-        published_at: new Date().toISOString(),
-        published_date: new Date().toISOString().split('T')[0],
-        content_type: 'article', // Default type
+        status: "draft", // Require admin review before publishing
+        // published_at and published_date are set when admin publishes via CMS
+        content_type: "article", // Default type
         read_time: reading_time, // Map to correct column
         // word_count, // Column missing in DB
         // structured_content // Column missing in DB
-      }
-      
+      };
+
       // Step 7: Save to database
-      const savedArticle = await saveArticle(articleData)
-      
-      console.log(`✅ Created: "${savedArticle.title}"`)
-      console.log(`   📝 ${word_count} words | ⏱️  ${reading_time} min read`)
-      console.log(`   🔗 /blog/${slug}`)
-      
-      successCount++
-      
+      const savedArticle = await saveArticle(articleData);
+
+      console.log(`✅ Created: "${savedArticle.title}"`);
+      console.log(`   📝 ${word_count} words | ⏱️  ${reading_time} min read`);
+      console.log(`   🔗 /blog/${slug}`);
+
+      successCount++;
+
       // Rate limiting: Wait 2 seconds between requests
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
     } catch (error: any) {
-      console.error(`❌ Failed: "${topic.title}" - ${error.message}`)
-      failCount++
+      console.error(`❌ Failed: "${topic.title}" - ${error.message}`);
+      failCount++;
     }
   }
-  
-  console.log(`\n📊 Generation Complete!`)
-  console.log(`✅ Success: ${successCount} articles`)
-  console.log(`❌ Failed: ${failCount} articles`)
-  console.log(`\n🌐 View articles at: http://localhost:3000/admin/articles`)
+
+  console.log(`\n📊 Generation Complete!`);
+  console.log(`✅ Success: ${successCount} articles`);
+  console.log(`❌ Failed: ${failCount} articles`);
+  console.log(`\n🌐 View articles at: http://localhost:3000/admin/articles`);
 }
 
 // CLI Interface
-const args = process.argv.slice(2)
-const count = parseInt(args[0]) || 10
+const args = process.argv.slice(2);
+const count = parseInt(args[0]) || 10;
 
 generateArticles(count)
   .then(() => {
-    console.log('\n✅ Automation complete!')
-    process.exit(0)
+    console.log("\n✅ Automation complete!");
+    process.exit(0);
   })
   .catch((error) => {
-    console.error('\n💥 Fatal error:', error)
-    process.exit(1)
-  })
+    console.error("\n💥 Fatal error:", error);
+    process.exit(1);
+  });

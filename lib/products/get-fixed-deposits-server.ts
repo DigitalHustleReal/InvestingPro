@@ -15,8 +15,8 @@ export interface FixedDepositListing {
   senior_citizen_rate: number | null;
   min_deposit: number | null;
   max_deposit: number | null;
-  tenure_min: string | null;
-  tenure_max: string | null;
+  tenure_min_days: number | null;
+  tenure_max_days: number | null;
   rating: number | null;
   is_active: boolean;
   updated_at: string | null;
@@ -43,7 +43,7 @@ export async function getFixedDepositsServer(): Promise<FixedDepositListing[]> {
   const { data, error } = await supabase
     .from("fixed_deposits")
     .select(
-      "id, slug, name, bank_name, type, interest_rate, senior_citizen_rate, min_deposit, max_deposit, tenure_min, tenure_max, rating, is_active, updated_at",
+      "id, slug, name, bank_name, type, interest_rate, senior_citizen_rate, min_deposit, max_deposit, tenure_min_days, tenure_max_days, rating, is_active, updated_at, best_for, description, apply_link, official_link, image_url",
     )
     .eq("is_active", true)
     .order("interest_rate", { ascending: false, nullsFirst: false })
@@ -51,7 +51,10 @@ export async function getFixedDepositsServer(): Promise<FixedDepositListing[]> {
 
   if (error) {
     // Table may not exist yet — return empty gracefully
-    logger.error("SERVER FETCH ERROR: fixed_deposits", error);
+    logger.error("SERVER FETCH ERROR: fixed_deposits", {
+      message: error.message,
+      code: error.code,
+    });
     return [];
   }
 
@@ -65,8 +68,8 @@ export async function getFixedDepositsServer(): Promise<FixedDepositListing[]> {
     senior_citizen_rate: fd.senior_citizen_rate,
     min_deposit: fd.min_deposit,
     max_deposit: fd.max_deposit,
-    tenure_min: fd.tenure_min,
-    tenure_max: fd.tenure_max,
+    tenure_min_days: fd.tenure_min_days,
+    tenure_max_days: fd.tenure_max_days,
     rating: fd.rating,
     is_active: fd.is_active ?? true,
     updated_at: fd.updated_at,

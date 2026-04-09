@@ -28,16 +28,19 @@ export async function getCreditCardsServer(): Promise<RichProduct[]> {
   const { data, error } = await supabase
     .from("credit_cards")
     .select(
-      "id, slug, name, bank, image_url, description, rating, best_for, type, features, pros, cons, apply_link, source_url, official_link, updated_at, metadata",
+      "id, slug, name, bank, image_url, description, rating, type, features, pros, cons, apply_link, updated_at, annual_fee, joining_fee, reward_rate, reward_type, min_income",
     )
     .limit(200);
 
   if (error) {
-    logger.error("SERVER FETCH ERROR: credit_cards", error);
+    logger.error("SERVER FETCH ERROR: credit_cards", {
+      message: error.message,
+      code: error.code,
+    });
     return [];
   }
 
-  // Map to RichProduct (Same logic as api-client.ts)
+  // Map to RichProduct (columns matched to actual DB schema)
   const result: RichProduct[] = (data || []).map((card: any) => ({
     id: card.id || card.slug || "unknown",
     slug: card.slug,
@@ -53,13 +56,14 @@ export async function getCreditCardsServer(): Promise<RichProduct[]> {
       breakdown: {},
     },
     reviewsCount: 0,
-    applyLink: card.apply_link || card.source_url || "#",
+    applyLink: card.apply_link || "#",
 
     // Spec Data
-    bestFor: card.best_for,
+    bestFor: card.type || "General",
     specs: {
-      network: card.metadata?.network || "Visa",
       type: card.type || "Credit",
+      annual_fee: card.annual_fee,
+      joining_fee: card.joining_fee,
     },
 
     // Arrays
@@ -72,7 +76,6 @@ export async function getCreditCardsServer(): Promise<RichProduct[]> {
 
     is_verified: true,
     updated_at: card.updated_at,
-    official_link: card.official_link,
     affiliate_link: card.apply_link,
   }));
 

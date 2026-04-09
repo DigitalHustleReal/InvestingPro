@@ -50,7 +50,10 @@ export async function getMutualFundsServer(): Promise<MutualFundListing[]> {
     .limit(100);
 
   if (error) {
-    logger.error("SERVER FETCH ERROR: mutual_funds", error);
+    logger.error("SERVER FETCH ERROR: mutual_funds", {
+      message: error.message,
+      code: error.code,
+    });
     return [];
   }
 

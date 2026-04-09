@@ -1,40 +1,104 @@
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/static";
+import { logger } from "@/lib/logger";
 
-const PULSE_ITEMS = [
+interface PulseItem {
+  tag: string;
+  tagColor: string;
+  title: string;
+  take: string;
+  date: string;
+}
+
+const TAG_COLORS: Record<string, string> = {
+  "Credit Cards": "bg-blue-50 text-blue-700",
+  "Mutual Funds": "bg-green-50 text-green-700",
+  "Fixed Deposits": "bg-green-50 text-green-700",
+  Tax: "bg-orange-50 text-orange-700",
+  Loans: "bg-red-50 text-red-700",
+  Insurance: "bg-purple-50 text-purple-700",
+  DEFAULT: "bg-gray-50 text-gray-700",
+};
+
+function formatDate(dateStr: string): string {
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString("en-IN", { month: "short", day: "numeric" });
+  } catch {
+    return "";
+  }
+}
+
+async function fetchPulse(): Promise<PulseItem[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("articles")
+      .select("title, excerpt, category, published_at")
+      .eq("status", "published")
+      .order("published_at", { ascending: false, nullsFirst: false })
+      .limit(4);
+
+    if (error || !data || data.length === 0) return [];
+
+    return data.map((article) => {
+      const cat = article.category || "Finance";
+      return {
+        tag: cat,
+        tagColor: TAG_COLORS[cat] || TAG_COLORS.DEFAULT,
+        title: article.title,
+        take:
+          article.excerpt?.slice(0, 120) ||
+          `Latest insights on ${cat.toLowerCase()}.`,
+        date: article.published_at ? formatDate(article.published_at) : "",
+      };
+    });
+  } catch (err) {
+    logger.error(
+      "[MarketPulse] Failed to fetch",
+      err instanceof Error ? err : undefined,
+    );
+    return [];
+  }
+}
+
+const FALLBACK_PULSE: PulseItem[] = [
   {
     tag: "FD Rates",
     tagColor: "bg-green-50 text-green-700",
-    title: "SBI cuts FD rates by 0.15% — lock in now?",
-    take: "Shriram Finance (8.35%) before next cut. Seniors get +0.5%.",
-    date: "Mar 29",
+    title: "Compare FD rates across 25+ banks",
+    take: "Find the best fixed deposit rates. Seniors get additional 0.5% at most banks.",
+    date: "",
   },
   {
     tag: "Credit Cards",
     tagColor: "bg-blue-50 text-blue-700",
-    title: "Axis launches ACE Select — worth ₹999?",
-    take: "12 lounges/year vs 8. Worth it only if you fly 6+ times.",
-    date: "Mar 28",
+    title: "Best credit cards for your spending style",
+    take: "Compare 80+ cards by rewards, cashback, travel perks and annual fees.",
+    date: "",
   },
   {
     tag: "Tax",
     tagColor: "bg-orange-50 text-orange-700",
-    title: "42 days to save ₹46,800 under 80C",
-    take: "ELSS gives 12% avg returns with 3yr lock-in. Don't wait.",
-    date: "Mar 27",
+    title: "Maximize your 80C deductions",
+    take: "ELSS gives 12% avg returns with 3yr lock-in. Plan before March deadline.",
+    date: "",
   },
   {
     tag: "Loans",
     tagColor: "bg-red-50 text-red-700",
-    title: "RBI holds at 6.5% — EMI stays the same",
-    take: "Loan above 9%? Refinance. SBI offers 8.5% for transfers.",
-    date: "Mar 26",
+    title: "Personal loan rates compared",
+    take: "Compare 60+ loans by interest rate, processing fee and tenure.",
+    date: "",
   },
 ];
 
-export default function MarketPulse() {
+export default async function MarketPulse() {
+  const items = await fetchPulse();
+  const pulseData = items.length > 0 ? items : FALLBACK_PULSE;
+
   return (
     <section className="relative py-12 md:py-16 px-4 lg:px-8 bg-[--v2-cream] overflow-hidden">
-      {/* Dot pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -64,7 +128,7 @@ export default function MarketPulse() {
         </div>
 
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {PULSE_ITEMS.map((item) => (
+          {pulseData.map((item) => (
             <article
               key={item.title}
               className="bg-white border border-[--v2-cream-border] rounded-xl p-4 cursor-pointer transition-all duration-200 hover:border-green-500 hover:shadow-md hover:-translate-y-0.5"
@@ -80,9 +144,11 @@ export default function MarketPulse() {
               <p className="text-xs text-gray-500 leading-relaxed">
                 {item.take}
               </p>
-              <div className="mt-2 text-[11px] text-gray-500">
-                InvestingPro Research · {item.date}
-              </div>
+              {item.date && (
+                <div className="mt-2 text-[11px] text-gray-500">
+                  InvestingPro Research · {item.date}
+                </div>
+              )}
             </article>
           ))}
         </div>

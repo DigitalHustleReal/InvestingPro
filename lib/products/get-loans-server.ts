@@ -28,16 +28,19 @@ export async function getLoansServer(): Promise<RichProduct[]> {
   const { data, error } = await supabase
     .from("loans")
     .select(
-      "id, slug, name, bank_name, image_url, description, rating, best_for, type, features, pros, cons, apply_link, affiliate_link, official_link, updated_at, interest_rate_min, interest_rate_max, max_tenure_months, max_amount, processing_fee, metadata",
+      "id, slug, name, bank_name, image_url, description, rating, best_for, type, features, pros, cons, apply_link, affiliate_link, official_link, updated_at, interest_rate_min, interest_rate_max, max_tenure, max_amount, processing_fee",
     )
     .limit(200);
 
   if (error) {
-    logger.error("SERVER FETCH ERROR: loans", error);
+    logger.error("SERVER FETCH ERROR: loans", {
+      message: error.message,
+      code: error.code,
+    });
     return [];
   }
 
-  // Map to RichProduct format
+  // Map to RichProduct format (columns matched to actual DB schema)
   const result: RichProduct[] = (data || []).map((loan: any) => ({
     id: loan.id || loan.slug || "unknown",
     slug: loan.slug,
@@ -54,7 +57,7 @@ export async function getLoansServer(): Promise<RichProduct[]> {
     },
     bestFor: loan.best_for,
     specs: {
-      type: loan.type || loan.metadata?.type || "Personal Loan",
+      type: loan.type || "Personal Loan",
     },
     key_features: loan.features
       ? Object.entries(loan.features).map(([k, v]) => ({
@@ -73,7 +76,7 @@ export async function getLoansServer(): Promise<RichProduct[]> {
       type: loan.type || "Personal Loan",
       interest_rate_min: loan.interest_rate_min,
       interest_rate_max: loan.interest_rate_max,
-      max_tenure_months: loan.max_tenure_months,
+      max_tenure: loan.max_tenure,
       max_amount: loan.max_amount,
       processing_fee: loan.processing_fee,
     },

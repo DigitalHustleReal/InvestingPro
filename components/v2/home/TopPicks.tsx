@@ -1,7 +1,105 @@
 import Link from "next/link";
 import { Star, Check } from "lucide-react";
+import { createClient } from "@/lib/supabase/static";
+import { logger } from "@/lib/logger";
 
-const PICKS = [
+interface TopPickCard {
+  pick?: boolean;
+  logo: string;
+  logoGradient: string;
+  name: string;
+  bank: string;
+  score: number;
+  scoreColor: string;
+  highlight: string;
+  highlightSub: string;
+  tags: { label: string; color: string; check?: boolean }[];
+  fee: string;
+  href: string;
+}
+
+const LOGO_GRADIENTS: Record<string, string> = {
+  SBI: "from-[#1B2A4A] to-[#2C3E5A]",
+  ICICI: "from-[#92400E] to-[#B45309]",
+  HDFC: "from-[#B45309] to-[#78350F]",
+  Axis: "from-[#6B21A8] to-[#7C3AED]",
+  Kotak: "from-[#DC2626] to-[#B91C1C]",
+  HSBC: "from-[#DC2626] to-[#991B1B]",
+  RBL: "from-[#1D4ED8] to-[#1E40AF]",
+  IndusInd: "from-[#0369A1] to-[#075985]",
+  DEFAULT: "from-[#374151] to-[#1F2937]",
+};
+
+function bankAbbr(bank: string): string {
+  const known: Record<string, string> = {
+    "State Bank of India": "SBI",
+    "HDFC Bank": "HDFC",
+    "ICICI Bank": "ICICI",
+    "Axis Bank": "Axis",
+    "Kotak Mahindra Bank": "Kotak",
+  };
+  return known[bank] || bank?.split(" ")[0] || "BANK";
+}
+
+async function fetchTopPicks(): Promise<TopPickCard[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("credit_cards")
+      .select("slug, name, bank, rating, type, annual_fee, reward_rate, pros")
+      .order("rating", { ascending: false, nullsFirst: false })
+      .limit(3);
+
+    if (error || !data || data.length === 0) return [];
+
+    return data.map((card, i) => {
+      const abbr = bankAbbr(card.bank);
+      const score = Math.round((Number(card.rating) || 4) * 20);
+      const feeNum = Number(card.annual_fee) || 0;
+      const rewardRate = card.reward_rate || "Rewards";
+      const typeLabel = card.type || "Rewards";
+
+      return {
+        pick: i === 0,
+        logo: abbr,
+        logoGradient: LOGO_GRADIENTS[abbr] || LOGO_GRADIENTS.DEFAULT,
+        name: card.name,
+        bank: card.bank,
+        score,
+        scoreColor:
+          score >= 80
+            ? "border-green-500 text-green-700"
+            : "border-[--v2-saffron] text-[--v2-saffron-dark]",
+        highlight: rewardRate || "Top Rated",
+        highlightSub:
+          card.pros?.[0] || `${typeLabel} credit card from ${card.bank}`,
+        tags: [
+          ...(i === 0
+            ? [
+                {
+                  label: "Top Rated",
+                  color: "bg-green-50 text-green-700",
+                  check: true,
+                },
+              ]
+            : []),
+          { label: typeLabel, color: "bg-blue-50 text-blue-700" },
+        ],
+        fee: feeNum === 0 ? "₹0" : `₹${feeNum.toLocaleString("en-IN")}`,
+        href: `/credit-cards/${card.slug}`,
+      };
+    });
+  } catch (err) {
+    logger.error(
+      "[TopPicks] Failed to fetch",
+      err instanceof Error ? err : undefined,
+    );
+    return [];
+  }
+}
+
+// Hardcoded fallback in case DB is empty
+const FALLBACK_PICKS: TopPickCard[] = [
   {
     pick: true,
     logo: "SBI",
@@ -19,7 +117,6 @@ const PICKS = [
         check: true,
       },
       { label: "Online", color: "bg-blue-50 text-blue-700" },
-      { label: "LTF Option", color: "bg-orange-50 text-orange-700" },
     ],
     fee: "₹999",
     href: "/credit-cards/sbi-cashback-credit-card",
@@ -58,7 +155,10 @@ const PICKS = [
   },
 ];
 
-export default function TopPicks() {
+export default async function TopPicks() {
+  const picks = await fetchTopPicks();
+  const cards = picks.length > 0 ? picks : FALLBACK_PICKS;
+
   return (
     <section className="py-12 md:py-16 px-4 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -84,7 +184,7 @@ export default function TopPicks() {
         </div>
 
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {PICKS.map((card) => (
+          {cards.map((card) => (
             <div
               key={card.name}
               className="bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-200 hover:border-green-500 hover:shadow-lg hover:shadow-green-900/[.06] hover:-translate-y-0.5"
@@ -95,7 +195,7 @@ export default function TopPicks() {
                     size={12}
                     className="inline text-amber-600 fill-amber-500"
                   />{" "}
-                  Editor&apos;s Pick · March 2026
+                  Editor&apos;s Pick
                 </div>
               )}
               <div className="p-4 flex items-start gap-3">
@@ -129,9 +229,7 @@ export default function TopPicks() {
                       key={tag.label}
                       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium ${tag.color}`}
                     >
-                      {(tag as any).check && (
-                        <Check size={10} strokeWidth={3} />
-                      )}
+                      {tag.check && <Check size={10} strokeWidth={3} />}
                       {tag.label}
                     </span>
                   ))}
@@ -157,7 +255,6 @@ export default function TopPicks() {
               <div className="px-4 py-2 border-t border-gray-100 text-[11px] text-gray-400">
                 InvestingPro Research · 23 data points
               </div>
-              {/* Score aria-label for accessibility */}
             </div>
           ))}
         </div>

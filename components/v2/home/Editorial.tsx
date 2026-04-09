@@ -1,13 +1,88 @@
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/static";
+import { logger } from "@/lib/logger";
 
-const ARTICLES = [
+interface EditorialItem {
+  tag: string;
+  tagBg: string;
+  gradient: string;
+  title: string;
+  excerpt: string;
+  time: string;
+  href: string;
+}
+
+const CATEGORY_STYLES: Record<string, { tagBg: string; gradient: string }> = {
+  "Credit Cards": {
+    tagBg: "bg-blue-600/80",
+    gradient: "from-[#1B2A4A] to-[#2C4A6A]",
+  },
+  "Mutual Funds": {
+    tagBg: "bg-green-600/80",
+    gradient: "from-[#14563B] to-[#1A6B4A]",
+  },
+  Tax: {
+    tagBg: "bg-orange-600/80",
+    gradient: "from-[#92400E] to-[#B45309]",
+  },
+  Loans: {
+    tagBg: "bg-red-600/80",
+    gradient: "from-[#991B1B] to-[#DC2626]",
+  },
+  Insurance: {
+    tagBg: "bg-purple-600/80",
+    gradient: "from-[#6B21A8] to-[#7C3AED]",
+  },
+  DEFAULT: {
+    tagBg: "bg-gray-600/80",
+    gradient: "from-[#374151] to-[#1F2937]",
+  },
+};
+
+async function fetchEditorial(): Promise<EditorialItem[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("articles")
+      .select("title, slug, excerpt, category, read_time")
+      .eq("status", "published")
+      .order("published_at", { ascending: false, nullsFirst: false })
+      .limit(3);
+
+    if (error || !data || data.length === 0) return [];
+
+    return data.map((article) => {
+      const cat = article.category || "Finance";
+      const style = CATEGORY_STYLES[cat] || CATEGORY_STYLES.DEFAULT;
+      return {
+        tag: cat,
+        tagBg: style.tagBg,
+        gradient: style.gradient,
+        title: article.title,
+        excerpt:
+          article.excerpt ||
+          `Read our in-depth analysis on ${cat.toLowerCase()}.`,
+        time: article.read_time ? `${article.read_time} min read` : "Article",
+        href: `/articles/${article.slug}`,
+      };
+    });
+  } catch (err) {
+    logger.error(
+      "[Editorial] Failed to fetch",
+      err instanceof Error ? err : undefined,
+    );
+    return [];
+  }
+}
+
+const FALLBACK_ARTICLES: EditorialItem[] = [
   {
     tag: "Credit Cards",
     tagBg: "bg-blue-600/80",
     gradient: "from-[#1B2A4A] to-[#2C4A6A]",
-    title: "Compare 81 credit cards ranked by real data",
+    title: "Compare credit cards ranked by real data",
     excerpt:
-      "Cashback, rewards, travel perks — find the best card for your spending pattern. Scored across 23 data points.",
+      "Cashback, rewards, travel perks — find the best card for your spending pattern.",
     time: "Compare",
     href: "/credit-cards",
   },
@@ -17,7 +92,7 @@ const ARTICLES = [
     gradient: "from-[#14563B] to-[#1A6B4A]",
     title: "SIP Calculator: see your real returns after inflation",
     excerpt:
-      "Most calculators ignore inflation and taxes. Ours shows what your money will actually buy in 10, 20, 30 years.",
+      "Most calculators ignore inflation and taxes. Ours shows what your money will actually buy.",
     time: "Calculator",
     href: "/calculators/sip",
   },
@@ -27,13 +102,16 @@ const ARTICLES = [
     gradient: "from-[#92400E] to-[#B45309]",
     title: "Old vs New tax regime: which saves you more?",
     excerpt:
-      "Enter your salary, HRA, and deductions — our calculator shows exactly which regime wins for your situation.",
+      "Enter your salary, HRA, and deductions — our calculator shows which regime wins.",
     time: "Calculator",
     href: "/calculators/income-tax",
   },
 ];
 
-export default function Editorial() {
+export default async function Editorial() {
+  const articles = await fetchEditorial();
+  const items = articles.length > 0 ? articles : FALLBACK_ARTICLES;
+
   return (
     <section className="py-12 md:py-16 px-4 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -56,7 +134,7 @@ export default function Editorial() {
         </div>
 
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {ARTICLES.map((art) => (
+          {items.map((art) => (
             <Link
               key={art.title}
               href={art.href}
