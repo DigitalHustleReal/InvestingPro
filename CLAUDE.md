@@ -200,42 +200,175 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 
 ---
 
-## 9. Current Status (April 9, 2026)
+## 9. Current Status (April 15, 2026)
 
-### What's DONE (April 9 session — 32 commits):
-- [x] All DB queries fixed — 19/19 product + article pages verified working
-- [x] Autonomous content pipeline wired (sensor → generator → quality gate → auto-publish)
-- [x] 35+ Indian finance feed sources + X/Twitter + 30-event financial calendar
-- [x] Category interlinking wired into article generation
-- [x] 16 new calculators built (V2 architecture with 5 differentiators)
-- [x] Shared calculator components: SliderInput, ResultCard, AIInsight, WhatIfScenarios, ProductRecs, TrustStrip, PopularCalculators, SSR-safe charts
-- [x] Calculator design spec: docs/CALCULATOR_DESIGN_SPEC.md
-- [x] Master task list: docs/MASTER_TASK_LIST.md (120+ tasks, 11 phases)
-- [x] Autonomous executor: docs/AUTONOMOUS_EXECUTOR.md
-- [x] 65 apply/affiliate links populated in DB
-- [x] Homepage dynamic (TopPicks, Editorial, MarketPulse fetch from DB)
-- [x] RelatedArticles component fixed (was broken)
-- [x] Revalidation API fixed for Next.js 16
+### Platform Inventory (from Supabase + Vercel audit)
+| Asset | Count | Status |
+|-------|-------|--------|
+| Calculator pages | 58 live + 11 uncommitted VS calcs | Strongest asset |
+| Products in DB | 2,584 (81 CC, 346 MF, 61 loans, 25 FD, 24 insurance) | 4 have images |
+| Published articles | 27 (all "best X" listicles, all Apr 7) | No educational content |
+| Draft articles | 21 unpublished | Wasted indexable pages |
+| Glossary terms | 101 | Good SEO asset |
+| VS pages (DB) | 20 credit card comparisons | 0 views — may not render |
+| Affiliate partners | 14 active (HDFC ₹800, ICICI ₹650 CPA) | 0 conversions tracked |
+| Content queue | 139 pending (mostly CC long-tail spam) | Needs cleanup |
+| Cron jobs | 40 configured, all routes exist | Running UNSECURED |
+| API routes | 272 | Comprehensive |
+| Admin pages | 88+ | Full CMS built |
+| Page routes | 237 total | Strong coverage |
+| Categories | 19 created, 11 have ZERO articles | Critical gap |
 
-### Calculators: 39 total (23 original + 16 new)
-New: CAGR, Gratuity, EPF, HRA, Salary CTC, TDS, Home Loan EMI, Personal Loan EMI, Step-Up SIP, Lumpsum vs SIP, Car Loan EMI, Education Loan EMI, Gold Investment, Rent vs Buy, FIRE India, Marriage Cost
+### Vercel Deployment
+- Project: `investing-pro` at `https://www.investingpro.in`
+- Node 24.x, auto-deploy on git push
+- 35 env vars configured (GA4 + PostHog added 9 days ago)
+- 0 commits ahead of remote (all pushed except 11 uncommitted VS files)
 
-### What's NOT deployed yet:
-- 32 commits on local master — need `git push origin master`
-
-### Known Issues:
-- [ ] Test coverage is 1.13% — target 75%
-- [ ] GA4 not configured (needs NEXT_PUBLIC_GA_MEASUREMENT_ID)
-- [ ] PostHog not configured (needs NEXT_PUBLIC_POSTHOG_KEY)
-- [ ] Pexels API key missing (0/259 product images)
-- [ ] CRON_SECRET not set (crons run unsecured)
-- [ ] Twitter/LinkedIn API keys missing (social posting blocked)
-- [ ] Stripe not configured (payments blocked)
-- [ ] 19 loans + 2 FDs still missing apply links (niche NBFCs)
-- [ ] PWA manifest exists (`/manifest.json`) — needs full PWA audit
-- [ ] Mobile optimization audit pending
+### What's DONE:
+- [x] All DB queries fixed — 19/19 product + article pages verified
+- [x] Autonomous content pipeline wired
+- [x] 58 calculator pages live (23 original + 16 V2 + 9 P1 + 7 P2 + 3 specialized)
+- [x] Shared calculator components: SliderInput, ResultCard, AIInsight, VSComparisonLayout, TrustStrip, PopularCalculators
+- [x] 81/81 credit card apply links populated
+- [x] Homepage dynamic (TopPicks, Editorial, MarketPulse)
+- [x] GA4 + PostHog keys on Vercel (added Apr 6)
 - [x] UI overhaul Phase 1-3 complete: green brand, light mode default, mobile bottom nav
-- [ ] UI overhaul Phase 4-5 pending: calculator result cards, performance audit
+
+### Known Issues (April 15 audit):
+- [ ] CRON_SECRET not set — 40 cron endpoints publicly accessible (SECURITY)
+- [ ] NEXT_PUBLIC_BASE_URL missing on Vercel (affects canonical URLs)
+- [ ] 0 educational articles (100% commercial "best X" content)
+- [ ] 11 of 19 categories have ZERO articles
+- [ ] 0 affiliate conversions tracked (revenue = ₹0)
+- [ ] 4/2,584 product images populated
+- [ ] Content queue is all CC long-tail spam — needs cleanup
+- [ ] 11 VS calculator files uncommitted (local disk only)
+- [ ] Stripe, Twitter, LinkedIn, Google OAuth keys all missing
+- [ ] RSS feed not linked in layout head (not discoverable)
+- [ ] Organization schema with sameAs not in root layout
+- [ ] Sitemap lastModified uses `new Date()` not actual update time
+
+### Distribution Systems Status:
+| System | Built | Works | Gap |
+|--------|:---:|:---:|-----|
+| Social sharing (WhatsApp/FB/Twitter/LI) | Yes | Yes | Frontend only — no automated posting |
+| Social scheduling/posting | Yes | No | No API keys, no actual API calls implemented |
+| RSS export (`/feed.xml`) | Yes | Yes | Not linked in `<head>`, not discoverable |
+| RSS import pipeline | Yes | No | Tables exist, no cron automation |
+| Internal linking engine | Yes | Partial | Deterministic rules work, no link insertion into articles |
+| AutoInternalLinks component | Yes | Yes | Used on calculator pages, not on articles |
+| IndexNow (Bing/Yandex) | Yes | Yes | Key hardcoded (should be env var) |
+| Sitemap | Yes | Yes | 5000+ URLs, comprehensive |
+| Schema/JSON-LD | Yes | Partial | Generators built, not injected on all pages |
+| Backlink monitoring | No | No | Not built |
+| Organization social profiles | No | No | No sameAs in root layout, no footer links |
+
+---
+
+## 9a. Master Action Plan (April 15, 2026)
+
+> Full plan: `docs/MASTER_ACTION_PLAN_APRIL_2026.md`
+
+### Owner Tasks (Priority Order)
+| # | Task | Priority | Time | Status |
+|---|------|:---:|------|:---:|
+| O1 | Add `CRON_SECRET` to Vercel (all environments) | P0 | 5 min | |
+| O2 | Run `npx vercel env pull .env.local` | P0 | 2 min | |
+| O3 | Verify GA4 is tracking (check real-time) | P0 | 5 min | |
+| O4 | Set up Google Search Console + submit sitemap | P0 | 15 min | |
+| O5 | Add `NEXT_PUBLIC_BASE_URL=https://investingpro.in` to Vercel | P0 | 2 min | |
+| O6 | Create X account @InvestingProIN + buy Premium (₹427/mo web) | P1 | 10 min | |
+| O7 | Create WhatsApp Channel "InvestingPro" (free) | P1 | 5 min | |
+| O8 | Create Telegram Channel @investingpro_in (free) | P1 | 5 min | |
+| O9 | Publish 21 draft articles (Admin → Articles → Draft → Publish) | P1 | 30 min | |
+| O10 | Verify CC apply links have affiliate tracking IDs | P1 | 20 min | |
+| O11 | Sign up on Cuelinks + vCommission affiliate networks | P1 | 30 min | |
+| O12 | Add Pexels API key to Vercel (pexels.com → free account) | P1 | 5 min | |
+| O13 | Set up business email (hello@investingpro.in) in wife's name | P1 | 30 min | |
+| O14 | File CCS Rule 15(1)(d) report — spouse business disclosure | P1 | - | |
+| O15 | Stripe, Google OAuth keys (P2 — later month) | P2 | 1 hr | |
+
+### Claude 7-Day Sprint (Apr 15-22, before Max expires)
+| Day | Phase | Task | Output |
+|-----|-------|------|--------|
+| 1 | A1 | Commit + push 11 VS files | Backup + deploy Old vs New Tax page |
+| 1 | A2 | Verify cron CRON_SECRET validation | Security audit |
+| 1 | A3 | Build 8 page.tsx for existing VS components | +8 calculator pages |
+| 2 | B1 | Build 8 remaining VS calculators + pages | +8 more = 75 total calculators |
+| 2 | B2 | Verify 20 DB versus_pages render | Fix invisible CC comparisons |
+| 3 | D | RSS `<link>` in head, social links in footer, org schema, category merge | Technical SEO |
+| 3-5 | C1 | 20 educational articles (CC, MF, Loans, Insurance) | Topical authority started |
+| 5-6 | C1 | 20 more articles (Tax, FD, Retirement, Stocks/IPO) | All 19 categories covered |
+| 7 | E | Affiliate click tracking, calculator CTAs | Revenue wiring |
+
+### Post-Max Plan (Apr 22+, Claude Pro ₹1,680/mo)
+- Write 2-3 articles/week using Claude Pro + Grok
+- Monitor GSC weekly, double down on winning pages
+- X/WhatsApp/Telegram: share 1 calculator or article daily
+- Monthly budget: ₹2,107 (Claude Pro ₹1,680 + X Premium ₹427)
+
+### Legal Structure
+- Owner: Wife (sole proprietor) — CCS Conduct Rules compliant
+- Social accounts: Brand only (@InvestingProIN) — anonymous, no personal face
+- CCS Rule 15(1)(d): File spouse business disclosure report
+
+### Content Strategy (Critical Fix)
+```
+Current:  100% commercial ("best X") + 0% educational + 0% timely
+Target:   40% educational + 30% commercial + 20% timely + 10% tools
+```
+
+### 90-Day Targets
+| Metric | Now | End April | End May | End June |
+|--------|:---:|:---:|:---:|:---:|
+| Calculators | 58 | 75 | 75 | 80+ |
+| Published articles | 27 | 48 | 88 | 120+ |
+| Categories covered | 8/19 | 12/19 | 19/19 | 19/19 |
+| GSC impressions/day | 0 | tracking | 100+ | 500+ |
+| Affiliate revenue | ₹0 | ₹0 | first click | first conversion |
+
+---
+
+## 9b. Distribution & SEO Systems Map
+
+### Social Media
+| Component | Path | Status |
+|-----------|------|--------|
+| Share buttons (WhatsApp/FB/Twitter/LI) | `components/common/SocialShareButtons.tsx` | WORKING |
+| Social scheduler service | `lib/social-media/SocialSchedulerService.ts` | Built, no API keys |
+| Social analytics | `lib/social-media/analytics.ts` | Built, no real data |
+| AI post generator | `app/api/social/generate/route.ts` | Built, uses GPT-4 |
+| Admin social dashboard | `app/admin/social-dashboard/page.tsx` | Built, shows placeholders |
+| Actual Twitter/LinkedIn posting | Not implemented | MISSING — no OAuth flow |
+
+### RSS
+| Component | Path | Status |
+|-----------|------|--------|
+| RSS feed export | `app/feed.xml/route.ts` | WORKING at /feed.xml |
+| RSS import service | `lib/rss-import/RSSImportService.ts` | Built, not automated |
+| RSS article generator | `lib/rss-import/RSSArticleGenerator.ts` | Built, not triggered |
+| Feed `<link>` in layout | `app/layout.tsx` | MISSING — feed not discoverable |
+
+### Internal Linking
+| Component | Path | Status |
+|-----------|------|--------|
+| Linking engine (deterministic) | `lib/linking/engine.ts` | WORKING — rules per content type |
+| AutoInternalLinks component | `components/common/AutoInternalLinks.tsx` | WORKING on calculator pages |
+| AI interlinking suggestions | `app/api/admin/interlinking/suggest/route.ts` | Built, manual API only |
+| Link insertion into articles | Not implemented | MISSING |
+
+### SEO Infrastructure
+| Component | Path | Status |
+|-----------|------|--------|
+| Dynamic sitemap (5000+ URLs) | `app/sitemap.ts` | WORKING |
+| robots.txt | `public/robots.txt` | WORKING (blocks /admin, /api) |
+| IndexNow (Bing/Yandex) | `app/api/indexnow/route.ts` | WORKING (key hardcoded) |
+| Schema generators | `lib/seo/schema-generator-enhanced.ts` | Built, not on all pages |
+| Google verification | `app/layout.tsx` meta tag | VERIFIED |
+| Organization schema + sameAs | `lib/seo/schema-generator-enhanced.ts` | Built, NOT injected in root |
+| Sitemap ping cron | `app/api/cron/sitemap-ping/route.ts` | Configured in vercel.json |
+| SEO rankings sync | `app/api/cron/seo-rankings-update/route.ts` | Configured, 0 results |
 
 ---
 
