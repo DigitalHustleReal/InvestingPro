@@ -48,6 +48,8 @@ import MiniRewardsCalculator from "@/components/calculators/MiniRewardsCalculato
 import AlternativesCarousel from "@/components/products/AlternativesCarousel";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import { getSimilarProducts } from "@/lib/utils/product-similarity";
+import RewardRateTable from "@/components/products/RewardRateTable";
+import ProductShareButtons from "@/components/products/ProductShareButtons";
 import WhatsAppAlerts from "@/components/common/WhatsAppAlerts";
 import AffiliateDisclosure from "@/components/common/AffiliateDisclosure";
 import ApplyNowCTA from "@/components/products/ApplyNowCTA";
@@ -376,6 +378,11 @@ export default async function CreditCardDetailPage(props: {
                   {card.description}
                 </p>
                 <AuthorByline />
+                <ProductShareButtons
+                  productName={card.name}
+                  productUrl={`/credit-cards/${params.slug}`}
+                  className="mt-3"
+                />
               </div>
 
               {/* Expert Opinion Box - NEW */}
@@ -645,39 +652,12 @@ export default async function CreditCardDetailPage(props: {
                   </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  {card.rewardProgram.categories.map((cat, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
-                    >
-                      <div className="flex justify-between items-start mb-2">
-                        <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">
-                          {cat.name}
-                        </span>
-                        {/* Visual Trust Concept: Simulated Brand Icons */}
-                        {cat.name.includes("Dining") && (
-                          <div className="flex gap-1">
-                            <UtensilsCrossed className="w-4 h-4 text-orange-500" />
-                          </div>
-                        )}
-                        {cat.name.includes("Travel") && (
-                          <div className="flex gap-1">
-                            <Plane className="w-4 h-4 text-blue-500" />
-                          </div>
-                        )}
-                        {cat.name.includes("Online") && (
-                          <div className="flex gap-1">
-                            <ShoppingCart className="w-4 h-4 text-amazon-500 text-[#FF9900]" />
-                          </div>
-                        )}
-                      </div>
-                      <span className="text-green-700 font-bold text-lg">
-                        {cat.rate}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                <RewardRateTable
+                  categories={card.rewardProgram.categories}
+                  pointsPerRupee={card.rewardProgram.pointsPerRupee}
+                  redemptionValue={card.rewardProgram.redemptionValue}
+                  annualFee={card.annualFee}
+                />
 
                 {/* Mini Rewards Calculator - NEW */}
                 <div className="mt-8">
