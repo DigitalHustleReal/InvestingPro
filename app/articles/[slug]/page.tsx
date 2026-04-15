@@ -35,6 +35,7 @@ import DraggableTableOfContents from "@/components/blog/DraggableTableOfContents
 import { ArticleClientShell } from "./ArticleClientShell";
 import ArticleFeedback from "@/components/articles/ArticleFeedback";
 import MidArticleCapture from "@/components/articles/MidArticleCapture";
+import EmbeddedCalculator from "@/components/articles/EmbeddedCalculator";
 import InlineProductCard from "@/components/articles/InlineProductCard";
 import LastUpdatedBadge from "@/components/articles/LastUpdatedBadge";
 import "./article-content.css";
@@ -296,6 +297,10 @@ export default async function ArticlePage({
                   body_markdown={article.body_markdown}
                   content={article.content}
                 />
+
+                {article.category && (
+                  <EmbeddedCalculator category={article.category} />
+                )}
 
                 <MidArticleCapture
                   category={article.category}

@@ -54,6 +54,7 @@ import ApplyNowCTA from "@/components/products/ApplyNowCTA";
 import { ProductFAQSchema } from "@/components/products/ProductFAQSchema";
 import { ProductSchemaMarkup } from "@/components/products/ProductSchemaMarkup";
 import ArticleFeedback from "@/components/articles/ArticleFeedback";
+import TableOfContents from "@/components/content/TableOfContents";
 
 interface CreditCardDetail {
   id: string;
@@ -525,343 +526,403 @@ export default async function CreditCardDetailPage(props: {
         </div>
       </div>
 
-      {/* Main Content (Single Column "One Big Page") */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="space-y-12">
-          {/* Unified Editorial Card */}
-          <Card className="p-8 space-y-12 shadow-xl shadow-gray-200/50">
-            {/* Key Features Section */}
-            <section>
-              <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
-                <CheckCircle2 className="w-6 h-6 text-green-600" />
-                Key Features
-              </h2>
-              <ul className="grid md:grid-cols-2 gap-4">
-                {card.keyFeatures.map((feature, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start gap-3 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg"
-                  >
-                    <div className="bg-white dark:bg-gray-700 rounded-full p-1 mt-0.5 shadow-sm">
-                      <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                    </div>
-                    <span className="text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            <hr className="border-gray-100" />
-
-            <hr className="border-gray-100" />
-
-            <div className="p-8 bg-gray-50 rounded-2xl">
-              <h3 className="text-xl font-bold mb-6 text-gray-900">
-                Rating Overview
-              </h3>
-              <RatingBreakdown
-                distribution={getReviewStats(params.slug).distribution}
-                totalReviews={getReviewStats(params.slug).count}
-              />
-            </div>
-
-            <hr className="border-gray-100" />
-
-            {/* Eligibility Section (Moved from Sidebar) */}
-            <section>
-              <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
-                <ShieldCheck className="w-6 h-6 text-green-600" />
-                Eligibility Criteria
-              </h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                  <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">
-                    Age
-                  </p>
-                  <p className="text-xl font-bold text-gray-900">
-                    {card.eligibility.minAge}+ Years
-                  </p>
-                </div>
-                <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                  <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">
-                    Income
-                  </p>
-                  <p className="text-xl font-bold text-gray-900">
-                    ₹
-                    {(typeof card.eligibility.minIncome === "number"
-                      ? card.eligibility.minIncome / 100000
-                      : 0.25
-                    ).toFixed(1)}
-                    L{" "}
-                    <span className="text-xs font-normal text-gray-500">
-                      / year
-                    </span>
-                  </p>
-                </div>
-                <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                  <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">
-                    Documents
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {card.eligibility.requiredDocuments.map((doc, i) => (
-                      <span
-                        key={i}
-                        className="text-xs font-medium px-2 py-1 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700"
-                      >
-                        {doc}
+      {/* Main Content with TOC Sidebar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid lg:grid-cols-[1fr_260px] gap-8">
+          <div className="space-y-12">
+            {/* Unified Editorial Card */}
+            <Card className="p-8 space-y-12 shadow-xl shadow-gray-200/50">
+              {/* Key Features Section */}
+              <section id="key-features" className="scroll-mt-24">
+                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
+                  <CheckCircle2 className="w-6 h-6 text-green-600" />
+                  Key Features
+                </h2>
+                <ul className="grid md:grid-cols-2 gap-4">
+                  {card.keyFeatures.map((feature, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start gap-3 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg"
+                    >
+                      <div className="bg-white dark:bg-gray-700 rounded-full p-1 mt-0.5 shadow-sm">
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                      </div>
+                      <span className="text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+                        {feature}
                       </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
+                    </li>
+                  ))}
+                </ul>
+              </section>
 
-            <hr className="border-gray-100" />
+              <hr className="border-gray-100" />
 
-            {/* Rewards Program Section */}
-            <section>
-              <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
-                <Gift className="w-6 h-6 text-green-600" />
-                Rewards Program
-              </h2>
-              <div className="bg-gray-50 border border-gray-100 rounded-xl p-6 mb-6">
-                <h3 className="font-bold text-xl mb-2 text-gray-900">
-                  {card.rewardProgram.name}
+              <hr className="border-gray-100" />
+
+              <div
+                id="rating"
+                className="p-8 bg-gray-50 rounded-2xl scroll-mt-24"
+              >
+                <h3 className="text-xl font-bold mb-6 text-gray-900">
+                  Rating Overview
                 </h3>
-                <p className="text-gray-600">
-                  Earn{" "}
-                  <strong className="text-green-700">
-                    {card.rewardProgram.pointsPerRupee} points per ₹150
-                  </strong>{" "}
-                  spent. Redemption value: {card.rewardProgram.redemptionValue}
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                {card.rewardProgram.categories.map((cat, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">
-                        {cat.name}
-                      </span>
-                      {/* Visual Trust Concept: Simulated Brand Icons */}
-                      {cat.name.includes("Dining") && (
-                        <div className="flex gap-1">
-                          <UtensilsCrossed className="w-4 h-4 text-orange-500" />
-                        </div>
-                      )}
-                      {cat.name.includes("Travel") && (
-                        <div className="flex gap-1">
-                          <Plane className="w-4 h-4 text-blue-500" />
-                        </div>
-                      )}
-                      {cat.name.includes("Online") && (
-                        <div className="flex gap-1">
-                          <ShoppingCart className="w-4 h-4 text-amazon-500 text-[#FF9900]" />
-                        </div>
-                      )}
-                    </div>
-                    <span className="text-green-700 font-bold text-lg">
-                      {cat.rate}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Mini Rewards Calculator - NEW */}
-              <div className="mt-8">
-                <MiniRewardsCalculator
-                  annualFee={card.annualFee}
-                  rewardRate={card.rewardProgram.pointsPerRupee || 1.5}
+                <RatingBreakdown
+                  distribution={getReviewStats(params.slug).distribution}
+                  totalReviews={getReviewStats(params.slug).count}
                 />
               </div>
-            </section>
 
-            <hr className="border-gray-100" />
+              <hr className="border-gray-100" />
 
-            {/* Benefits Section */}
-            <section>
-              <h2 className="text-2xl font-bold mb-6 text-gray-900">
-                Benefits Breakdown
-              </h2>
-              <div className="grid gap-8">
-                {card.benefits.map((benefit, index) => (
-                  <div key={index}>
-                    <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-gray-900">
-                      <div className="p-2 bg-gray-100 rounded-lg text-gray-700">
-                        {benefit.category === "Travel" && (
-                          <Plane className="w-5 h-5" />
-                        )}
-                        {benefit.category === "Dining" && (
-                          <ShoppingBag className="w-5 h-5" />
-                        )}
-                        {benefit.category === "Shopping" && (
-                          <Gift className="w-5 h-5" />
-                        )}
-                        {benefit.category !== "Travel" &&
-                          benefit.category !== "Dining" &&
-                          benefit.category !== "Shopping" && (
-                            <Star className="w-5 h-5" />
-                          )}
-                      </div>
-                      {benefit.category}
-                    </h3>
-                    <ul className="grid md:grid-cols-2 gap-3">
-                      {benefit.items.map((item, idx) => (
-                        <li
-                          key={idx}
-                          className="text-gray-600 flex items-start gap-2 text-sm leading-6"
+              {/* Eligibility Section (Moved from Sidebar) */}
+              <section id="eligibility" className="scroll-mt-24">
+                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
+                  <ShieldCheck className="w-6 h-6 text-green-600" />
+                  Eligibility Criteria
+                </h2>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                    <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">
+                      Age
+                    </p>
+                    <p className="text-xl font-bold text-gray-900">
+                      {card.eligibility.minAge}+ Years
+                    </p>
+                  </div>
+                  <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                    <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">
+                      Income
+                    </p>
+                    <p className="text-xl font-bold text-gray-900">
+                      ₹
+                      {(typeof card.eligibility.minIncome === "number"
+                        ? card.eligibility.minIncome / 100000
+                        : 0.25
+                      ).toFixed(1)}
+                      L{" "}
+                      <span className="text-xs font-normal text-gray-500">
+                        / year
+                      </span>
+                    </p>
+                  </div>
+                  <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                    <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">
+                      Documents
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {card.eligibility.requiredDocuments.map((doc, i) => (
+                        <span
+                          key={i}
+                          className="text-xs font-medium px-2 py-1 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700"
                         >
-                          <span className="text-green-500 font-bold mt-1">
-                            •
-                          </span>
-                          {item}
+                          {doc}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <hr className="border-gray-100" />
+
+              {/* Rewards Program Section */}
+              <section id="rewards" className="scroll-mt-24">
+                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
+                  <Gift className="w-6 h-6 text-green-600" />
+                  Rewards Program
+                </h2>
+                <div className="bg-gray-50 border border-gray-100 rounded-xl p-6 mb-6">
+                  <h3 className="font-bold text-xl mb-2 text-gray-900">
+                    {card.rewardProgram.name}
+                  </h3>
+                  <p className="text-gray-600">
+                    Earn{" "}
+                    <strong className="text-green-700">
+                      {card.rewardProgram.pointsPerRupee} points per ₹150
+                    </strong>{" "}
+                    spent. Redemption value:{" "}
+                    {card.rewardProgram.redemptionValue}
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  {card.rewardProgram.categories.map((cat, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">
+                          {cat.name}
+                        </span>
+                        {/* Visual Trust Concept: Simulated Brand Icons */}
+                        {cat.name.includes("Dining") && (
+                          <div className="flex gap-1">
+                            <UtensilsCrossed className="w-4 h-4 text-orange-500" />
+                          </div>
+                        )}
+                        {cat.name.includes("Travel") && (
+                          <div className="flex gap-1">
+                            <Plane className="w-4 h-4 text-blue-500" />
+                          </div>
+                        )}
+                        {cat.name.includes("Online") && (
+                          <div className="flex gap-1">
+                            <ShoppingCart className="w-4 h-4 text-amazon-500 text-[#FF9900]" />
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-green-700 font-bold text-lg">
+                        {cat.rate}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Mini Rewards Calculator - NEW */}
+                <div className="mt-8">
+                  <MiniRewardsCalculator
+                    annualFee={card.annualFee}
+                    rewardRate={card.rewardProgram.pointsPerRupee || 1.5}
+                  />
+                </div>
+              </section>
+
+              <hr className="border-gray-100" />
+
+              {/* Benefits Section */}
+              <section id="benefits" className="scroll-mt-24">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">
+                  Benefits Breakdown
+                </h2>
+                <div className="grid gap-8">
+                  {card.benefits.map((benefit, index) => (
+                    <div key={index}>
+                      <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-gray-900">
+                        <div className="p-2 bg-gray-100 rounded-lg text-gray-700">
+                          {benefit.category === "Travel" && (
+                            <Plane className="w-5 h-5" />
+                          )}
+                          {benefit.category === "Dining" && (
+                            <ShoppingBag className="w-5 h-5" />
+                          )}
+                          {benefit.category === "Shopping" && (
+                            <Gift className="w-5 h-5" />
+                          )}
+                          {benefit.category !== "Travel" &&
+                            benefit.category !== "Dining" &&
+                            benefit.category !== "Shopping" && (
+                              <Star className="w-5 h-5" />
+                            )}
+                        </div>
+                        {benefit.category}
+                      </h3>
+                      <ul className="grid md:grid-cols-2 gap-3">
+                        {benefit.items.map((item, idx) => (
+                          <li
+                            key={idx}
+                            className="text-gray-600 flex items-start gap-2 text-sm leading-6"
+                          >
+                            <span className="text-green-500 font-bold mt-1">
+                              •
+                            </span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Pros & Cons Section (Embedded) */}
+              <section
+                id="pros-cons"
+                className="bg-gray-50/50 rounded-2xl p-2 border border-gray-100 scroll-mt-24"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+                  {/* Pros */}
+                  <div className="p-6">
+                    <h3 className="font-bold text-lg text-green-700 flex items-center gap-2 mb-4">
+                      <CheckCircle2 className="w-5 h-5" /> Pros
+                    </h3>
+                    <ul className="space-y-3">
+                      {card.pros.map((pro, index) => (
+                        <li
+                          key={index}
+                          className="flex items-start gap-2 text-gray-700 text-sm"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span>{pro}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                ))}
-              </div>
-            </section>
 
-            {/* Pros & Cons Section (Embedded) */}
-            <section className="bg-gray-50/50 rounded-2xl p-2 border border-gray-100">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-200">
-                {/* Pros */}
-                <div className="p-6">
-                  <h3 className="font-bold text-lg text-green-700 flex items-center gap-2 mb-4">
-                    <CheckCircle2 className="w-5 h-5" /> Pros
-                  </h3>
-                  <ul className="space-y-3">
-                    {card.pros.map((pro, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start gap-2 text-gray-700 text-sm"
-                      >
-                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                        <span>{pro}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Cons */}
+                  <div className="p-6">
+                    <h3 className="font-bold text-lg text-red-700 flex items-center gap-2 mb-4">
+                      <XCircle className="w-5 h-5" /> Cons
+                    </h3>
+                    <ul className="space-y-3">
+                      {card.cons.map((con, index) => (
+                        <li
+                          key={index}
+                          className="flex items-start gap-2 text-gray-700 text-sm"
+                        >
+                          <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                          <span>{con}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
+              </section>
 
-                {/* Cons */}
-                <div className="p-6">
-                  <h3 className="font-bold text-lg text-red-700 flex items-center gap-2 mb-4">
-                    <XCircle className="w-5 h-5" /> Cons
-                  </h3>
-                  <ul className="space-y-3">
-                    {card.cons.map((con, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start gap-2 text-gray-700 text-sm"
-                      >
-                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-                        <span>{con}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </section>
+              <hr className="border-gray-100" />
 
-            <hr className="border-gray-100" />
+              {/* Comparison CTA - NEW */}
+              <ComparisonCTA
+                currentProductSlug={params.slug}
+                currentProductName={card.name}
+                similarProducts={[
+                  // TODO: Fetch similar products dynamically
+                  { slug: "hdfc-regalia", name: "HDFC Regalia" },
+                  { slug: "sbi-simplysave", name: "SBI SimplySAVE" },
+                ]}
+              />
 
-            {/* Comparison CTA - NEW */}
-            <ComparisonCTA
-              currentProductSlug={params.slug}
-              currentProductName={card.name}
-              similarProducts={[
-                // TODO: Fetch similar products dynamically
-                { slug: "hdfc-regalia", name: "HDFC Regalia" },
-                { slug: "sbi-simplysave", name: "SBI SimplySAVE" },
-              ]}
-            />
+              <hr className="border-gray-100" />
 
-            <hr className="border-gray-100" />
+              {/* Document Checklist - NEW */}
+              <DocumentChecklist
+                documents={CREDIT_CARD_DOCUMENTS}
+                productName={card.name}
+              />
 
-            {/* Document Checklist - NEW */}
-            <DocumentChecklist
-              documents={CREDIT_CARD_DOCUMENTS}
-              productName={card.name}
-            />
+              <hr className="border-gray-100" />
 
-            <hr className="border-gray-100" />
-
-            {/* Fees Section */}
-            <section>
-              <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
-                <IndianRupee className="w-6 h-6 text-gray-700" />
-                Fees & Charges
-              </h2>
-              <div className="border border-gray-200 rounded-xl overflow-hidden">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-gray-50 text-gray-500 font-medium border-b border-gray-200">
-                    <tr>
-                      <th className="px-6 py-4">Fee Type</th>
-                      <th className="px-6 py-4">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    {card.fees.map((fee, index) => (
-                      <tr
-                        key={index}
-                        className="hover:bg-gray-50/50 transition-colors"
-                      >
-                        <td className="px-6 py-4">
-                          <div className="font-semibold text-gray-900">
-                            {fee.name}
-                          </div>
-                          {fee.details && (
-                            <div className="text-gray-500 text-xs mt-0.5">
-                              {fee.details}
-                            </div>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 font-bold text-gray-900">
-                          {fee.amount}
-                        </td>
+              {/* Fees Section */}
+              <section id="fees" className="scroll-mt-24">
+                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
+                  <IndianRupee className="w-6 h-6 text-gray-700" />
+                  Fees & Charges
+                </h2>
+                <div className="border border-gray-200 rounded-xl overflow-hidden">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-gray-50 text-gray-500 font-medium border-b border-gray-200">
+                      <tr>
+                        <th className="px-6 py-4">Fee Type</th>
+                        <th className="px-6 py-4">Amount</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </Card>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {card.fees.map((fee, index) => (
+                        <tr
+                          key={index}
+                          className="hover:bg-gray-50/50 transition-colors"
+                        >
+                          <td className="px-6 py-4">
+                            <div className="font-semibold text-gray-900">
+                              {fee.name}
+                            </div>
+                            {fee.details && (
+                              <div className="text-gray-500 text-xs mt-0.5">
+                                {fee.details}
+                              </div>
+                            )}
+                          </td>
+                          <td className="px-6 py-4 font-bold text-gray-900">
+                            {fee.amount}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </Card>
 
-          {/* Related Articles */}
-          <RelatedArticles />
+            {/* Related Articles */}
+            <RelatedArticles />
 
-          {/* "Was this helpful?" Feedback */}
-          <ArticleFeedback articleId={`cc-${card.id}`} />
+            {/* "Was this helpful?" Feedback */}
+            <ArticleFeedback articleId={`cc-${card.id}`} />
 
-          {/* FAQ Section with Schema */}
-          <div className="my-12">
-            <ProductFAQSchema
-              faqs={CREDIT_CARD_GENERAL_FAQS.map((f: any) => ({
-                q: f.question || f.q,
-                a: f.answer || f.a,
-              }))}
-            />
+            {/* FAQ Section with Schema */}
+            <div id="faqs" className="my-12 scroll-mt-24">
+              <ProductFAQSchema
+                faqs={CREDIT_CARD_GENERAL_FAQS.map((f: any) => ({
+                  q: f.question || f.q,
+                  a: f.answer || f.a,
+                }))}
+              />
+            </div>
+
+            {/* User Reviews */}
+            <div id="reviews" className="scroll-mt-24">
+              <ProductReviews
+                productSlug={params.slug}
+                productType="credit_card"
+              />
+            </div>
+
+            {/* Alternatives Carousel - NEW */}
+            <div id="alternatives" className="scroll-mt-24">
+              <AlternativesCarousel
+                products={getSimilarProducts(card as any, [], 4)} // Passing empty array for now, will need actual products list
+                currentProductSlug={params.slug}
+                className="mt-12"
+              />
+            </div>
+
+            {/* Related Calculators - NEW */}
+            <RelatedCalculators category="credit_card" className="mt-12" />
           </div>
 
-          {/* User Reviews */}
-          <ProductReviews productSlug={params.slug} productType="credit_card" />
+          {/* Right Column: TOC Sidebar */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-24 space-y-6">
+              <TableOfContents
+                items={[
+                  { id: "key-features", text: "Key Features", level: 2 },
+                  { id: "rating", text: "Rating Overview", level: 2 },
+                  { id: "eligibility", text: "Eligibility", level: 2 },
+                  { id: "rewards", text: "Rewards Program", level: 2 },
+                  { id: "benefits", text: "Benefits", level: 2 },
+                  { id: "pros-cons", text: "Pros & Cons", level: 2 },
+                  { id: "fees", text: "Fees & Charges", level: 2 },
+                  { id: "faqs", text: "FAQs", level: 2 },
+                  { id: "reviews", text: "Reviews", level: 2 },
+                  { id: "alternatives", text: "Alternatives", level: 2 },
+                ]}
+              />
 
-          {/* Alternatives Carousel - NEW */}
-          <AlternativesCarousel
-            products={getSimilarProducts(card as any, [], 4)} // Passing empty array for now, will need actual products list
-            currentProductSlug={params.slug}
-            className="mt-12"
-          />
-
-          {/* Related Calculators - NEW */}
-          <RelatedCalculators category="credit_card" className="mt-12" />
+              {/* Compact Apply Now CTA */}
+              <Card className="border-green-200 bg-green-50/50 dark:bg-green-950/20 dark:border-green-900">
+                <CardContent className="p-4 text-center space-y-3">
+                  <p className="text-sm font-bold text-foreground">
+                    {card.name}
+                  </p>
+                  <ApplyNowCTA
+                    href={`/go/${params.slug}`}
+                    productName={card.name}
+                    productSlug={params.slug}
+                    productId={card.id}
+                    category="credit_card"
+                    providerName={card.provider}
+                    sourcePage="credit-card-detail-sidebar"
+                    variant="hero"
+                    className="w-full"
+                  />
+                  <p className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
+                    <ShieldCheck className="w-3 h-3" />
+                    Secure application
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </aside>
         </div>
       </div>
 
