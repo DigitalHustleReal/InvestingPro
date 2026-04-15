@@ -170,31 +170,7 @@ export default async function CreditCardsPage() {
             </div>
           </div>
 
-          {/* Quick filter pills — NerdWallet pattern */}
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-            {[
-              { label: "All Cards", href: "/credit-cards", active: true },
-              { label: "Rewards", href: "/credit-cards?filter=rewards" },
-              { label: "Cashback", href: "/credit-cards?filter=cashback" },
-              { label: "Travel", href: "/credit-cards?filter=travel" },
-              { label: "No Annual Fee", href: "/credit-cards?filter=no-fee" },
-              { label: "Fuel", href: "/credit-cards?filter=fuel" },
-              { label: "Shopping", href: "/credit-cards?filter=shopping" },
-              { label: "Premium", href: "/credit-cards?filter=premium" },
-            ].map((pill) => (
-              <Link
-                key={pill.label}
-                href={pill.href}
-                className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${
-                  pill.active
-                    ? "bg-green-600 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
-                }`}
-              >
-                {pill.label}
-              </Link>
-            ))}
-          </div>
+          {/* Quick filter pills are now rendered inside CreditCardsClient for state control */}
         </div>
       </section>
 

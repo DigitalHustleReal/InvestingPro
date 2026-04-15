@@ -63,7 +63,12 @@ export async function getCreditCardsServer(): Promise<RichProduct[]> {
     specs: {
       type: card.type || "Credit",
       annual_fee: card.annual_fee,
+      annualFee: card.annual_fee,
       joining_fee: card.joining_fee,
+      rewardRate: card.reward_rate,
+      rewardsType: card.reward_type,
+      min_income: card.min_income,
+      minIncome: card.min_income,
     },
 
     // Arrays
