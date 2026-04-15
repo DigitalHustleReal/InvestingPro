@@ -140,6 +140,12 @@ export default async function RootLayout({
         <meta charSet="utf-8" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="InvestingPro — Finance News & Guides"
+          href="https://investingpro.in/feed.xml"
+        />
       </head>
       <body
         suppressHydrationWarning
@@ -150,6 +156,27 @@ export default async function RootLayout({
           "min-h-screen flex flex-col bg-background text-foreground antialiased",
         )}
       >
+        {/* Organization JSON-LD — site-wide structured data for Google Knowledge Panel */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "InvestingPro",
+              url: "https://investingpro.in",
+              logo: "https://investingpro.in/logo.png",
+              description:
+                "India's free personal finance comparison platform. Compare credit cards, mutual funds, loans, and use 75+ financial calculators.",
+              sameAs: [],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                availableLanguage: ["English", "Hindi"],
+              },
+            }),
+          }}
+        />
         <GoogleAnalytics
           GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""}
         />

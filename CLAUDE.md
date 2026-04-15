@@ -205,8 +205,8 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 ### Platform Inventory (from Supabase + Vercel audit)
 | Asset | Count | Status |
 |-------|-------|--------|
-| Calculator pages | 58 live + 11 uncommitted VS calcs | Strongest asset |
-| Products in DB | 2,584 (81 CC, 346 MF, 61 loans, 25 FD, 24 insurance) | 4 have images |
+| Calculator pages | 75 live (58 original + 17 VS comparison) | Strongest asset |
+| Products in DB | 2,584 (81 CC, 346 MF, 61 loans, 25 FD, 24 insurance) | Pexels key added, auto-image cron active |
 | Published articles | 27 (all "best X" listicles, all Apr 7) | No educational content |
 | Draft articles | 21 unpublished | Wasted indexable pages |
 | Glossary terms | 101 | Good SEO asset |
@@ -222,28 +222,30 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 ### Vercel Deployment
 - Project: `investing-pro` at `https://www.investingpro.in`
 - Node 24.x, auto-deploy on git push
-- 35 env vars configured (GA4 + PostHog added 9 days ago)
-- 0 commits ahead of remote (all pushed except 11 uncommitted VS files)
+- 36 env vars configured (GA4 + PostHog added 9 days ago, Pexels added Apr 15)
+- 0 commits ahead of remote (all pushed, 4 commits deployed Apr 15)
 
 ### What's DONE:
 - [x] All DB queries fixed — 19/19 product + article pages verified
 - [x] Autonomous content pipeline wired
-- [x] 58 calculator pages live (23 original + 16 V2 + 9 P1 + 7 P2 + 3 specialized)
+- [x] 75 calculator pages live (58 original + 17 VS comparison — Apr 15 session)
 - [x] Shared calculator components: SliderInput, ResultCard, AIInsight, VSComparisonLayout, TrustStrip, PopularCalculators
+- [x] Cron security: 2 vulnerabilities fixed (hardcoded dev-secret-key, non-standard auth header)
+- [x] Pexels API key added to Vercel — auto-image cron now active
 - [x] 81/81 credit card apply links populated
 - [x] Homepage dynamic (TopPicks, Editorial, MarketPulse)
 - [x] GA4 + PostHog keys on Vercel (added Apr 6)
 - [x] UI overhaul Phase 1-3 complete: green brand, light mode default, mobile bottom nav
 
 ### Known Issues (April 15 audit):
-- [ ] CRON_SECRET not set — 40 cron endpoints publicly accessible (SECURITY)
+- [ ] CRON_SECRET not set — 40 cron endpoints need secret (41/42 validate it, code is ready, just add env var)
 - [ ] NEXT_PUBLIC_BASE_URL missing on Vercel (affects canonical URLs)
 - [ ] 0 educational articles (100% commercial "best X" content)
 - [ ] 11 of 19 categories have ZERO articles
 - [ ] 0 affiliate conversions tracked (revenue = ₹0)
-- [ ] 4/2,584 product images populated
+- [x] Pexels key added — image cron will auto-populate product images (was 4/2,584)
 - [ ] Content queue is all CC long-tail spam — needs cleanup
-- [ ] 11 VS calculator files uncommitted (local disk only)
+- [x] VS calculator files committed and deployed (was 11 uncommitted)
 - [ ] Stripe, Twitter, LinkedIn, Google OAuth keys all missing
 - [ ] RSS feed not linked in layout head (not discoverable)
 - [ ] Organization schema with sameAs not in root layout
@@ -290,17 +292,16 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 | O15 | Stripe, Google OAuth keys (P2 — later month) | P2 | 1 hr | |
 
 ### Claude 7-Day Sprint (Apr 15-22, before Max expires)
-| Day | Phase | Task | Output |
-|-----|-------|------|--------|
-| 1 | A1 | Commit + push 11 VS files | Backup + deploy Old vs New Tax page |
-| 1 | A2 | Verify cron CRON_SECRET validation | Security audit |
-| 1 | A3 | Build 8 page.tsx for existing VS components | +8 calculator pages |
-| 2 | B1 | Build 8 remaining VS calculators + pages | +8 more = 75 total calculators |
-| 2 | B2 | Verify 20 DB versus_pages render | Fix invisible CC comparisons |
-| 3 | D | RSS `<link>` in head, social links in footer, org schema, category merge | Technical SEO |
-| 3-5 | C1 | 20 educational articles (CC, MF, Loans, Insurance) | Topical authority started |
-| 5-6 | C1 | 20 more articles (Tax, FD, Retirement, Stocks/IPO) | All 19 categories covered |
-| 7 | E | Affiliate click tracking, calculator CTAs | Revenue wiring |
+| Day | Phase | Task | Output | Status |
+|-----|-------|------|--------|:---:|
+| 1 | A1 | Commit + push 11 VS files | Deployed | DONE |
+| 1 | A2 | Cron security audit + fix 2 vulnerabilities | 41/42 routes secure | DONE |
+| 1 | A3 | Build 8 page.tsx for existing VS components | +8 calculator pages | DONE |
+| 1 | B1 | Build 8 remaining VS calculators + pages | +8 more = 75 total | DONE |
+| 1 | D | RSS link, social footer, org schema, category merge | Technical SEO | IN PROGRESS |
+| 2-4 | C1 | 20 educational articles (CC, MF, Loans, Insurance) | Topical authority | NEXT |
+| 4-6 | C1 | 20 more articles (Tax, FD, Retirement, Stocks/IPO) | All categories covered | PENDING |
+| 6-7 | E | Affiliate click tracking, calculator CTAs | Revenue wiring | PENDING |
 
 ### Post-Max Plan (Apr 22+, Claude Pro ₹1,680/mo)
 - Write 2-3 articles/week using Claude Pro + Grok
@@ -322,7 +323,7 @@ Target:   40% educational + 30% commercial + 20% timely + 10% tools
 ### 90-Day Targets
 | Metric | Now | End April | End May | End June |
 |--------|:---:|:---:|:---:|:---:|
-| Calculators | 58 | 75 | 75 | 80+ |
+| Calculators | 75 (done) | 75 | 75 | 80+ |
 | Published articles | 27 | 48 | 88 | 120+ |
 | Categories covered | 8/19 | 12/19 | 19/19 | 19/19 |
 | GSC impressions/day | 0 | tracking | 100+ | 500+ |
