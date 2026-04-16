@@ -54,16 +54,18 @@ export function ArticleClientShell({ articleId, articleTitle }: Props) {
         />
       </div>
 
-      {/* Floating action strip — right side on desktop */}
-      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-2">
-        <BookmarkButton articleId={articleId} variant="icon" size="md" />
-        <button
-          onClick={handleShare}
-          title="Share article"
-          className="w-10 h-10 rounded-xl bg-background/80 backdrop-blur border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors flex items-center justify-center shadow-sm"
-        >
-          <Share2 className="w-4 h-4" />
-        </button>
+      {/* Inline bookmark + share — rendered in meta row via portal target */}
+      <div id="article-actions" className="contents">
+        <div className="flex items-center gap-1.5">
+          <BookmarkButton articleId={articleId} variant="icon" size="sm" />
+          <button
+            onClick={handleShare}
+            title="Share article"
+            className="w-8 h-8 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors flex items-center justify-center"
+          >
+            <Share2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
     </>
   );

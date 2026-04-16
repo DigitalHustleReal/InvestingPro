@@ -213,12 +213,6 @@ export default async function ArticlePage({
       ))}
 
       <div className="min-h-screen bg-background relative">
-        {/* Client shell: reading progress bar + bookmark + share state */}
-        <ArticleClientShell
-          articleId={article.id}
-          articleTitle={article.title}
-        />
-
         {/* Preview banner */}
         {isPreview && article.status !== "published" && (
           <div className="bg-amber-50 border-b border-amber-200 px-4 py-2.5 text-center">
@@ -261,46 +255,57 @@ export default async function ArticlePage({
                 {article.excerpt}
               </p>
 
-              {/* Meta row */}
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
-                <AuthorBadge
-                  name={
-                    article.author?.name ||
-                    article.author_name ||
-                    "InvestingPro Team"
-                  }
-                  role={article.author?.role || article.author_role}
-                  avatarUrl={article.author?.photo_url || article.author_avatar}
-                  slug={article.author?.slug}
-                  bio={article.author?.bio}
-                  credentials={article.author?.credentials}
-                  size="md"
-                  showRole
-                />
-                {(article.published_at || article.published_date) && (
+              {/* Meta row — author + actions on one line, date/time below */}
+              <div className="mb-8 pb-8 border-b border-border space-y-4">
+                <div className="flex items-center justify-between">
+                  <AuthorBadge
+                    name={
+                      article.author?.name ||
+                      article.author_name ||
+                      "InvestingPro Team"
+                    }
+                    role={article.author?.role || article.author_role}
+                    avatarUrl={
+                      article.author?.photo_url || article.author_avatar
+                    }
+                    slug={article.author?.slug}
+                    bio={article.author?.bio}
+                    credentials={article.author?.credentials}
+                    size="md"
+                    showRole
+                  />
+                  {/* Bookmark + Share inline with author */}
+                  <ArticleClientShell
+                    articleId={article.id}
+                    articleTitle={article.title}
+                  />
+                </div>
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-muted-foreground">
+                  {(article.published_at || article.published_date) && (
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {new Date(
+                        article.published_at || article.published_date,
+                      ).toLocaleDateString("en-IN", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </span>
+                  )}
+                  <LastUpdatedBadge
+                    publishedAt={article.published_at || article.published_date}
+                    updatedAt={article.updated_at}
+                  />
                   <span className="flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {new Date(
-                      article.published_at || article.published_date,
-                    ).toLocaleDateString("en-IN", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
+                    <Clock className="w-3.5 h-3.5" />
+                    {article.read_time || "5"} min read
                   </span>
-                )}
-                <LastUpdatedBadge
-                  publishedAt={article.published_at || article.published_date}
-                  updatedAt={article.updated_at}
-                />
-                <span className="flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5" />
-                  {article.read_time || "5"} min read
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Eye className="w-3.5 h-3.5" />
-                  {(article.views || 0).toLocaleString("en-IN")} views
-                </span>
+                  <span className="flex items-center gap-1.5">
+                    <Eye className="w-3.5 h-3.5" />
+                    {(article.views || 0).toLocaleString("en-IN")} views
+                  </span>
+                </div>
               </div>
 
               {/* Featured image */}
