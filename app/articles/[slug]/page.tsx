@@ -103,7 +103,10 @@ export async function generateMetadata({
   const canonical = generateCanonicalUrl(`/articles/${article.slug}`);
 
   return {
-    title: article.seo_title || `${article.title} | InvestingPro`,
+    title: (article.seo_title || article.title).replace(
+      /\s*\|\s*InvestingPro\s*$/i,
+      "",
+    ),
     description: article.seo_description || article.excerpt,
     alternates: { canonical },
     openGraph: {
