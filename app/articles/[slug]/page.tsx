@@ -23,7 +23,7 @@ import TopPicksSidebar from "@/components/products/TopPicksSidebar";
 // ContextualProducts removed — sidebar handles product recommendations
 // SeamlessCTA and LeadMagnet removed — cluttered bottom section
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Eye } from "lucide-react";
+import { Calendar, Clock, Sparkles } from "lucide-react";
 import DifficultyBadge from "@/components/common/DifficultyBadge";
 import TrustBadge from "@/components/common/TrustBadge";
 import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
@@ -32,6 +32,7 @@ import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
 import SidebarTableOfContents from "@/components/articles/SidebarTableOfContents";
 import SidebarCalculatorCTA from "@/components/articles/SidebarCalculatorCTA";
+import AISummaryBox from "@/components/articles/AISummaryBox";
 import { ArticleClientShell } from "./ArticleClientShell";
 import ArticleFeedback from "@/components/articles/ArticleFeedback";
 import MidArticleCapture from "@/components/articles/MidArticleCapture";
@@ -250,11 +251,6 @@ export default async function ArticlePage({
                 {article.title}
               </h1>
 
-              {/* Excerpt */}
-              <p className="text-xl text-gray-600 dark:text-gray-400 mb-7 leading-relaxed font-medium border-l-4 border-primary/30 pl-4">
-                {article.excerpt}
-              </p>
-
               {/* Meta row — author + actions on one line, date/time below */}
               <div className="mb-8 pb-8 border-b border-border space-y-4">
                 <div className="flex items-center justify-between">
@@ -301,12 +297,15 @@ export default async function ArticlePage({
                     <Clock className="w-3.5 h-3.5" />
                     {article.read_time || "5"} min read
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <Eye className="w-3.5 h-3.5" />
-                    {(article.views || 0).toLocaleString("en-IN")} views
-                  </span>
                 </div>
               </div>
+
+              {/* AI Summary Box — collapsible quick read */}
+              <AISummaryBox
+                excerpt={article.excerpt}
+                category={article.category}
+                readTime={article.read_time || article.reading_time}
+              />
 
               {/* Featured image */}
               {article.featured_image && (
