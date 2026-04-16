@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import SEOHead from "@/components/common/SEOHead";
 import { formatSlug } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,12 +25,12 @@ interface Article {
   author_name?: string;
 }
 
-export default function ArticlesPage() {
+export default function ArticlesClient() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
-  // Fetch published articles via API (client-safe)
   const { data, isLoading } = useQuery({
     queryKey: ["articles", "public"],
     queryFn: async () => {
@@ -40,23 +39,41 @@ export default function ArticlesPage() {
       const result = await response.json();
       return result.articles || [];
     },
-    staleTime: 60 * 1000, // Cache for 1 minute
+    staleTime: 60 * 1000,
   });
 
   const articles: Article[] = data || [];
 
-  // Filter articles by search term
-  const filteredArticles = (Array.isArray(articles) ? articles : []).filter(
-    (article) => {
-      if (!searchTerm) return true;
-      const searchLower = searchTerm.toLowerCase();
-      return (
-        article.title?.toLowerCase().includes(searchLower) ||
-        article.excerpt?.toLowerCase().includes(searchLower) ||
-        article.category?.toLowerCase().includes(searchLower)
-      );
-    },
+  // Extract unique categories from article data
+  const categories = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          (Array.isArray(articles) ? articles : [])
+            .map((a) => a.category)
+            .filter(Boolean),
+        ),
+      ).sort(),
+    [articles],
   );
+
+  // Filter by category, then by search term
+  const filteredArticles = useMemo(() => {
+    let filtered = Array.isArray(articles) ? articles : [];
+    if (selectedCategory !== "all") {
+      filtered = filtered.filter((a) => a.category === selectedCategory);
+    }
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (a) =>
+          a.title?.toLowerCase().includes(q) ||
+          a.excerpt?.toLowerCase().includes(q) ||
+          a.category?.toLowerCase().includes(q),
+      );
+    }
+    return filtered;
+  }, [articles, selectedCategory, searchTerm]);
 
   // Pagination
   const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
@@ -66,192 +83,184 @@ export default function ArticlesPage() {
     startIndex + itemsPerPage,
   );
 
-  // Categories for filtering
-  const categories = Array.from(
-    new Set(
-      (Array.isArray(articles) ? articles : [])
-        .map((a) => a.category)
-        .filter(Boolean),
-    ),
-  );
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-
-  const categoryFilteredArticles =
-    selectedCategory === "all"
-      ? paginatedArticles
-      : paginatedArticles.filter((a) => a.category === selectedCategory);
-
   return (
-    <div className="min-h-screen bg-white">
-      <SEOHead
-        title="Articles | InvestingPro"
-        description="Explore our latest articles on investing, personal finance, and financial planning."
-      />
-
-      {/* Header */}
-      <div className="bg-gradient-to-br from-primary-50 to-secondary-50 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            Articles & Guides
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl">
-            Expert insights on investing, personal finance, and financial
-            planning.
-          </p>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Search and Filters */}
-        <div className="mb-8">
-          <div className="flex flex-col sm:flex-row gap-4 mb-6">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-5 h-5" />
-              <Input
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="pl-10"
-              />
-            </div>
-          </div>
-
-          {/* Category Filters */}
-          {categories.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
-              <Button
-                variant={selectedCategory === "all" ? "default" : "outline"}
-                onClick={() => {
-                  setSelectedCategory("all");
-                  setCurrentPage(1);
-                }}
-                className="rounded-full"
-              >
-                All Categories
-              </Button>
-              {categories.map((category) => (
-                <Link key={category} href={`/category/${category}`}>
-                  <Button
-                    variant={
-                      selectedCategory === category ? "default" : "outline"
-                    }
-                    onClick={() => {
-                      setSelectedCategory(category);
-                      setCurrentPage(1);
-                    }}
-                    className="rounded-full"
-                  >
-                    {formatSlug(category)}
-                  </Button>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Articles Grid */}
-        {isLoading ? (
-          <div className="text-center py-12">
-            <div className="text-gray-600">Loading articles...</div>
-          </div>
-        ) : categoryFilteredArticles.length === 0 ? (
-          <EmptyState
-            title="No articles found"
-            description={
-              searchTerm || selectedCategory !== "all"
-                ? "Try adjusting your search or filters."
-                : "No published articles available yet."
-            }
+    <>
+      {/* Search + Category Filters */}
+      <div className="mb-8">
+        <div className="relative max-w-md mb-5">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Input
+            placeholder="Search articles..."
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="pl-10"
           />
-        ) : (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {categoryFilteredArticles.map((article) => (
-                <Link key={article.id} href={`/articles/${article.slug}`}>
-                  <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-                    {article.featured_image && (
-                      <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-                        <SmartImage
-                          src={article.featured_image}
-                          category={article.category}
-                          alt={article.title}
-                          className="w-full h-full"
-                        />
-                      </div>
-                    )}
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Badge variant="outline" className="text-xs">
-                          {formatSlug(article.category || "")}
-                        </Badge>
-                      </div>
-                      <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
-                        {article.title}
-                      </h2>
-                      {article.excerpt && (
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                          {article.excerpt}
-                        </p>
-                      )}
-                      <div className="flex items-center justify-between text-xs text-gray-500">
-                        <div className="flex items-center gap-4">
-                          {article.read_time && (
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {article.read_time} min
-                            </span>
-                          )}
-                          {article.published_date && (
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              {new Date(
-                                article.published_date,
-                              ).toLocaleDateString("en-IN", {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                              })}
-                            </span>
-                          )}
-                        </div>
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-            </div>
+        </div>
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex justify-center gap-2">
-                <Button
-                  variant="outline"
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                >
-                  Previous
-                </Button>
-                <span className="flex items-center px-4 text-gray-600">
-                  Page {currentPage} of {totalPages}
-                </span>
-                <Button
-                  variant="outline"
-                  onClick={() =>
-                    setCurrentPage((p) => Math.min(totalPages, p + 1))
-                  }
-                  disabled={currentPage === totalPages}
-                >
-                  Next
-                </Button>
-              </div>
-            )}
-          </>
+        {categories.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => {
+                setSelectedCategory("all");
+                setCurrentPage(1);
+              }}
+              className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${
+                selectedCategory === "all"
+                  ? "bg-green-600 text-white"
+                  : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
+              }`}
+            >
+              All Articles
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setCurrentPage(1);
+                }}
+                className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${
+                  selectedCategory === category
+                    ? "bg-green-600 text-white"
+                    : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
+                }`}
+              >
+                {formatSlug(category)}
+              </button>
+            ))}
+          </div>
         )}
       </div>
-    </div>
+
+      {/* Article count */}
+      {!isLoading && filteredArticles.length > 0 && (
+        <p className="text-sm text-gray-500 mb-4">
+          {filteredArticles.length} article
+          {filteredArticles.length !== 1 ? "s" : ""}
+          {selectedCategory !== "all" && (
+            <>
+              {" "}
+              in{" "}
+              <span className="font-medium text-gray-700">
+                {formatSlug(selectedCategory)}
+              </span>
+            </>
+          )}
+        </p>
+      )}
+
+      {/* Articles Grid */}
+      {isLoading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="animate-pulse">
+              <div className="aspect-video bg-gray-200 rounded-t-lg" />
+              <div className="p-6 bg-white rounded-b-lg border border-t-0 border-gray-200">
+                <div className="h-4 bg-gray-200 rounded w-20 mb-3" />
+                <div className="h-5 bg-gray-200 rounded w-full mb-2" />
+                <div className="h-5 bg-gray-200 rounded w-3/4 mb-4" />
+                <div className="h-3 bg-gray-200 rounded w-1/2" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : paginatedArticles.length === 0 ? (
+        <EmptyState
+          title="No articles found"
+          description={
+            searchTerm || selectedCategory !== "all"
+              ? "Try adjusting your search or filters."
+              : "No published articles available yet."
+          }
+        />
+      ) : (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {paginatedArticles.map((article) => (
+              <Link key={article.id} href={`/articles/${article.slug}`}>
+                <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer overflow-hidden">
+                  <div className="aspect-video w-full overflow-hidden relative bg-gray-100">
+                    <SmartImage
+                      src={article.featured_image || null}
+                      category={article.category}
+                      alt={article.title}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <CardContent className="p-5">
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <Badge variant="outline" className="text-xs">
+                        {formatSlug(article.category || "")}
+                      </Badge>
+                    </div>
+                    <h2 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 leading-snug">
+                      {article.title}
+                    </h2>
+                    {article.excerpt && (
+                      <p className="text-gray-500 text-sm mb-3 line-clamp-2">
+                        {article.excerpt}
+                      </p>
+                    )}
+                    <div className="flex items-center justify-between text-xs text-gray-400 pt-2 border-t border-gray-100">
+                      <div className="flex items-center gap-3">
+                        {article.read_time && (
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {article.read_time} min
+                          </span>
+                        )}
+                        {(article.published_date || article.published_at) && (
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            {new Date(
+                              article.published_date || article.published_at,
+                            ).toLocaleDateString("en-IN", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
+                          </span>
+                        )}
+                      </div>
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <span className="text-sm text-gray-500 px-3">
+                Page {currentPage} of {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </Button>
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 }

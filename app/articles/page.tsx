@@ -7,7 +7,7 @@ import ArticlesClient from "./ArticlesClient";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Financial Articles & Research — InvestingPro",
+  title: "Financial Articles & Research",
   description:
     "Independent financial research, analysis, and guides for Indian investors. Credit cards, mutual funds, loans, tax planning, and market insights.",
   openGraph: {
@@ -57,30 +57,6 @@ export default function ArticlesPage() {
                 Expert reviewed
               </span>
             </div>
-          </div>
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-            {[
-              "All Articles",
-              "Credit Cards",
-              "Mutual Funds",
-              "Loans",
-              "Insurance",
-              "Tax",
-              "Market Analysis",
-              "Guides",
-            ].map((p, i) => (
-              <Link
-                key={p}
-                href={
-                  i === 0
-                    ? "/articles"
-                    : `/articles?category=${p.toLowerCase().replace(" ", "-")}`
-                }
-                className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${i === 0 ? "bg-green-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
-              >
-                {p}
-              </Link>
-            ))}
           </div>
         </div>
       </section>
