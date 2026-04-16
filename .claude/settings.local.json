@@ -41,7 +41,18 @@
       "Bash(grep -r \"articles\\\\|content\\\\|seed\" /c/Users/shivp/Desktop/InvestingPro_App/app --include=*.ts -l)",
       "Bash(grep -r \"Apply Now\\\\|Get Started\\\\|Sign Up\\\\|CTA\\\\|conversion\" /c/Users/shivp/Desktop/InvestingPro_App/app --include=*.tsx --include=*.ts)",
       "Bash(find /c/Users/shivp/Desktop/InvestingPro_App/lib -name *analytics* -o -name *posthog* -o -name *social*)",
-      "Bash(grep -r \"social.*generate\\\\|twitter\\\\|linkedin\\\\|whatsapp\" /c/Users/shivp/Desktop/InvestingPro_App/app/api --include=*.ts -l)"
+      "Bash(grep -r \"social.*generate\\\\|twitter\\\\|linkedin\\\\|whatsapp\" /c/Users/shivp/Desktop/InvestingPro_App/app/api --include=*.ts -l)",
+      "Bash(npx kill-port:*)",
+      "Bash(curl -s -m 10 -o /dev/null -w \"%{http_code}\" http://localhost:3099/)",
+      "Bash(curl -s -m 120 -o /dev/null -w \"zerodha: %{http_code} %{size_download}b\\\\n\" http://localhost:3099/demat-accounts/zerodha)",
+      "Bash(curl -s -m 120 -o /dev/null -w \"groww: %{http_code} %{size_download}b\\\\n\" http://localhost:3099/demat-accounts/groww)",
+      "Bash(grep -r \"annual_fee\\\\|joining_fee\\\\|interest_rate\\\\|min_income\\\\|pipeline_run_id\\\\|product_id\" /c/Users/shivp/Desktop/InvestingPro_App/supabase/migrations/*.sql)",
+      "Bash(find /c/Users/shivp/Desktop/InvestingPro_App -type f \\\\\\( -name \"*.tsx\" -o -name \"*.ts\" \\\\\\) -path \"*/app/*\" ! -path \"*/.next/*\" ! -path \"*/worktree/*\" -exec grep -l \"dynamic.*\\\\|revalidate.*0\\\\|ISR\\\\|getStaticProps\\\\|getServerSideProps\" {} \\\\;)",
+      "Bash(node:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(wc -l /c/Users/shivp/Desktop/InvestingPro_App/app/api/admin/*.ts)",
+      "Bash(curl -s -m 5 -o /dev/null -w \"%{http_code}\" http://localhost:3099/)"
     ]
   }
 }

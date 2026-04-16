@@ -24,6 +24,8 @@ const CALCULATORS = [
   { name: "CAGR Calculator", slug: "cagr", tag: "New" },
   { name: "Step-Up SIP", slug: "step-up-sip", tag: "New" },
   { name: "Lumpsum vs SIP", slug: "lumpsum-vs-sip", tag: "VS" },
+  { name: "PO FD vs Bank FD", slug: "po-fd-vs-bank-fd", tag: "VS" },
+  { name: "SIP vs RD", slug: "sip-vs-rd", tag: "VS" },
   { name: "Compound Interest", slug: "compound-interest" },
   { name: "RD Calculator", slug: "rd" },
   { name: "SSY Calculator", slug: "ssy" },
