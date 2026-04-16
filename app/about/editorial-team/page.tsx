@@ -1,229 +1,272 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Twitter, Linkedin, CheckCircle2, ShieldCheck, Newspaper } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import {
+  CheckCircle2,
+  ShieldCheck,
+  Newspaper,
+  FileSearch,
+  BarChart3,
+  Scale,
+  BookOpen,
+  Users,
+} from "lucide-react";
 
 export const metadata = {
-  title: 'Editorial Team | InvestingPro India',
-  description: 'Meet the financial experts, analysts, and editors behind InvestingPro India - trusted by millions for unbiased financial advice.',
+  title: "Our Editorial Team & Process | InvestingPro India",
+  description:
+    "How InvestingPro researches, writes, and fact-checks financial content. Our editorial process ensures every guide is accurate, unbiased, and data-driven.",
 };
 
-const TEAM_MEMBERS = [
+const DESKS = [
   {
-    id: 'rahul-kapoor',
-    name: 'Rahul Kapoor',
-    role: 'Editor-in-Chief',
-    image: '/images/team/rahul-kapoor.png',
-    bio: '18+ years in financial journalism, formerly with The Economic Times and Mint. Expert in macroeconomics, RBI policy, and banking regulations. Rahul leads our editorial vision with a focus on "Truth in Finance".',
-    expertise: ['Macroeconomics', 'Banking Policy', 'Debt Markets'],
-    social: { twitter: '#', linkedin: '#' }
+    name: "Tax Desk",
+    focus: "Income Tax, Section 80C, ITR Filing, HRA, Tax Regime Analysis",
+    articles: "10+ guides",
+    approach:
+      "Every tax article references specific sections of the Income Tax Act 1961 and is updated after Finance Act amendments. We include salary-based INR calculations for 4+ income levels.",
+    icon: Scale,
   },
   {
-    id: 'priya-subramaniam',
-    name: 'Priya Subramaniam',
-    role: 'Lead Investment Analyst',
-    image: '/images/team/priya-subramaniam.png',
-    bio: 'CFA Charterholder and former Fund Manager with 12 years of experience managing equity portfolios. Priya specializes in decoding Mutual Fund strategies and simplifying SIPs for retail investors.',
-    expertise: ['Mutual Funds', 'Equity Research', 'Portfolio Construction'],
-    social: { twitter: '#', linkedin: '#' }
+    name: "Credit & Banking Team",
+    focus: "Credit Cards, CIBIL Scores, Savings Accounts, Banking Products",
+    articles: "15+ guides",
+    approach:
+      "Card reward rates verified from official T&C documents. Fee-to-benefit break-even calculated for every recommendation. CIBIL content aligned with TransUnion guidelines.",
+    icon: BarChart3,
   },
   {
-    id: 'aditya-gokhale',
-    name: 'Aditya Gokhale',
-    role: 'Senior Credit Strategist',
-    image: '/images/team/aditya-gokhale.png',
-    bio: 'Ex-HDFC Bank Product Manager who knows the credit card industry from the inside out. Aditya decodes the fine print, reward points (miles/cashback), and hidden fees that banks don\'t tell you about.',
-    expertise: ['Credit Cards', 'Rewards Optimization', 'Credit Scores'],
-    social: { twitter: '#', linkedin: '#' }
+    name: "Investment Research",
+    focus: "Mutual Funds, SIP, ELSS, Index Funds, Stocks, IPOs",
+    articles: "15+ guides",
+    approach:
+      "Fund recommendations backed by historical NAV data. SIP calculations use compound interest formulas validated against AMC calculators. No fund house sponsorships.",
+    icon: FileSearch,
   },
   {
-    id: 'zoya-khan',
-    name: 'Zoya Khan',
-    role: 'Consumer Finance Lead',
-    image: '/images/team/zoya-khan.png',
-    bio: 'The brain behind our "Smart Spender" series. Zoya finds the best shopping deals, loan interest hacks, and savings account arbitrage opportunities. She helps Indian families save ₹1 Lakh+ annually.',
-    expertise: ['Personal Loans', 'Savings Hacks', 'E-commerce Deals'],
-    social: { twitter: '#', linkedin: '#' }
+    name: "Lending & Insurance Desk",
+    focus: "Home Loans, Personal Loans, Term Insurance, Health Insurance",
+    articles: "10+ guides",
+    approach:
+      "Interest rates sourced from bank websites and RBI data. EMI calculations independently verified. Insurance comparisons based on IRDAI-filed product brochures.",
+    icon: BookOpen,
+  },
+];
+
+const PROCESS_STEPS = [
+  {
+    step: "1",
+    title: "Primary Research",
+    desc: "We research from official sources — RBI circulars, SEBI guidelines, Income Tax Act, IRDAI filings, and product issuer websites. Never secondary blogs.",
   },
   {
-    id: 'vikram-singh',
-    name: 'Vikram Singh',
-    role: 'Head of Banking & Loans',
-    image: '/images/team/vikram-singh.png',
-    bio: 'With 20 years in retail banking across Punjab and Delhi, Vikram is our authority on Home Loans and Property Finance. He explains complex loan structures in simple "Desi" terms.',
-    expertise: ['Home Loans', 'Mortgage', 'Real Estate Finance'],
-    social: { twitter: '#', linkedin: '#' }
+    step: "2",
+    title: "Data Collection & Verification",
+    desc: "Interest rates, reward points, fees, and tax slabs are cross-checked against at least two independent sources. Calculations are run independently.",
   },
   {
-    id: 'anjali-das',
-    name: 'CA Anjali Das',
-    role: 'Tax & Insurance Expert',
-    image: '/images/team/anjali-das.png',
-    bio: 'A practicing Chartered Accountant (CA) who hates jargon. Anjali makes Income Tax filing, GST, and Term Insurance clauses understandable for everyone. She ensures our advice is 100% compliant.',
-    expertise: ['Income Tax', 'Term Insurance', 'GST'],
-    social: { twitter: '#', linkedin: '#' }
+    step: "3",
+    title: "Writing & INR Examples",
+    desc: "Guides are written in plain English with real ₹ calculations. Every comparison includes salary-based or income-based scenarios Indian readers can relate to.",
   },
   {
-    id: 'david-sangma',
-    name: 'David Sangma',
-    role: 'Fintech & Tech Lead',
-    image: '/images/team/david-sangma.png',
-    bio: 'Covering the future of money. From UPI updates to the Digital Rupee and Neo-banking apps, David tracks how technology is changing the way Indians transact and invest.',
-    expertise: ['Fintech', 'Digital Payments', 'Crypto Assets'],
-    social: { twitter: '#', linkedin: '#' }
-  }
+    step: "4",
+    title: "Editorial Review",
+    desc: "A second team member reviews for accuracy, completeness, and clarity. Misleading claims, unsupported comparisons, and jargon are flagged and revised.",
+  },
+  {
+    step: "5",
+    title: "Fact-Check & Publish",
+    desc: "Final fact-check against current data. Last-updated date is set. Article is published with source references, internal links, and FAQ schema for rich results.",
+  },
+  {
+    step: "6",
+    title: "Ongoing Updates",
+    desc: "Published articles are reviewed when underlying data changes — new FD rates, budget amendments, product launches. Updated articles show the revision date prominently.",
+  },
 ];
 
 export default function EditorialTeamPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      {/* Hero Section */}
-      <div className="relative bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/50 to-transparent dark:from-primary-950/10 pointer-events-none" />
-        <div className="container mx-auto px-4 py-16 relative">
+      {/* Hero */}
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <div className="container mx-auto px-4 py-16">
           <div className="max-w-3xl mx-auto text-center">
-            <Badge variant="outline" className="mb-4 bg-primary-50 text-primary-700 border-primary-200 dark:bg-primary-950/50 dark:text-primary-400">
-              InvestingPro Editorial Board
+            <Badge
+              variant="outline"
+              className="mb-4 bg-primary/5 text-primary border-primary/20"
+            >
+              InvestingPro Editorial
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-6">
-              Expertise You Can Trust
+              How We Research & Write
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-              We are a team of journalists, CAs, bankers, and analysts obsessed with one mission: 
-              <strong> Making you wealthier, faster.</strong> Our content is fact-checked, unbiased, and data-driven.
+              Every article on InvestingPro is researched from official sources,
+              verified with real data, and written in plain language with INR
+              examples. We do not accept sponsored editorial content.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Trust Signals Bar */}
+      {/* Trust Signals */}
       <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 py-6">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
             <div className="flex flex-col items-center gap-2">
-              <ShieldCheck className="h-8 w-8 text-primary-600" />
-              <h3 className="font-semibold text-gray-900 dark:text-white">Editorial Independence</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-600">Our reviews are never influenced by partners.</p>
+              <ShieldCheck className="h-7 w-7 text-primary" />
+              <h3 className="font-semibold text-sm text-gray-900 dark:text-white">
+                Editorial Independence
+              </h3>
+              <p className="text-xs text-gray-500">
+                No paid placements in articles
+              </p>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <CheckCircle2 className="h-8 w-8 text-primary-600" />
-              <h3 className="font-semibold text-gray-900 dark:text-white">Fact-Checked Accuracy</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-600">Every rate and fee verified weekly.</p>
+              <CheckCircle2 className="h-7 w-7 text-primary" />
+              <h3 className="font-semibold text-sm text-gray-900 dark:text-white">
+                Fact-Checked
+              </h3>
+              <p className="text-xs text-gray-500">Against official sources</p>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <Newspaper className="h-8 w-8 text-primary-600" />
-              <h3 className="font-semibold text-gray-900 dark:text-white">Expert Contributors</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-600">Written by CAs, Bankers & Analysts.</p>
+              <Newspaper className="h-7 w-7 text-primary" />
+              <h3 className="font-semibold text-sm text-gray-900 dark:text-white">
+                51+ Articles Published
+              </h3>
+              <p className="text-xs text-gray-500">
+                Across 16 finance categories
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Users className="h-7 w-7 text-primary" />
+              <h3 className="font-semibold text-sm text-gray-900 dark:text-white">
+                Specialist Desks
+              </h3>
+              <p className="text-xs text-gray-500">
+                Tax, Credit, Investments, Lending
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Team Grid */}
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Editor In Chief (Full Width on Mobile, Featured) */}
-            <div className="lg:col-span-3 flex justify-center mb-8">
-                <Card className="max-w-4xl w-full overflow-hidden border-primary-100 dark:border-primary-900/50 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div className="flex flex-col md:flex-row">
-                        <div className="md:w-1/3 relative h-80 md:h-auto">
-                            <Image 
-                                src={TEAM_MEMBERS[0].image} 
-                                alt={TEAM_MEMBERS[0].name}
-                                fill
-                                className="object-cover object-top"
-                                priority
-                            />
-                        </div>
-                        <div className="md:w-2/3 p-8 flex flex-col justify-center">
-                            <div className="flex items-center gap-2 mb-2">
-                                <Badge className="bg-primary-600 hover:bg-primary-700">{TEAM_MEMBERS[0].role}</Badge>
-                            </div>
-                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{TEAM_MEMBERS[0].name}</h2>
-                            <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg leading-relaxed">
-                                {TEAM_MEMBERS[0].bio}
-                            </p>
-                            <div className="flex flex-wrap gap-2 mb-6">
-                                {TEAM_MEMBERS[0].expertise.map((skill) => (
-                                    <Badge key={skill} variant="secondary" className="bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
-                                        {skill}
-                                    </Badge>
-                                ))}
-                            </div>
-                            <div className="flex gap-4">
-                                <a href="#" className="text-gray-600 hover:text-primary-600 transition-colors">
-                                    <Twitter className="h-5 w-5" />
-                                </a>
-                                <a href="#" className="text-gray-600 hover:text-primary-600 transition-colors">
-                                    <Linkedin className="h-5 w-5" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </Card>
-            </div>
-
-            {/* Other Team Members */}
-            {TEAM_MEMBERS.slice(1).map((member, index) => (
-                <Link href={`/about/editorial-team/${member.id}`} key={index} className="block group">
-                <Card className="h-full overflow-hidden hover:border-primary-200 dark:hover:border-primary-800 transition-colors duration-300">
-                    <div className="relative h-64 w-full bg-gray-100 dark:bg-gray-800">
-                        <Image 
-                            src={member.image} 
-                            alt={member.name}
-                            fill
-                            className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        />
-                    </div>
-                    <CardHeader>
-                        <div className="flex justify-between items-start mb-2">
-                            <Badge variant="outline" className="text-primary-600 border-primary-200 dark:text-primary-400 dark:border-primary-800">
-                                {member.role}
-                            </Badge>
-                        </div>
-                        <CardTitle className="text-xl font-bold group-hover:text-primary-600 transition-colors">{member.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
-                            {member.bio}
-                        </p>
-                        <Separator className="my-4" />
-                        <div className="flex flex-wrap gap-2 mb-4 h-16 overflow-hidden content-start">
-                            {member.expertise.map((skill) => (
-                                <Badge key={skill} variant="secondary" className="text-xs bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-600">
-                                    {skill}
-                                </Badge>
-                            ))}
-                        </div>
-                        <div className="flex gap-3">
-                            <span className="text-primary-600 text-sm font-medium flex items-center">
-                                Read Full Profile
-                            </span>
-                        </div>
-                    </CardContent>
-                </Card>
-                </Link>
+        {/* Editorial Process */}
+        <div className="max-w-4xl mx-auto mb-20">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Our 6-Step Editorial Process
+          </h2>
+          <div className="space-y-6">
+            {PROCESS_STEPS.map((step) => (
+              <div key={step.step} className="flex gap-4 items-start">
+                <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
+                  {step.step}
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
+              </div>
             ))}
+          </div>
         </div>
 
-        {/* Join Us CTA */}
-        <div className="mt-20 bg-primary-900 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-800 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-50" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary-600 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 opacity-30" />
-            
-            <div className="relative z-10 max-w-2xl mx-auto">
-                <h2 className="text-3xl font-bold mb-4">Want to write for InvestingPro?</h2>
-                <p className="text-primary-100 mb-8 text-lg">
-                    We are always looking for certified financial experts (CAs, CFAs, Ex-Bankers) to join our contributor network.
-                </p>
-                <div className="flex justify-center gap-4">
-                     <a href="/contact" className="bg-white text-primary-900 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors">
-                        Apply as Contributor
-                    </a>
-                </div>
+        <Separator className="my-12" />
+
+        {/* Specialist Desks */}
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Our Specialist Desks
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {DESKS.map((desk) => (
+              <Card
+                key={desk.name}
+                className="border-gray-200 dark:border-gray-800"
+              >
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <desk.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-lg">{desk.name}</CardTitle>
+                  </div>
+                  <p className="text-xs text-gray-500">{desk.focus}</p>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+                    {desk.approach}
+                  </p>
+                  <Badge variant="secondary" className="text-xs">
+                    {desk.articles}
+                  </Badge>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        <Separator className="my-12" />
+
+        {/* Sources We Use */}
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+            Sources We Reference
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-gray-600 dark:text-gray-400">
+            <div className="bg-white dark:bg-gray-900 border rounded-lg p-3 text-center">
+              RBI Circulars & Notifications
             </div>
+            <div className="bg-white dark:bg-gray-900 border rounded-lg p-3 text-center">
+              SEBI Guidelines & Advisories
+            </div>
+            <div className="bg-white dark:bg-gray-900 border rounded-lg p-3 text-center">
+              Income Tax Act 1961
+            </div>
+            <div className="bg-white dark:bg-gray-900 border rounded-lg p-3 text-center">
+              IRDAI Product Brochures
+            </div>
+            <div className="bg-white dark:bg-gray-900 border rounded-lg p-3 text-center">
+              Bank & NBFC Websites
+            </div>
+            <div className="bg-white dark:bg-gray-900 border rounded-lg p-3 text-center">
+              AMFI & NAV Data
+            </div>
+            <div className="bg-white dark:bg-gray-900 border rounded-lg p-3 text-center">
+              TransUnion CIBIL
+            </div>
+            <div className="bg-white dark:bg-gray-900 border rounded-lg p-3 text-center">
+              CBDT Notifications
+            </div>
+            <div className="bg-white dark:bg-gray-900 border rounded-lg p-3 text-center">
+              Finance Act Amendments
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-20 bg-primary/5 border border-primary/10 rounded-2xl p-8 md:p-12 text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Found an Error?
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            We take accuracy seriously. If you find incorrect data, outdated
+            rates, or misleading information in any of our articles, please let
+            us know and we will correct it promptly.
+          </p>
+          <a
+            href="/contact"
+            className="inline-block bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-primary/90 transition-colors"
+          >
+            Report a Correction
+          </a>
         </div>
       </div>
     </div>
