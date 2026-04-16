@@ -105,7 +105,7 @@
 }
 
 .dark .prose thead {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: linear-gradient(135deg, #14532d 0%, #166534 100%);
 }
 
 .dark .pro-tip {
@@ -463,16 +463,16 @@
 }
 
 .prose thead {
-  background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-gray-800) 100%);
+  background: linear-gradient(135deg, #166534 0%, #16A34A 100%);
 }
 
 .prose th {
   color: white;
   font-weight: 700;
   text-align: left;
-  padding: 20px 24px;
-  border-bottom: 3px solid var(--color-success);
-  font-size: 0.9375rem;
+  padding: 16px 20px;
+  border-bottom: 2px solid #4ADE80;
+  font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }

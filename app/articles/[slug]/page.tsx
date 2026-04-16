@@ -20,9 +20,8 @@ import RelatedArticles from "@/components/articles/RelatedArticles";
 import { AuthorBadge } from "@/components/articles/AuthorBadge";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import TopPicksSidebar from "@/components/products/TopPicksSidebar";
-import ContextualProducts from "@/components/products/ContextualProducts";
-import SeamlessCTA from "@/components/articles/SeamlessCTA";
-import LeadMagnet from "@/components/monetization/LeadMagnet";
+// ContextualProducts removed — sidebar handles product recommendations
+// SeamlessCTA and LeadMagnet removed — cluttered bottom section
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Eye } from "lucide-react";
 import DifficultyBadge from "@/components/common/DifficultyBadge";
@@ -31,7 +30,8 @@ import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
 // generateSchema removed — using inline NewsArticle schema for Google News
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
-import DraggableTableOfContents from "@/components/blog/DraggableTableOfContents";
+import SidebarTableOfContents from "@/components/articles/SidebarTableOfContents";
+import SidebarCalculatorCTA from "@/components/articles/SidebarCalculatorCTA";
 import { ArticleClientShell } from "./ArticleClientShell";
 import ArticleFeedback from "@/components/articles/ArticleFeedback";
 import MidArticleCapture from "@/components/articles/MidArticleCapture";
@@ -201,8 +201,6 @@ export default async function ArticlePage({
 
   const schemas = [structuredData, breadcrumbSchema, faqSchema].filter(Boolean);
 
-  const leadMagnet = getLeadMagnet(article.category);
-
   return (
     <>
       {/* Structured data */}
@@ -241,10 +239,7 @@ export default async function ArticlePage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <AutoBreadcrumbs />
 
-          {/* Draggable TOC (client component) */}
-          <DraggableTableOfContents />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6">
             {/* ── Main Content ─────────────────────────────────── */}
             <article className="lg:col-span-8 min-w-0">
               {/* Category + trust badges */}
@@ -351,18 +346,6 @@ export default async function ArticlePage({
 
               <ArticleFeedback articleId={article.id} />
 
-              {/* Post-content actions */}
-              <SeamlessCTA category={article.category} />
-
-              <LeadMagnet
-                title={leadMagnet.title}
-                description={leadMagnet.description}
-                type={leadMagnet.type}
-                downloadUrl="#"
-              />
-
-              <ContextualProducts category={article.category} />
-
               {/* Tags */}
               {article.tags?.length > 0 && (
                 <div className="mt-14 pt-8 border-t border-border">
@@ -412,7 +395,14 @@ export default async function ArticlePage({
 
             {/* ── Sidebar ──────────────────────────────────────── */}
             <aside className="lg:col-span-4 hidden lg:block">
-              <div className="sticky top-24 space-y-6">
+              <div className="sticky top-24 space-y-5 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-none">
+                {/* Table of Contents — scroll spy, highlights active */}
+                <SidebarTableOfContents />
+
+                {/* Calculator CTA — contextual per category */}
+                <SidebarCalculatorCTA category={article.category} />
+
+                {/* Top product picks for this category */}
                 <Suspense fallback={null}>
                   <TopPicksSidebar category={article.category} />
                 </Suspense>
@@ -423,29 +413,4 @@ export default async function ArticlePage({
       </div>
     </>
   );
-}
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function getLeadMagnet(category: string) {
-  if (category === "credit-cards") {
-    return {
-      title: "Credit Card Rewards Tracker (Excel)",
-      description:
-        "Track your reward points, milestone benefits, and avoid expiry.",
-      type: "excel" as const,
-    };
-  }
-  if (category === "loans") {
-    return {
-      title: "EMI Comparison & Prepayment Calculator",
-      description: "Find out how much you save with regular prepayments.",
-      type: "excel" as const,
-    };
-  }
-  return {
-    title: "Master Personal Finance Dashboard",
-    description: "Track income, expenses, and net worth in one Google Sheet.",
-    type: "google-sheet" as const,
-  };
 }
