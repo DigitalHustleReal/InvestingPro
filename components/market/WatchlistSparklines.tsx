@@ -1,68 +1,65 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { TrendingUp, TrendingDown, MoreHorizontal, Eye } from "lucide-react";
-import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import { BookOpen, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
-// Mock Sparkline Data
-const generateSparkData = () => {
-    return Array.from({ length: 20 }, (_, i) => ({ v: 50 + Math.random() * 20 + i }));
-};
+/**
+ * Quick Links to stock market education guides
+ * Replaces fake watchlist with random sparkline data
+ */
 
-const WATCHLIST = [
-    { symbol: "RELIANCE", name: "Reliance Industries", price: "2,980.50", change: "+1.5%", positive: true, data: generateSparkData() },
-    { symbol: "HDFCBANK", name: "HDFC Bank Ltd", price: "1,540.30", change: "-0.8%", positive: false, data: generateSparkData() },
-    { symbol: "TATASTEEL", name: "Tata Steel", price: "145.20", change: "+2.1%", positive: true, data: generateSparkData() },
-    { symbol: "INFY", name: "Infosys Ltd", price: "1,450.60", change: "+0.5%", positive: true, data: generateSparkData() },
+const GUIDES = [
+  {
+    title: "How to Invest in Stocks",
+    desc: "Beginner guide for Indian investors",
+    href: "/articles/how-to-invest-in-stocks-india-beginners-guide",
+  },
+  {
+    title: "How to Apply for IPO",
+    desc: "Step-by-step UPI mandate process",
+    href: "/articles/how-to-apply-for-ipo-india-beginners-guide",
+  },
+  {
+    title: "Best Demat Accounts",
+    desc: "Compare Zerodha, Groww, Upstox",
+    href: "/articles/best-demat-account-for-beginners-india-2026",
+  },
+  {
+    title: "SIP vs Lumpsum",
+    desc: "Which investment style suits you?",
+    href: "/articles/sip-vs-lumpsum-investment-which-is-better",
+  },
 ];
 
 export default function WatchlistSparklines() {
-    return (
-        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-lg text-gray-900 dark:text-white flex items-center gap-2">
-                    <Eye className="w-4 h-4 text-primary-500" /> My Watchlist
-                </CardTitle>
-                <button className="text-gray-600 hover:text-primary-500">
-                    <MoreHorizontal className="w-5 h-5" />
-                </button>
-            </CardHeader>
-            <CardContent className="p-0">
-                <div className="divide-y divide-gray-100 dark:divide-gray-800">
-                    {WATCHLIST.map((stock, idx) => (
-                        <div key={idx} className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                            <div className="w-1/3">
-                                <div className="font-bold text-gray-900 dark:text-white">{stock.symbol}</div>
-                                <div className="text-xs text-gray-500 truncate">{stock.name}</div>
-                            </div>
-                            
-                            {/* Sparkline */}
-                            <div className="w-1/3 h-8">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={stock.data}>
-                                        <Line 
-                                            type="monotone" 
-                                            dataKey="v" 
-                                            stroke={stock.positive ? "#10b981" : "#f43f5e"} 
-                                            strokeWidth={2} 
-                                            dot={false} 
-                                        />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </div>
-
-                            <div className="w-1/3 text-right">
-                                <div className="font-bold text-gray-900 dark:text-white">₹{stock.price}</div>
-                                <div className={`text-xs font-bold ${stock.positive ? 'text-primary-600 dark:text-primary-400' : 'text-danger-600 dark:text-danger-400'}`}>
-                                    {stock.change}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+  return (
+    <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <CardTitle className="text-lg text-gray-900 dark:text-white flex items-center gap-2">
+          <BookOpen className="w-4 h-4 text-primary" /> Getting Started
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-0">
+        <div className="divide-y divide-gray-100 dark:divide-gray-800">
+          {GUIDES.map((guide, idx) => (
+            <Link
+              key={idx}
+              href={guide.href}
+              className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors block"
+            >
+              <div>
+                <div className="font-semibold text-sm text-gray-900 dark:text-white">
+                  {guide.title}
                 </div>
-            </CardContent>
-        </Card>
-    );
+                <div className="text-xs text-gray-500">{guide.desc}</div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-gray-400" />
+            </Link>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
 }

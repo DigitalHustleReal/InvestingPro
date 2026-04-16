@@ -71,17 +71,17 @@ export default function NewsletterTrust() {
             </form>
           </div>
 
-          {/* This week's preview */}
+          {/* What you get */}
           <div className="bg-white/[.04] border border-white/[.08] rounded-xl p-4">
             <div className="text-[10px] uppercase tracking-wider text-[--v2-saffron] font-semibold mb-1.5">
-              This Week&apos;s Edition
+              What You Get
             </div>
             <h3 className="text-sm font-medium mb-1">
-              SBI cut FD rates. RBI held steady. Here&apos;s what to do.
+              Rate changes, new product launches, and one actionable tax tip.
             </h3>
             <p className="text-xs text-white/35 leading-relaxed">
-              Lock FD at Shriram (8.35%) · Refinance if loan &gt;9% · 42 days to
-              ELSS deadline
+              FD rate updates · Credit card launches · Tax deadline reminders ·
+              Calculator tips
             </p>
           </div>
         </div>
