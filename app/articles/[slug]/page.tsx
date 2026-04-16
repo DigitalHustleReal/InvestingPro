@@ -29,6 +29,7 @@ import TrustBadge from "@/components/common/TrustBadge";
 import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
 // generateSchema removed — using inline NewsArticle schema for Google News
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { formatSlug } from "@/lib/utils";
 import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
 import SidebarTableOfContents from "@/components/articles/SidebarTableOfContents";
 import SidebarCalculatorCTA from "@/components/articles/SidebarCalculatorCTA";
@@ -242,7 +243,7 @@ export default async function ArticlePage({
               {/* Category + trust badges */}
               <div className="flex flex-wrap items-center gap-3 mb-5">
                 <Badge className="bg-primary/10 text-primary border-primary/20 font-black uppercase tracking-widest text-[10px]">
-                  {article.category?.replace(/-/g, " ")}
+                  {formatSlug(article.category || "")}
                 </Badge>
                 <DifficultyBadge level={article.difficulty || "beginner"} />
                 <TrustBadge type="fact-checked" />
@@ -387,7 +388,7 @@ export default async function ArticlePage({
                     href={`/category/${article.category}`}
                     className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors capitalize"
                   >
-                    More in {article.category.replace(/-/g, " ")} →
+                    More in {formatSlug(article.category)} →
                   </Link>
                 )}
               </div>

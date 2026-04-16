@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import SEOHead from "@/components/common/SEOHead";
+import { formatSlug } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -143,9 +144,7 @@ export default function ArticlesPage() {
                     }}
                     className="rounded-full"
                   >
-                    {category
-                      .replace(/-/g, " ")
-                      .replace(/\b\w/g, (l) => l.toUpperCase())}
+                    {formatSlug(category)}
                   </Button>
                 </Link>
               ))}
@@ -186,7 +185,7 @@ export default function ArticlesPage() {
                     <CardContent className="p-6">
                       <div className="flex items-center gap-2 mb-3">
                         <Badge variant="outline" className="text-xs">
-                          {article.category?.replace(/-/g, " ")}
+                          {formatSlug(article.category || "")}
                         </Badge>
                       </div>
                       <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">

@@ -65,7 +65,29 @@ export default function AISummaryBox({
           {category && (
             <div className="mt-3 flex items-center gap-2 text-[11px] text-muted-foreground">
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary font-semibold uppercase tracking-wider">
-                {category.replace(/-/g, " ")}
+                {category
+                  .split("-")
+                  .map((w) => {
+                    const caps: Record<string, string> = {
+                      hra: "HRA",
+                      hdfc: "HDFC",
+                      ipo: "IPO",
+                      itr: "ITR",
+                      nps: "NPS",
+                      ppf: "PPF",
+                      elss: "ELSS",
+                      sip: "SIP",
+                      fd: "FD",
+                      gst: "GST",
+                      cibil: "CIBIL",
+                      emi: "EMI",
+                    };
+                    return (
+                      caps[w.toLowerCase()] ||
+                      w.charAt(0).toUpperCase() + w.slice(1)
+                    );
+                  })
+                  .join(" ")}
               </span>
               <span>·</span>
               <span>Verified against official sources</span>
