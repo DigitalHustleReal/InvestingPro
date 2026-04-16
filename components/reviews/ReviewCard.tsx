@@ -1,9 +1,15 @@
 "use client";
 
-import React from 'react';
-import { Star, ThumbsUp, ThumbsDown, CheckCircle2, XCircle } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Review } from '@/lib/content/review-data';
+import React from "react";
+import {
+  Star,
+  ThumbsUp,
+  ThumbsDown,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Review } from "@/lib/content/review-data";
 
 interface ReviewCardProps {
   review: Review;
@@ -11,10 +17,18 @@ interface ReviewCardProps {
   onNotHelpful?: (reviewId: string) => void;
 }
 
-export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCardProps) {
+export default function ReviewCard({
+  review,
+  onHelpful,
+  onNotHelpful,
+}: ReviewCardProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+    return date.toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   return (
@@ -26,11 +40,13 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white font-bold">
             {review.userName.charAt(0)}
           </div>
-          
+
           {/* User Info */}
           <div>
             <div className="flex items-center gap-2">
-              <p className="font-semibold text-gray-900 dark:text-white">{review.userName}</p>
+              <p className="font-semibold text-gray-900 dark:text-white">
+                {review.userName}
+              </p>
               {review.verified && (
                 <span className="flex items-center gap-1 text-xs bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-400 px-2 py-0.5 rounded-full font-medium">
                   <CheckCircle2 className="w-3 h-3" />
@@ -38,7 +54,9 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
                 </span>
               )}
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-600">{formatDate(review.createdAt)}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-600">
+              {formatDate(review.date)}
+            </p>
           </div>
         </div>
 
@@ -51,7 +69,7 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
                 "w-4 h-4",
                 star <= review.rating
                   ? "fill-amber-400 text-amber-400"
-                  : "fill-gray-200 text-gray-200 dark:fill-gray-700 dark:text-gray-700"
+                  : "fill-gray-200 text-gray-200 dark:fill-gray-700 dark:text-gray-700",
               )}
             />
           ))}
@@ -79,8 +97,13 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
               </p>
               <ul className="space-y-1">
                 {review.pros.map((pro, index) => (
-                  <li key={index} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
-                    <span className="text-success-600 dark:text-success-400 mt-0.5">•</span>
+                  <li
+                    key={index}
+                    className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+                  >
+                    <span className="text-success-600 dark:text-success-400 mt-0.5">
+                      •
+                    </span>
                     {pro}
                   </li>
                 ))}
@@ -96,8 +119,13 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
               </p>
               <ul className="space-y-1">
                 {review.cons.map((con, index) => (
-                  <li key={index} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
-                    <span className="text-danger-600 dark:text-danger-400 mt-0.5">•</span>
+                  <li
+                    key={index}
+                    className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+                  >
+                    <span className="text-danger-600 dark:text-danger-400 mt-0.5">
+                      •
+                    </span>
                     {con}
                   </li>
                 ))}
@@ -109,7 +137,9 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
 
       {/* Helpful Actions */}
       <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-        <p className="text-sm text-gray-600 dark:text-gray-400">Was this helpful?</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Was this helpful?
+        </p>
         <div className="flex items-center gap-2">
           <button
             onClick={() => onHelpful?.(review.id)}
@@ -123,7 +153,7 @@ export default function ReviewCard({ review, onHelpful, onNotHelpful }: ReviewCa
             className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-danger-500 hover:bg-danger-50 dark:hover:bg-danger-950/30 transition-colors text-sm font-medium text-gray-700 dark:text-gray-300"
           >
             <ThumbsDown className="w-4 h-4" />
-            <span>{review.notHelpful}</span>
+            <span>{review.unhelpful}</span>
           </button>
         </div>
       </div>

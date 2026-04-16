@@ -16,7 +16,7 @@ export function TrustStrip() {
       </span>
       <span className="flex items-center gap-1.5">
         <Star size={13} className="text-amber-500 fill-amber-500" />
-        Trusted by 50,000+ users
+        75+ financial calculators
       </span>
       <span className="flex items-center gap-1.5">
         <Clock size={13} className="text-green-600" />

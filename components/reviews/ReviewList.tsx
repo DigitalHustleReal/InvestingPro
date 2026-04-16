@@ -1,15 +1,21 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { getProductReviews, Review as ReviewData } from '@/lib/content/review-data';
-import ReviewCard from './ReviewCard';
+import { useEffect, useState } from "react";
+import {
+  getProductReviews,
+  Review as ReviewData,
+} from "@/lib/content/review-data";
+import ReviewCard from "./ReviewCard";
 
 interface ReviewListProps {
   productSlug: string;
   refreshTrigger: number; // Increment to reload list
 }
 
-export default function ReviewList({ productSlug, refreshTrigger }: ReviewListProps) {
+export default function ReviewList({
+  productSlug,
+  refreshTrigger,
+}: ReviewListProps) {
   const [reviews, setReviews] = useState<ReviewData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,10 +24,10 @@ export default function ReviewList({ productSlug, refreshTrigger }: ReviewListPr
       setLoading(true);
       try {
         // Use mock data for now
-        const data = getProductReviews(productSlug);
+        const data = getProductReviews(productSlug, "");
         setReviews(data);
       } catch (error) {
-        console.error('Failed to load reviews:', error);
+        console.error("Failed to load reviews:", error);
       } finally {
         setLoading(false);
       }
@@ -30,13 +36,17 @@ export default function ReviewList({ productSlug, refreshTrigger }: ReviewListPr
   }, [productSlug, refreshTrigger]);
 
   if (loading) {
-    return <div className="text-center py-8 text-gray-500">Loading reviews...</div>;
+    return (
+      <div className="text-center py-8 text-gray-500">Loading reviews...</div>
+    );
   }
 
   if (reviews.length === 0) {
     return (
       <div className="text-center py-12 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
-        <p className="text-gray-500 dark:text-gray-600">No reviews yet. Be the first to share your experience!</p>
+        <p className="text-gray-500 dark:text-gray-600">
+          No reviews yet. Be the first to share your experience!
+        </p>
       </div>
     );
   }

@@ -1,11 +1,11 @@
 "use client";
 
-import React from 'react';
-import { ArrowRight, Star, TrendingUp } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { RichProduct } from '@/types/rich-product';
+import React from "react";
+import { ArrowRight, Star, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { RichProduct } from "@/types/rich-product";
 
 interface AlternativesCarouselProps {
   products: RichProduct[];
@@ -13,7 +13,11 @@ interface AlternativesCarouselProps {
   className?: string;
 }
 
-export default function AlternativesCarousel({ products, currentProductSlug, className }: AlternativesCarouselProps) {
+export default function AlternativesCarousel({
+  products,
+  currentProductSlug,
+  className,
+}: AlternativesCarouselProps) {
   if (products.length === 0) return null;
 
   return (
@@ -23,7 +27,10 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
           Similar Options You Might Like
         </h3>
         <Link href="/credit-cards/compare">
-          <Button variant="ghost" className="text-primary-600 dark:text-primary-400">
+          <Button
+            variant="ghost"
+            className="text-primary-600 dark:text-primary-400"
+          >
             Compare All
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
@@ -39,7 +46,7 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
                 {/* Product Image/Icon */}
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white font-bold text-lg">
-                    {product.provider_name?.charAt(0) || 'C'}
+                    {product.provider_name?.charAt(0) || "C"}
                   </div>
                   <div className="flex-1">
                     <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1">
@@ -56,10 +63,13 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
                   <div className="flex items-center gap-1 mb-3">
                     <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                     <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                      {(typeof product.rating === 'number' ? product.rating : product.rating?.overall ?? 0).toFixed(1)}
+                      {(typeof product.rating === "number"
+                        ? product.rating
+                        : (product.rating?.overall ?? 0)
+                      ).toFixed(1)}
                     </span>
                     <span className="text-xs text-gray-500 dark:text-gray-600">
-                      ({Math.floor(Math.random() * 500) + 100} reviews)
+                      rating
                     </span>
                   </div>
                 )}
@@ -76,7 +86,10 @@ export default function AlternativesCarousel({ products, currentProductSlug, cla
                   )}
                   {product.specs?.annualFee && (
                     <div className="text-xs text-gray-600 dark:text-gray-400">
-                      Annual Fee: <span className="font-semibold text-gray-900 dark:text-white">{product.specs.annualFee}</span>
+                      Annual Fee:{" "}
+                      <span className="font-semibold text-gray-900 dark:text-white">
+                        {product.specs.annualFee}
+                      </span>
                     </div>
                   )}
                 </div>

@@ -51,9 +51,9 @@ export default async function AboutPage() {
       avatar: null,
     },
     {
-      name: "Rohan Sharma",
-      role: "Head of Research",
-      slug: "rohan-sharma",
+      name: "InvestingPro Editorial",
+      role: "Research & Analysis",
+      slug: "investingpro",
       avatar: null,
     },
   ];
@@ -181,8 +181,8 @@ export default async function AboutPage() {
               Meet Our Experts
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              The humans behind the data. Our team brings decades of experience
-              from major financial institutions.
+              Every article is researched from official sources and fact-checked
+              before publishing.
             </p>
           </div>
 

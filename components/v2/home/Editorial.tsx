@@ -47,7 +47,7 @@ async function fetchEditorial(): Promise<EditorialItem[]> {
       .select("title, slug, excerpt, category, read_time")
       .eq("status", "published")
       .order("published_at", { ascending: false, nullsFirst: false })
-      .limit(3);
+      .range(4, 6); // Skip first 4 (shown in MarketPulse) to avoid duplicates
 
     if (error || !data || data.length === 0) return [];
 

@@ -18,11 +18,11 @@ import { TEAM_MEMBERS } from "@/lib/data/team";
 export const metadata: Metadata = {
   title: "Our Authors & Research Team | InvestingPro India",
   description:
-    "Meet the CAs, CFAs, bankers, and financial journalists behind InvestingPro. Every article is written and reviewed by certified financial experts with 160+ years of combined experience.",
+    "Meet the research teams behind InvestingPro. Every article is fact-checked against official sources — RBI, SEBI, Income Tax Act, and product issuer terms.",
   openGraph: {
     title: "Our Authors & Research Team | InvestingPro India",
     description:
-      "Meet the certified financial experts behind InvestingPro — CAs, CFAs, and former bankers committed to unbiased financial guidance.",
+      "InvestingPro's editorial teams: Tax Desk, Credit Team, Investment Research, and Lending Desk. Process-driven, source-verified content.",
     url: "https://investingpro.in/authors",
     type: "website",
   },
@@ -96,15 +96,14 @@ export default function AuthorsPage() {
                 InvestingPro Research Team
               </Badge>
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-6">
-                Written by Experts. <br className="hidden sm:block" />
-                Trusted by Millions.
+                Research-Driven. <br className="hidden sm:block" />
+                Source-Verified.
               </h1>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                Every piece of content on InvestingPro is created, fact-checked,
-                and reviewed by certified financial professionals. Our team
-                includes CFA Charterholders, Chartered Accountants, and former
-                banking executives with
-                <strong> 160+ years of combined experience.</strong>
+                Every article on InvestingPro is researched from official
+                sources, fact-checked against regulatory documents, and written
+                with real INR calculations.
+                <strong> No sponsored content. No paid rankings.</strong>
               </p>
             </div>
           </div>
@@ -173,19 +172,19 @@ export default function AuthorsPage() {
                     Our research team is the collective byline for data-driven
                     comparisons, product reviews, and financial guides published
                     on InvestingPro. Every piece published under this byline is
-                    authored by at least one subject matter expert and reviewed
-                    by a senior editor. The team comprises CFA Charterholders,
-                    Chartered Accountants (CA), Certified Financial Planners
-                    (CFP), and former banking executives.
+                    fact-checked against official sources, and reviewed for
+                    accuracy before publishing. Our specialist desks cover tax
+                    planning, credit analysis, investment research, and lending
+                    comparison.
                   </p>
                 </div>
               </div>
               <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: "CFA Charterholders", count: "3" },
-                  { label: "Chartered Accountants", count: "5" },
-                  { label: "Former Bankers", count: "4" },
-                  { label: "Financial Journalists", count: "3" },
+                  { label: "Articles Published", count: "51+" },
+                  { label: "Calculators Built", count: "75" },
+                  { label: "Products Compared", count: "2,500+" },
+                  { label: "Glossary Terms", count: "101" },
                 ].map((stat) => (
                   <div
                     key={stat.label}
