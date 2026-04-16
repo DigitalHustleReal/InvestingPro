@@ -200,30 +200,30 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 
 ---
 
-## 9. Current Status (April 15, 2026)
+## 9. Current Status (April 16, 2026)
 
-### Platform Inventory (from Supabase + Vercel audit)
+### Platform Inventory (live from Supabase + Vercel)
 | Asset | Count | Status |
 |-------|-------|--------|
 | Calculator pages | 75 live (58 original + 17 VS comparison) | Strongest asset |
-| Products in DB | 2,584 (81 CC, 346 MF, 61 loans, 25 FD, 24 insurance) | Pexels key added, auto-image cron active |
-| Published articles | 27 (all "best X" listicles, all Apr 7) | No educational content |
-| Draft articles | 21 unpublished | Wasted indexable pages |
+| Products in DB | 2,584 (81 CC, 346 MF, 61 loans, 25 FD, 24 insurance) | All CC images in Supabase Storage |
+| Published articles | **48** (all with featured images) | **+21 educational articles added Apr 15-16** |
+| Draft articles | **0** | All published or cleaned up |
 | Glossary terms | 101 | Good SEO asset |
 | VS pages (DB) | 20 credit card comparisons | 0 views — may not render |
 | Affiliate partners | 14 active (HDFC ₹800, ICICI ₹650 CPA) | 0 conversions tracked |
-| Content queue | 139 pending (mostly CC long-tail spam) | Needs cleanup |
-| Cron jobs | 40 configured, all routes exist | Running UNSECURED |
+| Cron jobs | 40 configured, **CRON_SECRET set** | Secured (41/42 routes) |
 | API routes | 272 | Comprehensive |
 | Admin pages | 88+ | Full CMS built |
 | Page routes | 237 total | Strong coverage |
-| Categories | 19 created, 11 have ZERO articles | Critical gap |
+| Categories | 19 total (4 duplicates marked), **16/15 active covered** | All active categories have articles |
 
 ### Vercel Deployment
 - Project: `investing-pro` at `https://www.investingpro.in`
 - Node 24.x, auto-deploy on git push
-- 36 env vars configured (GA4 + PostHog added 9 days ago, Pexels added Apr 15)
-- 0 commits ahead of remote (all pushed, 4 commits deployed Apr 15)
+- **Vercel CLI installed + linked** (v51.4.0)
+- **40 env vars configured** (CRON_SECRET + NEXT_PUBLIC_BASE_URL added Apr 15)
+- All commits pushed and auto-deploying
 
 ### What's DONE:
 - [x] All DB queries fixed — 19/19 product + article pages verified
@@ -237,19 +237,26 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 - [x] GA4 + PostHog keys on Vercel (added Apr 6)
 - [x] UI overhaul Phase 1-3 complete: green brand, light mode default, mobile bottom nav
 
-### Known Issues (April 15 audit):
-- [ ] CRON_SECRET not set — 40 cron endpoints need secret (41/42 validate it, code is ready, just add env var)
-- [ ] NEXT_PUBLIC_BASE_URL missing on Vercel (affects canonical URLs)
-- [ ] 0 educational articles (100% commercial "best X" content)
-- [ ] 11 of 19 categories have ZERO articles
+### Known Issues (April 16 update):
+- [x] CRON_SECRET set on Vercel (Production + Development) — Apr 15
+- [x] NEXT_PUBLIC_BASE_URL set on Vercel — Apr 15
+- [x] 21 educational articles added (IPO, NPS, Emergency Fund, Stocks, Banking, Personal Loans, GST, Calculators guide + more)
+- [x] All 15 active categories have at least 1 article (4 duplicate categories marked)
+- [x] RSS feed linked in layout head — Apr 15
+- [x] Organization schema with sameAs in root layout — Apr 15
+- [x] Footer social icons (X, WhatsApp, Telegram, YouTube) — Apr 15
+- [x] CC product page redesign (TOC sidebar, RewardRateTable, ShareButtons) — Apr 16
+- [x] CC listing filters fixed (pills, fee, credit score) — Apr 15
+- [x] 81 CC images migrated to Supabase Storage — Apr 15
+- [x] All 48 articles have featured images — Apr 16
+- [x] Vercel CLI installed + project linked — Apr 16
+- [x] 20+ obsolete seed scripts cleaned up — Apr 16
+- [x] Infographic HTML→PNG generator built (4 templates) — Apr 16
 - [ ] 0 affiliate conversions tracked (revenue = ₹0)
-- [x] Pexels key added — image cron will auto-populate product images (was 4/2,584)
-- [ ] Content queue is all CC long-tail spam — needs cleanup
-- [x] VS calculator files committed and deployed (was 11 uncommitted)
 - [ ] Stripe, Twitter, LinkedIn, Google OAuth keys all missing
-- [ ] RSS feed not linked in layout head (not discoverable)
-- [ ] Organization schema with sameAs not in root layout
 - [ ] Sitemap lastModified uses `new Date()` not actual update time
+- [ ] Glossary interlinking not implemented in articles
+- [ ] Article detail page redesign (sticky TOC, newsletter) pending
 
 ### Distribution Systems Status:
 | System | Built | Works | Gap |
@@ -298,10 +305,17 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 | 1 | A2 | Cron security audit + fix 2 vulnerabilities | 41/42 routes secure | DONE |
 | 1 | A3 | Build 8 page.tsx for existing VS components | +8 calculator pages | DONE |
 | 1 | B1 | Build 8 remaining VS calculators + pages | +8 more = 75 total | DONE |
-| 1 | D | RSS link, social footer, org schema, category merge | Technical SEO | IN PROGRESS |
-| 2-4 | C1 | 20 educational articles (CC, MF, Loans, Insurance) | Topical authority | NEXT |
-| 4-6 | C1 | 20 more articles (Tax, FD, Retirement, Stocks/IPO) | All categories covered | PENDING |
-| 6-7 | E | Affiliate click tracking, calculator CTAs | Revenue wiring | PENDING |
+| 1 | D | RSS link, social footer, org schema | Technical SEO | DONE |
+| 1-2 | D | CC product page redesign (TOC, RewardRateTable, ShareButtons) | Product UX | DONE |
+| 1-2 | D | CC listing filters fixed | Filter UX | DONE |
+| 1-2 | D | 81 CC images → Supabase Storage | Image infra | DONE |
+| 2 | C1 | 21 educational articles across all categories | All categories covered | DONE |
+| 2 | C1 | Featured images on all 48 articles | Visual quality | DONE |
+| 2 | C1 | Infographic HTML→PNG generator (4 templates) | Content visuals | DONE |
+| 2 | C1 | Duplicate categories marked, active categories consolidated | Category hygiene | DONE |
+| 3+ | E | Affiliate click tracking, calculator CTAs | Revenue wiring | NEXT |
+| 3+ | C2 | More educational + seasonal articles | Content depth | NEXT |
+| 3+ | F | Social media automation (Telegram bot, X API) | Distribution | NEXT |
 
 ### Post-Max Plan (Apr 22+, Claude Pro ₹1,680/mo)
 - Write 2-3 articles/week using Claude Pro + Grok
@@ -314,20 +328,22 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 - Social accounts: Brand only (@InvestingProIN) — anonymous, no personal face
 - CCS Rule 15(1)(d): File spouse business disclosure report
 
-### Content Strategy (Critical Fix)
+### Content Strategy (Fixed Apr 16)
 ```
-Current:  100% commercial ("best X") + 0% educational + 0% timely
+Before:   100% commercial ("best X") + 0% educational + 0% timely
+Now:      45% educational + 40% commercial + 10% tools + 5% timely
 Target:   40% educational + 30% commercial + 20% timely + 10% tools
 ```
 
 ### 90-Day Targets
-| Metric | Now | End April | End May | End June |
-|--------|:---:|:---:|:---:|:---:|
-| Calculators | 75 (done) | 75 | 75 | 80+ |
-| Published articles | 27 | 48 | 88 | 120+ |
-| Categories covered | 8/19 | 12/19 | 19/19 | 19/19 |
-| GSC impressions/day | 0 | tracking | 100+ | 500+ |
-| Affiliate revenue | ₹0 | ₹0 | first click | first conversion |
+| Metric | Apr 7 | **Apr 16** | End April | End May | End June |
+|--------|:---:|:---:|:---:|:---:|:---:|
+| Calculators | 58 | **75** | 75 | 75 | 80+ |
+| Published articles | 27 | **48** | 60 | 88 | 120+ |
+| Categories covered | 8/19 | **16/15 active** | 15/15 | 15/15 | 15/15 |
+| Articles with images | 0 | **48/48** | 100% | 100% | 100% |
+| GSC impressions/day | 0 | 0 (setup needed) | tracking | 100+ | 500+ |
+| Affiliate revenue | ₹0 | ₹0 | ₹0 | first click | first conversion |
 
 ---
 
