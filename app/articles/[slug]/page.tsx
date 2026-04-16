@@ -33,6 +33,8 @@ import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
 import SidebarTableOfContents from "@/components/articles/SidebarTableOfContents";
 import SidebarCalculatorCTA from "@/components/articles/SidebarCalculatorCTA";
 import AISummaryBox from "@/components/articles/AISummaryBox";
+import TableEnhancer from "@/components/articles/TableEnhancer";
+import LiveRatesHydrator from "@/components/articles/LiveRateBadge";
 import { ArticleClientShell } from "./ArticleClientShell";
 import ArticleFeedback from "@/components/articles/ArticleFeedback";
 import MidArticleCapture from "@/components/articles/MidArticleCapture";
@@ -331,6 +333,9 @@ export default async function ArticlePage({
                   body_markdown={article.body_markdown}
                   content={article.content}
                 />
+                {/* Hydrate tables with sorting + scroll + live rates */}
+                <TableEnhancer />
+                <LiveRatesHydrator />
 
                 {article.category && (
                   <EmbeddedCalculator category={article.category} />

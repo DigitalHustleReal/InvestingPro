@@ -450,50 +450,109 @@
    DATA VISUALIZATION
    ======================================== */
 
-/* Tables */
+/* Table wrapper — horizontal scroll on mobile, max-height for long tables */
+.prose .table-wrapper,
+.prose > div:has(> table) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 40px 0;
+  border-radius: 12px;
+  border: 1px solid var(--prose-borders);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Auto-wrap tables that aren't in a wrapper */
 .prose table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin: 48px 0;
-  font-size: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin: 0; /* wrapper handles margin */
+  font-size: 0.9375rem;
+  min-width: 500px; /* force horizontal scroll on small screens */
+}
+
+/* When table is direct child of prose (no wrapper), add its own margin */
+.prose > table {
+  margin: 40px 0;
   border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--prose-borders);
 }
 
 .prose thead {
   background: linear-gradient(135deg, #166534 0%, #16A34A 100%);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .prose th {
   color: white;
   font-weight: 700;
   text-align: left;
-  padding: 16px 20px;
+  padding: 14px 18px;
   border-bottom: 2px solid #4ADE80;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.prose th[style*="cursor: pointer"]:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .prose td {
-  color: var(--prose-muted);
-  padding: 20px 24px;
+  color: var(--prose-body);
+  padding: 14px 18px;
   border-bottom: 1px solid var(--prose-borders);
-  font-size: 1rem;
+  font-size: 0.9375rem;
+  vertical-align: top;
+}
+
+.prose td strong {
+  color: var(--prose-headings);
 }
 
 .prose tbody tr {
-  transition: background-color 0.2s ease;
+  transition: background-color 0.15s ease;
+}
+
+.prose tbody tr:nth-child(even) {
+  background-color: var(--prose-bg-subtle);
 }
 
 .prose tbody tr:hover {
-  background-color: var(--prose-bg-subtle);
+  background-color: rgba(22, 163, 74, 0.04);
 }
 
 .prose tbody tr:last-child td {
   border-bottom: none;
+}
+
+/* Long table vertical scroll — applies to tables with 10+ rows */
+.prose table.long-table {
+  display: block;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Mobile table adjustments */
+@media (max-width: 640px) {
+  .prose table {
+    font-size: 0.8125rem;
+    min-width: 400px;
+  }
+
+  .prose th,
+  .prose td {
+    padding: 10px 12px;
+  }
+
+  .prose th {
+    font-size: 0.6875rem;
+  }
 }
 
 /* Blockquotes */
