@@ -28,7 +28,7 @@ import { Calendar, Clock, Eye } from "lucide-react";
 import DifficultyBadge from "@/components/common/DifficultyBadge";
 import TrustBadge from "@/components/common/TrustBadge";
 import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
-import { generateSchema } from "@/lib/linking/schema";
+// generateSchema removed — using inline NewsArticle schema for Google News
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
 import DraggableTableOfContents from "@/components/blog/DraggableTableOfContents";
@@ -159,8 +159,43 @@ export default async function ArticlePage({
   ];
 
   const canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://investingpro.in";
+
+  // NewsArticle schema for Google News eligibility
+  const newsArticleSchema = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title,
+    description: article.excerpt || article.meta_description || "",
+    image: article.featured_image ? [article.featured_image] : [],
+    datePublished: article.published_at,
+    dateModified: article.updated_at || article.published_at,
+    author: {
+      "@type": "Organization",
+      name: "InvestingPro",
+      url: baseUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "InvestingPro",
+      url: baseUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    articleSection: article.category || "Finance",
+    keywords: (article.tags || []).join(", "),
+    wordCount: article.reading_time ? article.reading_time * 250 : undefined,
+    isAccessibleForFree: true,
+  };
+
   const structuredData =
-    article.schema_markup?.articleSchema ?? generateSchema(article);
+    article.schema_markup?.articleSchema ?? newsArticleSchema;
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
   const faqSchema = article.schema_markup?.faqSchema;
 
