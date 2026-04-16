@@ -5,7 +5,6 @@ export const revalidate = 300; // ISR: 5 minutes
 
 import React, { Suspense } from "react";
 import { Metadata } from "next";
-import MarketTicker from "@/components/common/MarketTicker";
 import Hero from "@/components/v2/home/Hero";
 import TrustBar from "@/components/v2/home/TrustBar";
 import MarketPulse from "@/components/v2/home/MarketPulse";
@@ -77,9 +76,6 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-
-      {/* Market Ticker — Sensex, Nifty, Gold with live data */}
-      <MarketTicker />
 
       {/* S3: Hero — centered, geometric bg, category cards */}
       <Hero />

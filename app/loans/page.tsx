@@ -5,6 +5,7 @@ import { ChevronRight, Shield, CalendarDays } from "lucide-react";
 import { getLoansServer } from "@/lib/products/get-loans-server";
 import LoansClient from "./LoansClient";
 import CIBILSimulator from "@/components/tools/CIBILSimulator";
+import ContextualTicker from "@/components/common/ContextualTicker";
 
 export const revalidate = 3600;
 
@@ -103,6 +104,7 @@ export default async function LoansPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <ContextualTicker category="loans" />
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight, Shield, CalendarDays } from "lucide-react";
 import { getCreditCardsServer } from "@/lib/products/get-credit-cards-server";
 import CreditCardsClient from "./CreditCardsClient";
+import ContextualTicker from "@/components/common/ContextualTicker";
 import { logger } from "@/lib/logger";
 
 export const revalidate = 3600;
@@ -125,6 +126,8 @@ export default async function CreditCardsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+
+      <ContextualTicker category="credit-cards" />
 
       {/* ── Hero ── */}
       <section className="bg-white border-b border-gray-200">

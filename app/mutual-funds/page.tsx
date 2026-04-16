@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import MutualFundsClient from "./MutualFundsClient";
 import { getMutualFundsServer } from "@/lib/products/get-mutual-funds-server";
+import ContextualTicker from "@/components/common/ContextualTicker";
 
 export const revalidate = 3600;
 
@@ -109,32 +110,7 @@ export default async function MutualFundsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* ── Asset ticker — multi-asset context bar ── */}
-      <div className="bg-[--v2-ink] text-white">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex items-center gap-6 overflow-x-auto scrollbar-hide text-[12px]">
-          <span className="text-white/40 font-medium flex-shrink-0">Rates</span>
-          {[
-            { name: "Nifty 50", value: "23,842", change: "+0.45%", up: true },
-            { name: "Gold", value: "₹87,450/10g", change: "+1.2%", up: true },
-            { name: "Crude Oil", value: "$74.30", change: "-0.8%", up: false },
-            { name: "USD/INR", value: "₹84.12", change: "+0.05%", up: true },
-            { name: "SBI FD 1yr", value: "6.90%", change: "-0.15%", up: false },
-          ].map((idx) => (
-            <span
-              key={idx.name}
-              className="flex items-center gap-2 flex-shrink-0"
-            >
-              <span className="text-white/60 font-medium">{idx.name}</span>
-              <span className="font-semibold tabular-nums">{idx.value}</span>
-              <span
-                className={`font-semibold tabular-nums ${idx.up ? "text-green-400" : "text-red-400"}`}
-              >
-                {idx.change}
-              </span>
-            </span>
-          ))}
-        </div>
-      </div>
+      <ContextualTicker category="mutual-funds" />
 
       {/* ── Hero ── */}
       <section className="bg-white border-b border-gray-200">

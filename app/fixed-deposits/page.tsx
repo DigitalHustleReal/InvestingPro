@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight, Shield, CalendarDays } from "lucide-react";
 import FixedDepositsClient from "./FixedDepositsClient";
 import { getFixedDepositsServer } from "@/lib/products/get-fixed-deposits-server";
+import ContextualTicker from "@/components/common/ContextualTicker";
 
 export const revalidate = 3600;
 export const metadata: Metadata = {
@@ -88,6 +89,7 @@ export default async function FixedDepositsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <ContextualTicker category="fixed-deposits" />
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
