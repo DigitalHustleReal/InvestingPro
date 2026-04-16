@@ -37,10 +37,7 @@ import TableEnhancer from "@/components/articles/TableEnhancer";
 import LiveRatesHydrator from "@/components/articles/LiveRateBadge";
 import { ArticleClientShell } from "./ArticleClientShell";
 import ArticleFeedback from "@/components/articles/ArticleFeedback";
-import MidArticleCapture from "@/components/articles/MidArticleCapture";
 import EmbeddedCalculator from "@/components/articles/EmbeddedCalculator";
-import InlineProductCard from "@/components/articles/InlineProductCard";
-import LastUpdatedBadge from "@/components/articles/LastUpdatedBadge";
 import "./article-content.css";
 
 export const revalidate = 3600; // Revalidate every hour
@@ -282,26 +279,27 @@ export default async function ArticlePage({
                   />
                 </div>
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-muted-foreground">
-                  {(article.published_at || article.published_date) && (
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {new Date(
-                        article.published_at || article.published_date,
-                      ).toLocaleDateString("en-IN", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </span>
-                  )}
-                  <LastUpdatedBadge
-                    publishedAt={article.published_at || article.published_date}
-                    updatedAt={article.updated_at}
-                  />
+                  {/* Single date — show "Updated" if different from published, otherwise show published */}
+                  <span className="flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {article.updated_at &&
+                    article.published_at &&
+                    article.updated_at.slice(0, 10) !==
+                      article.published_at.slice(0, 10)
+                      ? `Updated ${new Date(article.updated_at).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}`
+                      : `Published ${new Date(article.published_at || article.published_date || article.updated_at).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}`}
+                  </span>
                   <span className="flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5" />
                     {article.read_time || "5"} min read
                   </span>
+                  <span className="text-muted-foreground/60">·</span>
+                  <Link
+                    href="/about/editorial-team"
+                    className="text-primary hover:underline"
+                  >
+                    Fact-checked · Editorial standards
+                  </Link>
                 </div>
               </div>
 
@@ -343,33 +341,23 @@ export default async function ArticlePage({
                 {article.category && (
                   <EmbeddedCalculator category={article.category} />
                 )}
-
-                <MidArticleCapture
-                  category={article.category}
-                  articleId={article.id}
-                />
-                {article.category && (
-                  <InlineProductCard
-                    productType={article.category}
-                    maxProducts={2}
-                  />
-                )}
               </div>
 
+              {/* Feedback */}
               <ArticleFeedback articleId={article.id} />
 
-              {/* Tags */}
+              {/* Tags — compact */}
               {article.tags?.length > 0 && (
-                <div className="mt-14 pt-8 border-t border-border">
-                  <p className="text-xs font-bold text-muted-foreground mb-3 uppercase tracking-widest">
-                    Tags
-                  </p>
-                  <div className="flex flex-wrap gap-2">
+                <div className="mt-10 pt-6 border-t border-border">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest mr-2">
+                      Tags
+                    </span>
                     {article.tags.map((tag: string) => (
                       <Link key={tag} href={`/tag/${tag}`}>
                         <Badge
                           variant="secondary"
-                          className="hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
+                          className="hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer text-xs"
                         >
                           {tag}
                         </Badge>
@@ -379,15 +367,15 @@ export default async function ArticlePage({
                 </div>
               )}
 
-              {/* Related articles + newsletter */}
-              <div className="mt-14 space-y-10">
+              {/* Related articles */}
+              <div className="mt-10">
                 <Suspense fallback={null}>
                   <RelatedArticles articleId={article.id} />
                 </Suspense>
               </div>
 
-              {/* Prev / next nav */}
-              <div className="mt-14 pt-8 border-t flex justify-between gap-4">
+              {/* Prev / next nav — compact */}
+              <div className="mt-8 pt-6 border-t flex justify-between gap-4">
                 <Link
                   href="/articles"
                   className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
@@ -397,7 +385,7 @@ export default async function ArticlePage({
                 {article.category && (
                   <Link
                     href={`/category/${article.category}`}
-                    className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors capitalize"
                   >
                     More in {article.category.replace(/-/g, " ")} →
                   </Link>
