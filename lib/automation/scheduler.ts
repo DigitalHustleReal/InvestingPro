@@ -10,6 +10,7 @@
  */
 
 import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/service";
 import { logger } from "@/lib/logger";
 import { distributeContent } from "@/lib/automation/content-distribution";
 
@@ -208,7 +209,8 @@ export async function publishScheduledArticles(): Promise<{
   published: number;
   errors: Array<{ articleId: string; error: string }>;
 }> {
-  const supabase = await createClient();
+  // Use service client — cron jobs have no cookie/session context
+  const supabase = createServiceClient();
   const now = new Date().toISOString();
   const results = {
     published: 0,
@@ -235,17 +237,34 @@ export async function publishScheduledArticles(): Promise<{
     // Publish each scheduled article
     for (const article of scheduledArticles) {
       try {
-        // Import article service dynamically to avoid circular dependencies
-        const { articleService } = await import("@/lib/cms/article-service");
-
-        // Publish the article
-        await articleService.publishArticle(article.id, {} as any, {} as any);
-
-        // Update scheduled_publish_at to null
-        await supabase
+        // Direct status flip — don't use articleService.publishArticle() which
+        // requires content/metadata args and would overwrite the article body
+        const now = new Date().toISOString();
+        const { error: publishError } = await supabase
           .from("articles")
-          .update({ scheduled_publish_at: null })
+          .update({
+            status: "published",
+            published_at: now,
+            published_date: now.split("T")[0],
+            scheduled_publish_at: null,
+            updated_at: now,
+          })
           .eq("id", article.id);
+
+        if (publishError) {
+          results.errors.push({
+            articleId: article.id,
+            error: publishError.message,
+          });
+          logger.error(
+            "Failed to publish scheduled article",
+            publishError as unknown as Error,
+            {
+              articleId: article.id,
+            },
+          );
+          continue;
+        }
 
         results.published++;
         logger.info("Scheduled article published", {
