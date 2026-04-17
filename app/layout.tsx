@@ -223,11 +223,12 @@ export default async function RootLayout({
                         <CompareBar />
                         <MobileNav />
                       </ConditionalPublicFloating>
-                      {/*
-                     AUTOMATED AFFILIATE SCRIPT (Cuelinks / Skimlinks)
-                     Uncomment and add your ID here to auto-monetize 1000s of links
-                  */}
-                      {/* <script async src="https://cuelinks.com/js/..." /> */}
+                      {/* Cuelinks — auto-monetizes outbound links to bank/AMC/insurer sites */}
+                      <script
+                        async
+                        src="https://cdn.cuelinks.com/cuelinks-sdk.js"
+                        data-publisher-id="244238"
+                      />
                       <Toaster />
                     </NavigationProvider>
                   </CompareProvider>
