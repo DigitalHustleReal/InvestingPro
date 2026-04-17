@@ -3,101 +3,109 @@
  * Fetches all data needed for subcategory pillar pages
  */
 
-import { createClient } from '@/lib/supabase/server';
-import { getCategoryBySlug, getSubcategoryBySlug } from '@/lib/navigation/categories';
-import { logger } from '@/lib/logger';
+import { createClient } from "@/lib/supabase/server";
+import {
+  getCategoryBySlug,
+  getSubcategoryBySlug,
+} from "@/lib/navigation/categories";
+import { logger } from "@/lib/logger";
 
 export interface SubcategoryPageData {
-    category: {
-        name: string;
-        slug: string;
-        description: string;
+  category: {
+    name: string;
+    slug: string;
+    description: string;
+  };
+  subcategory: {
+    name: string;
+    slug: string;
+    description: string;
+    keywords: string[];
+  };
+  whatItIs: string;
+  whoItIsFor: string;
+  relatedCalculators: Array<{
+    name: string;
+    slug: string;
+    description?: string;
+  }>;
+  relatedGlossary: Array<{ term: string; slug: string; definition?: string }>;
+  guide?: {
+    title: string;
+    slug: string;
+    excerpt: string;
+    content: string;
+    author: {
+      name: string;
+      avatar_url?: string;
     };
-    subcategory: {
-        name: string;
-        slug: string;
-        description: string;
-        keywords: string[];
+  };
+  products: Array<{
+    id: string;
+    name: string;
+    slug: string;
+    image_url?: string;
+    rating?: number;
+    features?: string[];
+    affiliate_link?: string;
+  }>;
+  articles: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    excerpt: string;
+    category: string;
+    published_at: string;
+    author: {
+      name: string;
     };
-    whatItIs: string;
-    whoItIsFor: string;
-    relatedCalculators: Array<{ name: string; slug: string; description?: string }>;
-    relatedGlossary: Array<{ term: string; slug: string; definition?: string }>;
-    guide?: {
-        title: string;
-        slug: string;
-        excerpt: string;
-        content: string;
-        author: {
-            name: string;
-            avatar_url?: string;
-        };
-    };
-    products: Array<{
-        id: string;
-        name: string;
-        slug: string;
-        image_url?: string;
-        rating?: number;
-        features?: string[];
-        affiliate_url?: string;
-    }>;
-    articles: Array<{
-        id: string;
-        title: string;
-        slug: string;
-        excerpt: string;
-        category: string;
-        published_at: string;
-        author: {
-            name: string;
-        };
-    }>;
-    faqs: Array<{
-        question: string;
-        answer: string;
-    }>;
-    productComparison: {
-        totalProducts: number;
-        topProducts: Array<any>; // Using any for simplicity now, should be strict later
-        comparisonPoints: string[];
-    };
+  }>;
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }>;
+  productComparison: {
+    totalProducts: number;
+    topProducts: Array<any>; // Using any for simplicity now, should be strict later
+    comparisonPoints: string[];
+  };
 }
 
 export async function fetchSubcategoryPageData(
-    categorySlug: string,
-    subcategorySlug: string
+  categorySlug: string,
+  subcategorySlug: string,
 ): Promise<SubcategoryPageData | null> {
-    try {
-        // Get category and subcategory metadata
-        const category = getCategoryBySlug(categorySlug);
-        const subcategory = getSubcategoryBySlug(categorySlug, subcategorySlug);
+  try {
+    // Get category and subcategory metadata
+    const category = getCategoryBySlug(categorySlug);
+    const subcategory = getSubcategoryBySlug(categorySlug, subcategorySlug);
 
-        if (!category || !subcategory) {
-            logger.warn('Category or subcategory not found', {
-                categorySlug,
-                subcategorySlug,
-            });
-            return null;
-        }
+    if (!category || !subcategory) {
+      logger.warn("Category or subcategory not found", {
+        categorySlug,
+        subcategorySlug,
+      });
+      return null;
+    }
 
-        // Map category slug to DB value (plural to singular)
-        const dbCategoryMap: Record<string, string> = {
-            'credit-cards': 'credit_card',
-            'loans': 'loan',
-            'insurance': 'insurance', // insurance is weirdly same? Check seeds. Yes 'insurance'.
-            'banking': 'banking',
-            'investing': 'investing'
-        };
-        const dbCategory = dbCategoryMap[categorySlug] || categorySlug;
+    // Map category slug to DB value (plural to singular)
+    const dbCategoryMap: Record<string, string> = {
+      "credit-cards": "credit_card",
+      loans: "loan",
+      insurance: "insurance", // insurance is weirdly same? Check seeds. Yes 'insurance'.
+      banking: "banking",
+      investing: "investing",
+    };
+    const dbCategory = dbCategoryMap[categorySlug] || categorySlug;
 
-        // Create supabase client
-        const supabase = await createClient();
+    // Create supabase client
+    const supabase = await createClient();
 
-        // Fetch products for this subcategory
-        const { data: productsData } = await supabase
-            .from('products')
-            .select(`
+    // Fetch products for this subcategory
+    const { data: productsData } = await supabase
+      .from("products")
+      .select(
+        `
                 id,
                 name,
                 slug,
@@ -108,67 +116,71 @@ export async function fetchSubcategoryPageData(
                 official_link,
                 verification_status,
                 verification_notes,
-                affiliate_url
-            `)
-            .eq('category', dbCategory)
-            .contains('tags', [subcategorySlug])
-            .eq('status', 'active')
-            .order('rating', { ascending: false })
-            .limit(12);
+                affiliate_link
+            `,
+      )
+      .eq("category", dbCategory)
+      .contains("tags", [subcategorySlug])
+      .eq("status", "active")
+      .order("rating", { ascending: false })
+      .limit(12);
 
-        const products = productsData || [];
+    const products = productsData || [];
 
-        // Construct Product Comparison Data
-        const productComparison = {
-            totalProducts: products.length,
-            topProducts: products.slice(0, 3).map((p: any) => ({
-                id: p.id,
-                name: p.name,
-                slug: p.slug,
-                provider: p.provider_name || 'Partner',
-                rating: p.rating || 4.5,
-                features: p.features || [],
-                verification_status: p.verification_status,
-                verification_notes: p.verification_notes
-            })),
-            comparisonPoints: [
-                'Interest Rates & Fees',
-                'Eligibility Criteria',
-                'Application Process',
-                'Customer Reviews'
-            ]
-        };
+    // Construct Product Comparison Data
+    const productComparison = {
+      totalProducts: products.length,
+      topProducts: products.slice(0, 3).map((p: any) => ({
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+        provider: p.provider_name || "Partner",
+        rating: p.rating || 4.5,
+        features: p.features || [],
+        verification_status: p.verification_status,
+        verification_notes: p.verification_notes,
+      })),
+      comparisonPoints: [
+        "Interest Rates & Fees",
+        "Eligibility Criteria",
+        "Application Process",
+        "Customer Reviews",
+      ],
+    };
 
-        return {
-            category: {
-                name: category.name,
-                slug: category.slug,
-                description: category.description,
-            },
-            subcategory: {
-                name: subcategory.name,
-                slug: subcategory.slug,
-                description: subcategory.description,
-                keywords: subcategory.keywords,
-            },
-            whatItIs: subcategory.description || `${subcategory.name} - compare options, rates, and features.`,
-            whoItIsFor: 'Anyone looking to compare and choose the right option for their needs.',
-            relatedCalculators: [],
-            relatedGlossary: [],
-            guide: undefined, // TODO: Implement guide fetching
-            products: products.map((p: any) => ({
-               ...p,
-               features: p.features || []
-            })),
-            productComparison, // Add to return
-            articles: [], // TODO: Implement articles fetching
-            faqs: [], // TODO: Implement FAQs fetching
-        };
-    } catch (error) {
-        logger.error('Failed to fetch subcategory page data', error as Error, {
-            categorySlug,
-            subcategorySlug,
-        });
-        return null;
-    }
+    return {
+      category: {
+        name: category.name,
+        slug: category.slug,
+        description: category.description,
+      },
+      subcategory: {
+        name: subcategory.name,
+        slug: subcategory.slug,
+        description: subcategory.description,
+        keywords: subcategory.keywords,
+      },
+      whatItIs:
+        subcategory.description ||
+        `${subcategory.name} - compare options, rates, and features.`,
+      whoItIsFor:
+        "Anyone looking to compare and choose the right option for their needs.",
+      relatedCalculators: [],
+      relatedGlossary: [],
+      guide: undefined, // TODO: Implement guide fetching
+      products: products.map((p: any) => ({
+        ...p,
+        features: p.features || [],
+      })),
+      productComparison, // Add to return
+      articles: [], // TODO: Implement articles fetching
+      faqs: [], // TODO: Implement FAQs fetching
+    };
+  } catch (error) {
+    logger.error("Failed to fetch subcategory page data", error as Error, {
+      categorySlug,
+      subcategorySlug,
+    });
+    return null;
+  }
 }
