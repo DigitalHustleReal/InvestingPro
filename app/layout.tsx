@@ -1,4 +1,4 @@
-import { DM_Sans, DM_Mono } from "next/font/google";
+import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import { Suspense } from "react";
 
 import "./globals.css";
@@ -26,21 +26,26 @@ import { ConditionalPublicFloating } from "@/components/common/ConditionalPublic
 import CookieConsent from "@/components/legal/CookieConsent";
 import ThirdPartyScripts from "@/components/monetization/ThirdPartyScripts";
 
-// Font configurations — v2 Design System (DM Sans + DM Mono + Georgia system)
-const dmSans = DM_Sans({
+// Font configurations — Bold Redesign (Playfair Display + Inter + JetBrains Mono)
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
-const dmMono = DM_Mono({
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  weight: ["400", "700", "900"],
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
   weight: ["400", "500"],
   subsets: ["latin"],
-  variable: "--font-dm-mono",
+  variable: "--font-mono",
   display: "swap",
 });
-
-// Georgia is a system font — no import needed, declared in CSS
 
 // ... existing code ...
 
@@ -151,9 +156,10 @@ export default async function RootLayout({
       <body
         suppressHydrationWarning
         className={cn(
-          dmSans.className,
-          dmSans.variable,
-          dmMono.variable,
+          inter.className,
+          inter.variable,
+          playfair.variable,
+          jetbrains.variable,
           "min-h-screen flex flex-col bg-background text-foreground antialiased",
         )}
       >

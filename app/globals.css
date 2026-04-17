@@ -84,23 +84,38 @@ html, body {
        Green primary + Saffron accent + White base + Indian identity
        ===================================================================== */
 
-    /* V2: Named colors for direct use */
-    --v2-ink: #1B2A4A;
-    --v2-green: #16A34A;
-    --v2-green-dark: #166534;
+    /* === BOLD REDESIGN TOKENS === */
+    --ink: #0A1F14;
+    --authority-green: #166534;
+    --action-green: #16A34A;
+    --indian-gold: #D97706;
+    --canvas: #FAFAF9;
+    --warning-red: #DC2626;
+
+    /* V2 legacy aliases (keep for backwards compat) */
+    --v2-ink: var(--ink);
+    --v2-green: var(--action-green);
+    --v2-green-dark: var(--authority-green);
     --v2-green-light: #f0fdf4;
-    --v2-saffron: #E8871A;
+    --v2-saffron: var(--indian-gold);
     --v2-saffron-dark: #B45309;
     --v2-saffron-glow: rgba(232, 135, 26, 0.06);
     --v2-cream: #F5F0E8;
     --v2-cream-border: #EDE8DF;
-    --v2-red: #DC2626;
+    --v2-red: var(--warning-red);
     --v2-blue: #2563EB;
 
-    /* V2: Typography */
-    --font-display: Georgia, 'Times New Roman', serif;
-    --font-body: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
-    --font-mono: var(--font-dm-mono), 'JetBrains Mono', monospace;
+    /* Typography */
+    --font-display: var(--font-playfair), Georgia, serif;
+    --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
+    --font-data: var(--font-mono), 'JetBrains Mono', monospace;
+    --font-mono: var(--font-mono), 'JetBrains Mono', monospace;
+
+    /* Sharp corners — authority aesthetic */
+    --radius: 0px;
+    --radius-sm: 0px;
+    --radius-md: 0px;
+    --radius-lg: 0px;
 
     /* V2: Spacing scale */
     --max-w: 1200px;
@@ -123,6 +138,13 @@ html, body {
     /* =====================================================================
        DARK MODE — Green-tinted deep dark (Zerodha-inspired)
        ===================================================================== */
+
+    /* Bold redesign dark tokens */
+    --ink: #FAFAF9;
+    --canvas: #0A1F14;
+    --authority-green: #16A34A;
+    --action-green: #4ADE80;
+    --indian-gold: #FBBF24;
 
     --background: 150 47% 7%;                   /* #0A1F14 Green-tinted dark */
     --foreground: 210 40% 98%;                  /* Near-white text */
