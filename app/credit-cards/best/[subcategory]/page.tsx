@@ -8,4 +8,4 @@ export {
   generateMetadata,
   generateStaticParams,
 } from "@/app/[category]/best/[subcategory]/page";
-export { revalidate } from "@/app/[category]/best/[subcategory]/page";
+export const revalidate = 86400; // Daily ISR — must be declared directly, not re-exported
