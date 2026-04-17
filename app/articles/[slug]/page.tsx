@@ -18,6 +18,7 @@ import { createServiceClient } from "@/lib/supabase/service";
 import ArticleRenderer from "@/components/articles/ArticleRenderer";
 import RelatedArticles from "@/components/articles/RelatedArticles";
 import { AuthorBadge } from "@/components/articles/AuthorBadge";
+import { DeskByline } from "@/components/articles/DeskByline";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import TopPicksSidebar from "@/components/products/TopPicksSidebar";
 // ContextualProducts removed — sidebar handles product recommendations
@@ -294,14 +295,14 @@ export default async function ArticlePage({
                     <Clock className="w-3.5 h-3.5" />
                     {article.read_time || "5"} min read
                   </span>
-                  <span className="text-muted-foreground/60">·</span>
-                  <Link
-                    href="/about/editorial-team"
-                    className="text-primary hover:underline"
-                  >
-                    Fact-checked · Editorial standards
-                  </Link>
                 </div>
+
+                {/* Desk byline — auto-selects the right specialist desk from the article category.
+                    Shown for all articles; complements AuthorBadge above. */}
+                <DeskByline
+                  category={article.category}
+                  updatedAt={article.updated_at || article.published_at}
+                />
               </div>
 
               {/* AI Summary Box — collapsible quick read */}
