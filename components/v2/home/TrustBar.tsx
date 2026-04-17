@@ -1,33 +1,38 @@
-import { Check, Lock, CalendarDays, Cpu } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-
-const SIGNALS: { icon: LucideIcon; text: string }[] = [
-  { icon: Check, text: "Rankings never influenced by commission" },
-  { icon: Lock, text: "No credit check to compare" },
-  { icon: CalendarDays, text: "Rates updated daily" },
-  { icon: Cpu, text: "AI-powered research" },
-];
-
 export default function TrustBar() {
+  const DATA_POINTS = [
+    { label: "Best Savings Rate", value: "7.25% p.a.", positive: true },
+    { label: "Cheapest Home Loan", value: "8.35% p.a.", positive: true },
+    { label: "Top FD Rate", value: "9.10% p.a.", positive: true },
+    { label: "Articles Published", value: "228+", positive: true },
+    { label: "Calculators", value: "75 free", positive: true },
+  ];
+
   return (
-    <div
-      className="bg-gradient-to-r from-green-700 to-green-900 py-2.5 px-4 flex gap-6 overflow-x-auto scrollbar-hide scroll-fade-x justify-center"
-      role="list"
-      aria-label="Trust signals"
-    >
-      {SIGNALS.map((item) => {
-        const Icon = item.icon;
-        return (
-          <span
-            key={item.text}
-            className="text-xs text-white/90 font-medium whitespace-nowrap shrink-0 flex items-center gap-1.5"
-            role="listitem"
-          >
-            <Icon size={13} className="text-white/70" strokeWidth={2.5} />
-            {item.text}
+    <div className="bg-white dark:bg-[#0A1F14] border-b-2 border-[#0A1F14]/10 dark:border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center gap-8 py-3 overflow-x-auto scrollbar-hide">
+          <span className="font-data text-[10px] uppercase tracking-[3px] text-[#D97706] whitespace-nowrap flex-shrink-0">
+            Live Data
           </span>
-        );
-      })}
+          {DATA_POINTS.map((point) => (
+            <div
+              key={point.label}
+              className="flex items-center gap-2 whitespace-nowrap flex-shrink-0"
+            >
+              <span className="text-[13px] text-[#0A1F14]/50 dark:text-white/50">
+                {point.label}
+              </span>
+              <span
+                className={`font-data text-[13px] font-medium ${
+                  point.positive ? "text-[#16A34A]" : "text-[#DC2626]"
+                }`}
+              >
+                {point.value}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

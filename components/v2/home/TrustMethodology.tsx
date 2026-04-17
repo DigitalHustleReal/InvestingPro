@@ -1,81 +1,93 @@
 "use client";
 
 import Link from "next/link";
-import { Shield, Award, BarChart3, Users } from "lucide-react";
 
-const TRUST_PILLARS = [
+const CRITERIA = [
   {
-    icon: Shield,
-    title: "Independent Research",
-    description:
-      "Every product is scored by our transparent algorithm. No bank or AMC can pay for a higher ranking.",
-    link: "/editorial-methodology",
-    linkText: "Our methodology",
+    label: "Interest Rates & Fees",
+    weight: "25%",
+    desc: "Actual cost to the consumer, not advertised rates",
   },
   {
-    icon: Award,
-    title: "No Paid Rankings",
-    description:
-      "Affiliate commissions fund the platform but never influence rankings, scores, or recommendations.",
-    link: "/how-we-make-money",
-    linkText: "How we make money",
+    label: "Features & Benefits",
+    weight: "20%",
+    desc: "Real value of rewards, perks, and tools provided",
   },
   {
-    icon: Users,
-    title: "Expert Reviewed",
-    description:
-      "Every article is reviewed by certified financial experts — CAs, CFAs, and former banking executives.",
-    link: "/authors",
-    linkText: "Meet our team",
+    label: "Customer Experience",
+    weight: "20%",
+    desc: "App ratings, support quality, resolution speed",
   },
   {
-    icon: BarChart3,
-    title: "Data-Driven",
-    description:
-      "Data sourced from AMFI, RBI, SEBI, and official bank websites. Updated daily. Cross-verified.",
-    link: "/about-our-data",
-    linkText: "About our data",
+    label: "Eligibility & Access",
+    weight: "15%",
+    desc: "How easy is it for average Indians to qualify",
+  },
+  {
+    label: "Transparency",
+    weight: "10%",
+    desc: "Hidden charges, T&C clarity, disclosure quality",
+  },
+  {
+    label: "Regulatory Standing",
+    weight: "10%",
+    desc: "RBI/SEBI/IRDAI compliance, claim settlement ratios",
   },
 ];
 
 export default function TrustMethodology() {
   return (
-    <section className="py-12 md:py-16 px-4 lg:px-8 bg-white dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider mb-2">
-            Trust & Transparency
+    <section className="bg-[#0A1F14] text-white py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="max-w-3xl mb-12">
+          <div className="font-data text-[11px] uppercase tracking-[4px] text-[#D97706] mb-4">
+            Our Methodology
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
-            How We Earn Your Trust
+          <h2 className="font-display text-[32px] sm:text-[40px] font-black leading-[1.0] tracking-tight mb-4">
+            Every opinion is backed by{" "}
+            <span className="text-[#D97706]">disclosed criteria.</span>
           </h2>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 max-w-lg mx-auto">
-            Financial decisions are too important for biased advice. Here is
-            exactly how we keep our content honest.
+          <p className="text-white/60 text-lg leading-relaxed">
+            We don&apos;t hide behind &quot;editorial discretion.&quot;
+            Here&apos;s exactly how we rate every product on this platform.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {TRUST_PILLARS.map((pillar) => (
-            <Link
-              key={pillar.title}
-              href={pillar.link}
-              className="group p-6 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-md transition-all duration-200"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border border-white/10">
+          {CRITERIA.map((item, i) => (
+            <div
+              key={item.label}
+              className={`p-6 ${i < CRITERIA.length - 1 ? "border-b border-r border-white/10" : ""}`}
             >
-              <div className="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mb-4">
-                <pillar.icon className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+              <div className="flex items-baseline justify-between mb-2">
+                <span className="font-data text-[11px] uppercase tracking-[2px] text-white/40">
+                  Criterion {i + 1}
+                </span>
+                <span className="font-data text-2xl font-bold text-[#16A34A]">
+                  {item.weight}
+                </span>
               </div>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2 text-[15px] group-hover:text-primary-600 transition-colors">
-                {pillar.title}
+              <h3 className="font-display text-lg font-bold mb-1">
+                {item.label}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-3">
-                {pillar.description}
-              </p>
-              <span className="text-xs font-semibold text-primary-600 dark:text-primary-400 group-hover:underline">
-                {pillar.linkText} →
-              </span>
-            </Link>
+              <p className="text-sm text-white/50">{item.desc}</p>
+            </div>
           ))}
+        </div>
+
+        <div className="mt-8 flex items-center gap-6">
+          <Link
+            href="/about/methodology"
+            className="inline-flex items-center font-data text-[12px] uppercase tracking-[2px] text-[#D97706] hover:text-[#FBBF24] transition-colors"
+          >
+            Full methodology disclosed &rarr;
+          </Link>
+          <Link
+            href="/about/editorial-standards"
+            className="inline-flex items-center font-data text-[12px] uppercase tracking-[2px] text-white/40 hover:text-white transition-colors"
+          >
+            Editorial standards &rarr;
+          </Link>
         </div>
       </div>
     </section>
