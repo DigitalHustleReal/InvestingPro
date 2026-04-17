@@ -223,11 +223,16 @@ export default async function RootLayout({
                         <CompareBar />
                         <MobileNav />
                       </ConditionalPublicFloating>
-                      {/* Cuelinks — auto-monetizes outbound links to bank/AMC/insurer sites */}
+                      {/* Affiliate auto-monetization scripts */}
                       <script
                         async
                         src="https://cdn.cuelinks.com/cuelinks-sdk.js"
                         data-publisher-id="244238"
+                      />
+                      <script
+                        async
+                        src="https://ekaro.in/sdk.js"
+                        data-ek-id="5197986"
                       />
                       <Toaster />
                     </NavigationProvider>
