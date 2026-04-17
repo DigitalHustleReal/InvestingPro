@@ -36,6 +36,7 @@ import TableEnhancer from "@/components/articles/TableEnhancer";
 import LiveRatesHydrator from "@/components/articles/LiveRateBadge";
 import { ArticleClientShell } from "./ArticleClientShell";
 import ArticleFeedback from "@/components/articles/ArticleFeedback";
+import ArticleSources from "@/components/articles/ArticleSources";
 import EmbeddedCalculator from "@/components/articles/EmbeddedCalculator";
 import "./article-content.css";
 
@@ -345,6 +346,9 @@ export default async function ArticlePage({
 
               {/* Feedback */}
               <ArticleFeedback articleId={article.id} />
+
+              {/* Article Sources — expandable citations for E-E-A-T */}
+              <ArticleSources category={article.category || ""} />
 
               {/* Tags — compact */}
               {article.tags?.length > 0 && (

@@ -1,12 +1,17 @@
 export interface TeamMember {
   id: string;
   name: string;
+  slug: string;
   role: string;
   image: string;
   shortBio: string;
   fullBio: string;
   story: string;
   expertise: string[];
+  /** Short expertise tags shown in bylines (max 3–4) */
+  expertiseTags: string[];
+  /** Article categories that auto-map to this desk */
+  categories: string[];
   education: string[];
   experience: string[];
   location: string;
@@ -22,6 +27,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: "editorial-team",
     name: "InvestingPro Editorial Team",
+    slug: "editorial-team",
     role: "Research & Analysis",
     image: "/logo.png",
     location: "India",
@@ -40,6 +46,13 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Fixed Deposit Rates",
       "Retirement Planning",
       "Stock Market Education",
+    ],
+    expertiseTags: ["General finance", "Personal finance", "Budgeting"],
+    categories: [
+      "general",
+      "personal_finance",
+      "budgeting",
+      "financial_planning",
     ],
     education: [
       "Our team follows SEBI-compliant research methodology",
@@ -61,6 +74,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: "tax-desk",
     name: "InvestingPro Tax Desk",
+    slug: "tax-desk",
     role: "Tax Planning & Compliance",
     image: "/logo.png",
     location: "India",
@@ -77,6 +91,21 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Old vs New Tax Regime Analysis",
       "Capital Gains Tax",
       "TDS Rules & Compliance",
+    ],
+    expertiseTags: [
+      "Tax planning",
+      "ITR filing",
+      "Section 80C, HRA, capital gains",
+    ],
+    categories: [
+      "tax_planning",
+      "income_tax",
+      "tax",
+      "itr",
+      "hra",
+      "capital_gains",
+      "tax_saving",
+      "gst",
     ],
     education: [
       "Content verified against Income Tax Act 1961",
@@ -97,6 +126,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: "credit-team",
     name: "InvestingPro Credit Team",
+    slug: "credit-team",
     role: "Credit & Banking Analysis",
     image: "/logo.png",
     location: "India",
@@ -112,6 +142,15 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Savings Account Comparison",
       "Fee-to-Benefit Calculations",
       "Banking Product Research",
+    ],
+    expertiseTags: ["Credit cards", "CIBIL score", "Banking products"],
+    categories: [
+      "credit_card",
+      "credit_cards",
+      "cibil",
+      "banking",
+      "savings_account",
+      "loans",
     ],
     education: [
       "Reward rates verified from official card terms and conditions",
