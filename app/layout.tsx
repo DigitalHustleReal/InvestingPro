@@ -169,8 +169,10 @@ export default async function RootLayout({
               description:
                 "India's free personal finance comparison platform. Compare credit cards, mutual funds, loans, and use 75+ financial calculators.",
               sameAs: [],
+              email: "contact@investingpro.in",
               contactPoint: {
                 "@type": "ContactPoint",
+                email: "contact@investingpro.in",
                 contactType: "customer support",
                 availableLanguage: ["English", "Hindi"],
               },

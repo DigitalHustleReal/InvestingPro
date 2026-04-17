@@ -51,10 +51,10 @@ export default function ContactPage() {
                       For general inquiries
                     </p>
                     <a
-                      href="mailto:support@investingpro.in"
+                      href="mailto:contact@investingpro.in"
                       className="text-primary-600 hover:underline font-medium"
                     >
-                      support@investingpro.in
+                      contact@investingpro.in
                     </a>
                   </div>
                 </div>

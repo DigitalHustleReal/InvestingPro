@@ -19,8 +19,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title:
-    "Editorial Methodology — How We Research & Rate Products | InvestingPro",
+  title: "Editorial Methodology — How We Research & Rate Products",
   description:
     "Learn about our 5-step editorial process, credit card scoring methodology, mutual fund rating system, data sources (AMFI, RBI), and our independence commitment. No paid rankings. Ever.",
   openGraph: {

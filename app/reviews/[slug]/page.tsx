@@ -16,7 +16,7 @@ export async function generateMetadata({
   const product = await productService.getProductBySlug(slug);
   if (!product) return {};
   return {
-    title: `${product.name} Review 2026 | InvestingPro`,
+    title: `${product.name} Review 2026`,
     description: product.description,
   };
 }

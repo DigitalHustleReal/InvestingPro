@@ -478,10 +478,10 @@ export default function EditorialStandardsPage() {
                   <span>
                     Contact us at{" "}
                     <a
-                      href="mailto:editorial@investingpro.in"
+                      href="mailto:contact@investingpro.in"
                       className="text-primary-600 hover:underline"
                     >
-                      editorial@investingpro.in
+                      contact@investingpro.in
                     </a>
                   </span>
                 </li>

@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${study.title} | InvestingPro Data Studies`,
+    title: `${study.title} | Data Studies`,
     description: study.description,
     openGraph: {
       title: study.title,

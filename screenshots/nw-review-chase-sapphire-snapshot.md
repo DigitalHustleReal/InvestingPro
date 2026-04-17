@@ -1,0 +1,488 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Skip to content" [ref=e5] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page NerdWallet Home Page" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "NerdWallet Home Page" [ref=e7]
+        - img "NerdWallet Home Page" [ref=e8]
+    - navigation [ref=e9]:
+      - list [ref=e10]:
+        - listitem [ref=e11] [cursor=pointer]:
+          - button "Credit cards" [ref=e12]
+        - listitem [ref=e13] [cursor=pointer]:
+          - button "Banking" [ref=e14]
+        - listitem [ref=e15] [cursor=pointer]:
+          - button "Home" [ref=e16]
+        - listitem [ref=e17] [cursor=pointer]:
+          - button "Loans" [ref=e18]
+        - listitem [ref=e19] [cursor=pointer]:
+          - button "Insurance" [ref=e20]
+        - listitem [ref=e21] [cursor=pointer]:
+          - button "Personal finance" [ref=e22]
+        - listitem [ref=e23] [cursor=pointer]:
+          - button "Investing" [ref=e24]
+        - listitem [ref=e25] [cursor=pointer]:
+          - button "Small business" [ref=e26]
+        - listitem [ref=e27] [cursor=pointer]:
+          - button "Taxes" [ref=e28]
+    - generic [ref=e29]:
+      - generic "Open search panel" [ref=e31] [cursor=pointer]:
+        - img "Search" [ref=e32]
+      - generic [ref=e33]:
+        - generic [ref=e36]:
+          - link "Sign in" [ref=e38] [cursor=pointer]:
+            - /url: /api/nts/v1/login?redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fhome%2Fdashboard&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&deployableName=structured-content-client&deployableVersion=260&driverContentId=1320878&driverContentSource=wp&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverPageName=credit_cards_browse_learn_and_apply_nerdwallet&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards&driverPageViewId=855bc84b-0662-48a9-b1b0-2c756ac0c065&mostRecentTraditionalDeviceId=3f373271e9bf66a5b2f9735141ee7395d86c54f62df14f9d-00de-4753-a5ef-de4b0403c44b&initialScreen=&attrVertical=Credit%20Cards&attrTopic=&undefined=
+            - generic [ref=e39]: Sign in
+          - link "Sign up" [ref=e43] [cursor=pointer]:
+            - /url: /api/nts/v1/login?redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fhome%2Fdashboard%3Ffeature_discovery%3Dnw_plus&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&deployableName=structured-content-client&deployableVersion=260&driverContentId=1320878&driverContentSource=wp&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverPageName=credit_cards_browse_learn_and_apply_nerdwallet&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards&driverPageViewId=855bc84b-0662-48a9-b1b0-2c756ac0c065&driverSubLocation=new_insights&mostRecentTraditionalDeviceId=3f373271e9bf66a5b2f9735141ee7395d86c54f62df14f9d-00de-4753-a5ef-de4b0403c44b&initialScreen=signup&attrVertical=Credit%20Cards&attrTopic=&undefined=
+            - generic [ref=e44]: Sign up
+        - generic [ref=e54]:
+          - button "Close" [ref=e55] [cursor=pointer]
+          - generic [ref=e59]:
+            - text: Scrap the spreadsheets.
+            - text: We’ll track your money in one place for you.
+          - generic [ref=e60]:
+            - generic [ref=e61]
+            - generic [ref=e88]
+          - generic [ref=e91]:
+            - generic [ref=e92]: By signing up, I agree to NerdWallet's
+            - generic [ref=e93]
+  - navigation "Breadcrumbs" [ref=e99]:
+    - link "Back to NerdWallet homepage" [ref=e100] [cursor=pointer]:
+      - /url: https://www.nerdwallet.com/
+      - img [ref=e101]
+  - generic [ref=e107]:
+    - banner [ref=e108]:
+      - generic [ref=e109]:
+        - button "Advertiser disclosure" [ref=e110]:
+          - generic [ref=e112]: Advertiser disclosure
+        - generic [ref=e113]:
+          - heading "Credit Cards" [level=1] [ref=e114]
+          - generic [ref=e115]: What are credit cards? How do they work? How do you decide among cash back, travel points and other options — and then maximize the value you get from your card? Browse our card picks, read our reviews and learn more about rewards, points, interest rates and how to apply — all on NerdWallet.
+    - generic [ref=e116]:
+      - heading "Find a credit card" [level=2] [ref=e118]
+      - generic [ref=e120]:
+        - link "Top credit cards" [ref=e122] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best
+          - generic [ref=e123]:
+            - img [ref=e125]
+            - paragraph [ref=e127]: Top credit cards
+        - link "Find the right card for you" [ref=e129] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/recommend
+          - generic [ref=e130]:
+            - img [ref=e132]
+            - paragraph [ref=e134]: Find the right card for you
+        - link "Compare the top credit cards" [ref=e136] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/compare
+          - generic [ref=e137]:
+            - img [ref=e139]
+            - paragraph [ref=e141]: Compare the top credit cards
+        - link "Top balance transfer credit cards" [ref=e143] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/balance-transfer
+          - generic [ref=e144]:
+            - img [ref=e146]
+            - paragraph [ref=e148]: Top balance transfer credit cards
+        - link "Top 0% APR credit cards" [ref=e150] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/zero-percent
+          - generic [ref=e151]:
+            - img [ref=e153]
+            - paragraph [ref=e155]: Top 0% APR credit cards
+        - link "Top travel rewards cards" [ref=e157] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/travel
+          - generic [ref=e158]:
+            - img [ref=e160]
+            - paragraph [ref=e162]: Top travel rewards cards
+        - link "Top cash back credit cards" [ref=e164] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/cash-back
+          - generic [ref=e165]:
+            - img [ref=e167]
+            - paragraph [ref=e169]: Top cash back credit cards
+        - link "Top rewards credit cards" [ref=e171] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/rewards
+          - generic [ref=e172]:
+            - img [ref=e174]
+            - paragraph [ref=e176]: Top rewards credit cards
+        - link "Top airline credit cards" [ref=e178] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/best/credit-cards/airline
+          - generic [ref=e179]:
+            - img [ref=e181]
+            - paragraph [ref=e183]: Top airline credit cards
+        - link "Top business credit cards" [ref=e185] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/business/credit-cards/best
+          - generic [ref=e186]:
+            - img [ref=e188]
+            - paragraph [ref=e190]: Top business credit cards
+        - link "Top gas credit cards" [ref=e192] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/gas
+          - generic [ref=e193]:
+            - img [ref=e195]
+            - paragraph [ref=e197]: Top gas credit cards
+        - link "Top college student credit cards" [ref=e199] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/college-student
+          - generic [ref=e200]:
+            - img [ref=e202]
+            - paragraph [ref=e204]: Top college student credit cards
+      - heading "Credit card calculators" [level=2] [ref=e206]
+      - generic [ref=e208]:
+        - link "Credit Card Interest Calculator Use your credit card balance and interest rate to see how much your interest charges would be for a month." [ref=e210] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/learn/credit-card-interest-calculator
+          - generic [ref=e211]:
+            - img [ref=e213]
+            - paragraph [ref=e215]: Credit Card Interest Calculator
+          - paragraph [ref=e217]: Use your credit card balance and interest rate to see how much your interest charges would be for a month.
+        - link "Average Daily Balance Credit Card Calculator This is the number credit card issuers use to calculate your interest. Enter your purchases and payments in our simple tool to see your average balance" [ref=e219] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/learn/average-daily-balance-credit-card-calculator
+          - generic [ref=e220]:
+            - img [ref=e222]
+            - paragraph [ref=e224]: Average Daily Balance Credit Card Calculator
+          - paragraph [ref=e226]: This is the number credit card issuers use to calculate your interest. Enter your purchases and payments in our simple tool to see your average balance
+        - link "Credit Card Balance Transfer Calculator See how much you could save by moving debt from a high-interest credit card to a new card with a 0% intro rate." [ref=e228] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/learn/balance-transfer-calculator
+          - generic [ref=e229]:
+            - img [ref=e231]
+            - paragraph [ref=e233]: Credit Card Balance Transfer Calculator
+          - paragraph [ref=e235]: See how much you could save by moving debt from a high-interest credit card to a new card with a 0% intro rate.
+        - link "Credit Utilization Ratio Credit utilization is calculated by dividing the balance by credit limit for each card and for all cards together." [ref=e237] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/finance/learn/how-is-credit-utilization-ratio-calculated
+          - generic [ref=e238]:
+            - img [ref=e240]
+            - paragraph [ref=e242]: Credit Utilization Ratio
+          - paragraph [ref=e244]: Credit utilization is calculated by dividing the balance by credit limit for each card and for all cards together.
+      - heading "Featured Video" [level=2] [ref=e246]
+      - generic [ref=e247]:
+        - button "Play 10:25" [ref=e251] [cursor=pointer]:
+          - button "Play" [ref=e252]:
+            - img [ref=e253]
+          - generic [ref=e255]: 10:25
+          - figure [ref=e256]:
+            - img "Video preview image" [ref=e260]
+        - generic [ref=e261]:
+          - 'heading "Video: Credit Card Annual Fees Explained" [level=3] [ref=e263]'
+          - paragraph [ref=e265]: Are credit card annual fees worth it? In this video, NerdWallet Credit Card expert Sally French breaks down why it often makes sense to pay an annual fee for a credit card, and when it may not.
+      - heading "Read our reviews" [level=2] [ref=e267]
+      - generic [ref=e273]:
+        - generic [ref=e277]:
+          - link [ref=e279] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/credit-cards/reviews/chase-sapphire-preferred
+            - figure [ref=e280]
+          - generic [ref=e284]:
+            - 'link "Chase Sapphire Preferred Review: Strong Option for Travel Rewards" [ref=e286] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/credit-cards/reviews/chase-sapphire-preferred
+            - generic [ref=e288]
+        - generic [ref=e294]:
+          - link [ref=e296] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/credit-cards/reviews/citi-double-cash
+            - figure [ref=e297]
+          - generic [ref=e301]:
+            - 'link "Citi Double Cash Review: A Solid Choice for Everyday Spending" [ref=e303] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/credit-cards/reviews/citi-double-cash
+            - generic [ref=e305]
+        - generic [ref=e312]:
+          - link [ref=e314] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/credit-cards/reviews/wells-fargo-reflect-card
+            - figure [ref=e315]
+          - generic [ref=e319]:
+            - 'link "Wells Fargo Reflect® Card Review: An Extended Break From Interest" [ref=e321] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/credit-cards/reviews/wells-fargo-reflect-card
+            - generic [ref=e323]
+        - generic [ref=e330]:
+          - link [ref=e332] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/credit-cards/reviews/american-express-platinum
+            - figure [ref=e333]
+          - generic [ref=e337]:
+            - 'link "American Express Platinum Review: Top-Notch Lounge Access, Big Credits" [ref=e339] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/credit-cards/reviews/american-express-platinum
+            - generic [ref=e341]
+        - generic [ref=e348]:
+          - link [ref=e350] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/credit-cards/reviews/american-express-blue-cash-preferred
+            - figure [ref=e351]
+          - generic [ref=e355]:
+            - 'link "American Express Blue Cash Preferred Review: The Ultimate Family Card" [ref=e357] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/credit-cards/reviews/american-express-blue-cash-preferred
+            - generic [ref=e359]
+        - generic [ref=e366]:
+          - link [ref=e368] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/credit-cards/reviews/chase-freedom-unlimited
+            - figure [ref=e369]
+          - generic [ref=e373]:
+            - 'link "Chase Freedom Unlimited Review: A Potential One-Card Solution" [ref=e375] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/credit-cards/reviews/chase-freedom-unlimited
+            - generic [ref=e377]
+        - generic [ref=e384]:
+          - link [ref=e386] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/credit-cards/reviews/capital-one-venture-x
+            - figure [ref=e387]
+          - generic [ref=e391]:
+            - 'link "Capital One Venture X Review: A Steal of a Deal Among Premium Cards" [ref=e393] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/credit-cards/reviews/capital-one-venture-x
+            - generic [ref=e395]
+        - generic [ref=e402]:
+          - link [ref=e404] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/credit-cards/reviews/citi-simplicity
+            - figure [ref=e405]
+          - generic [ref=e409]:
+            - 'link "Citi Simplicity Review: 18 Months of 0% to Whittle Down Debt" [ref=e411] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/credit-cards/reviews/citi-simplicity
+            - generic [ref=e413]
+      - heading "» See all credit card reviews by NerdWallet's experts" [level=3] [ref=e417]:
+        - generic [ref=e418]:
+          - text: » See
+          - link "all credit card reviews" [ref=e419] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/credit-cards/reviews
+          - text: by NerdWallet's experts
+      - heading "The latest" [level=2] [ref=e421]
+      - generic [ref=e424]:
+        - generic [ref=e427]:
+          - generic [ref=e431]:
+            - link [ref=e433] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/chase-aeroplan-card-boosts-bonus-limited-time-april-2026
+            - generic [ref=e438]
+          - generic [ref=e449]:
+            - link [ref=e451] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/credit-card-save-money-inflation
+            - generic [ref=e456]
+          - generic [ref=e467]:
+            - link [ref=e469] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/pnc-bank-new-loyalty-program
+            - generic [ref=e474]
+          - generic [ref=e485]:
+            - link [ref=e487] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/premium-credit-cards-smaller-cities
+            - generic [ref=e492]
+          - generic [ref=e503]:
+            - link [ref=e505] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/studies/how-many-credit-cards
+            - generic [ref=e510]
+          - generic [ref=e521]:
+            - link [ref=e523] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/jetblue-premier-new-perks
+            - generic [ref=e528]
+          - generic [ref=e539]:
+            - link [ref=e541] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/united-cards-hike-welcome-bonuses-april-2026
+            - generic [ref=e546]
+          - generic [ref=e557]:
+            - link [ref=e559] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/as-gas-prices-rise-credit-cards-can-help
+            - generic [ref=e564]
+          - generic [ref=e575]:
+            - link [ref=e577] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/southwest-bonus-rewards-lyft
+            - generic [ref=e582]
+          - generic [ref=e593]:
+            - link [ref=e595] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/atmos-credit-card-welcome-offers-april-2026
+            - generic [ref=e600]
+          - generic [ref=e611]:
+            - link [ref=e613] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/royal-one-cards-replace-old-royal-caribbean-card
+            - generic [ref=e618]
+          - generic [ref=e629]:
+            - link [ref=e631] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/hilton-new-welcome-offer-march-2026
+            - generic [ref=e636]
+          - generic [ref=e647]:
+            - link [ref=e649] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/credit-card-rewards-on-housing-face-cracks-in-the-foundation
+            - generic [ref=e654]
+          - generic [ref=e665]:
+            - link [ref=e667] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/chase-freedom-unlimited-changes-welcome-bonus-march-2026
+            - generic [ref=e672]
+          - generic [ref=e683]:
+            - link [ref=e685] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/chase-5-percent-bonus-categories-q2-2026
+            - generic [ref=e690]
+          - generic [ref=e701]:
+            - link [ref=e703] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/marriott-bonvoy-boundless-bevy-brilliant-unveil-new-bonus-offers-march-2026
+            - generic [ref=e708]
+          - generic [ref=e719]:
+            - link [ref=e721] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/chase-offer-whoop-membership
+            - generic [ref=e726]
+          - generic [ref=e737]:
+            - link [ref=e739] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/robinhood-platinum
+            - generic [ref=e744]
+          - generic [ref=e755]:
+            - link [ref=e757] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/chime-prime-up-to-5-percent-back
+            - generic [ref=e762]
+          - generic [ref=e773]:
+            - link [ref=e775] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/discover-5-percent-bonus-categories-Q2-2026
+            - generic [ref=e780]
+        - navigation "Pagination navigation" [ref=e789]:
+          - list [ref=e790]:
+            - listitem [ref=e791]
+            - listitem [ref=e797]
+            - listitem [ref=e801]
+            - listitem [ref=e805]
+            - listitem [ref=e809]
+            - listitem [ref=e813]
+            - listitem
+            - listitem [ref=e817]
+            - listitem [ref=e821]
+  - contentinfo [ref=e828]:
+    - generic [ref=e829]:
+      - img "NerdWallet Home Page" [ref=e830]
+      - generic [ref=e831]: Finance Smarter
+    - generic [ref=e832]:
+      - generic [ref=e833]: about
+      - link "Company" [ref=e835] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/company
+      - link "Leadership" [ref=e836] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/leadership
+      - link "Careers" [ref=e837] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/careers
+      - link "Corporate impact" [ref=e838] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/corporate-impact
+      - link "Diversity & Inclusion" [ref=e839] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/diversity-inclusion
+      - link "Editorial guidelines" [ref=e840] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+      - link "Star rating methodologies" [ref=e841] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/rating-methodologies
+      - link "Editorial team" [ref=e842] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-team
+      - link "Press" [ref=e843] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/press
+      - link "Press kit" [ref=e844] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/kit
+      - link "Investors" [ref=e845] [cursor=pointer]:
+        - /url: https://investors.nerdwallet.com
+    - generic [ref=e846]:
+      - generic [ref=e847]: help
+      - link "Help center" [ref=e849] [cursor=pointer]:
+        - /url: https://support.nerdwallet.com/hc/en-us
+      - link "Security FAQs" [ref=e850] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/security
+    - generic [ref=e851]:
+      - generic [ref=e852]: legal
+      - link "Terms of use" [ref=e854] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/terms-of-use
+      - link "Supplier Code of Conduct" [ref=e855] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/supplier-code-of-conduct
+      - link "Privacy policy" [ref=e856] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/privacy-policy
+      - link "California privacy policy" [ref=e857] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/nerdwallet-california-privacy-policy
+      - link "Privacy preferences" [ref=e858] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/privacy-policy#s4
+      - link "Do not sell or share my personal information" [ref=e859] [cursor=pointer]:
+        - /url: https://privacyportal.onetrust.com/webform/694a76f6-1f82-455e-b46e-ffeed902c3fa/db85134f-a11a-451c-a462-3f2f39a662bc#opt_out
+    - generic [ref=e860]:
+      - link "Learn more about the app" [ref=e861] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+      - paragraph [ref=e863]: Download the app
+      - generic [ref=e864]:
+        - generic [ref=e865]:
+          - link "Download iOS app" [ref=e866] [cursor=pointer]:
+            - /url: https://nerdwallet.onelink.me/3687710914/87a0b5b3
+            - img "Download on the App Store" [ref=e867]
+          - generic [ref=e868]:
+            - generic [ref=e869]
+            - generic [ref=e894]: 121,000+ reviews
+        - generic [ref=e895]:
+          - link "Download Android app" [ref=e896] [cursor=pointer]:
+            - /url: https://nerdwallet.onelink.me/3687710914/233a7a41
+            - img "Get it on Google Play" [ref=e897]
+          - generic [ref=e898]:
+            - generic [ref=e899]
+            - generic [ref=e924]: 31,200+ reviews
+      - img "QR code for downloading the app" [ref=e925]
+    - generic [ref=e926]:
+      - paragraph [ref=e927]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+      - generic [ref=e928]:
+        - paragraph [ref=e929]: NerdWallet Compare, Inc. NMLS ID# 1617539
+        - paragraph [ref=e930]:
+          - link "NMLS Consumer Access" [ref=e931] [cursor=pointer]:
+            - /url: https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1617539
+          - text: "|"
+          - link "Licenses and Disclosures" [ref=e932] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/nerdwallet-compare-inc-licenses-and-disclosures
+        - paragraph [ref=e933]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e934]:
+          - text: Insurance Services offered through NerdWallet Insurance Services, Inc. (CA resident license no.OK92033)
+          - link "Insurance Licenses" [ref=e935] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/nerdwallet-insurance-services-inc-licenses-and-disclosures
+        - paragraph [ref=e936]: Fundera, Inc. NMLS ID# 1240038
+        - paragraph [ref=e937]:
+          - link "NMLS Consumer Access" [ref=e938] [cursor=pointer]:
+            - /url: https://nmlsconsumeraccess.org/
+        - paragraph [ref=e939]: "California: California Finance Lender loans arranged pursuant to the Department of Financial Protection and Innovation Finance Lenders License #603L288"
+      - paragraph [ref=e940]:
+        - text: NerdWallet has engaged Atomic Invest LLC (“Atomic”), an SEC-registered investment adviser, to bring you the opportunity to open investment advisory accounts (Automated Investing Account and/or Treasury Account) with Atomic. NerdWallet receives compensation of 0% to 0.85% of assets under management annualized, payable monthly, for each referred client who opens an Atomic account and a percentage of free cash interest earned by clients, which creates a conflict of interest. Brokerage services for Atomic are provided by Atomic Brokerage LLC ("Atomic Brokerage"), member of
+        - link "FINRA" [ref=e941] [cursor=pointer]:
+          - /url: https://www.finra.org/#/
+        - text: /
+        - link "SIPC" [ref=e942] [cursor=pointer]:
+          - /url: https://www.sipc.org/
+        - text: and an affiliate of Atomic, which creates a conflict of interest. See details about Atomic, in their
+        - link "Form CRS" [ref=e943] [cursor=pointer]:
+          - /url: https://reports.adviserinfo.sec.gov/crs/crs_313255.pdf
+        - text: ","
+        - link "Form ADV Part 2A" [ref=e944] [cursor=pointer]:
+          - /url: https://adviserinfo.sec.gov/firm/brochure/313255
+        - text: and
+        - link "Privacy Policy" [ref=e945] [cursor=pointer]:
+          - /url: https://legal.atomicvest.com/usa.privacy.de3d0277-78f7-4741-9e9f-755f6b4f03ba.pdf
+        - text: . See details about Atomic Brokerage in their
+        - link "Form CRS" [ref=e946] [cursor=pointer]:
+          - /url: https://files.brokercheck.finra.org/crs_315263.pdf
+        - text: ","
+        - link "General Disclosures" [ref=e947] [cursor=pointer]:
+          - /url: https://legal.atomicvest.com/usa.broker.disclosures.003464f3-f6bd-41c3-bbdf-7050e50b43a2.pdf
+        - text: ","
+        - link "fee schedule" [ref=e948] [cursor=pointer]:
+          - /url: https://legal.atomicvest.com/usa.broker.schedule.7ea28665-88a9-4542-a748-987e90ea46b6.pdf
+        - text: ", and FINRA’s"
+        - link "BrokerCheck" [ref=e949] [cursor=pointer]:
+          - /url: https://brokercheck.finra.org/
+        - text: .
+      - paragraph [ref=e950]:
+        - text: You also can open a Cash Account offered by Atomic Brokerage which allows you to earn interest on your cash through a cash sweep program.
+        - link "View Important Cash Account Disclosures." [ref=e951] [cursor=pointer]:
+          - /url: https://www.atomicvest.com/legal/disclosures/7d9c31dd-bf97-46ae-9803-1774b97187af
+      - paragraph [ref=e952]: "Neither Atomic Invest nor Atomic Brokerage, nor any of their affiliates is a bank. Investments in securities: Not FDIC Insured, Not Bank Guaranteed, May Lose Value. Investing involves risk, including the possible loss of principal. Before investing, consider your investment objectives and the fees and expenses charged."
+      - paragraph [ref=e953]: Images are for illustrative purposes only.
+      - paragraph [ref=e954]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+    - generic [ref=e957]:
+      - generic [ref=e958]:
+        - img "USA" [ref=e959]
+        - text: NerdWallet USA
+      - generic [ref=e960]: "|"
+      - link "CA NerdWallet CA" [ref=e961] [cursor=pointer]:
+        - /url: /ca
+        - img "CA" [ref=e962]
+        - text: NerdWallet CA
+    - generic [ref=e963]:
+      - generic [ref=e964]:
+        - text: © 2026 NerdWallet, Inc.
+        - generic [ref=e965]: All Rights Reserved.
+      - list [ref=e966]:
+        - listitem [ref=e967]:
+          - link "Find NerdWallet on X" [ref=e968] [cursor=pointer]:
+            - /url: https://x.com/NerdWallet
+            - img "X" [ref=e969]
+        - listitem [ref=e970]:
+          - link "Find NerdWallet on YouTube" [ref=e971] [cursor=pointer]:
+            - /url: https://www.youtube.com/@nerdwallet
+            - img "YouTube" [ref=e972]
+        - listitem [ref=e973]:
+          - link "Find NerdWallet on Instagram" [ref=e974] [cursor=pointer]:
+            - /url: https://www.instagram.com/NerdWallet/
+            - img "Instagram" [ref=e975]
+        - listitem [ref=e976]:
+          - link "Find NerdWallet on Apple Podcasts" [ref=e977] [cursor=pointer]:
+            - /url: https://play.megaphone.fm/xcr_lszorm-uiidw0pl5eq
+            - img "Apple Podcasts" [ref=e978]
+        - listitem [ref=e979]:
+          - link "Find NerdWallet on TikTok" [ref=e980] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nerdwallet?lang=en
+            - img "TikTok" [ref=e981]
+  - iframe

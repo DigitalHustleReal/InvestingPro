@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Our Editorial Team & Process | InvestingPro India",
+  title: "Our Editorial Team & Process",
   description:
     "How InvestingPro researches, writes, and fact-checks financial content. Our editorial process ensures every guide is accurate, unbiased, and data-driven.",
 };

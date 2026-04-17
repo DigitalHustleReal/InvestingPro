@@ -1,0 +1,369 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Skip to content" [ref=e6] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Nerdwallet icon" [ref=e8]
+        - img "Nerdwallet logo" [ref=e9]
+    - navigation [ref=e11]:
+      - generic "Open Credit cards menu" [ref=e13] [cursor=pointer]:
+        - generic [ref=e14]: Credit cards
+      - generic "Open Banking menu" [ref=e16] [cursor=pointer]:
+        - generic [ref=e17]: Banking
+      - generic "Open Home menu" [ref=e19] [cursor=pointer]:
+        - generic [ref=e20]: Home
+      - generic "Open Loans menu" [ref=e22] [cursor=pointer]:
+        - generic [ref=e23]: Loans
+      - generic "Open Insurance menu" [ref=e25] [cursor=pointer]:
+        - generic [ref=e26]: Insurance
+      - generic "Open Personal finance menu" [ref=e28] [cursor=pointer]:
+        - generic [ref=e29]: Personal finance
+      - generic "Open Investing menu" [ref=e31] [cursor=pointer]:
+        - generic [ref=e32]: Investing
+      - generic "Open Small business menu" [ref=e34] [cursor=pointer]:
+        - generic [ref=e35]: Small business
+      - generic "Open Taxes menu" [ref=e37] [cursor=pointer]:
+        - generic [ref=e38]: Taxes
+    - generic "Open search panel" [ref=e39] [cursor=pointer]:
+      - img "Search" [ref=e40]
+    - generic [ref=e41]:
+      - link "Sign In" [ref=e42] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signin&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Ffinance%2Flearn%2Fwhat-is-a-good-credit-score&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Ffinance%2Flearn%2Fwhat-is-a-good-credit-score&driverContentId=815462&driverContentSource=wp&driverPageName=what_is_a_good_credit_score&driverPageViewId=04c7e827-6963-489b-a571-908db3b4863a&deployableName=seo-pages&deployableVersion=1.0.0
+      - link "Sign Up" [ref=e43] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signup&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Ffinance%2Flearn%2Fwhat-is-a-good-credit-score&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Ffinance%2Flearn%2Fwhat-is-a-good-credit-score&driverContentId=815462&driverContentSource=wp&driverPageName=what_is_a_good_credit_score&driverPageViewId=04c7e827-6963-489b-a571-908db3b4863a&deployableName=seo-pages&deployableVersion=1.0.0
+    - generic "Close notifications panel" [ref=e45] [cursor=pointer]:
+      - img "Close" [ref=e46]
+  - main [ref=e47]:
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - navigation "Breadcrumbs" [ref=e52]:
+          - link "Back to NerdWallet homepage" [ref=e53] [cursor=pointer]:
+            - /url: /
+            - img [ref=e54]
+          - img [ref=e57]
+          - link "Finance" [ref=e59] [cursor=pointer]:
+            - /url: /finance
+          - img [ref=e61]
+          - generic [ref=e63]: What Is a Good Credit Score and How Do I Get One?
+        - button "Advertiser disclosure" [ref=e66] [cursor=pointer]
+      - heading "What Is a Good Credit Score and How Do I Get One?" [level=1] [ref=e67]
+      - paragraph [ref=e68]: On a scale of 300-850, a "good" credit score falls somewhere in the mid-600s to mid-700s. Knowing what affects your score — and how to build or fix it — can help you qualify for better credit cards, loans, and interest rates.
+      - generic [ref=e69]:
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - link [ref=e73] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/author/amanda-barroso
+            - generic [ref=e76]
+          - generic [ref=e82]:
+            - link [ref=e83] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/author/lauren-schwahn
+            - generic [ref=e86]
+          - generic [ref=e92]:
+            - link [ref=e93] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/author/laura-mcmullen
+            - generic [ref=e96]
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - text: Updated
+            - time [ref=e104]: Apr 3, 2026
+          - button "Fact Checked" [ref=e106] [cursor=pointer]:
+            - generic [ref=e107]
+    - generic [ref=e112]:
+      - article [ref=e113]:
+        - heading "Want a good score? Shoot for 760" [level=2] [ref=e116]
+        - generic [ref=e117]: Credit card companies and mortgage lenders don’t use a single definition of "good credit." Each sets its own approval criteria based on the type of loan and market conditions. Your credit score determines not just whether you’re approved, but also the terms you’re offered.
+        - generic [ref=e118]: “The target score is 760 and above,” says credit expert John Ulzheimer.
+        - generic [ref=e119]: “That really puts you in the safe zone for all forms of credit, including mortgage programs that still rely on credit scores,” Ulzheimer says. “It’s also well above good enough to get you a great deal on a car loan, and also qualify you for the best prime credit cards.”
+        - heading "FICO vs. VantageScore" [level=2] [ref=e122]
+        - generic [ref=e123]: "Two major companies create credit scores: and. Both use the same 300 to 850. But, the two companies define “good credit” a little differently."
+        - figure [ref=e126]:
+          - img "Text" [ref=e129]
+        - generic [ref=e130]: According to FICO, a good score is 670 to 739. A good VantageScore is 661 to 780, which the company calls a "prime" credit tier.
+        - generic [ref=e132]:
+          - text: Both companies use information from the
+          - link "three major credit bureaus" [ref=e133] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/finance/learn/3-credit-bureaus
+          - text: — TransUnion, Equifax and Experian — to calculate your scores.
+        - generic [ref=e134]: Some industries use their own versions of these scores. For example, the FICO Auto score ranges from 250 to 900 and is used by car lenders.
+        - generic [ref=e138]:
+          - generic [ref=e139]:
+            - generic [ref=e140]
+            - link "SUBSCRIBE FOR FREE" [ref=e145] [cursor=pointer]:
+              - /url: https://moneynerd-nerdwallet.beehiiv.com/
+          - figure [ref=e146]:
+            - img "CTA image" [ref=e147]
+        - heading "How to get a good credit score" [level=2] [ref=e150]
+        - generic [ref=e151]: "If you want to, focus on building strong credit habits and keeping them up over time. Here are some of the most important steps:"
+        - heading "Pay bills on time" [level=3] [ref=e154]
+        - generic [ref=e155]: "Your payment history has the biggest effect on your score. Missing or paying a bill late can lower your score a lot, and that mark can stay on your credit reports for up to seven years. The good news: its effect fades as time passes."
+        - heading "Keep credit use below 30%" [level=3] [ref=e158]
+        - generic [ref=e159]: Try to keep your credit card balances well below your credit limits. NerdWallet recommends using no more than 30% of your available credit. Using too much credit at once can lower your score, but your score will improve again after you pay down the balances.
+        - generic [ref=e160]: You can also lower your by asking for a higher credit limit or by becoming an on a trusted adult’s card who has a strong credit history and a record of paying on time, all the time.
+        - heading "Leave credit cards open" [level=3] [ref=e163]
+        - generic [ref=e164]: Keeping older credit cards open can help your score because it increases the average age of your accounts. Closing a card lowers your total credit limit, which can push your credit utilization higher and hurt your score. Still, it might make sense to close a card if it has high fees or poor service.
+        - heading "Space out credit applications" [level=3] [ref=e167]
+        - generic [ref=e168]: Avoid applying for several credit or loan applications at once. Each application causes a, which can temporarily lower your score. Too many hard inquiries close together can add up and drive your score down even further. That's why it helps to research credit cards before you apply.
+        - heading "Check your credit reports" [level=3] [ref=e171]
+        - generic [ref=e172]: Mistakes on your credit reports can hurt your score. Review your reports often and you think is incorrect or too old to be included. Most negative marks fall off your credit reports after seven years.
+        - heading "What a good credit score can get you" [level=2] [ref=e175]
+        - generic [ref=e177]:
+          - link "Having good credit matters" [ref=e178] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/finance/learn/benefits-of-good-credit
+          - text: because it affects whether you can borrow money — and how much interest you'll pay when you do.
+        - generic [ref=e179]: A good credit score can make it easier to get approved for credit cards with higher credit limits, better perks and other rewards. In many states, people with higher credit-based insurance scores pay less for car insurance.
+        - generic [ref=e180]: "Here are some other things a good credit score can help you get:"
+        - list [ref=e182]:
+          - listitem [ref=e183]:
+            - generic [ref=e185]: A credit card with a fair interest rate. You may even qualify for a balance-transfer card, which lets you move debt from another card at a lower interest rate.
+          - listitem [ref=e186]:
+            - generic [ref=e188]: A car loan or lease with better terms. If your credit score is around 700 or lower, lenders may ask questions about negative marks on your credit report before approving you for a car loan.
+          - listitem [ref=e189]:
+            - generic [ref=e191]: A mortgage with a lower interest rate. You don’t need a perfect credit score to get a home loan — some lenders accept scores in the 500s. But credit scores show how risky it might be to lend to you, so higher scores usually mean lower interest rates.
+          - listitem [ref=e192]:
+            - generic [ref=e194]: An edge when renting a home or apartment. Landlords or property managers often check credit scores when choosing tenants. They usually care more about your full credit history than having a perfect score.
+          - listitem [ref=e195]:
+            - generic [ref=e197]: Access to new credit when needed. A good credit score gives you flexibility. It can help you cover costs in an emergency or qualify you for rewards and travel cards.
+        - heading "What is the highest credit score?" [level=2] [ref=e200]
+        - generic [ref=e201]: The highest score possible on most scales is 850.
+        - generic [ref=e202]: It can be tempting to chase that perfect number, but credit scores change from month to month. Even if you reach 850, it’s hard to stay there.
+        - generic [ref=e203]: The good news is you don't need a perfect credit score to get the best deals. Scores in the high 700s and above are considered excellent, and anything 800 or higher usually qualifies you for the best rates and terms.
+        - heading "What is a bad credit score?" [level=2] [ref=e206]
+        - generic [ref=e207]: A bad credit score is usually 600 or lower on the 300-850 scale. Scores in this range can make it hard to qualify for credit cards, loans or good interest rates.
+        - generic [ref=e208]: "A bad score could be caused by one or more factors:"
+        - list [ref=e210]:
+          - listitem [ref=e211]:
+            - generic [ref=e212]: Late or missed payments.
+          - listitem [ref=e213]:
+            - generic [ref=e214]: Using too much of your credit limit.
+          - listitem [ref=e215]:
+            - generic [ref=e216]: Collections or charge-offs to existing accounts.
+          - listitem [ref=e217]:
+            - generic [ref=e218]: Filing for bankruptcy.
+          - listitem [ref=e219]:
+            - generic [ref=e220]: Identity theft or fraud.
+          - listitem [ref=e221]:
+            - generic [ref=e222]: Having little or no credit history.
+        - generic [ref=e223]: Having bad credit doesn’t mean you’re stuck. Credit scores can bounce back with time, steady on-time payments, and keeping balances low. By checking your credit regularly and building healthy habits, you can see your score improve step by step.
+        - generic [ref=e229]:
+          - generic [ref=e230]:
+            - generic [ref=e231]
+            - button "GET THE APP TODAY" [ref=e235]
+          - figure:
+            - img "CTA image"
+        - generic [ref=e237]:
+          - generic [ref=e238]:
+            - img [ref=e239]
+            - generic [ref=e241]: Explore more on
+          - generic [ref=e242]:
+            - link "The Financial Glow Up" [ref=e243] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/finance/hubs/glowup
+            - link "Money News You Can Use" [ref=e244] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/finance/news
+            - link "The Ultimate Credit Score Guide" [ref=e245] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/finance/hubs/the-ultimate-credit-score-guide
+            - link "Making Money" [ref=e246] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/finance/hubs/making-money
+            - link "Paying Your Bills" [ref=e247] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/finance/hubs/paying-your-bills
+            - link "Personal Finance" [ref=e248] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/finance
+        - generic [ref=e251]:
+          - img [ref=e252]
+          - link "Back to top" [ref=e254] [cursor=pointer]
+        - complementary [ref=e255]:
+          - generic [ref=e256]: About the authors
+          - generic [ref=e257]:
+            - generic [ref=e258]
+            - generic [ref=e293]
+      - complementary [ref=e331]:
+        - link "NerdWallet is committed to editorial integrity." [ref=e332] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/p/advertiser-disclosures#finance
+          - img [ref=e333]
+          - text: NerdWallet is committed to editorial integrity.
+        - generic [ref=e336]:
+          - generic [ref=e340]:
+            - generic [ref=e341]
+            - region "ON THIS PAGE" [ref=e349]
+          - generic [ref=e353]:
+            - generic [ref=e354]: Helpful Resources
+            - generic [ref=e357]
+    - generic [ref=e393]:
+      - generic [ref=e394]: Related articles
+      - generic [ref=e395]:
+        - generic [ref=e397]:
+          - link "What Is Credit and Why Is It Useful? By Amanda Barroso" [ref=e401] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/finance/learn/what-is-credit
+            - generic [ref=e403]
+          - link "What Is a FICO Score? Here’s What You Need to Know 2 By Amanda Barroso, Bev O'Shea" [ref=e422] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/finance/learn/fico-score
+            - generic [ref=e424]
+          - link "What Factors Affect Your Credit Scores? 2 By Bev O'Shea, Amanda Barroso" [ref=e444] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/finance/learn/what-makes-up-credit-score
+            - generic [ref=e446]
+          - 'link "How to Build Your Credit Score Fast: 9 Strategies That Work 2 By Amanda Barroso, Bev O''Shea" [ref=e466] [cursor=pointer]':
+            - /url: https://www.nerdwallet.com/finance/learn/raise-credit-score-fast
+            - generic [ref=e468]
+          - link "The 3 Credit Bureaus and Why They Matter to You 2 By Amanda Barroso, Bev O'Shea" [ref=e488] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/finance/learn/3-credit-bureaus
+            - generic [ref=e490]
+        - button "Scroll Right" [ref=e662] [cursor=pointer]:
+          - img [ref=e663]
+        - generic [ref=e665]:
+          - button "Go to section 1 of 2" [ref=e666] [cursor=pointer]
+          - button "Go to section 2 of 2" [ref=e667] [cursor=pointer]
+  - contentinfo [ref=e508]:
+    - generic [ref=e509]:
+      - generic [ref=e510]:
+        - img "NerdWallet Home Page" [ref=e511]
+        - generic [ref=e512]: Finance Smarter
+      - generic [ref=e513]:
+        - link "Learn more about the app" [ref=e514] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+          - generic [ref=e515]: Learn more about the app
+        - generic [ref=e517]: Download the app
+        - generic [ref=e518]:
+          - generic [ref=e519]:
+            - link "Download iOS app" [ref=e520] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/87a0b5b3
+            - generic [ref=e522]
+          - generic [ref=e549]:
+            - link "Download Android app" [ref=e550] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/233a7a41
+            - generic [ref=e552]
+        - img "QR code for downloading the app" [ref=e579]
+      - generic [ref=e580]:
+        - generic [ref=e581]:
+          - generic [ref=e582]: About
+          - generic [ref=e583]:
+            - link "Company" [ref=e584] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/company
+            - link "Leadership" [ref=e585] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/leadership
+            - link "Careers" [ref=e586] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/careers
+            - link "Corporate impact" [ref=e587] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/corporate-impact
+            - link "Diversity & Inclusion" [ref=e588] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/diversity-inclusion
+            - link "Editorial guidelines" [ref=e589] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+            - link "Star rating methodologies" [ref=e590] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/rating-methodologies
+            - link "Editorial team" [ref=e591] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-team
+            - link "Press" [ref=e592] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/press
+            - link "Press kit" [ref=e593] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/kit
+            - link "Investors" [ref=e594] [cursor=pointer]:
+              - /url: https://investors.nerdwallet.com/
+        - generic [ref=e595]:
+          - generic [ref=e596]: Help
+          - generic [ref=e597]:
+            - link "Help center" [ref=e598] [cursor=pointer]:
+              - /url: https://support.nerdwallet.com/hc/en-us
+            - link "Security FAQs" [ref=e599] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/security
+        - generic [ref=e600]:
+          - generic [ref=e601]: Legal
+          - generic [ref=e602]:
+            - link "Terms of use" [ref=e603] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/terms-of-use
+            - link "Supplier Code of Conduct" [ref=e604] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/supplier-code-of-conduct
+            - link "Privacy policy" [ref=e605] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "California privacy policy" [ref=e606] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/nerdwallet-california-privacy-policy
+            - link "Privacy preferences" [ref=e607] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "Do not sell or share my personal information" [ref=e608] [cursor=pointer]:
+              - /url: https://privacyportal.onetrust.com/webform/694a76f6-1f82-455e-b46e-ffeed902c3fa/db85134f-a11a-451c-a462-3f2f39a662bc
+      - generic [ref=e609]:
+        - paragraph [ref=e610]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+        - paragraph [ref=e611]:
+          - generic [ref=e612]: NerdWallet Compare, Inc. NMLS ID# 1617539
+          - link "NMLS Consumer Access" [ref=e613] [cursor=pointer]:
+            - /url: https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1617539
+          - text: "|"
+          - link "Licenses and Disclosures" [ref=e614] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/nerdwallet-compare-inc-licenses-and-disclosures
+        - paragraph [ref=e615]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e616]:
+          - text: Insurance Services offered through NerdWallet Insurance Services, Inc. (CA resident license no.OK92033)
+          - link "Insurance Licenses" [ref=e617] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/nerdwallet-insurance-services-inc-licenses-and-disclosures
+        - paragraph [ref=e618]:
+          - generic [ref=e619]: Fundera, Inc. NMLS ID# 1240038
+          - link "NMLS Consumer Access" [ref=e620] [cursor=pointer]:
+            - /url: https://nmlsconsumeraccess.org/
+        - paragraph [ref=e621]: "California: California Finance Lender loans arranged pursuant to the Department of Financial Protection and Innovation Finance Lenders License #603L288"
+        - paragraph [ref=e622]:
+          - text: NerdWallet has engaged Atomic Invest LLC (“Atomic”), an SEC-registered investment adviser, to bring you the opportunity to open investment advisory accounts (Automated Investing Account and/or Treasury Account) with Atomic. NerdWallet receives compensation of 0% to 0.85% of assets under management annualized, payable monthly, for each referred client who opens an Atomic account and a percentage of free cash interest earned by clients, which creates a conflict of interest. Brokerage services for Atomic are provided by Atomic Brokerage LLC ("Atomic Brokerage"), member of
+          - link "FINRA" [ref=e623] [cursor=pointer]:
+            - /url: https://www.finra.org/#/
+          - text: /
+          - link "SIPC" [ref=e624] [cursor=pointer]:
+            - /url: https://www.sipc.org/
+          - text: and an affiliate of Atomic, which creates a conflict of interest. See details about Atomic, in their
+          - link "Form CRS" [ref=e625] [cursor=pointer]:
+            - /url: https://reports.adviserinfo.sec.gov/crs/crs_313255.pdf
+          - text: ","
+          - link "Form ADV Part 2A" [ref=e626] [cursor=pointer]:
+            - /url: https://adviserinfo.sec.gov/firm/brochure/313255
+          - text: and
+          - link "Privacy Policy" [ref=e627] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.privacy.de3d0277-78f7-4741-9e9f-755f6b4f03ba.pdf
+          - text: . See details about Atomic Brokerage in their
+          - link "Form CRS" [ref=e628] [cursor=pointer]:
+            - /url: https://files.brokercheck.finra.org/crs_315263.pdf
+          - text: ","
+          - link "General Disclosures" [ref=e629] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.disclosures.003464f3-f6bd-41c3-bbdf-7050e50b43a2.pdf
+          - text: ","
+          - link "fee schedule" [ref=e630] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.schedule.7ea28665-88a9-4542-a748-987e90ea46b6.pdf
+          - text: ", and FINRA’s"
+          - link "BrokerCheck" [ref=e631] [cursor=pointer]:
+            - /url: https://brokercheck.finra.org/
+          - text: .
+        - paragraph [ref=e632]:
+          - text: You also can open a Cash Account offered by Atomic Brokerage which allows you to earn interest on your cash through a cash sweep program.
+          - link "View Important Cash Account Disclosures." [ref=e633] [cursor=pointer]:
+            - /url: https://www.atomicvest.com/legal/disclosures/7d9c31dd-bf97-46ae-9803-1774b97187af
+        - paragraph [ref=e634]: "Neither Atomic Invest nor Atomic Brokerage, nor any of their affiliates is a bank. Investments in securities: Not FDIC Insured, Not Bank Guaranteed, May Lose Value. Investing involves risk, including the possible loss of principal. Before investing, consider your investment objectives and the fees and expenses charged."
+        - paragraph [ref=e635]: Images are for illustrative purposes only.
+        - paragraph [ref=e636]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+      - generic [ref=e639]:
+        - generic [ref=e640]:
+          - link "US NerdWallet USA" [ref=e641] [cursor=pointer]:
+            - /url: /
+            - img "US" [ref=e642]
+            - text: NerdWallet USA
+          - generic [ref=e643]: "|"
+        - link "CA NerdWallet CA" [ref=e645] [cursor=pointer]:
+          - /url: /ca
+          - img "CA" [ref=e646]
+          - text: NerdWallet CA
+      - generic [ref=e647]:
+        - generic [ref=e648]:
+          - generic [ref=e649]: © 2026 NerdWallet, Inc.
+          - generic [ref=e650]: All Rights Reserved.
+        - generic [ref=e651]:
+          - link "Find NerdWallet on X" [ref=e652] [cursor=pointer]:
+            - /url: https://twitter.com/NerdWallet
+            - img "X" [ref=e653]
+          - link "Find NerdWallet on YouTube" [ref=e654] [cursor=pointer]:
+            - /url: https://www.youtube.com/@nerdwallet
+            - img "YouTube" [ref=e655]
+          - link "Find NerdWallet on Instagram" [ref=e656] [cursor=pointer]:
+            - /url: https://www.instagram.com/NerdWallet/
+            - img "Instagram" [ref=e657]
+          - link "Find NerdWallet on Apple Podcasts" [ref=e658] [cursor=pointer]:
+            - /url: https://play.megaphone.fm/xcr_lszorm-uiidw0pl5eq
+            - img "Apple Podcasts" [ref=e659]
+          - link "Find NerdWallet on TikTok" [ref=e660] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nerdwallet?lang=en
+            - img "TikTok" [ref=e661]

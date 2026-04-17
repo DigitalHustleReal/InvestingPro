@@ -193,11 +193,11 @@ export async function generateMetadata({
 
   if (!loan) {
     return {
-      title: "Loan Not Found - InvestingPro",
+      title: "Loan Not Found",
     };
   }
 
-  const title = `${loan.name} - Interest Rate ${loan.interestRateMin}% onwards, Apply Online | InvestingPro`;
+  const title = `${loan.name} - Interest Rate ${loan.interestRateMin}% onwards, Apply Online`;
   const description = `${loan.description} Interest: ${loan.interestRateMin}-${loan.interestRateMax}%. Loan amount: up to ₹${(loan.maxLoanAmount / 100000).toFixed(0)} Lakh. Rating: ${loan.rating}/5.`;
 
   return {

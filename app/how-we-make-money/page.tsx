@@ -231,10 +231,10 @@ export default function HowWeMakeMoneyPage() {
             business model or how we maintain editorial independence, please
             contact us at{" "}
             <a
-              href="mailto:editorial@investingpro.in"
+              href="mailto:contact@investingpro.in"
               className="text-primary-600 dark:text-primary-400 font-semibold"
             >
-              editorial@investingpro.in
+              contact@investingpro.in
             </a>
           </p>
         </div>

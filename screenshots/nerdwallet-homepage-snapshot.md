@@ -1,0 +1,961 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e3]:
+    - generic "Open navigation panel" [ref=e4] [cursor=pointer]
+    - generic [ref=e8]:
+      - link "Skip to content" [ref=e10] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page" [ref=e11] [cursor=pointer]:
+        - /url: /
+        - img "Nerdwallet icon" [ref=e12]
+    - generic:
+      - navigation:
+        - generic "Open Credit cards menu" [ref=e13] [cursor=pointer]:
+          - generic [ref=e14]: Credit cards
+        - generic "Open Banking menu" [ref=e15] [cursor=pointer]:
+          - generic [ref=e16]: Banking
+        - generic "Open Home menu" [ref=e17] [cursor=pointer]:
+          - generic [ref=e18]: Home
+        - generic "Open Loans menu" [ref=e19] [cursor=pointer]:
+          - generic [ref=e20]: Loans
+        - generic "Open Insurance menu" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]: Insurance
+        - generic "Open Personal finance menu" [ref=e23] [cursor=pointer]:
+          - generic [ref=e24]: Personal finance
+        - generic "Open Investing menu" [ref=e25] [cursor=pointer]:
+          - generic [ref=e26]: Investing
+        - generic "Open Small business menu" [ref=e27] [cursor=pointer]:
+          - generic [ref=e28]: Small business
+        - generic "Open Taxes menu" [ref=e29] [cursor=pointer]:
+          - generic [ref=e30]: Taxes
+    - generic "Open search panel" [ref=e31] [cursor=pointer]:
+      - img "Search" [ref=e32]
+    - generic [ref=e33]:
+      - link "Sign In" [ref=e34] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signin&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2F&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2F&driverContentId=&driverContentSource=&driverPageName=homepage&driverPageViewId=7437db19-db50-4b38-a3de-d0d097683cff&deployableName=front-page-astro&deployableVersion=1.0.0
+      - link "Join" [ref=e35] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signup&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2F&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2F&driverContentId=&driverContentSource=&driverPageName=homepage&driverPageViewId=7437db19-db50-4b38-a3de-d0d097683cff&deployableName=front-page-astro&deployableVersion=1.0.0
+    - generic "Close notifications panel" [ref=e36] [cursor=pointer]:
+      - img "Close"
+  - main [ref=e37]:
+    - generic [ref=e38]:
+      - img "Hero background" [ref=e40]
+      - generic [ref=e42]:
+        - heading "Smart financial decisions start with NerdWallet" [level=1] [ref=e43]:
+          - generic [ref=e44]: Smart financial decisions start with NerdWallet
+        - paragraph [ref=e45]: Navigate every money move with guidance you can trust.
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]:
+              - generic:
+                - generic: Ask me about
+                - text: insurance…
+              - textbox [ref=e50]
+            - button "Send message" [ref=e51] [cursor=pointer]:
+              - img [ref=e52]
+          - img "NerdAI" [ref=e56]
+    - generic [ref=e59]:
+      - link "Credit cards Credit cards See the best cards for this month" [ref=e60] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/credit-cards/best
+        - generic [ref=e61]:
+          - img [ref=e63]
+          - img [ref=e68]
+        - img "Credit cards" [ref=e72]
+        - generic [ref=e73]:
+          - paragraph [ref=e74]: Credit cards
+          - paragraph [ref=e75]: See the best cards for this month
+      - link "Insurance Insurance Compare car insurance quotes in just minutes" [ref=e76] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/insurance/auto/car-insurance
+        - generic [ref=e77]:
+          - img [ref=e79]
+          - img [ref=e84]
+        - img "Insurance" [ref=e88]
+        - generic [ref=e89]:
+          - paragraph [ref=e90]: Insurance
+          - paragraph [ref=e91]: Compare car insurance quotes in just minutes
+      - link "Mortgages Mortgages See today's mortgage rates and find the best rate" [ref=e92] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/mortgages/mortgage-rates
+        - generic [ref=e93]:
+          - img [ref=e95]
+          - img [ref=e100]
+        - img "Mortgages" [ref=e104]
+        - generic [ref=e105]:
+          - paragraph [ref=e106]: Mortgages
+          - paragraph [ref=e107]: See today's mortgage rates and find the best rate
+      - link "Personal Loans Personal Loans Get the best personal loan rates for you" [ref=e108] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/prequalify/personal-loan/apply/personal-loan-purpose
+        - generic [ref=e109]:
+          - img [ref=e111]
+          - img [ref=e116]
+        - img "Personal Loans" [ref=e120]
+        - generic [ref=e121]:
+          - paragraph [ref=e122]: Personal Loans
+          - paragraph [ref=e123]: Get the best personal loan rates for you
+      - link "Small Business Small Business Explore small-business financing options" [ref=e124] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/business/loans/best
+        - generic [ref=e125]:
+          - img [ref=e127]
+          - img [ref=e132]
+        - img "Small Business" [ref=e136]
+        - generic [ref=e137]:
+          - paragraph [ref=e138]: Small Business
+          - paragraph [ref=e139]: Explore small-business financing options
+      - link "Banking Banking Explore the best high-yield savings accounts" [ref=e140] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/banking/best/high-yield-online-savings-accounts
+        - generic [ref=e141]:
+          - img [ref=e143]
+          - img [ref=e148]
+        - img "Banking" [ref=e152]
+        - generic [ref=e153]:
+          - paragraph [ref=e154]: Banking
+          - paragraph [ref=e155]: Explore the best high-yield savings accounts
+      - link "Investing Investing View our list of the best investment accounts" [ref=e156] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/investing/best/online-brokers-for-stock-trading
+        - generic [ref=e157]:
+          - img [ref=e159]
+          - img [ref=e164]
+        - img "Investing" [ref=e168]
+        - generic [ref=e169]:
+          - paragraph [ref=e170]: Investing
+          - paragraph [ref=e171]: View our list of the best investment accounts
+      - link "Student Loans Student Loans See our picks for the best student loans" [ref=e172] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/student-loans/best/private-student-loans
+        - generic [ref=e173]:
+          - img [ref=e175]
+          - img [ref=e180]
+        - img "Student Loans" [ref=e184]
+        - generic [ref=e185]:
+          - paragraph [ref=e186]: Student Loans
+          - paragraph [ref=e187]: See our picks for the best student loans
+      - link "Financial Advisors Financial Advisors Compare financial advisors" [ref=e188] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/financial-advisors/learn/best-financial-advisors
+        - generic [ref=e189]:
+          - img [ref=e191]
+          - img [ref=e196]
+        - img "Financial Advisors" [ref=e200]
+        - generic [ref=e201]:
+          - paragraph [ref=e202]: Financial Advisors
+          - paragraph [ref=e203]: Compare financial advisors
+    - generic [ref=e204]:
+      - heading "Why millions trust NerdWallet" [level=2] [ref=e206]
+      - generic [ref=e207]:
+        - img "Smiling person with tablet" [ref=e209]
+        - generic [ref=e211]:
+          - generic [ref=e212]:
+            - paragraph [ref=e213]: 10M+
+            - paragraph [ref=e214]:
+              - text: Financial decisions
+              - text: made
+          - generic [ref=e215]:
+            - paragraph [ref=e216]: 15,000+
+            - paragraph [ref=e217]:
+              - text: In-depth financial
+              - text: resources
+          - generic [ref=e218]:
+            - paragraph [ref=e219]: 100+
+            - paragraph [ref=e220]:
+              - text: Experts reviewing
+              - text: thousands of products
+      - generic [ref=e222]:
+        - separator [ref=e223]
+        - paragraph [ref=e224]: NerdWallet partners you know and trust
+        - separator [ref=e225]
+    - generic [ref=e230]:
+      - generic [ref=e231]:
+        - heading "News That Impacts Your Wallet" [level=2] [ref=e232]
+        - link "View All News" [ref=e233] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/news
+          - generic [ref=e234]: View All News
+          - generic [ref=e235]:
+            - img [ref=e236]
+            - img [ref=e238]
+            - img [ref=e240]
+      - region "Latest news carousel" [ref=e243]:
+        - status [ref=e244]: "Showing article 1 of 5: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You"
+        - generic [ref=e247]:
+          - article [ref=e249] [cursor=pointer]:
+            - img [ref=e251]
+            - link [ref=e253]:
+              - /url: https://www.nerdwallet.com/finance/news/live-nation-ticketmaster-trial
+              - generic [ref=e254]: "Read article: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You"
+              - heading [level=3] [ref=e255]: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You
+          - article [ref=e257] [cursor=pointer]:
+            - img [ref=e259]
+            - link [ref=e261]:
+              - /url: https://www.nerdwallet.com/finance/learn/financial-literacy-quiz
+              - generic [ref=e262]: "Read article: Financial Literacy Quiz: How Much Do You Know About Money?"
+              - heading [level=3] [ref=e263]: "Financial Literacy Quiz: How Much Do You Know About Money?"
+          - article [ref=e265] [cursor=pointer]:
+            - img [ref=e267]
+            - link [ref=e269]:
+              - /url: https://www.nerdwallet.com/finance/learn/are-gas-prices-going-down
+              - generic [ref=e270]: "Read article: Gas Prices Level Out; Remain Well Above $4"
+              - heading [level=3] [ref=e271]: Gas Prices Level Out; Remain Well Above $4
+          - article [ref=e273] [cursor=pointer]:
+            - img [ref=e275]
+            - link [ref=e277]:
+              - /url: https://www.nerdwallet.com/finance/learn/consumer-sentiment-what-is-it-and-why-does-it-matter
+              - generic [ref=e278]: "Read article: Consumer Sentiment: War Sparks Renewed Fears About the Economy"
+              - heading [level=3] [ref=e279]: "Consumer Sentiment: War Sparks Renewed Fears About the Economy"
+          - article [ref=e281] [cursor=pointer]:
+            - img [ref=e283]
+            - link [ref=e285]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/credit-card-save-money-inflation
+              - generic [ref=e286]: "Read article: How to Save Money With Credit Cards When Prices Are High"
+              - heading [level=3] [ref=e287]: How to Save Money With Credit Cards When Prices Are High
+          - article [ref=e289] [cursor=pointer]:
+            - img [ref=e291]
+            - link [ref=e293]:
+              - /url: https://www.nerdwallet.com/finance/news/live-nation-ticketmaster-trial
+              - generic [ref=e294]: "Read article: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You"
+              - heading [level=3] [ref=e295]: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You
+          - article [ref=e297] [cursor=pointer]:
+            - img [ref=e299]
+            - link [ref=e301]:
+              - /url: https://www.nerdwallet.com/finance/learn/financial-literacy-quiz
+              - generic [ref=e302]: "Read article: Financial Literacy Quiz: How Much Do You Know About Money?"
+              - heading [level=3] [ref=e303]: "Financial Literacy Quiz: How Much Do You Know About Money?"
+          - article [ref=e305] [cursor=pointer]:
+            - img [ref=e307]
+            - link [ref=e309]:
+              - /url: https://www.nerdwallet.com/finance/learn/are-gas-prices-going-down
+              - generic [ref=e310]: "Read article: Gas Prices Level Out; Remain Well Above $4"
+              - heading [level=3] [ref=e311]: Gas Prices Level Out; Remain Well Above $4
+          - 'article "Consumer Sentiment: War Sparks Renewed Fears About the Economy" [ref=e313] [cursor=pointer]':
+            - 'img "Consumer Sentiment: War Sparks Renewed Fears About the Economy" [ref=e315]'
+            - 'link "Read article: Consumer Sentiment: War Sparks Renewed Fears About the Economy Consumer Sentiment: War Sparks Renewed Fears About the Economy" [ref=e317]':
+              - /url: https://www.nerdwallet.com/finance/learn/consumer-sentiment-what-is-it-and-why-does-it-matter
+              - generic [ref=e318]: "Read article: Consumer Sentiment: War Sparks Renewed Fears About the Economy"
+              - 'heading "Consumer Sentiment: War Sparks Renewed Fears About the Economy" [level=3] [ref=e319]'
+          - article "How to Save Money With Credit Cards When Prices Are High" [ref=e321] [cursor=pointer]:
+            - img "How to Save Money With Credit Cards When Prices Are High" [ref=e323]
+            - 'link "Read article: How to Save Money With Credit Cards When Prices Are High How to Save Money With Credit Cards When Prices Are High" [ref=e325]':
+              - /url: https://www.nerdwallet.com/credit-cards/news/credit-card-save-money-inflation
+              - generic [ref=e326]: "Read article: How to Save Money With Credit Cards When Prices Are High"
+              - heading "How to Save Money With Credit Cards When Prices Are High" [level=3] [ref=e327]
+          - article "Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You" [ref=e329] [cursor=pointer]:
+            - img "Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You" [ref=e331]
+            - 'link "Read article: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You Anna Helhoski Anna Helhoski Apr 15, 2026 Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You" [ref=e333]':
+              - /url: https://www.nerdwallet.com/finance/news/live-nation-ticketmaster-trial
+              - generic [ref=e334]: "Read article: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You"
+              - generic [ref=e335]:
+                - generic [ref=e336]:
+                  - img "Anna Helhoski" [ref=e337]
+                  - generic [ref=e338]: Anna Helhoski
+                - time [ref=e339]: Apr 15, 2026
+              - heading "Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You" [level=3] [ref=e340]
+          - 'article "Financial Literacy Quiz: How Much Do You Know About Money?" [ref=e342] [cursor=pointer]':
+            - 'img "Financial Literacy Quiz: How Much Do You Know About Money?" [ref=e344]'
+            - 'link "Read article: Financial Literacy Quiz: How Much Do You Know About Money? Financial Literacy Quiz: How Much Do You Know About Money?" [ref=e346]':
+              - /url: https://www.nerdwallet.com/finance/learn/financial-literacy-quiz
+              - generic [ref=e347]: "Read article: Financial Literacy Quiz: How Much Do You Know About Money?"
+              - 'heading "Financial Literacy Quiz: How Much Do You Know About Money?" [level=3] [ref=e348]'
+          - article "Gas Prices Level Out; Remain Well Above $4" [ref=e350] [cursor=pointer]:
+            - img "Gas Prices Level Out; Remain Well Above $4" [ref=e352]
+            - 'link "Read article: Gas Prices Level Out; Remain Well Above $4 Gas Prices Level Out; Remain Well Above $4" [ref=e354]':
+              - /url: https://www.nerdwallet.com/finance/learn/are-gas-prices-going-down
+              - generic [ref=e355]: "Read article: Gas Prices Level Out; Remain Well Above $4"
+              - heading "Gas Prices Level Out; Remain Well Above $4" [level=3] [ref=e356]
+          - article [ref=e358] [cursor=pointer]:
+            - img [ref=e360]
+            - link [ref=e362]:
+              - /url: https://www.nerdwallet.com/finance/learn/consumer-sentiment-what-is-it-and-why-does-it-matter
+              - generic [ref=e363]: "Read article: Consumer Sentiment: War Sparks Renewed Fears About the Economy"
+              - heading [level=3] [ref=e364]: "Consumer Sentiment: War Sparks Renewed Fears About the Economy"
+          - article [ref=e366] [cursor=pointer]:
+            - img [ref=e368]
+            - link [ref=e370]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/credit-card-save-money-inflation
+              - generic [ref=e371]: "Read article: How to Save Money With Credit Cards When Prices Are High"
+              - heading [level=3] [ref=e372]: How to Save Money With Credit Cards When Prices Are High
+          - article [ref=e374] [cursor=pointer]:
+            - img [ref=e376]
+            - link [ref=e378]:
+              - /url: https://www.nerdwallet.com/finance/news/live-nation-ticketmaster-trial
+              - generic [ref=e379]: "Read article: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You"
+              - heading [level=3] [ref=e380]: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You
+          - article [ref=e382] [cursor=pointer]:
+            - img [ref=e384]
+            - link [ref=e386]:
+              - /url: https://www.nerdwallet.com/finance/learn/financial-literacy-quiz
+              - generic [ref=e387]: "Read article: Financial Literacy Quiz: How Much Do You Know About Money?"
+              - heading [level=3] [ref=e388]: "Financial Literacy Quiz: How Much Do You Know About Money?"
+          - article [ref=e390] [cursor=pointer]:
+            - img [ref=e392]
+            - link [ref=e394]:
+              - /url: https://www.nerdwallet.com/finance/learn/are-gas-prices-going-down
+              - generic [ref=e395]: "Read article: Gas Prices Level Out; Remain Well Above $4"
+              - heading [level=3] [ref=e396]: Gas Prices Level Out; Remain Well Above $4
+          - article [ref=e398] [cursor=pointer]:
+            - img [ref=e400]
+            - link [ref=e402]:
+              - /url: https://www.nerdwallet.com/finance/learn/consumer-sentiment-what-is-it-and-why-does-it-matter
+              - generic [ref=e403]: "Read article: Consumer Sentiment: War Sparks Renewed Fears About the Economy"
+              - heading [level=3] [ref=e404]: "Consumer Sentiment: War Sparks Renewed Fears About the Economy"
+          - article [ref=e406] [cursor=pointer]:
+            - img [ref=e408]
+            - link [ref=e410]:
+              - /url: https://www.nerdwallet.com/credit-cards/news/credit-card-save-money-inflation
+              - generic [ref=e411]: "Read article: How to Save Money With Credit Cards When Prices Are High"
+              - heading [level=3] [ref=e412]: How to Save Money With Credit Cards When Prices Are High
+          - article [ref=e414] [cursor=pointer]:
+            - img [ref=e416]
+            - link [ref=e418]:
+              - /url: https://www.nerdwallet.com/finance/news/live-nation-ticketmaster-trial
+              - generic [ref=e419]: "Read article: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You"
+              - heading [level=3] [ref=e420]: Jury Rules Live Nation Is an Illegal Monopoly — What It Means For You
+        - generic [ref=e421]:
+          - button "Previous article" [ref=e422] [cursor=pointer]:
+            - img [ref=e423]
+          - generic [ref=e425]:
+            - button "Go to article 1" [ref=e426] [cursor=pointer]
+            - button "Go to article 2" [ref=e427] [cursor=pointer]
+            - button "Go to article 3" [ref=e428] [cursor=pointer]
+            - button "Go to article 4" [ref=e429] [cursor=pointer]
+            - button "Go to article 5" [ref=e430] [cursor=pointer]
+          - button "Next article" [ref=e431] [cursor=pointer]:
+            - img [ref=e432]
+    - region "Find smarter rates today" [ref=e434]:
+      - generic [ref=e435]:
+        - heading "Find smarter rates today" [level=2] [ref=e436]
+        - paragraph [ref=e437]: Quickly compare mortgages or banking rates and see how they stack up to national averages. Make your next money move with confidence.
+      - generic [ref=e438]:
+        - group "Market rates tabs" [ref=e439]:
+          - radio "Mortgages" [checked] [ref=e440]
+          - generic [ref=e441] [cursor=pointer]:
+            - img [ref=e443]
+            - generic [ref=e445]: Mortgages
+          - radio "Banking" [ref=e446]
+          - generic [ref=e447] [cursor=pointer]:
+            - img [ref=e449]
+            - generic [ref=e451]: Banking
+        - tabpanel [ref=e454]:
+          - generic [ref=e456]:
+            - 'link "Compare Refinance rates - Best rate: 5.94, Average rate: 5.87" [ref=e458] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/mortgages/refinance-rates
+              - generic "Compare Now" [ref=e459]
+              - generic [ref=e460]:
+                - heading "Refinance" [level=3] [ref=e461]
+                - img [ref=e463]
+              - generic [ref=e465]:
+                - generic [ref=e466]:
+                  - generic [ref=e467]:
+                    - text: Best rate on NerdWallet
+                    - generic [ref=e468]: (30-Year Fixed)
+                  - generic [ref=e469]:
+                    - generic [ref=e470]: 5.94%
+                    - img [ref=e471]
+                - generic [ref=e474]:
+                  - generic [ref=e475]: Average rate (30-Year Fixed)
+                  - generic [ref=e476]: 5.87%
+            - 'link "Compare 30-Year Fixed rates - Best rate: 5.8, Average rate: 6.09" [ref=e478] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/mortgages/mortgage-rates/30-year-fixed
+              - generic [ref=e479]:
+                - heading "30-Year Fixed" [level=3] [ref=e480]
+                - img [ref=e482]
+              - generic [ref=e484]:
+                - generic [ref=e485]:
+                  - generic [ref=e486]: Best rate on NerdWallet
+                  - generic [ref=e487]:
+                    - generic [ref=e488]: 5.80%
+                    - img [ref=e489]
+                - generic [ref=e492]:
+                  - generic [ref=e493]: Average rate
+                  - generic [ref=e494]: 6.09%
+            - 'link "Compare 15-Year Fixed rates - Best rate: 4.79, Average rate: 5.57" [ref=e496] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/mortgages/mortgage-rates/15-year-fixed
+              - generic [ref=e497]:
+                - heading "15-Year Fixed" [level=3] [ref=e498]
+                - img [ref=e500]
+              - generic [ref=e502]:
+                - generic [ref=e503]:
+                  - generic [ref=e504]: Best rate on NerdWallet
+                  - generic [ref=e505]:
+                    - generic [ref=e506]: 4.79%
+                    - img [ref=e507]
+                - generic [ref=e510]:
+                  - generic [ref=e511]: Average rate
+                  - generic [ref=e512]: 5.57%
+        - generic [ref=e515]:
+          - text: Average rates are sourced from Zillow. Terms apply and vary depending on qualifications. Rates are subject to change at any time without notice. See footnote for more details.
+          - superscript [ref=e516]: "1"
+        - generic [ref=e517]:
+          - generic [ref=e518]:
+            - img [ref=e519]
+            - generic [ref=e520]: Trusted Partners
+          - generic [ref=e521]:
+            - img [ref=e522]
+            - generic [ref=e523]: Decide with Confidence
+    - generic [ref=e524]:
+      - generic [ref=e526]:
+        - generic [ref=e527]: Finance Smarter
+        - img [ref=e528]
+        - generic [ref=e531]: Let the nerds do the work
+        - img [ref=e532]
+        - generic [ref=e535]: Finance Smarter
+        - img [ref=e536]
+        - generic [ref=e539]: Let the nerds do the work
+        - img [ref=e540]
+        - generic [ref=e543]: Finance Smarter
+        - img [ref=e544]
+        - generic [ref=e547]: Let the nerds do the work
+        - img [ref=e548]
+        - generic [ref=e551]: Finance Smarter
+        - img [ref=e552]
+        - generic [ref=e555]: Let the nerds do the work
+        - img [ref=e556]
+        - generic [ref=e559]: Finance Smarter
+        - img [ref=e560]
+        - generic [ref=e563]: Let the nerds do the work
+        - img [ref=e564]
+        - generic [ref=e567]: Finance Smarter
+        - img [ref=e568]
+        - generic [ref=e571]: Let the nerds do the work
+        - img [ref=e572]
+        - generic [ref=e575]: Finance Smarter
+        - img [ref=e576]
+        - generic [ref=e579]: Let the nerds do the work
+        - img [ref=e580]
+        - generic [ref=e583]: Finance Smarter
+        - img [ref=e584]
+        - generic [ref=e587]: Let the nerds do the work
+        - img [ref=e588]
+      - generic [ref=e592]:
+        - generic [ref=e593]: Finance Smarter
+        - img [ref=e594]
+        - generic [ref=e597]: Let the nerds do the work
+        - img [ref=e598]
+        - generic [ref=e601]: Finance Smarter
+        - img [ref=e602]
+        - generic [ref=e605]: Let the nerds do the work
+        - img [ref=e606]
+        - generic [ref=e609]: Finance Smarter
+        - img [ref=e610]
+        - generic [ref=e613]: Let the nerds do the work
+        - img [ref=e614]
+        - generic [ref=e617]: Finance Smarter
+        - img [ref=e618]
+        - generic [ref=e621]: Let the nerds do the work
+        - img [ref=e622]
+        - generic [ref=e625]: Finance Smarter
+        - img [ref=e626]
+        - generic [ref=e629]: Let the nerds do the work
+        - img [ref=e630]
+        - generic [ref=e633]: Finance Smarter
+        - img [ref=e634]
+        - generic [ref=e637]: Let the nerds do the work
+        - img [ref=e638]
+        - generic [ref=e641]: Finance Smarter
+        - img [ref=e642]
+        - generic [ref=e645]: Let the nerds do the work
+        - img [ref=e646]
+        - generic [ref=e649]: Finance Smarter
+        - img [ref=e650]
+        - generic [ref=e653]: Let the nerds do the work
+        - img [ref=e654]
+    - generic [ref=e661]:
+      - generic [ref=e662]:
+        - heading "Earn 3.9% APY on your cash" [level=2] [ref=e663]
+        - paragraph [ref=e664]: Boost your APY for 6 months with a Cash Account offered by Atomic Brokerage. You can build up your emergency fund or stay flexible, withdrawing whenever you need without penalties or account minimums. Just deposit funds within 14 days so you can earn a boosted 3.9% APY on balances up to $250,000 for the first 6 months.
+        - link "Unlock 3.9% Today" [ref=e665] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/l/cash-account-offered-by-atomic-brokerage
+        - paragraph [ref=e666]: Paid Non-client Promotion
+      - generic:
+        - img "Cash Account illustration showing 3.9% APY earnings growth"
+    - region "More resources" [ref=e667]:
+      - generic [ref=e668]:
+        - generic [ref=e669]:
+          - heading "More resources" [level=2] [ref=e670]
+          - paragraph [ref=e671]: Find additional information on NerdWallet credit cards, banking, insurance, and more personal finance products.
+        - generic [ref=e674]:
+          - generic [ref=e675]:
+            - button "Credit Cards" [expanded] [ref=e676] [cursor=pointer]:
+              - generic [ref=e677]: Credit Cards
+              - img [ref=e678]
+            - generic [ref=e681]:
+              - generic [ref=e682]:
+                - generic [ref=e683]:
+                  - heading "Discover the best transfer credit cards" [level=3] [ref=e684]
+                  - paragraph [ref=e685]: We've reviewed and rated hundreds of credit cards to help you find the one that's best for you.
+                - link "Best credit cards" [ref=e686] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/credit-cards/best/balance-transfer
+              - separator [ref=e687]
+              - navigation "Credit Cards resources" [ref=e688]:
+                - link "Save money with balance transfer⁠" [ref=e689] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/credit-cards/best/bonus-offers
+                  - img [ref=e690]
+                  - generic [ref=e691]: Save money with balance transfer⁠
+                - link "Find your next credit card⁠" [ref=e693] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/recommend/CreditScore
+                  - img [ref=e694]
+                  - generic [ref=e695]: Find your next credit card⁠
+                - link "Read reviews of more than 400 credit cards⁠" [ref=e697] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/credit-cards/reviews
+                  - img [ref=e698]
+                  - generic [ref=e699]: Read reviews of more than 400 credit cards⁠
+          - generic [ref=e701]:
+            - button "Insurance" [ref=e702] [cursor=pointer]:
+              - generic [ref=e703]: Insurance
+              - img [ref=e704]
+            - generic [ref=e705]:
+              - generic [ref=e706]:
+                - generic [ref=e707]:
+                  - heading [level=3] [ref=e708]: Get the best home insurance quotes
+                  - paragraph [ref=e709]: Find the right provider for you.
+                - link [ref=e710] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/insurance/homeowners/home-insurance-quotes
+                  - text: Compare insurance plans
+              - separator [ref=e711]
+              - navigation [ref=e712]:
+                - link [ref=e713] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/insurance/life/best-life-insurance-companies
+                  - img [ref=e714]
+                  - generic [ref=e715]: Get life insurance coverage for your family⁠
+                - link [ref=e717] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/insurance/pet/best-pet-insurance-companies
+                  - img [ref=e718]
+                  - generic [ref=e719]: See our top picks for pet insurance⁠
+                - link [ref=e721] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/insurance/experts/match/about
+                  - img [ref=e722]
+                  - generic [ref=e723]: Check out NerdWallet insurance resources⁠
+          - generic [ref=e725]:
+            - button "Mortgages" [ref=e726] [cursor=pointer]:
+              - generic [ref=e727]: Mortgages
+              - img [ref=e728]
+            - generic [ref=e729]:
+              - generic [ref=e730]:
+                - generic [ref=e731]:
+                  - heading [level=3] [ref=e732]: Compare the best mortgage lenders
+                  - paragraph [ref=e733]: Explore options for first-time homebuyers and seasoned investors.
+                - link [ref=e734] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/mortgages/best/mortgage-lenders
+                  - text: Compare mortgage rates
+              - separator [ref=e735]
+              - navigation [ref=e736]:
+                - link [ref=e737] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/mortgages/calculators/mortgage-calculator
+                  - img [ref=e738]
+                  - generic [ref=e739]: Use our mortgage calculator to estimate monthly payments⁠
+                - link [ref=e741] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/mortgages/best/heloc-lenders
+                  - img [ref=e742]
+                  - generic [ref=e743]: Explore top HELOC lenders⁠
+                - link [ref=e745] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/mortgages/learn/is-it-a-good-time-to-buy-a-house
+                  - img [ref=e746]
+                  - generic [ref=e747]: Find out if it's a good time to buy a house⁠
+          - generic [ref=e749]:
+            - button "Personal loans" [ref=e750] [cursor=pointer]:
+              - generic [ref=e751]: Personal loans
+              - img [ref=e752]
+            - generic [ref=e753]:
+              - generic [ref=e754]:
+                - generic [ref=e755]:
+                  - heading [level=3] [ref=e756]: Unlock financial flexibility with a personal loan
+                  - paragraph [ref=e757]: Explore personalized loan options for your unique needs and goals.
+                - link [ref=e758] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/personal-loans/best/debt-consolidation-loans
+                  - text: Compare personal loans
+              - separator [ref=e759]
+              - navigation [ref=e760]:
+                - link [ref=e761] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/personal-loans/best/home-improvement-loans
+                  - img [ref=e762]
+                  - generic [ref=e763]: Explore fast-funding home improvement loans⁠
+                - link [ref=e765] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/personal-loans/calculators/loan-payment
+                  - img [ref=e766]
+                  - generic [ref=e767]: Calculate monthly payments on a personal loan⁠
+                - link [ref=e769] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/personal-loans/learn/how-to-consolidate-credit-card-debt
+                  - img [ref=e770]
+                  - generic [ref=e771]: Compare ways to consolidate credit card debt⁠
+          - generic [ref=e773]:
+            - button "Small business" [ref=e774] [cursor=pointer]:
+              - generic [ref=e775]: Small business
+              - img [ref=e776]
+            - generic [ref=e777]:
+              - generic [ref=e778]:
+                - generic [ref=e779]:
+                  - heading [level=3] [ref=e780]: Find the right credit card for your business
+                  - paragraph [ref=e781]: Explore our curated list of cards designed for entrepreneurs like you.
+                - link [ref=e782] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/business/credit-cards/best
+                  - text: Compare small business cards
+              - separator [ref=e783]
+              - navigation [ref=e784]:
+                - link [ref=e785] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/business/banking/best/checking-accounts
+                  - img [ref=e786]
+                  - generic [ref=e787]: Find the best business bank account for your operation⁠
+                - link [ref=e789] [cursor=pointer]:
+                  - /url: https://www.fundera.com/signup?destination=hub&aid=nerdwallet
+                  - img [ref=e790]
+                  - generic [ref=e791]: Access smart money moves to grow your small business⁠
+                - link [ref=e793] [cursor=pointer]:
+                  - /url: https://www.fundera.com/loan-application/company_loan_amount?aid=nerdwallet
+                  - img [ref=e794]
+                  - generic [ref=e795]: Secure the business funding you need⁠
+          - generic [ref=e797]:
+            - button "Banking" [ref=e798] [cursor=pointer]:
+              - generic [ref=e799]: Banking
+              - img [ref=e800]
+            - generic [ref=e801]:
+              - generic [ref=e802]:
+                - generic [ref=e803]:
+                  - heading [level=3] [ref=e804]: Unlock your financial potential with ease
+                  - paragraph [ref=e805]: Explore accounts, services, and tools designed for your success.
+                - link [ref=e806] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking
+                  - text: Explore banking options
+              - separator [ref=e807]
+              - navigation [ref=e808]:
+                - link [ref=e809] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/best/cd-rates
+                  - img [ref=e810]
+                  - generic [ref=e811]: See NerdWallet's picks for certificates of deposit⁠
+                - link [ref=e813] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews
+                  - img [ref=e814]
+                  - generic [ref=e815]: See reviews on banking institutions⁠
+                - link [ref=e817] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/best/bank-bonuses-and-promotions
+                  - img [ref=e818]
+                  - generic [ref=e819]: Compare the best sign-up bonuses⁠
+          - generic [ref=e821]:
+            - button "Investing" [ref=e822] [cursor=pointer]:
+              - generic [ref=e823]: Investing
+              - img [ref=e824]
+            - generic [ref=e825]:
+              - generic [ref=e826]:
+                - generic [ref=e827]:
+                  - heading [level=3] [ref=e828]: Start investing with confidence
+                  - paragraph [ref=e829]: Our experts simplify investing so you can build a secure future.
+                - link [ref=e830] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/investing/learn/the-best-investments-right-now
+                  - text: Get started
+              - separator [ref=e831]
+              - navigation [ref=e832]:
+                - link [ref=e833] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/investing/calculators/investment-calculator
+                  - img [ref=e834]
+                  - generic [ref=e835]: Calculate potential investment returns and growth⁠
+                - link [ref=e837] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/retirement/best/roth-ira-accounts
+                  - img [ref=e838]
+                  - generic [ref=e839]: See our picks for the best Roth IRAs⁠
+                - link [ref=e841] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/investing
+                  - img [ref=e842]
+                  - generic [ref=e843]: Read about how to achieve your financial goals⁠
+          - generic [ref=e845]:
+            - button "Student loans" [ref=e846] [cursor=pointer]:
+              - generic [ref=e847]: Student loans
+              - img [ref=e848]
+            - generic [ref=e849]:
+              - generic [ref=e850]:
+                - generic [ref=e851]:
+                  - heading [level=3] [ref=e852]: Find the right student loan for you
+                  - paragraph [ref=e853]: Compare rates and repayment options from top lenders.
+                - link [ref=e854] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/student-loans/best/student-loan-refinance-companies
+                  - text: Explore student loans
+              - separator [ref=e855]
+              - navigation [ref=e856]:
+                - link [ref=e857] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/student-loans/best/graduate-school-loans
+                  - img [ref=e858]
+                  - generic [ref=e859]: See the best graduate school loans⁠
+                - link [ref=e861] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/student-loans
+                  - img [ref=e862]
+                  - generic [ref=e863]: Check out student loan reviews and guides⁠
+                - link [ref=e865] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/student-loans/hubs/paying-for-college
+                  - img [ref=e866]
+                  - generic [ref=e867]: Tools and tips on paying for college⁠
+          - generic [ref=e869]:
+            - button "Financial advisors" [ref=e870] [cursor=pointer]:
+              - generic [ref=e871]: Financial advisors
+              - img [ref=e872]
+            - generic [ref=e873]:
+              - generic [ref=e874]:
+                - generic [ref=e875]:
+                  - heading [level=3] [ref=e876]: Find a financial advisor that's right for you
+                  - paragraph [ref=e877]: Get matched with vetted advisors and discover your perfect financial plan.
+                - link [ref=e878] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/financial-advisors/learn/how-to-choose-a-financial-advisor
+                  - text: Meet advisors
+              - separator [ref=e879]
+              - navigation [ref=e880]:
+                - link [ref=e881] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/financial-advisors/learn/how-much-does-a-financial-advisor-cost
+                  - img [ref=e882]
+                  - generic [ref=e883]: Understand common fee structures⁠
+                - link [ref=e885] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/investing/best/robo-advisors
+                  - img [ref=e886]
+                  - generic [ref=e887]: See the best automated investment services⁠
+                - link [ref=e889] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/financial-advisors/learn/10-questions-ask-financial-advisor
+                  - img [ref=e890]
+                  - generic [ref=e891]: Vet advisors with our cheat sheet⁠
+    - generic [ref=e893]:
+      - generic [ref=e894]:
+        - generic [ref=e896]:
+          - generic [ref=e897]:
+            - heading "Track, save, and invest — all in one easy app" [level=2] [ref=e898]
+            - paragraph [ref=e899]:
+              - text: Monitor your net worth and earn 3.9% APY on your cash with a Cash Account offered by Atomic Brokerage.
+              - button "See full terms" [ref=e902]
+          - generic [ref=e903]:
+            - link "Download iOS app" [ref=e904] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/87a0b5b3
+              - img [ref=e905]
+            - link "Download Android app" [ref=e907] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/233a7a41
+              - img [ref=e908]
+          - generic [ref=e910]:
+            - generic [ref=e912]:
+              - paragraph [ref=e913]:
+                - generic [ref=e914]:
+                  - text: "4.8"
+                  - img [ref=e915]
+              - paragraph [ref=e917]: average star rating
+            - generic [ref=e919]:
+              - paragraph [ref=e920]:
+                - generic [ref=e921]: 100k
+              - paragraph [ref=e922]: 5-star ratings
+            - generic [ref=e924]:
+              - paragraph [ref=e925]:
+                - generic [ref=e926]: 7m
+              - paragraph [ref=e927]: total downloads
+        - img "NerdWallet mobile app mobile" [ref=e929]
+      - generic [ref=e930]:
+        - generic [ref=e932]:
+          - generic [ref=e934]:
+            - generic [ref=e936]:
+              - img [ref=e937]
+              - img [ref=e939]
+              - img [ref=e941]
+              - img [ref=e943]
+              - img [ref=e945]
+            - paragraph [ref=e947]: "\"Words cannot describe how much I love this app. I genuinely recommend this app to every person I meet.\""
+            - paragraph [ref=e948]: — App Store Review, April 2025
+          - generic [ref=e950]:
+            - generic [ref=e952]:
+              - img [ref=e953]
+              - img [ref=e955]
+              - img [ref=e957]
+              - img [ref=e959]
+              - img [ref=e961]
+            - paragraph [ref=e963]: "\"NerdWallet is the one of the best apps that actually help with keeping track of finances.\""
+            - paragraph [ref=e964]: — App Store Review, March 2025
+          - generic [ref=e966]:
+            - generic [ref=e968]:
+              - img [ref=e969]
+              - img [ref=e971]
+              - img [ref=e973]
+              - img [ref=e975]
+              - img [ref=e977]
+            - paragraph [ref=e979]: "\"This is the best app overall, I love how I can manage my personal finances, all my accounts in just one app!\""
+            - paragraph [ref=e980]: — App Store Review, December 2024
+        - paragraph [ref=e981]:
+          - text: Showing our 5 star reviews. Based on ratings and reviews collected from users on the
+          - link "App Store" [ref=e982] [cursor=pointer]:
+            - /url: https://apps.apple.com/us/app/nerdwallet-smart-money-app/id1174471607
+          - text: for iOS
+    - region "Rate disclosure information" [ref=e983]:
+      - generic [ref=e984]:
+        - paragraph [ref=e985]:
+          - superscript [ref=e986]: "1"
+          - text: "Showing the best refinance rate for: Good (720-739), 30-year fixed, Single-family, Primary residence, cash-out. Showing the best 30-year fixed rate for: Purchase, Good (720-739), $500,000, Single-family, Primary residence. Showing the best 15-year fixed rate for: Purchase, Good (720-739), $500,000, Single-family, Primary residence."
+        - paragraph [ref=e987]:
+          - superscript [ref=e988]: "2"
+          - text: Savings APYs shown are current as of April 16, 2026. All other information is current as of April 1, 2026. CD APYs shown are current as of April 16, 2026. All other information is current as of April 1, 2026. Money Market APYs shown are current as of April 13, 2026. All other information is current as of November 18, 2025. Minimum requirements vary for APY.
+    - button "Open chat" [ref=e991] [cursor=pointer]
+  - contentinfo [ref=e993]:
+    - generic [ref=e994]:
+      - generic [ref=e995]:
+        - img "NerdWallet Home Page" [ref=e996]
+        - generic [ref=e997]: Finance Smarter
+      - generic [ref=e998]:
+        - link "Learn more about the app" [ref=e999] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+          - generic [ref=e1000]: Learn more about the app
+        - generic [ref=e1002]: Download the app
+        - generic [ref=e1003]:
+          - generic [ref=e1004]:
+            - link "Download iOS app" [ref=e1005] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/87a0b5b3
+              - img "Download on the App Store" [ref=e1006]
+            - generic [ref=e1007]:
+              - generic [ref=e1008]:
+                - generic [ref=e1009]: "4.8"
+                - generic [ref=e1010]:
+                  - generic [ref=e1011]:
+                    - img [ref=e1012]
+                    - img [ref=e1014]
+                    - img [ref=e1016]
+                    - img [ref=e1018]
+                    - img [ref=e1020]
+                  - generic [ref=e1022]:
+                    - img [ref=e1023]
+                    - img [ref=e1025]
+                    - img [ref=e1027]
+                    - img [ref=e1029]
+                    - img [ref=e1031]
+              - generic [ref=e1033]: 121,000+ reviews
+          - generic [ref=e1034]:
+            - link "Download Android app" [ref=e1035] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/233a7a41
+              - img "Get it on Google Play" [ref=e1036]
+            - generic [ref=e1037]:
+              - generic [ref=e1038]:
+                - generic [ref=e1039]: "4.3"
+                - generic [ref=e1040]:
+                  - generic [ref=e1041]:
+                    - img [ref=e1042]
+                    - img [ref=e1044]
+                    - img [ref=e1046]
+                    - img [ref=e1048]
+                    - img [ref=e1050]
+                  - generic [ref=e1052]:
+                    - img [ref=e1053]
+                    - img [ref=e1055]
+                    - img [ref=e1057]
+                    - img [ref=e1059]
+                    - img [ref=e1061]
+              - generic [ref=e1063]: 31,200+ reviews
+      - generic [ref=e1064]:
+        - generic [ref=e1065]:
+          - generic [ref=e1066]: About
+          - generic [ref=e1067]:
+            - link "Company" [ref=e1068] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/company
+            - link "Leadership" [ref=e1069] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/leadership
+            - link "Careers" [ref=e1070] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/careers
+            - link "Corporate impact" [ref=e1071] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/corporate-impact
+            - link "Diversity & Inclusion" [ref=e1072] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/diversity-inclusion
+            - link "Editorial guidelines" [ref=e1073] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+            - link "Star rating methodologies" [ref=e1074] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/rating-methodologies
+            - link "Editorial team" [ref=e1075] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-team
+            - link "Press" [ref=e1076] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/press
+            - link "Press kit" [ref=e1077] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/kit
+            - link "Investors" [ref=e1078] [cursor=pointer]:
+              - /url: https://investors.nerdwallet.com/
+        - generic [ref=e1079]:
+          - generic [ref=e1080]: Help
+          - generic [ref=e1081]:
+            - link "Help center" [ref=e1082] [cursor=pointer]:
+              - /url: https://support.nerdwallet.com/hc/en-us
+            - link "Security FAQs" [ref=e1083] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/security
+        - generic [ref=e1084]:
+          - generic [ref=e1085]: Legal
+          - generic [ref=e1086]:
+            - link "Terms of use" [ref=e1087] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/terms-of-use
+            - link "Supplier Code of Conduct" [ref=e1088] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/supplier-code-of-conduct
+            - link "Privacy policy" [ref=e1089] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "California privacy policy" [ref=e1090] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/nerdwallet-california-privacy-policy
+            - link "Privacy preferences" [ref=e1091] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "Do not sell or share my personal information" [ref=e1092] [cursor=pointer]:
+              - /url: https://privacyportal.onetrust.com/webform/694a76f6-1f82-455e-b46e-ffeed902c3fa/db85134f-a11a-451c-a462-3f2f39a662bc
+      - generic [ref=e1093]:
+        - paragraph [ref=e1094]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+        - paragraph [ref=e1095]:
+          - generic [ref=e1096]: NerdWallet Compare, Inc. NMLS ID# 1617539
+          - link "NMLS Consumer Access" [ref=e1097] [cursor=pointer]:
+            - /url: https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1617539
+          - text: "|"
+          - link "Licenses and Disclosures" [ref=e1098] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/nerdwallet-compare-inc-licenses-and-disclosures
+        - paragraph [ref=e1099]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e1100]:
+          - text: Insurance Services offered through NerdWallet Insurance Services, Inc. (CA resident license no.OK92033)
+          - link "Insurance Licenses" [ref=e1101] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/nerdwallet-insurance-services-inc-licenses-and-disclosures
+        - paragraph [ref=e1102]:
+          - generic [ref=e1103]: Fundera, Inc. NMLS ID# 1240038
+          - link "NMLS Consumer Access" [ref=e1104] [cursor=pointer]:
+            - /url: https://nmlsconsumeraccess.org/
+        - paragraph [ref=e1105]: "California: California Finance Lender loans arranged pursuant to the Department of Financial Protection and Innovation Finance Lenders License #603L288"
+        - paragraph [ref=e1106]:
+          - text: NerdWallet has engaged Atomic Invest LLC (“Atomic”), an SEC-registered investment adviser, to bring you the opportunity to open investment advisory accounts (Automated Investing Account and/or Treasury Account) with Atomic. NerdWallet receives compensation of 0% to 0.85% of assets under management annualized, payable monthly, for each referred client who opens an Atomic account and a percentage of free cash interest earned by clients, which creates a conflict of interest. Brokerage services for Atomic are provided by Atomic Brokerage LLC ("Atomic Brokerage"), member of
+          - link "FINRA" [ref=e1107] [cursor=pointer]:
+            - /url: https://www.finra.org/#/
+          - text: /
+          - link "SIPC" [ref=e1108] [cursor=pointer]:
+            - /url: https://www.sipc.org/
+          - text: and an affiliate of Atomic, which creates a conflict of interest. See details about Atomic, in their
+          - link "Form CRS" [ref=e1109] [cursor=pointer]:
+            - /url: https://reports.adviserinfo.sec.gov/crs/crs_313255.pdf
+          - text: ","
+          - link "Form ADV Part 2A" [ref=e1110] [cursor=pointer]:
+            - /url: https://adviserinfo.sec.gov/firm/brochure/313255
+          - text: and
+          - link "Privacy Policy" [ref=e1111] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.privacy.de3d0277-78f7-4741-9e9f-755f6b4f03ba.pdf
+          - text: . See details about Atomic Brokerage in their
+          - link "Form CRS" [ref=e1112] [cursor=pointer]:
+            - /url: https://files.brokercheck.finra.org/crs_315263.pdf
+          - text: ","
+          - link "General Disclosures" [ref=e1113] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.disclosures.003464f3-f6bd-41c3-bbdf-7050e50b43a2.pdf
+          - text: ","
+          - link "fee schedule" [ref=e1114] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.schedule.7ea28665-88a9-4542-a748-987e90ea46b6.pdf
+          - text: ", and FINRA’s"
+          - link "BrokerCheck" [ref=e1115] [cursor=pointer]:
+            - /url: https://brokercheck.finra.org/
+          - text: .
+        - paragraph [ref=e1116]:
+          - text: You also can open a Cash Account offered by Atomic Brokerage which allows you to earn interest on your cash through a cash sweep program.
+          - link "View Important Cash Account Disclosures." [ref=e1117] [cursor=pointer]:
+            - /url: https://www.atomicvest.com/legal/disclosures/7d9c31dd-bf97-46ae-9803-1774b97187af
+        - paragraph [ref=e1118]: "Neither Atomic Invest nor Atomic Brokerage, nor any of their affiliates is a bank. Investments in securities: Not FDIC Insured, Not Bank Guaranteed, May Lose Value. Investing involves risk, including the possible loss of principal. Before investing, consider your investment objectives and the fees and expenses charged."
+        - paragraph [ref=e1119]: Images are for illustrative purposes only.
+        - paragraph [ref=e1120]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+      - generic [ref=e1123]:
+        - link "US NerdWallet USA" [ref=e1125] [cursor=pointer]:
+          - /url: /
+          - img "US" [ref=e1126]
+          - text: NerdWallet USA
+        - link "CA NerdWallet CA" [ref=e1128] [cursor=pointer]:
+          - /url: /ca
+          - img "CA" [ref=e1129]
+          - text: NerdWallet CA
+      - generic [ref=e1130]:
+        - generic [ref=e1131]:
+          - generic [ref=e1132]: © 2026 NerdWallet, Inc.
+          - generic [ref=e1133]: All Rights Reserved.
+        - generic [ref=e1134]:
+          - link "Find NerdWallet on X" [ref=e1135] [cursor=pointer]:
+            - /url: https://twitter.com/NerdWallet
+            - img "X" [ref=e1136]
+          - link "Find NerdWallet on YouTube" [ref=e1137] [cursor=pointer]:
+            - /url: https://www.youtube.com/@nerdwallet
+            - img "YouTube" [ref=e1138]
+          - link "Find NerdWallet on Instagram" [ref=e1139] [cursor=pointer]:
+            - /url: https://www.instagram.com/NerdWallet/
+            - img "Instagram" [ref=e1140]
+          - link "Find NerdWallet on Apple Podcasts" [ref=e1141] [cursor=pointer]:
+            - /url: https://play.megaphone.fm/xcr_lszorm-uiidw0pl5eq
+            - img "Apple Podcasts" [ref=e1142]
+          - link "Find NerdWallet on TikTok" [ref=e1143] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nerdwallet?lang=en
+            - img "TikTok" [ref=e1144]

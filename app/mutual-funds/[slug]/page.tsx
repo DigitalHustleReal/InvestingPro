@@ -430,12 +430,12 @@ export async function generateMetadata({
 
   if (!fund) {
     return {
-      title: "Mutual Fund Not Found - InvestingPro",
+      title: "Mutual Fund Not Found",
     };
   }
 
   return {
-    title: `${fund.name} Review - Returns, NAV, SIP & Invest Online | InvestingPro`,
+    title: `${fund.name} Review - Returns, NAV, SIP & Invest Online`,
     description: `${fund.description} 3Y Returns: ${fund.returns["3Y"]}%. Expense Ratio: ${fund.expenseRatio}%. Rating: ${fund.rating}/5. Invest via SIP from ₹${fund.sipMinInvestment}.`,
     keywords: `${fund.name}, ${fund.amc}, ${fund.category} fund, mutual fund investment, SIP, NAV, ${fund.name.toLowerCase()} review`,
   };

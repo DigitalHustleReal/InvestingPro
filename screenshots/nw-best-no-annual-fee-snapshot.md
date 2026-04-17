@@ -1,0 +1,142 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Skip to content" [ref=e6] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Nerdwallet icon" [ref=e8]
+        - img "Nerdwallet logo" [ref=e9]
+    - navigation [ref=e11]:
+      - generic "Open Credit cards menu" [ref=e13] [cursor=pointer]:
+        - generic [ref=e14]: Credit cards
+      - generic "Open Banking menu" [ref=e16] [cursor=pointer]:
+        - generic [ref=e17]: Banking
+      - generic "Open Home menu" [ref=e19] [cursor=pointer]:
+        - generic [ref=e20]: Home
+      - generic "Open Loans menu" [ref=e22] [cursor=pointer]:
+        - generic [ref=e23]: Loans
+      - generic "Open Insurance menu" [ref=e25] [cursor=pointer]:
+        - generic [ref=e26]: Insurance
+      - generic "Open Personal finance menu" [ref=e28] [cursor=pointer]:
+        - generic [ref=e29]: Personal finance
+      - generic "Open Investing menu" [ref=e31] [cursor=pointer]:
+        - generic [ref=e32]: Investing
+      - generic "Open Small business menu" [ref=e34] [cursor=pointer]:
+        - generic [ref=e35]: Small business
+      - generic "Open Taxes menu" [ref=e37] [cursor=pointer]:
+        - generic [ref=e38]: Taxes
+    - generic "Open search panel" [ref=e39] [cursor=pointer]:
+      - img "Search" [ref=e40]
+    - generic [ref=e41]:
+      - link "Sign In" [ref=e42] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards%2Fbest%2Fno-annual-fee&initialScreen=signin&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards%2Fbest%2Fno-annual-fee&driverContentId=1846972&driverContentSource=wp&driverPageName=cc_organic_roundup&driverPageViewId=de3f1ee5-76fd-4a72-bfd4-90e8505f8253&deployableName=cc-shopping-client&deployableVersion=b7d3f03dd13096e35e9aded7a9afde8bbb009db5
+      - link "Sign Up" [ref=e43] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards%2Fbest%2Fno-annual-fee&initialScreen=signup&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards%2Fbest%2Fno-annual-fee&driverContentId=1846972&driverContentSource=wp&driverPageName=cc_organic_roundup&driverPageViewId=de3f1ee5-76fd-4a72-bfd4-90e8505f8253&deployableName=cc-shopping-client&deployableVersion=b7d3f03dd13096e35e9aded7a9afde8bbb009db5
+    - generic "Close notifications panel" [ref=e45] [cursor=pointer]:
+      - img "Close" [ref=e46]
+  - main [ref=e47]:
+    - generic [ref=e48]:
+      - navigation "Credit card categories" [ref=e50]:
+        - menubar [ref=e51]:
+          - listitem [ref=e52]
+          - listitem [ref=e59]
+          - listitem [ref=e68]
+          - listitem [ref=e77]
+          - listitem [ref=e85]
+          - listitem [ref=e95]
+          - listitem [ref=e104]
+          - listitem [ref=e112]
+      - article [ref=e123]:
+        - generic [ref=e124]:
+          - generic [ref=e125]
+          - heading "Best No Annual Fee Credit Cards of April 2026" [level=1] [ref=e152]
+          - generic [ref=e153]
+          - paragraph [ref=e200]
+        - generic [ref=e203]:
+          - list [ref=e204]
+          - complementary "Find the right credit card for you." [ref=e1906]
+          - heading "Compare the Best No Annual Fee Credit Cards" [level=2] [ref=e1918]
+          - table [ref=e1921]
+        - complementary [ref=e2580]:
+          - generic [ref=e2581]: Browse categories
+          - navigation "Credit card categories" [ref=e2582]
+        - generic [ref=e2656]:
+          - complementary [ref=e2657]
+          - generic [ref=e2682]
+        - generic [ref=e3233]:
+          - heading "How we choose the best credit cards" [level=2] [ref=e3235]
+          - paragraph [ref=e3237]: Our team of credit card experts has developed a rigorous methodology to determine how much value a card delivers and how it stacks up against its competitors.
+          - generic [ref=e3240]
+          - generic [ref=e3273]
+          - generic [ref=e3314]
+        - complementary [ref=e3323]:
+          - generic [ref=e3324]
+          - generic [ref=e3349]
+          - generic [ref=e3375]
+  - contentinfo [ref=e3402]:
+    - generic [ref=e3403]:
+      - generic [ref=e3404]:
+        - img "NerdWallet Home Page" [ref=e3405]
+        - generic [ref=e3406]: Finance Smarter
+      - generic [ref=e3407]:
+        - link "Learn more about the app" [ref=e3408] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+          - generic [ref=e3409]: Learn more about the app
+        - generic [ref=e3411]: Download the app
+        - generic [ref=e3412]:
+          - generic [ref=e3413]
+          - generic [ref=e3443]
+        - img "QR code for downloading the app" [ref=e3473]
+      - generic [ref=e3474]:
+        - generic [ref=e3475]:
+          - generic [ref=e3476]: About
+          - generic [ref=e3477]
+        - generic [ref=e3489]:
+          - generic [ref=e3490]: Help
+          - generic [ref=e3491]
+        - generic [ref=e3494]:
+          - generic [ref=e3495]: Legal
+          - generic [ref=e3496]
+      - generic [ref=e3503]:
+        - paragraph [ref=e3504]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+        - paragraph [ref=e3505]:
+          - generic [ref=e3506]: NerdWallet Compare, Inc. NMLS ID# 1617539
+          - link "NMLS Consumer Access" [ref=e3507] [cursor=pointer]:
+            - /url: https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1617539
+          - text: "|"
+          - link "Licenses and Disclosures" [ref=e3508] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/nerdwallet-compare-inc-licenses-and-disclosures
+        - paragraph [ref=e3509]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e3510]:
+          - text: Insurance Services offered through NerdWallet Insurance Services, Inc. (CA resident license no.OK92033)
+          - link "Insurance Licenses" [ref=e3511] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/nerdwallet-insurance-services-inc-licenses-and-disclosures
+        - paragraph [ref=e3512]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+      - generic [ref=e3515]:
+        - generic [ref=e3516]:
+          - link "US NerdWallet USA" [ref=e3517] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e3519]: "|"
+        - link "CA NerdWallet CA" [ref=e3521] [cursor=pointer]:
+          - /url: /ca
+          - img "CA" [ref=e3522]
+          - text: NerdWallet CA
+      - generic [ref=e3523]:
+        - generic [ref=e3524]:
+          - generic [ref=e3525]: © 2026 NerdWallet, Inc.
+          - generic [ref=e3526]: All Rights Reserved.
+        - generic [ref=e3527]:
+          - link "Find NerdWallet on X" [ref=e3528] [cursor=pointer]:
+            - /url: https://twitter.com/NerdWallet
+          - link "Find NerdWallet on YouTube" [ref=e3530] [cursor=pointer]:
+            - /url: https://www.youtube.com/@nerdwallet
+          - link "Find NerdWallet on Instagram" [ref=e3532] [cursor=pointer]:
+            - /url: https://www.instagram.com/NerdWallet/
+          - link "Find NerdWallet on Apple Podcasts" [ref=e3534] [cursor=pointer]:
+            - /url: https://play.megaphone.fm/xcr_lszorm-uiidw0pl5eq
+          - link "Find NerdWallet on TikTok" [ref=e3536] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nerdwallet?lang=en
+  - img "NerdWallet Pixel" [ref=e3538]
+  - alert [ref=e3655]
+  - iframe

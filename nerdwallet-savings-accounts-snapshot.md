@@ -1,0 +1,2068 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Skip to content" [ref=e6] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Nerdwallet icon" [ref=e8]
+        - img "Nerdwallet logo" [ref=e9]
+    - navigation [ref=e11]:
+      - generic "Open Credit cards menu" [ref=e13] [cursor=pointer]:
+        - generic [ref=e14]: Credit cards
+      - generic "Open Banking menu" [ref=e16] [cursor=pointer]:
+        - generic [ref=e17]: Banking
+      - generic "Open Home menu" [ref=e19] [cursor=pointer]:
+        - generic [ref=e20]: Home
+      - generic "Open Loans menu" [ref=e22] [cursor=pointer]:
+        - generic [ref=e23]: Loans
+      - generic "Open Insurance menu" [ref=e25] [cursor=pointer]:
+        - generic [ref=e26]: Insurance
+      - generic "Open Personal finance menu" [ref=e28] [cursor=pointer]:
+        - generic [ref=e29]: Personal finance
+      - generic "Open Investing menu" [ref=e31] [cursor=pointer]:
+        - generic [ref=e32]: Investing
+      - generic "Open Small business menu" [ref=e34] [cursor=pointer]:
+        - generic [ref=e35]: Small business
+      - generic "Open Taxes menu" [ref=e37] [cursor=pointer]:
+        - generic [ref=e38]: Taxes
+    - generic "Open search panel" [ref=e39] [cursor=pointer]:
+      - img "Search" [ref=e40]
+    - generic [ref=e2013]:
+      - link "Sign In" [ref=e41] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signin&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Fbest%2Fsavings-accounts&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Fbest%2Fsavings-accounts&driverContentId=1855973&driverContentSource=wp&driverPageName=banking_roundup&driverPageViewId=b38d011d-351e-402b-b45c-7266b22bac19&deployableName=wealth-core&deployableVersion=1.0.0
+      - link "Sign Up" [ref=e42] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signup&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Fbest%2Fsavings-accounts&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Fbest%2Fsavings-accounts&driverContentId=1855973&driverContentSource=wp&driverPageName=banking_roundup&driverPageViewId=b38d011d-351e-402b-b45c-7266b22bac19&deployableName=wealth-core&deployableVersion=1.0.0
+    - generic "Close notifications panel" [ref=e46] [cursor=pointer]:
+      - img "Close" [ref=e47]
+  - main [ref=e53]:
+    - article [ref=e54]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - navigation "Breadcrumbs" [ref=e59]:
+              - list [ref=e60]:
+                - listitem [ref=e61]:
+                  - link "Back to NerdWallet homepage" [ref=e62] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com
+                    - img [ref=e63]
+                - listitem [ref=e65]:
+                  - img [ref=e66]
+                - listitem [ref=e68]:
+                  - link "Back to banking" [ref=e69] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking
+                    - paragraph [ref=e70]: banking
+                - listitem [ref=e71]:
+                  - img [ref=e72]
+                - listitem [ref=e74]:
+                  - link "Back to Best" [ref=e75] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/best
+                    - paragraph [ref=e76]: Best
+                - listitem [ref=e77]:
+                  - img [ref=e78]
+                - listitem [ref=e80]:
+                  - paragraph [ref=e82]: "Best Savings Accounts for April 2026: Up to 4.03%"
+            - button "Advertiser disclosure" [ref=e84] [cursor=pointer]:
+              - generic [ref=e85]: Advertiser disclosure
+          - 'heading "10 Best Savings Accounts for April 2026: Up to 4.03%" [level=1] [ref=e86]'
+          - generic [ref=e88]:
+            - list [ref=e89]:
+              - listitem [ref=e90]:
+                - img "Margarette Burnette Author Avatar" [ref=e91]
+              - listitem [ref=e92]:
+                - img "Tony Armstrong Author Avatar" [ref=e93]
+            - generic [ref=e94]:
+              - generic [ref=e95]:
+                - generic [ref=e96]:
+                  - generic [ref=e97]: Written by
+                  - link "Margarette Burnette" [ref=e101] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/author/margarette-burnette
+                    - generic [ref=e102]: Margarette Burnette
+                  - generic [ref=e103]: ","
+                - generic [ref=e105]:
+                  - generic [ref=e106]: Edited by
+                  - link "Tony Armstrong" [ref=e110] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/author/tony-armstrong
+                    - generic [ref=e111]: Tony Armstrong
+              - generic [ref=e112]:
+                - generic [ref=e113]: Last updated on April 16, 2026
+                - generic [ref=e114]:
+                  - separator [ref=e115]
+                  - generic [ref=e116]:
+                    - img [ref=e117]
+                    - generic [ref=e119]: Fact Checked
+                  - separator [ref=e120]
+                  - button "Editorial Integrity" [ref=e121] [cursor=pointer]:
+                    - generic [ref=e122]: Editorial Integrity
+          - generic [ref=e124]:
+            - paragraph [ref=e126]: "The best savings accounts have high annual percentage yields, or APYs. A higher APY means your savings earn more interest over time. Among accounts with low minimum deposit requirements, Vio Bank's savings account has the highest rate: 4.03%."
+            - button "Read More" [ref=e127]:
+              - generic [ref=e128] [cursor=pointer]: Read More
+        - region [ref=e129]:
+          - table [ref=e134]:
+            - rowgroup [ref=e135]:
+              - row "Bank/institution NerdWallet rating NerdWallet rating APY Bonus Learn more" [ref=e136]:
+                - columnheader "Bank/institution" [ref=e137]
+                - columnheader "NerdWallet rating NerdWallet rating" [ref=e138]:
+                  - text: NerdWallet rating
+                  - button "NerdWallet rating" [ref=e141] [cursor=pointer]:
+                    - img [ref=e142]
+                - columnheader "APY" [ref=e144]
+                - columnheader "Bonus" [ref=e145]
+                - columnheader "Learn more" [ref=e146]
+            - rowgroup [ref=e147]:
+              - row "NerdWallet Best-Of Awards 2026 Best Bank SoFi Checking and Savings SoFi Checking and Savings 4.8 /5 Best for Savings Accounts Up to 4.00% APY info With $0 min. balance for APY $400 + 0.70% APY Bonus info Earn up to $400 and +0.70% Boost on Savings APY. Terms apply. Learn more on partner's site at SoFi Bank, N.A., Member FDIC" [ref=e148]:
+                - cell "NerdWallet Best-Of Awards 2026 Best Bank SoFi Checking and Savings SoFi Checking and Savings" [ref=e149]:
+                  - generic [ref=e151]:
+                    - img "NerdWallet Best-Of Awards" [ref=e153]
+                    - generic [ref=e155]: 2026 Best Bank
+                  - generic [ref=e156]:
+                    - link "SoFi Checking and Savings" [ref=e158] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/473eb46a-aefa-11ec-be17-4b2c08a5fefe?finish_type=external_application&monetizable=yes_assumed&element_position=0&sku_impression_id=98110f3e-0eed-40d9-a112-5ca144017fab&impression_pageview_id=b38d011d-351e-402b-b45c-7266b22bac19&impression_page_url=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Fbest%2Fsavings-accounts&impression_page_name=banking_roundup&impression_section=summary_table_section&impression_position=0&cta_type=PRODUCT_IMAGE&calling_deployable_name=wealth-core&calling_deployable_version=1.0.0&shopping_finish_id=ba991f7df7884c3e96850692a5cd5540
+                      - img "SoFi Checking and Savings" [ref=e2014]
+                    - paragraph [ref=e160]: SoFi Checking and Savings
+                - cell "4.8 /5 Best for Savings Accounts" [ref=e161]:
+                  - generic [ref=e162]:
+                    - generic [ref=e164]:
+                      - link "4.8" [ref=e166] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/sofi
+                      - generic [ref=e167]: /5
+                    - generic [ref=e168]: Best for Savings Accounts
+                - cell "Up to 4.00% APY info With $0 min. balance for APY" [ref=e169]:
+                  - generic [ref=e170]:
+                    - generic [ref=e171]:
+                      - text: Up to 4.00%
+                      - button "APY info" [ref=e174] [cursor=pointer]:
+                        - img [ref=e175]
+                    - generic [ref=e177]: With $0 min. balance for APY
+                - cell "$400 + 0.70% APY Bonus info Earn up to $400 and +0.70% Boost on Savings APY. Terms apply." [ref=e178]:
+                  - generic [ref=e179]:
+                    - generic [ref=e180]:
+                      - text: $400 + 0.70% APY
+                      - button "Bonus info" [ref=e183] [cursor=pointer]:
+                        - img [ref=e184]
+                    - generic [ref=e186]: Earn up to $400 and +0.70% Boost on Savings APY. Terms apply.
+                - cell "Learn more on partner's site at SoFi Bank, N.A., Member FDIC" [ref=e187]:
+                  - generic [ref=e190]:
+                    - link "Learn more on partner's site" [ref=e191] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/473eb46a-aefa-11ec-be17-4b2c08a5fefe?finish_type=external_application&monetizable=yes_assumed&element_position=0&sku_impression_id=98110f3e-0eed-40d9-a112-5ca144017fab&impression_pageview_id=b38d011d-351e-402b-b45c-7266b22bac19&impression_page_url=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Fbest%2Fsavings-accounts&impression_page_name=banking_roundup&impression_section=summary_table_section&impression_position=0&cta_type=APPLY_NOW_BUTTON&calling_deployable_name=wealth-core&calling_deployable_version=1.0.0&shopping_finish_id=ff1db2d8cede4514bffae7fc550dce22
+                      - text: Learn more
+                      - generic [ref=e192]: on partner's site
+                      - img [ref=e193]
+                    - generic [ref=e195]: at SoFi Bank, N.A., Member FDIC
+              - row "Barclays Tiered Savings Account Barclays Tiered Savings Account 4.5 /5 Best for Savings Accounts 3.65% APY info With $0 min. balance for APY N/A Learn more on partner's site at Barclays, Member FDIC" [ref=e196]:
+                - cell "Barclays Tiered Savings Account Barclays Tiered Savings Account" [ref=e197]:
+                  - generic [ref=e198]:
+                    - link "Barclays Tiered Savings Account" [ref=e200] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/7d030728-3ef8-11ef-b807-0fafb26926b5?finish_type=external_application&monetizable=yes_assumed&element_position=1&cta_type=PRODUCT_IMAGE&shopping_finish_id=9215323afe6a4f759de4e3bf8ae2a851
+                      - img "Barclays Tiered Savings Account" [ref=e2015]
+                    - paragraph [ref=e202]: Barclays Tiered Savings Account
+                - cell "4.5 /5 Best for Savings Accounts" [ref=e203]:
+                  - generic [ref=e204]:
+                    - generic [ref=e206]:
+                      - link "4.5" [ref=e208] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/barclays-bank
+                      - generic [ref=e209]: /5
+                    - generic [ref=e210]: Best for Savings Accounts
+                - cell "3.65% APY info With $0 min. balance for APY" [ref=e211]:
+                  - generic [ref=e212]:
+                    - generic [ref=e213]:
+                      - text: 3.65%
+                      - button "APY info" [ref=e216] [cursor=pointer]:
+                        - img [ref=e217]
+                    - generic [ref=e219]: With $0 min. balance for APY
+                - cell "N/A" [ref=e220]:
+                  - generic [ref=e222]: N/A
+                - cell "Learn more on partner's site at Barclays, Member FDIC" [ref=e223]:
+                  - generic [ref=e226]:
+                    - link "Learn more on partner's site" [ref=e227] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/7d030728-3ef8-11ef-b807-0fafb26926b5?finish_type=external_application&monetizable=yes_assumed&element_position=1&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=81f00db7364c4d6d9ab7ecb620b727b5
+                      - text: Learn more
+                      - generic [ref=e228]: on partner's site
+                      - img [ref=e229]
+                    - generic [ref=e231]: at Barclays, Member FDIC
+              - row "CIT Bank Platinum Savings CIT Bank Platinum Savings 4.5 /5 Best for Savings Accounts Up to 4.10% With $5,000 min. balance for APY 0.35% APY Boost Earn up to 4.10% APY for 6 months on balances of $5,000 or more. Terms apply. Learn more on partner's site at CIT Bank, Member FDIC" [ref=e232]:
+                - cell "CIT Bank Platinum Savings CIT Bank Platinum Savings" [ref=e233]:
+                  - generic [ref=e234]:
+                    - link "CIT Bank Platinum Savings" [ref=e236] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/adfeb934-c4de-11ed-a40f-1f42eaa7bc05?finish_type=external_application&monetizable=yes_assumed&element_position=2&cta_type=PRODUCT_IMAGE&shopping_finish_id=4f406e1279e4477a97b6450401208d38
+                      - img "CIT Bank Platinum Savings" [ref=e2016]
+                    - paragraph [ref=e238]: CIT Bank Platinum Savings
+                - cell "4.5 /5 Best for Savings Accounts" [ref=e239]:
+                  - generic [ref=e240]:
+                    - generic [ref=e242]:
+                      - link "4.5" [ref=e244] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/cit-bank
+                      - generic [ref=e245]: /5
+                    - generic [ref=e246]: Best for Savings Accounts
+                - cell "Up to 4.10% With $5,000 min. balance for APY" [ref=e247]:
+                  - generic [ref=e248]:
+                    - generic [ref=e249]: Up to 4.10%
+                    - generic [ref=e250]: With $5,000 min. balance for APY
+                - cell "0.35% APY Boost Earn up to 4.10% APY for 6 months on balances of $5,000 or more. Terms apply." [ref=e251]:
+                  - generic [ref=e252]:
+                    - generic [ref=e253]: 0.35% APY Boost
+                    - generic [ref=e254]: Earn up to 4.10% APY for 6 months on balances of $5,000 or more. Terms apply.
+                - cell "Learn more on partner's site at CIT Bank, Member FDIC" [ref=e255]:
+                  - generic [ref=e258]:
+                    - link "Learn more on partner's site" [ref=e259] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/adfeb934-c4de-11ed-a40f-1f42eaa7bc05?finish_type=external_application&monetizable=yes_assumed&element_position=2&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=5dfeb736f1b54713a61d66059a2f3935
+                      - text: Learn more
+                      - generic [ref=e260]: on partner's site
+                      - img [ref=e261]
+                    - generic [ref=e263]: at CIT Bank, Member FDIC
+              - row "Bask Interest Savings Account Bask Interest Savings Account 4.5 /5 Best for Savings Accounts Up to 4.00% APY info Terms Apply. 0.25% APY Boost Bonus info Requirements to qualify Learn more on partner's site at Bask Bank, Member FDIC" [ref=e264]:
+                - cell "Bask Interest Savings Account Bask Interest Savings Account" [ref=e265]:
+                  - generic [ref=e266]:
+                    - link "Bask Interest Savings Account" [ref=e268] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/0d9f539e-174c-11ed-8067-ffa53675fe98?finish_type=external_application&monetizable=yes_assumed&element_position=3&cta_type=PRODUCT_IMAGE&shopping_finish_id=8839909cbd9f472f92f1d74b4ca42d90
+                      - img "Bask Interest Savings Account" [ref=e2017]
+                    - paragraph [ref=e270]: Bask Interest Savings Account
+                - cell "4.5 /5 Best for Savings Accounts" [ref=e271]:
+                  - generic [ref=e272]:
+                    - generic [ref=e274]:
+                      - link "4.5" [ref=e276] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/bask-bank
+                      - generic [ref=e277]: /5
+                    - generic [ref=e278]: Best for Savings Accounts
+                - cell "Up to 4.00% APY info Terms Apply." [ref=e279]:
+                  - generic [ref=e280]:
+                    - generic [ref=e281]:
+                      - text: Up to 4.00%
+                      - button "APY info" [ref=e284] [cursor=pointer]:
+                        - img [ref=e285]
+                    - generic [ref=e287]: Terms Apply.
+                - cell "0.25% APY Boost Bonus info Requirements to qualify" [ref=e288]:
+                  - generic [ref=e289]:
+                    - generic [ref=e290]:
+                      - text: 0.25% APY Boost
+                      - button "Bonus info" [ref=e293] [cursor=pointer]:
+                        - img [ref=e294]
+                    - generic [ref=e296]: Requirements to qualify
+                - cell "Learn more on partner's site at Bask Bank, Member FDIC" [ref=e297]:
+                  - generic [ref=e300]:
+                    - link "Learn more on partner's site" [ref=e301] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/0d9f539e-174c-11ed-8067-ffa53675fe98?finish_type=external_application&monetizable=yes_assumed&element_position=3&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=bc88a56a8da3499485310ee065584df5
+                      - text: Learn more
+                      - generic [ref=e302]: on partner's site
+                      - img [ref=e303]
+                    - generic [ref=e305]: at Bask Bank, Member FDIC
+              - row "Marcus by Goldman Sachs Online Savings Account Marcus by Goldman Sachs Online Savings Account 4.6 /5 Best for Savings Accounts 3.65% APY info With $0 min. balance for APY N/A Learn more on partner's site at Goldman Sachs Bank USA, Member FDIC" [ref=e306]:
+                - cell "Marcus by Goldman Sachs Online Savings Account Marcus by Goldman Sachs Online Savings Account" [ref=e307]:
+                  - generic [ref=e308]:
+                    - link "Marcus by Goldman Sachs Online Savings Account" [ref=e310] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/db221bb6-259e-11e8-9c02-0f47d65712de?finish_type=external_application&monetizable=yes_assumed&element_position=4&cta_type=PRODUCT_IMAGE&shopping_finish_id=f05e45f0a0e44eeca28cda72ff49d6fc
+                      - img "Marcus by Goldman Sachs Online Savings Account" [ref=e2018]
+                    - paragraph [ref=e312]: Marcus by Goldman Sachs Online Savings Account
+                - cell "4.6 /5 Best for Savings Accounts" [ref=e313]:
+                  - generic [ref=e314]:
+                    - generic [ref=e316]:
+                      - link "4.6" [ref=e318] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/goldman-sachs-bank
+                      - generic [ref=e319]: /5
+                    - generic [ref=e320]: Best for Savings Accounts
+                - cell "3.65% APY info With $0 min. balance for APY" [ref=e321]:
+                  - generic [ref=e322]:
+                    - generic [ref=e323]:
+                      - text: 3.65%
+                      - button "APY info" [ref=e326] [cursor=pointer]:
+                        - img [ref=e327]
+                    - generic [ref=e329]: With $0 min. balance for APY
+                - cell "N/A" [ref=e330]:
+                  - generic [ref=e332]: N/A
+                - cell "Learn more on partner's site at Goldman Sachs Bank USA, Member FDIC" [ref=e333]:
+                  - generic [ref=e336]:
+                    - link "Learn more on partner's site" [ref=e337] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/db221bb6-259e-11e8-9c02-0f47d65712de?finish_type=external_application&monetizable=yes_assumed&element_position=4&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=148b744db7c644cba8e61189331efd32
+                      - text: Learn more
+                      - generic [ref=e338]: on partner's site
+                      - img [ref=e339]
+                    - generic [ref=e341]: at Goldman Sachs Bank USA, Member FDIC
+              - row "Forbright Bank Growth Savings Forbright Bank Growth Savings 4.5 /5 Best for Savings Accounts 3.85% APY info With $0 min. balance for APY N/A Learn more on partner's site at Forbright Bank, Member FDIC" [ref=e342]:
+                - cell "Forbright Bank Growth Savings Forbright Bank Growth Savings" [ref=e343]:
+                  - generic [ref=e344]:
+                    - link "Forbright Bank Growth Savings" [ref=e346] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/dacf6cc2-5f12-11ef-940d-1f76fce4e914?finish_type=external_application&monetizable=yes_assumed&element_position=5&cta_type=PRODUCT_IMAGE&shopping_finish_id=a9fdadc762454dd6bb2a25605399a2ac
+                      - img "Forbright Bank Growth Savings" [ref=e2019]
+                    - paragraph [ref=e348]: Forbright Bank Growth Savings
+                - cell "4.5 /5 Best for Savings Accounts" [ref=e349]:
+                  - generic [ref=e350]:
+                    - generic [ref=e352]:
+                      - link "4.5" [ref=e354] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/forbright-bank
+                      - generic [ref=e355]: /5
+                    - generic [ref=e356]: Best for Savings Accounts
+                - cell "3.85% APY info With $0 min. balance for APY" [ref=e357]:
+                  - generic [ref=e358]:
+                    - generic [ref=e359]:
+                      - text: 3.85%
+                      - button "APY info" [ref=e362] [cursor=pointer]:
+                        - img [ref=e363]
+                    - generic [ref=e365]: With $0 min. balance for APY
+                - cell "N/A" [ref=e366]:
+                  - generic [ref=e368]: N/A
+                - cell "Learn more on partner's site at Forbright Bank, Member FDIC" [ref=e369]:
+                  - generic [ref=e372]:
+                    - link "Learn more on partner's site" [ref=e373] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/dacf6cc2-5f12-11ef-940d-1f76fce4e914?finish_type=external_application&monetizable=yes_assumed&element_position=5&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=20ba7915378a424ba29f2ad23f2f7452
+                      - text: Learn more
+                      - generic [ref=e374]: on partner's site
+                      - img [ref=e375]
+                    - generic [ref=e377]: at Forbright Bank, Member FDIC
+              - row "E*TRADE Premium Savings E*TRADE Premium Savings 4.5 /5 Best for Savings Accounts 4.00% for 6mo APY info With $0 min. balance for APY N/A Learn more on partner's site at Morgan Stanley Private Bank, National Association, Member FDIC" [ref=e378]:
+                - cell "E*TRADE Premium Savings E*TRADE Premium Savings" [ref=e379]:
+                  - generic [ref=e380]:
+                    - link "E*TRADE Premium Savings" [ref=e382] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/72b73544-b6bb-11e8-9778-bb6a7074eab5?finish_type=external_application&monetizable=yes_assumed&element_position=6&cta_type=PRODUCT_IMAGE&shopping_finish_id=6693c6028484482ebe5dcfcd85df72c1
+                      - img "E*TRADE Premium Savings" [ref=e2020]
+                    - paragraph [ref=e384]: E*TRADE Premium Savings
+                - cell "4.5 /5 Best for Savings Accounts" [ref=e385]:
+                  - generic [ref=e386]:
+                    - generic [ref=e388]:
+                      - link "4.5" [ref=e390] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/etrade-checking-savings
+                      - generic [ref=e391]: /5
+                    - generic [ref=e392]: Best for Savings Accounts
+                - cell "4.00% for 6mo APY info With $0 min. balance for APY" [ref=e393]:
+                  - generic [ref=e394]:
+                    - generic [ref=e395]:
+                      - text: 4.00% for 6mo
+                      - button "APY info" [ref=e398] [cursor=pointer]:
+                        - img [ref=e399]
+                    - generic [ref=e401]: With $0 min. balance for APY
+                - cell "N/A" [ref=e402]:
+                  - generic [ref=e404]: N/A
+                - cell "Learn more on partner's site at Morgan Stanley Private Bank, National Association, Member FDIC" [ref=e405]:
+                  - generic [ref=e408]:
+                    - link "Learn more on partner's site" [ref=e409] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/72b73544-b6bb-11e8-9778-bb6a7074eab5?finish_type=external_application&monetizable=yes_assumed&element_position=6&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=447cf46dad3e4cabae1fc990def2c4d6
+                      - text: Learn more
+                      - generic [ref=e410]: on partner's site
+                      - img [ref=e411]
+                    - generic [ref=e413]: at Morgan Stanley Private Bank, National Association, Member FDIC
+              - row "Peak Bank Envision High-Yield Savings Peak Bank Envision High-Yield Savings 5.0 /5 Best for Savings Accounts 3.82% With $0.01 min. balance for APY N/A Learn more on partner's site at Peak Bank, Member FDIC" [ref=e414]:
+                - cell "Peak Bank Envision High-Yield Savings Peak Bank Envision High-Yield Savings" [ref=e415]:
+                  - generic [ref=e416]:
+                    - link "Peak Bank Envision High-Yield Savings" [ref=e418] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/00814632-f2f3-11f0-a1dc-63be3c5b7be3?finish_type=external_application&monetizable=yes_assumed&element_position=7&cta_type=PRODUCT_IMAGE&shopping_finish_id=f2c8b623589b4fbaa60daca3526f1b71
+                      - img "Peak Bank Envision High-Yield Savings" [ref=e2021]
+                    - paragraph [ref=e420]: Peak Bank Envision High-Yield Savings
+                - cell "5.0 /5 Best for Savings Accounts" [ref=e421]:
+                  - generic [ref=e422]:
+                    - generic [ref=e424]:
+                      - link "5.0" [ref=e426] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/peak-bank
+                      - generic [ref=e427]: /5
+                    - generic [ref=e428]: Best for Savings Accounts
+                - cell "3.82% With $0.01 min. balance for APY" [ref=e429]:
+                  - generic [ref=e430]:
+                    - generic [ref=e431]: 3.82%
+                    - generic [ref=e432]: With $0.01 min. balance for APY
+                - cell "N/A" [ref=e433]:
+                  - generic [ref=e435]: N/A
+                - cell "Learn more on partner's site at Peak Bank, Member FDIC" [ref=e436]:
+                  - generic [ref=e439]:
+                    - link "Learn more on partner's site" [ref=e440] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/00814632-f2f3-11f0-a1dc-63be3c5b7be3?finish_type=external_application&monetizable=yes_assumed&element_position=7&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=d2bd571824bc48d2945382ad439a0d3c
+                      - text: Learn more
+                      - generic [ref=e441]: on partner's site
+                      - img [ref=e442]
+                    - generic [ref=e444]: at Peak Bank, Member FDIC
+              - row "UFB Portfolio Savings UFB Portfolio Savings 3.9 /5 Best for Savings Accounts 3.26% With $0 min. balance for APY N/A Learn more on partner's site at UFB Direct, Member FDIC" [ref=e445]:
+                - cell "UFB Portfolio Savings UFB Portfolio Savings" [ref=e446]:
+                  - generic [ref=e447]:
+                    - link "UFB Portfolio Savings" [ref=e449] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/0dd2e852-7b39-11e8-9c02-1f02d54aa17a?finish_type=external_application&monetizable=yes_assumed&element_position=8&cta_type=PRODUCT_IMAGE&shopping_finish_id=d5b27dcea09f407da45eb88bb17cbab8
+                      - img "UFB Portfolio Savings" [ref=e2022]
+                    - paragraph [ref=e451]: UFB Portfolio Savings
+                - cell "3.9 /5 Best for Savings Accounts" [ref=e452]:
+                  - generic [ref=e453]:
+                    - generic [ref=e455]:
+                      - link "3.9" [ref=e457] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/ufb-direct
+                      - generic [ref=e458]: /5
+                    - generic [ref=e459]: Best for Savings Accounts
+                - cell "3.26% With $0 min. balance for APY" [ref=e460]:
+                  - generic [ref=e461]:
+                    - generic [ref=e462]: 3.26%
+                    - generic [ref=e463]: With $0 min. balance for APY
+                - cell "N/A" [ref=e464]:
+                  - generic [ref=e466]: N/A
+                - cell "Learn more on partner's site at UFB Direct, Member FDIC" [ref=e467]:
+                  - generic [ref=e470]:
+                    - link "Learn more on partner's site" [ref=e471] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/0dd2e852-7b39-11e8-9c02-1f02d54aa17a?finish_type=external_application&monetizable=yes_assumed&element_position=8&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=044946a993eb443b9a262b9e7756d79a
+                      - text: Learn more
+                      - generic [ref=e472]: on partner's site
+                      - img [ref=e473]
+                    - generic [ref=e475]: at UFB Direct, Member FDIC
+              - row "Axos ONE® Savings Axos ONE® Savings 3.9 /5 Best for Savings Accounts 4.21% APY info With $1,500 min. balance & $1,500 monthly direct deposits for APY N/A Learn more on partner's site at Axos Bank®, Member FDIC" [ref=e476]:
+                - cell "Axos ONE® Savings Axos ONE® Savings" [ref=e477]:
+                  - generic [ref=e478]:
+                    - link "Axos ONE® Savings" [ref=e480] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/d3166cda-8594-11ef-bd19-133186211472?finish_type=external_application&monetizable=yes_assumed&element_position=9&cta_type=PRODUCT_IMAGE&shopping_finish_id=6579495598a24cebbb28ba9cca38d85b
+                      - img "Axos ONE® Savings" [ref=e2023]
+                    - paragraph [ref=e482]: Axos ONE® Savings
+                - cell "3.9 /5 Best for Savings Accounts" [ref=e483]:
+                  - generic [ref=e484]:
+                    - generic [ref=e486]:
+                      - link "3.9" [ref=e488] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/axos-bank
+                      - generic [ref=e489]: /5
+                    - generic [ref=e490]: Best for Savings Accounts
+                - cell "4.21% APY info With $1,500 min. balance & $1,500 monthly direct deposits for APY" [ref=e491]:
+                  - generic [ref=e492]:
+                    - generic [ref=e493]:
+                      - text: 4.21%
+                      - button "APY info" [ref=e496] [cursor=pointer]:
+                        - img [ref=e497]
+                    - generic [ref=e499]: With $1,500 min. balance & $1,500 monthly direct deposits for APY
+                - cell "N/A" [ref=e500]:
+                  - generic [ref=e502]: N/A
+                - cell "Learn more on partner's site at Axos Bank®, Member FDIC" [ref=e503]:
+                  - generic [ref=e506]:
+                    - link "Learn more on partner's site" [ref=e507] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/redirect/banking/d3166cda-8594-11ef-bd19-133186211472?finish_type=external_application&monetizable=yes_assumed&element_position=9&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=d09e4376de584035be790701b13c9c24
+                      - text: Learn more
+                      - generic [ref=e508]: on partner's site
+                      - img [ref=e509]
+                    - generic [ref=e511]: at Axos Bank®, Member FDIC
+          - list [ref=e512]:
+            - listitem [ref=e513]:
+              - generic [ref=e514]:
+                - paragraph [ref=e515]: Our pick for
+                - paragraph [ref=e516]: Savings Accounts
+              - list [ref=e517]:
+                - listitem [ref=e518]:
+                  - generic [ref=e520]:
+                    - generic [ref=e522]:
+                      - generic [ref=e523]:
+                        - img "NerdWallet Best-Of Awards" [ref=e525]
+                        - generic [ref=e527]: 2026 Best Bank
+                      - link "SoFi Checking and Savings" [ref=e529] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/473eb46a-aefa-11ec-be17-4b2c08a5fefe?finish_type=external_application&monetizable=yes_assumed&element_position=9&cta_type=PRODUCT_NAME&shopping_finish_id=86acb1fc77bd41019290d21de55325cc
+                      - generic [ref=e530]:
+                        - generic [ref=e532]:
+                          - generic [ref=e533]:
+                            - link "SoFi Checking and Savings" [ref=e536] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/473eb46a-aefa-11ec-be17-4b2c08a5fefe?finish_type=external_application&monetizable=yes_assumed&element_position=9&cta_type=PRODUCT_IMAGE&shopping_finish_id=ecb75d2daee34a379f2927e227c0d9ad
+                              - img "SoFi Checking and Savings" [ref=e538]
+                            - generic [ref=e541]:
+                              - link "Learn more on partner's site" [ref=e542] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/473eb46a-aefa-11ec-be17-4b2c08a5fefe?finish_type=external_application&monetizable=yes_assumed&element_position=9&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=e502b0d3d4ca42d4b8a2e0693e757426
+                                - text: Learn more
+                                - generic [ref=e543]: on partner's site
+                                - img [ref=e544]
+                              - generic [ref=e546]: at SoFi Bank, N.A., Member FDIC
+                          - generic [ref=e548]:
+                            - generic [ref=e549]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e551] [cursor=pointer]:
+                                - img [ref=e552]
+                            - generic [ref=e554]:
+                              - link "4.8" [ref=e556] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/sofi
+                              - generic [ref=e557]: /5
+                        - generic [ref=e558]:
+                          - generic [ref=e559]:
+                            - paragraph [ref=e561]: APY
+                            - generic [ref=e562]:
+                              - generic [ref=e563]:
+                                - paragraph [ref=e564]: Up to 4.00%
+                                - button "APY info" [ref=e566] [cursor=pointer]:
+                                  - img [ref=e567]
+                              - paragraph [ref=e570]: With $0 min. balance for APY
+                          - generic [ref=e571]:
+                            - paragraph [ref=e573]: Bonus
+                            - generic [ref=e574]:
+                              - generic [ref=e575]:
+                                - paragraph [ref=e576]: $400 + 0.70% APY
+                                - button "Bonus info" [ref=e578] [cursor=pointer]:
+                                  - img [ref=e579]
+                              - paragraph [ref=e582]: Earn up to $400 and +0.70% Boost on Savings APY. Terms apply.
+                    - group [ref=e583]:
+                      - generic "Our Take" [ref=e584] [cursor=pointer]:
+                        - generic [ref=e585]: Our Take
+                        - img [ref=e586]
+                      - generic [ref=e589]:
+                        - text: Why We Like It
+                        - generic [ref=e590]:
+                          - paragraph [ref=e592]: The savings portion of the SoFi® combination checking and savings account offers up to 3.30% APY (variable and subject to change).
+                          - paragraph [ref=e594]: "To earn that rate, you'll need to do one of the following:"
+                          - paragraph [ref=e596]: 1. Set up direct deposit in any amount. 2. Deposit a total of at least $5,000 every 31 days using accepted methods. 3. Be a SoFi Plus member and pay a $10 subscription fee every 30 days. (Note that SoFi is currently offering an APY boost to eligible members.)
+                          - paragraph [ref=e598]: If those requirements are not met, your savings balance earns a 1.00% APY. In addition to the savings yield, money kept in the checking portion of the account earns 0.50% APY, regardless of monthly deposits.
+                          - paragraph [ref=e600]: There’s no minimum deposit requirement to open an account and no monthly maintenance fees.
+                          - paragraph [ref=e602]:
+                            - text: You can use
+                            - link "NerdWallet's compound interest calculator" [ref=e603] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/banking/calculators/compound-interest-calculator
+                            - text: to estimate how much money you could save over time.
+                - listitem [ref=e604]:
+                  - generic [ref=e606]:
+                    - generic [ref=e608]:
+                      - link "Barclays Tiered Savings Account" [ref=e610] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/7d030728-3ef8-11ef-b807-0fafb26926b5?finish_type=external_application&monetizable=yes_assumed&element_position=10&cta_type=PRODUCT_NAME&shopping_finish_id=0e924ddebda14f21939738647f0a886b
+                      - generic [ref=e611]:
+                        - generic [ref=e613]:
+                          - generic [ref=e614]:
+                            - link "Barclays Tiered Savings Account" [ref=e617] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/7d030728-3ef8-11ef-b807-0fafb26926b5?finish_type=external_application&monetizable=yes_assumed&element_position=10&cta_type=PRODUCT_IMAGE&shopping_finish_id=05932a00e6b6445cbc6d9b73814f7cec
+                              - img "Barclays Tiered Savings Account" [ref=e619]
+                            - generic [ref=e622]:
+                              - link "Learn more on partner's site" [ref=e623] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/7d030728-3ef8-11ef-b807-0fafb26926b5?finish_type=external_application&monetizable=yes_assumed&element_position=10&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=3d4bff495a8c438fbf1120a078476ee7
+                                - text: Learn more
+                                - generic [ref=e624]: on partner's site
+                                - img [ref=e625]
+                              - generic [ref=e627]: at Barclays, Member FDIC
+                          - generic [ref=e629]:
+                            - generic [ref=e630]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e632] [cursor=pointer]:
+                                - img [ref=e633]
+                            - generic [ref=e635]:
+                              - link "4.5" [ref=e637] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/barclays-bank
+                              - generic [ref=e638]: /5
+                        - generic [ref=e639]:
+                          - generic [ref=e640]:
+                            - paragraph [ref=e642]: APY
+                            - generic [ref=e643]:
+                              - generic [ref=e644]:
+                                - paragraph [ref=e645]: 3.65%
+                                - button "APY info" [ref=e647] [cursor=pointer]:
+                                  - img [ref=e648]
+                              - paragraph [ref=e651]: With $0 min. balance for APY
+                          - generic [ref=e652]:
+                            - paragraph [ref=e654]: Bonus
+                            - paragraph [ref=e657]: N/A
+                    - group [ref=e658]:
+                      - generic "Our Take" [ref=e659] [cursor=pointer]:
+                        - generic [ref=e660]: Our Take
+                        - img [ref=e661]
+                      - generic [ref=e664]:
+                        - text: Why We Like It
+                        - generic [ref=e665]:
+                          - paragraph [ref=e667]: This savings account earns a competitive 3.65% APY on balances below $250,000, while rates at or above $250,000 earn 3.75% APY. You can open an account with any amount and you won't be charged monthly maintenance fees.
+                          - paragraph [ref=e669]: Barclays also offers a helpful online tool for setting savings goals. This is the kind of feature you’d expect from a top online account. If you want your checking and savings under one roof, however, you’ll need to consider other options. Barclays does not offer a checking account.
+                - listitem [ref=e670]:
+                  - generic [ref=e672]:
+                    - generic [ref=e674]:
+                      - link "CIT Bank Platinum Savings" [ref=e676] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/adfeb934-c4de-11ed-a40f-1f42eaa7bc05?finish_type=external_application&monetizable=yes_assumed&element_position=11&cta_type=PRODUCT_NAME&shopping_finish_id=87aa99cb53224387b4afb72b0c270c6e
+                      - generic [ref=e677]:
+                        - generic [ref=e679]:
+                          - generic [ref=e680]:
+                            - link "CIT Bank Platinum Savings" [ref=e683] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/adfeb934-c4de-11ed-a40f-1f42eaa7bc05?finish_type=external_application&monetizable=yes_assumed&element_position=11&cta_type=PRODUCT_IMAGE&shopping_finish_id=ddef4e1dddff4395a8f5b29388620728
+                              - img "CIT Bank Platinum Savings" [ref=e685]
+                            - generic [ref=e688]:
+                              - link "Learn more on partner's site" [ref=e689] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/adfeb934-c4de-11ed-a40f-1f42eaa7bc05?finish_type=external_application&monetizable=yes_assumed&element_position=11&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=22ea541aa5024e9bbc0494b11bf4e132
+                                - text: Learn more
+                                - generic [ref=e690]: on partner's site
+                                - img [ref=e691]
+                              - generic [ref=e693]: at CIT Bank, Member FDIC
+                          - generic [ref=e695]:
+                            - generic [ref=e696]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e698] [cursor=pointer]:
+                                - img [ref=e699]
+                            - generic [ref=e701]:
+                              - link "4.5" [ref=e703] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/cit-bank
+                              - generic [ref=e704]: /5
+                        - generic [ref=e705]:
+                          - generic [ref=e706]:
+                            - paragraph [ref=e708]: APY
+                            - generic [ref=e709]:
+                              - paragraph [ref=e711]: Up to 4.10%
+                              - paragraph [ref=e713]: With $5,000 min. balance for APY
+                          - generic [ref=e714]:
+                            - paragraph [ref=e716]: Bonus
+                            - generic [ref=e717]:
+                              - paragraph [ref=e719]: 0.35% APY Boost
+                              - paragraph [ref=e721]: Earn up to 4.10% APY for 6 months on balances of $5,000 or more. Terms apply.
+                    - group [ref=e722]:
+                      - generic "Our Take" [ref=e723] [cursor=pointer]:
+                        - generic [ref=e724]: Our Take
+                        - img [ref=e725]
+                      - generic [ref=e728]:
+                        - text: Why We Like It
+                        - generic [ref=e729]:
+                          - paragraph [ref=e731]: CIT Bank's Platinum Savings account pays a 3.75% APY on balances of $5,000 or more. If your balance is below $5,000, the APY is 0.25%. The minimum amount to open an account is $100, and there are no monthly service fees.
+                          - paragraph [ref=e733]: As hinted above, this account is best for those who carry balances of $5,000 or more. If you plan to deposit a smaller amount, CIT Bank does have three other savings options . But those accounts don’t have rates as high as the Platinum Savings rate, so you may be better served finding a comparable high-yield account at a different bank.
+                - listitem [ref=e734]:
+                  - generic [ref=e736]:
+                    - generic [ref=e738]:
+                      - link "Bask Interest Savings Account" [ref=e740] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/0d9f539e-174c-11ed-8067-ffa53675fe98?finish_type=external_application&monetizable=yes_assumed&element_position=12&cta_type=PRODUCT_NAME&shopping_finish_id=399dcc17df194c9eb41e178272ada970
+                      - generic [ref=e741]:
+                        - generic [ref=e743]:
+                          - generic [ref=e744]:
+                            - link "Bask Interest Savings Account" [ref=e747] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/0d9f539e-174c-11ed-8067-ffa53675fe98?finish_type=external_application&monetizable=yes_assumed&element_position=12&cta_type=PRODUCT_IMAGE&shopping_finish_id=25491cf565df4586beb92fc44551ee6a
+                              - img "Bask Interest Savings Account" [ref=e749]
+                            - generic [ref=e752]:
+                              - link "Learn more on partner's site" [ref=e753] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/0d9f539e-174c-11ed-8067-ffa53675fe98?finish_type=external_application&monetizable=yes_assumed&element_position=12&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=473f360a472346079cf629fe8c163f01
+                                - text: Learn more
+                                - generic [ref=e754]: on partner's site
+                                - img [ref=e755]
+                              - generic [ref=e757]: at Bask Bank, Member FDIC
+                          - generic [ref=e759]:
+                            - generic [ref=e760]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e762] [cursor=pointer]:
+                                - img [ref=e763]
+                            - generic [ref=e765]:
+                              - link "4.5" [ref=e767] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/bask-bank
+                              - generic [ref=e768]: /5
+                        - generic [ref=e769]:
+                          - generic [ref=e770]:
+                            - paragraph [ref=e772]: APY
+                            - generic [ref=e773]:
+                              - generic [ref=e774]:
+                                - paragraph [ref=e775]: Up to 4.00%
+                                - button "APY info" [ref=e777] [cursor=pointer]:
+                                  - img [ref=e778]
+                              - paragraph [ref=e781]: Terms Apply.
+                          - generic [ref=e782]:
+                            - paragraph [ref=e784]: Bonus
+                            - generic [ref=e785]:
+                              - generic [ref=e786]:
+                                - paragraph [ref=e787]: 0.25% APY Boost
+                                - button "Bonus info" [ref=e789] [cursor=pointer]:
+                                  - img [ref=e790]
+                              - paragraph [ref=e793]: Requirements to qualify
+                    - group [ref=e794]:
+                      - generic "Our Take" [ref=e795] [cursor=pointer]:
+                        - generic [ref=e796]: Our Take
+                        - img [ref=e797]
+                      - generic [ref=e800]:
+                        - text: Why We Like It
+                        - generic [ref=e801]:
+                          - paragraph [ref=e803]: This savings account earns a 3.75% APY. There is no minimum to open an account and no monthly fees.
+                          - paragraph [ref=e805]: You can open up to two Interest Savings accounts at Bask Bank. This can be helpful if you prefer to keep your savings separated for different savings goals. For example, you could choose one account for your emergency fund and one to save for a vacation. In addition, Bask Bank offers another type of savings account that lets you earn airline miles instead of a high rate.
+                - listitem [ref=e806]:
+                  - generic [ref=e808]:
+                    - generic [ref=e810]:
+                      - link "Marcus by Goldman Sachs Online Savings Account" [ref=e812] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/db221bb6-259e-11e8-9c02-0f47d65712de?finish_type=external_application&monetizable=yes_assumed&element_position=13&cta_type=PRODUCT_NAME&shopping_finish_id=2864d34b7cf2470e87aaacf5124b9e97
+                      - generic [ref=e813]:
+                        - generic [ref=e815]:
+                          - generic [ref=e816]:
+                            - link "Marcus by Goldman Sachs Online Savings Account" [ref=e819] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/db221bb6-259e-11e8-9c02-0f47d65712de?finish_type=external_application&monetizable=yes_assumed&element_position=13&cta_type=PRODUCT_IMAGE&shopping_finish_id=8cb61d00d79f4e9a810e8ca63d3667bc
+                              - img "Marcus by Goldman Sachs Online Savings Account" [ref=e821]
+                            - generic [ref=e824]:
+                              - link "Learn more on partner's site" [ref=e825] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/db221bb6-259e-11e8-9c02-0f47d65712de?finish_type=external_application&monetizable=yes_assumed&element_position=13&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=bcbb83bd43fd4cea95b7d22303a00f55
+                                - text: Learn more
+                                - generic [ref=e826]: on partner's site
+                                - img [ref=e827]
+                              - generic [ref=e829]: at Goldman Sachs Bank USA, Member FDIC
+                          - generic [ref=e831]:
+                            - generic [ref=e832]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e834] [cursor=pointer]:
+                                - img [ref=e835]
+                            - generic [ref=e837]:
+                              - link "4.6" [ref=e839] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/goldman-sachs-bank
+                              - generic [ref=e840]: /5
+                        - generic [ref=e841]:
+                          - generic [ref=e842]:
+                            - paragraph [ref=e844]: APY
+                            - generic [ref=e845]:
+                              - generic [ref=e846]:
+                                - paragraph [ref=e847]: 3.65%
+                                - button "APY info" [ref=e849] [cursor=pointer]:
+                                  - img [ref=e850]
+                              - paragraph [ref=e853]: With $0 min. balance for APY
+                          - generic [ref=e854]:
+                            - paragraph [ref=e856]: Bonus
+                            - paragraph [ref=e859]: N/A
+                    - group [ref=e860]:
+                      - generic "Our Take" [ref=e861] [cursor=pointer]:
+                        - generic [ref=e862]: Our Take
+                        - img [ref=e863]
+                      - generic [ref=e866]:
+                        - text: Why We Like It
+                        - generic [ref=e867]:
+                          - paragraph [ref=e869]: The Wall Street firm’s online bank has a strong savings option with a rate of 3.65%, and there is no minimum balance requirement to start earning interest. The bank’s online CDs also have top yields.
+                          - paragraph [ref=e871]: The account is best for people who want to park their money in an online-only account and don’t need to visit bank branches. You can still access your money in multiple ways, including via desktop and mobile app. Note that Marcus does not offer a checking account or an ATM card, so you’ll need to transfer funds from an external account.
+                - listitem [ref=e872]:
+                  - generic [ref=e874]:
+                    - generic [ref=e876]:
+                      - link "Forbright Bank Growth Savings" [ref=e878] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/dacf6cc2-5f12-11ef-940d-1f76fce4e914?finish_type=external_application&monetizable=yes_assumed&element_position=14&cta_type=PRODUCT_NAME&shopping_finish_id=1becadd575c54b8ebd61c2d27fd13195
+                      - generic [ref=e879]:
+                        - generic [ref=e881]:
+                          - generic [ref=e882]:
+                            - link "Forbright Bank Growth Savings" [ref=e885] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/dacf6cc2-5f12-11ef-940d-1f76fce4e914?finish_type=external_application&monetizable=yes_assumed&element_position=14&cta_type=PRODUCT_IMAGE&shopping_finish_id=623790221b3a42459f063c8467b7fa0b
+                              - img "Forbright Bank Growth Savings" [ref=e887]
+                            - generic [ref=e890]:
+                              - link "Learn more on partner's site" [ref=e891] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/dacf6cc2-5f12-11ef-940d-1f76fce4e914?finish_type=external_application&monetizable=yes_assumed&element_position=14&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=01e5950818a84fa39411b31281cd2bb8
+                                - text: Learn more
+                                - generic [ref=e892]: on partner's site
+                                - img [ref=e893]
+                              - generic [ref=e895]: at Forbright Bank, Member FDIC
+                          - generic [ref=e897]:
+                            - generic [ref=e898]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e900] [cursor=pointer]:
+                                - img [ref=e901]
+                            - generic [ref=e903]:
+                              - link "4.5" [ref=e905] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/forbright-bank
+                              - generic [ref=e906]: /5
+                        - generic [ref=e907]:
+                          - generic [ref=e908]:
+                            - paragraph [ref=e910]: APY
+                            - generic [ref=e911]:
+                              - generic [ref=e912]:
+                                - paragraph [ref=e913]: 3.85%
+                                - button "APY info" [ref=e915] [cursor=pointer]:
+                                  - img [ref=e916]
+                              - paragraph [ref=e919]: With $0 min. balance for APY
+                          - generic [ref=e920]:
+                            - paragraph [ref=e922]: Bonus
+                            - paragraph [ref=e925]: N/A
+                    - group [ref=e926]:
+                      - generic "Our Take" [ref=e927] [cursor=pointer]:
+                        - generic [ref=e928]: Our Take
+                        - img [ref=e929]
+                      - generic [ref=e932]:
+                        - text: Why We Like It
+                        - paragraph [ref=e935]: Forbright Bank offers a high-yield savings account with no monthly fees and no minimum balance requirements. The bank also has an eco-friendly certification.
+                - listitem [ref=e936]:
+                  - generic [ref=e938]:
+                    - generic [ref=e940]:
+                      - link "E*TRADE Premium Savings" [ref=e942] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/72b73544-b6bb-11e8-9778-bb6a7074eab5?finish_type=external_application&monetizable=yes_assumed&element_position=15&cta_type=PRODUCT_NAME&shopping_finish_id=14aa244e25e54018ab0e757b4c81bb76
+                      - generic [ref=e943]:
+                        - generic [ref=e945]:
+                          - generic [ref=e946]:
+                            - link "E*TRADE Premium Savings" [ref=e949] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/72b73544-b6bb-11e8-9778-bb6a7074eab5?finish_type=external_application&monetizable=yes_assumed&element_position=15&cta_type=PRODUCT_IMAGE&shopping_finish_id=13d5a59901ff4228af987fcb9ea4e642
+                              - img "E*TRADE Premium Savings" [ref=e951]
+                            - generic [ref=e954]:
+                              - link "Learn more on partner's site" [ref=e955] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/72b73544-b6bb-11e8-9778-bb6a7074eab5?finish_type=external_application&monetizable=yes_assumed&element_position=15&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=9edd485a062d41e7adcfffd390a1e3de
+                                - text: Learn more
+                                - generic [ref=e956]: on partner's site
+                                - img [ref=e957]
+                              - generic [ref=e959]: at Morgan Stanley Private Bank, National Association, Member FDIC
+                          - generic [ref=e961]:
+                            - generic [ref=e962]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e964] [cursor=pointer]:
+                                - img [ref=e965]
+                            - generic [ref=e967]:
+                              - link "4.5" [ref=e969] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/etrade-checking-savings
+                              - generic [ref=e970]: /5
+                        - generic [ref=e971]:
+                          - generic [ref=e972]:
+                            - paragraph [ref=e974]: APY
+                            - generic [ref=e975]:
+                              - generic [ref=e976]:
+                                - paragraph [ref=e977]: 4.00% for 6mo
+                                - button "APY info" [ref=e979] [cursor=pointer]:
+                                  - img [ref=e980]
+                              - paragraph [ref=e983]: With $0 min. balance for APY
+                          - generic [ref=e984]:
+                            - paragraph [ref=e986]: Bonus
+                            - paragraph [ref=e989]: N/A
+                    - group [ref=e990]:
+                      - generic "Our Take" [ref=e991] [cursor=pointer]:
+                        - generic [ref=e992]: Our Take
+                        - img [ref=e993]
+                      - generic [ref=e996]:
+                        - text: Why We Like It
+                        - paragraph [ref=e999]: This financial institution, part of the Morgan Stanley Private Bank brand, offers a high-yield savings account with an attractive rate and no monthly fee. E*TRADE also offers a mobile app that lets customers access their balance, make transfers and manage their E*TRADE securities accounts. The Premium Savings Account is currently offering a promotional rate. The ongoing standard rate is 3.35% APY.
+                - listitem [ref=e1000]:
+                  - generic [ref=e1002]:
+                    - generic [ref=e1004]:
+                      - link "Peak Bank Envision High-Yield Savings" [ref=e1006] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/00814632-f2f3-11f0-a1dc-63be3c5b7be3?finish_type=external_application&monetizable=yes_assumed&element_position=16&cta_type=PRODUCT_NAME&shopping_finish_id=0047a18f909d4406b6e4bd6fecc6bea5
+                      - generic [ref=e1007]:
+                        - generic [ref=e1009]:
+                          - generic [ref=e1010]:
+                            - link "Peak Bank Envision High-Yield Savings" [ref=e1013] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/00814632-f2f3-11f0-a1dc-63be3c5b7be3?finish_type=external_application&monetizable=yes_assumed&element_position=16&cta_type=PRODUCT_IMAGE&shopping_finish_id=a72fb52051444b33b77d259d8d5b492c
+                              - img "Peak Bank Envision High-Yield Savings" [ref=e1015]
+                            - generic [ref=e1018]:
+                              - link "Learn more on partner's site" [ref=e1019] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/00814632-f2f3-11f0-a1dc-63be3c5b7be3?finish_type=external_application&monetizable=yes_assumed&element_position=16&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=c49c3dc6a0f74318872f6a1105620d3f
+                                - text: Learn more
+                                - generic [ref=e1020]: on partner's site
+                                - img [ref=e1021]
+                              - generic [ref=e1023]: at Peak Bank, Member FDIC
+                          - generic [ref=e1025]:
+                            - generic [ref=e1026]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e1028] [cursor=pointer]:
+                                - img [ref=e1029]
+                            - generic [ref=e1031]:
+                              - link "5.0" [ref=e1033] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/peak-bank
+                              - generic [ref=e1034]: /5
+                        - generic [ref=e1035]:
+                          - generic [ref=e1036]:
+                            - paragraph [ref=e1038]: APY
+                            - generic [ref=e1039]:
+                              - paragraph [ref=e1041]: 3.82%
+                              - paragraph [ref=e1043]: With $0.01 min. balance for APY
+                          - generic [ref=e1044]:
+                            - paragraph [ref=e1046]: Bonus
+                            - paragraph [ref=e1049]: N/A
+                    - group [ref=e1050]:
+                      - generic "Our Take" [ref=e1051] [cursor=pointer]:
+                        - generic [ref=e1052]: Our Take
+                        - img [ref=e1053]
+                      - generic [ref=e1056]:
+                        - text: Why We Like It
+                        - paragraph [ref=e1059]: Peak Bank has a high-yield online savings account that pays a competitive 3.82% APY with no monthly fees. The bank’s mobile apps receive high ratings in the app stores. You’ll need at least $100 to open the savings account.
+                - listitem [ref=e1060]:
+                  - generic [ref=e1062]:
+                    - generic [ref=e1064]:
+                      - link "UFB Portfolio Savings" [ref=e1066] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/0dd2e852-7b39-11e8-9c02-1f02d54aa17a?finish_type=external_application&monetizable=yes_assumed&element_position=17&cta_type=PRODUCT_NAME&shopping_finish_id=e2e4ca3dbbcb444198e5025ba52be5c0
+                      - generic [ref=e1067]:
+                        - generic [ref=e1069]:
+                          - generic [ref=e1070]:
+                            - link "UFB Portfolio Savings" [ref=e1073] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/0dd2e852-7b39-11e8-9c02-1f02d54aa17a?finish_type=external_application&monetizable=yes_assumed&element_position=17&cta_type=PRODUCT_IMAGE&shopping_finish_id=1c4242afd2f6437a825a054df33d56d9
+                              - img "UFB Portfolio Savings" [ref=e1075]
+                            - generic [ref=e1078]:
+                              - link "Learn more on partner's site" [ref=e1079] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/0dd2e852-7b39-11e8-9c02-1f02d54aa17a?finish_type=external_application&monetizable=yes_assumed&element_position=17&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=e690d1dfd7d64eb18fb14180197ccd9c
+                                - text: Learn more
+                                - generic [ref=e1080]: on partner's site
+                                - img [ref=e1081]
+                              - generic [ref=e1083]: at UFB Direct, Member FDIC
+                          - generic [ref=e1085]:
+                            - generic [ref=e1086]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e1088] [cursor=pointer]:
+                                - img [ref=e1089]
+                            - generic [ref=e1091]:
+                              - link "3.9" [ref=e1093] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/ufb-direct
+                              - generic [ref=e1094]: /5
+                        - generic [ref=e1095]:
+                          - generic [ref=e1096]:
+                            - paragraph [ref=e1098]: APY
+                            - generic [ref=e1099]:
+                              - paragraph [ref=e1101]: 3.26%
+                              - paragraph [ref=e1103]: With $0 min. balance for APY
+                          - generic [ref=e1104]:
+                            - paragraph [ref=e1106]: Bonus
+                            - paragraph [ref=e1109]: N/A
+                    - group [ref=e1110]:
+                      - generic "Our Take" [ref=e1111] [cursor=pointer]:
+                        - generic [ref=e1112]: Our Take
+                        - img [ref=e1113]
+                      - generic [ref=e1116]:
+                        - text: Why We Like It
+                        - paragraph [ref=e1119]: UFB Direct’s savings account offers an attractive APY. The account has no monthly maintenance fees and there is no minimum amount requirement.
+                - listitem [ref=e1120]:
+                  - generic [ref=e1122]:
+                    - generic [ref=e1124]:
+                      - link "Axos ONE® Savings" [ref=e1126] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/redirect/banking/d3166cda-8594-11ef-bd19-133186211472?finish_type=external_application&monetizable=yes_assumed&element_position=18&cta_type=PRODUCT_NAME&shopping_finish_id=bf529b98bbce42d8b4ca72213ec58cf2
+                      - generic [ref=e1127]:
+                        - generic [ref=e1129]:
+                          - generic [ref=e1130]:
+                            - link "Axos ONE® Savings" [ref=e1133] [cursor=pointer]:
+                              - /url: https://www.nerdwallet.com/redirect/banking/d3166cda-8594-11ef-bd19-133186211472?finish_type=external_application&monetizable=yes_assumed&element_position=18&cta_type=PRODUCT_IMAGE&shopping_finish_id=55ff25e858494c0892373cee74020f45
+                              - img "Axos ONE® Savings" [ref=e1135]
+                            - generic [ref=e1138]:
+                              - link "Learn more on partner's site" [ref=e1139] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/redirect/banking/d3166cda-8594-11ef-bd19-133186211472?finish_type=external_application&monetizable=yes_assumed&element_position=18&cta_type=APPLY_NOW_BUTTON&shopping_finish_id=cd3a5648eef44d8e925bce27426b0fc2
+                                - text: Learn more
+                                - generic [ref=e1140]: on partner's site
+                                - img [ref=e1141]
+                              - generic [ref=e1143]: at Axos Bank®, Member FDIC
+                          - generic [ref=e1145]:
+                            - generic [ref=e1146]:
+                              - text: NerdWallet rating
+                              - button "NerdWallet rating info" [ref=e1148] [cursor=pointer]:
+                                - img [ref=e1149]
+                            - generic [ref=e1151]:
+                              - link "3.9" [ref=e1153] [cursor=pointer]:
+                                - /url: https://www.nerdwallet.com/banking/reviews/axos-bank
+                              - generic [ref=e1154]: /5
+                        - generic [ref=e1155]:
+                          - generic [ref=e1156]:
+                            - paragraph [ref=e1158]: APY
+                            - generic [ref=e1159]:
+                              - generic [ref=e1160]:
+                                - paragraph [ref=e1161]: 4.21%
+                                - button "APY info" [ref=e1163] [cursor=pointer]:
+                                  - img [ref=e1164]
+                              - paragraph [ref=e1167]: With $1,500 min. balance & $1,500 monthly direct deposits for APY
+                          - generic [ref=e1168]:
+                            - paragraph [ref=e1170]: Bonus
+                            - paragraph [ref=e1173]: N/A
+                    - group [ref=e1174]:
+                      - generic "Our Take" [ref=e1175] [cursor=pointer]:
+                        - generic [ref=e1176]: Our Take
+                        - img [ref=e1177]
+                      - generic [ref=e1180]:
+                        - text: Why We Like It
+                        - generic [ref=e1181]:
+                          - paragraph [ref=e1183]: Axos ONE savings is part of the Axos ONE combination checking and savings bundle. With this product, you’ll need to meet at least one of two requirements for your balances to earn better rates. The first way to boost your yield is to have an average daily balance of at least $1,500 and receive at least $1,500 total in monthly direct deposits in ONE Checking. The other way to receive the better rate is to maintain an average daily balance of at least $5,000 and receive monthly external transfers or checks of at least $5,000 in ONE Checking. The APY applies to balances below $500,000; amounts at or above that earn slightly less.
+                          - paragraph [ref=e1185]: If neither of the two requirements are met, your savings earns 1.00% APY.
+      - generic [ref=e1187]:
+        - generic [ref=e1188]:
+          - navigation "table of contents" [ref=e1190]:
+            - heading "ON THIS PAGE" [level=2] [ref=e1192]
+            - list "ON THIS PAGE" [ref=e1193]:
+              - listitem [ref=e1194]:
+                - link "What you need to know about the best savings accounts" [ref=e1195] [cursor=pointer]:
+                  - /url: "#what-you-need-to-know-about-the-best-savings-accounts"
+                  - generic [ref=e1196]: What you need to know about the best savings accounts
+              - listitem [ref=e1197]:
+                - link "What do the best savings accounts have in common?" [ref=e1198] [cursor=pointer]:
+                  - /url: "#what-do-the-best-savings-accounts-have-in-common"
+                  - generic [ref=e1199]: What do the best savings accounts have in common?
+              - listitem [ref=e1200]:
+                - link "Why should I care about the best savings account rates?" [ref=e1201] [cursor=pointer]:
+                  - /url: "#why-should-i-care-about-the-best-savings-account-rates"
+                  - generic [ref=e1202]: Why should I care about the best savings account rates?
+              - listitem [ref=e1203]:
+                - link "What monthly fees do savings accounts usually have?" [ref=e1204] [cursor=pointer]:
+                  - /url: "#what-monthly-fees-do-savings-accounts-usually-have"
+                  - generic [ref=e1205]: What monthly fees do savings accounts usually have?
+              - listitem [ref=e1206]:
+                - link "Why does NerdWallet pick online savings accounts as the best savings accounts?" [ref=e1207] [cursor=pointer]:
+                  - /url: "#why-does-nerdwallet-pick-online-savings-accounts-as-the-best-savings-accounts"
+                  - generic [ref=e1208]: Why does NerdWallet pick online savings accounts as the best savings accounts?
+              - listitem [ref=e1209]:
+                - link "How to open a savings account" [ref=e1210] [cursor=pointer]:
+                  - /url: "#how-to-open-a-savings-account"
+                  - generic [ref=e1211]: How to open a savings account
+              - listitem [ref=e1212]:
+                - link "How to open a high-yield online savings account" [ref=e1213] [cursor=pointer]:
+                  - /url: "#how-to-open-a-high-yield-online-savings-account"
+                  - generic [ref=e1214]: How to open a high-yield online savings account
+              - listitem [ref=e1215]:
+                - link "Is my money safe in a savings account?" [ref=e1216] [cursor=pointer]:
+                  - /url: "#is-my-money-safe-in-a-savings-account"
+                  - generic [ref=e1217]: Is my money safe in a savings account?
+              - listitem [ref=e1218]:
+                - link "Do the best savings account interest rates change over time?" [ref=e1219] [cursor=pointer]:
+                  - /url: "#do-the-best-savings-account-interest-rates-change-over-time"
+                  - generic [ref=e1220]: Do the best savings account interest rates change over time?
+              - listitem [ref=e1221]:
+                - link "How often do interest rates change?" [ref=e1222] [cursor=pointer]:
+                  - /url: "#how-often-do-interest-rates-change"
+                  - generic [ref=e1223]: How often do interest rates change?
+              - listitem [ref=e1224]:
+                - link "Savings account terms you need to know:" [ref=e1225] [cursor=pointer]:
+                  - /url: "#savings-account-terms-you-need-to-know"
+                  - generic [ref=e1226]: "Savings account terms you need to know:"
+              - listitem [ref=e1227]:
+                - link "How can I earn high interest rates besides a savings account?" [ref=e1228] [cursor=pointer]:
+                  - /url: "#how-can-i-earn-high-interest-rates-besides-a-savings-account"
+                  - generic [ref=e1229]: How can I earn high interest rates besides a savings account?
+              - listitem [ref=e1230]:
+                - link "Is savings account interest taxable?" [ref=e1231] [cursor=pointer]:
+                  - /url: "#is-savings-account-interest-taxable"
+                  - generic [ref=e1232]: Is savings account interest taxable?
+              - listitem [ref=e1233]:
+                - 'link "Full list of editorial picks: best savings accounts" [ref=e1234] [cursor=pointer]':
+                  - /url: "#full-list-of-editorial-picks-best-savings-accounts"
+                  - generic [ref=e1235]: "Full list of editorial picks: best savings accounts"
+              - listitem [ref=e1236]:
+                - 'link "Methodology: How we rate banks and credit unions" [ref=e1237] [cursor=pointer]':
+                  - /url: "#methodology-how-we-rate-banks-and-credit-unions"
+                  - generic [ref=e1238]: "Methodology: How we rate banks and credit unions"
+              - listitem [ref=e1239]:
+                - 'link "NerdWallet''s Best Savings Accounts for April 2026: Up to 4.03%" [ref=e1240] [cursor=pointer]':
+                  - /url: "#recap"
+                  - generic [ref=e1241]: "NerdWallet's Best Savings Accounts for April 2026: Up to 4.03%"
+              - listitem [ref=e1242]:
+                - link "Frequently Asked Questions" [ref=e1243] [cursor=pointer]:
+                  - /url: "#faq"
+                  - generic [ref=e1244]: Frequently Asked Questions
+          - generic [ref=e1246]:
+            - generic [ref=e1247]:
+              - group [ref=e1249]:
+                - generic "Why trust NerdWallet" [ref=e1250] [cursor=pointer]:
+                  - generic [ref=e1251]:
+                    - img [ref=e1252]
+                    - generic [ref=e1256]: Why trust NerdWallet
+                  - img [ref=e1257]
+              - region "What you need to know about the best savings accounts" [ref=e1259]:
+                - heading "What you need to know about the best savings accounts" [level=2] [ref=e1261]
+                - paragraph [ref=e1263]: Scroll down for more information about savings accounts, including how to pick the best product and which savings terms to know.
+              - region "What do the best savings accounts have in common?" [ref=e1264]:
+                - heading "What do the best savings accounts have in common?" [level=2] [ref=e1266]
+                - paragraph [ref=e1268]: The best savings account interest rates are around 4%. At a brick-and-mortar bank, you'll often find savings rates closer to the national average, which is currently 0.39%.
+                - paragraph [ref=e1270]: If you have a $10,000 savings balance, choosing an account that pays 4% will earn you about $400 in a year, while an account paying you 0.40% APY would earn about $40. The difference increases the more you deposit and the longer you keep it in the account.
+              - region "Why should I care about the best savings account rates?" [ref=e1271]:
+                - heading "Why should I care about the best savings account rates?" [level=2] [ref=e1273]
+                - paragraph [ref=e1275]: If you have money left in your checking account each month — or you can adjust your budget so that you do — you should have a savings account with a high rate. (Again, think around 4%.) It's always helpful to have money set aside for emergencies, and it'll earn you much more in an account that pays one of the best savings account rates than in a checking account.
+                - paragraph [ref=e1277]: Just make sure you can keep enough in your savings account to avoid monthly fees. Most online savings accounts don't charge these, but many traditional accounts do.
+              - region "What monthly fees do savings accounts usually have?" [ref=e1278]:
+                - heading "What monthly fees do savings accounts usually have?" [level=2] [ref=e1280]
+                - paragraph [ref=e1282]:
+                  - text: The best savings accounts typically don’t charge monthly fees. You
+                  - link "make your deposit" [ref=e1283] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/learn/deposit
+                  - text: and watch your balance grow as your money earns interest.
+                - paragraph [ref=e1285]:
+                  - strong [ref=e1286]: » Find out how your savings could add up
+                  - text: with
+                  - link "NerdWallet’s compound interest calculator." [ref=e1287] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/calculators/compound-interest-calculator
+              - region "Why does NerdWallet pick online savings accounts as the best savings accounts?" [ref=e1288]:
+                - heading "Why does NerdWallet pick online savings accounts as the best savings accounts?" [level=2] [ref=e1290]
+                - paragraph [ref=e1292]: It's easy to find a savings account at your local bank. But if you want to earn a high rate and pay the lowest fees, consider putting your savings in an online account. Online banks and nonbank providers don’t have to pay for a large network of branches. So many are able to offer better benefits than national "brick-and-mortar" banks.
+                - paragraph [ref=e1294]:
+                  - strong [ref=e1295]: » Learn more
+                  - text: about
+                  - link "NerdWallet's favorite high-yield online savings accounts." [ref=e1296] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/best/high-yield-online-savings-accounts
+              - region "How to open a savings account" [ref=e1297]:
+                - heading "How to open a savings account" [level=2] [ref=e1299]
+                - paragraph [ref=e1301]: You can typically open an account either online or in person. You'll need to provide your Social Security number and contact information (phone number and address), along with at least one form of identification, such as a driver’s license or a passport. If you’re applying for a joint account, the other person must provide this information and ID too.
+              - region "How to open a high-yield online savings account" [ref=e1302]:
+                - heading "How to open a high-yield online savings account" [level=2] [ref=e1304]
+                - paragraph [ref=e1306]: Similar to opening a savings account at a branch, you’ll need to provide some information to open an online account. You'll provide your contact information and Social Security number, in addition to information from your ID (such as your driver’s license number). To make your initial deposit, you may need to link an external bank account to transfer money electronically.
+              - region "Is my money safe in a savings account?" [ref=e1307]:
+                - heading "Is my money safe in a savings account?" [level=2] [ref=e1309]
+                - paragraph [ref=e1311]: Yes, provided your money is insured by the Federal Deposit Insurance Corp. or the National Credit Union Administration.
+                - paragraph [ref=e1313]:
+                  - strong [ref=e1314]: "» Dig deeper:"
+                  - text: Learn more about
+                  - link "FDIC" [ref=e1315] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/learn/fdic-insurance
+                  - text: and
+                  - link "NCUA" [ref=e1316] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/learn/ncua-insurance-keeps-credit-union-deposits-safe
+                  - text: insurance for deposit accounts.
+              - region "Do the best savings account interest rates change over time?" [ref=e1317]:
+                - heading "Do the best savings account interest rates change over time?" [level=2] [ref=e1319]
+                - paragraph [ref=e1321]:
+                  - text: Yes, rates are variable and can change over time. If you are looking for a fixed rate account, and can set aside funds for a specific time period without making a withdrawal, consider opening a certificate of deposit. NerdWallet's list of
+                  - link "best CD rates" [ref=e1322] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/best/cd-rates
+                  - text: features top options.
+              - region "How often do interest rates change?" [ref=e1323]:
+                - heading "How often do interest rates change?" [level=2] [ref=e1325]
+                - paragraph [ref=e1327]: Financial institutions generally don’t change savings rates on an hourly, daily or even monthly basis. In fact, under normal circumstances, it’s common to see APYs remain the same for several months.
+                - paragraph [ref=e1329]: It’s important to note, however, that rates are variable and theoretically can change at any time. In addition, many providers will change their rates based on what their competitors are doing. You will often see groups of providers increase or decrease their APYs at around the same time, especially if the Federal Reserve recently increased or cut rates.
+                - paragraph [ref=e1331]: To get the best yield for your money, it’s a good idea to check out the best savings rates on a regular basis — at least once a month.
+                - paragraph [ref=e1333]:
+                  - strong [ref=e1334]: » Find high rates
+                  - text: across checking, savings and other accounts in
+                  - link "NerdWallet's list of high-interest accounts" [ref=e1335] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/best/high-interest-accounts
+                  - text: .
+              - region "Savings account terms you need to know:" [ref=e1336]:
+                - heading "Savings account terms you need to know:" [level=2] [ref=e1338]
+                - paragraph [ref=e1340]:
+                  - strong [ref=e1341]: "Savings account:"
+                  - text: A deposit account from a financial institution that typically earns interest.
+                - paragraph [ref=e1343]:
+                  - strong [ref=e1344]: "Interest:"
+                  - text: Money a financial institution pays into an account over time.
+                - paragraph [ref=e1346]:
+                  - strong [ref=e1347]: "Compound interest:"
+                  - text: Compound interest is the interest you earn on both the original money in your account and any interest in your account that was added over time. Compound interest is put in your account at the end of every compounding period (typically every day or every month).
+                - paragraph [ref=e1349]:
+                  - strong [ref=e1350]: "Annual percentage yield:"
+                  - text: The annual percentage yield, or APY, is the amount of interest an account earns in a year. The calculation is based on the account’s interest rate and the number of times interest is paid during the year.
+                - paragraph [ref=e1352]:
+                  - strong [ref=e1353]: "Minimum balance:"
+                  - text: A minimum balance is the lowest dollar amount you need in a bank account — usually to avoid fees. The minimum can be an average balance or a fixed number. It's usually required either daily or monthly.
+                - paragraph [ref=e1355]:
+                  - strong [ref=e1356]: "Average monthly balance:"
+                  - text: An average monthly balance is found by adding up the account balances at the end of each day in a month, and then dividing by the number of days in the month.
+                - paragraph [ref=e1358]:
+                  - strong [ref=e1359]: "Minimum opening deposit:"
+                  - text: An initial deposit, or
+                  - link "minimum opening deposit" [ref=e1360] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/learn/typical-minimum-balances-to-open-a-savings-account
+                  - text: ", is the specific amount of money you need to open a bank account."
+                - paragraph [ref=e1362]:
+                  - strong [ref=e1363]: » Read more
+                  - text: about
+                  - link "10 essential banking terms you need to know" [ref=e1364] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/learn/10-essential-banking-terms
+              - region "How can I earn high interest rates besides a savings account?" [ref=e1365]:
+                - heading "How can I earn high interest rates besides a savings account?" [level=2] [ref=e1367]
+                - paragraph [ref=e1369]: "Here are a few options that also have FDIC coverage:"
+                - paragraph [ref=e1371]:
+                  - strong [ref=e1372]: "Money market accounts:"
+                  - text: These accounts are a type of savings account. What sets them apart is they might have perks like the ability to use debit card or write checks. That's rare for savings accounts. They may also have higher minimum balances compared to regular savings accounts.
+                - paragraph [ref=e1374]:
+                  - strong [ref=e1375]: "Certificates of deposit:"
+                  - text: These accounts lock your balance away for a specific period of time — often between one year and five years — in exchange for a higher interest rate. But if you take out any money before the term is up, you'll typically have to pay a penalty.
+                - paragraph [ref=e1377]:
+                  - strong [ref=e1378]: » Find out more
+                  - text: about your
+                  - link "savings account options" [ref=e1379] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/learn/types-of-savings-accounts
+                  - text: .
+              - region "Is savings account interest taxable?" [ref=e1380]:
+                - heading "Is savings account interest taxable?" [level=2] [ref=e1382]
+                - paragraph [ref=e1384]: Yes, savings account interest is generally taxable. Your provider will probably send you a form reporting it if you earned more than $10 during the tax year. Note that you are likely to earn more interest with a high-yield savings account.
+                - generic [ref=e1385]:
+                  - heading "What’s the difference when NerdWallet notes “Member FDIC” vs. “funds insured by FDIC” on savings accounts?" [level=3] [ref=e1387]
+                  - paragraph [ref=e1389]: When we describe a savings account that is offered by a bank, we note “Member FDIC”. This means the bank is a member of the Federal Deposit Insurance Corp. and the account is federally insured.
+                  - paragraph [ref=e1391]: If a financial technology company — not a bank — offers a savings account, it typically partners with a bank that is an FDIC member to hold the funds. This way, deposits can be insured. In those cases, we note “funds insured by the FDIC.” Savings accounts at credit unions are federally insured by the National Credit Union Administration, so we note “funds insured by the NCUA.”
+              - 'region "Full list of editorial picks: best savings accounts" [ref=e1392]':
+                - 'heading "Full list of editorial picks: best savings accounts" [level=2] [ref=e1394]':
+                  - strong [ref=e1395]: "Full list of editorial picks: best savings accounts"
+                - paragraph [ref=e1397]: Here are all of NerdWallet's picks for the best savings accounts.
+                - list [ref=e1399]:
+                  - listitem [ref=e1400]:
+                    - text: •
+                    - paragraph [ref=e1402]:
+                      - strong [ref=e1403]: Varo Bank
+                      - text: ", 5.00% savings APY on balances up to $5,000 when certain requirements are met. No minimum to open account ("
+                      - link "read full review" [ref=e1404] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/varo
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1405]:
+                    - text: •
+                    - paragraph [ref=e1407]:
+                      - strong [ref=e1408]: Newtek Bank
+                      - text: ", 4.20% savings APY with $100 minimum to open account ("
+                      - link "read full review" [ref=e1409] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/newtek-bank
+                      - text: ), Member FDIC.
+                      - strong [ref=e1410]: "Editor's note (Feb. 3, 2026):"
+                      - text: Due to "overwhelming demand" for its Personal High Yield Savings product, Newtek Bank says that it is currently not accepting new applications. Interested customers can join a waitlist via the bank's website. Other Newtek products are still available. Check back for additional updates.
+                  - listitem [ref=e1411]:
+                    - text: •
+                    - paragraph [ref=e1413]:
+                      - strong [ref=e1414]: Axos Bank,
+                      - text: 4.21% savings APY with no minimum to open account (
+                      - link "read full review" [ref=e1415] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/axos-bank
+                      - text: ), Member FDIC. High rate comes with requirements.
+                  - listitem [ref=e1416]:
+                    - text: •
+                    - paragraph [ref=e1418]:
+                      - strong [ref=e1419]: Climate First Bank
+                      - text: ", 4.01% savings APY with $50 minimum to open account ("
+                      - link "read full review" [ref=e1420] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/climate-first-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1421]:
+                    - text: •
+                    - paragraph [ref=e1423]:
+                      - strong [ref=e1424]: Peak Bank,
+                      - text: 3.82% savings APY with $100 minimum to open account (
+                      - link "read full review" [ref=e1425] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/peak-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1426]:
+                    - text: •
+                    - paragraph [ref=e1428]:
+                      - strong [ref=e1429]: Vio Bank,
+                      - text: 4.03% savings APY with $100 minimum to open account (
+                      - link "read full review" [ref=e1430] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/vio-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1431]:
+                    - text: •
+                    - paragraph [ref=e1433]:
+                      - strong [ref=e1434]: Ivy Bank
+                      - text: ", 3.85% savings APY with $2,500 minimum to open account ("
+                      - link "read full review" [ref=e1435] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/ivy-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1436]:
+                    - text: •
+                    - paragraph [ref=e1438]:
+                      - strong [ref=e1439]: Forbright Bank,
+                      - text: 3.85% savings APY with no minimum to open account (
+                      - link "read full review" [ref=e1440] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/forbright-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1441]:
+                    - text: •
+                    - paragraph [ref=e1443]:
+                      - strong [ref=e1444]: Poppy Bank
+                      - text: ", 4.00% savings APY with no minimum to open account ("
+                      - link "read full review" [ref=e1445] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/poppy-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1446]:
+                    - text: •
+                    - paragraph [ref=e1448]:
+                      - strong [ref=e1449]: Bread Savings®
+                      - text: ", 4.00% savings APY with $100 minimum to open account, ("
+                      - link "read full review" [ref=e1450] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/bread-financial
+                      - text: ), Member FDIC.*
+                  - listitem [ref=e1451]:
+                    - text: •
+                    - paragraph [ref=e1453]:
+                      - strong [ref=e1454]: My Banking Direct
+                      - text: ", 3.90% savings APY with $500 minimum to open account ("
+                      - link "read full review" [ref=e1455] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/my-banking-direct
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1456]:
+                    - text: •
+                    - paragraph [ref=e1458]:
+                      - strong [ref=e1459]: Openbank by Santander
+                      - text: ", 4.00% savings APY with $500 minimum to open account ("
+                      - link "real full review" [ref=e1460] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/openbank
+                      - text: ), Member FDIC.*
+                  - listitem [ref=e1461]:
+                    - text: •
+                    - paragraph [ref=e1463]:
+                      - strong [ref=e1464]: Zynlo,
+                      - text: 3.85% APY, no minimum to open account (
+                      - link "read full review" [ref=e1465] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/zynlo
+                      - text: ), funds insured by FDIC.
+                  - listitem [ref=e1466]:
+                    - text: •
+                    - paragraph [ref=e1468]:
+                      - strong [ref=e1469]: Bask Bank
+                      - text: ", 3.75% savings APY with no minimum to open account ("
+                      - link "read full review" [ref=e1470] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/bask-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1471]:
+                    - text: •
+                    - paragraph [ref=e1473]:
+                      - strong [ref=e1474]: EverBank
+                      - text: (formerly TIAA Bank), 3.90% savings APY with no minimum to open account (
+                      - link "read full review" [ref=e1475] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/everbank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1476]:
+                    - text: •
+                    - paragraph [ref=e1478]:
+                      - strong [ref=e1479]:
+                        - strong [ref=e1480]: Popular Direct
+                        - text: ","
+                      - text: 3.90% savings APY with $100 minimum to open account (
+                      - link "read full review" [ref=e1481] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/popular-direct-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1482]:
+                    - text: •
+                    - paragraph [ref=e1484]:
+                      - strong [ref=e1485]: Western Alliance,
+                      - text: 3.80% savings APY with $500 minimum to open account (
+                      - link "read full review" [ref=e1486] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/western-alliance-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1487]:
+                    - text: •
+                    - paragraph [ref=e1489]:
+                      - strong [ref=e1490]: Barclays
+                      - text: ", 3.65% savings APY with no minimum to open account ("
+                      - link "read full review" [ref=e1491] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/barclays-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1492]:
+                    - text: •
+                    - paragraph [ref=e1494]:
+                      - strong [ref=e1495]: Valley Bank
+                      - text: ", 3.79% savings APY with $1 minimum to open account ("
+                      - link "read full review" [ref=e1496] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/valley-bank
+                      - text: ), opened via Raisin, funds insured by FDIC.
+                  - listitem [ref=e1497]:
+                    - text: •
+                    - paragraph [ref=e1499]:
+                      - strong [ref=e1500]: Sallie Mae Bank
+                      - text: ", 3.85% savings APY with no minimum to open account ("
+                      - link "read full review" [ref=e1501] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/sallie-mae-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1502]:
+                    - text: •
+                    - paragraph [ref=e1504]:
+                      - strong [ref=e1505]: CIT Bank
+                      - text: ", 3.75% savings APY with $100 minimum to open account ("
+                      - link "read full review" [ref=e1506] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/cit-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1507]:
+                    - text: •
+                    - paragraph [ref=e1509]:
+                      - strong [ref=e1510]: Salem Five Direct
+                      - text: ", 3.51% savings APY with $10 minimum to open account ("
+                      - link "read full review" [ref=e1511] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/salem-five-direct
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1512]:
+                    - text: •
+                    - paragraph [ref=e1514]:
+                      - strong [ref=e1515]: SoFi
+                      - text: ", 3.30% savings APY (variable and subject to change) with no minimum to open account ("
+                      - link "read full review" [ref=e1516] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/sofi
+                      - text: ), Member FDIC.*
+                  - listitem [ref=e1517]:
+                    - text: •
+                    - paragraph [ref=e1519]:
+                      - strong [ref=e1520]: Synchrony Bank
+                      - text: ", 3.50% savings APY with no minimum to open account ("
+                      - link "read full review" [ref=e1521] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/synchrony-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1522]:
+                    - text: •
+                    - paragraph [ref=e1524]:
+                      - strong [ref=e1525]: E*TRADE,
+                      - text: 3.35% savings APY with no minimum to open account (
+                      - link "read full review" [ref=e1526] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/etrade-checking-savings
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1527]:
+                    - text: •
+                    - paragraph [ref=e1529]:
+                      - strong [ref=e1530]: TAB Bank,
+                      - text: 3.61% savings APY with no minimum to open account (
+                      - link "read full review" [ref=e1531] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/tab-bank
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1532]:
+                    - text: •
+                    - paragraph [ref=e1534]:
+                      - strong [ref=e1535]: UFB Direct,
+                      - text: 3.26% savings APY with no minimum to open account (
+                      - link "read full review" [ref=e1536] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/ufb-direct
+                      - text: ), Member FDIC.
+                  - listitem [ref=e1537]:
+                    - text: •
+                    - paragraph [ref=e1539]:
+                      - strong [ref=e1540]: Marcus
+                      - text: ", 3.65% APY (annual percentage yield) as of 05/27/2025 with no minimum to open account ("
+                      - link "read full review" [ref=e1541] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/reviews/goldman-sachs-bank
+                      - text: ), Member FDIC.
+                - list [ref=e1543]:
+                  - listitem [ref=e1544]:
+                    - group [ref=e1545]:
+                      - generic "*Bread Savings disclosure" [ref=e1546] [cursor=pointer]:
+                        - generic [ref=e1547]: "*Bread Savings disclosure"
+                        - img [ref=e1548]
+                  - listitem [ref=e1550]:
+                    - group [ref=e1551]:
+                      - generic "*Santander Bank disclosure" [ref=e1552] [cursor=pointer]:
+                        - generic [ref=e1553]: "*Santander Bank disclosure"
+                        - img [ref=e1554]
+                  - listitem [ref=e1556]:
+                    - group [ref=e1557]:
+                      - generic "*SoFi disclosure" [ref=e1558] [cursor=pointer]:
+                        - generic [ref=e1559]: "*SoFi disclosure"
+                        - img [ref=e1560]
+                - paragraph [ref=e1563]:
+                  - strong [ref=e1564]: » Interested in getting money from banks?
+                  - text: See
+                  - link "NerdWallet's best bank account promotions and bonuses" [ref=e1565] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/banking/best/bank-bonuses-and-promotions
+            - paragraph [ref=e1568]: Last updated on April 16, 2026
+            - generic [ref=e1570]:
+              - 'heading "Methodology: How we rate banks and credit unions" [level=2] [ref=e1572]'
+              - paragraph [ref=e1574]: Banking writers and editors use an objective methodology to rate banks, credit unions, and other providers, and to recommend the best products.
+              - generic [ref=e1575]:
+                - group [ref=e1577]:
+                  - generic "100+ Financial institutions reviewed" [ref=e1578] [cursor=pointer]:
+                    - generic [ref=e1579]:
+                      - generic [ref=e1580]:
+                        - img [ref=e1581]
+                        - img [ref=e1582]
+                      - generic [ref=e1584]:
+                        - paragraph [ref=e1585]: 100+
+                        - paragraph [ref=e1586]: Financial institutions reviewed
+                - group [ref=e1588]:
+                  - generic "30+ Categories assessed" [ref=e1589] [cursor=pointer]:
+                    - generic [ref=e1590]:
+                      - generic [ref=e1591]:
+                        - img [ref=e1592]
+                        - img [ref=e1593]
+                      - generic [ref=e1595]:
+                        - paragraph [ref=e1596]: 30+
+                        - paragraph [ref=e1597]: Categories assessed
+                - group [ref=e1599]:
+                  - generic "60+ Data points analyzed" [ref=e1600] [cursor=pointer]:
+                    - generic [ref=e1601]:
+                      - generic [ref=e1602]:
+                        - img [ref=e1603]
+                        - img [ref=e1604]
+                      - generic [ref=e1606]:
+                        - paragraph [ref=e1607]: 60+
+                        - paragraph [ref=e1608]: Data points analyzed
+              - heading "Savings account star rating categories" [level=3] [ref=e1610]:
+                - strong [ref=e1611]: Savings account star rating categories
+              - paragraph [ref=e1613]: The best savings accounts generally have interest rates that are at least 10 times the national average, no monthly fees, a low minimum opening deposit, and some savings or budgeting features that can genuinely help customers track goals or allocate funds for specific purposes. Savings accounts with a sign-up bonus get extra marks.
+              - generic [ref=e2026]:
+                - generic [ref=e2027]:
+                  - generic [ref=e2028]:
+                    - generic [ref=e2031]: Interest rate
+                    - paragraph [ref=e2033]: 50%
+                  - generic [ref=e2034]:
+                    - generic [ref=e2037]: Monthly fees
+                    - paragraph [ref=e2039]: 25%
+                  - generic [ref=e2040]:
+                    - generic [ref=e2043]: Distinguishing features for saving or budgeting
+                    - paragraph [ref=e2045]: 15%
+                  - generic [ref=e2046]:
+                    - generic [ref=e2049]: Minimum opening deposit
+                    - paragraph [ref=e2051]: 10%
+                - generic [ref=e2053]:
+                  - generic [ref=e2054]:
+                    - paragraph [ref=e2055]: "5.0"
+                    - img "5 out of 5" [ref=e2056]
+                  - img [ref=e2057]
+              - paragraph [ref=e1615]:
+                - text: "Financial institutions and providers surveyed are:"
+                - link "Affirm" [ref=e1616] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/affirm-review-savings
+                - text: ","
+                - link "All America Bank" [ref=e1617] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/all-america-bank
+                - text: ","
+                - link "Alliant Credit Union" [ref=e1618] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/alliant-credit-union
+                - text: ","
+                - link "Ally Bank" [ref=e1619] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/ally-bank
+                - text: ","
+                - link "Alto" [ref=e1620] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/bmo-alto
+                - text: ","
+                - link "Amalgamated Bank" [ref=e1621] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/amalgamated-bank
+                - text: ","
+                - link "American Express National Bank" [ref=e1622] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/american-express-national-bank
+                - text: ","
+                - link "Andrews Federal Credit Union" [ref=e1623] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/andrews-federal-credit-union
+                - text: ","
+                - link "Associated Bank" [ref=e1624] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/associated-bank
+                - text: ","
+                - link "Axos Bank" [ref=e1625] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/axos-bank
+                - text: ","
+                - link "Bank of America" [ref=e1626] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/bank-of-america
+                - text: ","
+                - link "Bank5 Connect" [ref=e1627] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/bank5-connect
+                - text: ","
+                - link "Barclays" [ref=e1628] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/barclays-bank
+                - text: ","
+                - link "Bask Bank" [ref=e1629] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/bask-bank
+                - text: ","
+                - link "BMO" [ref=e1630] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/bmo
+                - text: ","
+                - link "Boeing Employees Credit Union" [ref=e1631] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/becu
+                - text: ","
+                - link "Bread Savings®" [ref=e1632] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/bread-financial
+                - text: ","
+                - link "BrioDirect" [ref=e1633] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/briodirect
+                - text: ","
+                - link "Capital One" [ref=e1634] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/capital-one-bank
+                - text: ","
+                - link "Cash App" [ref=e1635] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/cash-app-card
+                - text: ","
+                - link "CFG Bank" [ref=e1636] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/cfg-bank
+                - text: ","
+                - link "Charles Schwab Bank" [ref=e1637] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/charles-schwab-bank
+                - text: ","
+                - link "Chase" [ref=e1638] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/chase
+                - text: ","
+                - link "Chime" [ref=e1639] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/chime-banking
+                - text: ","
+                - link "CIBC U.S." [ref=e1640] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/cibc-us-bank
+                - text: ","
+                - link "CIT Bank" [ref=e1641] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/cit-bank
+                - text: ","
+                - link "Citibank" [ref=e1642] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/citibank
+                - text: ","
+                - link "Citizens Access" [ref=e1643] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/citizens
+                - text: ","
+                - link "Citizens Bank" [ref=e1644] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/citizens-bank
+                - text: ","
+                - link "Climate First Bank" [ref=e1645] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/climate-first-bank
+                - text: ","
+                - link "ConnectOne Bank" [ref=e1646] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/connectone-bank
+                - text: ","
+                - link "Connexus Credit Union" [ref=e1647] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/connexus-credit-union
+                - text: ","
+                - link "Consumers Credit Union" [ref=e1648] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/consumers-credit-union
+                - text: ","
+                - link "Current" [ref=e1649] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/current
+                - text: ","
+                - link "Customers Bank" [ref=e1650] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/customers-bank
+                - text: ","
+                - link "Discover® Bank" [ref=e1651] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/discover-bank
+                - text: ","
+                - link "E*TRADE" [ref=e1652] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/etrade-checking-savings
+                - text: ","
+                - link "EverBank" [ref=e1653] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/everbank
+                - text: ","
+                - link "Fifth Third Bank" [ref=e1654] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/fifth-third-bank
+                - text: ","
+                - link "First Foundation" [ref=e1655] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/first-foundation-bank
+                - text: ","
+                - link "First Internet Bank" [ref=e1656] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/first-internet-bank
+                - text: ","
+                - link "First Tech Federal Credit Union" [ref=e1657] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/first-tech-federal-credit-union
+                - text: ","
+                - link "FNBO Direct" [ref=e1658] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/fnbo-direct
+                - text: ","
+                - link "Forbright Bank" [ref=e1659] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/forbright-bank
+                - text: ","
+                - link "FourLeaf Federal Credit Union" [ref=e1660] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/fourleaf-federal-credit-union
+                - text: ","
+                - link "GO2bank" [ref=e1661] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/go2bank
+                - text: ","
+                - link "Golden 1 Credit Union" [ref=e1662] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/golden-1-credit-union
+                - text: ","
+                - link "Hope Credit Union" [ref=e1663] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/hope-credit-union
+                - text: ","
+                - link "HSBC Bank" [ref=e1664] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/hsbc-bank
+                - text: ","
+                - link "Huntington Bank" [ref=e1665] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/huntington-bank
+                - text: ","
+                - link "Ivy Bank" [ref=e1666] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/ivy-bank
+                - text: ","
+                - link "KeyBank" [ref=e1667] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/keybank
+                - text: ","
+                - link "Lake Michigan Credit Union" [ref=e1668] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/lake-michigan-credit-union
+                - text: ","
+                - link "LendingClub Bank" [ref=e1669] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/lendingclub-bank
+                - text: ","
+                - link "Live Oak Bank" [ref=e1670] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/live-oak-bank
+                - text: ","
+                - link "M&T Bank" [ref=e1671] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/m-t-bank
+                - text: ","
+                - link "Marcus by Goldman Sachs" [ref=e1672] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/goldman-sachs-bank
+                - text: ","
+                - link "My Banking Direct" [ref=e1673] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/my-banking-direct
+                - text: ","
+                - link "NASA Federal Credit Union" [ref=e1674] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/nasa-federal-credit-union
+                - text: ","
+                - link "Navy Federal Credit Union" [ref=e1675] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/navy-federal-credit-union
+                - text: ","
+                - link "NBKC" [ref=e1676] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/nbkc
+                - text: ","
+                - link "Newtek Bank" [ref=e1677] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/newtek-bank
+                - text: ","
+                - link "OMB Bank" [ref=e1678] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/omb-bank
+                - text: ","
+                - link "OnePay" [ref=e1679] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/onepay
+                - text: ","
+                - link "Openbank" [ref=e1680] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/openbank
+                - text: ","
+                - link "PayPal" [ref=e1681] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/paypal-debit-card
+                - text: ","
+                - link "Peak Bank" [ref=e1682] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/peak-bank
+                - text: ","
+                - link "Pentagon Federal Credit Union" [ref=e1683] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/penfed-credit-union
+                - text: ","
+                - link "PNC" [ref=e1684] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/pnc-bank
+                - text: ","
+                - link "Poppy Bank" [ref=e1685] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/poppy-bank
+                - text: ","
+                - link "Popular Direct" [ref=e1686] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/popular-direct-bank
+                - text: ","
+                - link "Quontic Bank" [ref=e1687] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/quontic-bank
+                - text: ","
+                - link "Regions Bank" [ref=e1688] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/regions-bank
+                - text: ","
+                - link "Revolut" [ref=e1689] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/revolut
+                - text: ","
+                - link "Salem Five Direct" [ref=e1690] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/salem-five-direct
+                - text: ","
+                - link "Sallie Mae Bank" [ref=e1691] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/sallie-mae-bank
+                - text: ","
+                - link "Santander Bank" [ref=e1692] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/santander-bank
+                - text: ","
+                - link "SchoolsFirst Federal Credit Union" [ref=e1693] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/schoolsfirst-federal-credit-union
+                - text: ","
+                - link "Security Service Federal Credit Union" [ref=e1694] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/security-service-federal-credit-union
+                - text: ","
+                - link "Securityplus Federal Credit Union" [ref=e1695] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/securityplus-federal-credit-union
+                - text: ","
+                - link "Self-Help Credit Union" [ref=e1696] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/self-help-credit-union
+                - text: ","
+                - link "Service Credit Union" [ref=e1697] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/service-credit-union
+                - text: ","
+                - link "SoFi" [ref=e1698] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/sofi
+                - text: ","
+                - link "State Employees’ Credit Union of North Carolina" [ref=e1699] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/state-employees-credit-union
+                - text: ","
+                - link "Synchrony Bank" [ref=e1700] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/synchrony-bank
+                - text: ","
+                - link "TAB Bank" [ref=e1701] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/tab-bank
+                - text: ","
+                - link "TD Bank" [ref=e1702] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/td-bank
+                - text: ","
+                - link "Truist Bank" [ref=e1703] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/truist-bank
+                - text: ","
+                - link "U.S. Bank" [ref=e1704] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/us-bank
+                - text: ","
+                - link "UFB Direct" [ref=e1705] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/ufb-direct
+                - text: ","
+                - link "Upgrade" [ref=e1706] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/upgrade
+                - text: ","
+                - link "USAA Bank" [ref=e1707] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/reviews/banking/usaa-bank
+                - text: ","
+                - link "Valley Bank" [ref=e1708] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/valley-bank
+                - text: ","
+                - link "Varo" [ref=e1709] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/varo
+                - text: ","
+                - link "Venmo" [ref=e1710] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/venmo-stash
+                - text: ","
+                - link "Vio Bank" [ref=e1711] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/vio-bank
+                - text: ","
+                - link "Wells Fargo" [ref=e1712] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/wells-fargo
+                - text: ","
+                - link "Western Alliance Bank" [ref=e1713] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/western-alliance-bank
+                - text: and
+                - link "Zynlo Bank" [ref=e1714] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/banking/reviews/zynlo
+                - text: .
+              - paragraph [ref=e1716]:
+                - text: NerdWallet does not receive compensation for our star ratings. Read more about our
+                - link "ratings methodologies for banks and credit unions" [ref=e1717] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/l/ratings-methodology-for-banks-and-credit-unions
+                - text: and our
+                - link "editorial guidelines" [ref=e1718] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+                - text: .
+            - 'region "NerdWallet''s Best Savings Accounts for April 2026: Up to 4.03%" [ref=e1719]':
+              - generic [ref=e1720]:
+                - text: To recap our selections...
+                - 'heading "NerdWallet''s Best Savings Accounts for April 2026: Up to 4.03%" [level=2] [ref=e1721]'
+                - list [ref=e1722]:
+                  - listitem [ref=e1723]:
+                    - link "SoFi Checking and Savings" [ref=e1724] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/sofi
+                    - text: ": Best for Savings Accounts, 3.30% APY"
+                  - listitem [ref=e1725]:
+                    - link "E*TRADE Premium Savings" [ref=e1726] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/etrade-checking-savings
+                    - text: ": Best for Savings Accounts, 3.35% APY"
+                  - listitem [ref=e1727]:
+                    - link "UFB Portfolio Savings" [ref=e1728] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/ufb-direct
+                    - text: ": Best for Savings Accounts, 3.26% APY"
+                  - listitem [ref=e1729]:
+                    - link "Marcus by Goldman Sachs Online Savings Account" [ref=e1730] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/goldman-sachs-bank
+                    - text: ": Best for Savings Accounts, 3.65% APY"
+                  - listitem [ref=e1731]:
+                    - link "Bask Interest Savings Account" [ref=e1732] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/bask-bank
+                    - text: ": Best for Savings Accounts, 3.75% APY"
+                  - listitem [ref=e1733]:
+                    - link "Axos ONE® Savings" [ref=e1734] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/axos-bank
+                    - text: ": Best for Savings Accounts, 4.21% APY"
+                  - listitem [ref=e1735]:
+                    - link "Barclays Tiered Savings Account" [ref=e1736] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/barclays-bank
+                    - text: ": Best for Savings Accounts, 3.65% APY"
+                  - listitem [ref=e1737]:
+                    - link "CIT Bank Platinum Savings" [ref=e1738] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/cit-bank
+                    - text: ": Best for Savings Accounts, 3.75% APY"
+                  - listitem [ref=e1739]:
+                    - link "Peak Bank Envision High-Yield Savings" [ref=e1740] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/peak-bank
+                    - text: ": Best for Savings Accounts, 3.82% APY"
+                  - listitem [ref=e1741]:
+                    - link "Forbright Bank Growth Savings" [ref=e1742] [cursor=pointer]:
+                      - /url: https://www.nerdwallet.com/banking/reviews/forbright-bank
+                    - text: ": Best for Savings Accounts, 3.85% APY"
+            - region "Frequently asked questions" [ref=e1743]:
+              - heading "Frequently asked questions" [level=2] [ref=e1745]
+              - list [ref=e1746]:
+                - listitem [ref=e1747]:
+                  - group [ref=e1748]:
+                    - generic "What is a savings account?" [ref=e1749] [cursor=pointer]:
+                      - generic [ref=e1750]:
+                        - heading "What is a savings account?" [level=3] [ref=e1751]
+                        - img [ref=e1752]
+                    - paragraph [ref=e1758]: A savings account is a deposit bank account that lets you securely store funds while also typically earning interest. You can deposit your money at your financial institution through cash, check or bank transfer, and it will safely earn interest while it is in your account. With savings accounts, money is insured up to $250,000 per depositor, so your funds are safe.
+                - listitem [ref=e1759]:
+                  - group [ref=e1760]:
+                    - generic "Is my money safe in an online savings account?" [ref=e1761] [cursor=pointer]:
+                      - generic [ref=e1762]:
+                        - heading "Is my money safe in an online savings account?" [level=3] [ref=e1763]
+                        - img [ref=e1764]
+                    - paragraph [ref=e1770]: Yes. Most savings accounts are insured by the Federal Deposit Insurance Corp. and others are insured by the National Credit Union Administration. Both cover up to $250,000 per depositor, per institution and per account type, in case your bank fails. All of the best savings accounts in NerdWallet's analysis are insured, just like bank accounts at national institutions.
+                - listitem [ref=e1771]:
+                  - group [ref=e1772]:
+                    - generic "How much money should I keep in my savings account?" [ref=e1773] [cursor=pointer]:
+                      - generic [ref=e1774]:
+                        - heading "How much money should I keep in my savings account?" [level=3] [ref=e1775]
+                        - img [ref=e1776]
+                    - paragraph [ref=e1782]:
+                      - text: Since everyone's savings goals are different, the right amount of money to keep in your savings account will depend on your situation. Keep in mind that the higher your savings account interest rate, the faster your balance will grow. You can find accounts with the highest rates in NerdWallet's list of
+                      - link "the best savings accounts" [ref=e1783] [cursor=pointer]:
+                        - /url: https://www.nerdwallet.com/banking/best/savings-accounts
+                      - text: .
+        - complementary "About the author" [ref=e1785]:
+          - generic [ref=e1786]:
+            - heading "About the author" [level=3] [ref=e1787]
+            - region "author box" [ref=e1788]:
+              - generic [ref=e1789]:
+                - generic [ref=e1790]:
+                  - img "Margarette Burnette" [ref=e1792]
+                  - generic [ref=e1793]:
+                    - heading "Margarette Burnette" [level=4] [ref=e1794]
+                    - generic [ref=e1795]: Senior Writer & Content Strategist
+                - generic [ref=e1796]:
+                  - link "Twitter" [ref=e1797] [cursor=pointer]:
+                    - /url: https://twitter.com/Margarette
+                    - img [ref=e1799]
+                  - link "Email" [ref=e1801] [cursor=pointer]:
+                    - /url: mailto:mburnette@nerdwallet.com
+                    - img [ref=e1803]
+              - separator [ref=e1805]
+              - generic [ref=e1806]:
+                - region "author biography" [ref=e1807]:
+                  - paragraph [ref=e1810]:
+                    - text: Margarette Burnette is a NerdWallet authority on savings, who has been writing about bank accounts since before the Great Recession. Her work has been featured in
+                    - link "The Associated Press" [ref=e1811] [cursor=pointer]:
+                      - /url: https://apnews.com/article/6dc7efc9690e4cc993221f87334f3385
+                    - text: ","
+                    - link "USA Today" [ref=e1812] [cursor=pointer]:
+                      - /url: https://www.usatoday.com/story/money/personalfinance/2019/03/26/banks-promotional-offers-give-bonus-savings-checking-accounts/3210547002/
+                    - text: and other major newspapers. Before joining NerdWallet, Margarette was a freelance journalist with bylines in magazines such as Good Housekeeping,
+                    - link "Black Enterprise" [ref=e1813] [cursor=pointer]:
+                      - /url: https://www.blackenterprise.com/accelerated-assistance/
+                    - text: and Parenting. She is based near Atlanta, Georgia.
+                - generic [ref=e1814]:
+                  - generic [ref=e1815]:
+                    - paragraph [ref=e1816]: "Published in:"
+                    - generic [ref=e1817]:
+                      - img "Los Angeles Times" [ref=e1818]
+                      - img "The Associated Press" [ref=e1819]
+                      - img "The Washington Post" [ref=e1820]
+                  - link "Full biography of the author" [ref=e1822] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/author/margarette-burnette
+                    - text: See full bio
+          - generic [ref=e1823]:
+            - heading "About the editor" [level=3] [ref=e1824]
+            - region "author box" [ref=e1825]:
+              - generic [ref=e1826]:
+                - generic [ref=e1827]:
+                  - img "Tony Armstrong" [ref=e1829]
+                  - generic [ref=e1830]:
+                    - heading "Tony Armstrong" [level=4] [ref=e1831]
+                    - generic [ref=e1832]: Head of Content, Banking
+                - generic [ref=e1833]:
+                  - link "Twitter" [ref=e1834] [cursor=pointer]:
+                    - /url: https://twitter.com/tonystrongarm
+                    - img [ref=e1836]
+                  - link "Email" [ref=e1838] [cursor=pointer]:
+                    - /url: mailto:tony@nerdwallet.com
+                    - img [ref=e1840]
+                  - link "LinkedIn" [ref=e1842] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/in/tony-armstrong-56847793/
+                    - img [ref=e1844]
+              - separator [ref=e1846]
+              - generic [ref=e1847]:
+                - region "author biography" [ref=e1848]:
+                  - paragraph [ref=e1851]: Tony Armstrong leads the banking team at NerdWallet. He has covered personal finance for over a decade. Tony began his NerdWallet career as a writer and worked his way up to editor and then to head of content on the banking team. His writing has been featured by the Los Angeles Times, MarketWatch, Mashable, Nasdaq.com, USA Today and VentureBeat. Tony lives in Minneapolis, Minnesota.
+                - generic [ref=e1852]:
+                  - generic [ref=e1853]:
+                    - paragraph [ref=e1854]: "Published in:"
+                    - generic [ref=e1855]:
+                      - img "Los Angeles Times" [ref=e1856]
+                      - img "MarketWatch" [ref=e1857]
+                      - img "Mashable" [ref=e1859]
+                  - link "Full biography of the author" [ref=e1861] [cursor=pointer]:
+                    - /url: https://www.nerdwallet.com/author/tony-armstrong
+                    - text: See full bio
+  - contentinfo [ref=e1863]:
+    - generic [ref=e1864]:
+      - generic [ref=e1865]:
+        - img "NerdWallet Home Page" [ref=e1866]
+        - generic [ref=e1867]: Finance Smarter
+      - generic [ref=e1868]:
+        - link "Learn more about the app" [ref=e1869] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+          - generic [ref=e1870]: Learn more about the app
+        - generic [ref=e1872]: Download the app
+        - generic [ref=e1873]:
+          - generic [ref=e1874]:
+            - link "Download iOS app" [ref=e1875] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/87a0b5b3
+              - img "Download on the App Store" [ref=e1876]
+            - generic [ref=e1877]:
+              - generic [ref=e1878]:
+                - generic [ref=e1879]: "4.8"
+                - generic [ref=e1880]:
+                  - generic [ref=e1881]:
+                    - img [ref=e1882]
+                    - img [ref=e1884]
+                    - img [ref=e1886]
+                    - img [ref=e1888]
+                    - img [ref=e1890]
+                  - generic [ref=e1892]:
+                    - img [ref=e1893]
+                    - img [ref=e1895]
+                    - img [ref=e1897]
+                    - img [ref=e1899]
+                    - img [ref=e1901]
+              - generic [ref=e1903]: 121,000+ reviews
+          - generic [ref=e1904]:
+            - link "Download Android app" [ref=e1905] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/233a7a41
+              - img "Get it on Google Play" [ref=e1906]
+            - generic [ref=e1907]:
+              - generic [ref=e1908]:
+                - generic [ref=e1909]: "4.3"
+                - generic [ref=e1910]:
+                  - generic [ref=e1911]:
+                    - img [ref=e1912]
+                    - img [ref=e1914]
+                    - img [ref=e1916]
+                    - img [ref=e1918]
+                    - img [ref=e1920]
+                  - generic [ref=e1922]:
+                    - img [ref=e1923]
+                    - img [ref=e1925]
+                    - img [ref=e1927]
+                    - img [ref=e1929]
+                    - img [ref=e1931]
+              - generic [ref=e1933]: 31,200+ reviews
+        - img "QR code for downloading the app" [ref=e1934]
+      - generic [ref=e1935]:
+        - generic [ref=e1936]:
+          - generic [ref=e1937]: About
+          - generic [ref=e1938]:
+            - link "Company" [ref=e1939] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/company
+            - link "Leadership" [ref=e1940] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/leadership
+            - link "Careers" [ref=e1941] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/careers
+            - link "Corporate impact" [ref=e1942] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/corporate-impact
+            - link "Diversity & Inclusion" [ref=e1943] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/diversity-inclusion
+            - link "Editorial guidelines" [ref=e1944] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+            - link "Star rating methodologies" [ref=e1945] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/rating-methodologies
+            - link "Editorial team" [ref=e1946] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-team
+            - link "Press" [ref=e1947] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/press
+            - link "Press kit" [ref=e1948] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/kit
+            - link "Investors" [ref=e1949] [cursor=pointer]:
+              - /url: https://investors.nerdwallet.com/
+        - generic [ref=e1950]:
+          - generic [ref=e1951]: Help
+          - generic [ref=e1952]:
+            - link "Help center" [ref=e1953] [cursor=pointer]:
+              - /url: https://support.nerdwallet.com/hc/en-us
+            - link "Security FAQs" [ref=e1954] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/security
+        - generic [ref=e1955]:
+          - generic [ref=e1956]: Legal
+          - generic [ref=e1957]:
+            - link "Terms of use" [ref=e1958] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/terms-of-use
+            - link "Supplier Code of Conduct" [ref=e1959] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/supplier-code-of-conduct
+            - link "Privacy policy" [ref=e1960] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "California privacy policy" [ref=e1961] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/nerdwallet-california-privacy-policy
+            - link "Privacy preferences" [ref=e1962] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "Do not sell or share my personal information" [ref=e1963] [cursor=pointer]:
+              - /url: https://privacyportal.onetrust.com/webform/694a76f6-1f82-455e-b46e-ffeed902c3fa/db85134f-a11a-451c-a462-3f2f39a662bc
+      - generic [ref=e1964]:
+        - paragraph [ref=e1965]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+        - paragraph [ref=e1966]:
+          - generic [ref=e1967]: NerdWallet Compare, Inc. NMLS ID# 1617539
+          - link "NMLS Consumer Access" [ref=e1968] [cursor=pointer]:
+            - /url: https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1617539
+          - text: "|"
+          - link "Licenses and Disclosures" [ref=e1969] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/nerdwallet-compare-inc-licenses-and-disclosures
+        - paragraph [ref=e1970]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e1971]:
+          - text: Insurance Services offered through NerdWallet Insurance Services, Inc. (CA resident license no.OK92033)
+          - link "Insurance Licenses" [ref=e1972] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/nerdwallet-insurance-services-inc-licenses-and-disclosures
+        - paragraph [ref=e1973]:
+          - text: NerdWallet has engaged Atomic Invest LLC (“Atomic”), an SEC-registered investment adviser, to bring you the opportunity to open investment advisory accounts (Automated Investing Account and/or Treasury Account) with Atomic. NerdWallet receives compensation of 0% to 0.85% of assets under management annualized, payable monthly, for each referred client who opens an Atomic account and a percentage of free cash interest earned by clients, which creates a conflict of interest. Brokerage services for Atomic are provided by Atomic Brokerage LLC ("Atomic Brokerage"), member of
+          - link "FINRA" [ref=e1974] [cursor=pointer]:
+            - /url: https://www.finra.org/#/
+          - text: /
+          - link "SIPC" [ref=e1975] [cursor=pointer]:
+            - /url: https://www.sipc.org/
+          - text: and an affiliate of Atomic, which creates a conflict of interest. See details about Atomic, in their
+          - link "Form CRS" [ref=e1976] [cursor=pointer]:
+            - /url: https://reports.adviserinfo.sec.gov/crs/crs_313255.pdf
+          - text: ","
+          - link "Form ADV Part 2A" [ref=e1977] [cursor=pointer]:
+            - /url: https://adviserinfo.sec.gov/firm/brochure/313255
+          - text: and
+          - link "Privacy Policy" [ref=e1978] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.privacy.de3d0277-78f7-4741-9e9f-755f6b4f03ba.pdf
+          - text: . See details about Atomic Brokerage in their
+          - link "Form CRS" [ref=e1979] [cursor=pointer]:
+            - /url: https://files.brokercheck.finra.org/crs_315263.pdf
+          - text: ","
+          - link "General Disclosures" [ref=e1980] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.disclosures.003464f3-f6bd-41c3-bbdf-7050e50b43a2.pdf
+          - text: ","
+          - link "fee schedule" [ref=e1981] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.schedule.7ea28665-88a9-4542-a748-987e90ea46b6.pdf
+          - text: ", and FINRA’s"
+          - link "BrokerCheck" [ref=e1982] [cursor=pointer]:
+            - /url: https://brokercheck.finra.org/
+          - text: .
+        - paragraph [ref=e1983]:
+          - text: You also can open a Cash Account offered by Atomic Brokerage which allows you to earn interest on your cash through a cash sweep program.
+          - link "View Important Cash Account Disclosures." [ref=e1984] [cursor=pointer]:
+            - /url: https://www.atomicvest.com/legal/disclosures/7d9c31dd-bf97-46ae-9803-1774b97187af
+        - paragraph [ref=e1985]: "Neither Atomic Invest nor Atomic Brokerage, nor any of their affiliates is a bank. Investments in securities: Not FDIC Insured, Not Bank Guaranteed, May Lose Value. Investing involves risk, including the possible loss of principal. Before investing, consider your investment objectives and the fees and expenses charged."
+        - paragraph [ref=e1986]: Images are for illustrative purposes only.
+        - paragraph [ref=e1987]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+      - generic [ref=e1990]:
+        - generic [ref=e1991]:
+          - link "US NerdWallet USA" [ref=e1992] [cursor=pointer]:
+            - /url: /
+            - img "US" [ref=e1993]
+            - text: NerdWallet USA
+          - generic [ref=e1994]: "|"
+        - link "CA NerdWallet CA" [ref=e1996] [cursor=pointer]:
+          - /url: /ca
+          - img "CA" [ref=e1997]
+          - text: NerdWallet CA
+      - generic [ref=e1998]:
+        - generic [ref=e1999]:
+          - generic [ref=e2000]: © 2026 NerdWallet, Inc.
+          - generic [ref=e2001]: All Rights Reserved.
+        - generic [ref=e2002]:
+          - link "Find NerdWallet on X" [ref=e2003] [cursor=pointer]:
+            - /url: https://twitter.com/NerdWallet
+            - img "X" [ref=e2004]
+          - link "Find NerdWallet on YouTube" [ref=e2005] [cursor=pointer]:
+            - /url: https://www.youtube.com/@nerdwallet
+            - img "YouTube" [ref=e2006]
+          - link "Find NerdWallet on Instagram" [ref=e2007] [cursor=pointer]:
+            - /url: https://www.instagram.com/NerdWallet/
+            - img "Instagram" [ref=e2008]
+          - link "Find NerdWallet on Apple Podcasts" [ref=e2009] [cursor=pointer]:
+            - /url: https://play.megaphone.fm/xcr_lszorm-uiidw0pl5eq
+            - img "Apple Podcasts" [ref=e2010]
+          - link "Find NerdWallet on TikTok" [ref=e2011] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nerdwallet?lang=en
+            - img "TikTok" [ref=e2012]
+  - alert [ref=e2065]

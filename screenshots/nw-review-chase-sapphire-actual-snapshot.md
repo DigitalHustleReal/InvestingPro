@@ -1,0 +1,246 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Skip to content" [ref=e6] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Nerdwallet icon" [ref=e8]
+        - img "Nerdwallet logo" [ref=e9]
+    - navigation [ref=e11]:
+      - generic "Open Credit cards menu" [ref=e13] [cursor=pointer]:
+        - generic [ref=e14]: Credit cards
+      - generic "Open Banking menu" [ref=e16] [cursor=pointer]:
+        - generic [ref=e17]: Banking
+      - generic "Open Home menu" [ref=e19] [cursor=pointer]:
+        - generic [ref=e20]: Home
+      - generic "Open Loans menu" [ref=e22] [cursor=pointer]:
+        - generic [ref=e23]: Loans
+      - generic "Open Insurance menu" [ref=e25] [cursor=pointer]:
+        - generic [ref=e26]: Insurance
+      - generic "Open Personal finance menu" [ref=e28] [cursor=pointer]:
+        - generic [ref=e29]: Personal finance
+      - generic "Open Investing menu" [ref=e31] [cursor=pointer]:
+        - generic [ref=e32]: Investing
+      - generic "Open Small business menu" [ref=e34] [cursor=pointer]:
+        - generic [ref=e35]: Small business
+      - generic "Open Taxes menu" [ref=e37] [cursor=pointer]:
+        - generic [ref=e38]: Taxes
+    - generic "Open search panel" [ref=e39] [cursor=pointer]:
+      - img "Search" [ref=e40]
+    - generic [ref=e41]:
+      - link "Sign In" [ref=e42] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards%2Freviews%2Fchase-sapphire-preferred&initialScreen=signin&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards%2Freviews%2Fchase-sapphire-preferred&driverContentId=1847104&driverContentSource=wp&driverPageName=cc_reviews&driverPageViewId=03c592be-abfa-441b-ae2a-626d27a8fe3a&deployableName=cc-shopping-client&deployableVersion=b7d3f03dd13096e35e9aded7a9afde8bbb009db5
+      - link "Sign Up" [ref=e43] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards%2Freviews%2Fchase-sapphire-preferred&initialScreen=signup&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fcredit-cards%2Freviews%2Fchase-sapphire-preferred&driverContentId=1847104&driverContentSource=wp&driverPageName=cc_reviews&driverPageViewId=03c592be-abfa-441b-ae2a-626d27a8fe3a&deployableName=cc-shopping-client&deployableVersion=b7d3f03dd13096e35e9aded7a9afde8bbb009db5
+    - generic "Close notifications panel" [ref=e45] [cursor=pointer]:
+      - img "Close" [ref=e46]
+  - main [ref=e47]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - navigation "Breadcrumb" [ref=e52]:
+          - list [ref=e53]:
+            - listitem [ref=e54]
+            - listitem [ref=e58]
+            - listitem [ref=e61]
+            - listitem [ref=e64]
+            - listitem [ref=e67]
+            - listitem [ref=e70]
+            - listitem [ref=e73]
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - button "Advertiser disclosure" [ref=e79] [cursor=pointer]
+            - 'heading "Chase Sapphire Preferred Review: Strong Option for Travel Rewards" [level=1] [ref=e80]'
+            - generic [ref=e81]: You get bonus points for spending on travel, dining and some everyday purchases. Points can be worth more when used to book through Chase.
+          - generic [ref=e82]:
+            - generic [ref=e84]
+            - generic [ref=e125]: Many or all of the products on this page are from partners who compensate us when you click to or take an action on their website, but this does not influence our evaluations or ratings. Our opinions are our own.
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - generic [ref=e129]:
+            - heading "What’s on This Page" [level=3] [ref=e131]
+            - list [ref=e133]
+          - generic [ref=e150]:
+            - generic [ref=e151]
+            - generic [ref=e185]
+            - generic [ref=e259]
+            - button "Play Video preview image" [ref=e276] [cursor=pointer]
+        - generic [ref=e284]:
+          - generic [ref=e286]:
+            - generic [ref=e288]
+            - generic [ref=e292]
+          - generic [ref=e332]:
+            - generic [ref=e334]
+            - generic [ref=e339]
+          - generic [ref=e506]:
+            - generic [ref=e508]
+            - generic [ref=e512]
+          - generic [ref=e723]:
+            - generic [ref=e725]
+            - paragraph [ref=e743]: Vacation more, spend less. Subscribe to our free newsletter for inspiration, tips, and money-saving strategies – delivered straight to your inbox.
+            - generic [ref=e745]
+            - paragraph [ref=e751]
+          - generic [ref=e755]:
+            - generic [ref=e757]
+            - generic [ref=e762]
+          - generic [ref=e1026]:
+            - generic [ref=e1028]
+            - generic [ref=e1034]
+        - generic [ref=e1067]:
+          - generic [ref=e1069]:
+            - generic [ref=e1072]
+            - generic [ref=e1076]
+          - generic [ref=e1097]:
+            - generic [ref=e1099]: "Alternate Pick: No annual fee"
+            - generic [ref=e1100]
+          - generic [ref=e1129]:
+            - generic [ref=e1131]
+            - generic [ref=e1135]
+          - generic:
+            - separator
+      - generic [ref=e1145]:
+        - generic [ref=e1146]:
+          - heading "Methodology" [level=3] [ref=e1147]
+          - paragraph [ref=e1150]:
+            - text: NerdWallet reviews credit cards with an eye toward both the quantitative and qualitative features of a card. Quantitative features are those that boil down to dollars and cents, such as fees, interest rates, rewards (including earning rates and redemption values) and the cash value of benefits and perks. Qualitative factors are those that affect how easy or difficult it is for a typical cardholder to get good value from the card. They include such things as the ease of application, simplicity of the rewards structure, the likelihood of using certain features, and whether a card is well-suited to everyday use or is best reserved for specific purchases. Our star ratings serve as a general gauge of how each card compares with others in its class, but star ratings are intended to be just one consideration when a consumer is choosing a credit card.
+            - link "Learn how NerdWallet rates credit cards." [ref=e1151] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/credit-cards-star-ratings-methodology
+        - generic [ref=e1153]:
+          - heading "Frequently asked questions" [level=2] [ref=e1154]
+          - group [ref=e1155]:
+            - generic "What are the rewards on the Chase Sapphire Preferred?" [ref=e1156] [cursor=pointer]
+            - paragraph [ref=e1165]: "Rewards are: 5 points per $1 spent on all travel booked through Chase, 3 points per $1 spent on dining (including eligible delivery services and takeout), 3 points per $1 spent on select streaming services, 3 points per $1 spent on online grocery purchases (not including Target, Walmart and wholesale clubs), 2 points per $1 spent on travel not booked through Chase and 1 point per $1 spent on other purchases. Occasionally, the issuer may offer bonus rewards in specific categories for a limited time."
+          - group [ref=e1166]:
+            - generic "How much are points worth on the Chase Sapphire Preferred?" [ref=e1167] [cursor=pointer]
+            - paragraph [ref=e1176]: That depends on how you redeem them. If you redeem them for cash back, they’re worth 1 cent apiece. If you use them to book travel through Chase — such as for airfare or hotel stays — you may be able to get more value through the "Points Boost" feature. You can also transfer points to about a dozen airline and hotel loyalty programs; the value you get depends on how you redeem them in those programs.
+          - group [ref=e1177]:
+            - generic "Do rewards on the Chase Sapphire Preferred expire?" [ref=e1178] [cursor=pointer]
+            - paragraph [ref=e1187]: As long as your account is open, your points won’t expire. There’s no limit to the number of points you can earn.
+          - group [ref=e1188]:
+            - generic "What’s the difference between Sapphire Preferred and Sapphire Reserve?" [ref=e1189] [cursor=pointer]
+            - paragraph [ref=e1198]
+          - group [ref=e1200]:
+            - generic "What credit score do I need to get the Chase Sapphire Preferred?" [ref=e1201] [cursor=pointer]
+            - paragraph [ref=e1210]
+        - generic [ref=e1212]:
+          - heading "About the authors" [level=2] [ref=e1214]
+          - list [ref=e1215]:
+            - listitem [ref=e1216]
+            - listitem [ref=e1245]
+  - contentinfo [ref=e1269]:
+    - generic [ref=e1270]:
+      - generic [ref=e1271]:
+        - img "NerdWallet Home Page" [ref=e1272]
+        - generic [ref=e1273]: Finance Smarter
+      - generic [ref=e1274]:
+        - link "Learn more about the app" [ref=e1275] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+          - generic [ref=e1276]: Learn more about the app
+        - generic [ref=e1278]: Download the app
+        - generic [ref=e1279]:
+          - generic [ref=e1280]:
+            - link "Download iOS app" [ref=e1281] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/87a0b5b3
+            - generic [ref=e1283]
+          - generic [ref=e1310]:
+            - link "Download Android app" [ref=e1311] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/233a7a41
+            - generic [ref=e1313]
+        - img "QR code for downloading the app" [ref=e1340]
+      - generic [ref=e1341]:
+        - generic [ref=e1342]:
+          - generic [ref=e1343]: About
+          - generic [ref=e1344]:
+            - link "Company" [ref=e1345] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/company
+            - link "Leadership" [ref=e1346] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/leadership
+            - link "Careers" [ref=e1347] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/careers
+            - link "Corporate impact" [ref=e1348] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/corporate-impact
+            - link "Diversity & Inclusion" [ref=e1349] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/diversity-inclusion
+            - link "Editorial guidelines" [ref=e1350] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+            - link "Star rating methodologies" [ref=e1351] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/rating-methodologies
+            - link "Editorial team" [ref=e1352] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-team
+            - link "Press" [ref=e1353] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/press
+            - link "Press kit" [ref=e1354] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/kit
+            - link "Investors" [ref=e1355] [cursor=pointer]:
+              - /url: https://investors.nerdwallet.com/
+        - generic [ref=e1356]:
+          - generic [ref=e1357]: Help
+          - generic [ref=e1358]:
+            - link "Help center" [ref=e1359] [cursor=pointer]:
+              - /url: https://support.nerdwallet.com/hc/en-us
+            - link "Security FAQs" [ref=e1360] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/security
+        - generic [ref=e1361]:
+          - generic [ref=e1362]: Legal
+          - generic [ref=e1363]:
+            - link "Terms of use" [ref=e1364] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/terms-of-use
+            - link "Supplier Code of Conduct" [ref=e1365] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/supplier-code-of-conduct
+            - link "Privacy policy" [ref=e1366] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "California privacy policy" [ref=e1367] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/nerdwallet-california-privacy-policy
+            - link "Privacy preferences" [ref=e1368] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "Do not sell or share my personal information" [ref=e1369] [cursor=pointer]:
+              - /url: https://privacyportal.onetrust.com/webform/694a76f6-1f82-455e-b46e-ffeed902c3fa/db85134f-a11a-451c-a462-3f2f39a662bc
+      - generic [ref=e1370]:
+        - paragraph [ref=e1371]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+        - paragraph [ref=e1372]:
+          - generic [ref=e1373]: NerdWallet Compare, Inc. NMLS ID# 1617539
+          - link "NMLS Consumer Access" [ref=e1374] [cursor=pointer]:
+            - /url: https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1617539
+          - text: "|"
+          - link "Licenses and Disclosures" [ref=e1375] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/nerdwallet-compare-inc-licenses-and-disclosures
+        - paragraph [ref=e1376]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e1377]:
+          - text: Insurance Services offered through NerdWallet Insurance Services, Inc. (CA resident license no.OK92033)
+          - link "Insurance Licenses" [ref=e1378] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/nerdwallet-insurance-services-inc-licenses-and-disclosures
+        - paragraph [ref=e1379]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+      - generic [ref=e1382]:
+        - generic [ref=e1383]:
+          - link "US NerdWallet USA" [ref=e1384] [cursor=pointer]:
+            - /url: /
+            - img "US" [ref=e1385]
+            - text: NerdWallet USA
+          - generic [ref=e1386]: "|"
+        - link "CA NerdWallet CA" [ref=e1388] [cursor=pointer]:
+          - /url: /ca
+          - img "CA" [ref=e1389]
+          - text: NerdWallet CA
+      - generic [ref=e1390]:
+        - generic [ref=e1391]:
+          - generic [ref=e1392]: © 2026 NerdWallet, Inc.
+          - generic [ref=e1393]: All Rights Reserved.
+        - generic [ref=e1394]:
+          - link "Find NerdWallet on X" [ref=e1395] [cursor=pointer]:
+            - /url: https://twitter.com/NerdWallet
+            - img "X" [ref=e1396]
+          - link "Find NerdWallet on YouTube" [ref=e1397] [cursor=pointer]:
+            - /url: https://www.youtube.com/@nerdwallet
+            - img "YouTube" [ref=e1398]
+          - link "Find NerdWallet on Instagram" [ref=e1399] [cursor=pointer]:
+            - /url: https://www.instagram.com/NerdWallet/
+            - img "Instagram" [ref=e1400]
+          - link "Find NerdWallet on Apple Podcasts" [ref=e1401] [cursor=pointer]:
+            - /url: https://play.megaphone.fm/xcr_lszorm-uiidw0pl5eq
+            - img "Apple Podcasts" [ref=e1402]
+          - link "Find NerdWallet on TikTok" [ref=e1403] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nerdwallet?lang=en
+            - img "TikTok" [ref=e1404]
+  - img "NerdWallet Pixel" [ref=e1405]
+  - alert [ref=e1406]
+  - iframe

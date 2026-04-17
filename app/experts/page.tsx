@@ -9,7 +9,7 @@ import { logger } from "@/lib/logger";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Meet Our Expert Team - Financial Analysts & Advisors | InvestingPro",
+  title: "Meet Our Expert Team - Financial Analysts & Advisors",
   description:
     "Meet the financial experts behind InvestingPro. Our team of CAs, CFAs, and financial analysts help you make informed financial decisions.",
 };

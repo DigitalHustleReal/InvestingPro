@@ -53,7 +53,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "101 glossary terms covering Indian finance terminology",
     ],
     social: {
-      email: "editorial@investingpro.in",
+      email: "contact@investingpro.in",
     },
     quote:
       "We believe every Indian deserves access to clear, honest, data-driven financial information — without the jargon and without the sales pitch.",
@@ -89,7 +89,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "FAQ sections based on real taxpayer questions",
     ],
     social: {
-      email: "tax@investingpro.in",
+      email: "contact@investingpro.in",
     },
     quote:
       "Tax planning is not about finding loopholes. It is about understanding what the law already allows you to save — and using it fully.",
@@ -124,7 +124,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "CIBIL score educational content covering 300-900 range",
     ],
     social: {
-      email: "credit@investingpro.in",
+      email: "contact@investingpro.in",
     },
     quote:
       "A credit card is a financial tool, not a status symbol. We help you pick the one that actually saves you money.",

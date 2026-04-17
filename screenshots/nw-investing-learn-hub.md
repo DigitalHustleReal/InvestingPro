@@ -1,0 +1,268 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Skip to content" [ref=e5] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page NerdWallet Home Page" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "NerdWallet Home Page" [ref=e7]
+        - img "NerdWallet Home Page" [ref=e8]
+    - navigation [ref=e9]:
+      - list [ref=e10]:
+        - listitem [ref=e11] [cursor=pointer]:
+          - button "Credit cards" [ref=e12]
+        - listitem [ref=e13] [cursor=pointer]:
+          - button "Banking" [ref=e14]
+        - listitem [ref=e15] [cursor=pointer]:
+          - button "Home" [ref=e16]
+        - listitem [ref=e17] [cursor=pointer]:
+          - button "Loans" [ref=e18]
+        - listitem [ref=e19] [cursor=pointer]:
+          - button "Insurance" [ref=e20]
+        - listitem [ref=e21] [cursor=pointer]:
+          - button "Personal finance" [ref=e22]
+        - listitem [ref=e23] [cursor=pointer]:
+          - button "Investing" [ref=e24]
+        - listitem [ref=e25] [cursor=pointer]:
+          - button "Small business" [ref=e26]
+        - listitem [ref=e27] [cursor=pointer]:
+          - button "Taxes" [ref=e28]
+    - generic [ref=e29]:
+      - generic "Open search panel" [ref=e31] [cursor=pointer]:
+        - img "Search" [ref=e32]
+      - generic [ref=e33]:
+        - generic [ref=e36]:
+          - link "Sign in" [ref=e38] [cursor=pointer]:
+            - /url: /api/nts/v1/login?redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fhome%2Fdashboard&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&deployableName=structured-content-client&deployableVersion=260&driverContentId=1855121&driverContentSource=wp&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverPageName=investment_basics_nerdwallet&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Finvesting%2Flearn&driverPageViewId=4842a3d3-7d0f-4e4c-a60f-218124e1cfde&mostRecentTraditionalDeviceId=3f373271e9bf66a5b2f9735141ee7395d86c54f62df14f9d-00de-4753-a5ef-de4b0403c44b&initialScreen=&attrVertical=Investing&attrTopic=&undefined=
+          - link "Sign up" [ref=e43] [cursor=pointer]:
+            - /url: /api/nts/v1/login?redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fhome%2Fdashboard%3Ffeature_discovery%3Dnw_plus&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&deployableName=structured-content-client&deployableVersion=260&driverContentId=1855121&driverContentSource=wp&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverPageName=investment_basics_nerdwallet&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Finvesting%2Flearn&driverPageViewId=4842a3d3-7d0f-4e4c-a60f-218124e1cfde&driverSubLocation=new_insights&mostRecentTraditionalDeviceId=3f373271e9bf66a5b2f9735141ee7395d86c54f62df14f9d-00de-4753-a5ef-de4b0403c44b&initialScreen=signup&attrVertical=Investing&attrTopic=&undefined=
+        - generic [ref=e54]:
+          - button "Close" [ref=e55] [cursor=pointer]
+          - generic [ref=e59]
+          - generic [ref=e60]
+          - generic [ref=e73]
+  - navigation "Breadcrumbs" [ref=e81]:
+    - link "Back to NerdWallet homepage" [ref=e82] [cursor=pointer]:
+      - /url: https://www.nerdwallet.com/
+      - img [ref=e83]
+    - generic [ref=e86]:
+      - img [ref=e87]
+      - link "Investing" [ref=e89] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/investing
+  - generic [ref=e94]:
+    - banner [ref=e95]:
+      - generic [ref=e96]:
+        - button "Advertiser disclosure" [ref=e97]:
+          - generic [ref=e99]: Advertiser disclosure
+        - generic [ref=e100]:
+          - heading "Investment Basics" [level=1] [ref=e101]
+          - generic [ref=e102]: No matter what kind of investor you are, we can help guide you. Read the articles below to build a solid investing foundation.
+    - generic [ref=e103]:
+      - paragraph [ref=e107]: The investing information provided on this page is for educational purposes only. NerdWallet, Inc. does not offer advisory or brokerage services, nor does it recommend or advise investors to buy or sell particular stocks, securities or other investments.
+      - heading "Most popular articles right now" [level=2] [ref=e109]
+      - generic [ref=e114]:
+        - generic [ref=e117]:
+          - link [ref=e119] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/investing/learn/how-to-invest-in-stocks
+          - link "How to Invest in Stocks Learn how to invest in stocks, including how to select a brokerage account and research stock market investments." [ref=e124] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/investing/learn/how-to-invest-in-stocks
+          - generic [ref=e131]
+        - generic [ref=e134]:
+          - separator [ref=e135]
+          - generic [ref=e137]
+          - separator [ref=e195]
+      - heading "Investing FAQ" [level=2] [ref=e197]
+      - generic [ref=e200]:
+        - button [ref=e201] [cursor=pointer]:
+          - img [ref=e202]
+        - generic [ref=e205]:
+          - link "What is an IRA? An IRA or individual retirement arrangement is a tax-deferred investment account that helps you save for retirement. You can open an IRA at banks, robo-advisors and brokers. Depending on which type of IRA you choose, your contributions may be tax-deductible or withdrawals may be tax-free." [ref=e209] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/article/investing/learn-about-ira-accounts
+          - 'link "401(k) vs. Roth IRA: Which is best? Both 401(k)s and IRAs — including Roth IRAs — have valuable tax benefits, and you can often contribute to both types of accounts. The main difference between 401(k)s and IRAs is that employers offer 401(k)s, but individuals open IRAs on their own, through a broker or bank. IRAs typically offer more investment options, but 401(k)s allow higher annual contributions." [ref=e220] [cursor=pointer]':
+            - /url: https://www.nerdwallet.com/article/investing/ira-vs-401k-retirement-accounts
+          - link "How much will you need to retire? When saving for retirement, most experts recommend an annual retirement savings goal of 10% to 15% of your pre-tax income. High earners generally want to hit the top of that range; low earners can typically hover closer to the bottom since Social Security may replace more of their income." [ref=e231] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/article/investing/how-much-to-save-for-retirement
+          - link [ref=e242] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/article/investing/what-is-how-to-open-brokerage-account
+          - link [ref=e253] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/article/investing/how-to-invest-in-stocks
+          - link [ref=e264] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/article/investing/cryptocurrency
+        - button [ref=e272] [cursor=pointer]:
+          - img [ref=e273]
+        - list [ref=e275]:
+          - listitem [ref=e276]
+          - listitem [ref=e278]
+      - heading "The latest" [level=2] [ref=e281]
+      - generic [ref=e284]:
+        - generic [ref=e287]:
+          - generic [ref=e291]
+          - generic [ref=e309]
+          - generic [ref=e327]
+          - generic [ref=e345]
+          - generic [ref=e363]
+          - generic [ref=e381]
+          - generic [ref=e399]
+          - generic [ref=e417]
+          - generic [ref=e435]
+          - generic [ref=e453]
+          - generic [ref=e471]
+          - generic [ref=e489]
+          - generic [ref=e507]
+          - generic [ref=e525]
+          - generic [ref=e543]
+          - generic [ref=e561]
+          - generic [ref=e579]
+          - generic [ref=e596]
+          - generic [ref=e614]
+          - generic [ref=e632]
+        - navigation "Pagination navigation" [ref=e648]:
+          - list [ref=e649]
+  - contentinfo [ref=e671]:
+    - generic [ref=e672]:
+      - img "NerdWallet Home Page" [ref=e673]
+      - generic [ref=e674]: Finance Smarter
+    - generic [ref=e675]:
+      - generic [ref=e676]: about
+      - link "Company" [ref=e678] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/company
+      - link "Leadership" [ref=e679] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/leadership
+      - link "Careers" [ref=e680] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/careers
+      - link "Corporate impact" [ref=e681] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/corporate-impact
+      - link "Diversity & Inclusion" [ref=e682] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/diversity-inclusion
+      - link "Editorial guidelines" [ref=e683] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+      - link "Star rating methodologies" [ref=e684] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/rating-methodologies
+      - link "Editorial team" [ref=e685] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-team
+      - link "Press" [ref=e686] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/press
+      - link "Press kit" [ref=e687] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/kit
+      - link "Investors" [ref=e688] [cursor=pointer]:
+        - /url: https://investors.nerdwallet.com
+    - generic [ref=e689]:
+      - generic [ref=e690]: help
+      - link "Help center" [ref=e692] [cursor=pointer]:
+        - /url: https://support.nerdwallet.com/hc/en-us
+      - link "Security FAQs" [ref=e693] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/security
+    - generic [ref=e694]:
+      - generic [ref=e695]: legal
+      - link "Terms of use" [ref=e697] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/terms-of-use
+      - link "Supplier Code of Conduct" [ref=e698] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/supplier-code-of-conduct
+      - link "Privacy policy" [ref=e699] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/privacy-policy
+      - link "California privacy policy" [ref=e700] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/nerdwallet-california-privacy-policy
+      - link "Privacy preferences" [ref=e701] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/privacy-policy#s4
+      - link "Do not sell or share my personal information" [ref=e702] [cursor=pointer]:
+        - /url: https://privacyportal.onetrust.com/webform/694a76f6-1f82-455e-b46e-ffeed902c3fa/db85134f-a11a-451c-a462-3f2f39a662bc#opt_out
+    - generic [ref=e703]:
+      - link "Learn more about the app" [ref=e704] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+      - paragraph [ref=e706]: Download the app
+      - generic [ref=e707]:
+        - generic [ref=e708]:
+          - link "Download iOS app" [ref=e709] [cursor=pointer]:
+            - /url: https://nerdwallet.onelink.me/3687710914/87a0b5b3
+          - generic [ref=e711]
+        - generic [ref=e738]:
+          - link "Download Android app" [ref=e739] [cursor=pointer]:
+            - /url: https://nerdwallet.onelink.me/3687710914/233a7a41
+          - generic [ref=e741]
+      - img "QR code for downloading the app" [ref=e768]
+    - generic [ref=e769]:
+      - paragraph [ref=e770]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+      - generic [ref=e771]:
+        - paragraph [ref=e772]: NerdWallet Compare, Inc. NMLS ID# 1617539
+        - paragraph [ref=e773]:
+          - link "NMLS Consumer Access" [ref=e774] [cursor=pointer]:
+            - /url: https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1617539
+          - text: "|"
+          - link "Licenses and Disclosures" [ref=e775] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/nerdwallet-compare-inc-licenses-and-disclosures
+        - paragraph [ref=e776]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e777]:
+          - text: Insurance Services offered through NerdWallet Insurance Services, Inc. (CA resident license no.OK92033)
+          - link "Insurance Licenses" [ref=e778] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/nerdwallet-insurance-services-inc-licenses-and-disclosures
+        - paragraph [ref=e779]: Fundera, Inc. NMLS ID# 1240038
+        - paragraph [ref=e780]:
+          - link "NMLS Consumer Access" [ref=e781] [cursor=pointer]:
+            - /url: https://nmlsconsumeraccess.org/
+        - paragraph [ref=e782]: "California: California Finance Lender loans arranged pursuant to the Department of Financial Protection and Innovation Finance Lenders License #603L288"
+      - paragraph [ref=e783]:
+        - text: NerdWallet has engaged Atomic Invest LLC (“Atomic”), an SEC-registered investment adviser, to bring you the opportunity to open investment advisory accounts (Automated Investing Account and/or Treasury Account) with Atomic. NerdWallet receives compensation of 0% to 0.85% of assets under management annualized, payable monthly, for each referred client who opens an Atomic account and a percentage of free cash interest earned by clients, which creates a conflict of interest. Brokerage services for Atomic are provided by Atomic Brokerage LLC ("Atomic Brokerage"), member of
+        - link "FINRA" [ref=e784] [cursor=pointer]:
+          - /url: https://www.finra.org/#/
+        - text: /
+        - link "SIPC" [ref=e785] [cursor=pointer]:
+          - /url: https://www.sipc.org/
+        - text: and an affiliate of Atomic, which creates a conflict of interest. See details about Atomic, in their
+        - link "Form CRS" [ref=e786] [cursor=pointer]:
+          - /url: https://reports.adviserinfo.sec.gov/crs/crs_313255.pdf
+        - text: ","
+        - link "Form ADV Part 2A" [ref=e787] [cursor=pointer]:
+          - /url: https://adviserinfo.sec.gov/firm/brochure/313255
+        - text: and
+        - link "Privacy Policy" [ref=e788] [cursor=pointer]:
+          - /url: https://legal.atomicvest.com/usa.privacy.de3d0277-78f7-4741-9e9f-755f6b4f03ba.pdf
+        - text: . See details about Atomic Brokerage in their
+        - link "Form CRS" [ref=e789] [cursor=pointer]:
+          - /url: https://files.brokercheck.finra.org/crs_315263.pdf
+        - text: ","
+        - link "General Disclosures" [ref=e790] [cursor=pointer]:
+          - /url: https://legal.atomicvest.com/usa.broker.disclosures.003464f3-f6bd-41c3-bbdf-7050e50b43a2.pdf
+        - text: ","
+        - link "fee schedule" [ref=e791] [cursor=pointer]:
+          - /url: https://legal.atomicvest.com/usa.broker.schedule.7ea28665-88a9-4542-a748-987e90ea46b6.pdf
+        - text: ", and FINRA’s"
+        - link "BrokerCheck" [ref=e792] [cursor=pointer]:
+          - /url: https://brokercheck.finra.org/
+        - text: .
+      - paragraph [ref=e793]:
+        - text: You also can open a Cash Account offered by Atomic Brokerage which allows you to earn interest on your cash through a cash sweep program.
+        - link "View Important Cash Account Disclosures." [ref=e794] [cursor=pointer]:
+          - /url: https://www.atomicvest.com/legal/disclosures/7d9c31dd-bf97-46ae-9803-1774b97187af
+      - paragraph [ref=e795]: "Neither Atomic Invest nor Atomic Brokerage, nor any of their affiliates is a bank. Investments in securities: Not FDIC Insured, Not Bank Guaranteed, May Lose Value. Investing involves risk, including the possible loss of principal. Before investing, consider your investment objectives and the fees and expenses charged."
+      - paragraph [ref=e796]: Images are for illustrative purposes only.
+      - paragraph [ref=e797]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+    - generic [ref=e800]:
+      - generic [ref=e801]:
+        - img "USA" [ref=e802]
+        - text: NerdWallet USA
+      - generic [ref=e803]: "|"
+      - link "CA NerdWallet CA" [ref=e804] [cursor=pointer]:
+        - /url: /ca
+        - img "CA" [ref=e805]
+        - text: NerdWallet CA
+    - generic [ref=e806]:
+      - generic [ref=e807]:
+        - text: © 2026 NerdWallet, Inc.
+        - generic [ref=e808]: All Rights Reserved.
+      - list [ref=e809]:
+        - listitem [ref=e810]:
+          - link "Find NerdWallet on X" [ref=e811] [cursor=pointer]:
+            - /url: https://x.com/NerdWallet
+        - listitem [ref=e813]:
+          - link "Find NerdWallet on YouTube" [ref=e814] [cursor=pointer]:
+            - /url: https://www.youtube.com/@nerdwallet
+        - listitem [ref=e816]:
+          - link "Find NerdWallet on Instagram" [ref=e817] [cursor=pointer]:
+            - /url: https://www.instagram.com/NerdWallet/
+        - listitem [ref=e819]:
+          - link "Find NerdWallet on Apple Podcasts" [ref=e820] [cursor=pointer]:
+            - /url: https://play.megaphone.fm/xcr_lszorm-uiidw0pl5eq
+        - listitem [ref=e822]:
+          - link "Find NerdWallet on TikTok" [ref=e823] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nerdwallet?lang=en
+  - iframe

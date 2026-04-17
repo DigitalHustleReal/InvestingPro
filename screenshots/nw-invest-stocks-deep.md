@@ -1,0 +1,486 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e3]:
+    - generic "Open navigation panel" [ref=e4] [cursor=pointer]
+    - generic [ref=e8]:
+      - link "Skip to content" [ref=e10] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page" [ref=e11] [cursor=pointer]:
+        - /url: /
+        - img "Nerdwallet icon" [ref=e12]
+    - generic:
+      - navigation:
+        - generic "Open Credit cards menu" [ref=e13] [cursor=pointer]:
+          - generic [ref=e14]: Credit cards
+        - generic "Open Banking menu" [ref=e15] [cursor=pointer]:
+          - generic [ref=e16]: Banking
+        - generic "Open Home menu" [ref=e17] [cursor=pointer]:
+          - generic [ref=e18]: Home
+        - generic "Open Loans menu" [ref=e19] [cursor=pointer]:
+          - generic [ref=e20]: Loans
+        - generic "Open Insurance menu" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]: Insurance
+        - generic "Open Personal finance menu" [ref=e23] [cursor=pointer]:
+          - generic [ref=e24]: Personal finance
+        - generic "Open Investing menu" [ref=e25] [cursor=pointer]:
+          - generic [ref=e26]: Investing
+        - generic "Open Small business menu" [ref=e27] [cursor=pointer]:
+          - generic [ref=e28]: Small business
+        - generic "Open Taxes menu" [ref=e29] [cursor=pointer]:
+          - generic [ref=e30]: Taxes
+    - generic "Open search panel" [ref=e31] [cursor=pointer]:
+      - img "Search" [ref=e32]
+    - generic [ref=e33]:
+      - link "Sign In" [ref=e34] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signin&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Finvesting%2Flearn%2Fhow-to-invest-in-stocks&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Finvesting%2Flearn%2Fhow-to-invest-in-stocks&driverContentId=659467&driverContentSource=wp&driverPageName=how_to_invest_in_stocks_as_a_beginner&driverPageViewId=04d64cd2-46ae-4f32-9043-5cc665e8a4b5&deployableName=seo-pages&deployableVersion=1.0.0
+      - link "Join" [ref=e35] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signup&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Finvesting%2Flearn%2Fhow-to-invest-in-stocks&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Finvesting%2Flearn%2Fhow-to-invest-in-stocks&driverContentId=659467&driverContentSource=wp&driverPageName=how_to_invest_in_stocks_as_a_beginner&driverPageViewId=04d64cd2-46ae-4f32-9043-5cc665e8a4b5&deployableName=seo-pages&deployableVersion=1.0.0
+    - generic "Close notifications panel" [ref=e36] [cursor=pointer]:
+      - img "Close"
+  - main [ref=e37]:
+    - generic [ref=e38]:
+      - navigation "Breadcrumbs" [ref=e39]:
+        - link "Back to NerdWallet homepage" [ref=e40] [cursor=pointer]:
+          - /url: /
+          - img [ref=e41]
+        - img [ref=e44]
+        - link "Learn" [ref=e46] [cursor=pointer]:
+          - /url: /investing/learn
+      - generic [ref=e50]:
+        - button "Advertiser disclosure" [ref=e53] [cursor=pointer]
+        - heading "How to Invest in Stocks" [level=1] [ref=e55]
+        - generic [ref=e56]: Learn how to invest in stocks, including how to select a brokerage account and research stock market investments.
+        - generic [ref=e59]:
+          - paragraph [ref=e60]:
+            - text: Many, or all, of the products featured on this page are from our advertising partners who compensate us when you take certain actions on our website or click to take an action on their website. However, this does not influence our evaluations. Our opinions are our own. Here is a list of
+            - link "our partners" [ref=e61] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/our-partners
+            - text: and
+            - link "here's how we make money" [ref=e62] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/advertiser-disclosure
+            - text: .
+          - separator [ref=e63]
+          - paragraph [ref=e65]: The investing information provided on this page is for educational purposes only. NerdWallet, Inc. does not offer advisory or brokerage services, nor does it recommend or advise investors to buy or sell particular stocks, securities or other investments.
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - generic [ref=e70]:
+              - text: Updated
+              - time [ref=e71]: Mar 24, 2026
+              - text: · 6 min read
+            - button "Fact Checked" [ref=e74] [cursor=pointer]:
+              - generic [ref=e75]:
+                - img [ref=e77]
+                - generic [ref=e79]: Fact Checked
+          - generic [ref=e80]:
+            - generic [ref=e81]:
+              - generic [ref=e82]:
+                - link [ref=e84] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/author/chris-davis
+                - generic [ref=e87]
+              - button "Show more authors" [ref=e94] [cursor=pointer]:
+                - generic [ref=e95]
+            - generic [ref=e101]:
+              - generic [ref=e102]:
+                - link [ref=e104] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/reviewer/michael-randall
+                - generic [ref=e107]
+              - text: "2"
+            - generic [ref=e113]:
+              - generic [ref=e114]:
+                - link [ref=e116] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/author/erica-corbin
+                - generic [ref=e119]
+              - text: "1"
+            - generic [ref=e126]:
+              - link [ref=e128] [cursor=pointer]:
+                - /url: https://www.nerdwallet.com/author/sam-taube
+                - figure [ref=e129]
+              - generic [ref=e131]:
+                - generic [ref=e132]
+                - generic [ref=e136]: Lead Writer
+      - generic [ref=e138]:
+        - generic [ref=e139]:
+          - generic [ref=e140]: When you invest in a stock, you’re hoping the company grows and performs well over time. That's how you end up making money. One of the best ways for beginners to learn is to open an online investment account and buy stocks through it.
+          - generic [ref=e141]: You don't need a lot of money to start. Many brokerages allow you to open an investing account with $0, though you'll need some money to actually start investing. Even small amounts — $10 or $20 — will do.
+          - generic [ref=e143]:
+            - text: Some brokers also offer
+            - link "paper trading" [ref=e144] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/best/brokers-paper-trading
+            - text: ", which lets you learn how to buy and sell with stock market simulators before you invest any real money."
+          - heading "How to invest in stocks" [level=2] [ref=e147]
+          - generic [ref=e148]: To invest in stocks, open an online brokerage account, add money to the account, and purchase stocks or stock-based funds from there. While these steps cover DIY investing, you can also invest in stocks through a financial advisor or a robo-advisor (more on that later).
+          - heading "Step 1. Choose a broker" [level=3] [ref=e151]
+          - generic [ref=e153]:
+            - text: To invest in stocks, you'll first need to figure out which broker you want to open an account with. (Not sure how to do this? Read our guide on
+            - link "how to open a brokerage account" [ref=e154] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/learn/what-is-how-to-open-brokerage-account
+            - text: .)
+          - generic [ref=e155]: Some brokers, like Fidelity, are famous for their many years in business and 24/7 customer support. Others, like Robinhood, are known for their easy-to-use platforms and apps.
+          - generic [ref=e156]: You'll want to evaluate brokers based on factors like costs, investment selection, investor research, tools and customer service access. Maybe you'll want to open a brokerage account where you already have a bank account, which can help you see all your finances in one place.
+          - generic [ref=e159]:
+            - text: »
+            - link "Here's our list of the best online stock brokers" [ref=e160] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/best/online-brokers-for-stock-trading
+          - table "Table 18625" [ref=e166]:
+            - rowgroup [ref=e167]:
+              - row "Brokerage firms" [ref=e168]:
+                - columnheader "Brokerage firms" [ref=e169]
+                - columnheader [ref=e171]
+            - rowgroup [ref=e172]:
+              - row "rated 4.8 out of 5 stars NerdWallet rating How is this rating determined? Learn more on Charles Schwab's website rated 4.5 out of 5 stars NerdWallet rating How is this rating determined? Learn more on E*TRADE's website" [ref=e173]:
+                - cell "rated 4.8 out of 5 stars NerdWallet rating How is this rating determined? Learn more on Charles Schwab's website" [ref=e174]
+                - cell "rated 4.5 out of 5 stars NerdWallet rating How is this rating determined? Learn more on E*TRADE's website" [ref=e222]
+              - row "rated 4.2 out of 5 stars NerdWallet rating How is this rating determined? Learn more on Vanguard's website rated 5 out of 5 stars NerdWallet rating How is this rating determined? Learn more on Fidelity's website" [ref=e270]:
+                - cell "rated 4.2 out of 5 stars NerdWallet rating How is this rating determined? Learn more on Vanguard's website" [ref=e271]
+                - cell "rated 5 out of 5 stars NerdWallet rating How is this rating determined? Learn more on Fidelity's website" [ref=e319]
+          - heading "Step 2. Pick a type of investment account" [level=3] [ref=e369]
+          - generic [ref=e371]:
+            - text: There are several types of investment accounts, and it's a good idea to figure out which account is right for you. For example, a
+            - link "Roth IRA" [ref=e372] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/retirement/learn/what-is-a-roth-ira
+            - text: offers significant tax benefits, whereas a standard brokerage account does not.
+          - generic [ref=e373]: You'll need to provide some personal information, including your Social Security number, and it will probably take about 15 minutes to open the account. With some brokerages, it can take a few days to connect your bank account, so you may have to wait before you can start buying investments.
+          - generic [ref=e374]: Keep in mind, an investment account is just an account — it's not an investment. You have to add money to it and then purchase investments from there.
+          - generic [ref=e376]: "Good to know: If you have a 401(k) or other retirement plan at work, you may already be invested in stocks. These plans often offer a curated selection of stock and bond mutual funds. If your employer matches your contributions to that plan, you should invest enough to earn the full match before investing in stocks elsewhere."
+          - heading "Step 3. Choose individual stocks or a stock fund" [level=3] [ref=e379]
+          - generic [ref=e380]: "Investing in the stock market doesn't have to be complicated. For most people, it means choosing between these two investment types:"
+          - generic [ref=e382]: Stock mutual funds
+          - generic [ref=e384]:
+            - link "Mutual funds" [ref=e385] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/learn/how-to-invest-in-mutual-funds
+            - text: let you purchase small pieces of many different stocks in a single transaction. Index funds and exchange-traded funds (ETFs) are two kinds of mutual funds that track an index; for example, an S&P 500 fund replicates that index by buying the stock of the companies in it.
+          - generic [ref=e386]: When you invest in a fund, you also own small pieces of each of those companies. You can put several funds together to build a diversified portfolio. Note that stock mutual funds are also sometimes called equity mutual funds.
+          - generic [ref=e388]: Individual stocks
+          - generic [ref=e389]: If you’re after a specific company, you can buy a single share or a few shares as a way to dip your toe into the stock-trading waters. Building a diversified portfolio out of many individual stocks is possible, but it takes a significant investment and research.
+          - generic [ref=e390]: If you go this route, remember that individual stocks will have ups and downs. If you research a company and choose to invest in it, think about why you picked that company in the first place if jitters start to set in on a down day.
+          - generic [ref=e392]: What makes sense for most investors?
+          - generic [ref=e393]: The upside of stock mutual funds is that they are inherently diversified, which reduces your risk. For the vast majority of investors — particularly those who are investing their retirement savings — a portfolio made up of mostly mutual funds is the clear choice.
+          - generic [ref=e394]: But mutual funds are unlikely to rise in meteoric fashion as some individual stocks might. The upside of individual stocks is that a wise pick can pay off handsomely, but the odds that any individual stock will make you rich are exceedingly slim.
+          - generic [ref=e396]: However, it doesn't have to be all or nothing
+          - generic [ref=e397]: If you decide you want a good portion of your portfolio to be invested in mutual funds, that doesn't mean you have to avoid individual stocks altogether. If you want to test your luck at being an early investor in the next Google, a good compromise could be dedicating a small portion of your portfolio — say, 5% — to individual stock investing.
+          - generic [ref=e400]:
+            - text: »
+            - link "Learn how to research stocks" [ref=e401] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/learn/how-to-research-stocks
+          - iframe [ref=e408]:
+            - main [ref=f129e6]:
+              - iframe [ref=f129e7]:
+                - generic [ref=f130e2]:
+                  - generic [ref=f130e5]:
+                    - generic [ref=f130e6]: The Nerdy Investor
+                    - generic [ref=f130e7]: An easy-to-read breakdown of top market news, economic forecasts and investing terminology.
+                  - generic [ref=f130e9]:
+                    - textbox "Enter your email" [ref=f130e12]
+                    - button "Subscribe" [ref=f130e13]
+          - heading "Step 4. Set a budget" [level=3] [ref=e411]
+          - generic [ref=e412]: "New investors will want to think about two things in this step of the process:"
+          - generic [ref=e414]: How much money do I need to start investing in stocks?
+          - generic [ref=e415]: The amount of money you need to buy a single stock depends on the share price. Share prices can range from just a few dollars to a few thousand dollars. Some brokerages allow you to invest with fractional shares. Simply put, that means you can choose a dollar amount to invest and own part of a share.
+          - generic [ref=e417]:
+            - text: If you want mutual funds and have a small budget,
+            - link "investing in ETFs" [ref=e418] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/learn/how-to-invest-in-etf-exchange-traded-fund
+            - text: may be your best bet. Mutual funds often have minimums of $1,000 or more, but ETFs trade like a stock, which means you purchase them for a share price — in some cases, less than $100.
+          - generic [ref=e420]: How much money should I invest in stocks?
+          - generic [ref=e421]: If you’re investing through funds, you can allocate a fairly large portion of your portfolio toward stock funds, especially if you have a long time horizon.
+          - generic [ref=e422]: A 30-year-old investing for retirement might have 80% of their portfolio in stock funds, with the rest in bond funds (and perhaps a small portion in individual stocks).
+          - heading "Step 5. Focus on investing for the long term" [level=3] [ref=e425]
+          - generic [ref=e426]: Stock market investments have proven to be one of the best ways to grow long-term wealth. Over several decades, the average stock market return has been about 10% per year. However, that’s just an average across the entire market. Some years will be up, some will be down, and individual stocks will vary in their returns.
+          - generic [ref=e427]: For long-term investors, the stock market is a good investment no matter what’s happening day-to-day or year-to-year; they’re looking for that long-term average.
+          - generic [ref=e428]: "The best thing to do after you start investing in stocks or mutual funds may be the hardest: Don’t look at them. Unless you’re trying to beat the odds and succeed at day trading, it’s good to avoid the habit of checking how your stocks are doing every day."
+          - generic [ref=e430]:
+            - text: "Tip: When we say \"long-term investing,\" we generally mean at least five years. That usually gives your portfolio time to ride out any market downturns. If you have a goal that's closer, check out our list of the"
+            - link "best short-term investments" [ref=e431] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/learn/where-to-put-short-term-savings
+            - text: .
+          - heading "Step 6. Manage your stock portfolio" [level=3] [ref=e434]
+          - generic [ref=e435]: While fretting over daily fluctuations won’t do much for your portfolio’s health — or your own — there will, of course, be times when you’ll need to check in on your investments.
+          - generic [ref=e436]: If you follow the steps above to buy mutual funds and individual stocks over time, you’ll want to revisit your portfolio a few times a year to make sure it’s still in line with your investment goals.
+          - generic [ref=e437]: "A few things to consider: If you’re approaching retirement, you may want to move some of your stock investments over to more conservative fixed-income investments. If your portfolio is heavily weighted in one sector or industry, consider buying stocks or funds in another sector to diversify."
+          - generic [ref=e439]:
+            - text: Pay attention to geographic diversification, too. Vanguard recommends that international stocks make up as much as 40% of the stocks in your portfolio. You can purchase international stock mutual funds to get this exposure
+            - button "[1]" [ref=e441] [cursor=pointer]:
+              - superscript [ref=e444]: "[1]"
+            - text: .
+          - generic [ref=e445]:
+            - generic [ref=e447]: If DIY investing feels like too much work ...
+            - generic [ref=e448]: You may be a good candidate for a robo-advisor, a service that invests your money for you for a small fee. Many of the major brokerage firms and some independent companies offer these services.
+            - generic [ref=e449]: Similar to shopping for a broker, there are pros and cons to each. Some robo-advisors have very low fees, while others let you talk with a financial advisor if you need extra support or more personalized guidance. It's a good idea to compare robo-advisors to see which ones offer the services you need. Most robo-advisors charge about 0.25% of your account balance.
+            - generic [ref=e452]:
+              - text: »
+              - link "View our list of the best robo-advisors" [ref=e453] [cursor=pointer]:
+                - /url: https://www.nerdwallet.com/investing/best/robo-advisors
+          - generic [ref=e454]:
+            - generic [ref=e455]: Frequently Asked Questions
+            - generic [ref=e456]:
+              - generic [ref=e457]:
+                - group [ref=e458]
+                - generic [ref=e461]
+              - generic [ref=e468]:
+                - group [ref=e469]
+                - generic [ref=e473]: That really depends on your goals and your risk tolerance. It can be risky to invest a large portion of your wealth in just a few stocks. Diversification — investing in a large number of companies across many industries — is important. If you don't have the time or money to buy dozens of individual stocks, look into low-cost index funds, which invest in hundreds of individual stocks for you.
+              - generic [ref=e474]:
+                - group [ref=e475]
+                - generic [ref=e479]: The truth is, you’ll never know if it’s exactly the right time to invest in stocks. However, if you’re investing for the long term (say, more than five years), then the time to buy stocks may be as soon as you have the money available. Even if the market falls soon after investing, you’ll have plenty of time to make up those losses. And the only way to guarantee you’ll be a part of any stock market recovery and expansion from the beginning is to be invested before the recovery starts.
+              - generic [ref=e480]:
+                - group [ref=e481]
+                - generic [ref=e484]
+        - generic [ref=e490]:
+          - generic [ref=e493]:
+            - group [ref=e494]:
+              - generic "Article sources" [ref=e495] [cursor=pointer]:
+                - generic [ref=e496]: Article sources
+            - generic [ref=e497]:
+              - generic [ref=e499]:
+                - text: NerdWallet writers are subject matter authorities who use primary, trustworthy sources to inform their work, including peer-reviewed studies, government websites, academic research and interviews with industry experts. All content is fact-checked for accuracy, timeliness and relevance. You can learn more about NerdWallet's high standards for journalism by reading our
+                - link [ref=e500] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+              - list [ref=e501]:
+                - listitem [ref=e502]
+          - generic [ref=e507]:
+            - img [ref=e508]
+            - link "Back to top" [ref=e510] [cursor=pointer]
+        - complementary [ref=e512]:
+          - generic [ref=e513]: About the authors
+          - generic [ref=e514]:
+            - link "Chris Davis" [ref=e516] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/author/chris-davis
+              - img "Chris Davis" [ref=e517]
+            - generic [ref=e518]:
+              - link "Chris Davis" [ref=e519] [cursor=pointer]:
+                - /url: https://www.nerdwallet.com/author/chris-davis
+              - generic [ref=e520]:
+                - text: Chris Davis is a Managing Editor on the Investing team. He has covered the stock market, investing strategies, investment accounts and cryptocurrency, and his work has appeared in The Associated Press, The Washington Post, MSN, Yahoo Finance, MarketWatch, Newsday and TheStreet.
+                - link "See full bio." [ref=e521] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/author/chris-davis
+              - generic [ref=e522]:
+                - link "Email Chris Davis" [ref=e523] [cursor=pointer]:
+                  - /url: mailto:cdavis@nerdwallet.com
+                - link "Find Chris Davis on LinkedIn" [ref=e526] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/christopher-davis-45836338/
+          - generic [ref=e529]:
+            - link "Sam Taube" [ref=e531] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/author/sam-taube
+              - img "Sam Taube" [ref=e532]
+            - generic [ref=e533]:
+              - link "Sam Taube" [ref=e534] [cursor=pointer]:
+                - /url: https://www.nerdwallet.com/author/sam-taube
+              - generic [ref=e535]:
+                - text: Sam Taube writes about investing for NerdWallet. He has covered investing and financial news since earning his economics degree in 2016.
+                - link "See full bio." [ref=e536] [cursor=pointer]:
+                  - /url: https://www.nerdwallet.com/author/sam-taube
+              - generic [ref=e537]:
+                - link "Email Sam Taube" [ref=e538] [cursor=pointer]:
+                  - /url: mailto:staube@nerdwallet.com
+                - link "Find Sam Taube on LinkedIn" [ref=e541] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/staube
+    - generic [ref=e545]:
+      - generic [ref=e548]:
+        - generic [ref=e549]: More like this
+        - generic [ref=e550]:
+          - link "Investment Basics" [ref=e551] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/investing/learn
+          - link "Investing" [ref=e552] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/investing
+          - link "Stocks" [ref=e553] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/investing/hubs/stocks
+      - generic [ref=e557]:
+        - generic [ref=e558]: Related articles
+        - generic [ref=e559]:
+          - generic [ref=e561]:
+            - link "What Is a Brokerage Account? Where and How to Open One 2 By Arielle O'Shea, Pamela de la Fuente" [ref=e565] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/learn/what-is-how-to-open-brokerage-account
+              - generic [ref=e567]:
+                - generic [ref=e568]
+                - generic [ref=e571]
+            - link "Best Brokerage Accounts for Online Investing and Stock Trading in 2026 By Chris Davis" [ref=e587] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/best/online-brokers-for-stock-trading
+              - generic [ref=e589]:
+                - generic [ref=e590]
+                - generic [ref=e593]
+            - link "Investment Calculator By Chris Davis" [ref=e608] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/calculators/investment-calculator
+              - generic [ref=e610]:
+                - generic [ref=e611]
+                - generic [ref=e614]
+            - 'link "Best Investments: Where to Invest in 2026 2 By Chris Davis, Alieza Durana" [ref=e629] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/investing/learn/the-best-investments-right-now
+              - generic [ref=e631]:
+                - generic [ref=e632]
+                - generic [ref=e635]
+            - link "The Best-Performing Stocks in 2026 (By One-Year Returns) 2 By Arielle O'Shea, Chris Davis" [ref=e651] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/investing/learn/best-performing-stocks
+              - generic [ref=e653]:
+                - generic [ref=e654]
+                - generic [ref=e657]
+            - 'link "Investing in Dividend Stocks: Guide, Calculator and Top 7 Yields for April 2026 2 By Chris Davis, Sam Taube" [ref=e673] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/investing/learn/how-to-invest-dividend-stocks
+              - generic [ref=e675]:
+                - generic [ref=e676]
+                - generic [ref=e679]
+          - generic [ref=e845]:
+            - button "Go to section 1 of 5" [ref=e846] [cursor=pointer]
+            - button "Go to section 2 of 5" [ref=e847] [cursor=pointer]
+            - button "Go to section 3 of 5" [ref=e848] [cursor=pointer]
+            - button "Go to section 4 of 5" [ref=e849] [cursor=pointer]
+            - button "Go to section 5 of 5" [ref=e850] [cursor=pointer]
+  - contentinfo [ref=e693]:
+    - generic [ref=e694]:
+      - generic [ref=e695]:
+        - img "NerdWallet Home Page" [ref=e696]
+        - generic [ref=e697]: Finance Smarter
+      - generic [ref=e698]:
+        - link "Learn more about the app" [ref=e699] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+          - generic [ref=e700]: Learn more about the app
+        - generic [ref=e702]: Download the app
+        - generic [ref=e703]:
+          - generic [ref=e704]:
+            - link "Download iOS app" [ref=e705] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/87a0b5b3
+              - img "Download on the App Store" [ref=e706]
+            - generic [ref=e707]:
+              - generic [ref=e708]:
+                - generic [ref=e709]: "4.8"
+                - generic [ref=e710]
+              - generic [ref=e733]: 121,000+ reviews
+          - generic [ref=e734]:
+            - link "Download Android app" [ref=e735] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/233a7a41
+              - img "Get it on Google Play" [ref=e736]
+            - generic [ref=e737]:
+              - generic [ref=e738]:
+                - generic [ref=e739]: "4.3"
+                - generic [ref=e740]
+              - generic [ref=e763]: 31,200+ reviews
+      - generic [ref=e764]:
+        - generic [ref=e765]:
+          - generic [ref=e766]: About
+          - generic [ref=e767]:
+            - link "Company" [ref=e768] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/company
+            - link "Leadership" [ref=e769] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/leadership
+            - link "Careers" [ref=e770] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/careers
+            - link "Corporate impact" [ref=e771] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/corporate-impact
+            - link "Diversity & Inclusion" [ref=e772] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/diversity-inclusion
+            - link "Editorial guidelines" [ref=e773] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+            - link "Star rating methodologies" [ref=e774] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/rating-methodologies
+            - link "Editorial team" [ref=e775] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-team
+            - link "Press" [ref=e776] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/press
+            - link "Press kit" [ref=e777] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/kit
+            - link "Investors" [ref=e778] [cursor=pointer]:
+              - /url: https://investors.nerdwallet.com/
+        - generic [ref=e779]:
+          - generic [ref=e780]: Help
+          - generic [ref=e781]:
+            - link "Help center" [ref=e782] [cursor=pointer]:
+              - /url: https://support.nerdwallet.com/hc/en-us
+            - link "Security FAQs" [ref=e783] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/security
+        - generic [ref=e784]:
+          - generic [ref=e785]: Legal
+          - generic [ref=e786]:
+            - link "Terms of use" [ref=e787] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/terms-of-use
+            - link "Supplier Code of Conduct" [ref=e788] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/supplier-code-of-conduct
+            - link "Privacy policy" [ref=e789] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "California privacy policy" [ref=e790] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/nerdwallet-california-privacy-policy
+            - link "Privacy preferences" [ref=e791] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "Do not sell or share my personal information" [ref=e792] [cursor=pointer]:
+              - /url: https://privacyportal.onetrust.com/webform/694a76f6-1f82-455e-b46e-ffeed902c3fa/db85134f-a11a-451c-a462-3f2f39a662bc
+      - generic [ref=e793]:
+        - paragraph [ref=e794]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+        - paragraph [ref=e795]:
+          - generic [ref=e796]: NerdWallet Compare, Inc. NMLS ID# 1617539
+          - link "NMLS Consumer Access" [ref=e797] [cursor=pointer]:
+            - /url: https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1617539
+          - text: "|"
+          - link "Licenses and Disclosures" [ref=e798] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/nerdwallet-compare-inc-licenses-and-disclosures
+        - paragraph [ref=e799]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e800]:
+          - text: Insurance Services offered through NerdWallet Insurance Services, Inc. (CA resident license no.OK92033)
+          - link "Insurance Licenses" [ref=e801] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/nerdwallet-insurance-services-inc-licenses-and-disclosures
+        - paragraph [ref=e802]:
+          - generic [ref=e803]: Fundera, Inc. NMLS ID# 1240038
+          - link "NMLS Consumer Access" [ref=e804] [cursor=pointer]:
+            - /url: https://nmlsconsumeraccess.org/
+        - paragraph [ref=e805]: "California: California Finance Lender loans arranged pursuant to the Department of Financial Protection and Innovation Finance Lenders License #603L288"
+        - paragraph [ref=e806]:
+          - text: NerdWallet has engaged Atomic Invest LLC (“Atomic”), an SEC-registered investment adviser, to bring you the opportunity to open investment advisory accounts (Automated Investing Account and/or Treasury Account) with Atomic. NerdWallet receives compensation of 0% to 0.85% of assets under management annualized, payable monthly, for each referred client who opens an Atomic account and a percentage of free cash interest earned by clients, which creates a conflict of interest. Brokerage services for Atomic are provided by Atomic Brokerage LLC ("Atomic Brokerage"), member of
+          - link "FINRA" [ref=e807] [cursor=pointer]:
+            - /url: https://www.finra.org/#/
+          - text: /
+          - link "SIPC" [ref=e808] [cursor=pointer]:
+            - /url: https://www.sipc.org/
+          - text: and an affiliate of Atomic, which creates a conflict of interest. See details about Atomic, in their
+          - link "Form CRS" [ref=e809] [cursor=pointer]:
+            - /url: https://reports.adviserinfo.sec.gov/crs/crs_313255.pdf
+          - text: ","
+          - link "Form ADV Part 2A" [ref=e810] [cursor=pointer]:
+            - /url: https://adviserinfo.sec.gov/firm/brochure/313255
+          - text: and
+          - link "Privacy Policy" [ref=e811] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.privacy.de3d0277-78f7-4741-9e9f-755f6b4f03ba.pdf
+          - text: . See details about Atomic Brokerage in their
+          - link "Form CRS" [ref=e812] [cursor=pointer]:
+            - /url: https://files.brokercheck.finra.org/crs_315263.pdf
+          - text: ","
+          - link "General Disclosures" [ref=e813] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.disclosures.003464f3-f6bd-41c3-bbdf-7050e50b43a2.pdf
+          - text: ","
+          - link "fee schedule" [ref=e814] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.schedule.7ea28665-88a9-4542-a748-987e90ea46b6.pdf
+          - text: ", and FINRA’s"
+          - link "BrokerCheck" [ref=e815] [cursor=pointer]:
+            - /url: https://brokercheck.finra.org/
+          - text: .
+        - paragraph [ref=e816]:
+          - text: You also can open a Cash Account offered by Atomic Brokerage which allows you to earn interest on your cash through a cash sweep program.
+          - link "View Important Cash Account Disclosures." [ref=e817] [cursor=pointer]:
+            - /url: https://www.atomicvest.com/legal/disclosures/7d9c31dd-bf97-46ae-9803-1774b97187af
+        - paragraph [ref=e818]: "Neither Atomic Invest nor Atomic Brokerage, nor any of their affiliates is a bank. Investments in securities: Not FDIC Insured, Not Bank Guaranteed, May Lose Value. Investing involves risk, including the possible loss of principal. Before investing, consider your investment objectives and the fees and expenses charged."
+        - paragraph [ref=e819]: Images are for illustrative purposes only.
+        - paragraph [ref=e820]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+      - generic [ref=e823]:
+        - link "US NerdWallet USA" [ref=e825] [cursor=pointer]:
+          - /url: /
+          - img "US" [ref=e826]
+          - text: NerdWallet USA
+        - link "CA NerdWallet CA" [ref=e828] [cursor=pointer]:
+          - /url: /ca
+          - img "CA" [ref=e829]
+          - text: NerdWallet CA
+      - generic [ref=e830]:
+        - generic [ref=e831]:
+          - generic [ref=e832]: © 2026 NerdWallet, Inc.
+          - generic [ref=e833]: All Rights Reserved.
+        - generic [ref=e834]:
+          - link "Find NerdWallet on X" [ref=e835] [cursor=pointer]:
+            - /url: https://twitter.com/NerdWallet
+            - img "X" [ref=e836]
+          - link "Find NerdWallet on YouTube" [ref=e837] [cursor=pointer]:
+            - /url: https://www.youtube.com/@nerdwallet
+            - img "YouTube" [ref=e838]
+          - link "Find NerdWallet on Instagram" [ref=e839] [cursor=pointer]:
+            - /url: https://www.instagram.com/NerdWallet/
+            - img "Instagram" [ref=e840]
+          - link "Find NerdWallet on Apple Podcasts" [ref=e841] [cursor=pointer]:
+            - /url: https://play.megaphone.fm/xcr_lszorm-uiidw0pl5eq
+            - img "Apple Podcasts" [ref=e842]
+          - link "Find NerdWallet on TikTok" [ref=e843] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nerdwallet?lang=en
+            - img "TikTok" [ref=e844]

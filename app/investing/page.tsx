@@ -16,7 +16,7 @@ import {
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Investing — Mutual Funds, PPF, NPS, Stocks | InvestingPro",
+  title: "Investing — Mutual Funds, PPF, NPS, Stocks",
   description:
     "Compare mutual funds, PPF, NPS, ELSS, and stocks. Independent research, free calculators, zero commission. Build wealth with data, not guesswork.",
   openGraph: {

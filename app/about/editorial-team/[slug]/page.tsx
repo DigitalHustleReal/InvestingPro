@@ -27,12 +27,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!author) {
     return {
-      title: "Author Not Found - InvestingPro India",
+      title: "Author Not Found",
     };
   }
 
   return {
-    title: `${author.name} - ${author.role} | InvestingPro India`,
+    title: `${author.name} - ${author.role}`,
     description: author.shortBio,
   };
 }

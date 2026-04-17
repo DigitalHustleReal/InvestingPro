@@ -1,0 +1,502 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Skip to content" [ref=e6] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Nerdwallet icon" [ref=e8]
+        - img "Nerdwallet logo" [ref=e9]
+    - navigation [ref=e11]:
+      - generic "Open Credit cards menu" [ref=e13] [cursor=pointer]:
+        - generic [ref=e14]: Credit cards
+      - generic "Open Banking menu" [ref=e16] [cursor=pointer]:
+        - generic [ref=e17]: Banking
+      - generic "Open Home menu" [ref=e19] [cursor=pointer]:
+        - generic [ref=e20]: Home
+      - generic "Open Loans menu" [ref=e22] [cursor=pointer]:
+        - generic [ref=e23]: Loans
+      - generic "Open Insurance menu" [ref=e25] [cursor=pointer]:
+        - generic [ref=e26]: Insurance
+      - generic "Open Personal finance menu" [ref=e28] [cursor=pointer]:
+        - generic [ref=e29]: Personal finance
+      - generic "Open Investing menu" [ref=e31] [cursor=pointer]:
+        - generic [ref=e32]: Investing
+      - generic "Open Small business menu" [ref=e34] [cursor=pointer]:
+        - generic [ref=e35]: Small business
+      - generic "Open Taxes menu" [ref=e37] [cursor=pointer]:
+        - generic [ref=e38]: Taxes
+    - generic "Open search panel" [ref=e39] [cursor=pointer]:
+      - img "Search" [ref=e40]
+    - generic [ref=e41]:
+      - link "Sign In" [ref=e42] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signin&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Flearn%2Fhigh-interest-savings-account&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Flearn%2Fhigh-interest-savings-account&driverContentId=795256&driverContentSource=wp&driverPageName=what_is_a_highyield_savings_account&driverPageViewId=8d423f62-27e4-4b32-93b0-e07f7ffdce61&deployableName=seo-pages&deployableVersion=1.0.0
+      - link "Sign Up" [ref=e43] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/api/nts/v1/login?initialScreen=signup&redirectTo=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Flearn%2Fhigh-interest-savings-account&anonymousUserId=252c5bf4-a290-4c57-8166-69e8e135c128&driverElement=button&driverLocation=global_nav_reg_cta_v1&driverSubLocation=global_nav_reg_cta_v1&driverPageUrl=https%3A%2F%2Fwww.nerdwallet.com%2Fbanking%2Flearn%2Fhigh-interest-savings-account&driverContentId=795256&driverContentSource=wp&driverPageName=what_is_a_highyield_savings_account&driverPageViewId=8d423f62-27e4-4b32-93b0-e07f7ffdce61&deployableName=seo-pages&deployableVersion=1.0.0
+    - generic "Close notifications panel" [ref=e45] [cursor=pointer]:
+      - img "Close" [ref=e46]
+  - main [ref=e47]:
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - navigation "Breadcrumbs" [ref=e52]:
+          - link "Back to NerdWallet homepage" [ref=e53] [cursor=pointer]:
+            - /url: /
+            - img [ref=e54]
+          - img [ref=e57]
+          - link "Banking" [ref=e59] [cursor=pointer]:
+            - /url: /banking
+          - img [ref=e61]
+          - link "Learn" [ref=e63] [cursor=pointer]:
+            - /url: /banking/learn
+          - img [ref=e65]
+          - generic [ref=e67]: What Is a High-Yield Savings Account?
+        - button "Advertiser disclosure" [ref=e70] [cursor=pointer]
+      - heading "What Is a High-Yield Savings Account?" [level=1] [ref=e71]
+      - paragraph [ref=e72]: High-yield savings accounts, often offered by online banks, tend to pay higher rates than traditional savings accounts.
+      - generic [ref=e73]:
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - link [ref=e77] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/author/margarette-burnette
+              - figure [ref=e78]
+            - generic [ref=e80]:
+              - generic [ref=e81]: Written by
+              - button "Margarette Burnette" [ref=e84] [cursor=pointer]
+          - generic [ref=e86]:
+            - link [ref=e87] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/author/yuliya-goldshteyn
+              - figure [ref=e88]
+            - generic [ref=e90]:
+              - generic [ref=e91]: Edited by
+              - button "Yuliya Goldshteyn" [ref=e94] [cursor=pointer]
+        - generic [ref=e96]:
+          - generic [ref=e97]:
+            - text: Updated
+            - time [ref=e98]: Aug 22, 2025
+          - button "Fact Checked" [ref=e100] [cursor=pointer]:
+            - generic [ref=e101]:
+              - img [ref=e102]
+              - generic [ref=e104]: Fact Checked
+    - generic [ref=e106]:
+      - article [ref=e107]:
+        - generic [ref=e109]: The investing information provided on this page is for educational purposes only. NerdWallet, Inc. does not offer advisory or brokerage services, nor does it recommend or advise investors to buy or sell particular stocks, securities or other investments.
+        - heading "Basics of high-yield savings accounts" [level=2] [ref=e112]
+        - generic [ref=e114]: A high-yield savings account pays a higher interest rate on deposits than a traditional savings account. High-yield accounts help your bank balance grow faster than other options. The average national rate for savings accounts is 0.39%, but a high-yield savings account, also called a HYSA or high-interest savings account, earns up to 10 times that rate or more.
+        - generic [ref=e116]:
+          - text: If you want to earn more interest on your money, compare today’s
+          - link "best high-yield savings accounts" [ref=e117] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/best/high-yield-online-savings-accounts
+          - text: . They can boost your savings balance without much effort on your part.
+        - generic [ref=e119]:
+          - img [ref=e120]
+          - link "Back to top" [ref=e122] [cursor=pointer]
+        - heading "How do high-yield savings accounts work?" [level=2] [ref=e125]
+        - generic [ref=e126]: When you put money in an account that pays a high interest rate, your money grows more than with a low-yield option. And interest in a savings account compounds — which means the interest you are paid on your cash also earns interest.
+        - generic [ref=e127]: If you earn 4% on a $1,000 balance that compounds each month, your money would grow by about $40 after a year. It may not make you rich, but that's much better than in an account with a rate of, say, 0.50%. That would earn only about $5 in the same time period.
+        - generic [ref=e129]:
+          - generic [ref=e130]:
+            - generic [ref=e131]: What if you keep that $1,000 in an account that earns 4% for three years? You’ll earn about $130.
+            - text: When you have money in savings, compounding time frames make a difference. Some savings accounts compound daily instead of monthly, and that gives your money more opportunities to grow. You can add up how much you could save with daily, monthly or annual compounding interest using
+          - link "NerdWallet’s compound interest calculator" [ref=e132] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/calculators/compound-interest-calculator
+          - text: .
+        - generic [ref=e134]:
+          - text: "»MORE:"
+          - link "Did you earn a bank bonus or interest? Don't forget to pay taxes" [ref=e135] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/bank-bonus-or-interest-taxes
+        - heading "Which banks have the best savings interest rates?" [level=2] [ref=e138]
+        - generic [ref=e139]: High-interest savings accounts are typically offered by online-focused banks and credit unions. These institutions don’t have the expense of maintaining branches like brick-and-mortar banks and credit unions do, and they can pass the savings on to customers by offering higher yields.
+        - generic [ref=e140]: Many online savings accounts also have no monthly maintenance fees. That can go a long way toward boosting your bank balance.
+        - generic [ref=e142]:
+          - text: "» Understand: Learn the"
+          - link "difference between APY and interest rate" [ref=e143] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/apy-vs-interest-rate
+        - generic [ref=e146]:
+          - generic [ref=e149]: AD
+          - generic [ref=e159]:
+            - tablist [ref=e160]:
+              - generic [ref=e161]
+            - tabpanel [ref=e167]:
+              - generic [ref=e168]
+            - text: These cash accounts combine services and features similar to checking, savings and/or investment accounts in one product. Cash management accounts are typically offered by non-bank financial institutions.
+            - generic [ref=e278]:
+              - generic [ref=e280]
+              - generic [ref=e314]
+              - link [ref=e349] [cursor=pointer]:
+                - /url: https://www.nerdwallet.com/banking/best/cash-management-accounts
+            - text: CDs (certificates of deposit) are a type of savings account with a fixed rate and term, and usually have higher interest rates than regular savings accounts.
+            - generic [ref=e350]:
+              - generic [ref=e352]
+              - generic [ref=e386]
+              - generic [ref=e420]
+              - link [ref=e455] [cursor=pointer]:
+                - /url: https://www.nerdwallet.com/banking/best/cd-rates
+            - text: Checking accounts are used for day-to-day cash deposits and withdrawals.
+            - generic [ref=e456]:
+              - generic [ref=e458]
+              - generic [ref=e487]
+              - generic [ref=e518]
+              - link [ref=e553] [cursor=pointer]:
+                - /url: https://www.nerdwallet.com/banking/best/checking-accounts
+            - text: Money market accounts pay rates similar to savings accounts and have some checking features.
+            - generic [ref=e554]:
+              - generic [ref=e556]
+              - link [ref=e578] [cursor=pointer]:
+                - /url: https://www.nerdwallet.com/banking/best/money-market-accounts
+        - heading "How to choose the best high-yield savings accounts" [level=2] [ref=e581]
+        - generic [ref=e583]:
+          - generic [ref=e584]:
+            - generic [ref=e585]: Start by looking for banks with the highest rates; these days, anything above 4% APY is a great return. Then take a look at the requirements to open the account. With some banks, you must have a certain minimum deposit — such as $1,000. Others offer a competitive rate without minimums or restrictions.
+            - text: Consider whether you'll have ATM access, good customer service, and quality mobile apps and remote deposit features.
+          - link "NerdWallet’s" [ref=e586] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/reviews
+          - link "bank and credit union reviews" [ref=e587] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/reviews
+          - text: take all these factors into account when researching banks. It’s also a good idea to confirm that the funds will be federally insured.
+        - generic [ref=e589]:
+          - img [ref=e590]
+          - link "Back to top" [ref=e592] [cursor=pointer]
+        - heading "Is my money safe in a high-yield savings account?" [level=2] [ref=e595]
+        - generic [ref=e597]:
+          - generic [ref=e598]:
+            - generic [ref=e599]: Putting your money in a federally insured high-interest savings account is safe. Funds at covered banks are insured up to $250,000 per depositor, per ownership category by the Federal Deposit Insurance Corp., or FDIC. At credit unions, the National Credit Union Administration, or NCUA, has a fund that also federally insures up to $250,000 per depositor. This means that you won’t lose your money, up to this amount, if the bank or credit union goes under.
+            - text: Apart from checking your institution's website, you can make sure it's covered by searching for it using the FDIC’s BankFind search page (for banks) or the NCUA’s research page (for credit unions). To learn more, read NerdWallet’s primers on
+          - link "FDIC" [ref=e600] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/fdic-insurance
+          - text: and
+          - link "NCUA" [ref=e601] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/ncua-insurance-keeps-credit-union-deposits-safe
+          - link "insurance" [ref=e602] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/ncua-insurance-keeps-credit-union-deposits-safe
+          - text: .
+        - generic [ref=e604]:
+          - img [ref=e605]
+          - link "Back to top" [ref=e607] [cursor=pointer]
+        - heading "Best uses for a high-yield savings account" [level=2] [ref=e610]
+        - generic [ref=e612]:
+          - text: High-yield savings accounts are a great place for your
+          - link "emergency" [ref=e613] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/emergency-fund-why-it-matters
+          - link "fund" [ref=e614] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/emergency-fund-why-it-matters
+          - text: . Your money is parked in a safe place, and the APY boosts your savings balance.
+        - generic [ref=e616]:
+          - text: You can also use high-yield savings accounts to put money away for short-term goals, such as the down payment on a house, a big vacation or a
+          - link "rainy day fund" [ref=e617] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/why-you-should-save-a-rainy-day-fund-and-an-emergency-fund
+          - text: to cover repair or maintenance expenses. You’ll know you’re earning interest, and there’s not the risk of losing your principal as there is with investment accounts.
+        - generic [ref=e619]:
+          - text: An investment account may be a better way to go for longer-term savings goals, such as
+          - link "saving for retirement" [ref=e620] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/retirement/learn/how-to-save-for-retirement
+          - text: ", as the returns may be higher over time. Use"
+          - link "NerdWallet’s" [ref=e621] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/calculators/savings-calculator
+          - link "savings calculator" [ref=e622] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/calculators/savings-calculator
+          - text: to estimate your balance over time.
+        - generic [ref=e624]:
+          - text: » Looking for more? Read our picks for the
+          - link "best high-interest accounts" [ref=e625] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/best/high-interest-accounts
+        - heading "How often do savings rates change?" [level=2] [ref=e628]
+        - generic [ref=e629]: Savings rates are variable and technically can change at any time. In practice, it’s common to see a bank’s rate remain the same for several weeks in a row. But if the Federal Reserve recently cut rates or increased them, you will often see several banks change their savings rates around the same time.
+        - generic [ref=e631]:
+          - img [ref=e632]
+          - link "Back to top" [ref=e634] [cursor=pointer]
+        - heading "How to open a high-yield savings account" [level=2] [ref=e637]
+        - generic [ref=e638]: "Depending on the type of bank or credit union, you can open a high-rate account either online or in person:"
+        - generic [ref=e639]: 1. Provide contact information. Be prepared to share your Social Security number and at least one form of identification, such as a driver’s license or a passport. (For a joint account, everyone wanting access to the account must provide this information and ID.)
+        - generic [ref=e640]: 2. Sign up for online access, if you'll be managing your account with your desktop or mobile device. You’ll typically need to create a username and password to log in to the account online. For security, choose a strong password that’s hard to guess and is different from passwords you have for other accounts.
+        - generic [ref=e641]: 3. Make a deposit. A bank will generally let you set up a transfer from an existing bank account, set up a wire transfer, or provide a check or cash.
+        - generic [ref=e643]:
+          - img [ref=e644]
+          - link "Back to top" [ref=e646] [cursor=pointer]
+        - heading "What happens if I can’t open a savings account?" [level=2] [ref=e649]
+        - generic [ref=e651]:
+          - text: Not everyone who applies to open a new bank account gets approved on their first try. If you apply online, for example, the financial institution may not be able to confirm your identity. Or you may have a negative banking history — such as a past unpaid bank fee — that another institution reported to a consumer reporting agency, such as
+          - link "ChexSystems" [ref=e652] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/blocked-by-chexsystems-what-to-know
+          - generic [ref=e653]:
+            - generic [ref=e654]: .
+            - text: If you’re unable to open a savings account, you can take steps to
+          - link "get your consumer file on track" [ref=e655] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/what-to-do-when-you-cant-open-a-bank-account
+          - text: . For example, you may be able to open a
+          - link "second chance bank account" [ref=e656] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/second-chance-checking
+          - text: . That way, you’d have an opportunity to establish a solid banking history for a few months or a year. Then, you’d be in a much better position to shop around for a higher-yield option and successfully open a new account.
+        - generic [ref=e658]:
+          - img [ref=e659]
+          - link "Back to top" [ref=e661] [cursor=pointer]
+        - heading "The bottom line" [level=2] [ref=e664]
+        - generic [ref=e666]: The best high-yield savings accounts can help you grow your money faster than basic options. They pay many times more than the national average of 0.39%.
+        - generic [ref=e668]:
+          - generic [ref=e669]: "» Learn more:"
+          - link "How much interest can I earn on $100, $1K or $10K?" [ref=e670] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/banking/learn/how-much-interest-can-i-earn-on-100-1k-or-10k
+        - generic [ref=e672]:
+          - generic [ref=e673]:
+            - img [ref=e674]
+            - generic [ref=e676]: Explore more on
+          - generic [ref=e677]:
+            - link "NerdWallet Banking Reviews" [ref=e678] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/banking/reviews
+            - link "NerdWallet Banking Insights and Articles" [ref=e679] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/banking/learn
+            - link "NerdWallet Banking Calculators" [ref=e680] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/banking/calculators
+            - link "NerdWallet’s Top-Rated Banking Products" [ref=e681] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/banking/best
+            - link "Savings Accounts" [ref=e682] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/banking/hubs/savings-accounts
+            - link "Banking" [ref=e683] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/banking
+        - generic [ref=e686]:
+          - img [ref=e687]
+          - link "Back to top" [ref=e689] [cursor=pointer]
+        - complementary [ref=e690]:
+          - generic [ref=e691]: About the author
+          - generic [ref=e693]:
+            - generic [ref=e696]:
+              - link [ref=e698] [cursor=pointer]:
+                - /url: https://www.nerdwallet.com/author/margarette-burnette
+              - generic [ref=e701]
+            - generic [ref=e722]:
+              - text: Margarette Burnette is a NerdWallet authority on savings, who has been writing about bank accounts since before the Great Recession. Her work has been featured in
+              - link "The Associated Press" [ref=e723] [cursor=pointer]:
+                - /url: https://apnews.com/article/6dc7efc9690e4cc993221f87334f3385
+              - text: ","
+              - link "USA Today" [ref=e724] [cursor=pointer]:
+                - /url: https://www.usatoday.com/story/money/personalfinance/2019/03/26/banks-promotional-offers-give-bonus-savings-checking-accounts/3210547002/
+              - text: and other major newspapers. Before joining NerdWallet, Margarette was a freelance journalist with bylines in magazines such as Good Housekeeping,
+              - link "Black Enterprise" [ref=e725] [cursor=pointer]:
+                - /url: https://www.blackenterprise.com/accelerated-assistance/
+              - text: and Parenting. She is based near Atlanta, Georgia.
+            - generic [ref=e726]:
+              - generic [ref=e727]: Published in
+              - img "Los Angeles Times" [ref=e728]
+              - img "The Associated Press" [ref=e729]
+              - img "The Washington Post" [ref=e730]
+              - img "USA Today" [ref=e731]
+      - complementary [ref=e732]:
+        - figure [ref=e734]:
+          - img "What is a High-Interest Savings Account?" [ref=e737]
+        - link "NerdWallet is committed to editorial integrity." [ref=e738] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/p/advertiser-disclosures#banking
+          - img [ref=e739]
+          - text: NerdWallet is committed to editorial integrity.
+        - generic [ref=e744]:
+          - generic [ref=e745]: Helpful Resources
+          - generic [ref=e748]:
+            - 'link "Best High-Yield Savings Accounts for April 2026: Up to 4.03%" [ref=e750] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/banking/best/high-yield-online-savings-accounts
+              - generic [ref=e751]
+            - 'link "Best CD Rates for April 2026: Up to 4.25%" [ref=e758] [cursor=pointer]':
+              - /url: https://www.nerdwallet.com/banking/best/cd-rates
+              - generic [ref=e759]
+            - link "Best Checking Accounts for April 2026" [ref=e766] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/banking/best/checking-accounts
+              - generic [ref=e767]
+    - generic [ref=e776]:
+      - generic [ref=e777]: Related articles
+      - generic [ref=e780]:
+        - 'link "Best High-Yield Savings Accounts for April 2026: Up to 4.03% By Margarette Burnette" [ref=e784] [cursor=pointer]':
+          - /url: https://www.nerdwallet.com/banking/best/high-yield-online-savings-accounts
+          - generic [ref=e786]:
+            - generic [ref=e787]:
+              - figure [ref=e788]
+              - generic [ref=e789]: "Best High-Yield Savings Accounts for April 2026: Up to 4.03%"
+            - generic [ref=e790]:
+              - generic [ref=e792]
+              - img [ref=e798]
+        - link "Compound Interest Calculator By Margarette Burnette" [ref=e805] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/banking/calculator/compound-interest-calculator
+          - generic [ref=e807]:
+            - generic [ref=e808]:
+              - figure [ref=e809]
+              - generic [ref=e810]: Compound Interest Calculator
+            - generic [ref=e811]:
+              - generic [ref=e813]
+              - img [ref=e819]
+        - link "The Best Places to Save Money and Earn Interest 2 By Spencer Tierney, Margarette Burnette" [ref=e826] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/banking/learn/4-ways-to-earn-more-interest-on-savings
+          - generic [ref=e828]:
+            - generic [ref=e829]:
+              - figure [ref=e830]
+              - generic [ref=e831]: The Best Places to Save Money and Earn Interest
+            - generic [ref=e832]:
+              - generic [ref=e834]
+              - img [ref=e841]
+  - contentinfo [ref=e846]:
+    - generic [ref=e847]:
+      - generic [ref=e848]:
+        - img "NerdWallet Home Page" [ref=e849]
+        - generic [ref=e850]: Finance Smarter
+      - generic [ref=e851]:
+        - link "Learn more about the app" [ref=e852] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+          - generic [ref=e853]: Learn more about the app
+        - generic [ref=e855]: Download the app
+        - generic [ref=e856]:
+          - generic [ref=e857]:
+            - link "Download iOS app" [ref=e858] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/87a0b5b3
+              - img "Download on the App Store" [ref=e859]
+            - generic [ref=e860]:
+              - generic [ref=e861]
+              - generic [ref=e886]: 121,000+ reviews
+          - generic [ref=e887]:
+            - link "Download Android app" [ref=e888] [cursor=pointer]:
+              - /url: https://nerdwallet.onelink.me/3687710914/233a7a41
+              - img "Get it on Google Play" [ref=e889]
+            - generic [ref=e890]:
+              - generic [ref=e891]
+              - generic [ref=e916]: 31,200+ reviews
+        - img "QR code for downloading the app" [ref=e917]
+      - generic [ref=e918]:
+        - generic [ref=e919]:
+          - generic [ref=e920]: About
+          - generic [ref=e921]:
+            - link "Company" [ref=e922] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/company
+            - link "Leadership" [ref=e923] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/leadership
+            - link "Careers" [ref=e924] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/careers
+            - link "Corporate impact" [ref=e925] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/corporate-impact
+            - link "Diversity & Inclusion" [ref=e926] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/diversity-inclusion
+            - link "Editorial guidelines" [ref=e927] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+            - link "Star rating methodologies" [ref=e928] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/rating-methodologies
+            - link "Editorial team" [ref=e929] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-team
+            - link "Press" [ref=e930] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/press
+            - link "Press kit" [ref=e931] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/kit
+            - link "Investors" [ref=e932] [cursor=pointer]:
+              - /url: https://investors.nerdwallet.com/
+        - generic [ref=e933]:
+          - generic [ref=e934]: Help
+          - generic [ref=e935]:
+            - link "Help center" [ref=e936] [cursor=pointer]:
+              - /url: https://support.nerdwallet.com/hc/en-us
+            - link "Security FAQs" [ref=e937] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/l/security
+        - generic [ref=e938]:
+          - generic [ref=e939]: Legal
+          - generic [ref=e940]:
+            - link "Terms of use" [ref=e941] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/terms-of-use
+            - link "Supplier Code of Conduct" [ref=e942] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/supplier-code-of-conduct
+            - link "Privacy policy" [ref=e943] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "California privacy policy" [ref=e944] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/nerdwallet-california-privacy-policy
+            - link "Privacy preferences" [ref=e945] [cursor=pointer]:
+              - /url: https://www.nerdwallet.com/p/privacy-policy
+            - link "Do not sell or share my personal information" [ref=e946] [cursor=pointer]:
+              - /url: https://privacyportal.onetrust.com/webform/694a76f6-1f82-455e-b46e-ffeed902c3fa/db85134f-a11a-451c-a462-3f2f39a662bc
+      - generic [ref=e947]:
+        - paragraph [ref=e948]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+        - paragraph [ref=e949]:
+          - generic [ref=e950]: NerdWallet Compare, Inc. NMLS ID# 1617539
+          - link "NMLS Consumer Access" [ref=e951] [cursor=pointer]:
+            - /url: https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1617539
+          - text: "|"
+          - link "Licenses and Disclosures" [ref=e952] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/nerdwallet-compare-inc-licenses-and-disclosures
+        - paragraph [ref=e953]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e954]:
+          - text: Insurance Services offered through NerdWallet Insurance Services, Inc. (CA resident license no.OK92033)
+          - link "Insurance Licenses" [ref=e955] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/nerdwallet-insurance-services-inc-licenses-and-disclosures
+        - paragraph [ref=e956]:
+          - generic [ref=e957]: Fundera, Inc. NMLS ID# 1240038
+          - link "NMLS Consumer Access" [ref=e958] [cursor=pointer]:
+            - /url: https://nmlsconsumeraccess.org/
+        - paragraph [ref=e959]: "California: California Finance Lender loans arranged pursuant to the Department of Financial Protection and Innovation Finance Lenders License #603L288"
+        - paragraph [ref=e960]:
+          - text: NerdWallet has engaged Atomic Invest LLC (“Atomic”), an SEC-registered investment adviser, to bring you the opportunity to open investment advisory accounts (Automated Investing Account and/or Treasury Account) with Atomic. NerdWallet receives compensation of 0% to 0.85% of assets under management annualized, payable monthly, for each referred client who opens an Atomic account and a percentage of free cash interest earned by clients, which creates a conflict of interest. Brokerage services for Atomic are provided by Atomic Brokerage LLC ("Atomic Brokerage"), member of
+          - link "FINRA" [ref=e961] [cursor=pointer]:
+            - /url: https://www.finra.org/#/
+          - text: /
+          - link "SIPC" [ref=e962] [cursor=pointer]:
+            - /url: https://www.sipc.org/
+          - text: and an affiliate of Atomic, which creates a conflict of interest. See details about Atomic, in their
+          - link "Form CRS" [ref=e963] [cursor=pointer]:
+            - /url: https://reports.adviserinfo.sec.gov/crs/crs_313255.pdf
+          - text: ","
+          - link "Form ADV Part 2A" [ref=e964] [cursor=pointer]:
+            - /url: https://adviserinfo.sec.gov/firm/brochure/313255
+          - text: and
+          - link "Privacy Policy" [ref=e965] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.privacy.de3d0277-78f7-4741-9e9f-755f6b4f03ba.pdf
+          - text: . See details about Atomic Brokerage in their
+          - link "Form CRS" [ref=e966] [cursor=pointer]:
+            - /url: https://files.brokercheck.finra.org/crs_315263.pdf
+          - text: ","
+          - link "General Disclosures" [ref=e967] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.disclosures.003464f3-f6bd-41c3-bbdf-7050e50b43a2.pdf
+          - text: ","
+          - link "fee schedule" [ref=e968] [cursor=pointer]:
+            - /url: https://legal.atomicvest.com/usa.broker.schedule.7ea28665-88a9-4542-a748-987e90ea46b6.pdf
+          - text: ", and FINRA’s"
+          - link "BrokerCheck" [ref=e969] [cursor=pointer]:
+            - /url: https://brokercheck.finra.org/
+          - text: .
+        - paragraph [ref=e970]:
+          - text: You also can open a Cash Account offered by Atomic Brokerage which allows you to earn interest on your cash through a cash sweep program.
+          - link "View Important Cash Account Disclosures." [ref=e971] [cursor=pointer]:
+            - /url: https://www.atomicvest.com/legal/disclosures/7d9c31dd-bf97-46ae-9803-1774b97187af
+        - paragraph [ref=e972]: "Neither Atomic Invest nor Atomic Brokerage, nor any of their affiliates is a bank. Investments in securities: Not FDIC Insured, Not Bank Guaranteed, May Lose Value. Investing involves risk, including the possible loss of principal. Before investing, consider your investment objectives and the fees and expenses charged."
+        - paragraph [ref=e973]: Images are for illustrative purposes only.
+        - paragraph [ref=e974]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+      - generic [ref=e977]:
+        - generic [ref=e978]:
+          - link "US NerdWallet USA" [ref=e979] [cursor=pointer]:
+            - /url: /
+            - img "US" [ref=e980]
+            - text: NerdWallet USA
+          - generic [ref=e981]: "|"
+        - link "CA NerdWallet CA" [ref=e983] [cursor=pointer]:
+          - /url: /ca
+          - img "CA" [ref=e984]
+          - text: NerdWallet CA
+      - generic [ref=e985]:
+        - generic [ref=e986]:
+          - generic [ref=e987]: © 2026 NerdWallet, Inc.
+          - generic [ref=e988]: All Rights Reserved.
+        - generic [ref=e989]:
+          - link "Find NerdWallet on X" [ref=e990] [cursor=pointer]:
+            - /url: https://twitter.com/NerdWallet
+            - img "X" [ref=e991]
+          - link "Find NerdWallet on YouTube" [ref=e992] [cursor=pointer]:
+            - /url: https://www.youtube.com/@nerdwallet
+            - img "YouTube" [ref=e993]
+          - link "Find NerdWallet on Instagram" [ref=e994] [cursor=pointer]:
+            - /url: https://www.instagram.com/NerdWallet/
+            - img "Instagram" [ref=e995]
+          - link "Find NerdWallet on Apple Podcasts" [ref=e996] [cursor=pointer]:
+            - /url: https://play.megaphone.fm/xcr_lszorm-uiidw0pl5eq
+            - img "Apple Podcasts" [ref=e997]
+          - link "Find NerdWallet on TikTok" [ref=e998] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nerdwallet?lang=en
+            - img "TikTok" [ref=e999]
+  - region "Cookie banner" [ref=e1000]:
+    - dialog "Privacy" [ref=e1001]:
+      - generic [ref=e1002]:
+        - generic [ref=e1005]:
+          - text: NerdWallet uses targeting cookies to improve user experience on our site. Learn more in our
+          - link "More information about your privacy, opens in a new tab" [ref=e1006] [cursor=pointer]:
+            - /url: https://www.nerdwallet.com/p/privacy-policy
+            - text: Privacy policy
+        - generic [ref=e1008]:
+          - button "Manage preferences, Opens the preference center dialog" [ref=e1009] [cursor=pointer]: Manage preferences
+          - button "Continue" [ref=e1011] [cursor=pointer]
+        - button "Close" [ref=e1013] [cursor=pointer]

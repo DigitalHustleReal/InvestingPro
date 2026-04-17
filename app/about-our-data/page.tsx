@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Our Data — Sources, Freshness & Scoring | InvestingPro",
+  title: "About Our Data — Sources, Freshness & Scoring",
   description:
     "Complete transparency about where our data comes from (AMFI, RBI, bank websites), how often it is updated, and how products are ranked and scored on InvestingPro.",
   openGraph: {

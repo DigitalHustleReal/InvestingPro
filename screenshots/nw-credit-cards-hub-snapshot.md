@@ -1,0 +1,214 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Skip to content" [ref=e5] [cursor=pointer]:
+        - /url: "#main"
+      - link "NerdWallet Home Page NerdWallet Home Page" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "NerdWallet Home Page" [ref=e7]
+        - img "NerdWallet Home Page" [ref=e8]
+    - navigation [ref=e9]:
+      - list [ref=e10]:
+        - listitem [ref=e11] [cursor=pointer]
+        - listitem [ref=e13] [cursor=pointer]
+        - listitem [ref=e15] [cursor=pointer]
+        - listitem [ref=e17] [cursor=pointer]
+        - listitem [ref=e19] [cursor=pointer]
+        - listitem [ref=e21] [cursor=pointer]
+        - listitem [ref=e23] [cursor=pointer]
+        - listitem [ref=e25] [cursor=pointer]
+        - listitem [ref=e27] [cursor=pointer]
+    - generic [ref=e29]:
+      - generic "Open search panel" [ref=e31] [cursor=pointer]:
+        - img "Search" [ref=e32]
+      - generic [ref=e33]:
+        - generic [ref=e36]
+        - generic [ref=e54]
+  - navigation "Breadcrumbs" [ref=e86]:
+    - link "Back to NerdWallet homepage" [ref=e87] [cursor=pointer]:
+      - /url: https://www.nerdwallet.com/
+      - img [ref=e88]
+  - generic [ref=e94]:
+    - banner [ref=e95]:
+      - generic [ref=e96]:
+        - button "Advertiser disclosure" [ref=e97]
+        - generic [ref=e100]
+    - generic [ref=e103]:
+      - heading "Find a credit card" [level=2] [ref=e105]
+      - generic [ref=e107]:
+        - link "Top credit cards" [ref=e109] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best
+        - link "Find the right card for you" [ref=e116] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/recommend
+        - link "Compare the top credit cards" [ref=e123] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/compare
+        - link "Top balance transfer credit cards" [ref=e130] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/balance-transfer
+        - link "Top 0% APR credit cards" [ref=e137] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/zero-percent
+        - link "Top travel rewards cards" [ref=e144] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/travel
+        - link "Top cash back credit cards" [ref=e151] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/cash-back
+        - link "Top rewards credit cards" [ref=e158] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/rewards
+        - link "Top airline credit cards" [ref=e165] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/best/credit-cards/airline
+        - link "Top business credit cards" [ref=e172] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/business/credit-cards/best
+        - link "Top gas credit cards" [ref=e179] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/gas
+        - link "Top college student credit cards" [ref=e186] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/best/college-student
+      - heading "Credit card calculators" [level=2] [ref=e193]
+      - generic [ref=e195]:
+        - link "Credit Card Interest Calculator Use your credit card balance and interest rate to see how much your interest charges would be for a month." [ref=e197] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/learn/credit-card-interest-calculator
+        - link "Average Daily Balance Credit Card Calculator This is the number credit card issuers use to calculate your interest. Enter your purchases and payments in our simple tool to see your average balance" [ref=e206] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/learn/average-daily-balance-credit-card-calculator
+        - link "Credit Card Balance Transfer Calculator See how much you could save by moving debt from a high-interest credit card to a new card with a 0% intro rate." [ref=e215] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/credit-cards/learn/balance-transfer-calculator
+        - link "Credit Utilization Ratio Credit utilization is calculated by dividing the balance by credit limit for each card and for all cards together." [ref=e224] [cursor=pointer]:
+          - /url: https://www.nerdwallet.com/finance/learn/how-is-credit-utilization-ratio-calculated
+      - heading "Featured Video" [level=2] [ref=e233]
+      - generic [ref=e234]:
+        - button "Play 10:25" [ref=e238] [cursor=pointer]
+        - generic [ref=e248]
+      - heading "Read our reviews" [level=2] [ref=e254]
+      - generic [ref=e260]:
+        - generic [ref=e264]
+        - generic [ref=e281]
+        - generic [ref=e299]
+        - generic [ref=e317]
+        - generic [ref=e335]
+        - generic [ref=e353]
+        - generic [ref=e371]
+        - generic [ref=e389]
+      - heading "» See all credit card reviews by NerdWallet's experts" [level=3] [ref=e404]:
+        - generic [ref=e405]
+      - heading "The latest" [level=2] [ref=e408]
+      - generic [ref=e411]:
+        - generic [ref=e414]
+        - navigation "Pagination navigation" [ref=e776]
+  - contentinfo [ref=e815]:
+    - generic [ref=e816]:
+      - img "NerdWallet Home Page" [ref=e817]
+      - generic [ref=e818]: Finance Smarter
+    - generic [ref=e819]:
+      - generic [ref=e820]: about
+      - link "Company" [ref=e822] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/company
+      - link "Leadership" [ref=e823] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/leadership
+      - link "Careers" [ref=e824] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/careers
+      - link "Corporate impact" [ref=e825] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/corporate-impact
+      - link "Diversity & Inclusion" [ref=e826] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/diversity-inclusion
+      - link "Editorial guidelines" [ref=e827] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-guidelines
+      - link "Star rating methodologies" [ref=e828] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/rating-methodologies
+      - link "Editorial team" [ref=e829] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/nerdwallet-editorial-team
+      - link "Press" [ref=e830] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/press
+      - link "Press kit" [ref=e831] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/kit
+      - link "Investors" [ref=e832] [cursor=pointer]:
+        - /url: https://investors.nerdwallet.com
+    - generic [ref=e833]:
+      - generic [ref=e834]: help
+      - link "Help center" [ref=e836] [cursor=pointer]:
+        - /url: https://support.nerdwallet.com/hc/en-us
+      - link "Security FAQs" [ref=e837] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/security
+    - generic [ref=e838]:
+      - generic [ref=e839]: legal
+      - link "Terms of use" [ref=e841] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/terms-of-use
+      - link "Supplier Code of Conduct" [ref=e842] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/supplier-code-of-conduct
+      - link "Privacy policy" [ref=e843] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/privacy-policy
+      - link "California privacy policy" [ref=e844] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/nerdwallet-california-privacy-policy
+      - link "Privacy preferences" [ref=e845] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/p/privacy-policy#s4
+      - link "Do not sell or share my personal information" [ref=e846] [cursor=pointer]:
+        - /url: https://privacyportal.onetrust.com/webform/694a76f6-1f82-455e-b46e-ffeed902c3fa/db85134f-a11a-451c-a462-3f2f39a662bc#opt_out
+    - generic [ref=e847]:
+      - link "Learn more about the app" [ref=e848] [cursor=pointer]:
+        - /url: https://www.nerdwallet.com/l/nerdwallet-app-track-your-wealth-and-build-your-future
+      - paragraph [ref=e850]: Download the app
+      - generic [ref=e851]:
+        - generic [ref=e852]
+        - generic [ref=e882]
+      - img "QR code for downloading the app" [ref=e912]
+    - generic [ref=e913]:
+      - paragraph [ref=e914]: "Disclaimer: NerdWallet strives to keep its information accurate and up to date. This information may be different than what you see when you visit a financial institution, service provider or specific product's site. All financial products, shopping products and services are presented without warranty. When evaluating offers, please review the financial institution's Terms and Conditions. Pre-qualified offers are not binding. If you find discrepancies with your credit score or information from your credit report, please contact TransUnion® directly."
+      - generic [ref=e915]:
+        - paragraph [ref=e916]: NerdWallet Compare, Inc. NMLS ID# 1617539
+        - paragraph [ref=e917]
+        - paragraph [ref=e920]: "California: California Finance Lender loans arranged pursuant to Department of Financial Protection and Innovation Finance Lenders License #60DBO-74812"
+        - paragraph [ref=e921]
+        - paragraph [ref=e923]: Fundera, Inc. NMLS ID# 1240038
+        - paragraph [ref=e924]
+        - paragraph [ref=e926]: "California: California Finance Lender loans arranged pursuant to the Department of Financial Protection and Innovation Finance Lenders License #603L288"
+      - paragraph [ref=e927]:
+        - text: NerdWallet has engaged Atomic Invest LLC (“Atomic”), an SEC-registered investment adviser, to bring you the opportunity to open investment advisory accounts (Automated Investing Account and/or Treasury Account) with Atomic. NerdWallet receives compensation of 0% to 0.85% of assets under management annualized, payable monthly, for each referred client who opens an Atomic account and a percentage of free cash interest earned by clients, which creates a conflict of interest. Brokerage services for Atomic are provided by Atomic Brokerage LLC ("Atomic Brokerage"), member of
+        - link "FINRA" [ref=e928] [cursor=pointer]:
+          - /url: https://www.finra.org/#/
+        - text: /
+        - link "SIPC" [ref=e929] [cursor=pointer]:
+          - /url: https://www.sipc.org/
+        - text: and an affiliate of Atomic, which creates a conflict of interest. See details about Atomic, in their
+        - link "Form CRS" [ref=e930] [cursor=pointer]:
+          - /url: https://reports.adviserinfo.sec.gov/crs/crs_313255.pdf
+        - text: ","
+        - link "Form ADV Part 2A" [ref=e931] [cursor=pointer]:
+          - /url: https://adviserinfo.sec.gov/firm/brochure/313255
+        - text: and
+        - link "Privacy Policy" [ref=e932] [cursor=pointer]:
+          - /url: https://legal.atomicvest.com/usa.privacy.de3d0277-78f7-4741-9e9f-755f6b4f03ba.pdf
+        - text: . See details about Atomic Brokerage in their
+        - link "Form CRS" [ref=e933] [cursor=pointer]:
+          - /url: https://files.brokercheck.finra.org/crs_315263.pdf
+        - text: ","
+        - link "General Disclosures" [ref=e934] [cursor=pointer]:
+          - /url: https://legal.atomicvest.com/usa.broker.disclosures.003464f3-f6bd-41c3-bbdf-7050e50b43a2.pdf
+        - text: ","
+        - link "fee schedule" [ref=e935] [cursor=pointer]:
+          - /url: https://legal.atomicvest.com/usa.broker.schedule.7ea28665-88a9-4542-a748-987e90ea46b6.pdf
+        - text: ", and FINRA’s"
+        - link "BrokerCheck" [ref=e936] [cursor=pointer]:
+          - /url: https://brokercheck.finra.org/
+        - text: .
+      - paragraph [ref=e937]:
+        - text: You also can open a Cash Account offered by Atomic Brokerage which allows you to earn interest on your cash through a cash sweep program.
+        - link "View Important Cash Account Disclosures." [ref=e938] [cursor=pointer]:
+          - /url: https://www.atomicvest.com/legal/disclosures/7d9c31dd-bf97-46ae-9803-1774b97187af
+      - paragraph [ref=e939]: "Neither Atomic Invest nor Atomic Brokerage, nor any of their affiliates is a bank. Investments in securities: Not FDIC Insured, Not Bank Guaranteed, May Lose Value. Investing involves risk, including the possible loss of principal. Before investing, consider your investment objectives and the fees and expenses charged."
+      - paragraph [ref=e940]: Images are for illustrative purposes only.
+      - paragraph [ref=e941]: NerdWallet™ | 4150 N Drinkwater Blvd, Suite 200, Scottsdale, AZ 85251
+    - generic [ref=e944]:
+      - generic [ref=e945]:
+        - img "USA" [ref=e946]
+        - text: NerdWallet USA
+      - generic [ref=e947]: "|"
+      - link "CA NerdWallet CA" [ref=e948] [cursor=pointer]:
+        - /url: /ca
+        - img "CA" [ref=e949]
+        - text: NerdWallet CA
+    - generic [ref=e950]:
+      - generic [ref=e951]:
+        - text: © 2026 NerdWallet, Inc.
+        - generic [ref=e952]: All Rights Reserved.
+      - list [ref=e953]:
+        - listitem [ref=e954]
+        - listitem [ref=e957]
+        - listitem [ref=e960]
+        - listitem [ref=e963]
+        - listitem [ref=e966]
+  - iframe

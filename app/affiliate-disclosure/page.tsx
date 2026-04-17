@@ -349,9 +349,9 @@ export default function AffiliateDisclosurePage() {
               </p>
               <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
                 <p className="text-gray-700 dark:text-gray-300">
-                  <strong>Email:</strong> partnerships@investingpro.in
+                  <strong>Email:</strong> contact@investingpro.in
                   <br />
-                  <strong>General Inquiries:</strong> support@investingpro.in
+                  <strong>Partnerships:</strong> partnerships@investingpro.in
                   <br />
                   <strong>Address:</strong> InvestingPro, India
                 </p>
