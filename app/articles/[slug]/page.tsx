@@ -23,9 +23,7 @@ import TopPicksSidebar from "@/components/products/TopPicksSidebar";
 // ContextualProducts removed — sidebar handles product recommendations
 // SeamlessCTA and LeadMagnet removed — cluttered bottom section
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Sparkles } from "lucide-react";
-import DifficultyBadge from "@/components/common/DifficultyBadge";
-import TrustBadge from "@/components/common/TrustBadge";
+import { Calendar, Clock } from "lucide-react";
 import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
 // generateSchema removed — using inline NewsArticle schema for Google News
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
@@ -96,7 +94,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticle(slug, false);
-  if (!article) return { title: "Article Not Found | InvestingPro" };
+  if (!article) return { title: "Article Not Found" };
 
   const canonical = generateCanonicalUrl(`/articles/${article.slug}`);
 
@@ -240,13 +238,14 @@ export default async function ArticlePage({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6">
             {/* ── Main Content ─────────────────────────────────── */}
             <article className="lg:col-span-8 min-w-0">
-              {/* Category + trust badges */}
-              <div className="flex flex-wrap items-center gap-3 mb-5">
-                <Badge className="bg-primary/10 text-primary border-primary/20 font-black uppercase tracking-widest text-[10px]">
+              {/* Category badge */}
+              <div className="flex flex-wrap items-center gap-3 mb-4">
+                <Badge
+                  variant="outline"
+                  className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 border-gray-300"
+                >
                   {formatSlug(article.category || "")}
                 </Badge>
-                <DifficultyBadge level={article.difficulty || "beginner"} />
-                <TrustBadge type="fact-checked" />
               </div>
 
               {/* Title */}
@@ -313,7 +312,7 @@ export default async function ArticlePage({
 
               {/* Featured image */}
               {article.featured_image && (
-                <div className="relative aspect-video w-full mb-10 rounded-2xl overflow-hidden shadow-xl">
+                <div className="relative aspect-video w-full mb-8 rounded-lg overflow-hidden border border-gray-200">
                   <Image
                     src={article.featured_image}
                     alt={article.title}

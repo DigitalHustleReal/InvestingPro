@@ -25,17 +25,15 @@ export default function AISummaryBox({
   if (!excerpt || excerpt.length < 30) return null;
 
   return (
-    <div className="mb-8 rounded-xl border border-primary/20 bg-gradient-to-br from-primary/[0.03] to-primary/[0.08] overflow-hidden">
+    <div className="mb-8 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
       {/* Header */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-5 py-3 hover:bg-primary/[0.03] transition-colors cursor-pointer"
+        className="w-full flex items-center justify-between px-5 py-3 hover:bg-gray-100 transition-colors cursor-pointer"
       >
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-md bg-primary/10 flex items-center justify-center">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
-          </div>
-          <span className="text-[13px] font-bold text-primary uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5 text-gray-500" />
+          <span className="text-[13px] font-bold text-gray-700 uppercase tracking-wider">
             Quick Summary
           </span>
           {readTime && (
@@ -64,7 +62,7 @@ export default function AISummaryBox({
           </p>
           {category && (
             <div className="mt-3 flex items-center gap-2 text-[11px] text-muted-foreground">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary font-semibold uppercase tracking-wider">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gray-200 text-gray-600 font-semibold uppercase tracking-wider">
                 {category
                   .split("-")
                   .map((w) => {
