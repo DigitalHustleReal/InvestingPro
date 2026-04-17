@@ -24,6 +24,7 @@ import SentryInit from "@/components/monitoring/SentryInit";
 import { ConditionalPublicElements } from "@/components/common/ConditionalPublicElements";
 import { ConditionalPublicFloating } from "@/components/common/ConditionalPublicFloating";
 import CookieConsent from "@/components/legal/CookieConsent";
+import ThirdPartyScripts from "@/components/monetization/ThirdPartyScripts";
 
 // Font configurations — v2 Design System (DM Sans + DM Mono + Georgia system)
 const dmSans = DM_Sans({
@@ -223,17 +224,8 @@ export default async function RootLayout({
                         <CompareBar />
                         <MobileNav />
                       </ConditionalPublicFloating>
-                      {/* Affiliate auto-monetization scripts */}
-                      <script
-                        async
-                        src="https://cdn.cuelinks.com/cuelinks-sdk.js"
-                        data-publisher-id="244238"
-                      />
-                      <script
-                        async
-                        src="https://ekaro.in/sdk.js"
-                        data-ek-id="5197986"
-                      />
+                      {/* Affiliate & ad scripts — lazy-loaded, page-aware */}
+                      <ThirdPartyScripts />
                       <Toaster />
                     </NavigationProvider>
                   </CompareProvider>
