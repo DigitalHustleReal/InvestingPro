@@ -13,6 +13,7 @@ import { generateSchema } from "@/lib/linking/schema";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
 import { seoContent } from "@/lib/content/calculator-content";
+import CalculatorMarketplace from "@/components/calculators/CalculatorMarketplace";
 
 export const metadata: Metadata = {
   title:
@@ -209,6 +210,12 @@ export default function SIPCalculatorPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <FinancialDisclaimer variant="compact" className="mb-6" />
         <SIPCalculatorV2 />
+        <div className="mt-10">
+          <CalculatorMarketplace
+            category="mutual_fund"
+            sourcePage="sip-calculator"
+          />
+        </div>
       </div>
 
       {/* SEO Content Section */}
