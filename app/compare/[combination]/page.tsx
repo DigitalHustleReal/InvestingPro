@@ -49,17 +49,17 @@ export async function generateMetadata({
   params: { combination: string };
 }): Promise<Metadata> {
   const parts = params.combination.split("-vs-");
-  if (parts.length !== 2) return { title: "Compare Products | InvestingPro" };
+  if (parts.length !== 2) return { title: "Compare Products" };
 
   const [p1, p2] = await Promise.all([
     productService.getProductBySlug(parts[0]),
     productService.getProductBySlug(parts[1]),
   ]);
 
-  if (!p1 || !p2) return { title: "Compare Products | InvestingPro" };
+  if (!p1 || !p2) return { title: "Compare Products" };
 
   return {
-    title: `${p1.name} vs ${p2.name} (2026): Which Is Better? | InvestingPro`,
+    title: `${p1.name} vs ${p2.name} (2026): Which Is Better?`,
     description: `Full side-by-side comparison of ${p1.name} and ${p2.name}. Fees, rewards, eligibility, expert verdict, and our recommendation.`,
     alternates: { canonical: `/compare/${params.combination}` },
   };

@@ -100,11 +100,11 @@ export async function generateMetadata({
   const scheme = await getPPFNPSData(slug);
 
   if (!scheme) {
-    return { title: "Scheme Not Found - InvestingPro" };
+    return { title: "Scheme Not Found" };
   }
 
   return {
-    title: `${scheme.name} Review - ${scheme.interestRate} Interest Rate | InvestingPro`,
+    title: `${scheme.name} Review - ${scheme.interestRate} Interest Rate`,
     description: `${scheme.description} Interest: ${scheme.interestRate}. Tax Benefits: ${scheme.taxBenefit}. Complete guide and how to invest.`,
     keywords: `${scheme.name}, PPF, NPS, tax saving investment, ${scheme.taxBenefit}`,
   };

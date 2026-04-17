@@ -42,7 +42,7 @@ const currentYear = new Date().getFullYear();
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: `Airport Lounge Access via Credit Cards in India (${currentYear} Updated Rules) | InvestingPro`,
+  title: `Airport Lounge Access via Credit Cards in India (${currentYear} Updated Rules)`,
   description: `Complete guide to airport lounge access using credit cards in India. Compare 50+ cards with lounge benefits, activation steps for HDFC, SBI, Axis, ICICI, Amex. Updated ${currentYear} rules including RuPay debit card changes.`,
   keywords: [
     "airport lounge credit card india",

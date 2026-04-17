@@ -139,10 +139,10 @@ export async function generateMetadata({
   const account = await getDematAccountData(slug);
 
   if (!account) {
-    return { title: "Demat Account Not Found - InvestingPro" };
+    return { title: "Demat Account Not Found" };
   }
 
-  const title = `${account.name} Review - Features, Fees & Open Account Online | InvestingPro`;
+  const title = `${account.name} Review - Features, Fees & Open Account Online`;
   const description = `${account.description} Rating: ${account.rating}/5. Brokerage: ${account.equityDeliveryBrokerage}. Compare features and open account online.`;
 
   return {

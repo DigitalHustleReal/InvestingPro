@@ -94,7 +94,7 @@ export async function generateMetadata({
   }).format(amountNum);
 
   return {
-    title: `Best Credit Cards for ${categoryLabel} - Spend ${formattedAmount}/Month | InvestingPro`,
+    title: `Best Credit Cards for ${categoryLabel} - Spend ${formattedAmount}/Month`,
     description: `Find the best credit cards if you spend ${formattedAmount}/month on ${categoryLabel.toLowerCase()}. Compare rewards, fees, and features. Apply instantly.`,
     openGraph: {
       title: `Best Credit Cards for ${categoryLabel} - ${formattedAmount}/Month`,

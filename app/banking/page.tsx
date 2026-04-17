@@ -17,7 +17,7 @@ import { getSavingsAccountsServer } from "@/lib/products/get-savings-accounts-se
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Banking — Compare Savings Accounts, FDs & RDs | InvestingPro",
+  title: "Banking — Compare Savings Accounts, FDs & RDs",
   description:
     "Compare savings account interest rates, fixed deposit rates, and recurring deposits from 50+ banks. Find the best rates for regular and senior citizens.",
   openGraph: {

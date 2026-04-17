@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
-  title: "Pricing — InvestingPro | Free & Pro Plans",
+  title: "Pricing — Free & Pro Plans",
   description:
     "Compare InvestingPro Free vs Pro plans. Get unlimited comparisons, advanced filters, and portfolio tools for ₹199/month. Cancel anytime.",
   alternates: { canonical: "https://investingpro.in/pricing" },

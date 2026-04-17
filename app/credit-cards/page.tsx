@@ -10,7 +10,7 @@ import { logger } from "@/lib/logger";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Best Credit Cards in India (2026) — Compare & Apply | InvestingPro",
+  title: "Best Credit Cards in India (2026) — Compare & Apply",
   description:
     "Compare credit cards from every major Indian bank. Filter by rewards, cashback, travel, annual fee, and network. Independent ratings — no paid placements.",
   openGraph: {

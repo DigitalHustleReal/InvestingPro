@@ -35,12 +35,12 @@ export async function generateMetadata({
 
   if (!author) {
     return {
-      title: "Author Not Found | InvestingPro",
+      title: "Author Not Found",
     };
   }
 
   return {
-    title: `${author.name} - ${author.role || "Financial Expert"} | InvestingPro`,
+    title: `${author.name} - ${author.role || "Financial Expert"}`,
     description:
       author.bio ||
       `Read articles by ${author.name}, ${author.role || "financial expert"} at InvestingPro.`,

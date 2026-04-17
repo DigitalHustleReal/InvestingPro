@@ -7,7 +7,7 @@ import { getInsuranceServer } from "@/lib/products/get-insurance-server";
 
 export const revalidate = 3600;
 export const metadata: Metadata = {
-  title: "Best Insurance Plans in India (2026) — Compare & Buy | InvestingPro",
+  title: "Best Insurance Plans in India (2026) — Compare & Buy",
   description:
     "Compare term life, health, car, and travel insurance from 20+ insurers. Check claim settlement ratios. Independent ratings.",
   openGraph: {

@@ -7,7 +7,7 @@ import { getDematAccountsServer } from "@/lib/products/get-demat-accounts-server
 
 export const revalidate = 3600;
 export const metadata: Metadata = {
-  title: "Best Demat Accounts in India (2026) — Compare Brokers | InvestingPro",
+  title: "Best Demat Accounts in India (2026) — Compare Brokers",
   description:
     "Compare demat accounts from discount and full-service brokers. Brokerage charges, platform features, AMC fees. Independent ratings.",
   openGraph: {

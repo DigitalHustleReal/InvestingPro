@@ -254,12 +254,12 @@ export async function generateMetadata({
 
   if (!card) {
     return {
-      title: "Credit Card Not Found - InvestingPro",
+      title: "Credit Card Not Found",
     };
   }
 
   return {
-    title: `${card.name} Review - Features, Benefits & Apply Online | InvestingPro`,
+    title: `${card.name} Review - Features, Benefits & Apply Online`,
     description: `${card.description} Rating: ${card.rating}/5. Annual fee: ₹${card.annualFee}. Compare benefits, eligibility, and apply online.`,
     keywords: `${card.name}, ${card.provider} credit card, credit card review, ${card.provider.toLowerCase()} card benefits, apply credit card online`,
     openGraph: {

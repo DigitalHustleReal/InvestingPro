@@ -16,7 +16,7 @@ import {
 import { TEAM_MEMBERS } from "@/lib/data/team";
 
 export const metadata: Metadata = {
-  title: "Our Authors & Research Team | InvestingPro India",
+  title: "Our Authors & Research Team",
   description:
     "Meet the research teams behind InvestingPro. Every article is fact-checked against official sources — RBI, SEBI, Income Tax Act, and product issuer terms.",
   openGraph: {

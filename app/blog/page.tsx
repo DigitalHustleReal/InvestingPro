@@ -7,7 +7,7 @@ import BlogClient from "./BlogClient";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Blog — Financial Insights & Updates | InvestingPro",
+  title: "Blog — Financial Insights & Updates",
   description:
     "Latest financial news, market updates, product reviews, and expert analysis for Indian investors. Updated daily.",
   openGraph: {

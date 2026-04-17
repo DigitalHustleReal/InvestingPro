@@ -7,7 +7,7 @@ import SocialShareButtons from "@/components/common/SocialShareButtons";
 import FinancialDisclaimer from "@/components/legal/FinancialDisclaimer";
 
 export const metadata: Metadata = {
-  title: "PPF vs ELSS Calculator 2026 — Tax Saving Comparison | InvestingPro",
+  title: "PPF vs ELSS Calculator 2026 — Tax Saving Comparison",
   description:
     "Compare PPF and ELSS for Section 80C tax saving. Analyse lock-in period, returns, tax-free vs LTCG taxation, risk profile, and maturity value side by side. Updated for FY 2025-26.",
   keywords:

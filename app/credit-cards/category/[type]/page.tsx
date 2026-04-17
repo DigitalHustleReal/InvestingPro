@@ -730,7 +730,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { type } = await params;
   const config = CATEGORY_CONFIGS[type];
-  if (!config) return { title: "Credit Cards by Category | InvestingPro" };
+  if (!config) return { title: "Credit Cards by Category" };
 
   return {
     title: config.metaTitle,

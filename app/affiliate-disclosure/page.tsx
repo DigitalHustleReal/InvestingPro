@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ExternalLink, DollarSign, Shield, FileText } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Affiliate Disclosure | InvestingPro",
+  title: "Affiliate Disclosure",
   description:
     "Learn how InvestingPro earns commissions through affiliate partnerships and our commitment to editorial independence.",
   robots: "index, follow",

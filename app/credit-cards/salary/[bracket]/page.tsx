@@ -554,7 +554,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { bracket } = await params;
   const config = BRACKET_CONFIGS[bracket];
-  if (!config) return { title: "Credit Cards by Salary | InvestingPro" };
+  if (!config) return { title: "Credit Cards by Salary" };
 
   return {
     title: config.metaTitle,

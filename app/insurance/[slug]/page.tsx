@@ -140,11 +140,11 @@ export async function generateMetadata({
   const insurance = await getInsuranceData(slug);
 
   if (!insurance) {
-    return { title: "Insurance Not Found - InvestingPro" };
+    return { title: "Insurance Not Found" };
   }
 
   return {
-    title: `${insurance.name} Review - Coverage, Premium & Buy Online | InvestingPro`,
+    title: `${insurance.name} Review - Coverage, Premium & Buy Online`,
     description: `${insurance.description} Rating: ${insurance.rating}/5. Claim Ratio: ${insurance.claimSettlementRatio}. Compare and buy online.`,
     keywords: `${insurance.name}, ${insurance.provider} insurance, ${insurance.insuranceType}, buy insurance online`,
     openGraph: {

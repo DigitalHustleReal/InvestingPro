@@ -7,7 +7,7 @@ import GlossaryClient from "./GlossaryClient";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Financial Glossary — 200+ Terms Explained Simply | InvestingPro",
+  title: "Financial Glossary — 200+ Terms Explained Simply",
   description:
     "Plain-English definitions for financial terms. SIP, NAV, CAGR, expense ratio, CIBIL score, 80C, NPS, ELSS — every term explained with examples.",
   openGraph: {

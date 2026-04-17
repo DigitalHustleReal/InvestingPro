@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Component Showcase - All Professional Elements | InvestingPro",
+  title: "Component Showcase - All Professional Elements",
   description:
     "Visual demonstration of all professional article components including key takeaways, callouts, stats boxes, and more.",
 };

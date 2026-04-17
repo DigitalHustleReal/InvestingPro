@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Corrections Policy — How We Handle Errors | InvestingPro",
+  title: "Corrections Policy — How We Handle Errors",
   description:
     "Our commitment to accuracy. Learn how errors are reported, investigated, and corrected on InvestingPro. All corrections are transparent with full audit trails.",
   openGraph: {

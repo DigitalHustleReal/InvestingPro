@@ -141,7 +141,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const parsed = parseVersusSlug(slug);
   if (!parsed) {
-    return { title: "Comparison Not Found - InvestingPro" };
+    return { title: "Comparison Not Found" };
   }
 
   const [card1, card2] = await Promise.all([
@@ -150,11 +150,11 @@ export async function generateMetadata({
   ]);
 
   if (!card1 || !card2) {
-    return { title: "Comparison Not Found - InvestingPro" };
+    return { title: "Comparison Not Found" };
   }
 
   const year = new Date().getFullYear();
-  const title = `${card1.name} vs ${card2.name} - Which is Better? (${year}) | InvestingPro`;
+  const title = `${card1.name} vs ${card2.name} - Which is Better? (${year})`;
   const description = `Compare ${card1.name} vs ${card2.name} side by side. See differences in annual fee, rewards, lounge access, welcome bonus & more. Find the best credit card for you in ${year}.`;
 
   return {
