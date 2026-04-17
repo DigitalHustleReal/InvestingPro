@@ -105,6 +105,121 @@ const CATEGORY_CRITERIA: Record<string, RatingCriterion[]> = {
       description: "RBI regulation, grievance history, customer ratings",
     },
   ],
+  insurance: [
+    {
+      label: "Claim settlement ratio",
+      weight: 35,
+      description:
+        "Percentage of claims paid vs filed — from IRDAI annual report",
+    },
+    {
+      label: "Premium affordability",
+      weight: 25,
+      description: "Premium amount relative to sum assured and coverage",
+    },
+    {
+      label: "Coverage & benefits",
+      weight: 20,
+      description: "Sum assured, riders, add-ons, exclusions, waiting period",
+    },
+    {
+      label: "Customer experience",
+      weight: 10,
+      description: "Complaint ratio, app quality, claim process ease",
+    },
+    {
+      label: "Insurer financial strength",
+      weight: 10,
+      description: "Solvency ratio, AUM, years of operation",
+    },
+  ],
+  fixed_deposit: [
+    {
+      label: "Interest rate",
+      weight: 40,
+      description: "Offered rate for general and senior citizen categories",
+    },
+    {
+      label: "Bank/NBFC safety",
+      weight: 25,
+      description:
+        "RBI-regulated bank vs NBFC, DICGC insurance coverage (₹5L limit)",
+    },
+    {
+      label: "Tenure flexibility",
+      weight: 15,
+      description: "Range of tenures offered and premature withdrawal penalty",
+    },
+    {
+      label: "Tax benefits",
+      weight: 10,
+      description: "Section 80C eligibility for tax-saving FDs",
+    },
+    {
+      label: "Ease of booking",
+      weight: 10,
+      description: "Online booking, auto-renewal, interest payout options",
+    },
+  ],
+  demat_account: [
+    {
+      label: "Brokerage charges",
+      weight: 35,
+      description:
+        "Per-trade brokerage for equity delivery, intraday, F&O, currency",
+    },
+    {
+      label: "Platform & tools",
+      weight: 25,
+      description: "Trading platform quality, charting, research, mobile app",
+    },
+    {
+      label: "Account charges",
+      weight: 15,
+      description: "AMC, DP charges, pledge charges, fund transfer fees",
+    },
+    {
+      label: "Product range",
+      weight: 15,
+      description:
+        "Stocks, MF, IPO, bonds, ETFs, commodities, currency — breadth of offerings",
+    },
+    {
+      label: "Regulatory compliance",
+      weight: 10,
+      description: "SEBI registration, NSE/BSE membership, investor grievances",
+    },
+  ],
+  ppf_nps: [
+    {
+      label: "Returns & interest rate",
+      weight: 30,
+      description:
+        "Current government-declared rate (PPF) or fund performance (NPS)",
+    },
+    {
+      label: "Tax benefits",
+      weight: 30,
+      description:
+        "Section 80C, 80CCD(1B) deduction, EEE status, annuity taxation",
+    },
+    {
+      label: "Lock-in & liquidity",
+      weight: 20,
+      description: "Lock-in period, partial withdrawal rules, exit options",
+    },
+    {
+      label: "Safety & government backing",
+      weight: 10,
+      description: "Sovereign guarantee (PPF) or PFRDA regulation (NPS)",
+    },
+    {
+      label: "Ease of operation",
+      weight: 10,
+      description:
+        "Online access, contribution flexibility, account portability",
+    },
+  ],
 };
 
 // ─── Props ──────────────────────────────────────────────────────────────────
@@ -113,7 +228,14 @@ interface RatingExplainerProps {
   /** "tooltip" renders a small [?] trigger; "inline" renders the full card */
   variant: "tooltip" | "inline";
   /** Product category — drives which criteria are shown */
-  category?: "credit_card" | "mutual_fund" | "loan";
+  category?:
+    | "credit_card"
+    | "mutual_fund"
+    | "loan"
+    | "insurance"
+    | "fixed_deposit"
+    | "demat_account"
+    | "ppf_nps";
   /** Pass custom criteria to override defaults */
   criteria?: RatingCriterion[];
   className?: string;

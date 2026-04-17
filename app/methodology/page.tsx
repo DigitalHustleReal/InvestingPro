@@ -362,6 +362,164 @@ export default function MethodologyPage() {
             </CardContent>
           </Card>
 
+          {/* Insurance Methodology */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-6 md:p-8">
+                <Shield className="w-6 h-6 text-primary-600" />
+                Insurance Rating
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <p className="text-sm text-gray-600 mb-3">
+                  Insurance products are rated using IRDAI public data and
+                  policy documents. We never recommend specific policies — we
+                  compare based on publicly available metrics.
+                </p>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Factors &amp; Weights
+                  </h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Claim Settlement Ratio (IRDAI data)
+                      </span>
+                      <span className="text-sm text-gray-600">35%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Premium Affordability
+                      </span>
+                      <span className="text-sm text-gray-600">25%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Coverage &amp; Benefits
+                      </span>
+                      <span className="text-sm text-gray-600">20%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Customer Experience &amp; Complaint Ratio
+                      </span>
+                      <span className="text-sm text-gray-600">10%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Insurer Financial Strength (Solvency Ratio)
+                      </span>
+                      <span className="text-sm text-gray-600">10%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Fixed Deposits Methodology */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-6 md:p-8">
+                <Scale className="w-6 h-6 text-primary-600" />
+                Fixed Deposits Rating
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Factors &amp; Weights
+                  </h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Interest Rate (higher is better)
+                      </span>
+                      <span className="text-sm text-gray-600">40%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Bank/NBFC Safety (DICGC coverage)
+                      </span>
+                      <span className="text-sm text-gray-600">25%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Tenure Flexibility
+                      </span>
+                      <span className="text-sm text-gray-600">15%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Tax Benefits (Section 80C)
+                      </span>
+                      <span className="text-sm text-gray-600">10%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Ease of Booking
+                      </span>
+                      <span className="text-sm text-gray-600">10%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Demat Accounts Methodology */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-6 md:p-8">
+                <TrendingUp className="w-6 h-6 text-primary-600" />
+                Demat Accounts &amp; Brokers Rating
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Factors &amp; Weights
+                  </h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Brokerage Charges
+                      </span>
+                      <span className="text-sm text-gray-600">35%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Platform &amp; Trading Tools
+                      </span>
+                      <span className="text-sm text-gray-600">25%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Account &amp; DP Charges
+                      </span>
+                      <span className="text-sm text-gray-600">15%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        Product Range (Stocks, MF, IPO, Bonds)
+                      </span>
+                      <span className="text-sm text-gray-600">15%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                      <span className="text-sm font-medium">
+                        SEBI Compliance &amp; Grievance Record
+                      </span>
+                      <span className="text-sm text-gray-600">10%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Data Sources */}
           <Card className="mb-8">
             <CardHeader>
