@@ -1,71 +1,37 @@
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/static";
 import { logger } from "@/lib/logger";
 
 interface EditorialItem {
-  tag: string;
-  tagBg: string;
-  gradient: string;
   title: string;
   excerpt: string;
-  time: string;
+  category: string;
+  readTime: string;
   href: string;
+  image: string | null;
 }
-
-const CATEGORY_STYLES: Record<string, { tagBg: string; gradient: string }> = {
-  "Credit Cards": {
-    tagBg: "bg-blue-600/80",
-    gradient: "from-[#1B2A4A] to-[#2C4A6A]",
-  },
-  "Mutual Funds": {
-    tagBg: "bg-green-600/80",
-    gradient: "from-[#14563B] to-[#1A6B4A]",
-  },
-  Tax: {
-    tagBg: "bg-orange-600/80",
-    gradient: "from-[#92400E] to-[#B45309]",
-  },
-  Loans: {
-    tagBg: "bg-red-600/80",
-    gradient: "from-[#991B1B] to-[#DC2626]",
-  },
-  Insurance: {
-    tagBg: "bg-purple-600/80",
-    gradient: "from-[#6B21A8] to-[#7C3AED]",
-  },
-  DEFAULT: {
-    tagBg: "bg-gray-600/80",
-    gradient: "from-[#374151] to-[#1F2937]",
-  },
-};
 
 async function fetchEditorial(): Promise<EditorialItem[]> {
   try {
     const supabase = createClient();
     const { data, error } = await supabase
       .from("articles")
-      .select("title, slug, excerpt, category, read_time")
+      .select("title, slug, excerpt, category, read_time, featured_image")
       .eq("status", "published")
       .order("published_at", { ascending: false, nullsFirst: false })
-      .range(4, 6); // Skip first 4 (shown in MarketPulse) to avoid duplicates
+      .limit(7);
 
     if (error || !data || data.length === 0) return [];
 
-    return data.map((article) => {
-      const cat = article.category || "Finance";
-      const style = CATEGORY_STYLES[cat] || CATEGORY_STYLES.DEFAULT;
-      return {
-        tag: cat,
-        tagBg: style.tagBg,
-        gradient: style.gradient,
-        title: article.title,
-        excerpt:
-          article.excerpt ||
-          `Read our in-depth analysis on ${cat.toLowerCase()}.`,
-        time: article.read_time ? `${article.read_time} min read` : "Article",
-        href: `/articles/${article.slug}`,
-      };
-    });
+    return data.map((article) => ({
+      title: article.title,
+      excerpt: article.excerpt || "",
+      category: (article.category || "finance").replace(/[-_]/g, " "),
+      readTime: article.read_time ? `${article.read_time} min` : "",
+      href: `/articles/${article.slug}`,
+      image: article.featured_image || null,
+    }));
   } catch (err) {
     logger.error(
       "[Editorial] Failed to fetch",
@@ -75,97 +41,111 @@ async function fetchEditorial(): Promise<EditorialItem[]> {
   }
 }
 
-const FALLBACK_ARTICLES: EditorialItem[] = [
-  {
-    tag: "Credit Cards",
-    tagBg: "bg-blue-600/80",
-    gradient: "from-[#1B2A4A] to-[#2C4A6A]",
-    title: "Compare credit cards ranked by real data",
-    excerpt:
-      "Cashback, rewards, travel perks — find the best card for your spending pattern.",
-    time: "Compare",
-    href: "/credit-cards",
-  },
-  {
-    tag: "Mutual Funds",
-    tagBg: "bg-green-600/80",
-    gradient: "from-[#14563B] to-[#1A6B4A]",
-    title: "SIP Calculator: see your real returns after inflation",
-    excerpt:
-      "Most calculators ignore inflation and taxes. Ours shows what your money will actually buy.",
-    time: "Calculator",
-    href: "/calculators/sip",
-  },
-  {
-    tag: "Tax",
-    tagBg: "bg-orange-600/80",
-    gradient: "from-[#92400E] to-[#B45309]",
-    title: "Old vs New tax regime: which saves you more?",
-    excerpt:
-      "Enter your salary, HRA, and deductions — our calculator shows which regime wins.",
-    time: "Calculator",
-    href: "/calculators/income-tax",
-  },
-];
-
 export default async function Editorial() {
-  const articles = await fetchEditorial();
-  const items = articles.length > 0 ? articles : FALLBACK_ARTICLES;
+  const items = await fetchEditorial();
+  if (items.length === 0) return null;
+
+  const featured = items[0];
+  const rest = items.slice(1, 7);
 
   return (
-    <section className="py-12 md:py-16 px-4 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-end justify-between flex-wrap gap-2 mb-7">
+    <section className="py-16 md:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex items-end justify-between mb-10">
           <div>
-            <div className="text-xs font-semibold text-green-600 uppercase tracking-wider mb-2">
-              Research Desk
+            <div className="font-data text-[11px] uppercase tracking-[4px] text-[#D97706] mb-3">
+              Latest Research
             </div>
-            <h2 className="text-2xl md:text-[28px] font-bold text-[--v2-ink] tracking-tight">
-              Honest analysis you won&apos;t find{" "}
-              <span className="text-green-600">elsewhere</span>
+            <h2 className="font-display text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-[#0A1F14] dark:text-white">
+              We did the reading.{" "}
+              <span className="text-[#D97706]">You make the decision.</span>
             </h2>
           </div>
           <Link
             href="/articles"
-            className="text-[13px] text-green-600 font-medium hover:text-green-700 transition-colors"
+            className="hidden sm:inline-flex font-data text-[11px] uppercase tracking-[2px] text-[#D97706] hover:text-[#B45309] transition-colors"
           >
-            All articles →
+            All articles &rarr;
           </Link>
         </div>
 
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((art) => (
-            <Link
-              key={art.title}
-              href={art.href}
-              className="group bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-200 hover:border-green-500 hover:shadow-md hover:-translate-y-0.5"
-            >
-              <div
-                className={`h-28 bg-gradient-to-br ${art.gradient} relative flex items-end p-3.5`}
-                aria-hidden="true"
+        {/* Asymmetric grid: 1 large + 6 small */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 border-2 border-[#0A1F14]/10 dark:border-white/10">
+          {/* Featured article (large) */}
+          <Link
+            href={featured.href}
+            className="lg:col-span-2 group border-b lg:border-b-0 lg:border-r-2 border-[#0A1F14]/10 dark:border-white/10"
+          >
+            {featured.image && (
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image
+                  src={featured.image}
+                  alt={featured.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            )}
+            <div className="p-6">
+              <span className="font-data text-[10px] uppercase tracking-[2px] text-[#16A34A]">
+                {featured.category}
+              </span>
+              <h3 className="font-display text-xl sm:text-2xl font-bold text-[#0A1F14] dark:text-white leading-tight mt-2 mb-3 group-hover:text-[#16A34A] transition-colors">
+                {featured.title}
+              </h3>
+              <p className="text-sm text-[#0A1F14]/60 dark:text-white/60 line-clamp-3 leading-relaxed">
+                {featured.excerpt}
+              </p>
+              <div className="mt-4 font-data text-[10px] text-[#0A1F14]/40 dark:text-white/40 uppercase tracking-wider">
+                InvestingPro Research · {featured.readTime}
+              </div>
+            </div>
+          </Link>
+
+          {/* Rest (small cards) */}
+          <div className="lg:col-span-3">
+            {rest.map((art, i) => (
+              <Link
+                key={art.href}
+                href={art.href}
+                className={`group flex items-start gap-4 p-5 ${
+                  i < rest.length - 1
+                    ? "border-b border-[#0A1F14]/10 dark:border-white/10"
+                    : ""
+                } hover:bg-[#0A1F14]/[0.02] dark:hover:bg-white/[0.02] transition-colors`}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                <span
-                  className={`absolute top-3 left-3 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide text-white ${art.tagBg}`}
-                >
-                  {art.tag}
-                </span>
-                <h3 className="text-[15px] font-semibold text-white leading-snug relative z-10">
-                  {art.title}
-                </h3>
-              </div>
-              <div className="p-3.5">
-                <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
-                  {art.excerpt}
-                </p>
-                <div className="mt-2 text-[11px] text-gray-500 flex gap-2">
-                  <span>InvestingPro Research</span>
-                  <span>{art.time}</span>
+                <div className="flex-1 min-w-0">
+                  <span className="font-data text-[10px] uppercase tracking-[2px] text-[#D97706]">
+                    {art.category}
+                  </span>
+                  <h3 className="font-display text-[15px] font-bold text-[#0A1F14] dark:text-white leading-snug mt-1 group-hover:text-[#16A34A] transition-colors line-clamp-2">
+                    {art.title}
+                  </h3>
+                  <span className="font-data text-[10px] text-[#0A1F14]/40 dark:text-white/40 uppercase tracking-wider mt-1 inline-block">
+                    {art.readTime}
+                  </span>
                 </div>
-              </div>
-            </Link>
-          ))}
+                {art.image && (
+                  <div className="relative w-20 h-14 flex-shrink-0 overflow-hidden">
+                    <Image
+                      src={art.image}
+                      alt=""
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+              </Link>
+            ))}
+          </div>
         </div>
+
+        <Link
+          href="/articles"
+          className="sm:hidden inline-flex mt-6 font-data text-[11px] uppercase tracking-[2px] text-[#D97706]"
+        >
+          All articles &rarr;
+        </Link>
       </div>
     </section>
   );

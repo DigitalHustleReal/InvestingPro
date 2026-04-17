@@ -4,130 +4,104 @@ import type { LucideIcon } from "lucide-react";
 
 const CALCS: {
   icon: LucideIcon;
-  iconBg: string;
   name: string;
   desc: string;
   label: string;
-  sub: string;
   val: string;
   valSub: string;
-  valColor?: string;
   href: string;
 }[] = [
   {
     icon: TrendingUp,
-    iconBg: "bg-green-50 text-green-700",
     name: "SIP Calculator",
     desc: "Monthly SIP growth with inflation, tax, and step-up projection.",
     label: "₹10K/mo · 20yr · 12%",
-    sub: "with inflation + LTCG",
     val: "₹75.8L",
-    valSub: "Real: ₹24.1L",
+    valSub: "Real: ₹24.1L after inflation",
     href: "/calculators/sip",
   },
   {
     icon: Home,
-    iconBg: "bg-blue-50 text-blue-700",
     name: "EMI Calculator",
-    desc: "Loan EMI with prepayment savings and rate sensitivity.",
+    desc: "Loan EMI with prepayment savings and rate sensitivity analysis.",
     label: "₹50L · 8.5% · 20yr",
-    sub: "with prepayment impact",
     val: "₹43,391",
-    valSub: "/month",
+    valSub: "/month · ₹54.1L total interest",
     href: "/calculators/emi",
   },
   {
     icon: Receipt,
-    iconBg: "bg-orange-50 text-orange-700",
     name: "Tax Calculator",
-    desc: "Old vs New regime with deduction finder. Budget 2026.",
-    label: "₹12L · both regimes",
-    sub: "updated Budget 2026",
+    desc: "Old vs New regime with deduction finder. Updated Budget 2026.",
+    label: "₹12L salary · both regimes",
     val: "Save ₹23K",
-    valSub: "New Regime",
-    valColor: "text-green-600",
+    valSub: "New Regime wins at this salary",
     href: "/calculators/tax",
   },
 ];
 
 export default function CalculatorSpotlight() {
   return (
-    <section className="relative py-12 md:py-16 px-4 lg:px-8 bg-gray-50 overflow-hidden">
-      {/* Subtle grid */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(22,163,74,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(22,163,74,.02) 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="flex items-end justify-between flex-wrap gap-2 mb-7">
+    <section className="py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0A1F14]/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex items-end justify-between mb-10">
           <div>
-            <div className="text-xs font-semibold text-green-600 uppercase tracking-wider mb-2">
+            <div className="font-data text-[11px] uppercase tracking-[4px] text-[#D97706] mb-3">
               Free Tools
             </div>
-            <h2 className="text-2xl md:text-[28px] font-bold text-[--v2-ink] tracking-tight">
-              Run the numbers <span className="text-green-600">first</span>
+            <h2 className="font-display text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-[#0A1F14] dark:text-white">
+              Run the numbers{" "}
+              <span className="text-[#D97706]">before you commit.</span>
             </h2>
-            <p className="text-sm text-gray-500 mt-1">
-              25 calculators with tax impact, inflation, and shareable results.
-            </p>
           </div>
           <Link
             href="/calculators"
-            className="text-[13px] text-green-600 font-medium hover:text-green-700 transition-colors"
+            className="hidden sm:inline-flex font-data text-[11px] uppercase tracking-[2px] text-[#D97706] hover:text-[#B45309] transition-colors"
           >
-            All 25 calculators →
+            All 75 calculators &rarr;
           </Link>
         </div>
 
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-3">
-          {CALCS.map((calc) => (
-            <div
-              key={calc.name}
-              className="bg-white border border-gray-200 rounded-xl p-5 transition-all duration-200 hover:border-green-500 hover:shadow-md hover:-translate-y-0.5"
-            >
-              <div
-                className={`w-10 h-10 rounded-[10px] flex items-center justify-center mb-3 ${calc.iconBg}`}
+        <div className="grid gap-0 grid-cols-1 sm:grid-cols-3 border-2 border-[#0A1F14]/10 dark:border-white/10">
+          {CALCS.map((calc, i) => {
+            const Icon = calc.icon;
+            return (
+              <Link
+                key={calc.name}
+                href={calc.href}
+                className={`group p-6 ${
+                  i < CALCS.length - 1
+                    ? "border-b sm:border-b-0 sm:border-r border-[#0A1F14]/10 dark:border-white/10"
+                    : ""
+                } hover:bg-[#0A1F14]/[0.02] dark:hover:bg-white/[0.02] transition-colors`}
               >
-                <calc.icon size={20} />
-              </div>
-              <h3 className="text-[15px] font-semibold text-[--v2-ink] mb-1">
-                {calc.name}
-              </h3>
-              <p className="text-xs text-gray-500 leading-relaxed mb-3.5">
-                {calc.desc}
-              </p>
-              <div className="bg-gray-50 border border-gray-100 rounded-lg p-3 flex items-center justify-between">
-                <div>
-                  <div className="text-[10px] text-gray-500">{calc.label}</div>
-                  <div className="text-[9px] text-gray-500 mt-0.5">
-                    {calc.sub}
+                <Icon className="w-6 h-6 text-[#16A34A] mb-4" />
+                <h3 className="font-display text-lg font-bold text-[#0A1F14] dark:text-white mb-1 group-hover:text-[#16A34A] transition-colors">
+                  {calc.name}
+                </h3>
+                <p className="text-sm text-[#0A1F14]/60 dark:text-white/60 leading-relaxed mb-5">
+                  {calc.desc}
+                </p>
+
+                {/* Live result preview */}
+                <div className="border-2 border-[#0A1F14]/10 dark:border-white/10 p-4">
+                  <div className="font-data text-[10px] text-[#0A1F14]/40 dark:text-white/40 uppercase tracking-wider mb-2">
+                    {calc.label}
                   </div>
-                </div>
-                <div className="text-right">
-                  <div
-                    className={`font-serif text-[22px] ${calc.valColor || "text-[--v2-ink]"}`}
-                  >
+                  <div className="font-data text-3xl font-bold text-[#16A34A]">
                     {calc.val}
                   </div>
-                  <div className="text-[10px] text-green-600">
+                  <div className="font-data text-[11px] text-[#0A1F14]/50 dark:text-white/50 mt-1">
                     {calc.valSub}
                   </div>
                 </div>
-              </div>
-              <Link
-                href={calc.href}
-                className="block mt-3 text-xs text-green-600 font-medium"
-              >
-                Open calculator →
+
+                <div className="mt-4 font-data text-[11px] uppercase tracking-[2px] text-[#D97706] group-hover:text-[#B45309] transition-colors">
+                  Open calculator &rarr;
+                </div>
               </Link>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
