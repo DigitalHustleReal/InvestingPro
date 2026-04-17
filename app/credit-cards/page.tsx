@@ -6,6 +6,7 @@ import { getCreditCardsServer } from "@/lib/products/get-credit-cards-server";
 import CreditCardsClient from "./CreditCardsClient";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { logger } from "@/lib/logger";
+import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 
 export const revalidate = 3600;
 
@@ -149,6 +150,8 @@ export default async function CreditCardsPage() {
               <li className="text-gray-700 font-medium">Credit Cards</li>
             </ol>
           </nav>
+
+          <AdvertiserDisclosure variant="expandable" className="mb-3" />
 
           {/* Title row */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">

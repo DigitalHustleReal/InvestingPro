@@ -6,11 +6,12 @@ import { getLoansServer } from "@/lib/products/get-loans-server";
 import LoansClient from "./LoansClient";
 import CIBILSimulator from "@/components/tools/CIBILSimulator";
 import ContextualTicker from "@/components/common/ContextualTicker";
+import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Best Loans in India (2026) — Compare Rates & Apply | InvestingPro",
+  title: "Best Loans in India (2026) — Compare Rates & Apply",
   description:
     "Compare personal loans, home loans, car loans, and education loans from 60+ lenders. Lowest interest rates, instant eligibility check, EMI calculator.",
   openGraph: {
@@ -123,6 +124,8 @@ export default async function LoansPage() {
               <li className="text-gray-700 font-medium">Loans</li>
             </ol>
           </nav>
+          <AdvertiserDisclosure variant="expandable" className="mb-3" />
+
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
               <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">

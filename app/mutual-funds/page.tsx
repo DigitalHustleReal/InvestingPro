@@ -14,11 +14,12 @@ import {
 import MutualFundsClient from "./MutualFundsClient";
 import { getMutualFundsServer } from "@/lib/products/get-mutual-funds-server";
 import ContextualTicker from "@/components/common/ContextualTicker";
+import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Best Mutual Funds in India (2026) — Compare & Invest | InvestingPro",
+  title: "Best Mutual Funds in India (2026) — Compare & Invest",
   description:
     "Compare mutual funds across equity, debt, hybrid, and index categories. Track NAV, returns, expense ratios. Independent ratings — no paid placements.",
   openGraph: {
@@ -131,6 +132,8 @@ export default async function MutualFundsPage() {
               <li className="text-gray-700 font-medium">Mutual Funds</li>
             </ol>
           </nav>
+          <AdvertiserDisclosure variant="expandable" className="mb-3" />
+
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
               <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">

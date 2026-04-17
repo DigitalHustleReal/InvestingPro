@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight, Shield, CalendarDays } from "lucide-react";
 import DematAccountsClient from "./DematAccountsClient";
 import { getDematAccountsServer } from "@/lib/products/get-demat-accounts-server";
+import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 
 export const revalidate = 3600;
 export const metadata: Metadata = {
@@ -137,6 +138,8 @@ export default async function DematAccountsPage() {
               <li className="text-gray-700 font-medium">Demat Accounts</li>
             </ol>
           </nav>
+          <AdvertiserDisclosure variant="expandable" className="mb-3" />
+
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
               <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">
