@@ -7,6 +7,7 @@ import CreditCardsClient from "./CreditCardsClient";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { logger } from "@/lib/logger";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
+import RatingExplainer from "@/components/products/RatingExplainer";
 
 export const revalidate = 3600;
 
@@ -297,25 +298,23 @@ export default async function CreditCardsPage() {
       {/* ── How we rate ── */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
-            How We Rate Credit Cards
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          {/* Quick stats row */}
+          <div className="grid grid-cols-3 gap-4 mb-8">
             {[
               {
                 num: "23",
                 label: "Data points per card",
-                desc: "Rewards value, fees, interest, benefits, eligibility, and more",
+                desc: "Rewards, fees, interest, benefits, eligibility",
               },
               {
                 num: "Daily",
                 label: "Update frequency",
-                desc: "Rates and benefits scraped from bank websites and RBI data",
+                desc: "Bank websites and RBI data",
               },
               {
                 num: "₹0",
                 label: "Paid placements",
-                desc: "No bank pays for higher ranking. Editorial is independent of commercial.",
+                desc: "No bank pays for higher ranking",
               },
             ].map((stat) => (
               <div
@@ -332,24 +331,9 @@ export default async function CreditCardsPage() {
               </div>
             ))}
           </div>
-          <p className="text-sm text-gray-500 leading-relaxed max-w-2xl">
-            When you apply through our links, we may earn an affiliate
-            commission. This never influences our ratings. See our{" "}
-            <Link
-              href="/methodology"
-              className="text-green-600 font-medium hover:text-green-700"
-            >
-              methodology
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/how-we-make-money"
-              className="text-green-600 font-medium hover:text-green-700"
-            >
-              how we make money
-            </Link>
-            .
-          </p>
+
+          {/* Detailed rating explainer */}
+          <RatingExplainer variant="inline" category="credit_card" />
         </div>
       </section>
 
