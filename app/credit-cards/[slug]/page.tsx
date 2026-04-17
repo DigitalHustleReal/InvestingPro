@@ -456,7 +456,7 @@ export default async function CreditCardDetailPage(props: {
                   category="credit_card"
                   providerName={card.provider}
                   sourcePage="credit-card-detail"
-                  variant="hero"
+                  variant="default"
                   className="flex-1 sm:flex-none"
                 />
                 <a href="#eligibility-checker">
@@ -892,7 +892,7 @@ export default async function CreditCardDetailPage(props: {
                     category="credit_card"
                     providerName={card.provider}
                     sourcePage="credit-card-detail-sidebar"
-                    variant="hero"
+                    variant="default"
                     className="w-full"
                   />
                   <p className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
@@ -924,7 +924,7 @@ export default async function CreditCardDetailPage(props: {
             category="credit_card"
             providerName={card.provider}
             sourcePage="credit-card-detail"
-            variant="bottom"
+            variant="default"
           />
           <p className="text-gray-500 text-xs mt-6">
             Application processed securely by {card.provider}
