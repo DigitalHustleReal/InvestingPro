@@ -844,5 +844,351 @@
     "title": "How to Calculate GST on Your Products — HSN Code, Tax Rate, Invoice Format",
     "keywords": "how to calculate GST",
     "target_audience": "New business owners"
+  },
+
+  {
+    "category": "investing",
+    "title": "How to Read Stock Market Charts for Beginners in India",
+    "keywords": "how to read stock charts india, candlestick chart basics, stock chart patterns beginners",
+    "target_audience": "First-time stock market investors who find charts intimidating"
+  },
+  {
+    "category": "investing",
+    "title": "What Is Sensex and Nifty? Indian Stock Market Indices Explained Simply",
+    "keywords": "what is sensex and nifty, sensex vs nifty difference, BSE NSE explained",
+    "target_audience": "Complete beginners trying to understand Indian stock market basics"
+  },
+  {
+    "category": "investing",
+    "title": "Best Multi-Cap Mutual Funds in India 2026: Top Performers and How to Pick",
+    "keywords": "best multi cap mutual funds 2026, multi cap vs flexi cap, multi cap fund returns",
+    "target_audience": "Investors wanting diversified equity exposure across market caps"
+  },
+  {
+    "category": "investing",
+    "title": "How to Invest in US Stocks from India: Step-by-Step Guide 2026",
+    "keywords": "how to invest in US stocks from india, international investing india, US stock market from india",
+    "target_audience": "Indian investors wanting exposure to US markets like Apple, Google, Tesla"
+  },
+  {
+    "category": "investing",
+    "title": "Smallcase vs Mutual Funds: Which Is Better for Indian Investors?",
+    "keywords": "smallcase vs mutual funds, smallcase review india, thematic investing vs SIP",
+    "target_audience": "Tech-savvy investors comparing modern investment platforms"
+  },
+  {
+    "category": "investing",
+    "title": "ELSS vs PPF vs FD: Best Tax Saving Investment Under Section 80C Compared",
+    "keywords": "ELSS vs PPF vs FD comparison, best 80C investment, tax saving investment comparison india",
+    "target_audience": "Salaried taxpayers confused about which 80C option to choose"
+  },
+  {
+    "category": "investing",
+    "title": "How to Start Investing at Age 40 in India — It's Not Too Late",
+    "keywords": "start investing at 40 india, late investing india, investment plan for 40 year old",
+    "target_audience": "Late starters who feel they've missed the investing window"
+  },
+  {
+    "category": "investing",
+    "title": "What Is a Demat Account and How Does It Work? Complete Guide India",
+    "keywords": "what is demat account, how demat account works, demat account meaning india",
+    "target_audience": "Absolute beginners who don't understand demat accounts"
+  },
+  {
+    "category": "investing",
+    "title": "Best Apps for Stock Trading in India 2026: Features, Charges and Reviews",
+    "keywords": "best stock trading app india 2026, trading app comparison, mobile trading platform india",
+    "target_audience": "Mobile-first investors looking for the best trading app"
+  },
+  {
+    "category": "investing",
+    "title": "Dividend Investing Strategy India: How to Build a Dividend Income Portfolio",
+    "keywords": "dividend investing india, dividend stocks india, dividend income portfolio strategy",
+    "target_audience": "Investors wanting regular passive income from stocks"
+  },
+  {
+    "category": "investing",
+    "title": "How to Invest in REITs in India: Real Estate Investment Without Buying Property",
+    "keywords": "how to invest in REITs india, REIT returns india, real estate investment trust explained",
+    "target_audience": "Investors wanting real estate exposure without buying property"
+  },
+  {
+    "category": "investing",
+    "title": "Balanced Advantage Funds Explained: How Dynamic Asset Allocation Works in India",
+    "keywords": "balanced advantage fund explained, dynamic asset allocation fund, BAF vs hybrid fund india",
+    "target_audience": "Conservative investors wanting equity with downside protection"
+  },
+  {
+    "category": "investing",
+    "title": "ETF vs Index Fund in India: Key Differences and Which to Choose",
+    "keywords": "ETF vs index fund india, ETF vs index fund difference, which is better ETF or index fund",
+    "target_audience": "Passive investors confused between ETFs and index funds"
+  },
+  {
+    "category": "investing",
+    "title": "Portfolio Rebalancing: When and How to Rebalance Your Investments in India",
+    "keywords": "portfolio rebalancing india, when to rebalance portfolio, how to rebalance mutual funds",
+    "target_audience": "Investors with 2+ years of investing experience"
+  },
+  {
+    "category": "investing",
+    "title": "Tax Harvesting in Mutual Funds India: How to Save LTCG Tax Legally",
+    "keywords": "tax harvesting mutual funds india, LTCG tax saving strategy, tax loss harvesting india",
+    "target_audience": "Experienced investors wanting to optimize capital gains tax"
+  },
+  {
+    "category": "investing",
+    "title": "How Much to Invest Monthly Based on Your Salary in India",
+    "keywords": "how much to invest monthly india, investment based on salary, salary based investment plan india",
+    "target_audience": "Salaried professionals at any income level wanting a clear investing formula"
+  },
+  {
+    "category": "investing",
+    "title": "Goal-Based Investing in India: Step-by-Step Plan for Every Life Goal",
+    "keywords": "goal based investing india, investment plan for goals, financial goal planning india",
+    "target_audience": "Individuals planning for multiple financial goals like home, education, retirement"
+  },
+  {
+    "category": "investing",
+    "title": "Passive Income Through Dividends in India: Complete Strategy Guide",
+    "keywords": "passive income dividends india, dividend income strategy, monthly income from dividends india",
+    "target_audience": "Investors wanting to build a stream of passive income"
+  },
+
+  {
+    "category": "small_business",
+    "title": "How to Get MSME Udyam Registration Online: Step-by-Step Guide 2026",
+    "keywords": "MSME Udyam registration online, Udyam registration process, MSME certificate benefits",
+    "target_audience": "Small business owners and freelancers wanting MSME benefits"
+  },
+  {
+    "category": "small_business",
+    "title": "Best Business Credit Cards in India 2026: Rewards, Limits and Annual Fees Compared",
+    "keywords": "best business credit card india 2026, corporate credit card comparison, business card rewards",
+    "target_audience": "Small business owners and founders looking for a dedicated business card"
+  },
+  {
+    "category": "small_business",
+    "title": "Working Capital Loan for Small Business India: Types, Rates and How to Apply",
+    "keywords": "working capital loan small business india, short term business loan, CC OD limit explained",
+    "target_audience": "Small businesses needing funds for daily operations"
+  },
+  {
+    "category": "small_business",
+    "title": "How to File GST Return Online: Step-by-Step Guide for Beginners 2026",
+    "keywords": "how to file GST return online, GSTR-3B filing steps, GST return filing guide",
+    "target_audience": "New business owners filing GST returns for the first time"
+  },
+  {
+    "category": "small_business",
+    "title": "POS Machine Charges Comparison India 2026: Paytm vs PhonePe vs Pine Labs vs BharatPe",
+    "keywords": "POS machine charges comparison india, best POS machine for small shop, swipe machine rental cost",
+    "target_audience": "Retail shop owners and small merchants"
+  },
+  {
+    "category": "small_business",
+    "title": "Best Payment Gateway for Small Business in India 2026: Razorpay vs Cashfree vs PayU",
+    "keywords": "best payment gateway india 2026, payment gateway comparison, cheapest payment gateway india",
+    "target_audience": "Online business owners and freelancers accepting digital payments"
+  },
+  {
+    "category": "small_business",
+    "title": "Business Insurance Types Explained India: Fire, Marine, Liability and More",
+    "keywords": "business insurance types india, commercial insurance for small business, shop insurance india",
+    "target_audience": "Small business owners wanting to protect their business assets"
+  },
+  {
+    "category": "small_business",
+    "title": "How to Create GST Invoice: Format, Rules and Free Template 2026",
+    "keywords": "GST invoice format, how to create GST bill, GST invoice template free, GST invoice rules",
+    "target_audience": "Newly GST-registered business owners"
+  },
+  {
+    "category": "small_business",
+    "title": "TDS for Freelancers and Consultants in India: Rates, Filing and How to Claim Refund",
+    "keywords": "TDS for freelancers india, TDS on professional fees, 194J TDS rate, freelancer TDS refund",
+    "target_audience": "Freelancers and independent consultants"
+  },
+  {
+    "category": "small_business",
+    "title": "Business Loan EMI Calculator Guide: How Much Will Your Monthly Payment Be?",
+    "keywords": "business loan EMI calculator, MUDRA loan EMI, business loan repayment calculator india",
+    "target_audience": "Small business owners planning to take a business loan"
+  },
+
+  {
+    "category": "insurance",
+    "title": "Group Health Insurance vs Individual Policy: Which Is Better for Your Family?",
+    "keywords": "group health insurance vs individual, employer health insurance enough, corporate mediclaim limitations",
+    "target_audience": "Salaried employees relying only on employer-provided insurance"
+  },
+  {
+    "category": "insurance",
+    "title": "Best Cancer Insurance Plans in India 2026: Coverage, Premiums and Claim Process",
+    "keywords": "cancer insurance plan india, best cancer cover, cancer treatment insurance cost",
+    "target_audience": "Health-conscious individuals with family history of cancer"
+  },
+  {
+    "category": "insurance",
+    "title": "Maternity Health Insurance India: Which Plans Cover Pregnancy and Delivery?",
+    "keywords": "maternity health insurance india, pregnancy cover health insurance, delivery coverage mediclaim",
+    "target_audience": "Couples planning pregnancy"
+  },
+  {
+    "category": "insurance",
+    "title": "How to Choose the Right Term Insurance Cover Amount Based on Your Income",
+    "keywords": "how much term insurance needed, term insurance cover calculator, right life cover amount india",
+    "target_audience": "First-time insurance buyers confused about cover amount"
+  },
+  {
+    "category": "insurance",
+    "title": "Personal Accident Insurance India: What It Covers and Why You Need It",
+    "keywords": "personal accident insurance india, accident cover plan, PA policy benefits",
+    "target_audience": "Working professionals and daily commuters"
+  },
+
+  {
+    "category": "credit_cards",
+    "title": "Best Credit Cards for Online Shopping in India 2026: Amazon, Flipkart and More",
+    "keywords": "best credit card online shopping india, amazon credit card, flipkart credit card, e-commerce rewards card",
+    "target_audience": "Frequent online shoppers looking for maximum cashback on e-commerce"
+  },
+  {
+    "category": "credit_cards",
+    "title": "Best Credit Cards for Fuel Purchases in India 2026: Surcharge Waiver and Rewards",
+    "keywords": "best fuel credit card india, fuel surcharge waiver card, petrol credit card rewards",
+    "target_audience": "Car owners and daily commuters spending on fuel"
+  },
+  {
+    "category": "credit_cards",
+    "title": "Credit Card vs Debit Card: Key Differences and Which Is Better for You in India",
+    "keywords": "credit card vs debit card india, difference credit debit card, which is safer credit or debit",
+    "target_audience": "First-time card users confused about credit vs debit"
+  },
+  {
+    "category": "credit_cards",
+    "title": "How Credit Card Interest Is Calculated in India: Billing Cycle, Due Date and Charges Explained",
+    "keywords": "credit card interest calculation india, credit card billing cycle, credit card charges explained",
+    "target_audience": "New credit card holders who don't understand billing"
+  },
+
+  {
+    "category": "demat_account",
+    "title": "Zerodha vs Upstox 2026: Brokerage, Platform and Features Compared",
+    "keywords": "zerodha vs upstox comparison 2026, zerodha or upstox which is better, discount broker comparison",
+    "target_audience": "Investors choosing between the two most popular discount brokers"
+  },
+  {
+    "category": "demat_account",
+    "title": "How to Transfer Shares from One Demat Account to Another: Step-by-Step Guide",
+    "keywords": "transfer shares demat account, how to transfer stocks, demat transfer process DIS",
+    "target_audience": "Investors switching brokers"
+  },
+  {
+    "category": "demat_account",
+    "title": "Demat Account Charges Comparison 2026: AMC, Brokerage and Hidden Fees All Brokers",
+    "keywords": "demat account charges comparison 2026, demat AMC charges, lowest demat charges india",
+    "target_audience": "Cost-conscious investors comparing broker fees"
+  },
+  {
+    "category": "demat_account",
+    "title": "Best Demat Account for IPO Application in India 2026",
+    "keywords": "best demat account for IPO, IPO application demat, which demat for IPO allotment",
+    "target_audience": "Retail investors wanting to apply for IPOs"
+  },
+
+  {
+    "category": "mutual_fund",
+    "title": "Best Large Cap Mutual Funds in India 2026: Stable Returns with Lower Risk",
+    "keywords": "best large cap mutual funds 2026, top large cap funds india, safest equity mutual funds",
+    "target_audience": "Conservative equity investors wanting stable blue-chip exposure"
+  },
+  {
+    "category": "mutual_fund",
+    "title": "How to Switch Mutual Funds Without Tax Penalty: Step-by-Step India Guide",
+    "keywords": "how to switch mutual funds india, mutual fund switch tax implications, switch vs redeem mutual fund",
+    "target_audience": "Existing mutual fund investors wanting to change schemes"
+  },
+  {
+    "category": "mutual_fund",
+    "title": "Best Small Cap Mutual Funds 2026: High Risk, High Return Picks for Aggressive Investors",
+    "keywords": "best small cap mutual funds 2026, top small cap funds india, small cap fund risk",
+    "target_audience": "Aggressive investors with high risk tolerance and 7+ year horizon"
+  },
+
+  {
+    "category": "stocks",
+    "title": "How to Analyse a Stock Before Buying in India: Fundamental Analysis Guide for Beginners",
+    "keywords": "how to analyse stock india, fundamental analysis beginners, stock research guide india",
+    "target_audience": "Beginner investors wanting to pick individual stocks"
+  },
+  {
+    "category": "stocks",
+    "title": "Intraday Trading vs Delivery Trading in India: Key Differences and Tax Rules",
+    "keywords": "intraday vs delivery trading india, day trading vs long term, intraday trading tax india",
+    "target_audience": "New traders confused about trading styles"
+  },
+  {
+    "category": "stocks",
+    "title": "Best Dividend-Paying Stocks in India 2026: High Yield Blue Chips for Regular Income",
+    "keywords": "best dividend stocks india 2026, highest dividend yield shares, dividend income stocks india",
+    "target_audience": "Investors wanting regular income from stock investments"
+  },
+
+  {
+    "category": "retirement",
+    "title": "EPF vs NPS vs PPF: Best Retirement Savings Option for Salaried Employees in India",
+    "keywords": "EPF vs NPS vs PPF comparison, best retirement plan india, retirement savings salaried employee",
+    "target_audience": "Salaried employees comparing all three retirement instruments"
+  },
+  {
+    "category": "retirement",
+    "title": "How to Calculate Your Retirement Corpus: Step-by-Step India Guide with Examples",
+    "keywords": "retirement corpus calculator india, how much for retirement india, retirement planning calculation",
+    "target_audience": "Working professionals in their 30s-40s wanting a clear retirement number"
+  },
+  {
+    "category": "retirement",
+    "title": "Atal Pension Yojana (APY) 2026: Benefits, Eligibility and How to Apply Online",
+    "keywords": "Atal Pension Yojana 2026, APY scheme details, APY eligibility and benefits",
+    "target_audience": "Unorganized sector workers and low-income individuals"
+  },
+
+  {
+    "category": "fixed_deposit",
+    "title": "Corporate FD vs Bank FD: Are Higher Interest Rates Worth the Risk?",
+    "keywords": "corporate FD vs bank FD, company fixed deposit safety, highest corporate FD rates india",
+    "target_audience": "FD investors tempted by higher rates from NBFCs and corporates"
+  },
+  {
+    "category": "fixed_deposit",
+    "title": "Best Short-Term FD Rates in India 2026: 3-Month, 6-Month and 1-Year Deposits Compared",
+    "keywords": "short term FD rates india 2026, best 6 month FD rate, 1 year FD interest rate comparison",
+    "target_audience": "Investors wanting to park money for less than a year"
+  },
+
+  {
+    "category": "ipo",
+    "title": "How to Apply for IPO Through UPI in India: Step-by-Step ASBA Guide 2026",
+    "keywords": "how to apply for IPO UPI, IPO ASBA process, IPO application step by step india",
+    "target_audience": "First-time IPO applicants"
+  },
+  {
+    "category": "ipo",
+    "title": "IPO Grey Market Premium (GMP) Explained: What It Means and Should You Trust It?",
+    "keywords": "IPO GMP meaning, grey market premium explained, IPO GMP reliable indicator",
+    "target_audience": "Retail investors checking GMP before IPO application"
+  },
+  {
+    "category": "ipo",
+    "title": "SME IPO vs Mainboard IPO: Differences, Risks and How to Evaluate",
+    "keywords": "SME IPO vs mainboard IPO, SME IPO risks, how to evaluate SME IPO india",
+    "target_audience": "Investors attracted to SME IPO listing gains"
+  },
+  {
+    "category": "ipo",
+    "title": "Best Upcoming IPOs in India 2026: Complete List with Details and Review",
+    "keywords": "upcoming IPOs 2026 india, new IPO list 2026, best IPO to invest 2026",
+    "target_audience": "IPO-focused retail investors tracking new listings"
   }
 ]

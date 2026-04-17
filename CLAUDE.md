@@ -200,62 +200,87 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 
 ---
 
-## 9. Current Status (April 16 EOD, 2026)
+## 9. Current Status (April 17 EOD, 2026)
 
 ### Platform Inventory
 | Asset | Count | Status |
 |-------|-------|--------|
-| Calculator pages | 75 live | Strongest asset — 58 original + 17 VS comparison |
-| Products in DB | 1,000 (36 CC in `credit_cards`, 962 MF + 1 loan in `products`) | CC images in Supabase Storage |
-| Published articles | **51** (all with body_html, internal links, FAQ schema) | +24 articles added Apr 15-16 |
-| Draft articles | 0 | All published |
-| Glossary terms | 101 (interlinked in 45 articles) | Dashed underline links to /glossary/[slug] |
-| Categories in DB | 16 with descriptions | All active categories have articles |
-| Branded featured images | 6 Grok photorealistic + 45 auto-generated text cards | 45 pending Grok regeneration |
-| Inline infographics | 16 across 13 articles | Comparison tables, step flows, stat cards |
-| FAQ schema | 40/51 articles | FAQPage JSON-LD for rich results |
-| Authors in DB | 1 ("InvestingPro Editorial Team") | Team bylines, no fake personas |
+| Calculator pages | 75 live | 58 original + 17 VS comparison |
+| Products in DB | 1,000 (36 CC, 962 MF + 1 loan) | CC images in Supabase Storage |
+| Published articles | **189+** (all with body_html, FAQ schema, desk bylines) | Target HIT — topical authority |
+| Glossary terms | 101 | Dashed underline links to /glossary/[slug] |
+| Categories | 18 normalized (hyphens) | All categories have 2+ articles |
+| Grok featured images | 29 approved, processing pending | Bright editorial style |
+| FAQ schema | ~180/189 articles | FAQPage JSON-LD |
+| Editorial desks | 7 (Tax, Credit, Investment, Lending, Insurance, Banking, Editorial) | Auto-assigned by category |
+| Affiliate networks | 2 active (Cuelinks 244238 + EarnKaro 5197986) | Smart lazy loader |
+| Contact email | contact@investingpro.in | Updated across 19 files |
 
 ### Vercel Deployment
 - Project: `investing-pro` at `https://www.investingpro.in`
 - Node 24.x, auto-deploy on git push
-- Vercel CLI v51.4.0 installed + linked
-- `NEXT_PUBLIC_BASE_URL=https://www.investingpro.in` (with www — fixed Apr 16)
-- `CRON_SECRET` set (no whitespace — whitespace bug blocked deploys, fixed Apr 16)
+- `NEXT_PUBLIC_BASE_URL=https://www.investingpro.in`
+- `CRON_SECRET` set (no whitespace)
 
-### What's Done (Apr 15-16 sprint):
-- [x] 75 calculator pages (58 original + 17 VS comparison)
-- [x] 51 published articles with body_html, internal links, FAQ schema, glossary links
-- [x] 16 inline infographics across 13 articles (comparison tables, step flows, stat cards)
-- [x] All fake data removed (testimonials, experts, random stats, fabricated credentials)
-- [x] Team bylines replacing 9 fake author personas (no individual claims)
-- [x] Article page redesigned: sidebar TOC, AI Summary Box, sortable tables, green headers
-- [x] Bookmark/share inline with author (not floating)
-- [x] View count removed (zero views destroys trust)
-- [x] Duplicate dates removed, single "Updated/Published" date shown
-- [x] MidArticleCapture and InlineProductCard removed (interrupts reading)
-- [x] "Fact-checked · Editorial standards" link added to meta row
-- [x] Live rates API (`/api/rates`) + LiveRatesHydrator for [data-live-rate] spans
-- [x] TableEnhancer: sortable columns, horizontal scroll mobile, vertical scroll long tables
-- [x] `formatSlug()` utility: 50+ abbreviations (HRA, HDFC, IPO, ELSS, CIBIL, 80C, etc.)
-- [x] Contextual tickers on product pages (CC, MF, FD, Loans)
-- [x] Stock market ticker removed from homepage
-- [x] Google News sitemap + NewsArticle schema on article pages
-- [x] Scheduled publishing system (cron every 15 min, service client)
-- [x] Featured image URLs fixed: absolute → relative paths
-- [x] Article listing API: returns listing fields only (not body_html)
-- [x] Title tag dedup: stripped double "| InvestingPro | InvestingPro"
-- [x] Technical SEO audit: score 87/100
+### What's Done (Apr 17 — NerdWallet Parity Sprint):
+
+**Design & UI (17 commits):**
+- [x] NerdWallet color system: neutral body, green CTAs only
+- [x] Double title suffix fixed across 35+ pages
+- [x] Product cards redesigned: full-width NW-style stacked blocks with data strips + accordions
+- [x] "Best of" roundup page template: `/{category}/best/{subcategory}` (35 subcategory pages)
+- [x] Calculator → product marketplace (SIP, EMI, FD calculators show products below results)
+- [x] ApplyNowCTA: uppercase "APPLY NOW", square (2px radius), "on [Provider]'s website" subtext
+- [x] Expandable advertiser disclosure on all 6 product pages
+- [x] Article page: neutral category badge, clean featured image, simplified callout boxes
+- [x] Per-category rating methodology (7 product types with weighted criteria)
+- [x] RatingExplainer component: inline "How We Rate" + tooltip variant
+
+**Revenue & Monetization:**
+- [x] Cuelinks affiliate SDK active (Publisher ID 244238)
+- [x] EarnKaro affiliate SDK active (ID 5197986)
+- [x] Smart third-party script loader (lazy, page-aware, no admin pages)
+- [x] Affiliate tracking: PostHog events + Supabase `affiliate_clicks` table
+- [x] 2 affiliate URL bugs fixed (`/api/out` wrong column + subcategory wrong field)
+
+**Trust & E-E-A-T:**
+- [x] 7 editorial desk bylines with auto-assignment by category
+- [x] Article sources: expandable citations with RBI/SEBI/IRDAI references per category
+- [x] Editorial independence statement on methodology page
+- [x] Legal disclaimers enhanced (SEBI, educational purposes, past performance)
+
+**Content (189+ articles):**
+- [x] 189+ articles published (51 original + 138 generated via pipeline + Claude)
+- [x] All articles: 2,500-8,000 words, FAQ schema, key takeaways, pro tips, tables
+- [x] Categories normalized: all use hyphens (credit-cards, not credit_cards)
+- [x] All articles have desk bylines assigned
+- [x] 29 Grok photorealistic images approved (processing pending)
+- [x] Keyword research done for all 7 categories (long-tail, low competition)
 
 ### Pending (Priority Order):
-- [ ] **P0: 45 Grok featured images** — prompts ready, regenerate one-by-one for quality
-- [ ] **P1: Revenue activation** — Apply Now CTA above fold on product pages, sticky mobile CTA, affiliate click tracking
-- [ ] **P1: Product detail page** — Apply CTA missing above fold, breadcrumb casing (formatSlug wired but needs deployment verification)
-- [ ] **P2: Articles listing page** — hero fix, card thumbnails (API fix deployed, needs verification)
-- [ ] **P2: Cookie banner** — too tall on mobile, covers 20-40% viewport
+- [ ] **P0: Process 29 Grok images** — watermark removal + InvestingPro branding overlay
+- [ ] **P0: Wire images to articles** — update featured_image in DB for all 189 articles
+- [ ] **P0: Article quality audit** — verify factual accuracy, interlinking, glossary links
+- [ ] **P1: Generate remaining Grok images** — ~160 articles still need custom images
+- [ ] **P1: Interlinking mesh** — 9+ articles missing cross-article links
+- [ ] **P1: Sitemap submission** — submit to Google Search Console + Google News
+- [ ] **P1: Google AdSense application** — 189 articles, ready to apply
+- [ ] **P2: Sprint 4** — Hub page redesign, URL restructure, footer redesign
+- [ ] **P2: Sprint 5** — Visual polish (spacing, cards, link colors)
+- [ ] **P2: Cookie banner** — too tall on mobile
+- [ ] **P3: Sprint 6** — Cross-links, breadcrumbs, author profiles
 - [ ] **P3: Social distribution** — Telegram bot, X API, WhatsApp Channel
-- [ ] **P3: Google AdSense** — 51 quality articles, ready to apply
-- [ ] **P3: Content for thin categories** — demat (1), IPO (1), insurance (2), banking (2)
+
+### Key Architecture Notes (Apr 17):
+- **Article pipeline**: `scripts/auto-generate-batch.ts` — Gemini→Groq→Mistral→OpenAI failover
+- **Topics file**: `scripts/data/topics.json` — 197 topics (141 original + 56 gap-fill)
+- **Grok image prompts**: `docs/content-research/super-grok-article-prompts.md` — master prompt + 8 topic prompts
+- **NerdWallet gap report**: `docs/superpowers/specs/2026-04-17-nerdwallet-parity-gap-report.md`
+- **Content blueprint**: `docs/superpowers/specs/2026-04-17-content-blueprint.md`
+- **Sprint 1 plan**: `docs/superpowers/plans/2026-04-17-sprint1-p0-revenue-foundation.md`
+- **Smart script loader**: `components/monetization/ThirdPartyScripts.tsx` — loads Cuelinks + EarnKaro only on relevant pages
+- **Desk byline**: `components/articles/DeskByline.tsx` + `lib/data/team.ts` (7 desks)
+- **Article sources**: `components/articles/ArticleSources.tsx` — per-category regulatory citations
 
 ### Key Architecture Notes (Apr 16):
 - **No fake data anywhere** — all fabricated testimonials, experts, credentials removed
