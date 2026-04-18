@@ -101,12 +101,12 @@ export default async function TopPicks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <div className="font-data text-[11px] uppercase tracking-[4px] text-[#D97706] mb-3">
+            <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
               Our Verdict
             </div>
-            <h2 className="font-display text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-[#0A1F14] dark:text-white">
+            <h2 className="text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-gray-900 dark:text-white">
               Top-rated products{" "}
-              <span className="text-[#D97706]">this week.</span>
+              <span className="text-amber-600">this week.</span>
             </h2>
             <p className="text-sm text-gray-500 dark:text-white/50 mt-2">
               Ranked by real outcomes — not what pays us most.
@@ -114,7 +114,7 @@ export default async function TopPicks() {
           </div>
           <Link
             href="/credit-cards"
-            className="hidden sm:inline-flex font-data text-[11px] uppercase tracking-[2px] text-[#D97706] hover:text-[#B45309] transition-colors"
+            className="hidden sm:inline-flex text-sm font-semibold text-green-600 hover:text-green-700 transition-colors"
           >
             All credit cards &rarr;
           </Link>
@@ -131,7 +131,7 @@ export default async function TopPicks() {
               }`}
             >
               {card.pick && (
-                <div className="font-data text-[10px] uppercase tracking-[2px] text-[#D97706] mb-3 pb-3 border-b border-[#D97706]/20">
+                <div className="text-[10px] uppercase tracking-wider text-amber-600 mb-3 pb-3 border-b border-amber-200">
                   Editor&apos;s Pick
                 </div>
               )}
@@ -139,22 +139,22 @@ export default async function TopPicks() {
               {/* Score */}
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <div className="font-data text-[10px] uppercase tracking-wider text-gray-400 dark:text-white/40">
+                  <div className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-white/40">
                     {bankAbbr(card.bank)}
                   </div>
-                  <h3 className="font-display text-lg font-bold text-gray-900 dark:text-white mt-1">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-1">
                     {card.name}
                   </h3>
                 </div>
                 <div className="w-14 h-14 border border-green-200 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center flex-shrink-0">
-                  <span className="font-data text-xl font-bold text-[#16A34A]">
+                  <span className="text-xl font-bold text-green-600">
                     {card.score}
                   </span>
                 </div>
               </div>
 
               {/* Highlight */}
-              <div className="font-data text-3xl font-bold text-gray-900 dark:text-white mb-1">
+              <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
                 {card.highlight}
               </div>
               <p className="text-sm text-gray-500 dark:text-white/50 mb-4">
@@ -163,7 +163,7 @@ export default async function TopPicks() {
 
               {/* Fee + CTA */}
               <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-white/10">
-                <span className="font-data text-[11px] text-gray-400 dark:text-white/40 uppercase tracking-wider">
+                <span className="text-[11px] text-gray-400 dark:text-white/40 uppercase tracking-wider">
                   Annual:{" "}
                   <strong className="text-gray-900 dark:text-white">
                     {card.fee}
@@ -171,13 +171,13 @@ export default async function TopPicks() {
                 </span>
                 <Link
                   href={card.href}
-                  className="px-4 py-2 bg-[#16A34A] text-white font-data text-[11px] uppercase tracking-[2px] rounded-lg hover:bg-[#166534] transition-colors"
+                  className="px-4 py-2 bg-green-600 text-white text-[11px] uppercase tracking-wider rounded-lg hover:bg-green-700 transition-colors"
                 >
                   Apply Now
                 </Link>
               </div>
 
-              <div className="mt-3 font-data text-[10px] text-[#D97706] uppercase tracking-wider">
+              <div className="mt-3 text-[10px] text-amber-600 uppercase tracking-wider">
                 Methodology disclosed &rarr;
               </div>
             </div>

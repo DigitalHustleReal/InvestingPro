@@ -44,11 +44,14 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-0.5 group">
-              <span className="font-display text-[22px] font-bold tracking-tight text-[#0A1F14] dark:text-white">
+            <Link
+              href="/"
+              className="flex items-center gap-0.5 group flex-shrink-0"
+            >
+              <span className="text-[24px] font-bold tracking-tight text-gray-900 dark:text-white">
                 Investing
               </span>
-              <span className="font-display text-[22px] font-bold tracking-tight text-[#D97706]">
+              <span className="text-[24px] font-bold tracking-tight text-green-600">
                 Pro
               </span>
             </Link>
@@ -109,9 +112,7 @@ export default function Navbar() {
                     }`}
                   >
                     <Icon className="w-5 h-5" />
-                    <span className="font-data text-sm uppercase tracking-[2px]">
-                      {cat.label}
-                    </span>
+                    <span className="text-[15px] font-medium">{cat.label}</span>
                   </Link>
                 );
               })}
@@ -142,7 +143,7 @@ export default function Navbar() {
             </div>
 
             <div className="mt-12 text-center">
-              <p className="font-data text-[10px] uppercase tracking-[3px] text-[#0A1F14]/30 dark:text-white/30">
+              <p className="text-xs text-gray-300">
                 No paid rankings · Methodology disclosed · SEBI-compliant
               </p>
             </div>

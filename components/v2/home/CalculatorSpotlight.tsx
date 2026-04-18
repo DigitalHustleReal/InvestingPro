@@ -42,21 +42,21 @@ const CALCS: {
 
 export default function CalculatorSpotlight() {
   return (
-    <section className="py-16 md:py-20 bg-white dark:bg-[#0A1F14]/50 border-t border-gray-200">
+    <section className="py-16 md:py-20 bg-white dark:bg-gray-950/50 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <div className="font-data text-[11px] uppercase tracking-[4px] text-[#D97706] mb-3">
+            <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
               Free Tools
             </div>
-            <h2 className="font-display text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-[#0A1F14] dark:text-white">
+            <h2 className="text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-gray-900 dark:text-white">
               Run the numbers{" "}
-              <span className="text-[#D97706]">before you commit.</span>
+              <span className="text-amber-600">before you commit.</span>
             </h2>
           </div>
           <Link
             href="/calculators"
-            className="hidden sm:inline-flex font-data text-[11px] uppercase tracking-[2px] text-[#D97706] hover:text-[#B45309] transition-colors"
+            className="hidden sm:inline-flex text-sm font-semibold text-green-600 hover:text-green-700 transition-colors"
           >
             All 75 calculators &rarr;
           </Link>
@@ -75,8 +75,8 @@ export default function CalculatorSpotlight() {
                     : ""
                 } hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors`}
               >
-                <Icon className="w-6 h-6 text-[#16A34A] mb-4" />
-                <h3 className="font-display text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#16A34A] transition-colors">
+                <Icon className="w-6 h-6 text-green-600 mb-4" />
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-green-600 transition-colors">
                   {calc.name}
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-white/60 leading-relaxed mb-5">
@@ -85,18 +85,18 @@ export default function CalculatorSpotlight() {
 
                 {/* Live result preview */}
                 <div className="border border-gray-200 dark:border-white/10 rounded-lg bg-gray-50 dark:bg-white/[0.02] p-4">
-                  <div className="font-data text-[10px] text-gray-400 dark:text-white/40 uppercase tracking-wider mb-2">
+                  <div className="text-[10px] text-gray-400 dark:text-white/40 uppercase tracking-wider mb-2">
                     {calc.label}
                   </div>
-                  <div className="font-data text-3xl font-bold text-[#16A34A]">
+                  <div className="text-3xl font-bold text-green-600">
                     {calc.val}
                   </div>
-                  <div className="font-data text-[11px] text-gray-500 dark:text-white/50 mt-1">
+                  <div className="text-[11px] text-gray-500 dark:text-white/50 mt-1">
                     {calc.valSub}
                   </div>
                 </div>
 
-                <div className="mt-4 font-data text-[11px] uppercase tracking-[2px] text-[#D97706] group-hover:text-[#B45309] transition-colors">
+                <div className="mt-4 text-sm font-semibold text-green-600 group-hover:text-green-700 transition-colors">
                   Open calculator &rarr;
                 </div>
               </Link>

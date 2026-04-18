@@ -458,12 +458,12 @@ export default function MegaMenu() {
             aria-current={isActive(cat.href) ? "page" : undefined}
             aria-expanded={openIndex === i}
             aria-haspopup="true"
-            className={`px-3 py-2.5 text-[13px] font-medium transition-colors whitespace-nowrap ${
+            className={`px-3.5 py-2.5 text-[14px] font-medium transition-colors whitespace-nowrap ${
               openIndex === i
-                ? "text-green-700"
+                ? "text-green-700 font-semibold"
                 : isActive(cat.href)
                   ? "text-green-700 font-semibold"
-                  : "text-gray-500 hover:text-gray-900"
+                  : "text-gray-600 hover:text-gray-900"
             }`}
           >
             {cat.label}
