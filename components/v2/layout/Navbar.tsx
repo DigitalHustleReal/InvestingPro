@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white border-b-2 border-[#0A1F14] dark:bg-[#0A1F14] dark:border-white/20">
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 dark:bg-[#0A1F14] dark:border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -68,7 +68,7 @@ export default function Navbar() {
 
               <Link
                 href="/compare"
-                className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 bg-[--v2-ink] text-white font-data text-[11px] uppercase tracking-[2px] hover:bg-[--v2-ink]/90 dark:bg-white dark:text-[--v2-ink] dark:hover:bg-white/90 transition-colors"
+                className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 bg-[#16A34A] text-white font-data text-[11px] uppercase tracking-[2px] hover:bg-[#166534] transition-colors"
               >
                 <BarChart3 className="w-3.5 h-3.5" />
                 Compare
