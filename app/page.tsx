@@ -17,6 +17,8 @@ import TrustMethodology from "@/components/v2/home/TrustMethodology";
 import NewsletterTrust from "@/components/v2/home/NewsletterTrust";
 import Editorial from "@/components/v2/home/Editorial";
 import MoreResources from "@/components/v2/home/MoreResources";
+import PartnerLogos from "@/components/v2/home/PartnerLogos";
+import TrustStats from "@/components/v2/home/TrustStats";
 
 export const metadata: Metadata = {
   title: "InvestingPro — India's Independent Financial Comparison Platform",
@@ -86,6 +88,9 @@ export default function Home() {
       {/* Live data ticker */}
       <TrustBar />
 
+      {/* Partner logos strip */}
+      <PartnerLogos />
+
       {/* Find smarter rates — tabbed deposit/loan comparison */}
       <RateComparison />
 
@@ -105,11 +110,11 @@ export default function Home() {
       {/* Category cards — NerdWallet-style with icons + sub-links */}
       <ExploreCategories />
 
+      {/* Trust stats — why Indians trust us */}
+      <TrustStats />
+
       {/* Brand marquee — scrolling trust signals */}
       <BrandMarquee />
-
-      {/* Methodology one-liner */}
-      <TrustMethodology />
 
       {/* Newsletter signup */}
       <NewsletterTrust />
