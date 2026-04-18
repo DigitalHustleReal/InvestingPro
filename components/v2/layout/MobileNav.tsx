@@ -1,43 +1,49 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Home, Search, Calculator, BookOpen, User } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Home, Search, Calculator, BookOpen, User } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 const ITEMS: { label: string; href: string; icon: LucideIcon }[] = [
-  { label: 'Home', href: '/', icon: Home },
-  { label: 'Compare', href: '/compare', icon: Search },
-  { label: 'Tools', href: '/calculators', icon: Calculator },
-  { label: 'Learn', href: '/articles', icon: BookOpen },
-  { label: 'Account', href: '/profile', icon: User },
+  { label: "Home", href: "/", icon: Home },
+  { label: "Compare", href: "/compare", icon: Search },
+  { label: "Tools", href: "/calculators", icon: Calculator },
+  { label: "Learn", href: "/articles", icon: BookOpen },
+  { label: "Account", href: "/profile", icon: User },
 ];
 
 export default function MobileNav() {
   const pathname = usePathname();
 
-  if (pathname?.startsWith('/admin')) return null;
+  if (pathname?.startsWith("/admin")) return null;
 
   return (
     <nav
-      className="lg:hidden fixed bottom-0 left-0 right-0 min-h-[56px] bg-white border-t border-gray-200 z-50 flex pb-[env(safe-area-inset-bottom)]"
+      className="lg:hidden fixed bottom-0 left-0 right-0 min-h-[56px] bg-white dark:bg-[#0A1F14] border-t-2 border-[#0A1F14]/10 dark:border-white/10 z-50 flex pb-[env(safe-area-inset-bottom)]"
       role="navigation"
       aria-label="Mobile navigation"
     >
       {ITEMS.map((item) => {
         const Icon = item.icon;
-        const isActive = item.href === '/' ? pathname === '/' : pathname?.startsWith(item.href);
+        const isActive =
+          item.href === "/"
+            ? pathname === "/"
+            : pathname?.startsWith(item.href);
         return (
           <Link
             key={item.href}
             href={item.href}
-            aria-current={isActive ? 'page' : undefined}
-            className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium transition-colors ${
-              isActive ? 'text-green-600 font-semibold' : 'text-gray-400'
+            className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 transition-colors ${
+              isActive
+                ? "text-[#16A34A]"
+                : "text-[#0A1F14]/40 dark:text-white/40"
             }`}
           >
-            <Icon size={22} strokeWidth={isActive ? 2.5 : 1.5} />
-            <span>{item.label}</span>
+            <Icon className="w-5 h-5" />
+            <span className="font-data text-[9px] uppercase tracking-wider">
+              {item.label}
+            </span>
           </Link>
         );
       })}
