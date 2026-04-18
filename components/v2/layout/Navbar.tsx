@@ -68,7 +68,7 @@ export default function Navbar() {
 
               <Link
                 href="/compare"
-                className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 bg-[#16A34A] text-white font-data text-[11px] uppercase tracking-[2px] hover:bg-[#166534] transition-colors"
+                className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 bg-green-600 text-white text-[13px] font-semibold hover:bg-green-700 transition-colors rounded-lg"
               >
                 <BarChart3 className="w-3.5 h-3.5" />
                 Compare
@@ -104,10 +104,8 @@ export default function Navbar() {
                     key={cat.href}
                     href={cat.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-4 px-4 py-4 border-b border-[#0A1F14]/10 dark:border-white/10 ${
-                      isActive
-                        ? "text-[#16A34A]"
-                        : "text-[#0A1F14] dark:text-white"
+                    className={`flex items-center gap-4 px-4 py-4 border-b border-gray-100 ${
+                      isActive ? "text-green-600" : "text-gray-900"
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -123,21 +121,21 @@ export default function Navbar() {
               <Link
                 href="/articles"
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3 text-center bg-[#0A1F14] text-white dark:bg-white dark:text-[#0A1F14] font-data text-sm uppercase tracking-[2px]"
+                className="block px-4 py-3.5 text-center bg-gray-900 text-white rounded-lg text-sm font-semibold"
               >
                 Read Articles
               </Link>
               <Link
                 href="/calculators"
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3 text-center border-2 border-[#0A1F14] dark:border-white text-[#0A1F14] dark:text-white font-data text-sm uppercase tracking-[2px]"
+                className="block px-4 py-3.5 text-center border border-gray-300 text-gray-900 rounded-lg text-sm font-semibold"
               >
                 Calculators
               </Link>
               <Link
                 href="/compare"
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3 text-center bg-[#16A34A] text-white font-data text-sm uppercase tracking-[2px]"
+                className="block px-4 py-3.5 text-center bg-green-600 text-white rounded-lg text-sm font-semibold"
               >
                 Compare Products
               </Link>

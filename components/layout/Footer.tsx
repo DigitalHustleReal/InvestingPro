@@ -79,10 +79,7 @@ export default function Footer() {
             "SEBI-compliant advice",
             "228+ researched articles",
           ].map((item) => (
-            <span
-              key={item}
-              className="font-data text-[11px] uppercase tracking-[3px] text-[--v2-ink]/30"
-            >
+            <span key={item} className="text-xs text-gray-300">
               {item}
             </span>
           ))}
@@ -94,7 +91,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h3 className="font-data text-[11px] uppercase tracking-[3px] text-[#D97706] mb-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">
                 {col.title}
               </h3>
               <ul className="space-y-3">
@@ -102,7 +99,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[--v2-ink]/50 hover:text-[--v2-ink] transition-colors"
+                      className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -118,21 +115,21 @@ export default function Footer() {
       <div className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-display text-lg font-bold text-[--v2-ink]">
+            <span className="text-lg font-bold text-gray-900">
               Investing<span className="text-[#D97706]">Pro</span>
             </span>
-            <span className="font-data text-[10px] text-[--v2-ink]/30 uppercase tracking-[2px]">
+            <span className="text-xs text-gray-400">
               India&apos;s Independent Finance Platform
             </span>
           </div>
 
           <div className="flex items-center gap-6">
-            <span className="font-data text-[11px] text-[--v2-ink]/30">
+            <span className="text-xs text-gray-400">
               &copy; {new Date().getFullYear()} InvestingPro.in
             </span>
             <button
               onClick={scrollToTop}
-              className="p-2 border-2 border-[--v2-ink]/10 hover:border-[--v2-ink]/30 text-[--v2-ink]/40 hover:text-[--v2-ink] transition-colors cursor-pointer"
+              className="p-2 border border-gray-200 hover:border-gray-400 text-gray-400 hover:text-gray-900 rounded-lg transition-colors cursor-pointer"
               aria-label="Scroll to top"
             >
               <ArrowUp className="w-4 h-4" />
@@ -144,7 +141,7 @@ export default function Footer() {
       {/* Disclaimer */}
       <div className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-          <p className="font-data text-[10px] text-[--v2-ink]/20 leading-relaxed">
+          <p className="text-xs text-gray-300 leading-relaxed">
             InvestingPro.in is an independent comparison platform. We may earn
             affiliate commissions when you apply through our links. Our rankings
             and reviews are never influenced by compensation. All information is
