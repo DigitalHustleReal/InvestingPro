@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   CreditCard,
   TrendingUp,
@@ -6,6 +7,7 @@ import {
   Shield,
   Building2,
   BarChart3,
+  ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -45,65 +47,118 @@ const CATEGORIES: {
 
 export default function Hero() {
   return (
-    <section className="bg-white">
-      {/* Main hero */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 md:py-28">
-        <div className="max-w-4xl">
-          {/* Eyebrow */}
-          <div className="font-data text-[11px] uppercase tracking-[4px] text-[#D97706] mb-6">
-            India&apos;s Most Opinionated Finance Platform
+    <section className="bg-gradient-to-br from-green-50 via-white to-emerald-50/30">
+      {/* Main hero — split layout */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left — text content */}
+          <div>
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 text-xs font-semibold rounded-full mb-6">
+              <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+              India&apos;s Independent Finance Platform
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-[36px] sm:text-[48px] md:text-[56px] font-black leading-[1.05] tracking-tight text-gray-900 mb-6">
+              Smart money decisions{" "}
+              <span className="text-green-600">start here.</span>
+            </h1>
+
+            {/* Subhead */}
+            <p className="text-lg text-gray-500 max-w-lg leading-relaxed mb-8">
+              Compare credit cards, loans, mutual funds, and insurance from
+              every major Indian provider. Independent research, real data, no
+              paid rankings.
+            </p>
+
+            {/* Stats row */}
+            <div className="flex items-center gap-6 mb-8">
+              {[
+                { num: "1,000+", label: "Products" },
+                { num: "228", label: "Articles" },
+                { num: "75", label: "Calculators" },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-2xl font-black text-gray-900">
+                    {stat.num}
+                  </div>
+                  <div className="text-xs text-gray-400">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/compare"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-colors rounded-lg"
+              >
+                Start Comparing
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/articles"
+                className="inline-flex items-center px-7 py-3.5 border border-gray-300 text-gray-700 text-sm font-semibold hover:border-gray-400 transition-colors rounded-lg"
+              >
+                Read Our Research
+              </Link>
+            </div>
           </div>
 
-          {/* Headline */}
-          <h1 className="font-display text-[40px] sm:text-[56px] md:text-[72px] font-black leading-[0.95] tracking-tight text-[#0A1F14] mb-6">
-            We test products. <br className="hidden sm:block" />
-            We crunch data. <br className="hidden sm:block" />
-            <span className="text-[#D97706]">We tell you the truth.</span>
-          </h1>
+          {/* Right — hero image */}
+          <div className="hidden lg:block relative">
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-green-100 to-emerald-50">
+              {/* Hero image — replace src with Grok image when ready */}
+              <Image
+                src="/images/hero-main.jpg"
+                alt="Compare financial products on InvestingPro"
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                onError={(e) => {
+                  // Hide image if not found, show gradient placeholder
+                  (e.target as HTMLImageElement).style.display = "none";
+                }}
+              />
 
-          {/* Subhead */}
-          <p className="text-lg md:text-xl text-[#0A1F14]/50 max-w-2xl leading-relaxed mb-10">
-            228 researched articles. 75 free calculators. 1,000+ products
-            compared. No paid rankings. Every opinion backed by disclosed
-            methodology.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="/compare"
-              className="inline-flex items-center px-8 py-3 bg-[#16A34A] text-white font-data text-sm uppercase tracking-[2px] hover:bg-[#166534] transition-colors"
-            >
-              Start Comparing
-            </Link>
-            <Link
-              href="/articles"
-              className="inline-flex items-center px-8 py-3 border-2 border-[#0A1F14]/20 text-[#0A1F14] font-data text-sm uppercase tracking-[2px] hover:border-[#0A1F14] transition-colors"
-            >
-              Read Our Research
-            </Link>
+              {/* Floating stat cards over the image */}
+              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
+                <div className="text-xs text-gray-500">Best FD Rate Today</div>
+                <div className="text-lg font-bold text-green-600">
+                  9.10% p.a.
+                </div>
+              </div>
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
+                <div className="text-xs text-gray-500">Products Compared</div>
+                <div className="text-lg font-bold text-gray-900">1,000+</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Category strip */}
-      <div className="border-y-2 border-[#0A1F14]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="border-y border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {CATEGORIES.map((cat) => {
               const Icon = cat.icon;
               return (
                 <Link
                   key={cat.href}
                   href={cat.href}
-                  className="group flex items-center gap-3 px-4 py-3 border-2 border-[#0A1F14]/10 hover:border-[#0A1F14]/30 transition-colors"
+                  className="group flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 hover:border-green-300 hover:bg-green-50/50 transition-all"
                 >
-                  <Icon className="w-5 h-5 text-[#16A34A] group-hover:text-[#D97706] transition-colors" />
+                  <div className="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center group-hover:bg-green-100 transition-colors">
+                    <Icon className="w-4.5 h-4.5 text-green-600" />
+                  </div>
                   <div>
-                    <div className="font-data text-[11px] uppercase tracking-wider text-[#0A1F14]/80 group-hover:text-[#0A1F14] transition-colors">
+                    <div className="text-[13px] font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
                       {cat.label}
                     </div>
-                    <div className="font-data text-[10px] text-[#0A1F14]/40">
+                    <div className="text-[11px] text-gray-400">
                       {cat.count} tested
                     </div>
                   </div>
