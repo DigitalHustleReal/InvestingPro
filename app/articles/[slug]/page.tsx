@@ -240,20 +240,20 @@ export default async function ArticlePage({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6">
             {/* ── Main Content ─────────────────────────────────── */}
             <article className="lg:col-span-8 min-w-0">
-              {/* Category badge — monospace */}
+              {/* Category badge */}
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-2.5 py-1">
+                <span className="text-xs font-semibold uppercase tracking-wider text-green-600 bg-green-50 px-2.5 py-1 rounded-md">
                   {formatSlug(article.category || "")}
                 </span>
               </div>
 
-              {/* Title — Playfair Display */}
-              <h1 className="font-display text-4xl sm:text-5xl font-black text-[--v2-ink] dark:text-white mb-5 leading-[1.08] tracking-tight">
+              {/* Title */}
+              <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-black text-gray-900 dark:text-white mb-5 leading-[1.1] tracking-tight">
                 {article.title}
               </h1>
 
               {/* Meta row — author + actions on one line, date/time below */}
-              <div className="mb-8 pb-8 border-b-2 border-[--v2-ink]/10 space-y-4">
+              <div className="mb-8 pb-8 border-b border-gray-200 space-y-4">
                 <div className="flex items-center justify-between">
                   <AuthorBadge
                     name={
@@ -277,7 +277,7 @@ export default async function ArticlePage({
                     articleTitle={article.title}
                   />
                 </div>
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-data text-[11px] uppercase tracking-wider text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-gray-500">
                   <span className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
                     {article.updated_at &&
@@ -308,9 +308,9 @@ export default async function ArticlePage({
                 readTime={article.read_time || article.reading_time}
               />
 
-              {/* Featured image — sharp, edge-to-edge */}
+              {/* Featured image */}
               {article.featured_image && (
-                <div className="relative aspect-video w-full mb-8 overflow-hidden border-2 border-[--v2-ink]/10">
+                <div className="relative aspect-video w-full mb-8 overflow-hidden rounded-xl border border-gray-200">
                   <Image
                     src={article.featured_image}
                     alt={article.title}
@@ -347,16 +347,16 @@ export default async function ArticlePage({
               {/* Article Sources — expandable citations for E-E-A-T */}
               <ArticleSources category={article.category || ""} />
 
-              {/* Tags — monospace, sharp */}
+              {/* Tags */}
               {article.tags?.length > 0 && (
-                <div className="mt-10 pt-6 border-t-2 border-[--v2-ink]/10">
+                <div className="mt-10 pt-6 border-t border-gray-200">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-data text-[10px] font-bold text-muted-foreground uppercase tracking-widest mr-2">
+                    <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider mr-2">
                       Tags
                     </span>
                     {article.tags.map((tag: string) => (
                       <Link key={tag} href={`/tag/${tag}`}>
-                        <span className="font-data text-[11px] uppercase tracking-wider px-3 py-1 border border-[--v2-ink]/10 text-[--v2-ink]/70 hover:bg-[--v2-ink]/5 hover:text-[--v2-ink] transition-colors cursor-pointer">
+                        <span className="text-xs px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg hover:bg-green-50 hover:text-green-700 transition-colors cursor-pointer">
                           {tag}
                         </span>
                       </Link>
@@ -373,7 +373,7 @@ export default async function ArticlePage({
               </div>
 
               {/* Prev / next nav */}
-              <div className="mt-8 pt-6 border-t-2 border-[--v2-ink]/10 flex justify-between gap-4">
+              <div className="mt-8 pt-6 border-t border-gray-200 flex justify-between gap-4">
                 <Link
                   href="/articles"
                   className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
