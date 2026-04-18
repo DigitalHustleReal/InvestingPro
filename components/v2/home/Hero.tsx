@@ -1,22 +1,20 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import Link from "next/link";
 import {
   HERO_QUESTIONS,
   CONSTELLATION_NODES,
 } from "@/lib/content/hero-questions";
 
-/* ── Node links — every node opens its relevant page ── */
+/* ── Node links ── */
 const NODE_LINKS: Record<string, string> = {
-  // Core
   retirement: "/calculators/retirement",
   tax: "/calculators/tax",
   "mutual-funds": "/mutual-funds",
   "credit-cards": "/credit-cards",
   insurance: "/insurance",
   "kids-education": "/calculators/child-education",
-  // Sub
   nps: "/calculators/nps",
   "old-vs-new": "/calculators/old-vs-new-tax",
   "sip-calculator": "/calculators/sip",
@@ -31,30 +29,47 @@ const NODE_LINKS: Record<string, string> = {
   "pension-gap": "/calculators/retirement",
 };
 
-/* ── Base positions (% of container) ── */
-const CORE_BASE: Record<string, { x: number; y: number }> = {
-  retirement: { x: 46.7, y: 9.7 },
-  tax: { x: 75, y: 29 },
-  "mutual-funds": { x: 26.7, y: 35.5 },
-  "credit-cards": { x: 58.3, y: 48.4 },
-  insurance: { x: 36.7, y: 61.3 },
-  "kids-education": { x: 81.7, y: 72.6 },
+/* ── Rest positions (used when a node is NOT the focus) ── */
+const CORE_REST: Record<string, { x: number; y: number }> = {
+  retirement: { x: 46, y: 10 },
+  tax: { x: 78, y: 28 },
+  "mutual-funds": { x: 24, y: 34 },
+  "credit-cards": { x: 60, y: 48 },
+  insurance: { x: 34, y: 62 },
+  "kids-education": { x: 82, y: 72 },
 };
 
-const SUB_BASE: Record<string, { x: number; y: number }> = {
-  nps: { x: 16.7, y: 19.4 },
-  "old-vs-new": { x: 91.7, y: 16.1 },
-  "sip-calculator": { x: 13.3, y: 48.4 },
-  "term-plan": { x: 65, y: 6.5 },
-  "home-loan": { x: 93.3, y: 45.2 },
-  "80c": { x: 90, y: 27.4 },
-  "emergency-fund": { x: 18.3, y: 67.7 },
-  hra: { x: 46.7, y: 29 },
-  fire: { x: 53.3, y: 83.9 },
-  "tax-harvesting": { x: 81.7, y: 4.8 },
-  esops: { x: 26.7, y: 82.3 },
-  "pension-gap": { x: 91.7, y: 62.9 },
+const SUB_REST: Record<string, { x: number; y: number }> = {
+  nps: { x: 15, y: 18 },
+  "old-vs-new": { x: 92, y: 15 },
+  "sip-calculator": { x: 12, y: 48 },
+  "term-plan": { x: 66, y: 6 },
+  "home-loan": { x: 94, y: 44 },
+  "80c": { x: 90, y: 26 },
+  "emergency-fund": { x: 16, y: 68 },
+  hra: { x: 46, y: 28 },
+  fire: { x: 54, y: 84 },
+  "tax-harvesting": { x: 82, y: 4 },
+  esops: { x: 24, y: 82 },
+  "pension-gap": { x: 92, y: 62 },
 };
+
+/* ── Nearest core for each sub ── */
+const SUB_PARENT: Record<string, string> = {};
+for (const s of CONSTELLATION_NODES.sub) {
+  let best = "";
+  let bestD = Infinity;
+  const sp = SUB_REST[s.id];
+  if (!sp) continue;
+  for (const [cid, cp] of Object.entries(CORE_REST)) {
+    const d = (cp.x - sp.x) ** 2 + (cp.y - sp.y) ** 2;
+    if (d < bestD) {
+      bestD = d;
+      best = cid;
+    }
+  }
+  SUB_PARENT[s.id] = best;
+}
 
 /* ── Core-to-core lattice ── */
 const CORE_LINKS: [string, string][] = [
@@ -68,37 +83,23 @@ const CORE_LINKS: [string, string][] = [
   ["tax", "mutual-funds"],
 ];
 
-/* ── Nearest core for each sub ── */
-function nearestCore(subId: string): string {
-  const s = SUB_BASE[subId];
-  if (!s) return "retirement";
-  let best = "";
-  let bestDist = Infinity;
-  for (const [coreId, pos] of Object.entries(CORE_BASE)) {
-    const d = (pos.x - s.x) ** 2 + (pos.y - s.y) ** 2;
-    if (d < bestDist) {
-      bestDist = d;
-      best = coreId;
-    }
-  }
-  return best;
-}
-
+const FOCAL = { x: 50, y: 38 };
 const ROTATE_MS = 7000;
 
 export default function Hero() {
   const [idx, setIdx] = useState(0);
   const [fading, setFading] = useState(false);
   const [paused, setPaused] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const pausedRef = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Keep ref in sync so interval closure reads latest value
   useEffect(() => {
     pausedRef.current = paused;
   }, [paused]);
 
   const q = HERO_QUESTIONS[idx];
+  const activeCore = q.activeCore;
+  const activeSubs = q.activeSubTopics;
 
   const goTo = useCallback((i: number) => {
     setFading(true);
@@ -108,14 +109,13 @@ export default function Hero() {
     }, 300);
   }, []);
 
-  // Auto-rotate
   useEffect(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       if (!pausedRef.current) {
         setFading(true);
         setTimeout(() => {
-          setIdx((prev) => (prev + 1) % HERO_QUESTIONS.length);
+          setIdx((p) => (p + 1) % HERO_QUESTIONS.length);
           setFading(false);
         }, 300);
       }
@@ -125,56 +125,78 @@ export default function Hero() {
     };
   }, []);
 
-  const handleDotClick = (i: number) => {
+  const handleDot = (i: number) => {
     goTo(i);
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       if (!pausedRef.current) {
         setFading(true);
         setTimeout(() => {
-          setIdx((prev) => (prev + 1) % HERO_QUESTIONS.length);
+          setIdx((p) => (p + 1) % HERO_QUESTIONS.length);
           setFading(false);
         }, 300);
       }
     }, ROTATE_MS);
   };
 
-  // Contextual positions: active core pulls to focal point, active subs orbit closer
-  const activeCore = q.activeCore;
-  const activeSubs = q.activeSubTopics;
-  const focalX = 50;
-  const focalY = 45;
+  /* ── Compute contextual positions ── */
+  const positions = useMemo(() => {
+    const cores: Record<string, { x: number; y: number }> = {};
+    const subs: Record<string, { x: number; y: number }> = {};
 
-  function getCorePos(id: string) {
-    const base = CORE_BASE[id];
-    if (!base) return { x: 50, y: 50 };
-    if (id === activeCore) {
-      // Pull active core toward center
-      return {
-        x: base.x + (focalX - base.x) * 0.25,
-        y: base.y + (focalY - base.y) * 0.2,
-      };
+    // Active core → moves to focal dominant position
+    for (const [id, rest] of Object.entries(CORE_REST)) {
+      if (id === activeCore) {
+        cores[id] = {
+          x: rest.x + (FOCAL.x - rest.x) * 0.55,
+          y: rest.y + (FOCAL.y - rest.y) * 0.5,
+        };
+      } else {
+        // Inactive cores push outward from focal
+        const dx = rest.x - FOCAL.x;
+        const dy = rest.y - FOCAL.y;
+        cores[id] = { x: rest.x + dx * 0.12, y: rest.y + dy * 0.12 };
+      }
     }
-    // Push inactive cores slightly away from center
-    return {
-      x: base.x + (base.x - focalX) * 0.05,
-      y: base.y + (base.y - focalY) * 0.05,
-    };
-  }
 
-  function getSubPos(id: string) {
-    const base = SUB_BASE[id];
-    if (!base) return { x: 50, y: 50 };
-    const coreId = nearestCore(id);
-    const corePos = getCorePos(coreId);
-    if (activeSubs.includes(id)) {
-      // Pull active subs 15% closer to their core
-      return {
-        x: base.x + (corePos.x - base.x) * 0.15,
-        y: base.y + (corePos.y - base.y) * 0.15,
-      };
+    // Active subs cluster around the active core
+    const coreFocal = cores[activeCore] || FOCAL;
+    const activeSubList = activeSubs.filter((s) => SUB_REST[s]);
+    const angleStep =
+      activeSubList.length > 0 ? (2 * Math.PI) / activeSubList.length : 0;
+    const orbitR = 16; // % radius for orbit
+
+    for (const [id, rest] of Object.entries(SUB_REST)) {
+      const activeIdx = activeSubList.indexOf(id);
+      if (activeIdx >= 0) {
+        // Orbit around active core
+        const angle = angleStep * activeIdx - Math.PI / 2;
+        subs[id] = {
+          x: coreFocal.x + Math.cos(angle) * orbitR,
+          y: coreFocal.y + Math.sin(angle) * (orbitR * 0.7),
+        };
+      } else {
+        // Inactive subs push to edges
+        const dx = rest.x - FOCAL.x;
+        const dy = rest.y - FOCAL.y;
+        subs[id] = { x: rest.x + dx * 0.08, y: rest.y + dy * 0.08 };
+      }
     }
-    return base;
+
+    return { cores, subs };
+  }, [activeCore, activeSubs]);
+
+  /* ── Bezier path between two points ── */
+  function bezierPath(x1: number, y1: number, x2: number, y2: number): string {
+    const mx = (x1 + x2) / 2;
+    const my = (y1 + y2) / 2;
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    // Perpendicular offset for curve
+    const off = Math.min(Math.abs(dx), Math.abs(dy)) * 0.15;
+    const cx = mx + (dy > 0 ? off : -off);
+    const cy = my + (dx > 0 ? -off : off);
+    return `M${x1},${y1} Q${cx},${cy} ${x2},${y2}`;
   }
 
   return (
@@ -248,11 +270,9 @@ export default function Hero() {
                 {HERO_QUESTIONS.map((_, i) => (
                   <button
                     key={i}
-                    onClick={() => handleDotClick(i)}
-                    aria-label={`Go to question ${i + 1}: ${HERO_QUESTIONS[i].questionLine1} ${HERO_QUESTIONS[i].questionLine2}`}
-                    className={`w-[7px] h-[7px] rounded-full border-none cursor-pointer transition-colors duration-300 ${
-                      i === idx ? "bg-[#D97706]" : "bg-[#D4CEC0]"
-                    }`}
+                    onClick={() => handleDot(i)}
+                    aria-label={`Go to question ${i + 1}`}
+                    className={`w-[7px] h-[7px] rounded-full border-none cursor-pointer transition-all duration-500 ${i === idx ? "bg-[#D97706] scale-125" : "bg-[#D4CEC0]"}`}
                   />
                 ))}
               </div>
@@ -266,120 +286,193 @@ export default function Hero() {
           <div className="hidden lg:block relative min-h-[620px]">
             <div className="absolute top-[10px] right-[40px] w-[28px] h-[18px] border-t-2 border-r-2 border-[#D97706]" />
 
-            <div className="relative w-full h-[620px]">
-              {/* SVG lines + animated particles */}
+            <div className="relative w-full h-[620px] constellation-container">
+              {/* Background dot mesh */}
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.15]"
+                viewBox="0 0 100 100"
+              >
+                {Array.from({ length: 120 }).map((_, i) => {
+                  const gx = (i % 12) * 9 + 5;
+                  const gy = Math.floor(i / 12) * 10 + 5;
+                  const distToFocal = Math.sqrt(
+                    (gx - FOCAL.x) ** 2 + (gy - FOCAL.y) ** 2,
+                  );
+                  const warp = Math.max(0, 1 - distToFocal / 40);
+                  return (
+                    <circle
+                      key={i}
+                      cx={gx}
+                      cy={gy}
+                      r={0.2 + warp * 0.3}
+                      fill={warp > 0.3 ? "rgba(217,119,6,0.4)" : "#D4CEC0"}
+                      className="transition-all duration-1000"
+                    />
+                  );
+                })}
+              </svg>
+
+              {/* Connection lines + particles */}
               <svg
                 className="absolute inset-0 w-full h-full pointer-events-none"
                 viewBox="0 0 100 100"
                 preserveAspectRatio="none"
               >
                 <defs>
-                  {/* Animated particle along active lines */}
-                  <circle id="particle" r="0.4" fill="#D97706" opacity="0.8" />
-                  {/* Glow filter for active core */}
+                  <circle id="p" r="0.35" fill="#D97706" opacity="0.9" />
                   <filter id="glow">
-                    <feGaussianBlur stdDeviation="1.5" result="blur" />
+                    <feGaussianBlur stdDeviation="1.2" result="b" />
                     <feMerge>
-                      <feMergeNode in="blur" />
+                      <feMergeNode in="b" />
                       <feMergeNode in="SourceGraphic" />
                     </feMerge>
                   </filter>
+                  <linearGradient
+                    id="goldLine"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
+                    <stop offset="0%" stopColor="rgba(217,119,6,0.1)" />
+                    <stop offset="50%" stopColor="rgba(217,119,6,0.5)" />
+                    <stop offset="100%" stopColor="rgba(217,119,6,0.1)" />
+                  </linearGradient>
                 </defs>
 
-                {/* Core-to-core lines */}
+                {/* Core-to-core bezier curves */}
                 {CORE_LINKS.map(([a, b]) => {
-                  const pa = getCorePos(a);
-                  const pb = getCorePos(b);
+                  const pa = positions.cores[a];
+                  const pb = positions.cores[b];
+                  if (!pa || !pb) return null;
                   const isRelevant = a === activeCore || b === activeCore;
+                  const d = bezierPath(pa.x, pa.y, pb.x, pb.y);
                   return (
                     <g key={`cc-${a}-${b}`}>
-                      <line
-                        x1={pa.x}
-                        y1={pa.y}
-                        x2={pb.x}
-                        y2={pb.y}
-                        stroke={isRelevant ? "rgba(217,119,6,0.25)" : "#DDD6C5"}
-                        strokeWidth={isRelevant ? "0.18" : "0.1"}
+                      <path
+                        d={d}
+                        fill="none"
+                        stroke={isRelevant ? "url(#goldLine)" : "#E5E0D4"}
+                        strokeWidth={isRelevant ? "0.18" : "0.08"}
                         className="transition-all duration-700 ease-out"
                       />
                       {isRelevant && (
-                        <use href="#particle">
+                        <circle r="0.3" fill="#D97706" opacity="0.8">
                           <animateMotion
-                            dur={`${3 + Math.random() * 2}s`}
+                            dur={`${3.5 + (a.length % 3) * 0.5}s`}
                             repeatCount="indefinite"
-                            path={`M${pa.x},${pa.y} L${pb.x},${pb.y}`}
+                            path={d}
                           />
-                        </use>
+                        </circle>
                       )}
                     </g>
                   );
                 })}
 
-                {/* Sub-to-core lines */}
+                {/* Sub-to-core bezier curves */}
                 {CONSTELLATION_NODES.sub.map((s) => {
-                  const sp = getSubPos(s.id);
-                  const coreId = nearestCore(s.id);
-                  const cp = getCorePos(coreId);
+                  const sp = positions.subs[s.id];
+                  const coreId = SUB_PARENT[s.id];
+                  const cp = positions.cores[coreId];
+                  if (!sp || !cp) return null;
                   const isActive =
                     coreId === activeCore && activeSubs.includes(s.id);
+                  const d = bezierPath(sp.x, sp.y, cp.x, cp.y);
                   return (
                     <g key={`sc-${s.id}`}>
-                      <line
-                        x1={sp.x}
-                        y1={sp.y}
-                        x2={cp.x}
-                        y2={cp.y}
-                        stroke={isActive ? "rgba(217,119,6,0.4)" : "#EDE8DF"}
-                        strokeWidth={isActive ? "0.2" : "0.08"}
-                        strokeDasharray={isActive ? "none" : "0.5 0.5"}
+                      <path
+                        d={d}
+                        fill="none"
+                        stroke={
+                          isActive
+                            ? "rgba(217,119,6,0.45)"
+                            : "rgba(237,232,223,0.5)"
+                        }
+                        strokeWidth={isActive ? "0.18" : "0.06"}
+                        strokeDasharray={isActive ? "none" : "0.4 0.6"}
                         className="transition-all duration-700 ease-out"
                       />
                       {isActive && (
-                        <use href="#particle">
-                          <animateMotion
-                            dur={`${2 + Math.random() * 1.5}s`}
-                            repeatCount="indefinite"
-                            path={`M${sp.x},${sp.y} L${cp.x},${cp.y}`}
-                          />
-                        </use>
+                        <>
+                          <circle r="0.25" fill="#16A34A" opacity="0.7">
+                            <animateMotion
+                              dur={`${2.5 + (s.id.length % 3) * 0.4}s`}
+                              repeatCount="indefinite"
+                              path={d}
+                            />
+                          </circle>
+                          <circle r="0.2" fill="#D97706" opacity="0.6">
+                            <animateMotion
+                              dur={`${4 + (s.id.length % 2)}s`}
+                              repeatCount="indefinite"
+                              path={d}
+                              begin="1s"
+                            />
+                          </circle>
+                        </>
                       )}
                     </g>
                   );
                 })}
 
-                {/* Pulsing ring around active core */}
+                {/* Pulsing rings around active core */}
                 {(() => {
-                  const cp = getCorePos(activeCore);
+                  const cp = positions.cores[activeCore];
+                  if (!cp) return null;
                   return (
-                    <circle
-                      cx={cp.x}
-                      cy={cp.y}
-                      r="4"
-                      fill="none"
-                      stroke="rgba(217,119,6,0.15)"
-                      strokeWidth="0.15"
-                      filter="url(#glow)"
-                    >
-                      <animate
-                        attributeName="r"
-                        values="3;5.5;3"
-                        dur="3s"
-                        repeatCount="indefinite"
-                      />
-                      <animate
-                        attributeName="opacity"
-                        values="0.3;0.08;0.3"
-                        dur="3s"
-                        repeatCount="indefinite"
-                      />
-                    </circle>
+                    <>
+                      <circle
+                        cx={cp.x}
+                        cy={cp.y}
+                        r="4"
+                        fill="none"
+                        stroke="rgba(217,119,6,0.12)"
+                        strokeWidth="0.12"
+                        filter="url(#glow)"
+                      >
+                        <animate
+                          attributeName="r"
+                          values="3;6;3"
+                          dur="3s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="opacity"
+                          values="0.25;0.05;0.25"
+                          dur="3s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                      <circle
+                        cx={cp.x}
+                        cy={cp.y}
+                        r="5"
+                        fill="none"
+                        stroke="rgba(22,163,74,0.08)"
+                        strokeWidth="0.08"
+                      >
+                        <animate
+                          attributeName="r"
+                          values="5;8;5"
+                          dur="4.5s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="opacity"
+                          values="0.15;0.02;0.15"
+                          dur="4.5s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                    </>
                   );
                 })()}
               </svg>
 
-              {/* Sub-topic pills — clickable, contextual position */}
+              {/* Sub-topic pills */}
               {CONSTELLATION_NODES.sub.map((s, i) => {
-                const pos = getSubPos(s.id);
+                const pos = positions.subs[s.id];
+                if (!pos) return null;
                 const isActive = activeSubs.includes(s.id);
                 const link = NODE_LINKS[s.id] || "/calculators";
                 return (
@@ -390,15 +483,15 @@ export default function Hero() {
                     rel="noopener noreferrer"
                     className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-3 py-1.5 text-[11.5px] font-medium border cursor-pointer transition-all duration-700 ease-out hover:border-[#D97706] hover:text-[#0A1F14] hover:scale-110 ${
                       isActive
-                        ? "text-[#0A1F14] border-[#D97706] bg-white shadow-sm scale-[1.06] z-10"
-                        : "text-[#64748B] border-[#D4CEC0] bg-[#FAFAF9] opacity-60 hover:opacity-100"
+                        ? "text-[#0A1F14] border-[#D97706] bg-white shadow-md scale-[1.08] z-10"
+                        : "text-[#94A3B8] border-[#E2DED3] bg-[#FAFAF9]/80 opacity-50 hover:opacity-100 scale-[0.92]"
                     }`}
                     style={{
                       left: `${pos.x}%`,
                       top: `${pos.y}%`,
                       animation: isActive
                         ? "none"
-                        : `hero-float-${i % 2 === 0 ? "a" : "b"} ${6 + (i % 2)}s ease-in-out infinite`,
+                        : `hero-float-${i % 3 === 0 ? "a" : i % 3 === 1 ? "b" : "c"} ${5.5 + (i % 4) * 0.7}s ease-in-out infinite`,
                     }}
                   >
                     {s.label}
@@ -406,9 +499,10 @@ export default function Hero() {
                 );
               })}
 
-              {/* Core category pills — clickable, contextual pull */}
+              {/* Core category pills */}
               {CONSTELLATION_NODES.core.map((c) => {
-                const pos = getCorePos(c.id);
+                const pos = positions.cores[c.id];
+                if (!pos) return null;
                 const isActive = c.id === activeCore;
                 const isGreen = c.style === "green";
                 const link = NODE_LINKS[c.id] || "/";
@@ -424,13 +518,10 @@ export default function Hero() {
                         : "bg-[#FDF2E0] text-[#A55C04] border-[#D97706]"
                     } ${
                       isActive
-                        ? "scale-[1.18] border-[3px] shadow-lg shadow-[rgba(217,119,6,0.15)]"
-                        : "border-2 opacity-70 hover:opacity-100"
+                        ? "scale-[1.22] border-[3px] shadow-xl shadow-[rgba(217,119,6,0.2)]"
+                        : "border-2 opacity-60 hover:opacity-100 scale-[0.95]"
                     }`}
-                    style={{
-                      left: `${pos.x}%`,
-                      top: `${pos.y}%`,
-                    }}
+                    style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
                   >
                     {c.label}
                   </a>
@@ -445,30 +536,58 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Constellation animations — unique, hard to copy */}
       <style jsx>{`
         @keyframes hero-float-a {
           0%,
           100% {
-            transform: translate(-50%, -50%) translateY(0px);
+            transform: translate(-50%, -50%) translateY(0) translateX(0)
+              scale(0.92);
           }
-          33% {
-            transform: translate(-50%, -50%) translateY(-5px) translateX(2px);
+          25% {
+            transform: translate(-50%, -50%) translateY(-4px) translateX(2px)
+              scale(0.92);
           }
-          66% {
-            transform: translate(-50%, -50%) translateY(2px) translateX(-1px);
+          50% {
+            transform: translate(-50%, -50%) translateY(1px) translateX(-1px)
+              scale(0.93);
+          }
+          75% {
+            transform: translate(-50%, -50%) translateY(3px) translateX(1px)
+              scale(0.92);
           }
         }
         @keyframes hero-float-b {
           0%,
           100% {
-            transform: translate(-50%, -50%) translateY(0px);
+            transform: translate(-50%, -50%) translateY(0) translateX(0)
+              scale(0.92);
           }
-          40% {
-            transform: translate(-50%, -50%) translateY(3px) translateX(-2px);
+          30% {
+            transform: translate(-50%, -50%) translateY(3px) translateX(-2px)
+              scale(0.93);
           }
-          70% {
-            transform: translate(-50%, -50%) translateY(-3px) translateX(1px);
+          60% {
+            transform: translate(-50%, -50%) translateY(-2px) translateX(3px)
+              scale(0.92);
+          }
+        }
+        @keyframes hero-float-c {
+          0%,
+          100% {
+            transform: translate(-50%, -50%) translateY(0) translateX(0)
+              scale(0.92);
+          }
+          20% {
+            transform: translate(-50%, -50%) translateY(-3px) translateX(-1px)
+              scale(0.92);
+          }
+          50% {
+            transform: translate(-50%, -50%) translateY(2px) translateX(2px)
+              scale(0.93);
+          }
+          80% {
+            transform: translate(-50%, -50%) translateY(-1px) translateX(-2px)
+              scale(0.92);
           }
         }
         @media (prefers-reduced-motion: reduce) {
