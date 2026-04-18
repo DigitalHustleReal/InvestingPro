@@ -205,7 +205,7 @@ export default function Hero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-[60px] pt-8 pb-6 lg:pt-12 lg:pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-6 lg:pt-12 lg:pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] min-h-[620px] lg:min-h-[720px]">
           {/* ── LEFT: Rotating question ── */}
           <div className="flex flex-col" aria-live="polite">

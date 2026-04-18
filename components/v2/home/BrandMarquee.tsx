@@ -1,3 +1,5 @@
+"use client";
+
 const PHRASES = [
   "Independent research.",
   "No paid rankings.",
