@@ -62,7 +62,7 @@ export default function CalculatorSpotlight() {
           </Link>
         </div>
 
-        <div className="grid gap-0 grid-cols-1 sm:grid-cols-3 border-2 border-[#0A1F14]/10 dark:border-white/10">
+        <div className="grid gap-0 grid-cols-1 sm:grid-cols-3 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
           {CALCS.map((calc, i) => {
             const Icon = calc.icon;
             return (
@@ -71,27 +71,27 @@ export default function CalculatorSpotlight() {
                 href={calc.href}
                 className={`group p-6 ${
                   i < CALCS.length - 1
-                    ? "border-b sm:border-b-0 sm:border-r border-[#0A1F14]/10 dark:border-white/10"
+                    ? "border-b sm:border-b-0 sm:border-r border-gray-200 dark:border-white/10"
                     : ""
-                } hover:bg-[#0A1F14]/[0.02] dark:hover:bg-white/[0.02] transition-colors`}
+                } hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors`}
               >
                 <Icon className="w-6 h-6 text-[#16A34A] mb-4" />
-                <h3 className="font-display text-lg font-bold text-[#0A1F14] dark:text-white mb-1 group-hover:text-[#16A34A] transition-colors">
+                <h3 className="font-display text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#16A34A] transition-colors">
                   {calc.name}
                 </h3>
-                <p className="text-sm text-[#0A1F14]/60 dark:text-white/60 leading-relaxed mb-5">
+                <p className="text-sm text-gray-500 dark:text-white/60 leading-relaxed mb-5">
                   {calc.desc}
                 </p>
 
                 {/* Live result preview */}
-                <div className="border-2 border-[#0A1F14]/10 dark:border-white/10 p-4">
-                  <div className="font-data text-[10px] text-[#0A1F14]/40 dark:text-white/40 uppercase tracking-wider mb-2">
+                <div className="border border-gray-200 dark:border-white/10 rounded-lg bg-gray-50 dark:bg-white/[0.02] p-4">
+                  <div className="font-data text-[10px] text-gray-400 dark:text-white/40 uppercase tracking-wider mb-2">
                     {calc.label}
                   </div>
                   <div className="font-data text-3xl font-bold text-[#16A34A]">
                     {calc.val}
                   </div>
-                  <div className="font-data text-[11px] text-[#0A1F14]/50 dark:text-white/50 mt-1">
+                  <div className="font-data text-[11px] text-gray-500 dark:text-white/50 mt-1">
                     {calc.valSub}
                   </div>
                 </div>

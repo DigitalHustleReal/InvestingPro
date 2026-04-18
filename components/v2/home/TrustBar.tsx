@@ -19,7 +19,7 @@ export default function TrustBar() {
               key={point.label}
               className="flex items-center gap-2 whitespace-nowrap flex-shrink-0"
             >
-              <span className="text-[13px] text-[#0A1F14]/50 dark:text-white/50">
+              <span className="text-[13px] text-gray-500 dark:text-white/50">
                 {point.label}
               </span>
               <span

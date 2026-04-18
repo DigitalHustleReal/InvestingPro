@@ -103,7 +103,7 @@ const CATEGORIES: Category[] = [
 
 export default function ExploreCategories() {
   return (
-    <section className="py-16 md:py-20">
+    <section className="py-16 md:py-20 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="mb-10">
           <div className="font-data text-[11px] uppercase tracking-[4px] text-[#D97706] mb-3">
@@ -115,7 +115,7 @@ export default function ExploreCategories() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0 border-2 border-[#0A1F14]/10 dark:border-white/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
           {CATEGORIES.map((cat, i) => {
             const Icon = cat.icon;
             return (
@@ -123,17 +123,19 @@ export default function ExploreCategories() {
                 key={cat.label}
                 className={`p-6 ${
                   i < CATEGORIES.length - 1
-                    ? "border-b sm:border-r border-[#0A1F14]/10 dark:border-white/10"
+                    ? "border-b sm:border-r border-gray-200 dark:border-white/10"
                     : ""
                 }`}
               >
-                <Icon className="w-6 h-6 text-[#16A34A] mb-3" />
+                <div className="w-10 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center mb-3">
+                  <Icon className="w-5 h-5 text-[#16A34A]" />
+                </div>
                 <Link href={cat.href}>
-                  <h3 className="font-display text-lg font-bold text-[#0A1F14] dark:text-white hover:text-[#16A34A] transition-colors mb-1">
+                  <h3 className="font-display text-lg font-bold text-gray-900 dark:text-white hover:text-[#16A34A] transition-colors mb-1">
                     {cat.label}
                   </h3>
                 </Link>
-                <p className="text-sm text-[#0A1F14]/50 dark:text-white/50 mb-4">
+                <p className="text-sm text-gray-500 dark:text-white/50 mb-4">
                   {cat.headline}
                 </p>
                 <div className="space-y-1.5">

@@ -74,28 +74,28 @@ export default async function MarketPulse() {
           </Link>
         </div>
 
-        <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-2 border-[#0A1F14]/10 dark:border-white/10">
+        <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
           {items.map((item, i) => (
             <Link
               key={item.title}
               href={item.href}
               className={`group p-5 ${
                 i < items.length - 1
-                  ? "border-b lg:border-b-0 lg:border-r border-[#0A1F14]/10 dark:border-white/10"
+                  ? "border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-white/10"
                   : ""
-              } hover:bg-[#0A1F14]/[0.02] dark:hover:bg-white/[0.02] transition-colors`}
+              } hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors`}
             >
               <span className="font-data text-[10px] uppercase tracking-[2px] text-[#16A34A] mb-2 block">
                 {item.tag}
               </span>
-              <h3 className="font-display text-[15px] font-bold text-[#0A1F14] dark:text-white leading-snug mb-2 group-hover:text-[#16A34A] transition-colors line-clamp-2">
+              <h3 className="font-display text-[15px] font-bold text-gray-900 dark:text-white leading-snug mb-2 group-hover:text-[#16A34A] transition-colors line-clamp-2">
                 {item.title}
               </h3>
-              <p className="text-xs text-[#0A1F14]/50 dark:text-white/50 leading-relaxed line-clamp-3">
+              <p className="text-xs text-gray-500 dark:text-white/50 leading-relaxed line-clamp-3">
                 {item.take}
               </p>
               {item.date && (
-                <div className="mt-3 font-data text-[10px] text-[#0A1F14]/30 dark:text-white/30 uppercase tracking-wider">
+                <div className="mt-3 font-data text-[10px] text-gray-300 dark:text-white/30 uppercase tracking-wider">
                   {item.date}
                 </div>
               )}

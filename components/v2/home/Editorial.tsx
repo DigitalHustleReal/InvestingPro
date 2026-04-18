@@ -49,7 +49,7 @@ export default async function Editorial() {
   const rest = items.slice(1, 7);
 
   return (
-    <section className="py-16 md:py-20">
+    <section className="py-16 md:py-20 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between mb-10">
           <div>
@@ -70,11 +70,11 @@ export default async function Editorial() {
         </div>
 
         {/* Asymmetric grid: 1 large + 6 small */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 border-2 border-[#0A1F14]/10 dark:border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
           {/* Featured article (large) */}
           <Link
             href={featured.href}
-            className="lg:col-span-2 group border-b lg:border-b-0 lg:border-r-2 border-[#0A1F14]/10 dark:border-white/10"
+            className="lg:col-span-2 group border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-white/10"
           >
             {featured.image && (
               <div className="relative aspect-[16/10] overflow-hidden">
@@ -93,10 +93,10 @@ export default async function Editorial() {
               <h3 className="font-display text-xl sm:text-2xl font-bold text-[#0A1F14] dark:text-white leading-tight mt-2 mb-3 group-hover:text-[#16A34A] transition-colors">
                 {featured.title}
               </h3>
-              <p className="text-sm text-[#0A1F14]/60 dark:text-white/60 line-clamp-3 leading-relaxed">
+              <p className="text-sm text-gray-500 dark:text-white/60 line-clamp-3 leading-relaxed">
                 {featured.excerpt}
               </p>
-              <div className="mt-4 font-data text-[10px] text-[#0A1F14]/40 dark:text-white/40 uppercase tracking-wider">
+              <div className="mt-4 font-data text-[10px] text-gray-400 dark:text-white/40 uppercase tracking-wider">
                 InvestingPro Research · {featured.readTime}
               </div>
             </div>
@@ -110,9 +110,9 @@ export default async function Editorial() {
                 href={art.href}
                 className={`group flex items-start gap-4 p-5 ${
                   i < rest.length - 1
-                    ? "border-b border-[#0A1F14]/10 dark:border-white/10"
+                    ? "border-b border-gray-200 dark:border-white/10"
                     : ""
-                } hover:bg-[#0A1F14]/[0.02] dark:hover:bg-white/[0.02] transition-colors`}
+                } hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors`}
               >
                 <div className="flex-1 min-w-0">
                   <span className="font-data text-[10px] uppercase tracking-[2px] text-[#D97706]">
@@ -121,7 +121,7 @@ export default async function Editorial() {
                   <h3 className="font-display text-[15px] font-bold text-[#0A1F14] dark:text-white leading-snug mt-1 group-hover:text-[#16A34A] transition-colors line-clamp-2">
                     {art.title}
                   </h3>
-                  <span className="font-data text-[10px] text-[#0A1F14]/40 dark:text-white/40 uppercase tracking-wider mt-1 inline-block">
+                  <span className="font-data text-[10px] text-gray-400 dark:text-white/40 uppercase tracking-wider mt-1 inline-block">
                     {art.readTime}
                   </span>
                 </div>

@@ -97,7 +97,7 @@ export default async function TopPicks() {
   const cards = picks.length > 0 ? picks : FALLBACK;
 
   return (
-    <section className="py-16 md:py-20">
+    <section className="py-16 md:py-20 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between mb-10">
           <div>
@@ -108,7 +108,7 @@ export default async function TopPicks() {
               Top-rated products{" "}
               <span className="text-[#D97706]">this week.</span>
             </h2>
-            <p className="text-sm text-[#0A1F14]/50 dark:text-white/50 mt-2">
+            <p className="text-sm text-gray-500 dark:text-white/50 mt-2">
               Ranked by real outcomes — not what pays us most.
             </p>
           </div>
@@ -120,13 +120,13 @@ export default async function TopPicks() {
           </Link>
         </div>
 
-        <div className="grid gap-0 grid-cols-1 sm:grid-cols-3 border-2 border-[#0A1F14]/10 dark:border-white/10">
+        <div className="grid gap-0 grid-cols-1 sm:grid-cols-3 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
           {cards.map((card, i) => (
             <div
               key={card.name}
               className={`p-6 ${
                 i < cards.length - 1
-                  ? "border-b sm:border-b-0 sm:border-r border-[#0A1F14]/10 dark:border-white/10"
+                  ? "border-b sm:border-b-0 sm:border-r border-gray-200 dark:border-white/10"
                   : ""
               }`}
             >
@@ -139,14 +139,14 @@ export default async function TopPicks() {
               {/* Score */}
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <div className="font-data text-[10px] uppercase tracking-wider text-[#0A1F14]/40 dark:text-white/40">
+                  <div className="font-data text-[10px] uppercase tracking-wider text-gray-400 dark:text-white/40">
                     {bankAbbr(card.bank)}
                   </div>
-                  <h3 className="font-display text-lg font-bold text-[#0A1F14] dark:text-white mt-1">
+                  <h3 className="font-display text-lg font-bold text-gray-900 dark:text-white mt-1">
                     {card.name}
                   </h3>
                 </div>
-                <div className="w-14 h-14 border-2 border-[#16A34A] flex items-center justify-center flex-shrink-0">
+                <div className="w-14 h-14 border border-green-200 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center flex-shrink-0">
                   <span className="font-data text-xl font-bold text-[#16A34A]">
                     {card.score}
                   </span>
@@ -154,24 +154,24 @@ export default async function TopPicks() {
               </div>
 
               {/* Highlight */}
-              <div className="font-data text-3xl font-bold text-[#0A1F14] dark:text-white mb-1">
+              <div className="font-data text-3xl font-bold text-gray-900 dark:text-white mb-1">
                 {card.highlight}
               </div>
-              <p className="text-sm text-[#0A1F14]/50 dark:text-white/50 mb-4">
+              <p className="text-sm text-gray-500 dark:text-white/50 mb-4">
                 {card.highlightSub}
               </p>
 
               {/* Fee + CTA */}
-              <div className="flex items-center justify-between pt-4 border-t border-[#0A1F14]/10 dark:border-white/10">
-                <span className="font-data text-[11px] text-[#0A1F14]/40 dark:text-white/40 uppercase tracking-wider">
+              <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-white/10">
+                <span className="font-data text-[11px] text-gray-400 dark:text-white/40 uppercase tracking-wider">
                   Annual:{" "}
-                  <strong className="text-[#0A1F14] dark:text-white">
+                  <strong className="text-gray-900 dark:text-white">
                     {card.fee}
                   </strong>
                 </span>
                 <Link
                   href={card.href}
-                  className="px-4 py-2 bg-[#16A34A] text-white font-data text-[11px] uppercase tracking-[2px] hover:bg-[#166534] transition-colors"
+                  className="px-4 py-2 bg-[#16A34A] text-white font-data text-[11px] uppercase tracking-[2px] rounded-lg hover:bg-[#166534] transition-colors"
                 >
                   Apply Now
                 </Link>
