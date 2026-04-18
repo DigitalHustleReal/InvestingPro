@@ -1,5 +1,5 @@
-// InvestingPro v2 Homepage — March 2026 Redesign
-// NerdWallet structure + modern execution + Indian identity
+// InvestingPro Homepage — NerdWallet-parity redesign
+// Clean white theme, interactive constellation hero, full section coverage
 
 export const revalidate = 300; // ISR: 5 minutes
 
@@ -7,18 +7,21 @@ import React, { Suspense } from "react";
 import { Metadata } from "next";
 import Hero from "@/components/v2/home/Hero";
 import TrustBar from "@/components/v2/home/TrustBar";
+import RateComparison from "@/components/v2/home/RateComparison";
 import MarketPulse from "@/components/v2/home/MarketPulse";
 import TopPicks from "@/components/v2/home/TopPicks";
 import CalculatorSpotlight from "@/components/v2/home/CalculatorSpotlight";
-import Editorial from "@/components/v2/home/Editorial";
 import ExploreCategories from "@/components/v2/home/ExploreCategories";
-import NewsletterTrust from "@/components/v2/home/NewsletterTrust";
+import BrandMarquee from "@/components/v2/home/BrandMarquee";
 import TrustMethodology from "@/components/v2/home/TrustMethodology";
+import NewsletterTrust from "@/components/v2/home/NewsletterTrust";
+import Editorial from "@/components/v2/home/Editorial";
+import MoreResources from "@/components/v2/home/MoreResources";
 
 export const metadata: Metadata = {
   title: "InvestingPro — India's Independent Financial Comparison Platform",
   description:
-    "Compare credit cards, mutual funds, loans, and more across 50+ Indian banks. Independent research, AI-powered recommendations, 25 free calculators. No paid rankings.",
+    "Compare credit cards, mutual funds, loans, and more across 50+ Indian banks. Independent research, AI-powered recommendations, 75 free calculators. No paid rankings.",
   openGraph: {
     title: "InvestingPro — India's Independent Financial Comparison Platform",
     description:
@@ -35,7 +38,7 @@ function SectionSkeleton() {
       <div className="max-w-7xl mx-auto">
         <div className="h-5 w-20 bg-gray-200 rounded mb-2 animate-pulse" />
         <div className="h-7 w-64 bg-gray-200 rounded mb-7 animate-pulse" />
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
             <div
               key={i}
@@ -77,36 +80,47 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* S3: Hero — centered, geometric bg, category cards */}
+      {/* Hero — rotating questions + constellation */}
       <Hero />
 
-      {/* S4: Trust bar — green gradient */}
+      {/* Live data ticker */}
       <TrustBar />
 
-      {/* S6: Market Pulse — cream bg, dot pattern, editorial cards */}
+      {/* Find smarter rates — tabbed deposit/loan comparison */}
+      <RateComparison />
+
+      {/* Editor's Picks — latest articles */}
       <Suspense fallback={<SectionSkeleton />}>
         <MarketPulse />
       </Suspense>
 
-      {/* S7: Top Picks — product cards with scores */}
+      {/* Top-rated products with scores */}
       <Suspense fallback={<SectionSkeleton />}>
         <TopPicks />
       </Suspense>
 
-      {/* S8: Calculators — gray bg, grid pattern, 3 previews */}
+      {/* Calculator previews with live results */}
       <CalculatorSpotlight />
 
-      {/* S9: Explore — NerdWallet-style category navigator */}
+      {/* Category cards — NerdWallet-style with icons + sub-links */}
       <ExploreCategories />
 
-      {/* S10: Trust & Methodology — authority signals */}
+      {/* Brand marquee — scrolling trust signals */}
+      <BrandMarquee />
+
+      {/* Methodology one-liner */}
       <TrustMethodology />
 
-      {/* S11: Newsletter + Trust — green gradient, geometric lines */}
+      {/* Newsletter signup */}
       <NewsletterTrust />
 
-      {/* S12: Editorial — article cards */}
-      <Editorial />
+      {/* Latest research — editorial grid */}
+      <Suspense fallback={<SectionSkeleton />}>
+        <Editorial />
+      </Suspense>
+
+      {/* More resources — NerdWallet-style accordion */}
+      <MoreResources />
     </>
   );
 }
