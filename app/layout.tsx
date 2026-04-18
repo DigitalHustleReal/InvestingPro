@@ -23,7 +23,7 @@ import PerformanceMonitor from "@/components/performance/PerformanceMonitor";
 import SentryInit from "@/components/monitoring/SentryInit";
 import { ConditionalPublicElements } from "@/components/common/ConditionalPublicElements";
 import { ConditionalPublicFloating } from "@/components/common/ConditionalPublicFloating";
-import CookieConsent from "@/components/legal/CookieConsent";
+import CookieConsent from "@/components/common/CookieConsent";
 import ThirdPartyScripts from "@/components/monetization/ThirdPartyScripts";
 
 // Font configurations — Bold Redesign (Playfair Display + Inter + JetBrains Mono)

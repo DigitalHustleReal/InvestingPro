@@ -32,26 +32,26 @@ const NODE_LINKS: Record<string, string> = {
 /* ── Rest positions (used when a node is NOT the focus) ── */
 const CORE_REST: Record<string, { x: number; y: number }> = {
   retirement: { x: 46, y: 10 },
-  tax: { x: 78, y: 28 },
+  tax: { x: 72, y: 28 },
   "mutual-funds": { x: 24, y: 34 },
   "credit-cards": { x: 60, y: 48 },
   insurance: { x: 34, y: 62 },
-  "kids-education": { x: 82, y: 72 },
+  "kids-education": { x: 76, y: 72 },
 };
 
 const SUB_REST: Record<string, { x: number; y: number }> = {
   nps: { x: 15, y: 18 },
-  "old-vs-new": { x: 92, y: 15 },
+  "old-vs-new": { x: 84, y: 15 },
   "sip-calculator": { x: 12, y: 48 },
-  "term-plan": { x: 66, y: 6 },
-  "home-loan": { x: 94, y: 44 },
-  "80c": { x: 90, y: 26 },
+  "term-plan": { x: 62, y: 6 },
+  "home-loan": { x: 86, y: 44 },
+  "80c": { x: 82, y: 26 },
   "emergency-fund": { x: 16, y: 68 },
   hra: { x: 46, y: 28 },
   fire: { x: 54, y: 84 },
-  "tax-harvesting": { x: 82, y: 4 },
+  "tax-harvesting": { x: 76, y: 4 },
   esops: { x: 24, y: 82 },
-  "pension-gap": { x: 92, y: 62 },
+  "pension-gap": { x: 84, y: 62 },
 };
 
 /* ── Nearest core for each sub ── */
@@ -205,7 +205,7 @@ export default function Hero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-[60px] pt-16 pb-10 lg:pt-20 lg:pb-10">
+      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-[60px] pt-8 pb-6 lg:pt-12 lg:pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] min-h-[620px] lg:min-h-[720px]">
           {/* ── LEFT: Rotating question ── */}
           <div className="flex flex-col" aria-live="polite">
