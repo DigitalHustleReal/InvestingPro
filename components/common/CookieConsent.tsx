@@ -1,60 +1,63 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/Button";
-import { X } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Cookie } from "lucide-react";
+import Link from "next/link";
 
 export default function CookieConsent() {
-    const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-    useEffect(() => {
-        const consent = localStorage.getItem('cookieConsent');
-        if (!consent) {
-            setTimeout(() => setShow(true), 2000);
-        }
-    }, []);
+  useEffect(() => {
+    const consent = localStorage.getItem("cookieConsent");
+    if (!consent) {
+      setTimeout(() => setShow(true), 2000);
+    }
+  }, []);
 
-    const acceptCookies = () => {
-        localStorage.setItem('cookieConsent', 'true');
-        setShow(false);
-    };
+  const acceptCookies = () => {
+    localStorage.setItem("cookieConsent", "true");
+    setShow(false);
+  };
 
-    const declineCookies = () => {
-        localStorage.setItem('cookieConsent', 'false');
-        setShow(false);
-    };
+  const declineCookies = () => {
+    localStorage.setItem("cookieConsent", "false");
+    setShow(false);
+  };
 
-    if (!show) return null;
+  if (!show) return null;
 
-    return (
-        <div className="fixed bottom-6 right-6 z-[100] max-w-sm">
-            <div className="bg-gray-900/80 backdrop-blur-xl border border-white/10 p-6 rounded-[2rem] shadow-2xl flex flex-col gap-4">
-                <div className="flex justify-between items-start">
-                    <p className="text-xs text-gray-300 leading-relaxed font-medium">
-                        We use minimal cookies to personalize your research experience and optimize our asset models.
-                    </p>
-                    <button onClick={() => setShow(false)} className="text-gray-500 hover:text-white transition-colors">
-                        <X size={16} />
-                    </button>
-                </div>
-                <div className="flex gap-3">
-                    <Button
-                        size="sm"
-                        onClick={acceptCookies}
-                        className="flex-1 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-xl h-10 border-0"
-                    >
-                        Got it
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={declineCookies}
-                        className="flex-1 border-gray-700 text-gray-600 hover:bg-gray-800 rounded-xl h-10"
-                    >
-                        Decline
-                    </Button>
-                </div>
+  return (
+    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-sm z-[100]">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-4">
+        <div className="flex items-start gap-3">
+          <Cookie className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+          <div className="flex-1 min-w-0">
+            <p className="text-[13px] text-gray-600 leading-relaxed">
+              We use cookies to improve your experience.{" "}
+              <Link
+                href="/cookie-policy"
+                className="text-green-600 hover:underline"
+              >
+                Learn more
+              </Link>
+            </p>
+            <div className="flex gap-2 mt-3">
+              <button
+                onClick={acceptCookies}
+                className="px-4 py-1.5 bg-green-600 text-white text-xs font-semibold rounded-lg hover:bg-green-700 transition-colors cursor-pointer"
+              >
+                Accept
+              </button>
+              <button
+                onClick={declineCookies}
+                className="px-4 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-lg hover:bg-gray-200 transition-colors cursor-pointer"
+              >
+                Decline
+              </button>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
