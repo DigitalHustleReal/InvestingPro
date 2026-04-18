@@ -23,7 +23,7 @@ import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import TopPicksSidebar from "@/components/products/TopPicksSidebar";
 // ContextualProducts removed — sidebar handles product recommendations
 // SeamlessCTA and LeadMagnet removed — cluttered bottom section
-import { Badge } from "@/components/ui/badge";
+// Badge replaced with inline monospace spans
 import { Calendar, Clock } from "lucide-react";
 import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
 // generateSchema removed — using inline NewsArticle schema for Google News
@@ -240,23 +240,20 @@ export default async function ArticlePage({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6">
             {/* ── Main Content ─────────────────────────────────── */}
             <article className="lg:col-span-8 min-w-0">
-              {/* Category badge */}
+              {/* Category badge — monospace */}
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <Badge
-                  variant="outline"
-                  className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 border-gray-300"
-                >
+                <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-2.5 py-1">
                   {formatSlug(article.category || "")}
-                </Badge>
+                </span>
               </div>
 
-              {/* Title */}
-              <h1 className="text-4xl sm:text-5xl font-black text-gray-900 dark:text-white mb-5 leading-[1.08] font-heading tracking-tight">
+              {/* Title — Playfair Display */}
+              <h1 className="font-display text-4xl sm:text-5xl font-black text-[--v2-ink] dark:text-white mb-5 leading-[1.08] tracking-tight">
                 {article.title}
               </h1>
 
               {/* Meta row — author + actions on one line, date/time below */}
-              <div className="mb-8 pb-8 border-b border-border space-y-4">
+              <div className="mb-8 pb-8 border-b-2 border-[--v2-ink]/10 space-y-4">
                 <div className="flex items-center justify-between">
                   <AuthorBadge
                     name={
@@ -280,8 +277,7 @@ export default async function ArticlePage({
                     articleTitle={article.title}
                   />
                 </div>
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-muted-foreground">
-                  {/* Single date — show "Updated" if different from published, otherwise show published */}
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-data text-[11px] uppercase tracking-wider text-muted-foreground">
                   <span className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
                     {article.updated_at &&
@@ -312,9 +308,9 @@ export default async function ArticlePage({
                 readTime={article.read_time || article.reading_time}
               />
 
-              {/* Featured image */}
+              {/* Featured image — sharp, edge-to-edge */}
               {article.featured_image && (
-                <div className="relative aspect-video w-full mb-8 rounded-lg overflow-hidden border border-gray-200">
+                <div className="relative aspect-video w-full mb-8 overflow-hidden border-2 border-[--v2-ink]/10">
                   <Image
                     src={article.featured_image}
                     alt={article.title}
@@ -351,21 +347,18 @@ export default async function ArticlePage({
               {/* Article Sources — expandable citations for E-E-A-T */}
               <ArticleSources category={article.category || ""} />
 
-              {/* Tags — compact */}
+              {/* Tags — monospace, sharp */}
               {article.tags?.length > 0 && (
-                <div className="mt-10 pt-6 border-t border-border">
+                <div className="mt-10 pt-6 border-t-2 border-[--v2-ink]/10">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest mr-2">
+                    <span className="font-data text-[10px] font-bold text-muted-foreground uppercase tracking-widest mr-2">
                       Tags
                     </span>
                     {article.tags.map((tag: string) => (
                       <Link key={tag} href={`/tag/${tag}`}>
-                        <Badge
-                          variant="secondary"
-                          className="hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer text-xs"
-                        >
+                        <span className="font-data text-[11px] uppercase tracking-wider px-3 py-1 border border-[--v2-ink]/10 text-[--v2-ink]/70 hover:bg-[--v2-ink]/5 hover:text-[--v2-ink] transition-colors cursor-pointer">
                           {tag}
-                        </Badge>
+                        </span>
                       </Link>
                     ))}
                   </div>
@@ -379,8 +372,8 @@ export default async function ArticlePage({
                 </Suspense>
               </div>
 
-              {/* Prev / next nav — compact */}
-              <div className="mt-8 pt-6 border-t flex justify-between gap-4">
+              {/* Prev / next nav */}
+              <div className="mt-8 pt-6 border-t-2 border-[--v2-ink]/10 flex justify-between gap-4">
                 <Link
                   href="/articles"
                   className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"

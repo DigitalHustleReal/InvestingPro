@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ChevronRight, Shield, CalendarDays } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { getLoansServer } from "@/lib/products/get-loans-server";
 import LoansClient from "./LoansClient";
 import CIBILSimulator from "@/components/tools/CIBILSimulator";
@@ -106,43 +106,41 @@ export default async function LoansPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <ContextualTicker category="loans" />
-      <section className="bg-white border-b border-gray-200">
+      <section className="bg-white border-b-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-400">
+            <ol className="flex items-center gap-1.5 font-data text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-green-600 transition-colors"
+                  className="hover:text-[--v2-ink] transition-colors"
                 >
                   Home
                 </Link>
               </li>
               <li>
-                <ChevronRight size={12} />
+                <ChevronRight size={10} />
               </li>
-              <li className="text-gray-700 font-medium">Loans</li>
+              <li className="text-[--v2-ink] font-medium">Loans</li>
             </ol>
           </nav>
           <AdvertiserDisclosure variant="expandable" className="mb-3" />
 
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">
+              <h1 className="font-display text-3xl md:text-[42px] font-black text-[--v2-ink] tracking-tight leading-[1.1]">
                 Best Loans in India
               </h1>
-              <p className="text-[15px] text-gray-500 mt-2 max-w-xl leading-relaxed">
+              <p className="text-[15px] text-gray-500 mt-3 max-w-xl leading-relaxed">
                 Compare {count}+ loan products from top banks and NBFCs. Filter
                 by type, rate, and tenure. Independent ratings.
               </p>
             </div>
-            <div className="flex items-center gap-5 text-[12px] text-gray-500 flex-shrink-0 mt-1">
-              <span className="flex items-center gap-1.5">
-                <Shield size={13} className="text-green-600" />
-                Independent ratings
+            <div className="flex items-center gap-4 flex-shrink-0 mt-1">
+              <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-3 py-1.5">
+                {count}+ lenders
               </span>
-              <span className="flex items-center gap-1.5">
-                <CalendarDays size={13} className="text-green-600" />
+              <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-3 py-1.5">
                 Updated daily
               </span>
             </div>
@@ -160,7 +158,7 @@ export default async function LoansPage() {
               <Link
                 key={p}
                 href={i === 0 ? "/loans" : `/loans?type=${p.toLowerCase()}`}
-                className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${i === 0 ? "bg-green-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
+                className={`inline-flex items-center px-4 py-2 font-data text-[11px] uppercase tracking-wider font-medium whitespace-nowrap transition-colors ${i === 0 ? "bg-[--v2-ink] text-white" : "bg-[--v2-ink]/5 text-[--v2-ink]/70 hover:bg-[--v2-ink]/10"}`}
               >
                 {p}
               </Link>
@@ -168,8 +166,8 @@ export default async function LoansPage() {
           </div>
         </div>
       </section>
-      {/* Loan type cards — BankBazaar pattern */}
-      <section className="bg-white border-b border-gray-200">
+      {/* Loan type cards */}
+      <section className="bg-white border-b-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
             {[
@@ -207,12 +205,12 @@ export default async function LoansPage() {
               <Link
                 key={t.label}
                 href={t.href}
-                className="p-3 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group text-center"
+                className="p-3 border-2 border-[--v2-ink]/10 hover:border-[--v2-ink]/30 transition-all group text-center"
               >
-                <p className="text-xs font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                <p className="text-xs font-semibold text-[--v2-ink] group-hover:text-green-700 transition-colors">
                   {t.label}
                 </p>
-                <p className="text-[11px] text-green-600 font-medium mt-0.5">
+                <p className="font-data text-[11px] text-green-600 font-medium mt-0.5">
                   {t.rate}
                 </p>
               </Link>
@@ -221,7 +219,7 @@ export default async function LoansPage() {
         </div>
       </section>
 
-      <section className="bg-gray-50 min-h-screen">
+      <section className="bg-[--v2-canvas] min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <LoansClient initialLoans={loans} />
         </div>
@@ -229,9 +227,9 @@ export default async function LoansPage() {
       {/* ── CIBIL Score Simulator ── */}
       <CIBILSimulator />
 
-      <section className="bg-white border-t border-gray-200">
+      <section className="bg-white border-t-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
+          <h2 className="font-data text-[11px] uppercase tracking-[3px] text-[--indian-gold] mb-6">
             Related Tools
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -260,9 +258,9 @@ export default async function LoansPage() {
               <Link
                 key={t.href}
                 href={t.href}
-                className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
+                className="p-4 bg-[--v2-canvas] border-2 border-[--v2-ink]/10 hover:border-[--v2-ink]/30 transition-all group"
               >
-                <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                <p className="text-sm font-semibold text-[--v2-ink] group-hover:text-green-700 transition-colors">
                   {t.label}
                 </p>
                 <p className="text-xs text-gray-500 mt-1 leading-relaxed">
@@ -273,10 +271,10 @@ export default async function LoansPage() {
           </div>
         </div>
       </section>
-      <section className="bg-gray-50 border-t border-gray-200">
+      <section className="bg-[--v2-canvas] border-t-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
-            Popular Loan Comparisons
+          <h2 className="font-data text-[11px] uppercase tracking-[3px] text-[--indian-gold] mb-6">
+            Popular Comparisons
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
             {[
@@ -314,9 +312,9 @@ export default async function LoansPage() {
               <Link
                 key={comp.href}
                 href={comp.href}
-                className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
+                className="flex items-start gap-3 p-4 bg-white border-2 border-[--v2-ink]/10 hover:border-[--v2-ink]/30 transition-all group"
               >
-                <span className="text-[11px] font-bold text-red-600 bg-red-50 px-2 py-1 rounded mt-0.5 flex-shrink-0">
+                <span className="font-data text-[10px] font-bold text-[--v2-ink] bg-[--v2-ink]/5 px-2 py-1 mt-0.5 flex-shrink-0 tracking-wider">
                   VS
                 </span>
                 <div>
@@ -329,8 +327,8 @@ export default async function LoansPage() {
             ))}
           </div>
 
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
-            How We Compare Loans
+          <h2 className="font-data text-[11px] uppercase tracking-[3px] text-[--indian-gold] mb-6">
+            How We Compare
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
             {[
@@ -357,10 +355,12 @@ export default async function LoansPage() {
             ].map((s) => (
               <div
                 key={s.label}
-                className="p-4 bg-white rounded-xl border border-gray-100"
+                className="p-4 bg-white border-2 border-[--v2-ink]/10"
               >
-                <p className="text-2xl font-black text-green-600">{s.num}</p>
-                <p className="text-sm font-semibold text-gray-900 mt-1">
+                <p className="font-data text-2xl font-bold text-[--v2-ink]">
+                  {s.num}
+                </p>
+                <p className="text-sm font-semibold text-[--v2-ink] mt-1">
                   {s.label}
                 </p>
                 <p className="text-xs text-gray-500 mt-1 leading-relaxed">
@@ -370,7 +370,9 @@ export default async function LoansPage() {
             ))}
           </div>
 
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">Loan FAQs</h2>
+          <h2 className="font-data text-[11px] uppercase tracking-[3px] text-[--indian-gold] mb-6">
+            FAQs
+          </h2>
           <div className="space-y-2">
             {[
               {
@@ -400,7 +402,7 @@ export default async function LoansPage() {
             ].map((f, i) => (
               <details
                 key={i}
-                className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
+                className="group bg-white border-2 border-[--v2-ink]/10 overflow-hidden"
               >
                 <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
                   {f.q}

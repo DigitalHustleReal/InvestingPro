@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ChevronRight, Shield, CalendarDays } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import FixedDepositsClient from "./FixedDepositsClient";
 import { getFixedDepositsServer } from "@/lib/products/get-fixed-deposits-server";
 import ContextualTicker from "@/components/common/ContextualTicker";
@@ -91,44 +91,42 @@ export default async function FixedDepositsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <ContextualTicker category="fixed-deposits" />
-      <section className="bg-white border-b border-gray-200">
+      <section className="bg-white border-b-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-300">
+            <ol className="flex items-center gap-1.5 font-data text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-300">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-green-600 transition-colors"
+                  className="hover:text-[--v2-ink] transition-colors"
                 >
                   Home
                 </Link>
               </li>
               <li>
-                <ChevronRight size={12} />
+                <ChevronRight size={10} />
               </li>
-              <li className="text-gray-700 font-medium">Fixed Deposits</li>
+              <li className="text-[--v2-ink] font-medium">Fixed Deposits</li>
             </ol>
           </nav>
           <AdvertiserDisclosure variant="expandable" className="mb-3" />
 
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">
+              <h1 className="font-display text-3xl md:text-[42px] font-black text-[--v2-ink] tracking-tight leading-[1.1]">
                 Best Fixed Deposit Rates in India
               </h1>
-              <p className="text-[15px] text-gray-500 mt-2 max-w-xl leading-relaxed">
+              <p className="text-[15px] text-gray-500 mt-3 max-w-xl leading-relaxed">
                 Compare FD rates from 50+ banks. Senior citizen rates,
                 tax-saving FDs, and corporate deposits — all in one place.
               </p>
             </div>
-            <div className="flex items-center gap-5 text-[12px] text-gray-500 flex-shrink-0 mt-1">
-              <span className="flex items-center gap-1.5">
-                <Shield size={13} className="text-green-600" />
-                RBI-regulated banks
+            <div className="flex items-center gap-4 flex-shrink-0 mt-1">
+              <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-3 py-1.5">
+                50+ banks
               </span>
-              <span className="flex items-center gap-1.5">
-                <CalendarDays size={13} className="text-green-600" />
-                Rates updated daily
+              <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-3 py-1.5">
+                Rates daily
               </span>
             </div>
           </div>
@@ -149,7 +147,7 @@ export default async function FixedDepositsPage() {
                     ? "/fixed-deposits"
                     : `/fixed-deposits?filter=${p.toLowerCase().replace(" ", "-")}`
                 }
-                className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${i === 0 ? "bg-green-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
+                className={`inline-flex items-center px-4 py-2 font-data text-[11px] uppercase tracking-wider font-medium whitespace-nowrap transition-colors ${i === 0 ? "bg-[--v2-ink] text-white" : "bg-[--v2-ink]/5 text-[--v2-ink]/70 hover:bg-[--v2-ink]/10"}`}
               >
                 {p}
               </Link>
@@ -157,14 +155,14 @@ export default async function FixedDepositsPage() {
           </div>
         </div>
       </section>
-      <section className="bg-gray-50 min-h-screen">
+      <section className="bg-[--v2-canvas] min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <FixedDepositsClient initialFDs={initialFDs} />
         </div>
       </section>
-      <section className="bg-white border-t border-gray-200">
+      <section className="bg-white border-t-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">
+          <h2 className="font-data text-[11px] uppercase tracking-[3px] text-[--indian-gold] mb-6">
             Related Tools
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -193,9 +191,9 @@ export default async function FixedDepositsPage() {
               <Link
                 key={t.href}
                 href={t.href}
-                className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
+                className="p-4 bg-[--v2-canvas] border-2 border-[--v2-ink]/10 hover:border-[--v2-ink]/30 transition-all group"
               >
-                <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                <p className="text-sm font-semibold text-[--v2-ink] group-hover:text-green-700 transition-colors">
                   {t.label}
                 </p>
                 <p className="text-xs text-gray-500 mt-1 leading-relaxed">
@@ -206,9 +204,11 @@ export default async function FixedDepositsPage() {
           </div>
         </div>
       </section>
-      <section className="bg-gray-50 border-t border-gray-200">
+      <section className="bg-[--v2-canvas] border-t-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-[--v2-ink] mb-5">FD FAQs</h2>
+          <h2 className="font-data text-[11px] uppercase tracking-[3px] text-[--indian-gold] mb-6">
+            FAQs
+          </h2>
           <div className="space-y-2">
             {[
               {
@@ -238,16 +238,16 @@ export default async function FixedDepositsPage() {
             ].map((f, i) => (
               <details
                 key={i}
-                className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
+                className="group bg-white border-2 border-[--v2-ink]/10 overflow-hidden"
               >
-                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
+                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-[--v2-ink] hover:bg-[--v2-canvas] transition-colors list-none">
                   {f.q}
                   <ChevronRight
                     size={16}
                     className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
                   />
                 </summary>
-                <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+                <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-[--v2-ink]/10 pt-3">
                   {f.a}
                 </div>
               </details>

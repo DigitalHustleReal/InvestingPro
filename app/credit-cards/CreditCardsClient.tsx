@@ -292,16 +292,16 @@ export default function CreditCardsClient({
 
   return (
     <div>
-      {/* Quick Filter Pills */}
+      {/* Quick Filter Pills — sharp, monospace */}
       <div className="flex gap-2 overflow-x-auto pb-4 mb-4 scrollbar-hide">
         {QUICK_FILTERS.map((pill) => (
           <button
             key={pill.key}
             onClick={() => handleQuickFilter(pill.key)}
-            className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors cursor-pointer ${
+            className={`inline-flex items-center px-4 py-2 font-data text-[11px] uppercase tracking-wider font-medium whitespace-nowrap transition-colors cursor-pointer ${
               activeQuickFilter === pill.key
-                ? "bg-green-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                ? "bg-[--v2-ink] text-white"
+                : "bg-[--v2-ink]/5 text-[--v2-ink]/70 hover:bg-[--v2-ink]/10 hover:text-[--v2-ink]"
             }`}
           >
             {pill.label}
@@ -313,18 +313,20 @@ export default function CreditCardsClient({
         {/* Filter Sidebar */}
         <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
           <FilterSidebar filters={filters} setFilters={setFilters} />
-          <div className="mt-4 p-4 bg-gradient-to-br from-green-600 to-green-700 rounded-xl text-white">
-            <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mb-2.5">
-              <Zap className="w-4 h-4 text-green-200" />
+          <div className="mt-4 p-4 border-2 border-[--v2-ink]/10 bg-[--v2-canvas]">
+            <div className="w-8 h-8 bg-[--indian-gold]/10 flex items-center justify-center mb-2.5">
+              <Zap className="w-4 h-4 text-[--indian-gold]" />
             </div>
-            <h3 className="font-bold text-sm mb-1">Find Your Perfect Card</h3>
-            <p className="text-green-200 text-[11px] mb-3 leading-relaxed">
-              Answer 3 questions, get a personalized recommendation.
+            <h3 className="font-display font-bold text-sm text-[--v2-ink] mb-1">
+              Find Your Perfect Card
+            </h3>
+            <p className="text-[--v2-ink]/40 font-data text-[10px] uppercase tracking-wider mb-3">
+              3 questions · personalized pick
             </p>
             <Link href="/credit-cards/find-your-card">
               <Button
                 size="sm"
-                className="w-full bg-white text-green-700 font-semibold hover:bg-green-50 rounded-lg text-xs"
+                className="w-full bg-green-700 text-white font-semibold hover:bg-green-800 text-xs"
               >
                 Find My Card →
               </Button>
@@ -367,7 +369,7 @@ export default function CreditCardsClient({
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
                 aria-label="Sort cards by"
-                className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500/30 focus:border-green-500 cursor-pointer"
+                className="px-4 py-2.5 bg-white border-2 border-[--v2-ink]/10 font-data text-[11px] uppercase tracking-wider text-[--v2-ink] focus:outline-none focus:ring-2 focus:ring-green-500/30 focus:border-green-500 cursor-pointer"
               >
                 <option value="match">Best Match</option>
                 <option value="popularity">Most Applied</option>
@@ -375,14 +377,14 @@ export default function CreditCardsClient({
                 <option value="rating">Top Rated</option>
               </select>
 
-              <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-1">
+              <div className="flex items-center gap-0 border-2 border-[--v2-ink]/10 p-0.5">
                 <button
                   onClick={() => setViewMode("table")}
                   aria-pressed={viewMode === "table"}
-                  className={`p-2 rounded-md transition-all cursor-pointer ${
+                  className={`p-2 transition-all cursor-pointer ${
                     viewMode === "table"
-                      ? "bg-green-600 text-white"
-                      : "text-gray-500 hover:text-gray-900"
+                      ? "bg-[--v2-ink] text-white"
+                      : "text-gray-500 hover:text-[--v2-ink]"
                   }`}
                 >
                   <TableIcon className="w-4 h-4" />
@@ -390,10 +392,10 @@ export default function CreditCardsClient({
                 <button
                   onClick={() => setViewMode("grid")}
                   aria-pressed={viewMode === "grid"}
-                  className={`p-2 rounded-md transition-all cursor-pointer ${
+                  className={`p-2 transition-all cursor-pointer ${
                     viewMode === "grid"
-                      ? "bg-green-600 text-white"
-                      : "text-gray-500 hover:text-gray-900"
+                      ? "bg-[--v2-ink] text-white"
+                      : "text-gray-500 hover:text-[--v2-ink]"
                   }`}
                 >
                   <LayoutGrid className="w-4 h-4" />
@@ -403,11 +405,11 @@ export default function CreditCardsClient({
           </div>
 
           {filteredAssets.length === 0 ? (
-            <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
-              <div className="w-14 h-14 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+            <div className="text-center py-16 bg-white border-2 border-[--v2-ink]/10">
+              <div className="w-14 h-14 mx-auto mb-4 bg-[--v2-canvas] flex items-center justify-center">
                 <Search className="w-7 h-7 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="font-display text-lg font-bold text-[--v2-ink] mb-2">
                 No cards match your filters
               </h3>
               <p className="text-sm text-gray-500 mb-5 max-w-md mx-auto">
@@ -429,13 +431,13 @@ export default function CreditCardsClient({
                     });
                     setSearchTerm("");
                   }}
-                  className="px-5 py-2.5 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors cursor-pointer"
+                  className="px-5 py-2.5 bg-green-700 text-white text-sm font-medium hover:bg-green-800 transition-colors cursor-pointer"
                 >
                   Clear All Filters
                 </button>
                 <Link
                   href="/credit-cards/find-your-card"
-                  className="px-5 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:border-green-500 hover:text-green-700 transition-colors"
+                  className="px-5 py-2.5 bg-white border-2 border-[--v2-ink]/10 text-sm font-medium text-[--v2-ink] hover:border-[--v2-ink]/30 transition-colors"
                 >
                   Try Card Finder Quiz →
                 </Link>
@@ -464,7 +466,7 @@ export default function CreditCardsClient({
                 <div className="pt-6 text-center">
                   <button
                     onClick={() => setVisibleCount((prev) => prev + 6)}
-                    className="px-5 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:border-green-500 hover:text-green-700 transition-colors cursor-pointer"
+                    className="px-5 py-2.5 bg-white border-2 border-[--v2-ink]/10 text-sm font-medium text-[--v2-ink] hover:border-[--v2-ink]/30 transition-colors cursor-pointer"
                   >
                     Show more
                   </button>

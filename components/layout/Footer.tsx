@@ -69,9 +69,9 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="bg-[#0A1F14] text-white">
+    <footer className="bg-[--v2-canvas] border-t-2 border-[--v2-ink]/10">
       {/* Trust bar */}
-      <div className="border-b border-white/10">
+      <div className="border-b-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
           {[
             "No paid rankings",
@@ -81,7 +81,7 @@ export default function Footer() {
           ].map((item) => (
             <span
               key={item}
-              className="font-data text-[11px] uppercase tracking-[3px] text-white/40"
+              className="font-data text-[11px] uppercase tracking-[3px] text-[--v2-ink]/30"
             >
               {item}
             </span>
@@ -102,7 +102,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/60 hover:text-white transition-colors"
+                      className="text-sm text-[--v2-ink]/50 hover:text-[--v2-ink] transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -115,24 +115,24 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10">
+      <div className="border-t-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-display text-lg font-bold">
+            <span className="font-display text-lg font-bold text-[--v2-ink]">
               Investing<span className="text-[#D97706]">P₹o</span>
             </span>
-            <span className="font-data text-[10px] text-white/40 uppercase tracking-[2px]">
+            <span className="font-data text-[10px] text-[--v2-ink]/30 uppercase tracking-[2px]">
               India&apos;s Independent Finance Platform
             </span>
           </div>
 
           <div className="flex items-center gap-6">
-            <span className="font-data text-[11px] text-white/40">
+            <span className="font-data text-[11px] text-[--v2-ink]/30">
               &copy; {new Date().getFullYear()} InvestingPro.in
             </span>
             <button
               onClick={scrollToTop}
-              className="p-2 border border-white/20 hover:border-white transition-colors cursor-pointer"
+              className="p-2 border-2 border-[--v2-ink]/10 hover:border-[--v2-ink]/30 text-[--v2-ink]/40 hover:text-[--v2-ink] transition-colors cursor-pointer"
               aria-label="Scroll to top"
             >
               <ArrowUp className="w-4 h-4" />
@@ -142,9 +142,9 @@ export default function Footer() {
       </div>
 
       {/* Disclaimer */}
-      <div className="border-t border-white/10">
+      <div className="border-t-2 border-[--v2-ink]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-          <p className="font-data text-[10px] text-white/30 leading-relaxed">
+          <p className="font-data text-[10px] text-[--v2-ink]/20 leading-relaxed">
             InvestingPro.in is an independent comparison platform. We may earn
             affiliate commissions when you apply through our links. Our rankings
             and reviews are never influenced by compensation. All information is

@@ -94,11 +94,11 @@ export function RichProductCard({
   const productUrl = getProductUrl(product);
 
   return (
-    <div className="mb-6 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden">
-      {/* Green "Our pick" pill */}
+    <div className="mb-6 border-2 border-[--v2-ink]/10 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden">
+      {/* "Our pick" badge — sharp, monospace */}
       {product.bestFor && (
-        <div className="bg-green-50 dark:bg-green-900/30 border-b border-gray-200 dark:border-gray-700 px-4 py-2">
-          <span className="inline-block bg-green-700 dark:bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+        <div className="bg-green-50 dark:bg-green-900/30 border-b-2 border-green-600/20 dark:border-gray-700 px-4 py-2">
+          <span className="inline-block font-data text-[10px] uppercase tracking-widest text-green-700">
             Our pick for: {product.bestFor}
           </span>
         </div>
@@ -108,7 +108,7 @@ export function RichProductCard({
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 sm:p-5">
         {/* Left: Product image */}
         <Link href={productUrl} className="shrink-0">
-          <div className="w-20 h-[50px] rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 relative">
+          <div className="w-20 h-[50px] overflow-hidden bg-gray-100 dark:bg-gray-800 relative">
             {product.image_url ? (
               <Image
                 src={product.image_url}
@@ -145,7 +145,7 @@ export function RichProductCard({
           >
             <div
               className={cn(
-                "w-4 h-4 rounded border flex items-center justify-center transition-colors",
+                "w-4 h-4 border flex items-center justify-center transition-colors",
                 isCompareSelected
                   ? "bg-green-600 border-green-600"
                   : "border-gray-300 dark:border-gray-600",
@@ -157,20 +157,17 @@ export function RichProductCard({
           </button>
         </div>
 
-        {/* Right-center: Rating */}
+        {/* Right-center: Score Badge — square, monospace */}
         <div className="flex flex-col items-center shrink-0 mr-0 sm:mr-4">
-          <div className="flex items-center gap-1">
-            <Star className="w-4 h-4 text-green-600 dark:text-green-500 fill-green-600 dark:fill-green-500" />
-            <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
+          <div className="w-14 h-14 border-2 border-[--v2-ink]/15 dark:border-gray-600 flex items-center justify-center">
+            <span className="font-data text-xl font-bold text-[--v2-ink] dark:text-gray-100">
               {typeof ratingObj.overall === "number"
                 ? ratingObj.overall.toFixed(1)
                 : ratingObj.overall}
             </span>
           </div>
-          <span className="text-[10px] text-gray-500 dark:text-gray-400 text-center leading-tight">
-            InvestingPro
-            <br />
-            rating
+          <span className="font-data text-[9px] uppercase tracking-widest text-gray-500 dark:text-gray-400 text-center mt-1">
+            Score
           </span>
         </div>
 
@@ -188,30 +185,27 @@ export function RichProductCard({
         </div>
       </div>
 
-      {/* Data strip - 4 column grid */}
+      {/* Data strip — monospace values, ink dividers */}
       {topFeatures.length > 0 && (
-        <div className="border-t border-gray-200 dark:border-gray-700 grid grid-cols-2 sm:grid-cols-4">
+        <div className="border-t-2 border-[--v2-ink]/10 dark:border-gray-700 bg-[--v2-canvas] dark:bg-gray-800/50 grid grid-cols-2 sm:grid-cols-4">
           {topFeatures.map((feat, i) => (
             <div
               key={i}
               className={cn(
                 "px-4 py-3",
                 i < topFeatures.length - 1 &&
-                  "border-r border-gray-200 dark:border-gray-700 sm:border-r",
-                // On mobile 2-col, remove right border from 2nd and 4th items
+                  "border-r border-[--v2-ink]/10 dark:border-gray-700 sm:border-r",
                 i % 2 === 1 && "border-r-0 sm:border-r",
-                // Last item in sm:4-col never has right border
                 i === topFeatures.length - 1 && "sm:border-r-0",
-                // Add bottom border on mobile for first row
                 i < 2 &&
                   topFeatures.length > 2 &&
-                  "border-b border-gray-200 dark:border-gray-700 sm:border-b-0",
+                  "border-b border-[--v2-ink]/10 dark:border-gray-700 sm:border-b-0",
               )}
             >
-              <p className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-0.5">
+              <p className="font-data text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-0.5">
                 {feat.label}
               </p>
-              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
+              <p className="font-data text-sm font-medium text-[--v2-ink] dark:text-gray-100 truncate">
                 {feat.value}
               </p>
             </div>
@@ -220,13 +214,13 @@ export function RichProductCard({
       )}
 
       {/* Expandable accordion sections */}
-      <div className="border-t border-gray-200 dark:border-gray-700">
-        <div className="flex divide-x divide-gray-200 dark:divide-gray-700">
+      <div className="border-t-2 border-[--v2-ink]/10 dark:border-gray-700">
+        <div className="flex divide-x divide-[--v2-ink]/10 dark:divide-gray-700">
           {/* Key Benefits */}
           {product.pros && product.pros.length > 0 && (
             <button
               onClick={() => toggleSection("benefits")}
-              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 font-data text-[11px] uppercase tracking-wider font-medium text-[--v2-ink]/70 dark:text-gray-300 hover:bg-[--v2-canvas] dark:hover:bg-gray-800 transition-colors"
             >
               <ChevronDown
                 className={cn(
@@ -234,7 +228,7 @@ export function RichProductCard({
                   openSections.has("benefits") && "rotate-180",
                 )}
               />
-              Key Benefits
+              Benefits
             </button>
           )}
 
@@ -242,7 +236,7 @@ export function RichProductCard({
           {extraFeatures.length > 0 && (
             <button
               onClick={() => toggleSection("details")}
-              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 font-data text-[11px] uppercase tracking-wider font-medium text-[--v2-ink]/70 dark:text-gray-300 hover:bg-[--v2-canvas] dark:hover:bg-gray-800 transition-colors"
             >
               <ChevronDown
                 className={cn(
@@ -250,7 +244,7 @@ export function RichProductCard({
                   openSections.has("details") && "rotate-180",
                 )}
               />
-              Card Details
+              Details
             </button>
           )}
 
@@ -258,7 +252,7 @@ export function RichProductCard({
           {product.description && (
             <button
               onClick={() => toggleSection("ourTake")}
-              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 font-data text-[11px] uppercase tracking-wider font-medium text-[--v2-ink]/70 dark:text-gray-300 hover:bg-[--v2-canvas] dark:hover:bg-gray-800 transition-colors"
             >
               <ChevronDown
                 className={cn(
@@ -275,7 +269,7 @@ export function RichProductCard({
         {openSections.has("benefits") &&
           product.pros &&
           product.pros.length > 0 && (
-            <div className="border-t border-gray-200 dark:border-gray-700 px-5 py-4">
+            <div className="border-t border-[--v2-ink]/10 dark:border-gray-700 px-5 py-4">
               <ul className="space-y-2">
                 {product.pros.map((pro, i) => (
                   <li
@@ -309,7 +303,7 @@ export function RichProductCard({
           )}
 
         {openSections.has("details") && extraFeatures.length > 0 && (
-          <div className="border-t border-gray-200 dark:border-gray-700 px-5 py-4">
+          <div className="border-t border-[--v2-ink]/10 dark:border-gray-700 px-5 py-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {extraFeatures.map((feat, i) => (
                 <div
@@ -329,16 +323,24 @@ export function RichProductCard({
         )}
 
         {openSections.has("ourTake") && product.description && (
-          <div className="border-t border-gray-200 dark:border-gray-700 px-5 py-4">
+          <div className="border-t border-[--v2-ink]/10 dark:border-gray-700 px-5 py-4">
             <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
               {product.description}
             </p>
-            <Link
-              href={productUrl}
-              className="inline-block mt-3 text-sm font-semibold text-green-700 dark:text-green-400 hover:underline"
-            >
-              Read full review
-            </Link>
+            <div className="flex items-center gap-4 mt-3">
+              <Link
+                href={productUrl}
+                className="text-sm font-semibold text-[--v2-ink] dark:text-green-400 hover:underline"
+              >
+                Read full review
+              </Link>
+              <Link
+                href="/methodology"
+                className="font-data text-[11px] uppercase tracking-wider text-[--indian-gold] hover:underline"
+              >
+                Methodology disclosed →
+              </Link>
+            </div>
           </div>
         )}
       </div>

@@ -64,14 +64,17 @@ interface MenuCategory {
 
 function Badge({ type }: { type: "popular" | "trending" | "new" }) {
   const config = {
-    popular: { label: "Popular", class: "bg-blue-50 text-blue-600" },
-    trending: { label: "Trending", class: "bg-orange-50 text-orange-600" },
-    new: { label: "New", class: "bg-green-50 text-green-600" },
+    popular: { label: "Popular", class: "bg-[--v2-ink]/5 text-[--v2-ink]" },
+    trending: {
+      label: "Trending",
+      class: "bg-[--indian-gold]/10 text-[--indian-gold]",
+    },
+    new: { label: "New", class: "bg-green-700/10 text-green-700" },
   };
   const c = config[type];
   return (
     <span
-      className={`ml-1.5 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wide ${c.class}`}
+      className={`ml-1.5 px-1.5 py-0.5 font-data text-[8px] font-medium uppercase tracking-widest ${c.class}`}
     >
       {c.label}
     </span>
@@ -455,12 +458,12 @@ export default function MegaMenu() {
             aria-current={isActive(cat.href) ? "page" : undefined}
             aria-expanded={openIndex === i}
             aria-haspopup="true"
-            className={`px-3 py-2.5 text-[13px] font-medium rounded-md transition-colors whitespace-nowrap ${
+            className={`px-3 py-2.5 font-data text-[11px] uppercase tracking-[1.5px] transition-colors whitespace-nowrap ${
               openIndex === i
-                ? "text-green-700 bg-green-50/50"
+                ? "text-[--v2-ink] border-b-2 border-[--indian-gold] -mb-[2px]"
                 : isActive(cat.href)
-                  ? "text-green-700 font-semibold"
-                  : "text-gray-500 hover:text-gray-900"
+                  ? "text-[#16A34A] border-b-2 border-[#16A34A] -mb-[2px]"
+                  : "text-[--v2-ink]/50 hover:text-[--v2-ink]"
             }`}
           >
             {cat.label}
@@ -473,7 +476,7 @@ export default function MegaMenu() {
       {/* ─── Scrim overlay ─── */}
       {showPanel && (
         <div
-          className="fixed inset-0 top-14 bg-black/10 z-40 transition-opacity duration-200"
+          className="fixed inset-0 top-16 bg-[--v2-ink]/10 z-40 transition-opacity duration-200"
           onMouseEnter={closeMenu}
           aria-hidden="true"
         />
@@ -482,15 +485,15 @@ export default function MegaMenu() {
       {/* ─── Full-width mega panel ─── */}
       {showPanel && currentCat && (
         <div
-          className="fixed left-0 right-0 top-14 z-50 pt-0 animate-in fade-in slide-in-from-top-1 duration-200"
+          className="fixed left-0 right-0 top-16 z-50 pt-0"
           onMouseEnter={keepOpen}
           onMouseLeave={closeMenu}
         >
-          <div className="bg-white border-b border-gray-200 shadow-2xl shadow-black/[.08]">
+          <div className="bg-white dark:bg-[#0A1F14] border-b-2 border-[--v2-ink]/10 dark:border-white/10 shadow-xl">
             <div className="max-w-7xl mx-auto px-4 lg:px-8">
-              <div className="flex min-h-[360px]">
+              <div className="flex min-h-[380px]">
                 {/* Left — category tabs */}
-                <div className="w-[200px] border-r border-gray-100 py-4 pr-2 flex-shrink-0">
+                <div className="w-[200px] border-r-2 border-[--v2-ink]/10 dark:border-white/10 py-5 pr-2 flex-shrink-0">
                   {MENU.map((cat, i) => {
                     const Icon = cat.icon;
                     const isTab = openIndex === i;
@@ -501,18 +504,22 @@ export default function MegaMenu() {
                           setOpenIndex(i);
                           setActiveTab(0);
                         }}
-                        className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-left transition-all duration-150 border-l-[3px] ${
+                        className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-left transition-all duration-150 border-l-[3px] ${
                           isTab
-                            ? `${cat.colorBg} font-semibold border-l-green-600`
-                            : "hover:bg-gray-50 text-gray-500 border-l-transparent"
+                            ? "bg-[--v2-ink]/5 dark:bg-white/10 font-semibold border-l-[--indian-gold]"
+                            : "hover:bg-[--v2-ink]/3 dark:hover:bg-white/5 text-[--v2-ink]/50 dark:text-white/50 border-l-transparent"
                         }`}
                       >
                         <Icon
                           size={16}
-                          className={isTab ? cat.color : "text-gray-400"}
+                          className={
+                            isTab
+                              ? "text-[--indian-gold]"
+                              : "text-gray-400 dark:text-white/30"
+                          }
                         />
                         <span
-                          className={`text-[13px] ${isTab ? "text-gray-900" : ""}`}
+                          className={`font-data text-[11px] uppercase tracking-wider ${isTab ? "text-[--v2-ink] dark:text-white" : ""}`}
                         >
                           {cat.label}
                         </span>
@@ -524,11 +531,11 @@ export default function MegaMenu() {
                 {/* Center — links in columns */}
                 <div className="flex-1 py-5 px-6">
                   {/* Category header */}
-                  <div className="mb-4 pb-3 border-b border-gray-100">
-                    <p className="text-[13px] font-semibold text-gray-900">
+                  <div className="mb-5 pb-3 border-b-2 border-[--v2-ink]/10 dark:border-white/10">
+                    <p className="font-display text-lg font-bold text-[--v2-ink] dark:text-white">
                       {currentCat.label}
                     </p>
-                    <p className="text-[11px] text-gray-400 mt-0.5">
+                    <p className="font-data text-[10px] uppercase tracking-widest text-gray-400 dark:text-white/40 mt-1">
                       {currentCat.desc}
                     </p>
                   </div>
@@ -539,11 +546,11 @@ export default function MegaMenu() {
                       const ColIcon = col.icon;
                       return (
                         <div key={col.heading}>
-                          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                          <p className="font-data text-[10px] uppercase tracking-[3px] text-[--indian-gold] mb-3 flex items-center gap-1.5">
                             <ColIcon size={12} />
                             {col.heading}
                           </p>
-                          <ul className="space-y-0.5">
+                          <ul className="space-y-0">
                             {col.links.map((link) => {
                               const LinkIcon = link.icon;
                               return (
@@ -551,12 +558,12 @@ export default function MegaMenu() {
                                   <Link
                                     href={link.href}
                                     onClick={() => setOpenIndex(null)}
-                                    className="flex items-center gap-2 px-2 py-2 rounded-lg text-[13px] text-gray-700 hover:bg-gray-50 hover:text-green-700 transition-colors group"
+                                    className="flex items-center gap-2 px-2 py-2 text-[13px] text-[--v2-ink]/70 dark:text-white/70 hover:bg-[--v2-ink]/5 dark:hover:bg-white/5 hover:text-[--v2-ink] dark:hover:text-white transition-colors group"
                                   >
                                     {LinkIcon && (
                                       <LinkIcon
                                         size={14}
-                                        className="text-gray-300 group-hover:text-green-500 transition-colors"
+                                        className="text-gray-300 dark:text-white/20 group-hover:text-green-600 transition-colors"
                                       />
                                     )}
                                     <span>{link.label}</span>
@@ -574,33 +581,31 @@ export default function MegaMenu() {
 
                 {/* Right — featured sidebar */}
                 {currentCat.featured && (
-                  <div className="w-[220px] border-l border-gray-100 p-5 flex-shrink-0 bg-gray-50/30">
+                  <div className="w-[240px] border-l-2 border-[--v2-ink]/10 dark:border-white/10 p-5 flex-shrink-0">
                     {/* Stat highlight */}
                     {currentCat.featured.stat && (
-                      <div className="mb-4">
-                        <p className="text-[28px] font-black text-gray-900 tracking-tight leading-none">
+                      <div className="mb-5">
+                        <p className="font-data text-[32px] font-bold text-[--v2-ink] dark:text-white tracking-tight leading-none">
                           {currentCat.featured.stat}
                         </p>
-                        <p className="text-[11px] text-gray-400 mt-0.5">
+                        <p className="font-data text-[10px] uppercase tracking-widest text-gray-400 dark:text-white/40 mt-1">
                           {currentCat.featured.statLabel}
                         </p>
                       </div>
                     )}
 
                     {/* Featured CTA card */}
-                    <div
-                      className={`p-3.5 rounded-xl ${currentCat.colorBg} border border-gray-200/50`}
-                    >
-                      <p className="text-sm font-semibold text-gray-900 mb-1">
+                    <div className="p-4 bg-green-50 dark:bg-white/10 border-2 border-green-600/20">
+                      <p className="font-display text-sm font-bold text-[--v2-ink] dark:text-white mb-1">
                         {currentCat.featured.label}
                       </p>
-                      <p className="text-[11px] text-gray-500 leading-relaxed mb-3">
+                      <p className="text-[11px] text-[--v2-ink]/50 dark:text-white/60 leading-relaxed mb-3">
                         {currentCat.featured.desc}
                       </p>
                       <Link
                         href={currentCat.featured.href}
                         onClick={() => setOpenIndex(null)}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-700 hover:text-green-800 transition-colors"
+                        className="inline-flex items-center gap-1.5 font-data text-[11px] uppercase tracking-wider text-green-700 hover:underline"
                       >
                         Try it free <ArrowRight size={12} />
                       </Link>
@@ -610,9 +615,18 @@ export default function MegaMenu() {
                     <Link
                       href={currentCat.href}
                       onClick={() => setOpenIndex(null)}
-                      className="mt-4 flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-green-700 transition-colors"
+                      className="mt-4 flex items-center gap-1.5 font-data text-[11px] uppercase tracking-wider text-[--v2-ink]/50 dark:text-white/50 hover:text-[--v2-ink] dark:hover:text-white transition-colors"
                     >
                       View all {currentCat.label} <ChevronRight size={12} />
+                    </Link>
+
+                    {/* Methodology link */}
+                    <Link
+                      href="/methodology"
+                      onClick={() => setOpenIndex(null)}
+                      className="mt-3 flex items-center gap-1.5 font-data text-[10px] uppercase tracking-widest text-[--indian-gold] hover:underline"
+                    >
+                      Methodology disclosed →
                     </Link>
                   </div>
                 )}

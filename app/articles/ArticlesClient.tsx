@@ -3,8 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { formatSlug } from "@/lib/utils";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+// Card/Badge replaced with inline bold design elements
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/Button";
 import { Search, Clock, Calendar, ArrowRight } from "lucide-react";
@@ -107,10 +106,10 @@ export default function ArticlesClient() {
                 setSelectedCategory("all");
                 setCurrentPage(1);
               }}
-              className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${
+              className={`inline-flex items-center px-4 py-2 font-data text-[11px] uppercase tracking-wider font-medium whitespace-nowrap transition-colors ${
                 selectedCategory === "all"
-                  ? "bg-green-600 text-white"
-                  : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
+                  ? "bg-[--v2-ink] text-white"
+                  : "bg-white text-[--v2-ink]/70 hover:bg-[--v2-ink]/5 border-2 border-[--v2-ink]/10"
               }`}
             >
               All Articles
@@ -122,10 +121,10 @@ export default function ArticlesClient() {
                   setSelectedCategory(category);
                   setCurrentPage(1);
                 }}
-                className={`inline-flex items-center px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-colors ${
+                className={`inline-flex items-center px-4 py-2 font-data text-[11px] uppercase tracking-wider font-medium whitespace-nowrap transition-colors ${
                   selectedCategory === category
-                    ? "bg-green-600 text-white"
-                    : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
+                    ? "bg-[--v2-ink] text-white"
+                    : "bg-white text-[--v2-ink]/70 hover:bg-[--v2-ink]/5 border-2 border-[--v2-ink]/10"
                 }`}
               >
                 {formatSlug(category)}
@@ -157,12 +156,12 @@ export default function ArticlesClient() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="animate-pulse">
-              <div className="aspect-video bg-gray-200 rounded-t-lg" />
-              <div className="p-6 bg-white rounded-b-lg border border-t-0 border-gray-200">
-                <div className="h-4 bg-gray-200 rounded w-20 mb-3" />
-                <div className="h-5 bg-gray-200 rounded w-full mb-2" />
-                <div className="h-5 bg-gray-200 rounded w-3/4 mb-4" />
-                <div className="h-3 bg-gray-200 rounded w-1/2" />
+              <div className="aspect-video bg-gray-200" />
+              <div className="p-6 bg-white border-2 border-t-0 border-[--v2-ink]/10">
+                <div className="h-4 bg-gray-200 w-20 mb-3" />
+                <div className="h-5 bg-gray-200 w-full mb-2" />
+                <div className="h-5 bg-gray-200 w-3/4 mb-4" />
+                <div className="h-3 bg-gray-200 w-1/2" />
               </div>
             </div>
           ))}
@@ -181,7 +180,7 @@ export default function ArticlesClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {paginatedArticles.map((article) => (
               <Link key={article.id} href={`/articles/${article.slug}`}>
-                <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer overflow-hidden">
+                <div className="h-full bg-white border-2 border-[--v2-ink]/10 hover:border-[--v2-ink]/30 transition-all cursor-pointer overflow-hidden group">
                   <div className="aspect-video w-full overflow-hidden relative bg-gray-100">
                     <SmartImage
                       src={article.featured_image || null}
@@ -190,13 +189,13 @@ export default function ArticlesClient() {
                       className="w-full h-full"
                     />
                   </div>
-                  <CardContent className="p-5">
+                  <div className="p-5">
                     <div className="flex items-center gap-2 mb-2.5">
-                      <Badge variant="outline" className="text-xs">
+                      <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-2 py-0.5">
                         {formatSlug(article.category || "")}
-                      </Badge>
+                      </span>
                     </div>
-                    <h2 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 leading-snug">
+                    <h2 className="font-display text-lg font-bold text-[--v2-ink] mb-2 line-clamp-2 leading-snug group-hover:text-green-700 transition-colors">
                       {article.title}
                     </h2>
                     {article.excerpt && (
@@ -204,7 +203,7 @@ export default function ArticlesClient() {
                         {article.excerpt}
                       </p>
                     )}
-                    <div className="flex items-center justify-between text-xs text-gray-400 pt-2 border-t border-gray-100">
+                    <div className="flex items-center justify-between font-data text-[10px] uppercase tracking-wider text-gray-400 pt-2 border-t border-[--v2-ink]/10">
                       <div className="flex items-center gap-3">
                         {article.read_time && (
                           <span className="flex items-center gap-1">
@@ -227,8 +226,8 @@ export default function ArticlesClient() {
                       </div>
                       <ArrowRight className="w-4 h-4" />
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </Link>
             ))}
           </div>

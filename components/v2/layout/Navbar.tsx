@@ -10,12 +10,13 @@ import {
   Shield,
   BarChart3,
   Building2,
-  Search,
+  Search as SearchIcon,
   Menu,
   X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useSearch } from "@/components/search/SearchProvider";
+import MegaMenu from "./MegaMenu";
 
 interface NavCategory {
   label: string;
@@ -27,7 +28,7 @@ const CATEGORIES: NavCategory[] = [
   { label: "Credit Cards", href: "/credit-cards", icon: CreditCard },
   { label: "Banking", href: "/banking", icon: Landmark },
   { label: "Loans", href: "/loans", icon: Building2 },
-  { label: "Investing", href: "/investing", icon: TrendingUp },
+  { label: "Investing", href: "/mutual-funds", icon: TrendingUp },
   { label: "Insurance", href: "/insurance", icon: Shield },
   { label: "Demat Accounts", href: "/demat-accounts", icon: BarChart3 },
 ];
@@ -52,46 +53,24 @@ export default function Navbar() {
               </span>
             </Link>
 
-            {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-0.5">
-              {CATEGORIES.map((cat) => {
-                const isActive = pathname.startsWith(cat.href);
-                return (
-                  <Link
-                    key={cat.href}
-                    href={cat.href}
-                    className={`px-3 py-2 font-data text-[11px] uppercase tracking-[2px] transition-colors ${
-                      isActive
-                        ? "text-[#16A34A] border-b-2 border-[#16A34A] -mb-[2px]"
-                        : "text-[#0A1F14]/60 hover:text-[#0A1F14] dark:text-white/60 dark:hover:text-white"
-                    }`}
-                  >
-                    {cat.label}
-                  </Link>
-                );
-              })}
-            </div>
+            {/* Desktop Nav — MegaMenu with hover dropdowns */}
+            <MegaMenu />
 
             {/* Right side */}
             <div className="flex items-center gap-3">
               <button
                 onClick={openSearch}
-                className="flex items-center gap-2 px-3 py-1.5 border-2 border-[#0A1F14]/20 hover:border-[#0A1F14] text-[#0A1F14]/50 hover:text-[#0A1F14] transition-colors dark:border-white/20 dark:text-white/50 dark:hover:text-white dark:hover:border-white"
-                aria-label="Search (Cmd+K)"
+                className="p-2 text-[#0A1F14]/50 hover:text-[#0A1F14] dark:text-white/50 dark:hover:text-white transition-colors"
+                aria-label="Search"
               >
-                <Search className="w-4 h-4" />
-                <span className="hidden sm:inline font-data text-[11px]">
-                  Search
-                </span>
-                <kbd className="hidden sm:inline font-data text-[10px] px-1 py-0.5 border border-[#0A1F14]/20 dark:border-white/20">
-                  ⌘K
-                </kbd>
+                <SearchIcon className="w-5 h-5" />
               </button>
 
               <Link
                 href="/compare"
-                className="hidden sm:inline-flex items-center px-4 py-2 bg-[#16A34A] text-white font-data text-[11px] uppercase tracking-[2px] hover:bg-[#166534] transition-colors"
+                className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 bg-[--v2-ink] text-white font-data text-[11px] uppercase tracking-[2px] hover:bg-[--v2-ink]/90 dark:bg-white dark:text-[--v2-ink] dark:hover:bg-white/90 transition-colors"
               >
+                <BarChart3 className="w-3.5 h-3.5" />
                 Compare
               </Link>
 
