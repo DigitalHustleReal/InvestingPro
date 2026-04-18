@@ -8,7 +8,7 @@ export default function TrustBar() {
   ];
 
   return (
-    <div className="bg-white dark:bg-[#0A1F14] border-b-2 border-[#0A1F14]/10 dark:border-white/10">
+    <div className="bg-white dark:bg-[#0A1F14] border-b border-gray-200 dark:border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-8 py-3 overflow-x-auto scrollbar-hide">
           <span className="font-data text-[10px] uppercase tracking-[3px] text-[#D97706] whitespace-nowrap flex-shrink-0">

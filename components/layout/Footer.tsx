@@ -69,9 +69,9 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="bg-[--v2-canvas] border-t-2 border-[--v2-ink]/10">
+    <footer className="bg-white border-t border-gray-200">
       {/* Trust bar */}
-      <div className="border-b-2 border-[--v2-ink]/10">
+      <div className="border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
           {[
             "No paid rankings",
@@ -115,11 +115,11 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t-2 border-[--v2-ink]/10">
+      <div className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-display text-lg font-bold text-[--v2-ink]">
-              Investing<span className="text-[#D97706]">P₹o</span>
+              Investing<span className="text-[#D97706]">Pro</span>
             </span>
             <span className="font-data text-[10px] text-[--v2-ink]/30 uppercase tracking-[2px]">
               India&apos;s Independent Finance Platform
@@ -142,7 +142,7 @@ export default function Footer() {
       </div>
 
       {/* Disclaimer */}
-      <div className="border-t-2 border-[--v2-ink]/10">
+      <div className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <p className="font-data text-[10px] text-[--v2-ink]/20 leading-relaxed">
             InvestingPro.in is an independent comparison platform. We may earn

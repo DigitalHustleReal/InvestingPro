@@ -54,7 +54,7 @@ export default async function MarketPulse() {
   if (items.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-20 border-b-2 border-[#0A1F14]/10 dark:border-white/10">
+    <section className="py-16 md:py-20 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between mb-10">
           <div>

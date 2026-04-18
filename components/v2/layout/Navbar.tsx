@@ -49,7 +49,7 @@ export default function Navbar() {
                 Investing
               </span>
               <span className="font-display text-[22px] font-bold tracking-tight text-[#D97706]">
-                P₹o
+                Pro
               </span>
             </Link>
 

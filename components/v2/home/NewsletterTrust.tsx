@@ -6,7 +6,7 @@ export default function NewsletterTrust() {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="bg-white dark:bg-[#0A1F14] border-y-2 border-[#0A1F14]/10 dark:border-white/10 py-16">
+    <section className="bg-white dark:bg-[#0A1F14] border-t border-gray-200 dark:border-white/10 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="max-w-2xl mx-auto text-center">
           <div className="font-data text-[11px] uppercase tracking-[4px] text-[#D97706] mb-4">

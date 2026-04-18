@@ -91,7 +91,7 @@ export default function AppTeaser() {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-[12px] text-white font-bold tracking-tight">
-                          InvestingP₹o
+                          InvestingPro
                         </p>
                         <p className="text-[9px] text-white/35 mt-0.5">
                           Good morning
