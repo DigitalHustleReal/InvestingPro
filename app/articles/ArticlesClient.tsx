@@ -106,10 +106,10 @@ export default function ArticlesClient() {
                 setSelectedCategory("all");
                 setCurrentPage(1);
               }}
-              className={`inline-flex items-center px-4 py-2 font-data text-[11px] uppercase tracking-wider font-medium whitespace-nowrap transition-colors ${
+              className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors rounded-full ${
                 selectedCategory === "all"
-                  ? "bg-[--v2-ink] text-white"
-                  : "bg-white text-[--v2-ink]/70 hover:bg-[--v2-ink]/5 border-2 border-[--v2-ink]/10"
+                  ? "bg-green-700 text-white"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
               }`}
             >
               All Articles
@@ -121,10 +121,10 @@ export default function ArticlesClient() {
                   setSelectedCategory(category);
                   setCurrentPage(1);
                 }}
-                className={`inline-flex items-center px-4 py-2 font-data text-[11px] uppercase tracking-wider font-medium whitespace-nowrap transition-colors ${
+                className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors rounded-full ${
                   selectedCategory === category
-                    ? "bg-[--v2-ink] text-white"
-                    : "bg-white text-[--v2-ink]/70 hover:bg-[--v2-ink]/5 border-2 border-[--v2-ink]/10"
+                    ? "bg-green-700 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
                 }`}
               >
                 {formatSlug(category)}
@@ -155,13 +155,13 @@ export default function ArticlesClient() {
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="animate-pulse">
-              <div className="aspect-video bg-gray-200" />
-              <div className="p-6 bg-white border-2 border-t-0 border-[--v2-ink]/10">
-                <div className="h-4 bg-gray-200 w-20 mb-3" />
-                <div className="h-5 bg-gray-200 w-full mb-2" />
-                <div className="h-5 bg-gray-200 w-3/4 mb-4" />
-                <div className="h-3 bg-gray-200 w-1/2" />
+            <div key={i} className="animate-pulse rounded-xl overflow-hidden">
+              <div className="aspect-video bg-gray-200 rounded-t-xl" />
+              <div className="p-6 bg-white border border-t-0 border-gray-200 rounded-b-xl">
+                <div className="h-4 bg-gray-200 rounded w-20 mb-3" />
+                <div className="h-5 bg-gray-200 rounded w-full mb-2" />
+                <div className="h-5 bg-gray-200 rounded w-3/4 mb-4" />
+                <div className="h-3 bg-gray-200 rounded w-1/2" />
               </div>
             </div>
           ))}
@@ -180,8 +180,8 @@ export default function ArticlesClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {paginatedArticles.map((article) => (
               <Link key={article.id} href={`/articles/${article.slug}`}>
-                <div className="h-full bg-white border-2 border-[--v2-ink]/10 hover:border-[--v2-ink]/30 transition-all cursor-pointer overflow-hidden group">
-                  <div className="aspect-video w-full overflow-hidden relative bg-gray-100">
+                <div className="h-full bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all cursor-pointer overflow-hidden group">
+                  <div className="aspect-video w-full overflow-hidden relative bg-gray-100 rounded-t-xl">
                     <SmartImage
                       src={article.featured_image || null}
                       category={article.category}
@@ -191,11 +191,11 @@ export default function ArticlesClient() {
                   </div>
                   <div className="p-5">
                     <div className="flex items-center gap-2 mb-2.5">
-                      <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-2 py-0.5">
+                      <span className="text-xs text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full font-medium">
                         {formatSlug(article.category || "")}
                       </span>
                     </div>
-                    <h2 className="font-display text-lg font-bold text-[--v2-ink] mb-2 line-clamp-2 leading-snug group-hover:text-green-700 transition-colors">
+                    <h2 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 leading-snug group-hover:text-green-700 transition-colors">
                       {article.title}
                     </h2>
                     {article.excerpt && (
@@ -203,7 +203,7 @@ export default function ArticlesClient() {
                         {article.excerpt}
                       </p>
                     )}
-                    <div className="flex items-center justify-between font-data text-[10px] uppercase tracking-wider text-gray-400 pt-2 border-t border-[--v2-ink]/10">
+                    <div className="flex items-center justify-between text-xs text-gray-400 pt-2 border-t border-gray-100">
                       <div className="flex items-center gap-3">
                         {article.read_time && (
                           <span className="flex items-center gap-1">

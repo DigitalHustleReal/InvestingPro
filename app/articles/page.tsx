@@ -19,46 +19,46 @@ export const metadata: Metadata = {
 export default function ArticlesPage() {
   return (
     <>
-      <section className="bg-white border-b-2 border-[--v2-ink]/10">
+      <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 font-data text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <ol className="flex items-center gap-1.5 text-sm text-gray-500">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-[--v2-ink] transition-colors"
+                  className="hover:text-gray-900 transition-colors"
                 >
                   Home
                 </Link>
               </li>
               <li>
-                <ChevronRight size={10} />
+                <ChevronRight size={14} />
               </li>
-              <li className="text-[--v2-ink] font-medium">Articles</li>
+              <li className="text-gray-900 font-medium">Articles</li>
             </ol>
           </nav>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="font-display text-3xl md:text-[42px] font-black text-[--v2-ink] tracking-tight leading-[1.1]">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight leading-tight">
                 Research & Analysis
               </h1>
-              <p className="text-[15px] text-gray-500 mt-3 max-w-xl leading-relaxed">
+              <p className="text-base text-gray-500 mt-3 max-w-xl leading-relaxed">
                 Independent financial research and expert guides. No sponsored
                 content — every article is editorially reviewed.
               </p>
             </div>
-            <div className="flex items-center gap-4 flex-shrink-0 mt-1">
-              <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-3 py-1.5">
+            <div className="flex items-center gap-3 flex-shrink-0 mt-1">
+              <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">
                 228+ articles
               </span>
-              <span className="font-data text-[10px] uppercase tracking-widest text-gray-500 border border-[--v2-ink]/10 px-3 py-1.5">
+              <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">
                 Expert reviewed
               </span>
             </div>
           </div>
         </div>
       </section>
-      <section className="bg-[--v2-canvas] min-h-screen">
+      <section className="bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <ArticlesClient />
         </div>

@@ -49,9 +49,8 @@ export default function CalculatorSpotlight() {
             <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
               Free Tools
             </div>
-            <h2 className="text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-gray-900 dark:text-white">
-              Run the numbers{" "}
-              <span className="text-amber-600">before you commit.</span>
+            <h2 className="text-[28px] sm:text-[34px] font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
+              Run the numbers before you commit
             </h2>
           </div>
           <Link

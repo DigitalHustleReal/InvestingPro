@@ -42,8 +42,8 @@ const CATEGORIES: Category[] = [
     label: "Mutual Funds",
     href: "/mutual-funds",
     icon: TrendingUp,
-    iconBg: "bg-blue-50",
-    iconColor: "text-blue-600",
+    iconBg: "bg-green-50",
+    iconColor: "text-green-600",
     desc: "Track NAV, returns, and expense ratios across 40+ AMCs.",
     subLinks: [
       { label: "Top equity funds", href: "/mutual-funds?type=equity" },
@@ -81,8 +81,8 @@ const CATEGORIES: Category[] = [
     label: "Demat Accounts",
     href: "/demat-accounts",
     icon: BarChart3,
-    iconBg: "bg-purple-50",
-    iconColor: "text-purple-600",
+    iconBg: "bg-amber-50",
+    iconColor: "text-amber-600",
     desc: "Compare brokerage charges, platforms, and features across brokers.",
     subLinks: [
       { label: "Discount brokers", href: "/demat-accounts?type=discount" },
@@ -94,8 +94,8 @@ const CATEGORIES: Category[] = [
     label: "Insurance",
     href: "/insurance",
     icon: Shield,
-    iconBg: "bg-red-50",
-    iconColor: "text-red-500",
+    iconBg: "bg-green-50",
+    iconColor: "text-green-600",
     desc: "Term, health, car insurance with verified claim settlement ratios.",
     subLinks: [
       { label: "Term life insurance", href: "/insurance?type=term" },
@@ -120,8 +120,8 @@ const CATEGORIES: Category[] = [
     label: "PPF & NPS",
     href: "/ppf-nps",
     icon: Building2,
-    iconBg: "bg-teal-50",
-    iconColor: "text-teal-600",
+    iconBg: "bg-green-50",
+    iconColor: "text-green-600",
     desc: "Compare PPF, NPS, and other post office schemes with calculators.",
     subLinks: [
       { label: "PPF calculator", href: "/calculators/ppf" },
@@ -139,9 +139,8 @@ export default function ExploreCategories() {
     <section className="py-16 md:py-20 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="mb-10">
-          <h2 className="text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-gray-900">
-            Every category.{" "}
-            <span className="text-green-600">Independently rated.</span>
+          <h2 className="text-[28px] sm:text-[34px] font-bold leading-tight tracking-tight text-gray-900">
+            Every category. Independently rated.
           </h2>
           <p className="text-sm text-gray-500 mt-2">
             Pick a topic. We did the research so you don&apos;t have to.

@@ -210,41 +210,41 @@ export default function Hero() {
           {/* ── LEFT: Rotating question ── */}
           <div className="flex flex-col" aria-live="polite">
             <div className="mb-3">
-              <span className="text-[13px] font-bold tracking-[1px] text-[#D97706]">
+              <span className="text-xs font-semibold uppercase tracking-wider text-green-600">
                 {q.kicker}
               </span>
-              <div className="w-[60px] h-[2px] bg-[#D97706] mt-2.5" />
+              <div className="w-[60px] h-[2px] bg-green-600 mt-2.5" />
             </div>
 
             <div
               className={`min-h-[180px] sm:min-h-[220px] mb-6 transition-opacity duration-300 ${fading ? "opacity-0" : "opacity-100"}`}
             >
-              <h1 className="font-serif text-[48px] sm:text-[64px] lg:text-[78px] leading-[1.0] text-[#0A1F14] font-semibold">
+              <h1 className="text-[44px] sm:text-[56px] lg:text-[68px] leading-[1.05] text-gray-900 font-bold tracking-tight">
                 {q.questionLine1}
               </h1>
-              <span className="font-serif italic text-[48px] sm:text-[64px] lg:text-[78px] leading-[1.0] text-[#D97706] font-semibold block">
+              <span className="text-[44px] sm:text-[56px] lg:text-[68px] leading-[1.05] text-green-600 font-bold tracking-tight block">
                 {q.questionLine2}
               </span>
-              <div className="font-data text-[13px] text-[#64748B] mt-3">
+              <div className="text-sm text-gray-400 mt-3">
                 Q{q.id} of {HERO_QUESTIONS.length} · most-asked this month
               </div>
             </div>
 
             <div
-              className={`bg-[#F5F2EA] border border-[#EDE8DF] rounded-[10px] p-[18px_20px] mb-7 max-w-[540px] transition-opacity duration-300 ${fading ? "opacity-0" : "opacity-100"}`}
+              className={`bg-green-50 border border-green-100 rounded-xl p-5 mb-7 max-w-[540px] transition-opacity duration-300 ${fading ? "opacity-0" : "opacity-100"}`}
             >
-              <div className="text-[11px] font-bold tracking-[0.5px] text-[#D97706] mb-2.5">
+              <div className="text-xs font-semibold uppercase tracking-wider text-green-700 mb-2.5">
                 {q.answerKicker}
               </div>
-              <div className="text-[16px] font-medium text-[#0A1F14] mb-1">
+              <div className="text-base font-medium text-gray-900 mb-1">
                 {q.answerLine1}
               </div>
-              <div className="text-[14px] font-light text-[#40514A] mb-3.5">
+              <div className="text-sm text-gray-500 mb-3.5">
                 {q.answerLine2}
               </div>
               <Link
                 href={q.toolLink}
-                className="text-[13px] font-medium text-[#16A34A] hover:underline"
+                className="text-sm font-medium text-green-600 hover:underline"
               >
                 {q.ctaText} →
               </Link>

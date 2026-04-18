@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 dark:bg-[#0A1F14] dark:border-white/20">
+      <nav className="sticky top-0 z-50 bg-[#0A1F14] border-b border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -48,10 +48,10 @@ export default function Navbar() {
               href="/"
               className="flex items-center gap-0.5 group flex-shrink-0"
             >
-              <span className="text-[24px] font-bold tracking-tight text-gray-900 dark:text-white">
+              <span className="text-[24px] font-bold tracking-tight text-white">
                 Investing
               </span>
-              <span className="text-[24px] font-bold tracking-tight text-green-600">
+              <span className="text-[24px] font-bold tracking-tight text-[#D97706]">
                 Pro
               </span>
             </Link>
@@ -63,7 +63,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <button
                 onClick={openSearch}
-                className="p-2 text-[#0A1F14]/50 hover:text-[#0A1F14] dark:text-white/50 dark:hover:text-white transition-colors"
+                className="p-2 text-white/50 hover:text-white transition-colors"
                 aria-label="Search"
               >
                 <SearchIcon className="w-5 h-5" />
@@ -71,7 +71,7 @@ export default function Navbar() {
 
               <Link
                 href="/compare"
-                className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 bg-green-600 text-white text-[13px] font-semibold hover:bg-green-700 transition-colors rounded-lg"
+                className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 bg-[#16A34A] text-white text-[13px] font-semibold hover:bg-[#166534] transition-colors rounded-lg"
               >
                 <BarChart3 className="w-3.5 h-3.5" />
                 Compare
@@ -79,7 +79,7 @@ export default function Navbar() {
 
               {/* Mobile menu button */}
               <button
-                className="lg:hidden p-2 text-[#0A1F14] dark:text-white"
+                className="lg:hidden p-2 text-white"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label={mobileOpen ? "Close menu" : "Open menu"}
               >
@@ -96,7 +96,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-white dark:bg-[#0A1F14] lg:hidden">
+        <div className="fixed inset-0 z-40 bg-[#0A1F14] lg:hidden">
           <div className="pt-20 px-6">
             <div className="space-y-0">
               {CATEGORIES.map((cat) => {
@@ -107,8 +107,10 @@ export default function Navbar() {
                     key={cat.href}
                     href={cat.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-4 px-4 py-4 border-b border-gray-100 ${
-                      isActive ? "text-green-600" : "text-gray-900"
+                    className={`flex items-center gap-4 px-4 py-4 border-b border-white/10 ${
+                      isActive
+                        ? "text-[#D97706]"
+                        : "text-white/85 hover:text-white"
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -122,28 +124,28 @@ export default function Navbar() {
               <Link
                 href="/articles"
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3.5 text-center bg-gray-900 text-white rounded-lg text-sm font-semibold"
+                className="block px-4 py-3.5 text-center bg-white/10 text-white rounded-lg text-sm font-semibold hover:bg-white/15 transition-colors"
               >
                 Read Articles
               </Link>
               <Link
                 href="/calculators"
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3.5 text-center border border-gray-300 text-gray-900 rounded-lg text-sm font-semibold"
+                className="block px-4 py-3.5 text-center border border-white/20 text-white rounded-lg text-sm font-semibold hover:bg-white/5 transition-colors"
               >
                 Calculators
               </Link>
               <Link
                 href="/compare"
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3.5 text-center bg-green-600 text-white rounded-lg text-sm font-semibold"
+                className="block px-4 py-3.5 text-center bg-[#16A34A] text-white rounded-lg text-sm font-semibold hover:bg-[#166534] transition-colors"
               >
                 Compare Products
               </Link>
             </div>
 
             <div className="mt-12 text-center">
-              <p className="text-xs text-gray-300">
+              <p className="text-xs text-white/30">
                 No paid rankings · Methodology disclosed · SEBI-compliant
               </p>
             </div>

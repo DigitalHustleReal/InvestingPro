@@ -64,17 +64,17 @@ interface MenuCategory {
 
 function Badge({ type }: { type: "popular" | "trending" | "new" }) {
   const config = {
-    popular: { label: "Popular", class: "bg-[--v2-ink]/5 text-[--v2-ink]" },
+    popular: { label: "Popular", class: "bg-gray-100 text-gray-700" },
     trending: {
       label: "Trending",
-      class: "bg-[--indian-gold]/10 text-[--indian-gold]",
+      class: "bg-amber-50 text-amber-700",
     },
     new: { label: "New", class: "bg-green-700/10 text-green-700" },
   };
   const c = config[type];
   return (
     <span
-      className={`ml-1.5 px-1.5 py-0.5 font-data text-[8px] font-medium uppercase tracking-widest ${c.class}`}
+      className={`ml-1.5 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wider rounded ${c.class}`}
     >
       {c.label}
     </span>
@@ -460,10 +460,10 @@ export default function MegaMenu() {
             aria-haspopup="true"
             className={`px-3.5 py-2.5 text-[14px] font-medium transition-colors whitespace-nowrap ${
               openIndex === i
-                ? "text-green-700 font-semibold"
+                ? "text-[#D97706] font-semibold"
                 : isActive(cat.href)
-                  ? "text-green-700 font-semibold"
-                  : "text-gray-600 hover:text-gray-900"
+                  ? "text-[#D97706] font-semibold"
+                  : "text-white/80 hover:text-[#D97706]"
             }`}
           >
             {cat.label}
@@ -476,7 +476,7 @@ export default function MegaMenu() {
       {/* ─── Scrim overlay ─── */}
       {showPanel && (
         <div
-          className="fixed inset-0 top-16 bg-[--v2-ink]/10 z-40 transition-opacity duration-200"
+          className="fixed inset-0 top-16 bg-black/10 z-40 transition-opacity duration-200"
           onMouseEnter={closeMenu}
           aria-hidden="true"
         />

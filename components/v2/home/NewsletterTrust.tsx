@@ -6,16 +6,13 @@ export default function NewsletterTrust() {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="bg-white dark:bg-[#0A1F14] border-t border-gray-200 dark:border-white/10 py-16">
+    <section className="bg-gray-50 border-t border-gray-200 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="font-data text-[11px] uppercase tracking-[4px] text-[#D97706] mb-4">
-            Weekly Research
-          </div>
-          <h2 className="font-display text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-[#0A1F14] dark:text-white mb-4">
+          <h2 className="text-[28px] sm:text-[34px] font-bold leading-tight tracking-tight text-gray-900 mb-4">
             One email. The week&apos;s best financial decisions.
           </h2>
-          <p className="text-gray-500 dark:text-white/60 mb-8">
+          <p className="text-gray-500 mb-8">
             No spam. No sales pitches. Just research-backed insights for Indian
             investors.
           </p>
@@ -31,18 +28,18 @@ export default function NewsletterTrust() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="flex-1 px-4 py-3 border border-gray-300 dark:border-white/30 rounded-l-lg bg-transparent text-gray-900 dark:text-white font-data text-sm placeholder:text-gray-400 dark:placeholder:text-white/30 focus:outline-none focus:border-[#16A34A]"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-l-xl bg-white text-gray-900 text-sm placeholder:text-gray-400 focus:outline-none focus:border-green-600"
               required
             />
             <button
               type="submit"
-              className="px-6 py-3 bg-green-600 dark:bg-green-600 text-white font-data text-[11px] uppercase tracking-[2px] rounded-r-lg hover:bg-green-700 dark:hover:bg-green-700 transition-colors cursor-pointer"
+              className="px-6 py-3 bg-green-600 text-white text-sm font-semibold rounded-r-xl hover:bg-green-700 transition-colors cursor-pointer"
             >
               Subscribe
             </button>
           </form>
 
-          <p className="font-data text-[10px] text-gray-300 dark:text-white/30 mt-4 uppercase tracking-wider">
+          <p className="text-xs text-gray-400 mt-4">
             Join 2,400+ readers · Unsubscribe anytime
           </p>
         </div>
