@@ -91,7 +91,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-indian-gold mb-4">
                 {col.title}
               </h3>
               <ul className="space-y-3">

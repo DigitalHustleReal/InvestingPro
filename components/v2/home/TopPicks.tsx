@@ -101,7 +101,7 @@ export default async function TopPicks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+            <div className="text-xs font-semibold uppercase tracking-wider text-indian-gold mb-3">
               Our Verdict
             </div>
             <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink dark:text-white">

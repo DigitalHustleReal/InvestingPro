@@ -210,10 +210,10 @@ export default function Hero() {
           {/* ── LEFT: Rotating question ── */}
           <div className="flex flex-col" aria-live="polite">
             <div className="mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-green-600">
+              <span className="text-xs font-semibold uppercase tracking-wider text-indian-gold">
                 {q.kicker}
               </span>
-              <div className="w-[60px] h-[2px] bg-green-600 mt-2.5" />
+              <div className="w-[60px] h-[2px] bg-indian-gold mt-2.5" />
             </div>
 
             <div
