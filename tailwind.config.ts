@@ -218,10 +218,16 @@ const config: Config = {
       },
       colors: {
         ink: "#0A1F14",
+        "ink-80": "rgb(10 31 20 / 0.80)",
+        "ink-60": "rgb(10 31 20 / 0.60)",
+        "ink-12": "rgb(10 31 20 / 0.12)",
         "authority-green": "#166534",
         "action-green": "#16A34A",
         "indian-gold": "#D97706",
         canvas: "#FAFAF9",
+        "canvas-70": "rgb(250 250 249 / 0.70)",
+        "canvas-15": "rgb(250 250 249 / 0.15)",
+        warning: "#DC2626",
       },
       fontSize: {
         xs: "0.75rem",
@@ -235,6 +241,41 @@ const config: Config = {
         "5xl": "3rem",
         "6xl": "3.75rem",
         "7xl": "4.5rem",
+        "display-xl": [
+          "56px",
+          {
+            lineHeight: "60px",
+            letterSpacing: "-0.02em",
+            fontWeight: "900",
+          },
+        ],
+        "display-lg": [
+          "40px",
+          {
+            lineHeight: "44px",
+            letterSpacing: "-0.02em",
+            fontWeight: "900",
+          },
+        ],
+        "display-md": [
+          "28px",
+          {
+            lineHeight: "34px",
+            letterSpacing: "-0.02em",
+            fontWeight: "900",
+          },
+        ],
+        "body-lg": ["17px", { lineHeight: "28px" }],
+        body: ["15px", { lineHeight: "24px" }],
+        label: [
+          "13px",
+          {
+            lineHeight: "18px",
+            letterSpacing: "0.08em",
+            fontWeight: "600",
+          },
+        ],
+        "mono-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
       },
       spacing: {
         "0.5": "4px",
