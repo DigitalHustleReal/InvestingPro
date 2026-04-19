@@ -26,9 +26,10 @@ import { ConditionalPublicFloating } from "@/components/common/ConditionalPublic
 import CookieConsent from "@/components/common/CookieConsent";
 import ThirdPartyScripts from "@/components/monetization/ThirdPartyScripts";
 
-// Font configurations — Bold Redesign (Playfair Display + Inter + JetBrains Mono)
+// Font configurations — v3 Design System (Playfair Display + Inter + JetBrains Mono)
 const inter = Inter({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
   display: "swap",
 });
@@ -36,7 +37,7 @@ const inter = Inter({
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
-  weight: ["400", "700", "900"],
+  weight: ["900"],
   display: "swap",
 });
 
