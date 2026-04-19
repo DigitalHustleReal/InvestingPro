@@ -3,16 +3,15 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import Footer from "@/components/layout/Footer";
+import TrustRail from "@/components/v2/layout/TrustRail";
 import PageErrorBoundary from "@/components/common/PageErrorBoundary";
 
 /**
  * Conditional Public Elements Wrapper
  *
  * Only renders public page elements (not admin)
+ * - TrustRail (above footer on every public page)
  * - Footer
- *
- * Note: Popups (ExitIntent, CookieConsent, LeadCapture) are managed
- * in layout.tsx to prevent duplicates. Do NOT add popups here.
  */
 export function ConditionalPublicElements({
   children,
@@ -23,14 +22,15 @@ export function ConditionalPublicElements({
   const isAdminPage = pathname?.startsWith("/admin") ?? false;
 
   if (isAdminPage) {
-    // Admin pages: No trust/email capture elements
     return <>{children}</>;
   }
 
-  // Public pages: children + footer only (popups live in layout.tsx)
   return (
     <>
       {children}
+      <PageErrorBoundary pageName="TrustRail">
+        <TrustRail />
+      </PageErrorBoundary>
       <PageErrorBoundary pageName="Footer">
         <Footer />
       </PageErrorBoundary>

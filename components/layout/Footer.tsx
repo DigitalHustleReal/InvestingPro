@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowUp } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ChevronDown } from "lucide-react";
 
 const COLUMNS = [
   {
@@ -50,6 +51,7 @@ const COLUMNS = [
       { label: "About", href: "/about" },
       { label: "Editorial Standards", href: "/about/editorial-standards" },
       { label: "How We Rate", href: "/about/methodology" },
+      { label: "Corrections", href: "/corrections" },
       { label: "Contact", href: "/contact" },
     ],
   },
@@ -66,40 +68,25 @@ const COLUMNS = [
 ];
 
 export default function Footer() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const pathname = usePathname();
+  const [openCol, setOpenCol] = useState<number | null>(null);
+
+  if (pathname?.startsWith("/admin")) return null;
 
   return (
-    <footer className="bg-ink text-white">
-      {/* Trust bar */}
-      <div className="border-b border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
-          {[
-            "No paid rankings",
-            "Methodology disclosed",
-            "SEBI-compliant advice",
-            "228+ researched articles",
-          ].map((item) => (
-            <span key={item} className="text-xs text-green-200/40">
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Main grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+    <footer className="surface-ink pt-16 pb-12">
+      <div className="max-w-[1280px] mx-auto px-6">
+        {/* Main grid — 5 columns desktop, accordion mobile */}
+        <div className="hidden md:grid md:grid-cols-5 gap-8">
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-indian-gold mb-4">
-                {col.title}
-              </h3>
-              <ul className="space-y-3">
+              <h3 className="text-label text-indian-gold mb-4">{col.title}</h3>
+              <ul className="space-y-[10px]">
                 {col.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-green-100/50 hover:text-white transition-colors"
+                      className="text-[14px] text-canvas-70 hover:text-canvas transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -109,39 +96,68 @@ export default function Footer() {
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-white">
-              Investing<span className="text-indian-gold">Pro</span>
-            </span>
-            <span className="text-xs text-green-100/40">
-              India&apos;s Independent Finance Platform
-            </span>
-          </div>
+        {/* Mobile accordion */}
+        <div className="md:hidden space-y-0 divide-y divide-canvas-15">
+          {COLUMNS.map((col, i) => (
+            <div key={col.title}>
+              <button
+                onClick={() => setOpenCol(openCol === i ? null : i)}
+                className="w-full flex items-center justify-between min-h-[48px] py-3 cursor-pointer"
+              >
+                <span className="text-label text-indian-gold">{col.title}</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-canvas-70 transition-transform ${
+                    openCol === i ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {openCol === i && (
+                <ul className="pb-4 space-y-[10px]">
+                  {col.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="block text-[14px] text-canvas-70 hover:text-canvas transition-colors min-h-[44px] flex items-center"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
 
-          <div className="flex items-center gap-6">
-            <span className="text-xs text-green-100/40">
+        {/* Bottom strip */}
+        <div className="mt-12 pt-6 border-t border-canvas-15">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            {/* Logo + tagline */}
+            <div>
+              <div className="flex items-center gap-0.5">
+                <span className="text-[20px] font-display font-black text-canvas">
+                  Investing
+                </span>
+                <span className="text-[20px] font-display font-black text-indian-gold">
+                  Pro
+                </span>
+              </div>
+              <p className="text-[13px] text-canvas-70 mt-1">
+                India&apos;s Independent Finance Platform
+              </p>
+            </div>
+
+            {/* Copyright */}
+            <span className="text-mono-sm font-mono text-canvas-70">
               &copy; {new Date().getFullYear()} InvestingPro.in
             </span>
-            <button
-              onClick={scrollToTop}
-              className="p-2 border border-white/[0.08] hover:border-indian-gold/50 text-green-100/40 hover:text-indian-gold rounded-lg transition-colors cursor-pointer"
-              aria-label="Scroll to top"
-            >
-              <ArrowUp className="w-4 h-4" />
-            </button>
           </div>
         </div>
-      </div>
 
-      {/* Disclaimer */}
-      <div className="border-t border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-          <p className="text-xs text-green-100/30 leading-relaxed">
+        {/* Disclaimer */}
+        <div className="mt-8">
+          <p className="text-mono-sm font-mono text-canvas-70 leading-[18px] max-w-[800px]">
             InvestingPro.in is an independent comparison platform. We may earn
             affiliate commissions when you apply through our links. Our rankings
             and reviews are never influenced by compensation. All information is

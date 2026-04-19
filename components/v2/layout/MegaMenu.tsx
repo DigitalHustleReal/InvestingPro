@@ -64,7 +64,7 @@ interface MenuCategory {
 
 function Badge({ type }: { type: "popular" | "trending" | "new" }) {
   const config = {
-    popular: { label: "Popular", class: "bg-gray-100 text-gray-700" },
+    popular: { label: "Popular", class: "bg-canvas-15 text-canvas-70" },
     trending: {
       label: "Trending",
       class: "bg-amber-50 text-amber-700",
@@ -140,8 +140,8 @@ const MENU: MenuCategory[] = [
     label: "Banking",
     href: "/banking",
     icon: Building2,
-    color: "text-blue-600",
-    colorBg: "bg-blue-50",
+    color: "text-action-green",
+    colorBg: "bg-green-50",
     desc: "Savings accounts, FDs, RDs — best rates from top banks",
     featured: {
       label: "FD Calculator",
@@ -195,8 +195,8 @@ const MENU: MenuCategory[] = [
     label: "Loans",
     href: "/loans",
     icon: Landmark,
-    color: "text-red-600",
-    colorBg: "bg-red-50",
+    color: "text-amber-600",
+    colorBg: "bg-amber-50",
     desc: "Personal, home, car, education loans — lowest rates compared",
     featured: {
       label: "EMI Calculator",
@@ -351,8 +351,8 @@ const MENU: MenuCategory[] = [
     label: "Demat Accounts",
     href: "/demat-accounts",
     icon: BarChart3,
-    color: "text-purple-600",
-    colorBg: "bg-purple-50",
+    color: "text-action-green",
+    colorBg: "bg-green-50",
     desc: "Compare brokers — brokerage, platforms, charges",
     featured: {
       label: "Open Demat Account",
@@ -463,7 +463,7 @@ export default function MegaMenu() {
                 ? "text-[#D97706] font-semibold"
                 : isActive(cat.href)
                   ? "text-[#D97706] font-semibold"
-                  : "text-white/80 hover:text-[#D97706]"
+                  : "text-canvas-70 hover:text-indian-gold"
             }`}
           >
             {cat.label}
@@ -476,7 +476,7 @@ export default function MegaMenu() {
       {/* ─── Scrim overlay ─── */}
       {showPanel && (
         <div
-          className="fixed inset-0 top-16 bg-black/10 z-40 transition-opacity duration-200"
+          className="fixed inset-0 top-16 bg-ink/10 z-40 transition-opacity duration-200"
           onMouseEnter={closeMenu}
           aria-hidden="true"
         />
@@ -489,11 +489,11 @@ export default function MegaMenu() {
           onMouseEnter={keepOpen}
           onMouseLeave={closeMenu}
         >
-          <div className="bg-white dark:bg-[#0A1F14] border-b border-gray-200 dark:border-white/10 shadow-xl">
+          <div className="surface-ink border-t border-canvas-15 shadow-xl">
             <div className="max-w-7xl mx-auto px-4 lg:px-8">
               <div className="flex min-h-[380px]">
                 {/* Left — category tabs */}
-                <div className="w-[200px] border-r border-gray-200 dark:border-white/10 py-5 pr-2 flex-shrink-0">
+                <div className="w-[200px] border-r border-canvas-15 py-5 pr-2 flex-shrink-0">
                   {MENU.map((cat, i) => {
                     const Icon = cat.icon;
                     const isTab = openIndex === i;
@@ -506,16 +506,18 @@ export default function MegaMenu() {
                         }}
                         className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-left transition-all duration-150 ${
                           isTab
-                            ? "bg-green-50 font-semibold text-gray-900"
-                            : "hover:bg-gray-50 text-gray-500"
+                            ? "bg-canvas-15 font-semibold text-canvas"
+                            : "hover:bg-canvas-15 text-canvas-70"
                         }`}
                       >
                         <Icon
                           size={16}
-                          className={isTab ? "text-green-600" : "text-gray-400"}
+                          className={
+                            isTab ? "text-action-green" : "text-canvas-70"
+                          }
                         />
                         <span
-                          className={`text-[13px] ${isTab ? "text-gray-900" : ""}`}
+                          className={`text-[13px] ${isTab ? "text-canvas" : ""}`}
                         >
                           {cat.label}
                         </span>
@@ -527,11 +529,11 @@ export default function MegaMenu() {
                 {/* Center — links in columns */}
                 <div className="flex-1 py-5 px-6">
                   {/* Category header */}
-                  <div className="mb-5 pb-3 border-b border-gray-200 dark:border-white/10">
-                    <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  <div className="mb-5 pb-3 border-b border-canvas-15">
+                    <p className="text-lg font-bold text-canvas">
                       {currentCat.label}
                     </p>
-                    <p className="text-[13px] text-gray-400 mt-0.5">
+                    <p className="text-[13px] text-canvas-70 mt-0.5">
                       {currentCat.desc}
                     </p>
                   </div>
@@ -542,7 +544,7 @@ export default function MegaMenu() {
                       const ColIcon = col.icon;
                       return (
                         <div key={col.heading}>
-                          <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-1.5">
+                          <p className="text-[11px] font-semibold uppercase tracking-wider text-action-green mb-3 flex items-center gap-1.5">
                             <ColIcon size={12} />
                             {col.heading}
                           </p>
@@ -554,12 +556,12 @@ export default function MegaMenu() {
                                   <Link
                                     href={link.href}
                                     onClick={() => setOpenIndex(null)}
-                                    className="flex items-center gap-2 px-2 py-2 rounded-lg text-[13px] text-gray-700 hover:bg-gray-50 hover:text-green-700 transition-colors group"
+                                    className="flex items-center gap-2 px-2 py-2 rounded-lg text-[13px] text-canvas-70 hover:bg-canvas-15 hover:text-canvas transition-colors group"
                                   >
                                     {LinkIcon && (
                                       <LinkIcon
                                         size={14}
-                                        className="text-gray-300 dark:text-white/20 group-hover:text-green-600 transition-colors"
+                                        className="text-canvas-70 group-hover:text-action-green transition-colors"
                                       />
                                     )}
                                     <span>{link.label}</span>
@@ -577,14 +579,14 @@ export default function MegaMenu() {
 
                 {/* Right — featured sidebar */}
                 {currentCat.featured && (
-                  <div className="w-[240px] border-l border-gray-200 dark:border-white/10 p-5 flex-shrink-0">
+                  <div className="w-[240px] border-l border-canvas-15 p-5 flex-shrink-0">
                     {/* Stat highlight */}
                     {currentCat.featured.stat && (
                       <div className="mb-5">
-                        <p className="text-[32px] font-black text-gray-900 dark:text-white tracking-tight leading-none">
+                        <p className="text-[32px] font-black text-canvas tracking-tight leading-none">
                           {currentCat.featured.stat}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-canvas-70 mt-1">
                           {currentCat.featured.statLabel}
                         </p>
                       </div>
@@ -592,10 +594,10 @@ export default function MegaMenu() {
 
                     {/* Featured CTA card */}
                     <div className="p-4 bg-green-50 rounded-xl border border-green-200">
-                      <p className="text-sm font-bold text-gray-900 mb-1">
+                      <p className="text-sm font-bold text-canvas mb-1">
                         {currentCat.featured.label}
                       </p>
-                      <p className="text-[11px] text-gray-500 leading-relaxed mb-3">
+                      <p className="text-[11px] text-canvas-70 leading-relaxed mb-3">
                         {currentCat.featured.desc}
                       </p>
                       <Link
@@ -611,7 +613,7 @@ export default function MegaMenu() {
                     <Link
                       href={currentCat.href}
                       onClick={() => setOpenIndex(null)}
-                      className="mt-4 flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-green-700 transition-colors"
+                      className="mt-4 flex items-center gap-1.5 text-xs font-medium text-canvas-70 hover:text-action-green transition-colors"
                     >
                       View all {currentCat.label} <ChevronRight size={12} />
                     </Link>
