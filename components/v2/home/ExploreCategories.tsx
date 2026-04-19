@@ -136,7 +136,7 @@ const CATEGORIES: Category[] = [
 
 export default function ExploreCategories() {
   return (
-    <section className="py-16 md:py-20 border-t border-gray-200">
+    <section className="py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="mb-10">
           <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">

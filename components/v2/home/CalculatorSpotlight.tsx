@@ -42,7 +42,7 @@ const CALCS: {
 
 export default function CalculatorSpotlight() {
   return (
-    <section className="py-16 md:py-20 bg-white dark:bg-gray-950/50 border-t border-gray-200">
+    <section className="py-16 md:py-20 bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between mb-10">
           <div>

@@ -82,7 +82,7 @@ export default function RateComparison() {
   const tab = TABS[activeTab];
 
   return (
-    <section className="py-16 md:py-20 border-t border-gray-200">
+    <section className="py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>

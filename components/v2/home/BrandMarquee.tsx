@@ -16,13 +16,13 @@ export default function BrandMarquee() {
   const items = [...PHRASES, ...PHRASES];
 
   return (
-    <section className="py-5 bg-gray-900 overflow-hidden">
+    <section className="py-5 bg-authority-green overflow-hidden">
       <div className="relative">
         <div className="flex animate-marquee whitespace-nowrap">
           {items.map((phrase, i) => (
             <span key={i} className="mx-8 text-sm font-medium text-white/50">
               {phrase}
-              <span className="ml-8 text-green-500">·</span>
+              <span className="ml-8 text-white/40">·</span>
             </span>
           ))}
         </div>

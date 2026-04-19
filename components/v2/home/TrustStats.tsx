@@ -29,7 +29,7 @@ const STATS = [
 
 export default function TrustStats() {
   return (
-    <section className="py-16 md:py-20 border-t border-gray-200 bg-gray-50">
+    <section className="py-16 md:py-20 bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10">
           <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
