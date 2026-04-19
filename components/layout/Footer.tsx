@@ -69,9 +69,9 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="bg-white border-t border-gray-200">
+    <footer className="bg-ink text-white">
       {/* Trust bar */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
           {[
             "No paid rankings",
@@ -79,7 +79,7 @@ export default function Footer() {
             "SEBI-compliant advice",
             "228+ researched articles",
           ].map((item) => (
-            <span key={item} className="text-xs text-gray-300">
+            <span key={item} className="text-xs text-white/40">
               {item}
             </span>
           ))}
@@ -91,7 +91,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-4">
                 {col.title}
               </h3>
               <ul className="space-y-3">
@@ -99,7 +99,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+                      className="text-sm text-white/60 hover:text-white transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -112,24 +112,24 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-gray-200">
+      <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-gray-900">
-              Investing<span className="text-[#D97706]">Pro</span>
+            <span className="text-lg font-bold text-white">
+              Investing<span className="text-amber-400">Pro</span>
             </span>
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-white/40">
               India&apos;s Independent Finance Platform
             </span>
           </div>
 
           <div className="flex items-center gap-6">
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-white/40">
               &copy; {new Date().getFullYear()} InvestingPro.in
             </span>
             <button
               onClick={scrollToTop}
-              className="p-2 border border-gray-200 hover:border-gray-400 text-gray-400 hover:text-gray-900 rounded-lg transition-colors cursor-pointer"
+              className="p-2 border border-white/20 hover:border-white/40 text-white/40 hover:text-white rounded-lg transition-colors cursor-pointer"
               aria-label="Scroll to top"
             >
               <ArrowUp className="w-4 h-4" />
@@ -139,9 +139,9 @@ export default function Footer() {
       </div>
 
       {/* Disclaimer */}
-      <div className="border-t border-gray-200">
+      <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-          <p className="text-xs text-gray-300 leading-relaxed">
+          <p className="text-xs text-white/30 leading-relaxed">
             InvestingPro.in is an independent comparison platform. We may earn
             affiliate commissions when you apply through our links. Our rankings
             and reviews are never influenced by compensation. All information is
