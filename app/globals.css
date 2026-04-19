@@ -97,11 +97,6 @@ html, body {
     --v2-green: var(--action-green);
     --v2-green-dark: var(--authority-green);
     --v2-green-light: #f0fdf4;
-    --v2-saffron: var(--indian-gold);
-    --v2-saffron-dark: #B45309;
-    --v2-saffron-glow: rgba(232, 135, 26, 0.06);
-    --v2-cream: #F5F0E8;
-    --v2-cream-border: #EDE8DF;
     --v2-red: var(--warning-red);
     --v2-blue: #2563EB;
 

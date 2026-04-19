@@ -222,8 +222,6 @@ const config: Config = {
         "action-green": "#16A34A",
         "indian-gold": "#D97706",
         canvas: "#FAFAF9",
-        "warm-cream": "#FBF8F1",
-        "warm-border": "#E8E4DC",
       },
       fontSize: {
         xs: "0.75rem",
