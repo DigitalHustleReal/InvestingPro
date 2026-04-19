@@ -39,10 +39,10 @@ export default function BlogPage() {
           </nav>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">
+              <h1 className="text-2xl md:text-4xl font-bold text-gray-900 tracking-tight leading-tight">
                 Blog
               </h1>
-              <p className="text-[15px] text-gray-500 mt-2 max-w-xl leading-relaxed">
+              <p className="text-base text-gray-500 mt-2 max-w-xl leading-relaxed">
                 Financial insights, market updates, and product reviews. Updated
                 daily.
               </p>

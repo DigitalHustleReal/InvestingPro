@@ -20,7 +20,7 @@ export default function MobileNav() {
 
   return (
     <nav
-      className="lg:hidden fixed bottom-0 left-0 right-0 min-h-[56px] bg-white dark:bg-[#0A1F14] border-t-2 border-[#0A1F14]/10 dark:border-white/10 z-50 flex pb-[env(safe-area-inset-bottom)]"
+      className="lg:hidden fixed bottom-0 left-0 right-0 min-h-[56px] bg-white dark:bg-[#0A1F14] border-t border-gray-200 dark:border-white/10 z-50 flex pb-[env(safe-area-inset-bottom)]"
       role="navigation"
       aria-label="Mobile navigation"
     >
@@ -41,7 +41,7 @@ export default function MobileNav() {
             }`}
           >
             <Icon className="w-5 h-5" />
-            <span className="font-data text-[9px] uppercase tracking-wider">
+            <span className="text-xs uppercase tracking-wider">
               {item.label}
             </span>
           </Link>

@@ -17,11 +17,11 @@ export default function AppTeaser() {
               </span>
             </div>
 
-            <h2 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 tracking-tight leading-tight mb-4">
               Track, compare, and save — all in one app
             </h2>
 
-            <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
+            <p className="text-base text-gray-500 leading-relaxed mb-8">
               Monitor your net worth across mutual funds, FDs, and PPF. Get
               instant rate change alerts. Run any calculator on the go. Free
               forever.

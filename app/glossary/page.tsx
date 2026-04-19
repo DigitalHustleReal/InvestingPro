@@ -50,10 +50,10 @@ export default function GlossaryPage() {
               <li className="text-gray-700 font-medium">Glossary</li>
             </ol>
           </nav>
-          <h1 className="text-2xl md:text-[32px] font-bold text-[--v2-ink] tracking-tight leading-tight">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900 tracking-tight leading-tight">
             Financial Glossary
           </h1>
-          <p className="text-[15px] text-gray-500 mt-2 max-w-xl leading-relaxed">
+          <p className="text-base text-gray-500 mt-2 max-w-xl leading-relaxed">
             Plain-English definitions for every financial term you'll encounter.
             Search or browse by category.
           </p>
