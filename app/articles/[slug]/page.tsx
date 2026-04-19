@@ -248,7 +248,7 @@ export default async function ArticlePage({
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-black text-gray-900 dark:text-white mb-5 leading-[1.1] tracking-tight">
+              <h1 className="text-[28px] sm:text-[36px] lg:text-[42px] font-medium text-ink dark:text-white mb-5 leading-[1.1] tracking-tight">
                 {article.title}
               </h1>
 
@@ -301,14 +301,7 @@ export default async function ArticlePage({
                 />
               </div>
 
-              {/* AI Summary Box — collapsible quick read */}
-              <AISummaryBox
-                excerpt={article.excerpt}
-                category={article.category}
-                readTime={article.read_time || article.reading_time}
-              />
-
-              {/* Featured image */}
+              {/* Featured image — shown immediately after meta, like NerdWallet */}
               {article.featured_image && (
                 <div className="relative aspect-video w-full mb-8 overflow-hidden rounded-xl border border-gray-200">
                   <Image
@@ -321,6 +314,13 @@ export default async function ArticlePage({
                   />
                 </div>
               )}
+
+              {/* AI Summary Box — collapsible quick read */}
+              <AISummaryBox
+                excerpt={article.excerpt}
+                category={article.category}
+                readTime={article.read_time || article.reading_time}
+              />
 
               {/* Advertiser disclosure */}
               <AdvertiserDisclosure className="mb-8" />
