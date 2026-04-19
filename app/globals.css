@@ -473,10 +473,53 @@ html, body {
     animation: gradient-x 3s ease infinite;
     background-size: 200% 200%;
   }
+}
 
+/* =====================================================================
+   SURFACE CLASSES — v3 Design System
+   Every <section> must use one of these. No naked bg-* on sections.
+   ===================================================================== */
 
+.surface-canvas {
+  background: var(--canvas);
+  color: var(--ink);
+}
+.surface-canvas :is(h1, h2, h3, h4, h5, h6, p, li, td, th, label, a, span) {
+  color: var(--ink);
+}
+.surface-canvas .muted { color: rgb(10 31 20 / 0.6); }
+.surface-canvas .eyebrow {
+  color: var(--indian-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  font-size: 13px;
+}
+.surface-canvas em,
+.surface-canvas .accent {
+  color: var(--indian-gold);
+  font-style: italic;
+}
 
-
+.surface-ink {
+  background: var(--ink);
+  color: var(--canvas);
+}
+.surface-ink :is(h1, h2, h3, h4, h5, h6, p, li, td, th, label, a, span) {
+  color: var(--canvas);
+}
+.surface-ink .muted { color: rgb(250 250 249 / 0.7); }
+.surface-ink .eyebrow {
+  color: var(--action-green);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  font-size: 13px;
+}
+.surface-ink em,
+.surface-ink .accent {
+  color: var(--indian-gold);
+  font-style: italic;
 }
 
 
