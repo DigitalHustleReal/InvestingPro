@@ -210,10 +210,20 @@ const config: Config = {
       // Keep font/spacing/shadow extensions
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
-        display: ["var(--font-playfair)", "Georgia", "serif"],
+        display: [
+          "var(--font-inter)",
+          "system-ui",
+          "-apple-system",
+          "sans-serif",
+        ],
         data: ["var(--font-mono)", "JetBrains Mono", "monospace"],
-        heading: ["var(--font-playfair)", "Georgia", "serif"],
-        serif: ["var(--font-playfair)", "Georgia", "serif"],
+        heading: [
+          "var(--font-inter)",
+          "system-ui",
+          "-apple-system",
+          "sans-serif",
+        ],
+        serif: ["Georgia", "serif"],
         mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
       },
       fontSize: {

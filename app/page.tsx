@@ -88,8 +88,8 @@ export default function Home() {
       {/* Live data ticker */}
       <TrustBar />
 
-      {/* Partner logos strip */}
-      <PartnerLogos />
+      {/* Partner logos — disabled until real logo assets replace Clearbit */}
+      {/* <PartnerLogos /> */}
 
       {/* Find smarter rates — tabbed deposit/loan comparison */}
       <RateComparison />

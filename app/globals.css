@@ -106,9 +106,9 @@ html, body {
     --v2-blue: #2563EB;
 
     /* Typography */
-    --font-display: var(--font-playfair), Georgia, serif;
+    --font-display: var(--font-inter), system-ui, -apple-system, sans-serif;
     --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
-    --font-data: var(--font-mono), 'JetBrains Mono', monospace;
+    --font-data: var(--font-inter), system-ui, -apple-system, sans-serif;
     --font-mono: var(--font-mono), 'JetBrains Mono', monospace;
 
     /* Border radius */
@@ -219,7 +219,7 @@ html, body {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-tight;
+    @apply tracking-tight;
   }
 
   /* Simplified Focus Indicators */
