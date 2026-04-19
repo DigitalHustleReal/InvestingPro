@@ -10,8 +10,8 @@ import {
   BarChart3,
   Shield,
   Building2,
-  ChevronDown,
   ArrowRight,
+  ArrowUpRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -19,6 +19,8 @@ interface ResourceSection {
   icon: LucideIcon;
   label: string;
   desc: string;
+  stat: string;
+  statLabel: string;
   primaryLink: { label: string; href: string };
   links: { label: string; href: string; desc: string }[];
 }
@@ -27,8 +29,10 @@ const SECTIONS: ResourceSection[] = [
   {
     icon: CreditCard,
     label: "Credit Cards",
-    desc: "Discover the best credit cards for your spending pattern",
-    primaryLink: { label: "Best credit cards", href: "/credit-cards" },
+    desc: "We've reviewed and rated 36 credit cards across rewards, cashback, travel, and no-fee categories to help you find the one that fits your spending.",
+    stat: "36",
+    statLabel: "cards compared",
+    primaryLink: { label: "Best Credit Cards", href: "/credit-cards" },
     links: [
       {
         label: "Save money with cashback cards",
@@ -50,8 +54,10 @@ const SECTIONS: ResourceSection[] = [
   {
     icon: Landmark,
     label: "Loans",
-    desc: "Compare interest rates from 60+ banks and NBFCs",
-    primaryLink: { label: "Best loan rates", href: "/loans" },
+    desc: "Compare home, personal, car, education, and gold loan rates from 60+ lenders. See real EMI breakdowns before you apply.",
+    stat: "8.35%",
+    statLabel: "lowest home loan rate",
+    primaryLink: { label: "Best Loan Rates", href: "/loans" },
     links: [
       {
         label: "Calculate your EMI",
@@ -73,12 +79,14 @@ const SECTIONS: ResourceSection[] = [
   {
     icon: TrendingUp,
     label: "Investing",
-    desc: "Research mutual funds, stocks, and index funds independently",
-    primaryLink: { label: "Best mutual funds", href: "/mutual-funds" },
+    desc: "Research mutual funds, stocks, and index funds with independent analysis. Track NAV, returns, and expense ratios across 40+ AMCs.",
+    stat: "962",
+    statLabel: "funds tracked",
+    primaryLink: { label: "Best Mutual Funds", href: "/mutual-funds" },
     links: [
       {
         label: "SIP Calculator",
-        desc: "See how ₹10K/month grows over 20 years",
+        desc: "See how \u20B910K/month grows over 20 years",
         href: "/calculators/sip",
       },
       {
@@ -88,7 +96,7 @@ const SECTIONS: ResourceSection[] = [
       },
       {
         label: "Index vs active funds",
-        desc: "10 years of data — when does active win?",
+        desc: "10 years of data \u2014 when does active win?",
         href: "/mutual-funds/compare/index-vs-active",
       },
     ],
@@ -96,12 +104,14 @@ const SECTIONS: ResourceSection[] = [
   {
     icon: Shield,
     label: "Insurance",
-    desc: "Compare plans with real claim settlement data from IRDAI",
-    primaryLink: { label: "Best insurance plans", href: "/insurance" },
+    desc: "Compare term, health, and car insurance with verified claim settlement ratios from IRDAI. Know which insurers actually pay.",
+    stat: "97%",
+    statLabel: "top claim settlement",
+    primaryLink: { label: "Best Insurance Plans", href: "/insurance" },
     links: [
       {
         label: "How much term cover?",
-        desc: "Calculate your family's actual coverage need",
+        desc: "Calculate your family\u2019s actual coverage need",
         href: "/calculators/insurance",
       },
       {
@@ -111,7 +121,7 @@ const SECTIONS: ResourceSection[] = [
       },
       {
         label: "Term vs whole life",
-        desc: "Pure protection vs savings — the real math",
+        desc: "Pure protection vs savings \u2014 the real math",
         href: "/insurance/compare/term-vs-whole-life",
       },
     ],
@@ -119,8 +129,10 @@ const SECTIONS: ResourceSection[] = [
   {
     icon: PiggyBank,
     label: "Banking & FDs",
-    desc: "Find the best savings rates and fixed deposit options",
-    primaryLink: { label: "Best FD rates", href: "/fixed-deposits" },
+    desc: "Find the best savings rates and fixed deposit options from 50+ banks. Including senior citizen and tax-saving FDs.",
+    stat: "9.10%",
+    statLabel: "best FD rate",
+    primaryLink: { label: "Best FD Rates", href: "/fixed-deposits" },
     links: [
       {
         label: "FD calculator",
@@ -129,7 +141,7 @@ const SECTIONS: ResourceSection[] = [
       },
       {
         label: "Senior citizen FDs",
-        desc: "Extra 0.25-0.50% rates for senior citizens",
+        desc: "Extra 0.25\u20130.50% rates for senior citizens",
         href: "/fixed-deposits?filter=senior",
       },
       {
@@ -142,12 +154,14 @@ const SECTIONS: ResourceSection[] = [
   {
     icon: BarChart3,
     label: "Demat Accounts",
-    desc: "Open the right trading account for your needs",
-    primaryLink: { label: "Best demat accounts", href: "/demat-accounts" },
+    desc: "Open the right trading account for your needs. Compare brokerage charges, platforms, and features across discount and full-service brokers.",
+    stat: "\u20B920",
+    statLabel: "per trade (discount)",
+    primaryLink: { label: "Best Demat Accounts", href: "/demat-accounts" },
     links: [
       {
         label: "Discount vs full service",
-        desc: "₹20/trade vs percentage-based — what's better?",
+        desc: "\u20B920/trade vs percentage-based \u2014 what\u2019s better?",
         href: "/demat-accounts",
       },
       {
@@ -165,8 +179,10 @@ const SECTIONS: ResourceSection[] = [
   {
     icon: Building2,
     label: "Tax Planning",
-    desc: "Save more tax with the right regime and deductions",
-    primaryLink: { label: "Tax calculator", href: "/calculators/tax" },
+    desc: "Save more tax with the right regime and deductions. Updated for Budget 2026 with Old vs New regime comparison.",
+    stat: "\u20B923K",
+    statLabel: "avg. tax saved",
+    primaryLink: { label: "Tax Calculator", href: "/calculators/tax" },
     links: [
       {
         label: "Old vs New regime",
@@ -175,7 +191,7 @@ const SECTIONS: ResourceSection[] = [
       },
       {
         label: "Section 80C guide",
-        desc: "Maximize your ₹1.5L deduction limit",
+        desc: "Maximize your \u20B91.5L deduction limit",
         href: "/articles/section-80c",
       },
       {
@@ -188,86 +204,110 @@ const SECTIONS: ResourceSection[] = [
 ];
 
 export default function MoreResources() {
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const active = SECTIONS[activeIdx];
+  const ActiveIcon = active.icon;
 
   return (
     <section className="py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink mb-2">
-          More <em className="italic text-authority-green">resources</em>
-        </h2>
-        <p className="text-sm text-gray-500 mb-10">
-          Deep-dive into every financial category with our tools, guides, and
-          comparisons.
-        </p>
+        {/* Header row */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-10">
+          <div>
+            <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+              More <em className="italic text-authority-green">resources</em>
+            </h2>
+            <p className="text-sm text-gray-500 mt-2">
+              Find additional information on credit cards, loans, insurance, and
+              more.
+            </p>
+          </div>
+        </div>
 
-        <div className="divide-y divide-gray-200 border-y border-gray-200 rounded-xl overflow-hidden">
-          {SECTIONS.map((sec, i) => {
-            const Icon = sec.icon;
-            const isOpen = openIdx === i;
-
-            return (
-              <div key={sec.label} className="bg-white">
-                {/* Accordion header */}
+        {/* Two-column layout: tabs left, content right */}
+        <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-0 md:gap-8">
+          {/* Left: Tab list */}
+          <div className="flex md:flex-col overflow-x-auto md:overflow-visible gap-0 border-b md:border-b-0 md:border-r border-gray-200 pb-0 md:pb-0 scrollbar-hide">
+            {SECTIONS.map((sec, i) => {
+              const Icon = sec.icon;
+              const isActive = activeIdx === i;
+              return (
                 <button
-                  onClick={() => setOpenIdx(isOpen ? null : i)}
-                  className="w-full flex items-center gap-4 px-6 py-5 text-left hover:bg-gray-50 transition-colors cursor-pointer"
+                  key={sec.label}
+                  onClick={() => setActiveIdx(i)}
+                  className={`flex items-center gap-3 px-4 py-4 text-left whitespace-nowrap md:whitespace-normal border-b-2 md:border-b-0 md:border-l-3 transition-all cursor-pointer flex-shrink-0 ${
+                    isActive
+                      ? "border-green-600 md:border-green-600 bg-green-50/50 text-green-700"
+                      : "border-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                  }`}
                 >
-                  <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-base font-bold text-gray-900">
-                      {sec.label}
-                    </div>
-                    <div className="text-sm text-gray-500 mt-0.5 hidden sm:block">
-                      {sec.desc}
-                    </div>
-                  </div>
-                  <ChevronDown
-                    className={`w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0 ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
+                  <Icon
+                    className={`w-5 h-5 flex-shrink-0 ${isActive ? "text-green-600" : "text-gray-400"}`}
                   />
+                  <span className="text-sm font-semibold">{sec.label}</span>
+                  {isActive && (
+                    <ArrowRight className="w-4 h-4 ml-auto hidden md:block text-green-500" />
+                  )}
                 </button>
+              );
+            })}
+          </div>
 
-                {/* Expanded content */}
-                {isOpen && (
-                  <div className="px-6 pb-6 pt-0">
-                    {/* Primary link */}
-                    <Link
-                      href={sec.primaryLink.href}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-green-600 hover:text-green-700 mb-5 transition-colors"
-                    >
-                      {sec.primaryLink.label}
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-
-                    <div className="h-px bg-gray-100 mb-5" />
-
-                    {/* Sub-links with descriptions */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      {sec.links.map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          className="group p-4 rounded-lg border border-gray-100 hover:border-green-200 hover:bg-green-50/30 transition-all"
-                        >
-                          <div className="flex items-center gap-1.5 text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors mb-1">
-                            <ArrowRight className="w-3.5 h-3.5 text-green-500" />
-                            {link.label}
-                          </div>
-                          <p className="text-xs text-gray-500 leading-relaxed">
-                            {link.desc}
-                          </p>
-                        </Link>
-                      ))}
-                    </div>
+          {/* Right: Content panel */}
+          <div className="pt-6 md:pt-0">
+            {/* Featured card */}
+            <div className="bg-canvas rounded-2xl p-6 sm:p-8 mb-6">
+              <div className="flex items-start gap-6">
+                {/* Stat highlight */}
+                <div className="hidden sm:flex flex-col items-center justify-center w-28 h-28 bg-white rounded-xl border border-gray-100 flex-shrink-0">
+                  <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center mb-2">
+                    <ActiveIcon className="w-5 h-5 text-green-600" />
                   </div>
-                )}
+                  <span className="text-2xl font-black text-green-600 leading-none">
+                    {active.stat}
+                  </span>
+                  <span className="text-[10px] text-gray-400 mt-1 text-center leading-tight">
+                    {active.statLabel}
+                  </span>
+                </div>
+
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-ink mb-2">
+                    {active.desc}
+                  </h3>
+                  <Link
+                    href={active.primaryLink.href}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg transition-colors mt-3"
+                  >
+                    {active.primaryLink.label}
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
-            );
-          })}
+            </div>
+
+            {/* Quick links */}
+            <div className="space-y-0 divide-y divide-gray-100">
+              {active.links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="group flex items-center gap-3 py-3.5 hover:bg-gray-50 -mx-2 px-2 rounded-lg transition-colors"
+                >
+                  <ArrowUpRight className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <span className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                      {link.label}
+                    </span>
+                    <span className="text-sm text-gray-400 ml-2 hidden sm:inline">
+                      {link.desc}
+                    </span>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-green-500 transition-colors flex-shrink-0 opacity-0 group-hover:opacity-100" />
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
