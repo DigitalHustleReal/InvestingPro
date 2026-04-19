@@ -32,8 +32,9 @@ export default function TrustStats() {
     <section className="py-16 md:py-20 border-t border-gray-200 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10">
-          <h2 className="text-[28px] sm:text-[34px] font-bold leading-tight tracking-tight text-gray-900">
-            Why millions trust InvestingPro
+          <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+            Why millions{" "}
+            <em className="italic text-authority-green">trust us</em>
           </h2>
           <p className="text-sm text-gray-500 mt-2">
             Independent research. Transparent methodology. No conflicts of

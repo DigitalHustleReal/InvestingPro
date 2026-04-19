@@ -193,8 +193,8 @@ export default function MoreResources() {
   return (
     <section className="py-16 md:py-20 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-[28px] sm:text-[36px] font-black leading-[1.0] tracking-tight text-gray-900 mb-2">
-          More resources
+        <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink mb-2">
+          More <em className="italic text-authority-green">resources</em>
         </h2>
         <p className="text-sm text-gray-500 mb-10">
           Deep-dive into every financial category with our tools, guides, and

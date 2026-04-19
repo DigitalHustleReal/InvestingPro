@@ -86,8 +86,9 @@ export default function RateComparison() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <h2 className="text-[28px] sm:text-[34px] font-bold leading-tight tracking-tight text-gray-900">
-              Find smarter rates today
+            <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+              Find smarter rates{" "}
+              <em className="italic text-authority-green">today</em>
             </h2>
             <p className="text-sm text-gray-500 mt-2">
               Live rates from top Indian banks and NBFCs. Updated daily.
