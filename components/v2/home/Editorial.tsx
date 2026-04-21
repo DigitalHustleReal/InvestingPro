@@ -54,7 +54,7 @@ export default async function Editorial() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+            <h2 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
               Latest <em className="italic text-indian-gold">research</em>
             </h2>
             <p className="text-sm text-gray-500 mt-2">

@@ -253,13 +253,13 @@ export default function Hero() {
             <div className="flex flex-wrap gap-4 mb-7">
               <Link
                 href={q.toolLink}
-                className="px-[30px] py-[15px] bg-[#16A34A] text-[#FAFAF9] text-[13px] font-bold tracking-[0.5px] rounded-[6px] hover:bg-[#166534] transition-colors"
+                className="px-[30px] py-[15px] bg-action-green text-canvas text-[13px] font-bold tracking-[0.5px] rounded-[6px] hover:bg-authority-green transition-colors"
               >
                 ANSWER MY QUESTION
               </Link>
               <Link
                 href="/calculators"
-                className="px-[28px] py-[13px] border-2 border-[#0A1F14] text-[#0A1F14] text-[13px] font-bold tracking-[0.5px] rounded-[6px] hover:bg-[#0A1F14] hover:text-white transition-colors"
+                className="px-[28px] py-[13px] border-2 border-ink text-ink text-[13px] font-bold tracking-[0.5px] rounded-[6px] hover:bg-ink hover:text-canvas transition-colors"
               >
                 BROWSE ALL TOOLS
               </Link>

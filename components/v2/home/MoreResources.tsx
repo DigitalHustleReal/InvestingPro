@@ -214,7 +214,7 @@ export default function MoreResources() {
         {/* Header row */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-10">
           <div>
-            <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+            <h2 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
               More <em className="italic text-indian-gold">resources</em>
             </h2>
             <p className="text-sm text-gray-500 mt-2">

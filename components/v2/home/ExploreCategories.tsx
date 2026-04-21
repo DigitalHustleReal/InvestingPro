@@ -139,7 +139,7 @@ export default function ExploreCategories() {
     <section className="py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="mb-10">
-          <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+          <h2 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
             Every category.{" "}
             <em className="italic text-indian-gold">Independently rated.</em>
           </h2>

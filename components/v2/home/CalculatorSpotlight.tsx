@@ -49,7 +49,7 @@ export default function CalculatorSpotlight() {
             <div className="text-xs font-semibold uppercase tracking-wider text-indian-gold mb-3">
               Free Tools
             </div>
-            <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink dark:text-white">
+            <h2 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink dark:text-white">
               Run the numbers{" "}
               <em className="italic text-indian-gold">before you commit</em>
             </h2>

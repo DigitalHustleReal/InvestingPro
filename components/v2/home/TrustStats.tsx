@@ -32,7 +32,7 @@ export default function TrustStats() {
     <section className="py-16 md:py-20 bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10">
-          <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+          <h2 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
             Why millions <em className="italic text-indian-gold">trust us</em>
           </h2>
           <p className="text-sm text-gray-500 mt-2">
