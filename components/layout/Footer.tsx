@@ -5,66 +5,220 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 
+// Footer structure follows NerdWallet content pattern (not design):
+// - 6 wide columns with sub-sections per column = ~60 SEO-valuable internal links
+// - Deep-links to filtered listings and calc-specific pages for long-tail SEO
+// - Legal/compliance block separated below, explicit about SEBI + affiliate model
+// - Single source of truth: brainstorm.md §6 (content borrowed from NW, design ours)
+
 const COLUMNS = [
   {
-    title: "Products",
-    links: [
-      { label: "Credit Cards", href: "/credit-cards" },
-      { label: "Loans", href: "/loans" },
-      { label: "Mutual Funds", href: "/mutual-funds" },
-      { label: "Insurance", href: "/insurance" },
-      { label: "Demat Accounts", href: "/demat-accounts" },
-      { label: "Fixed Deposits", href: "/fixed-deposits" },
-      { label: "Banking", href: "/banking" },
-    ],
-  },
-  {
-    title: "Learn",
-    links: [
-      { label: "All Articles", href: "/articles" },
-      { label: "Glossary", href: "/glossary" },
+    title: "Credit Cards",
+    sections: [
       {
-        label: "Personal Finance",
-        href: "/articles?category=personal-finance",
+        label: "By Category",
+        links: [
+          { label: "Best rewards cards", href: "/credit-cards?filter=rewards" },
+          {
+            label: "Best cashback cards",
+            href: "/credit-cards?filter=cashback",
+          },
+          { label: "Best travel cards", href: "/credit-cards?filter=travel" },
+          { label: "No annual fee cards", href: "/credit-cards?filter=no-fee" },
+          { label: "Premium cards", href: "/credit-cards?filter=premium" },
+        ],
       },
-      { label: "Tax Planning", href: "/articles?category=tax" },
       {
-        label: "Investing Basics",
-        href: "/articles?category=investing-basics",
+        label: "By Issuer",
+        links: [
+          { label: "HDFC cards", href: "/credit-cards?issuer=hdfc" },
+          { label: "ICICI cards", href: "/credit-cards?issuer=icici" },
+          { label: "SBI cards", href: "/credit-cards?issuer=sbi" },
+          { label: "Axis cards", href: "/credit-cards?issuer=axis" },
+        ],
+      },
+      {
+        label: "Tools",
+        links: [
+          { label: "Find your card", href: "/credit-cards/find-your-card" },
+          { label: "Compare cards", href: "/credit-cards/compare" },
+        ],
       },
     ],
   },
   {
-    title: "Tools",
-    links: [
-      { label: "SIP Calculator", href: "/calculators/sip" },
-      { label: "EMI Calculator", href: "/calculators/emi" },
-      { label: "FD Calculator", href: "/calculators/fd" },
-      { label: "Tax Calculator", href: "/calculators/tax" },
-      { label: "All Calculators", href: "/calculators" },
-      { label: "Compare Products", href: "/compare" },
+    title: "Loans",
+    sections: [
+      {
+        label: "By Type",
+        links: [
+          { label: "Home loans", href: "/loans?type=home" },
+          { label: "Personal loans", href: "/loans?type=personal" },
+          { label: "Car loans", href: "/loans?type=car" },
+          { label: "Education loans", href: "/loans?type=education" },
+          { label: "Gold loans", href: "/loans?type=gold" },
+          { label: "Business loans", href: "/loans?type=business" },
+        ],
+      },
+      {
+        label: "Calculators",
+        links: [
+          { label: "EMI calculator", href: "/calculators/emi" },
+          { label: "Home loan EMI", href: "/calculators/home-loan-emi" },
+          { label: "Prepayment savings", href: "/calculators/loan-prepayment" },
+          {
+            label: "Balance transfer",
+            href: "/calculators/loan-balance-transfer",
+          },
+        ],
+      },
     ],
   },
   {
-    title: "Company",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Editorial Standards", href: "/about/editorial-standards" },
-      { label: "How We Rate", href: "/about/methodology" },
-      { label: "Corrections", href: "/corrections" },
-      { label: "Contact", href: "/contact" },
+    title: "Investing",
+    sections: [
+      {
+        label: "Mutual Funds",
+        links: [
+          { label: "Top equity funds", href: "/mutual-funds?type=equity" },
+          { label: "Index funds", href: "/mutual-funds?type=index" },
+          { label: "ELSS (tax-saving)", href: "/mutual-funds?type=elss" },
+          { label: "Debt funds", href: "/mutual-funds?type=debt" },
+          { label: "All mutual funds", href: "/mutual-funds" },
+        ],
+      },
+      {
+        label: "Demat & Trading",
+        links: [
+          { label: "Discount brokers", href: "/demat-accounts?type=discount" },
+          { label: "Full-service brokers", href: "/demat-accounts?type=full" },
+          { label: "Brokerage calculator", href: "/calculators/brokerage" },
+        ],
+      },
+      {
+        label: "Calculators",
+        links: [
+          { label: "SIP calculator", href: "/calculators/sip" },
+          { label: "Lumpsum calculator", href: "/calculators/lumpsum" },
+          { label: "SWP calculator", href: "/calculators/swp" },
+          { label: "CAGR calculator", href: "/calculators/cagr" },
+        ],
+      },
     ],
   },
   {
-    title: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms of Service", href: "/terms" },
-      { label: "Cookie Policy", href: "/cookie-policy" },
-      { label: "Advertiser Disclosure", href: "/advertiser-disclosure" },
-      { label: "Security", href: "/security" },
+    title: "Banking & Savings",
+    sections: [
+      {
+        label: "Fixed Deposits",
+        links: [
+          { label: "Highest FD rates", href: "/fixed-deposits?sort=rate" },
+          {
+            label: "Senior citizen FDs",
+            href: "/fixed-deposits?filter=senior",
+          },
+          {
+            label: "Tax-saving FDs",
+            href: "/fixed-deposits?filter=tax-saving",
+          },
+          { label: "FD calculator", href: "/calculators/fd" },
+        ],
+      },
+      {
+        label: "Accounts",
+        links: [
+          { label: "Best savings accounts", href: "/banking" },
+          { label: "High-interest accounts", href: "/banking?sort=rate" },
+          { label: "Salary accounts", href: "/banking?type=salary" },
+        ],
+      },
+      {
+        label: "Schemes",
+        links: [
+          { label: "PPF calculator", href: "/calculators/ppf" },
+          { label: "NPS calculator", href: "/calculators/nps" },
+          {
+            label: "PPF vs NPS",
+            href: "/articles/ppf-vs-nps-which-is-better-for-retirement-savings",
+          },
+        ],
+      },
     ],
   },
+  {
+    title: "Taxes & Insurance",
+    sections: [
+      {
+        label: "Tax Planning",
+        links: [
+          { label: "Old vs New regime", href: "/calculators/old-vs-new-tax" },
+          { label: "Tax calculator", href: "/calculators/tax" },
+          { label: "HRA calculator", href: "/calculators/hra" },
+          { label: "Capital gains (LTCG)", href: "/calculators/ltcg" },
+          { label: "80C optimizer", href: "/calculators/80c" },
+        ],
+      },
+      {
+        label: "Insurance",
+        links: [
+          { label: "Term life insurance", href: "/insurance?type=term" },
+          { label: "Health insurance", href: "/insurance?type=health" },
+          { label: "Car insurance", href: "/insurance?type=car" },
+          { label: "Coverage calculator", href: "/calculators/insurance" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Learn & About",
+    sections: [
+      {
+        label: "Resources",
+        links: [
+          { label: "All articles", href: "/articles" },
+          { label: "Glossary (101 terms)", href: "/glossary" },
+          {
+            label: "Personal finance",
+            href: "/articles?category=personal-finance",
+          },
+          {
+            label: "Investing basics",
+            href: "/articles?category=investing-basics",
+          },
+          { label: "All 75 calculators", href: "/calculators" },
+        ],
+      },
+      {
+        label: "Company",
+        links: [
+          { label: "About us", href: "/about" },
+          { label: "Editorial team", href: "/about/editorial-team" },
+          { label: "How we make money", href: "/about/how-we-make-money" },
+          { label: "Contact", href: "/contact" },
+        ],
+      },
+    ],
+  },
+];
+
+// Legal + compliance block — separated below the main grid because
+// regulators (SEBI, RBI) and search engines both reward explicit disclosures.
+const LEGAL_LINKS = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
+  { label: "Cookie Policy", href: "/cookie-policy" },
+  { label: "Advertiser Disclosure", href: "/advertiser-disclosure" },
+  { label: "Editorial Standards", href: "/about/editorial-standards" },
+  { label: "How We Rate", href: "/about/methodology" },
+  { label: "Corrections Policy", href: "/corrections" },
+  { label: "Security", href: "/security" },
+];
+
+const TRUST_BADGES = [
+  { label: "No paid rankings" },
+  { label: "Methodology disclosed" },
+  { label: "SEBI-compliant" },
+  { label: "228+ researched articles" },
 ];
 
 export default function Footer() {
@@ -74,25 +228,53 @@ export default function Footer() {
   if (pathname?.startsWith("/admin")) return null;
 
   return (
-    <footer className="surface-ink pt-16 pb-12">
+    <footer className="surface-ink pt-16 pb-10">
       <div className="max-w-[1280px] mx-auto px-6">
-        {/* Main grid — 5 columns desktop, accordion mobile */}
-        <div className="hidden md:grid md:grid-cols-5 gap-8">
+        {/* Trust badges — top strip, gold dividers */}
+        <div className="mb-12 pb-8 border-b border-canvas-15">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+            {TRUST_BADGES.map((b, i) => (
+              <React.Fragment key={b.label}>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-canvas-70 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indian-gold" />
+                  {b.label}
+                </span>
+                {i < TRUST_BADGES.length - 1 && (
+                  <span className="hidden sm:inline text-canvas-15">|</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        {/* Main grid — 6 columns desktop with sub-sections per column, accordion on mobile */}
+        <div className="hidden md:grid md:grid-cols-6 gap-6">
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h3 className="text-label text-indian-gold mb-4">{col.title}</h3>
-              <ul className="space-y-[10px]">
-                {col.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-[14px] text-canvas-70 hover:text-canvas transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
+              <h3 className="font-display font-black text-[15px] text-indian-gold mb-5 tracking-tight">
+                {col.title}
+              </h3>
+              <div className="space-y-5">
+                {col.sections.map((section) => (
+                  <div key={section.label}>
+                    <div className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 mb-2">
+                      {section.label}
+                    </div>
+                    <ul className="space-y-[8px]">
+                      {section.links.map((link) => (
+                        <li key={link.href}>
+                          <Link
+                            href={link.href}
+                            className="text-[13px] text-canvas hover:text-indian-gold transition-colors"
+                          >
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
@@ -105,7 +287,9 @@ export default function Footer() {
                 onClick={() => setOpenCol(openCol === i ? null : i)}
                 className="w-full flex items-center justify-between min-h-[48px] py-3 cursor-pointer"
               >
-                <span className="text-label text-indian-gold">{col.title}</span>
+                <span className="font-display font-black text-[15px] text-indian-gold">
+                  {col.title}
+                </span>
                 <ChevronDown
                   className={`w-4 h-4 text-canvas-70 transition-transform ${
                     openCol === i ? "rotate-180" : ""
@@ -113,58 +297,120 @@ export default function Footer() {
                 />
               </button>
               {openCol === i && (
-                <ul className="pb-4 space-y-[10px]">
-                  {col.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="block text-[14px] text-canvas-70 hover:text-canvas transition-colors min-h-[44px] flex items-center"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
+                <div className="pb-4 space-y-4">
+                  {col.sections.map((section) => (
+                    <div key={section.label}>
+                      <div className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 mb-2">
+                        {section.label}
+                      </div>
+                      <ul className="space-y-[6px]">
+                        {section.links.map((link) => (
+                          <li key={link.href}>
+                            <Link
+                              href={link.href}
+                              className="block text-[14px] text-canvas hover:text-indian-gold transition-colors min-h-[40px] flex items-center"
+                            >
+                              {link.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))}
-                </ul>
+                </div>
               )}
             </div>
           ))}
         </div>
 
-        {/* Bottom strip */}
-        <div className="mt-12 pt-6 border-t border-canvas-15">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        {/* Bottom strip — logo + legal links + copyright */}
+        <div className="mt-14 pt-8 border-t border-canvas-15">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             {/* Logo + tagline */}
             <div>
               <div className="flex items-center gap-0.5">
-                <span className="text-[20px] font-display font-black text-canvas">
+                <span className="text-[22px] font-display font-black text-canvas">
                   Investing
                 </span>
-                <span className="text-[20px] font-display font-black text-indian-gold">
+                <span className="text-[22px] font-display font-black text-indian-gold">
                   Pro
                 </span>
               </div>
-              <p className="text-[13px] text-canvas-70 mt-1">
+              <p className="text-[12px] text-canvas-70 mt-1">
                 India&apos;s Independent Finance Platform
               </p>
             </div>
 
-            {/* Copyright */}
-            <span className="text-mono-sm font-mono text-canvas-70">
-              &copy; {new Date().getFullYear()} InvestingPro.in
-            </span>
+            {/* Legal links grid */}
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              {LEGAL_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-[12px] text-canvas-70 hover:text-canvas transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Disclaimer */}
-        <div className="mt-8">
-          <p className="text-mono-sm font-mono text-canvas-70 leading-[18px] max-w-[800px]">
-            InvestingPro.in is an independent comparison platform. We may earn
-            affiliate commissions when you apply through our links. Our rankings
-            and reviews are never influenced by compensation. All information is
-            for educational purposes and does not constitute financial advice.
-            Please consult a SEBI-registered advisor before making investment
-            decisions. Rates and offers are subject to change.
+        {/* Compliance / regulatory block — required, not decoration */}
+        <div className="mt-8 pt-6 border-t border-canvas-15 space-y-4">
+          <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
+            Regulatory & Compliance
+          </div>
+
+          <p className="font-mono text-[11px] text-canvas-70 leading-[18px] max-w-[920px]">
+            <strong className="text-canvas">
+              InvestingPro is not a SEBI-registered investment advisor.
+            </strong>{" "}
+            Content on this platform is for educational and informational
+            purposes only and does not constitute investment advice,
+            solicitation, or recommendation to buy, sell, or hold any security,
+            instrument, or product. Past performance does not guarantee future
+            results. Mutual fund investments are subject to market risks; read
+            all scheme-related documents carefully. Please consult a
+            SEBI-registered investment advisor before making any investment
+            decision.
           </p>
+
+          <p className="font-mono text-[11px] text-canvas-70 leading-[18px] max-w-[920px]">
+            <strong className="text-canvas">Affiliate disclosure:</strong>{" "}
+            InvestingPro may earn affiliate commissions when you apply for
+            financial products through our links. This never influences our
+            rankings, reviews, or recommendations — our editorial process is
+            independent and documented. See our{" "}
+            <Link
+              href="/about/how-we-make-money"
+              className="text-indian-gold hover:underline"
+            >
+              How We Make Money
+            </Link>{" "}
+            page for details. Rates, offers, and product availability are
+            subject to change without notice; always verify with the issuer
+            before applying.
+          </p>
+
+          <p className="font-mono text-[11px] text-canvas-70 leading-[18px] max-w-[920px]">
+            <strong className="text-canvas">Jurisdiction:</strong> This platform
+            is intended for residents of India. Financial products and services
+            referenced are governed by Indian regulators — RBI (banking, loans,
+            deposits), SEBI (mutual funds, securities), IRDAI (insurance), and
+            PFRDA (pensions/NPS). International users: products may not be
+            available in your jurisdiction.
+          </p>
+
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-canvas-15">
+            <span className="font-mono text-[11px] text-canvas-70">
+              &copy; {new Date().getFullYear()} InvestingPro.in · All rights
+              reserved
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-wider text-canvas-70">
+              Last reviewed: Apr 2026
+            </span>
+          </div>
         </div>
       </div>
     </footer>
