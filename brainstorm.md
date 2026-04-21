@@ -165,20 +165,28 @@
 
 ## 4. Active Bugs (verified with code + runtime inspection)
 
-| # | Bug | File:Line | Severity |
-|---|---|---|---|
-| 1 | `surface-ink` forces canvas color on all h1-h6/p/a — kills Footer gold titles | `globals.css:508-510` | **P0** |
-| 2 | `surface-canvas` forces ink color on all text — will block any gold headline inside | `globals.css:487-489` | **P0** |
-| 3 | Hero H1 uses Inter bold instead of Playfair 900 | `Hero.tsx:222,225` | **P0** |
-| 4 | "at 55?" hero emphasis is `text-green-600` (should be `text-indian-gold`) | `Hero.tsx:225` | **P0** |
-| 5 | 9× `italic text-authority-green` pattern across homepage (should be `text-indian-gold`) | 9 `components/v2/home/*.tsx` | **P0** |
-| 6 | 5 of 10 homepage sections use plain `font-bold` instead of `font-display font-black` | Hero, TopPicks, MarketPulse, ExploreCategories, CalculatorSpotlight | **P1** |
-| 7 | Hero buttons hardcode hex (`#16A34A`, `#0A1F14`) instead of tokens | `Hero.tsx:256,262` | **P2** |
-| 8 | Duplicate `indian-gold`/`canvas` defined both as `var()` and literal hex | `tailwind.config.ts:195-231` | **P1** |
-| 9 | Legacy `wt-*` tokens still live (not used by v3) | `tailwind.config.ts:204-207` | **P2** |
-| 10 | Typo "Eligibilty" on credit cards filter | `/credit-cards` page | **P2** |
-| 11 | Cookie banner too tall, blocks content on scroll | `components/common/CookieConsent.tsx` | **P2** |
-| 12 | No PWA mobile mockup section on homepage | — (not built) | **P2** |
+| # | Bug | File:Line | Severity | Status |
+|---|---|---|---|---|
+| 1 | `surface-ink` forces canvas color on all h1-h6/p/a — kills Footer gold titles | `globals.css:508-510` | **P0** | ✅ fixed `e22b243f` |
+| 2 | `surface-canvas` forces ink color on all text — will block any gold headline inside | `globals.css:487-489` | **P0** | ✅ fixed `e22b243f` |
+| 3 | Hero H1 uses Inter bold instead of Playfair 900 | `Hero.tsx:222,225` | **P0** | ✅ fixed `e22b243f` |
+| 4 | "at 55?" hero emphasis is `text-green-600` (should be `text-indian-gold`) | `Hero.tsx:225` | **P0** | ✅ fixed `e22b243f` |
+| 5 | 9× `italic text-authority-green` pattern across homepage (should be `text-indian-gold`) | 9 `components/v2/home/*.tsx` | **P0** | ✅ fixed `e22b243f` |
+| 6 | 9 section H2s use `font-medium` instead of `font-display font-black` | 9 home files | **P1** | ✅ fixed `fde017b7` |
+| 7 | Hero buttons hardcode hex (`#16A34A`, `#0A1F14`) instead of tokens | `Hero.tsx:256,262` | **P2** | ✅ fixed `fde017b7` |
+| 8 | Duplicate `indian-gold`/`canvas` defined both as `var()` and literal hex | `tailwind.config.ts:195-231` | **P1** | ✅ fixed `fde017b7` |
+| 9 | Legacy `wt-*` tokens still live (not used by v3) | `tailwind.config.ts:204-207` | **P2** | ✅ fixed `fde017b7` |
+| 10 | Typo "Eligibilty" on credit cards filter | `components/credit-cards/FilterSidebar.tsx:96` | **P2** | ✅ fixed `fde017b7` |
+| 11 | Cookie banner too tall, blocks content on scroll | `components/common/CookieConsent.tsx` | **P2** | pending |
+| 12 | No PWA mobile mockup section on homepage | — (not built) | **P2** | pending |
+
+**New bugs discovered during v3 rollout (to address next):**
+| # | Bug | Severity |
+|---|---|---|
+| 13 | Listing page H1s (`/credit-cards`, `/loans`, etc.) use Inter not Playfair | P1 |
+| 14 | Article detail H1 uses Inter not Playfair | P1 |
+| 15 | Calculator H1s use Inter not Playfair | P1 |
+| 16 | Many card h3s use `font-bold text-gray-900` instead of tokens (TopPicks, CalculatorSpotlight, Editorial, ExploreCategories, MoreResources, MarketPulse) | P2 |
 
 ---
 
