@@ -181,12 +181,46 @@
 | 12 | No PWA mobile mockup section on homepage | — (not built) | **P2** | pending |
 
 **New bugs discovered during v3 rollout (to address next):**
-| # | Bug | Severity |
+| # | Bug | Severity | Status |
+|---|---|---|---|
+| 13 | Listing page H1s (`/credit-cards`, `/loans`, etc.) use Inter not Playfair | P1 | pending |
+| 14 | Article detail H1 uses Inter not Playfair | P1 | pending |
+| 15 | Calculator H1s use Inter not Playfair | P1 | pending |
+| 16 | Card h3s in TopPicks/ExploreCategories/TrustStats/RateComparison — tokens applied | P2 | ✅ fixed `8b6efd9b` |
+
+---
+
+## 8. Session progress (2026-04-21)
+
+**Shipped (6 commits):**
+- `e22b243f` P0 bugs 1-5: surface-* CSS overrides, Playfair hero, gold emphasis
+- `fde017b7` P1/P2 bugs 6-10: 9 H2s to Playfair, token buttons, dedupe config, typo
+- `8d006d60` Doc update
+- `8b6efd9b` Homepage sections polish: RateComparison, TopPicks, TrustStats, ExploreCategories (brainstorm signature elements applied)
+- `b78fcbb1` Footer rebuild: 6-col × sub-sections, 70 SEO links, 3 compliance blocks
+
+**Homepage section status:**
+| # | Section | Status |
 |---|---|---|
-| 13 | Listing page H1s (`/credit-cards`, `/loans`, etc.) use Inter not Playfair | P1 |
-| 14 | Article detail H1 uses Inter not Playfair | P1 |
-| 15 | Calculator H1s use Inter not Playfair | P1 |
-| 16 | Many card h3s use `font-bold text-gray-900` instead of tokens (TopPicks, CalculatorSpotlight, Editorial, ExploreCategories, MoreResources, MarketPulse) | P2 |
+| 1 | Hero | ✅ Playfair + gold emphasis |
+| 2 | TrustRail | ✅ ink ticker |
+| 3 | RateComparison | ✅ Polished — mono data strips |
+| 4 | MarketPulse | ⚠️ H2 only (still needs Grok images + category ink badges) |
+| 5 | TopPicks | ✅ Polished — square score badges |
+| 6 | CalculatorSpotlight | ⚠️ H2 only (still needs big mono preview numbers) |
+| 7 | ExploreCategories | ✅ Polished — mono count badges |
+| 8 | Editorial | ⚠️ Partial (asymmetric grid pending) |
+| 9 | TrustStats | ✅ Polished — Playfair 44px numbers |
+| 10 | NewsletterTrust | ✅ Inline signup correct |
+| 11 | MoreResources | ✅ Tab navigation |
+| 12 | Footer | ✅ 6-col NW-style, 70 SEO links, compliance |
+
+**Homepage polish coverage: 9 of 12 sections complete.**
+
+**Still pending for homepage completion:**
+- Section 4 MarketPulse: add Grok image thumbnails + category ink badges
+- Section 6 CalculatorSpotlight: big mono preview numbers + editorial card style
+- Section 8 Editorial: brainstorm Phase 2 §6 asymmetric 1-large + 4-small grid
 
 ---
 
