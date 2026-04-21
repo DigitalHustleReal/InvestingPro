@@ -51,7 +51,7 @@ export default function CalculatorSpotlight() {
             </div>
             <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink dark:text-white">
               Run the numbers{" "}
-              <em className="italic text-authority-green">before you commit</em>
+              <em className="italic text-indian-gold">before you commit</em>
             </h2>
           </div>
           <Link

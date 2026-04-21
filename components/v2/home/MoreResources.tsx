@@ -215,7 +215,7 @@ export default function MoreResources() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-10">
           <div>
             <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
-              More <em className="italic text-authority-green">resources</em>
+              More <em className="italic text-indian-gold">resources</em>
             </h2>
             <p className="text-sm text-gray-500 mt-2">
               Find additional information on credit cards, loans, insurance, and

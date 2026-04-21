@@ -484,9 +484,6 @@ html, body {
   background: var(--canvas);
   color: var(--ink);
 }
-.surface-canvas :is(h1, h2, h3, h4, h5, h6, p, li, td, th, label, a, span) {
-  color: var(--ink);
-}
 .surface-canvas .muted { color: rgb(10 31 20 / 0.6); }
 .surface-canvas .eyebrow {
   color: var(--indian-gold);
@@ -503,9 +500,6 @@ html, body {
 
 .surface-ink {
   background: var(--ink);
-  color: var(--canvas);
-}
-.surface-ink :is(h1, h2, h3, h4, h5, h6, p, li, td, th, label, a, span) {
   color: var(--canvas);
 }
 .surface-ink .muted { color: rgb(250 250 249 / 0.7); }

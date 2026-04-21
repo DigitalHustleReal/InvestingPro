@@ -106,7 +106,7 @@ export default async function TopPicks() {
             </div>
             <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink dark:text-white">
               Top-rated products{" "}
-              <em className="italic text-authority-green">this week</em>
+              <em className="italic text-indian-gold">this week</em>
             </h2>
             <p className="text-sm text-gray-500 dark:text-white/50 mt-2">
               Ranked by real outcomes — not what pays us most.

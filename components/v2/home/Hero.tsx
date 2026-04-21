@@ -219,10 +219,10 @@ export default function Hero() {
             <div
               className={`min-h-[180px] sm:min-h-[220px] mb-6 transition-opacity duration-300 ${fading ? "opacity-0" : "opacity-100"}`}
             >
-              <h1 className="text-[44px] sm:text-[56px] lg:text-[68px] leading-[1.05] text-gray-900 font-bold tracking-tight">
+              <h1 className="font-display font-black text-[44px] sm:text-[56px] lg:text-[68px] leading-[1.05] text-ink tracking-tight">
                 {q.questionLine1}
               </h1>
-              <span className="text-[44px] sm:text-[56px] lg:text-[68px] leading-[1.05] text-green-600 font-bold tracking-tight block">
+              <span className="font-display font-black text-[44px] sm:text-[56px] lg:text-[68px] leading-[1.05] text-indian-gold tracking-tight block">
                 {q.questionLine2}
               </span>
               <div className="text-sm text-gray-400 mt-3">

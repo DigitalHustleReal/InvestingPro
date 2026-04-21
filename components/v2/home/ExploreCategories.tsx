@@ -141,9 +141,7 @@ export default function ExploreCategories() {
         <div className="mb-10">
           <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
             Every category.{" "}
-            <em className="italic text-authority-green">
-              Independently rated.
-            </em>
+            <em className="italic text-indian-gold">Independently rated.</em>
           </h2>
           <p className="text-sm text-gray-500 mt-2">
             Pick a topic. We did the research so you don&apos;t have to.

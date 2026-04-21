@@ -11,9 +11,7 @@ export default function NewsletterTrust() {
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink mb-4">
             One email. The week&apos;s best{" "}
-            <em className="italic text-authority-green">
-              financial decisions.
-            </em>
+            <em className="italic text-indian-gold">financial decisions.</em>
           </h2>
           <p className="text-gray-500 mb-8">
             No spam. No sales pitches. Just research-backed insights for Indian
