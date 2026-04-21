@@ -18,8 +18,7 @@ interface Category {
   label: string;
   href: string;
   icon: LucideIcon;
-  iconBg: string;
-  iconColor: string;
+  count: string;
   desc: string;
   subLinks: { label: string; href: string }[];
 }
@@ -29,8 +28,7 @@ const CATEGORIES: Category[] = [
     label: "Credit Cards",
     href: "/credit-cards",
     icon: CreditCard,
-    iconBg: "bg-green-50",
-    iconColor: "text-green-600",
+    count: "36 TESTED",
     desc: "Compare 36 cards across rewards, cashback, travel, and no-fee categories.",
     subLinks: [
       { label: "Best rewards cards", href: "/credit-cards?filter=rewards" },
@@ -42,8 +40,7 @@ const CATEGORIES: Category[] = [
     label: "Mutual Funds",
     href: "/mutual-funds",
     icon: TrendingUp,
-    iconBg: "bg-green-50",
-    iconColor: "text-green-600",
+    count: "962 TRACKED",
     desc: "Track NAV, returns, and expense ratios across 40+ AMCs.",
     subLinks: [
       { label: "Top equity funds", href: "/mutual-funds?type=equity" },
@@ -55,8 +52,7 @@ const CATEGORIES: Category[] = [
     label: "Loans",
     href: "/loans",
     icon: Landmark,
-    iconBg: "bg-amber-50",
-    iconColor: "text-amber-600",
+    count: "60+ LENDERS",
     desc: "Personal, home, car, education, and gold loans from 60+ lenders.",
     subLinks: [
       { label: "Home loan rates", href: "/loans?type=home" },
@@ -68,8 +64,7 @@ const CATEGORIES: Category[] = [
     label: "Fixed Deposits",
     href: "/fixed-deposits",
     icon: PiggyBank,
-    iconBg: "bg-emerald-50",
-    iconColor: "text-emerald-600",
+    count: "50+ BANKS",
     desc: "Compare rates from 50+ banks including senior citizen and tax-saving FDs.",
     subLinks: [
       { label: "Highest FD rates", href: "/fixed-deposits?sort=rate" },
@@ -81,8 +76,7 @@ const CATEGORIES: Category[] = [
     label: "Demat Accounts",
     href: "/demat-accounts",
     icon: BarChart3,
-    iconBg: "bg-amber-50",
-    iconColor: "text-amber-600",
+    count: "15+ BROKERS",
     desc: "Compare brokerage charges, platforms, and features across brokers.",
     subLinks: [
       { label: "Discount brokers", href: "/demat-accounts?type=discount" },
@@ -94,8 +88,7 @@ const CATEGORIES: Category[] = [
     label: "Insurance",
     href: "/insurance",
     icon: Shield,
-    iconBg: "bg-green-50",
-    iconColor: "text-green-600",
+    count: "100+ PLANS",
     desc: "Term, health, car insurance with verified claim settlement ratios.",
     subLinks: [
       { label: "Term life insurance", href: "/insurance?type=term" },
@@ -107,8 +100,7 @@ const CATEGORIES: Category[] = [
     label: "Tax Planning",
     href: "/calculators/tax",
     icon: Building2,
-    iconBg: "bg-orange-50",
-    iconColor: "text-orange-600",
+    count: "75 CALCS",
     desc: "Old vs New regime comparison, 80C optimizer, and HRA calculator.",
     subLinks: [
       { label: "Old vs New regime", href: "/calculators/old-vs-new-tax" },
@@ -120,8 +112,7 @@ const CATEGORIES: Category[] = [
     label: "PPF & NPS",
     href: "/ppf-nps",
     icon: Building2,
-    iconBg: "bg-green-50",
-    iconColor: "text-green-600",
+    count: "10+ SCHEMES",
     desc: "Compare PPF, NPS, and other post office schemes with calculators.",
     subLinks: [
       { label: "PPF calculator", href: "/calculators/ppf" },
@@ -143,7 +134,7 @@ export default function ExploreCategories() {
             Every category.{" "}
             <em className="italic text-indian-gold">Independently rated.</em>
           </h2>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm text-ink-60 mt-2">
             Pick a topic. We did the research so you don&apos;t have to.
           </p>
         </div>
@@ -154,20 +145,23 @@ export default function ExploreCategories() {
             return (
               <div
                 key={cat.label}
-                className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-green-300 hover:shadow-md transition-all"
+                className="group bg-white border-2 border-ink/10 rounded-sm p-5 hover:border-ink/30 transition-all"
               >
-                <div
-                  className={`w-12 h-12 ${cat.iconBg} rounded-xl flex items-center justify-center mb-4`}
-                >
-                  <Icon className={`w-6 h-6 ${cat.iconColor}`} />
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-indian-gold/10 rounded-sm flex items-center justify-center">
+                    <Icon className="w-6 h-6 text-indian-gold" />
+                  </div>
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-ink-60 border border-ink/15 px-1.5 py-0.5">
+                    {cat.count}
+                  </span>
                 </div>
 
                 <Link href={cat.href}>
-                  <h3 className="text-base font-bold text-gray-900 group-hover:text-green-700 transition-colors mb-1">
+                  <h3 className="font-display font-bold text-lg text-ink group-hover:text-authority-green transition-colors mb-1">
                     {cat.label}
                   </h3>
                 </Link>
-                <p className="text-[13px] text-gray-500 leading-relaxed mb-4">
+                <p className="text-[13px] text-ink-60 leading-relaxed mb-4">
                   {cat.desc}
                 </p>
 
@@ -176,7 +170,7 @@ export default function ExploreCategories() {
                     <Link
                       key={sub.href}
                       href={sub.href}
-                      className="flex items-center gap-1.5 text-[13px] font-medium text-green-600 hover:text-green-700 transition-colors"
+                      className="flex items-center gap-1.5 text-[13px] font-medium text-action-green hover:text-authority-green transition-colors"
                     >
                       <ArrowRight className="w-3.5 h-3.5" />
                       {sub.label}

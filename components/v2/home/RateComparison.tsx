@@ -90,7 +90,7 @@ export default function RateComparison() {
               Find smarter rates{" "}
               <em className="italic text-indian-gold">today</em>
             </h2>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-ink-60 mt-2">
               Live rates from top Indian banks and NBFCs. Updated daily.
             </p>
           </div>
@@ -103,8 +103,8 @@ export default function RateComparison() {
                 onClick={() => setActiveTab(i)}
                 className={`px-4 py-2 text-[13px] font-semibold rounded-md transition-all cursor-pointer ${
                   activeTab === i
-                    ? "bg-white text-gray-900 shadow-sm"
-                    : "text-gray-500 hover:text-gray-700"
+                    ? "bg-white text-ink shadow-sm"
+                    : "text-ink-60 hover:text-gray-700"
                 }`}
               >
                 {t.label}
@@ -119,35 +119,41 @@ export default function RateComparison() {
             <Link
               key={card.title}
               href={card.href}
-              className="group bg-white border border-gray-200 rounded-xl p-6 hover:border-green-300 hover:shadow-md transition-all"
+              className="group bg-white border border-gray-200 rounded-xl p-6 hover:border-action-green hover:shadow-md transition-all"
             >
-              <div className="text-sm font-semibold text-gray-900 mb-1">
+              <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60 mb-2">
                 {card.title}
               </div>
-              <div className="text-[40px] font-black text-green-600 leading-none mb-1">
+              <div className="font-mono text-[44px] font-bold text-ink leading-none mb-1 tabular-nums">
                 {card.rate}
               </div>
-              <div className="text-xs text-gray-400 mb-4">{card.sub}</div>
+              <div className="font-mono text-[11px] text-ink-60 uppercase tracking-wider mb-4">
+                {card.sub}
+              </div>
 
               <div className="flex items-center justify-between py-3 border-t border-gray-100">
                 <div>
-                  <div className="text-[11px] text-gray-400">Best from</div>
-                  <div className="text-sm font-semibold text-gray-900">
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60">
+                    Best from
+                  </div>
+                  <div className="text-sm font-semibold text-ink">
                     {card.provider}
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-[11px] text-gray-400">Avg. market</div>
-                  <div className="flex items-center gap-1 text-sm font-semibold text-gray-400">
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60">
+                    Avg. market
+                  </div>
+                  <div className="flex items-center gap-1 font-mono text-sm font-semibold text-ink-60 tabular-nums">
                     {card.avg}
                     {card.better && (
-                      <TrendingUp className="w-3.5 h-3.5 text-green-500" />
+                      <TrendingUp className="w-3.5 h-3.5 text-action-green" />
                     )}
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 mt-4 text-sm font-semibold text-green-600 group-hover:text-green-700 transition-colors">
+              <div className="flex items-center gap-1.5 mt-4 text-sm font-semibold text-action-green group-hover:text-authority-green transition-colors">
                 {card.cta} <ArrowRight className="w-4 h-4" />
               </div>
             </Link>

@@ -35,7 +35,7 @@ export default function TrustStats() {
           <h2 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
             Why millions <em className="italic text-indian-gold">trust us</em>
           </h2>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm text-ink-60 mt-2">
             Independent research. Transparent methodology. No conflicts of
             interest.
           </p>
@@ -47,18 +47,18 @@ export default function TrustStats() {
             return (
               <div
                 key={stat.label}
-                className="bg-white border border-gray-200 rounded-xl p-6 text-center"
+                className="bg-white border-2 border-ink/10 rounded-sm p-6 text-center hover:border-ink/30 transition-colors"
               >
-                <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-6 h-6 text-green-600" />
+                <div className="w-12 h-12 bg-indian-gold/10 rounded-sm flex items-center justify-center mx-auto mb-4">
+                  <Icon className="w-6 h-6 text-indian-gold" />
                 </div>
-                <div className="text-3xl font-black text-gray-900 mb-1">
+                <div className="font-display font-black text-[44px] text-ink leading-none mb-2 tracking-tight">
                   {stat.num}
                 </div>
-                <div className="text-sm font-semibold text-gray-900 mb-2">
+                <div className="font-mono text-[11px] uppercase tracking-wider text-ink-60 mb-2">
                   {stat.label}
                 </div>
-                <p className="text-xs text-gray-500 leading-relaxed">
+                <p className="text-xs text-ink-60 leading-relaxed">
                   {stat.desc}
                 </p>
               </div>
