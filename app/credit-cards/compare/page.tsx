@@ -140,7 +140,7 @@ function CreditCardCompareContent() {
         {/* Add More Cards */}
         {selectedCards.length < 4 && (
           <div className="mb-8">
-            <div className="bg-card rounded-xl p-6 border border-border shadow-sm">
+            <div className="bg-card rounded-sm p-6 border border-border shadow-sm">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-bold text-foreground">
                   Add More Cards to Compare
@@ -154,7 +154,7 @@ function CreditCardCompareContent() {
                   <button
                     key={card.id}
                     onClick={() => setSelectedCards((prev) => [...prev, card])}
-                    className="p-6 md:p-8 border-2 border-dashed border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all text-left group"
+                    className="p-6 md:p-8 border-2 border-dashed border-border rounded-sm hover:border-primary/50 hover:bg-primary/5 transition-all text-left group"
                   >
                     <div className="flex items-center gap-2 mb-2">
                       <Plus className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
@@ -185,7 +185,7 @@ function CreditCardCompareContent() {
         />
 
         {/* Help Section */}
-        <div className="mt-12 bg-primary/5 rounded-xl p-8 border border-primary/10">
+        <div className="mt-12 bg-primary/5 rounded-sm p-8 border border-primary/10">
           <h3 className="font-bold text-primary mb-4">
             How to Choose the Right Credit Card?
           </h3>

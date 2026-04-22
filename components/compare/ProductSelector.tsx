@@ -79,8 +79,8 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 {trigger || (
-                    <Button variant="outline" className="h-full min-h-[120px] w-full border-dashed border-2 flex flex-col gap-2 hover:border-primary-500 hover:bg-primary-50 text-gray-600 hover:text-primary-600">
-                        <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                    <Button variant="outline" className="h-full min-h-[120px] w-full border-dashed border-2 flex flex-col gap-2 hover:border-ink hover:bg-indian-gold/10 text-ink-60 hover:text-indian-gold">
+                        <div className="w-10 h-10 rounded-sm bg-ink/5 dark:bg-gray-800 flex items-center justify-center">
                             <Plus className="w-6 h-6" />
                         </div>
                         <span className="font-semibold">Add Product</span>
@@ -93,7 +93,7 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
                 </DialogHeader>
                 
                 <div className="relative">
-                    <Search className="absolute left-3 top-3 h-4 w-4 text-gray-600" />
+                    <Search className="absolute left-3 top-3 h-4 w-4 text-ink-60" />
                     <Input
                         placeholder="Search products..."
                         className="pl-9"
@@ -106,10 +106,10 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
                 <div className="max-h-[300px] overflow-y-auto space-y-2 mt-2">
                     {loading ? (
                         <div className="flex justify-center p-4">
-                            <Loader2 className="w-6 h-6 animate-spin text-primary-500" />
+                            <Loader2 className="w-6 h-6 animate-spin text-action-green" />
                         </div>
                     ) : results.length === 0 ? (
-                        <div className="text-center p-4 text-gray-500 text-sm">
+                        <div className="text-center p-4 text-ink-60 text-sm">
                             {searchTerm ? "No products found." : "Start typing to search..."}
                         </div>
                     ) : (
@@ -120,9 +120,9 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
                                     onSelect(product);
                                     setOpen(false);
                                 }}
-                                className="w-full text-left p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-3 transition-colors border border-transparent hover:border-gray-200"
+                                className="w-full text-left p-3 rounded-sm hover:bg-ink/5 dark:hover:bg-gray-800 flex items-center gap-3 transition-colors border border-transparent hover:border-ink/10"
                             >
-                                <div className="w-10 h-10 rounded-lg bg-white p-1 border border-gray-100 shadow-sm flex-shrink-0">
+                                <div className="w-10 h-10 rounded-sm bg-white p-1 border border-ink/5 shadow-sm flex-shrink-0">
                                     {product.image_url ? (
                                         <Image
                                             src={product.image_url}
@@ -132,28 +132,28 @@ export function ProductSelector({ category, excludeIds = [], onSelect, trigger }
                                             className="w-full h-full object-contain"
                                         />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-gray-50 text-gray-600">
+                                        <div className="w-full h-full flex items-center justify-center bg-canvas text-ink-60">
                                             {product.name?.[0]}
                                         </div>
                                     )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h4 className="font-bold text-sm text-gray-900 dark:text-white truncate">
+                                    <h4 className="font-bold text-sm text-ink dark:text-white truncate">
                                         {product.name}
                                     </h4>
-                                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                                    <div className="flex items-center gap-2 text-xs text-ink-60">
                                         <span className="flex items-center gap-1">
                                             {getIcon(product.category)}
                                             {product.provider_name || product.provider}
                                         </span>
                                         {product.rating && (
-                                            <span className="px-1.5 py-0.5 rounded-full bg-accent-50 text-accent-700 font-medium text-[10px]">
+                                            <span className="px-1.5 py-0.5 rounded-sm bg-accent-50 text-accent-700 font-medium text-[10px]">
                                                 {typeof product.rating === 'object' ? product.rating.overall : product.rating} ★
                                             </span>
                                         )}
                                     </div>
                                 </div>
-                                <Plus className="w-4 h-4 text-gray-600" />
+                                <Plus className="w-4 h-4 text-ink-60" />
                             </button>
                         ))
                     )}

@@ -1,144 +1,97 @@
-'use client';
+"use client";
 
-import { useCompare } from '@/contexts/CompareContext';
-import { X, ArrowRight, ChevronUp, ChevronDown, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import SaveComparisonButton from '@/components/common/SaveComparisonButton';
+import { useCompare } from "@/contexts/CompareContext";
+import { X, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+
+// Sticky compare bar — v3 Bold Redesign editorial style.
+// Shows selected products (max 4), lets users jump to /compare page.
+// Replaces prior glassmorphic rounded-xl shadow-2xl gradient design with
+// flat ink bar + gold accent — no gradients, no scale transforms.
 
 export default function CompareBar() {
   const { selectedProducts, removeProduct, clearAll } = useCompare();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    if (selectedProducts.length > 0) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  }, [selectedProducts.length]);
+  useEffect(() => setMounted(true), []);
 
-  if (selectedProducts.length === 0) {
-    return null;
-  }
+  if (!mounted || selectedProducts.length === 0) return null;
 
-  // Generate comparison URL
-  const compareUrl = `/compare?products=${selectedProducts.map(p => p.slug).join(',')}`;
+  const compareUrl = `/compare?products=${selectedProducts.map((p) => p.slug).join(",")}`;
 
   return (
-      <div
-        className={cn(
-          "fixed left-0 sm:left-1/2 sm:-translate-x-1/2 right-0 sm:right-auto sm:max-w-4xl z-50 transition-all duration-500 ease-in-out",
-          isVisible ? "bottom-0 sm:bottom-6 opacity-100 translate-y-0" : "bottom-[-100px] opacity-0 translate-y-20",
-          isCollapsed ? "h-16" : "h-auto"
-        )}
-      >
-        <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl border-t-2 sm:border-2 border-primary-500 sm:rounded-xl shadow-2xl shadow-primary-900/20 ring-1 ring-white/20">
-            {/* Collapse/Expand Button (Mobile) */}
-            <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="absolute -top-8 right-4 sm:hidden p-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-t-lg shadow-lg"
-            aria-label={isCollapsed ? 'Expand' : 'Collapse'}
-            >
-            {isCollapsed ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            </button>
+    <div
+      role="region"
+      aria-label="Product comparison tray"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-ink text-canvas border-t-2 border-indian-gold shadow-[0_-4px_20px_rgba(10,31,20,0.15)]"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+        <div className="flex items-center gap-4">
+          {/* Count indicator */}
+          <div className="hidden sm:flex flex-col items-start flex-shrink-0">
+            <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold font-semibold">
+              Comparing
+            </div>
+            <div className="font-mono text-[16px] font-bold text-canvas tabular-nums">
+              {selectedProducts.length}/4
+            </div>
+          </div>
 
-            <div className="container mx-auto px-4 sm:px-6 py-4">
-            <div className="flex items-center gap-4 sm:gap-6">
-                {/* Status Text with Icon */}
-                <div className="hidden sm:flex flex-col">
-                <div className="flex items-center gap-2 mb-1">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center shadow-lg shadow-primary-500/30">
-                    <Sparkles className="w-4 h-4 text-white" />
-                    </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-600 font-bold uppercase tracking-wider">
-                    Comparing
-                    </span>
+          {/* Product chips */}
+          <div className="flex-1 flex gap-2 overflow-x-auto scrollbar-hide min-w-0">
+            {selectedProducts.map((product) => (
+              <div
+                key={product.id}
+                className="flex-shrink-0 flex items-center gap-2 px-2.5 py-1.5 bg-canvas/5 border border-canvas/20 rounded-sm hover:border-indian-gold/50 transition-colors min-w-[140px]"
+              >
+                {product.image_url && (
+                  <div className="w-7 h-7 bg-canvas rounded-sm overflow-hidden flex-shrink-0 p-0.5">
+                    <Image
+                      src={product.image_url}
+                      alt={product.name}
+                      width={28}
+                      height={28}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="font-mono text-[11px] font-semibold text-canvas truncate leading-tight">
+                    {product.name}
+                  </p>
                 </div>
-                <span className="text-lg font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-                    {selectedProducts.length}/4 Products
-                </span>
-                </div>
-
-                {/* Product Chips (Horizontal Scroll on Mobile) */}
-                <div className="flex-1 flex gap-3 overflow-x-auto scrollbar-hide py-1">
-                    {selectedProducts.map((product) => (
-                    <div
-                        key={product.id}
-                        className="flex-shrink-0 relative group flex items-center gap-3 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700 min-w-[140px] transition-all hover:bg-white dark:hover:bg-gray-800 hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-md"
-                    >
-                        {/* Product Image */}
-                        {product.image_url && (
-                        <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white p-1 shadow-sm border border-gray-100 dark:border-gray-700 flex-shrink-0">
-                            <Image
-                                src={product.image_url}
-                                alt={product.name}
-                                width={40}
-                                height={40}
-                                className="w-full h-full object-contain"
-                            />
-                        </div>
-                        )}
-
-                        {/* Product Info */}
-                        <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-gray-900 dark:text-white truncate">
-                            {product.name}
-                        </p>
-                        <div className="flex items-center gap-1">
-                            <span className="text-[10px] text-accent-600 dark:text-accent-400">â˜…</span>
-                            <span className="text-[10px] font-semibold text-gray-500 dark:text-gray-600">
-                            {/* Handle both object and primitive rating structures */}
-                            {typeof product.rating === 'object' 
-                                ? Number(product.rating?.overall || 0).toFixed(1) 
-                                : Number(product.rating || 0).toFixed(1)
-                            }
-                            </span>
-                        </div>
-                        </div>
-
-                        {/* Remove Button */}
-                        <button
-                        onClick={() => removeProduct(product.id)}
-                        className="p-1 hover:bg-danger-100 dark:hover:bg-danger-900/30 rounded-full group/remove transition-colors"
-                        aria-label="Remove"
-                        >
-                        <X className="w-3.5 h-3.5 text-gray-600 group-hover/remove:text-danger-500" />
-                        </button>
-                    </div>
-                    ))}
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-                <SaveComparisonButton />
-                
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={clearAll}
-                    className="hidden sm:flex text-xs font-semibold text-gray-500 hover:text-danger-600 hover:bg-danger-50 dark:hover:bg-danger-900/10"
+                <button
+                  onClick={() => removeProduct(product.id)}
+                  aria-label={`Remove ${product.name}`}
+                  className="text-canvas-70 hover:text-warning-red transition-colors flex-shrink-0 p-0.5"
                 >
-                    Clear All
-                </Button>
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ))}
+          </div>
 
-                <Link href={compareUrl}>
-                    <Button 
-                        size={isCollapsed ? 'sm' : 'default'}
-                        className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-bold shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40 transition-all hover:scale-105 active:scale-95"
-                    >
-                    <span className="mr-2">Compare</span>
-                    <ArrowRight className="w-4 h-4" />
-                    </Button>
-                </Link>
-                </div>
-            </div>
-            </div>
+          {/* Actions */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <button
+              onClick={clearAll}
+              className="hidden sm:inline-flex font-mono text-[10px] uppercase tracking-wider text-canvas-70 hover:text-canvas transition-colors"
+            >
+              Clear
+            </button>
+            <Link
+              href={compareUrl}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider bg-indian-gold text-ink px-4 py-2 rounded-sm hover:bg-canvas transition-colors font-semibold whitespace-nowrap"
+            >
+              Compare
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
       </div>
-      </div>
+    </div>
   );
 }

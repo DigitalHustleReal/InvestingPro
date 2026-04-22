@@ -47,12 +47,12 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-50 via-white to-orange-50 dark:from-yellow-900/10 dark:via-gray-900 dark:to-orange-900/10 p-8 mb-8 border-2 border-accent-200 dark:border-accent-800/50 shadow-xl"
+            className="relative overflow-hidden rounded-sm bg-gradient-to-br from-yellow-50 via-white to-orange-50 dark:from-yellow-900/10 dark:via-gray-900 dark:to-orange-900/10 p-8 mb-8 border-2 border-accent-200 dark:border-accent-800/50 shadow-sm"
         >
             {/* Animated Background Blobs */}
             <div className="absolute inset-0 opacity-20 pointer-events-none">
-                <div className="absolute top-0 left-0 w-64 h-64 bg-accent-400 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent-400 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-0 left-0 w-64 h-64 bg-accent-400 rounded-sm blur-3xl animate-pulse" />
+                <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent-400 rounded-sm blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
 
             {/* Content */}
@@ -63,29 +63,29 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                         initial={{ scale: 0, rotate: -180 }}
                         animate={{ scale: 1, rotate: 0 }}
                         transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-                        className="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg shadow-yellow-500/50"
+                        className="w-14 h-14 rounded-sm bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-sm shadow-yellow-500/50"
                     >
                         <Sparkles className="w-7 h-7 text-white" />
                     </motion.div>
                     <div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        <h3 className="text-xl font-bold text-ink dark:text-white flex items-center gap-2">
                             AI Recommendation
                             <Badge className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white border-0 text-xs">
                                 SMART PICK
                             </Badge>
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Based on your comparison</p>
+                        <p className="text-sm text-ink-60 dark:text-ink-60">Based on your comparison</p>
                     </div>
                 </div>
 
                 {/* Winner Card */}
-                <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-2xl border-2 border-accent-200 dark:border-accent-800/50">
+                <div className="bg-white dark:bg-gray-900 rounded-sm p-6 shadow-sm border-2 border-accent-200 dark:border-accent-800/50">
                     <div className="flex flex-col sm:flex-row items-center gap-6">
                         {/* Product Image */}
                         {winner.image_url && (
                             <div className="relative">
-                                <div className="absolute inset-0 bg-accent-500/30 rounded-xl blur-xl" />
-                                <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-xl ring-4 ring-yellow-200 dark:ring-yellow-800">
+                                <div className="absolute inset-0 bg-accent-500/30 rounded-sm blur-xl" />
+                                <div className="relative w-20 h-20 rounded-sm overflow-hidden bg-white dark:bg-gray-800 shadow-sm ring-4 ring-yellow-200 dark:ring-yellow-800">
                                     <Image
                                         src={winner.image_url}
                                         alt={winner.name}
@@ -101,7 +101,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                                     transition={{ type: "spring", delay: 0.4 }}
                                     className="absolute -top-2 -right-2"
                                 >
-                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg">
+                                    <div className="w-8 h-8 rounded-sm bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-sm">
                                         <Crown className="w-4 h-4 text-white fill-white" />
                                     </div>
                                 </motion.div>
@@ -115,19 +115,19 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                             </h4>
                             <div className="flex items-center justify-center sm:justify-start gap-4 mb-3">
                                 <div className="flex items-center gap-1">
-                                    <Star className="w-5 h-5 fill-yellow-400 text-accent-400" />
+                                    <Star className="w-5 h-5 fill-yellow-400 text-indian-gold" />
                                     <span className="font-bold text-lg">{typeof winner.rating?.overall === 'number' ? winner.rating.overall.toFixed(1) : '4.5'}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
-                                    <ShieldCheck className="w-5 h-5 text-primary-600" />
-                                    <span className="font-bold text-lg text-primary-600">{winner.rating.trust_score}</span>
+                                    <ShieldCheck className="w-5 h-5 text-indian-gold" />
+                                    <span className="font-bold text-lg text-indian-gold">{winner.rating.trust_score}</span>
                                 </div>
                             </div>
 
                             {/* Why it's best */}
                             {reasons.length > 0 && (
                                 <div className="space-y-2 mb-4">
-                                    <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">Why it's the best:</p>
+                                    <p className="text-xs font-semibold text-ink-60 dark:text-ink-60 uppercase tracking-wider">Why it's the best:</p>
                                     {reasons.map((reason, idx) => (
                                         <motion.div
                                             key={idx}
@@ -137,7 +137,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
                                             className="flex items-center gap-2"
                                         >
                                             <reason.icon className="w-4 h-4 text-success-600 dark:text-success-400" />
-                                            <span className="text-sm text-gray-700 dark:text-gray-300">{reason.text}</span>
+                                            <span className="text-sm text-ink dark:text-ink/20">{reason.text}</span>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -145,7 +145,7 @@ export function SmartRecommendation({ products }: SmartRecommendationProps) {
 
                             {/* CTA */}
                             <Button
-                                className="w-full sm:w-auto bg-gradient-to-r from-success-600 to-success-600 hover:from-success-700 hover:to-success-700 text-white font-bold shadow-lg hover:shadow-xl transition-all"
+                                className="w-full sm:w-auto bg-gradient-to-r from-success-600 to-success-600 hover:from-success-700 hover:to-success-700 text-white font-bold shadow-sm hover:shadow-sm transition-all"
                                 asChild
                             >
                                 <Link href={`/go/${winner.slug}`} target="_blank">
