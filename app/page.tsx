@@ -1,22 +1,26 @@
-// InvestingPro Homepage — v3 Bold Redesign, narrative editorial flow
+// InvestingPro Homepage — v3 Bold Redesign, engagement-driven editorial flow
 // Reference: brainstorm.md §1 + Phase 2 spec
 //
-// Narrative order (10 sections, down from 13):
-//   1. Hero                — who we are + rotating question
-//   2. TrustBar             — live data ticker (immediate credibility)
-//   3. RateComparison       — immediate value (best rates today)
-//   4. TopPicks             — editor's picks / verdict cards
-//   5. ExploreCategories    — category navigator (SEO + discoverability)
-//   6. CalculatorSpotlight  — free tools (utility hook)
-//   7. Editorial            — latest research (E-E-A-T)
-//   8. TrustMethodology     — "How We Rate" 6-criteria grid (brainstorm §7)
-//   9. TrustStats           — by-the-numbers trust (1,000+ products, 228 articles)
-//  10. NewsletterTrust      — conversion (capture email before footer)
+// Narrative order (11 sections):
+//   1. Hero              — who we are + rotating question
+//   2. TrustBar          — live data ticker (immediate credibility)
+//   3. RateComparison    — immediate value (best rates today)
+//   4. TopPicks          — editor verdict cards
+//   5. FindYourFit       — 3-step interactive wizard ← VALUE-ADDING UX
+//   6. ExploreCategories — category navigator (SEO + discoverability)
+//   7. CalculatorSpotlight — free tools
+//   8. LifeStageHub      — curated bundles per life moment ← VALUE-ADDING UX
+//   9. Editorial         — latest research (E-E-A-T)
+//  10. TrustMethodology  — "How We Rate" 6-criteria (brainstorm §7)
+//  11. NewsletterTrust   — conversion before footer
 //
-// REMOVED from homepage (kept as components for possible reuse):
+// REMOVED from homepage (components kept, just unmounted):
 //   - MarketPulse (redundant with Editorial)
-//   - MoreResources (redundant with 70-link footer)
-//   - BrandMarquee (decorative, no real trust signal)
+//   - BrandMarquee (decorative)
+//   - TrustStats (vanity — users don't care about inventory; replaced with
+//     FindYourFit + LifeStageHub which actually help users decide)
+//   - MoreResources (replaced with LifeStageHub — same discovery intent,
+//     stronger UX, life-stage cards with curated bundles)
 
 export const revalidate = 300; // ISR: 5 minutes
 
@@ -26,11 +30,12 @@ import Hero from "@/components/v2/home/Hero";
 import TrustBar from "@/components/v2/home/TrustBar";
 import RateComparison from "@/components/v2/home/RateComparison";
 import TopPicks from "@/components/v2/home/TopPicks";
+import FindYourFit from "@/components/v2/home/FindYourFit";
 import ExploreCategories from "@/components/v2/home/ExploreCategories";
 import CalculatorSpotlight from "@/components/v2/home/CalculatorSpotlight";
+import LifeStageHub from "@/components/v2/home/LifeStageHub";
 import Editorial from "@/components/v2/home/Editorial";
 import TrustMethodology from "@/components/v2/home/TrustMethodology";
-import TrustStats from "@/components/v2/home/TrustStats";
 import NewsletterTrust from "@/components/v2/home/NewsletterTrust";
 
 export const metadata: Metadata = {
@@ -109,24 +114,27 @@ export default function Home() {
         <TopPicks />
       </Suspense>
 
-      {/* 5. Category navigator — SEO + discoverability */}
+      {/* 5. Find Your Fit — 3-step interactive wizard (engagement + conversion) */}
+      <FindYourFit />
+
+      {/* 6. Category navigator — SEO + discoverability */}
       <ExploreCategories />
 
-      {/* 6. Calculator spotlight — free tools */}
+      {/* 7. Calculator spotlight — free tools */}
       <CalculatorSpotlight />
 
-      {/* 7. Latest research — editorial E-E-A-T */}
+      {/* 8. Life Stage Hub — curated bundles (replaces passive MoreResources) */}
+      <LifeStageHub />
+
+      {/* 9. Latest research — editorial E-E-A-T */}
       <Suspense fallback={<SectionSkeleton />}>
         <Editorial />
       </Suspense>
 
-      {/* 8. How We Rate — 6-criteria methodology (brainstorm Phase 2 §7) */}
+      {/* 10. How We Rate — 6-criteria methodology (brainstorm Phase 2 §7) */}
       <TrustMethodology />
 
-      {/* 9. Trust stats — by-the-numbers */}
-      <TrustStats />
-
-      {/* 10. Newsletter — conversion before footer */}
+      {/* 11. Newsletter — conversion before footer */}
       <NewsletterTrust />
     </>
   );
