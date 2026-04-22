@@ -480,14 +480,14 @@ export default async function BestOfPage(props: {
 
           <AdvertiserDisclosure
             variant="expandable"
-            className="mb-3 [&_button]:text-green-200 [&_button]:border-green-600 [&_button:hover]:bg-green-700/50 [&_p]:text-green-100"
+            className="mb-3 [&_button]:text-green-200 [&_button]:border-green-600 [&_button:hover]:bg-authority-green/50 [&_p]:text-green-100"
           />
 
-          <h1 className="text-2xl md:text-[36px] font-bold tracking-tight leading-tight">
+          <h1 className="font-display font-black text-[32px] md:text-[48px] lg:text-[56px] tracking-tight leading-[1.05]">
             {pageTitle}
           </h1>
-          <p className="text-[15px] text-green-100 mt-2 max-w-2xl leading-relaxed">
-            Our editorial team analyzed every{" "}
+          <p className="text-[15px] text-canvas-70 mt-3 max-w-2xl leading-relaxed">
+            Our editorial team analysed every{" "}
             {catLabel.toLowerCase().replace(/s$/, "")} in this category to find
             the top picks. Ranked by real outcomes, not what pays us most.
           </p>
@@ -495,32 +495,32 @@ export default async function BestOfPage(props: {
       </section>
 
       {/* ── Editorial Meta Row ── */}
-      <section className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex flex-wrap items-center gap-4 text-[12px] text-gray-500">
+      <section className="bg-white border-b border-ink/10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex flex-wrap items-center gap-4 text-[12px] text-ink-60">
           <span className="flex items-center gap-1.5">
-            <span className="font-medium text-gray-700">
+            <span className="font-medium text-ink">
               InvestingPro {config.desk}
             </span>
           </span>
           <span className="flex items-center gap-1.5">
-            <CalendarDays size={13} className="text-green-600" />
+            <CalendarDays size={13} className="text-action-green" />
             Updated {todayStr}
           </span>
           <span className="flex items-center gap-1.5">
-            <CheckCircle2 size={13} className="text-green-600" />
+            <CheckCircle2 size={13} className="text-action-green" />
             Fact-checked
           </span>
           <span className="flex items-center gap-1.5">
-            <Shield size={13} className="text-green-600" />
+            <Shield size={13} className="text-action-green" />
             Independent ratings
           </span>
         </div>
       </section>
 
       {/* ── Intro Paragraph ── */}
-      <section className="bg-gray-50 border-b border-gray-200">
+      <section className="bg-gray-50 border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6">
-          <p className="text-sm text-gray-700 leading-relaxed max-w-3xl">
+          <p className="text-sm text-ink leading-relaxed max-w-3xl">
             Looking for the best {subLabel.toLowerCase()}{" "}
             {catLabel.toLowerCase()}? We reviewed and compared every option
             available in India, scoring each on fees, features, rewards value,
@@ -538,13 +538,13 @@ export default async function BestOfPage(props: {
             <BestOfProductList products={products} />
           ) : (
             <div className="text-center py-16">
-              <p className="text-gray-500 text-sm">
+              <p className="text-ink-60 text-sm">
                 No products found for this subcategory yet. Check back soon as
                 we add more products.
               </p>
               <Link
                 href={`/${category}`}
-                className="inline-block mt-4 text-sm font-semibold text-green-700 hover:text-green-800 transition-colors"
+                className="inline-block mt-4 text-sm font-semibold text-authority-green hover:text-green-800 transition-colors"
               >
                 Browse all {catLabel} &rarr;
               </Link>
@@ -554,9 +554,9 @@ export default async function BestOfPage(props: {
       </section>
 
       {/* ── Methodology Section ── */}
-      <section className="bg-white border-t border-gray-200">
+      <section className="bg-white border-t border-ink/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-gray-900 mb-5">
+          <h2 className="text-lg font-bold text-ink mb-5">
             How We Rate {catLabel}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -581,29 +581,29 @@ export default async function BestOfPage(props: {
                 key={stat.label}
                 className="p-4 bg-gray-50 rounded-xl border border-gray-100"
               >
-                <p className="text-2xl font-black text-green-600">{stat.num}</p>
-                <p className="text-sm font-semibold text-gray-900 mt-1">
+                <p className="text-2xl font-black text-action-green">{stat.num}</p>
+                <p className="text-sm font-semibold text-ink mt-1">
                   {stat.label}
                 </p>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
                   {stat.desc}
                 </p>
               </div>
             ))}
           </div>
-          <p className="text-sm text-gray-500 leading-relaxed max-w-2xl">
+          <p className="text-sm text-ink-60 leading-relaxed max-w-2xl">
             When you apply through our links, we may earn an affiliate
             commission. This never influences our ratings. See our{" "}
             <Link
               href="/methodology"
-              className="text-green-600 font-medium hover:text-green-700"
+              className="text-action-green font-medium hover:text-authority-green"
             >
               methodology
             </Link>{" "}
             and{" "}
             <Link
               href="/how-we-make-money"
-              className="text-green-600 font-medium hover:text-green-700"
+              className="text-action-green font-medium hover:text-authority-green"
             >
               how we make money
             </Link>
@@ -614,25 +614,25 @@ export default async function BestOfPage(props: {
 
       {/* ── FAQ Accordion ── */}
       {FAQ_DATA[category] && FAQ_DATA[category].length > 0 && (
-        <section className="bg-gray-50 border-t border-gray-200">
+        <section className="bg-gray-50 border-t border-ink/10">
           <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-            <h2 className="text-lg font-bold text-gray-900 mb-5">
+            <h2 className="text-lg font-bold text-ink mb-5">
               Frequently Asked Questions
             </h2>
             <div className="space-y-2">
               {FAQ_DATA[category].map((faq, i) => (
                 <details
                   key={i}
-                  className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
+                  className="group bg-white border border-ink/10 rounded-xl overflow-hidden"
                 >
-                  <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
+                  <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-ink hover:bg-gray-50 transition-colors list-none">
                     {faq.q}
                     <ChevronRight
                       size={16}
-                      className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
+                      className="text-ink-60 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
                     />
                   </summary>
-                  <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+                  <div className="px-5 pb-4 text-sm text-ink-60 leading-relaxed border-t border-gray-100 pt-3">
                     {faq.a}
                   </div>
                 </details>
@@ -644,9 +644,9 @@ export default async function BestOfPage(props: {
 
       {/* ── Related Articles ── */}
       {articles.length > 0 && (
-        <section className="bg-white border-t border-gray-200">
+        <section className="bg-white border-t border-ink/10">
           <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-            <h2 className="text-lg font-bold text-gray-900 mb-5">
+            <h2 className="text-lg font-bold text-ink mb-5">
               Related Articles
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -654,18 +654,18 @@ export default async function BestOfPage(props: {
                 <Link
                   key={article.slug}
                   href={`/articles/${article.slug}`}
-                  className="flex items-start gap-3 p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
+                  className="flex items-start gap-3 p-4 bg-gray-50 border border-ink/10 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
                 >
                   <BookOpen
                     size={16}
-                    className="text-green-600 mt-0.5 flex-shrink-0"
+                    className="text-action-green mt-0.5 flex-shrink-0"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                    <p className="text-sm font-semibold text-ink group-hover:text-authority-green transition-colors">
                       {article.title}
                     </p>
                     {article.excerpt && (
-                      <p className="text-xs text-gray-500 mt-1 leading-relaxed line-clamp-2">
+                      <p className="text-xs text-ink-60 mt-1 leading-relaxed line-clamp-2">
                         {article.excerpt}
                       </p>
                     )}

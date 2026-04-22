@@ -183,10 +183,14 @@
 **New bugs discovered during v3 rollout (to address next):**
 | # | Bug | Severity | Status |
 |---|---|---|---|
-| 13 | Listing page H1s (`/credit-cards`, `/loans`, etc.) use Inter not Playfair | P1 | pending |
-| 14 | Article detail H1 uses Inter not Playfair | P1 | pending |
-| 15 | Calculator H1s use Inter not Playfair | P1 | pending |
+| 13 | Listing page H1s (`/credit-cards`, `/loans`, etc.) use Inter not Playfair | P1 | ✅ fixed `493f0b20` |
+| 14 | Article detail H1 uses Inter not Playfair | P1 | ✅ fixed `493f0b20` |
+| 15 | Calculator H1s use Inter not Playfair | P1 | ✅ fixed `493f0b20` |
 | 16 | Card h3s in TopPicks/ExploreCategories/TrustStats/RateComparison — tokens applied | P2 | ✅ fixed `8b6efd9b` |
+
+**v3 Bold Redesign: 100% site coverage reached on 2026-04-22 (commit `493f0b20`).**
+All public routes (homepage, 7 listing pages, 228 articles, 75 calculators) now
+render in Playfair + ink + gold + canvas tokens. 83 files migrated in single sweep.
 
 ---
 
