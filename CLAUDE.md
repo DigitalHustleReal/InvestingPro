@@ -200,98 +200,116 @@ npm run deploy:validate     # Pre-deploy check (env + DB + build)
 
 ---
 
-## 9. Current Status (April 17 EOD, 2026)
+## 9. Current Status (April 22, 2026)
 
 ### Platform Inventory
 | Asset | Count | Status |
 |-------|-------|--------|
-| Calculator pages | 75 live | 58 original + 17 VS comparison |
-| Products in DB | 1,000 (36 CC, 962 MF + 1 loan) | CC images in Supabase Storage |
-| Published articles | **189+** (all with body_html, FAQ schema, desk bylines) | Target HIT — topical authority |
+| Public route patterns | 10 | ✅ ALL on v3 Bold Redesign |
+| Calculator pages | 72 live | SIP has full gold-standard UX; other 71 use shared v3 primitives |
+| Products in DB | ~1,000 (36 CC, 962 MF + 1 loan) | CC images in Supabase Storage |
+| Published articles | **228+** | Editorial Playfair typography via `.article-prose` |
 | Glossary terms | 101 | Dashed underline links to /glossary/[slug] |
 | Categories | 18 normalized (hyphens) | All categories have 2+ articles |
 | Grok featured images | 29 approved, processing pending | Bright editorial style |
-| FAQ schema | ~180/189 articles | FAQPage JSON-LD |
-| Editorial desks | 7 (Tax, Credit, Investment, Lending, Insurance, Banking, Editorial) | Auto-assigned by category |
+| FAQ schema | ~180/228 articles | FAQPage JSON-LD |
+| Editorial desks | 7 (Tax, Credit, Investment, Lending, Insurance, Banking, Editorial) | Auto-assigned; visible per product card |
 | Affiliate networks | 2 active (Cuelinks 244238 + EarnKaro 5197986) | Smart lazy loader |
+| Sitemap URLs | ~1,450 | Submit to GSC — pending manual action |
 | Contact email | contact@investingpro.in | Updated across 19 files |
 
 ### Vercel Deployment
 - Project: `investing-pro` at `https://www.investingpro.in`
-- Node 24.x, auto-deploy on git push
+- Node 24.x, auto-deploy on git push to `master`
 - `NEXT_PUBLIC_BASE_URL=https://www.investingpro.in`
 - `CRON_SECRET` set (no whitespace)
 
-### What's Done (Apr 17 — NerdWallet Parity Sprint):
+### v3 Bold Redesign — 100% shipped (2026-04-21 to 2026-04-22)
 
-**Design & UI (17 commits):**
-- [x] NerdWallet color system: neutral body, green CTAs only
-- [x] Double title suffix fixed across 35+ pages
-- [x] Product cards redesigned: full-width NW-style stacked blocks with data strips + accordions
-- [x] "Best of" roundup page template: `/{category}/best/{subcategory}` (35 subcategory pages)
-- [x] Calculator → product marketplace (SIP, EMI, FD calculators show products below results)
-- [x] ApplyNowCTA: uppercase "APPLY NOW", square (2px radius), "on [Provider]'s website" subtext
-- [x] Expandable advertiser disclosure on all 6 product pages
-- [x] Article page: neutral category badge, clean featured image, simplified callout boxes
-- [x] Per-category rating methodology (7 product types with weighted criteria)
-- [x] RatingExplainer component: inline "How We Rate" + tooltip variant
+**Design system locked** (see `brainstorm.md` §1):
+- Colors: 6 tokens only (ink, authority-green, action-green, indian-gold, canvas, warning-red). No blue, no purple, no pink.
+- Typography: Playfair Display (headlines), Inter (body), JetBrains Mono (data). Font-display = Playfair.
+- Rules: rounded-sm max (2px), no gradients except hero, no scale-transforms, no glassmorphism, no shadow-lg.
+- Emphasis = indian-gold (never action-green).
 
-**Revenue & Monetization:**
-- [x] Cuelinks affiliate SDK active (Publisher ID 244238)
-- [x] EarnKaro affiliate SDK active (ID 5197986)
-- [x] Smart third-party script loader (lazy, page-aware, no admin pages)
-- [x] Affiliate tracking: PostHog events + Supabase `affiliate_clicks` table
-- [x] 2 affiliate URL bugs fixed (`/api/out` wrong column + subcategory wrong field)
+**Coverage (all shipped):**
+- Homepage — 11 editorial sections (vanity TrustStats/BrandMarquee removed; FindYourFit + LifeStageHub added for interactive value)
+- Listing pages (7) — NerdWallet+ editorial cards with square score badges, pros/cons, Our Take verdict, filter sidebar
+- Product detail pages (6 categories, 1000+ products) — Playfair 60px hero + mono data strip + square score + self-healing fuzzy slug resolver
+- Article hub + 228 article detail pages — custom `.article-prose` CSS (Playfair H2/H3, gold bullets, mono OL, pull quotes, ink tables)
+- Calculator hub + 72 individual pages — SIP has persona presets + step-up + inflation + LTCG + stress test + donut + share-as-image
+- Category pages (8) + best-of roundups (35)
+- Compare feature — sticky ink+gold tray + comparison page
+- Footer — 6-col / 70 SEO links / 3 compliance blocks (SEBI/affiliate/jurisdiction)
 
-**Trust & E-E-A-T:**
-- [x] 7 editorial desk bylines with auto-assignment by category
-- [x] Article sources: expandable citations with RBI/SEBI/IRDAI references per category
-- [x] Editorial independence statement on methodology page
-- [x] Legal disclaimers enhanced (SEBI, educational purposes, past performance)
+**Infrastructure & tracking:**
+- PostHog funnel events on all conversion paths (category switch, pick click, calc CTA, affiliate click, newsletter subscribe, life-stage selection)
+- Non-blocking affiliate tracking with UUID validation + schema-mismatch retry fallback
+- Real `/api/newsletter` capture on homepage + every article bottom
+- Weekly editorial ticker ("This Week in Indian Money") on 6 listing pages — closes NerdWallet's velocity edge
 
-**Content (189+ articles):**
-- [x] 189+ articles published (51 original + 138 generated via pipeline + Claude)
-- [x] All articles: 2,500-8,000 words, FAQ schema, key takeaways, pro tips, tables
-- [x] Categories normalized: all use hyphens (credit-cards, not credit_cards)
-- [x] All articles have desk bylines assigned
-- [x] 29 Grok photorealistic images approved (processing pending)
-- [x] Keyword research done for all 7 categories (long-tail, low competition)
+### Pending (Priority Order)
 
-### Pending (Priority Order):
-- [ ] **P0: Process 29 Grok images** — watermark removal + InvestingPro branding overlay
-- [ ] **P0: Wire images to articles** — update featured_image in DB for all 189 articles
-- [ ] **P0: Article quality audit** — verify factual accuracy, interlinking, glossary links
-- [ ] **P1: Generate remaining Grok images** — ~160 articles still need custom images
-- [ ] **P1: Interlinking mesh** — 9+ articles missing cross-article links
-- [ ] **P1: Sitemap submission** — submit to Google Search Console + Google News
-- [ ] **P1: Google AdSense application** — 189 articles, ready to apply
-- [ ] **P2: Sprint 4** — Hub page redesign, URL restructure, footer redesign
-- [ ] **P2: Sprint 5** — Visual polish (spacing, cards, link colors)
-- [ ] **P2: Cookie banner** — too tall on mobile
-- [ ] **P3: Sprint 6** — Cross-links, breadcrumbs, author profiles
-- [ ] **P3: Social distribution** — Telegram bot, X API, WhatsApp Channel
+**🛠️ Engineering**
+- [ ] Run `supabase/migrations/20260422_fix_affiliate_clicks_schema.sql` in Supabase SQL editor (adds article_id column if missing, creates safe index without broken `converted` reference)
+- [ ] Connect InvestingPro Supabase project to MCP server (currently only Conduit visible)
+- [ ] Extend fuzzy-slug resolver to loans/MF/insurance/demat/FD detail pages (credit-cards has it)
+- [ ] Playwright visual regression (~1 hr)
+- [ ] Token/font linter in CI (~30 min)
 
-### Key Architecture Notes (Apr 17):
-- **Article pipeline**: `scripts/auto-generate-batch.ts` — Gemini→Groq→Mistral→OpenAI failover
-- **Topics file**: `scripts/data/topics.json` — 197 topics (141 original + 56 gap-fill)
-- **Grok image prompts**: `docs/content-research/super-grok-article-prompts.md` — master prompt + 8 topic prompts
-- **NerdWallet gap report**: `docs/superpowers/specs/2026-04-17-nerdwallet-parity-gap-report.md`
-- **Content blueprint**: `docs/superpowers/specs/2026-04-17-content-blueprint.md`
-- **Sprint 1 plan**: `docs/superpowers/plans/2026-04-17-sprint1-p0-revenue-foundation.md`
-- **Smart script loader**: `components/monetization/ThirdPartyScripts.tsx` — loads Cuelinks + EarnKaro only on relevant pages
-- **Desk byline**: `components/articles/DeskByline.tsx` + `lib/data/team.ts` (7 desks)
-- **Article sources**: `components/articles/ArticleSources.tsx` — per-category regulatory citations
+**🎨 Design completion**
+- [ ] Port SIP gold-standard pattern to EMI / FD / Tax calculators (~3 hrs each)
+- [ ] PWA mobile mockup section on homepage
+- [ ] Document `.article-prose` opt-in classes for editorial team (`.data-callout`, `.takeaways`)
 
-### Key Architecture Notes (Apr 16):
-- **No fake data anywhere** — all fabricated testimonials, experts, credentials removed
-- **Team bylines** — "InvestingPro Tax Desk", "InvestingPro Credit Team", etc. No fake individuals
-- **Editorial pages** — `/about/editorial-team` shows process, not people. `/about/editorial-standards` shows specialist desks
-- **`lib/data/team.ts`** — 3 team entries (Editorial, Tax Desk, Credit Team), no fake bios
-- **`lib/content/review-data.ts`** — empty arrays, no fake reviews
-- **`lib/content/author-personas.ts`** — still has fake names (internal AI generation config, not user-facing) — needs cleanup
-- **Article body_html** — 49/51 articles have proper HTML. 2 had empty content (now filled: emergency fund + CIBIL)
-- **Grok image pipeline** — `scripts/generate-infographic.ts` for branded cards, Playwright for watermark removal + title overlay
-- **Product tables**: `credit_cards` (36 rows, separate table), `products` (962 MF + 1 loan, `category` uses underscores: `mutual_fund`, `credit_card`)
+**💰 Revenue / SEO activation (HIGHEST IMMEDIATE ROI)**
+- [ ] Submit sitemap.xml to Google Search Console (228 articles currently unindexed)
+- [ ] Submit sitemap to Bing Webmaster Tools
+- [ ] Request manual indexing for top 10 money articles via GSC URL Inspection
+- [ ] Apply for Google AdSense (228 articles qualifies)
+- [ ] Process 29 approved Grok images (watermark removal + IP branding overlay)
+- [ ] Wire Grok images to all 228 articles (featured_image DB column)
+- [ ] Generate ~160 remaining Grok images per content blueprint
+
+**📝 Content / E-E-A-T**
+- [ ] Glossary expansion 101 → 205 terms per content blueprint
+- [ ] Interlinking mesh — 9+ articles missing cross-article links
+- [ ] Corrections policy page (route exists, content needed)
+- [ ] Fact-check policy page
+
+### Key Architecture Notes
+
+**v3 Shared Components — upgrade once, whole site inherits:**
+- `components/products/RichProductCard.tsx` — 7 listing pages
+- `components/products/ApplyNowCTA.tsx` — every affiliate click button
+- `components/articles/ArticleRenderer.tsx` — all 228 articles (uses `.article-prose`)
+- `components/articles/ArticleSources.tsx` — per-category regulatory citations
+- `components/articles/Callout.tsx` — 5 editorial callout tones
+- `components/articles/ArticleNewsletterInline.tsx` — every article bottom
+- `components/common/WeeklyChanges.tsx` — editorial ticker, 6 listings
+- `components/common/ContextualTicker.tsx` — "LIVE DATA" strip per category
+- `components/calculators/shared/*` — 75 calculators inherit tokens
+- `lib/content/weekly-changes.ts` — edit TS file to update weekly commentary (no DB)
+- `lib/tracking/affiliate-tracker.ts` — non-blocking click tracking with retry
+
+**Infrastructure:**
+- `app/sitemap.ts` — ~1,450 URLs (72 calcs, 35 best-of, 10 categories, articles, products)
+- `app/robots.ts` — ChatGPT/Perplexity/Applebot allowed; GPTBot/CCBot/ClaudeBot blocked
+- `app/api/newsletter/route.ts` + `lib/services/newsletterService` — capture + verify
+- `app/api/out/route.ts` + `app/go/[slug]/route.ts` — affiliate redirect with server-side tracking
+- `app/globals.css` — CSS variables + `.article-prose` + `.surface-*` — single CSS source
+
+**Data layer:**
+- `credit_cards` table (36 rows, separate table) — detail page has 3-tier fuzzy slug resolver
+- `products` table (962 MF + 1 loan, `category` uses underscores: `mutual_fund`, `credit_card`)
+- `articles` table (228+ published, `status = 'published'`)
+- `affiliate_clicks` table — tracker now UUID-validates before insert, retries on schema mismatch
+
+**Article pipeline** (unchanged from Apr 17):
+- `scripts/auto-generate-batch.ts` — Gemini→Groq→Mistral→OpenAI failover
+- `scripts/data/topics.json` — 197 topics
+- `lib/data/team.ts` — 7 desk entries, auto-assigned by category
+- No fake individual authors anywhere in user-facing pages
 
 ### Env Vars on Vercel:
 ```
@@ -299,6 +317,7 @@ NEXT_PUBLIC_BASE_URL=https://www.investingpro.in  ← WITH www
 CRON_SECRET=investingpro-cron-secret-2026-secure   ← NO whitespace
 NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_ANON_KEY
 GOOGLE_GEMINI_API_KEY, PEXELS_API_KEY, + 30 more
+NEXT_PUBLIC_POSTHOG_KEY, NEXT_PUBLIC_POSTHOG_HOST (for analytics)
 ```
 
 ---

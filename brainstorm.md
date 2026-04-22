@@ -1,310 +1,241 @@
 # InvestingPro — Single Source of Truth
 
-> **Last updated:** 2026-04-21
-> **Status:** v3 Bold Redesign 30% applied, drifting. This doc halts drift.
+> **Last updated:** 2026-04-22 (session 2 wrap-up)
+> **Status:** v3 Bold Redesign 100% deployed across public routes.
 > **Rule:** Every session starts here. Every PR lists which item it closes.
 
 ---
 
-## 1. Approved Design Language (LOCKED — no more re-debate)
+## 1. Approved Design Language (LOCKED)
 
 > "Editorially Bold, Regulatorily Transparent, Unapologetically Indian"
 
 ### Typography
 | Use | Font | Weight |
 |---|---|---|
-| Heroes, headlines, verdicts | **Playfair Display** | 900 (letter-spacing: -2px) |
+| Heroes, headlines, verdicts, article H2 | **Playfair Display** | 900 (letter-spacing: -2px) |
 | Body, UI, buttons | **Inter** | 400–700 |
-| Rates, scores, dates, badges | **JetBrains Mono** | 400–500 (uppercase, tracking-wider) |
+| Rates, scores, dates, badges, labels | **JetBrains Mono** | 400–500 (uppercase, tracking-wider) |
 
-### Colors
+### Colors (only these — no blue, no purple, no pink)
 | Token | Hex | Use |
 |---|---|---|
 | `ink` | `#0A1F14` | Primary text, dark sections |
-| `authority-green` | `#166534` | Brand, trust signals (structural only) |
+| `authority-green` | `#166534` | Brand, trust, structural elements |
 | `action-green` | `#16A34A` | CTAs, positive data |
-| `indian-gold` | `#D97706` | **Emphasis, accents, methodology links, premium** |
+| `indian-gold` | `#D97706` | **Emphasis, Indian identity, methodology** |
 | `canvas` | `#FAFAF9` | Page background |
-| `warning-red` | `#DC2626` | Errors, negatives |
+| `warning-red` | `#DC2626` | Errors, negatives, stress |
 
-**Hard rules:**
-- No blue, no purple, no pink anywhere
+### Hard rules
+- **Emphasis = indian-gold** (not green)
 - No gradients except hero sections
-- Cards use 0px or 2px radius (sharp = authority)
-- **Emphasis = indian-gold** (not green — current bug)
-- Serif = opinion, Monospace = data, Sans = UI
+- Cards use 0px / 2px / sharp corners (rounded-sm max)
+- No scale-transforms on hover
+- No glassmorphism / backdrop-blur
+- No shadow-lg / shadow-2xl (editorial = flat)
+- Serif = opinion · Monospace = data · Sans = UI
+- No vanity inventory brags ("X+ tested", "Y funds tracked") — users don't care
 
-### Signature Elements
-1. **Verdict Cards** — Playfair headline + opinion + "Methodology disclosed →" gold link
-2. **Data Strips** — Ink header + monospace values
-3. **Score Badges** — Square, large mono number, weighted criteria link
-4. **Section Labels** — JetBrains Mono, 11px, uppercase, tracking 3px, **gold**
-
----
-
-## 2. Current State — Page by Page
-
-### ✅ Built with v3 Bold Redesign (correct)
-| Page/Component | File | Notes |
-|---|---|---|
-| Global Navbar | `components/v2/layout/Navbar.tsx` | Ink bg, gold underline |
-| Trust Rail | `components/v2/layout/TrustRail.tsx` | Ink strip below nav |
-| Global Footer | `components/layout/Footer.tsx` | Ink bg (but gold titles broken — see §4) |
-| Mobile Bottom Nav | `components/v2/layout/MobileNav.tsx` | 64px, 22px icons |
-| Mega Menu | `components/v2/layout/MegaMenu.tsx` | 3-col, v3 tokens |
-| Homepage Hero | `components/v2/home/Hero.tsx` | Layout right, but **H1 uses Inter not Playfair** |
-
-### ⚠️ Drifted / Partial (needs v3 rework)
-| Page/Component | File | Drift |
-|---|---|---|
-| Homepage `RateComparison` | `components/v2/home/RateComparison.tsx` | Plain Inter H2, green italic |
-| Homepage `MarketPulse` | `components/v2/home/MarketPulse.tsx` | Plain Inter, green italic |
-| Homepage `TopPicks` | `components/v2/home/TopPicks.tsx` | Plain Inter, green italic |
-| Homepage `CalculatorSpotlight` | `components/v2/home/CalculatorSpotlight.tsx` | No Playfair, green italic |
-| Homepage `ExploreCategories` | `components/v2/home/ExploreCategories.tsx` | Green italic emphasis |
-| Homepage `TrustStats` | `components/v2/home/TrustStats.tsx` | Green italic |
-| Homepage `Editorial` | `components/v2/home/Editorial.tsx` | Minor — mostly correct |
-| Homepage `MoreResources` | `components/v2/home/MoreResources.tsx` | Accordion→tabs done, colors ok |
-| Homepage `NewsletterTrust` | `components/v2/home/NewsletterTrust.tsx` | Green italic |
-
-### ❌ Not started — Still in NerdWallet-parity flat style
-| Page | Route | Status |
-|---|---|---|
-| Credit Cards Listing | `/credit-cards` | H1 Inter, no Playfair, no ink/gold |
-| Loans Listing | `/loans` | Same |
-| Mutual Funds Listing | `/mutual-funds` | Same |
-| Demat Accounts Listing | `/demat-accounts` | Same |
-| Fixed Deposits Listing | `/fixed-deposits` | Same |
-| Insurance Listing | `/insurance` | Same |
-| Banking Listing | `/banking` | Same |
-| Article Detail | `/articles/[slug]` | Plain NW article layout |
-| Category Listing | `/category/[slug]` | Plain |
-| Calculator Hub | `/calculators` | Grid exists, no v3 tokens |
-| Individual Calculators (75) | `/calculators/*` | Plain H1, centered, flat |
-| Glossary | `/glossary` + 101 term pages | Not styled |
-| Best-of roundups (35) | `/{cat}/best/{sub}` | NW-parity only |
-| About / Editorial pages | `/about/*` | Not styled |
-| Auth pages (login/signup) | `/login`, `/signup` | Not touched |
-| Admin CMS (100+ pages) | `/admin/*` | Separate theme, out of scope |
+### Signature elements
+1. **Verdict Cards** — Playfair headline + "Methodology disclosed →" gold link
+2. **Data Strips** — Ink header + monospace values, tabular-nums
+3. **Score Badges** — Square, 2px ink border, mono number + `/100`
+4. **Section Labels** — JetBrains Mono 11px, uppercase, tracking 0.08em, gold
 
 ---
 
-## 3. Tasks by Role
+## 2. Production State (as of 2026-04-22)
 
-### 🎯 CEO (Shiv) — Decisions only
-- [ ] **Decide Option A/B/C** — do we finish v3 Bold Redesign OR revert to NW-clean? (See §5)
-- [ ] **Decide PWA mobile mockup** — build now or P2?
-- [ ] **Decide italic emphasis color** — confirm it's gold (per brainstorm) not green
-- [ ] **Revenue focus** — 2-week freeze on features, focus on GSC + AdSense + affiliate activation
-- [ ] **Write weekly review** — what shipped, what moved numbers
+### v3 rollout — 100% complete across public routes
 
-### 🏗️ CTO (Claude/Shiv together) — Architecture
-- [ ] **Fix `surface-ink` / `surface-canvas` CSS bugs** (`app/globals.css:487, 508`) — remove `:is(h1..h6..)` blanket overrides
-- [ ] **Collapse `globals.css` from 525 → ~150 lines** — remove v1/v2 aliases, deduplicate tokens
-- [ ] **Clean `tailwind.config.ts`** — remove duplicate `indian-gold`/`canvas` hex declarations, kill `wt-*` aliases, fix `text.primary` dark-assumption
-- [ ] **Lock design token source** — one file, `app/globals.css`, no others allowed
-- [ ] **Component library audit** — ensure every shared component uses tokens, not hex
-- [ ] **Performance pass** — Core Web Vitals on all top pages
-- [ ] **SEO infra** — sitemap submission, robots, Schema validation
+| Route pattern | Count | Status |
+|---|---|---|
+| Homepage `/` | 1 | ✅ 11 sections, editorial flow |
+| Listing pages `/credit-cards`, `/loans`, `/mutual-funds`, `/insurance`, `/fixed-deposits`, `/demat-accounts`, `/banking` | 7 | ✅ NerdWallet+ editorial cards default |
+| Product detail `/credit-cards/[slug]` etc. | 1000+ | ✅ Square score hero + data strip + Our Take |
+| Article hub `/articles` + detail `/articles/[slug]` | 228 | ✅ Playfair editorial body prose |
+| Calculator hub `/calculators` + individuals | 72 | ✅ v3 tokens; SIP has full gold-standard features |
+| Category pages `/category/[slug]` | 8+ | ✅ Playfair 64px hero |
+| Best-of roundups `/{cat}/best/{sub}` | 35 | ✅ Editorial H1 |
+| Compare `/compare` + sub-pages | 10+ | ✅ Sticky ink+gold tray |
+| Footer | — | ✅ 6-col / 70 SEO links / 3 compliance blocks |
 
-### 🎨 Head of Design (Claude + Shiv review)
-- [ ] **Hero.tsx:222,225** — `font-bold` → `font-display font-black`, green → indian-gold
-- [ ] **Replace `italic text-authority-green` → `italic text-indian-gold`** across 9 home files
-- [ ] **Homepage listing-style rework** — apply Playfair H2s, ink accents to RateComparison / MarketPulse / TopPicks / CalculatorSpotlight
-- [ ] **Product listing page template** — build v3 version (hero + filter pills + full-width product cards with data strips + square score badges + square Apply Now)
-- [ ] **Article detail template** — build v3 version (full-width Grok hero, Playfair 40px title, mono byline, gold pull-quote borders)
-- [ ] **Calculator template** — split layout, mono results, "Products for you" cross-sell
-- [ ] **Verdict card component** — reusable `<VerdictCard>` with Playfair + gold methodology link
-- [ ] **Data strip component** — reusable `<DataStrip>` with mono values
-- [ ] **Score badge component** — square, mono, weighted criteria
-- [ ] **Section label component** — mono uppercase tracking-wider gold
+### Homepage section flow (11 sections)
 
-### 📝 Content / Editor-in-Chief (Shiv + AI pipeline)
-- [ ] **Process 29 approved Grok images** — watermark removal + InvestingPro branding
-- [ ] **Wire images to all 228 articles** — update `featured_image` in DB
-- [ ] **Generate ~160 remaining Grok images** — use existing prompt file
-- [ ] **Article quality audit** — verify factual accuracy, interlinking, glossary dashed-underline links
+1. **Hero** — rotating question + constellation, Playfair 60px + gold emphasis
+2. **TrustBar** — surface-ink live-data ticker (rates + deadlines, NO inventory)
+3. **RateComparison** — mono data strips with big mono rate numbers
+4. **TopPicks** — 3 editor verdict cards with square score badges
+5. **FindYourFit** — instant-value chip interface (0 clicks to recommendations)
+6. **ExploreCategories** — 8 category cards with mono count badges
+7. **CalculatorSpotlight** — 3 live interactive mini-calcs with sliders
+8. **LifeStageHub** — 6 life-stage bundles, first auto-open (0 clicks to value)
+9. **Editorial** — 1 featured + 5 small editorial layout with gold category pills
+10. **TrustMethodology** — 6-criteria weighted methodology (brainstorm §7)
+11. **NewsletterTrust** — real API-wired capture with success state
+
+### Removed from homepage (kept as components)
+- MarketPulse — redundant with Editorial
+- MoreResources — redundant with 70-link footer
+- BrandMarquee — decorative
+- TrustStats — vanity inventory (228 articles / 75 calcs brags)
+
+---
+
+## 3. Shipped features — session log
+
+### Session 1 (2026-04-21) — v3 foundation
+- Design system audit + drift fix (`e22b243f`)
+- 8 homepage sections polished with signature elements
+- Footer NerdWallet-style rebuild (70 links, SEBI/RBI/IRDAI compliance block)
+- Listing page editorial card rebuild (7 pages via shared RichProductCard)
+- Product detail page rebuilds (6 categories)
+- Category + best-of pages v3
+- Article + calculator component sweeps (94 files)
+- PostHog instrumentation (FindYourFit, LifeStageHub, TopPicks, CalculatorSpotlight, newsletter)
+
+### Session 2 (2026-04-22) — polish + infrastructure
+- Sitemap: 23 → 72 calcs + 35 best-of + 10 categories = ~1,450 URLs
+- Cookie banner shrink (slim ink bar with gold border, pb-safe)
+- Newsletter capture activated — `/api/newsletter` POST, success state, PostHog events on homepage + article bottom
+- Compare feature v3 rebuild (CompareBar + CompareTray — no more glassmorphism)
+- Editorial desk bylines on product cards (Credit Team / Investment Desk etc.)
+- Affiliate tracking non-blocking + UUID validation + schema-mismatch retry fallback
+- Self-healing slug resolver (3-tier fuzzy match) for credit card detail pages
+- Migration `20260422_fix_affiliate_clicks_schema.sql` to fix article_id column
+- Blue token purge across 9 user-facing files (admin kept separate)
+- "This Week in Indian Money" editorial ticker on 6 listing pages
+- SIP calculator gold-standard rebuild (persona presets, step-up, inflation, LTCG, stress test, donut, share-as-image, copy result)
+- Article body typography — custom `.article-prose` CSS with Playfair headings, gold dash bullets, mono leading-zero OL, pull quotes with gold border, ink tables, editorial figures
+
+### Total: **31 commits, 20 master deploys** across 2 days
+
+---
+
+## 4. Active pending items
+
+### 🛠️ Engineering
+- [ ] **Playwright visual regression** — screenshot every page, CI diff against approved snapshot (~1 hr)
+- [ ] **Token/font linter in CI** — fail build if hex used instead of token, or `font-bold` used on H1/H2 (~30 min)
+- [ ] **Run migration `20260422_fix_affiliate_clicks_schema.sql`** in Supabase SQL editor (manual action required)
+- [ ] **Connect InvestingPro Supabase project to MCP** so future sessions can query DB directly
+- [ ] **Extend fuzzy-slug resolver** to loans/MF/insurance/demat/FD detail pages (credit-cards already has it)
+
+### 🎨 Design completion
+- [ ] **Port SIP gold-standard to EMI + FD + Tax calculators** — these are the high-traffic ones (~3 hrs each)
+- [ ] **PWA mobile mockup section** — brainstorm Phase mention, not yet built
+- [ ] **Extend `.article-prose` opt-in classes** (`.data-callout`, `.takeaways`) with documentation for editorial team
+
+### 💰 Revenue / SEO activation
+- [ ] **Submit sitemap to Google Search Console** — 228 articles currently unindexed
+- [ ] **Submit sitemap to Bing Webmaster Tools**
+- [ ] **Request manual indexing** for top 10 money articles in GSC URL Inspection
+- [ ] **Apply for Google AdSense** — 228 articles qualifies
+- [ ] **Process 29 approved Grok images** — watermark removal + IP branding overlay
+- [ ] **Wire Grok images** to all 228 articles (featured_image DB column)
+- [ ] **Generate ~160 remaining Grok images** per content blueprint
+
+### 📝 Content / E-E-A-T
+- [ ] **Glossary expansion** 101 → 205 terms per content blueprint
 - [ ] **Interlinking mesh** — 9+ articles missing cross-article links
-- [ ] **Desk byline coverage** — verify all 228 have correct desk assigned
-- [ ] **FAQ schema coverage** — ~180/228 have it, push to 100%
-- [ ] **Sources block** — every article links to RBI/SEBI/IRDAI per category
-- [ ] **Glossary expansion** — 101 → 205 terms per Content Blueprint
-- [ ] **Content calendar** — 5-10 articles/week, track in spreadsheet
-
-### 💰 CMO / Growth (Shiv)
-- [ ] **Submit sitemap to GSC** (never done yet — 228 articles unindexed)
-- [ ] **Submit to Google News** — qualify + apply
-- [ ] **Apply for Google AdSense** (228 articles = qualifies)
-- [ ] **Cuelinks/EarnKaro activation** — verify all 6 product page apply-now links fire tracking
-- [ ] **Affiliate network expansion** — apply to RupeeGains, Bajaj direct, Axis direct, HDFC Smartbuy
-- [ ] **Newsletter setup** — capture emails on homepage + every article bottom
-- [ ] **Social distribution** — Telegram bot (P1), X API (P2), WhatsApp Channel (P3)
-- [ ] **Backlink outreach** — pitch to Bloomberg Quint, Moneycontrol, Livemint for citation
-- [ ] **PostHog funnel tracking** — homepage → category → product → Apply Now
-
-### 💼 CFO / Monetization (Shiv)
-- [ ] **Revenue target** — ₹3.9L/month from affiliate CPAs (per memory)
-- [ ] **CPA tracking dashboard** — Cuelinks + EarnKaro + manual affiliates → one view
-- [ ] **A/B test Apply Now copy** — current "APPLY NOW" vs alternatives
-- [ ] **Premium tier planning** — Stripe ready, no product spec yet
-- [ ] **AdSense revenue projection** — traffic × RPM estimate
-
-### ⚖️ COO / Ops (Shiv)
-- [ ] **Pre-commit validation hook** — `npm run validate` before any push
-- [ ] **Secure the 40 unsecured cron endpoints** (from Apr 15 audit)
-- [ ] **Fill 11 empty categories** (from Apr 15 audit)
-- [ ] **Environment variables hygiene** — document which are required where
-- [ ] **Error monitoring** — Sentry + PostHog error count → weekly review
-
-### ✅ QA / Visual Regression
-- [ ] **Playwright test suite** — screenshot every page, diff against approved version
-- [ ] **Token linter** — CI fails if hex color committed instead of token
-- [ ] **Font linter** — CI fails if `font-bold` used on H1/H2 (should be `font-display font-black`)
+- [ ] **Corrections policy page** — not built
+- [ ] **Fact-check policy page** — not built
 
 ---
 
-## 4. Active Bugs (verified with code + runtime inspection)
+## 5. Design decisions — LOCKED (do not revisit)
 
-| # | Bug | File:Line | Severity | Status |
-|---|---|---|---|---|
-| 1 | `surface-ink` forces canvas color on all h1-h6/p/a — kills Footer gold titles | `globals.css:508-510` | **P0** | ✅ fixed `e22b243f` |
-| 2 | `surface-canvas` forces ink color on all text — will block any gold headline inside | `globals.css:487-489` | **P0** | ✅ fixed `e22b243f` |
-| 3 | Hero H1 uses Inter bold instead of Playfair 900 | `Hero.tsx:222,225` | **P0** | ✅ fixed `e22b243f` |
-| 4 | "at 55?" hero emphasis is `text-green-600` (should be `text-indian-gold`) | `Hero.tsx:225` | **P0** | ✅ fixed `e22b243f` |
-| 5 | 9× `italic text-authority-green` pattern across homepage (should be `text-indian-gold`) | 9 `components/v2/home/*.tsx` | **P0** | ✅ fixed `e22b243f` |
-| 6 | 9 section H2s use `font-medium` instead of `font-display font-black` | 9 home files | **P1** | ✅ fixed `fde017b7` |
-| 7 | Hero buttons hardcode hex (`#16A34A`, `#0A1F14`) instead of tokens | `Hero.tsx:256,262` | **P2** | ✅ fixed `fde017b7` |
-| 8 | Duplicate `indian-gold`/`canvas` defined both as `var()` and literal hex | `tailwind.config.ts:195-231` | **P1** | ✅ fixed `fde017b7` |
-| 9 | Legacy `wt-*` tokens still live (not used by v3) | `tailwind.config.ts:204-207` | **P2** | ✅ fixed `fde017b7` |
-| 10 | Typo "Eligibilty" on credit cards filter | `components/credit-cards/FilterSidebar.tsx:96` | **P2** | ✅ fixed `fde017b7` |
-| 11 | Cookie banner too tall, blocks content on scroll | `components/common/CookieConsent.tsx` | **P2** | pending |
-| 12 | No PWA mobile mockup section on homepage | — (not built) | **P2** | pending |
-
-**New bugs discovered during v3 rollout (to address next):**
-| # | Bug | Severity | Status |
-|---|---|---|---|
-| 13 | Listing page H1s (`/credit-cards`, `/loans`, etc.) use Inter not Playfair | P1 | ✅ fixed `493f0b20` |
-| 14 | Article detail H1 uses Inter not Playfair | P1 | ✅ fixed `493f0b20` |
-| 15 | Calculator H1s use Inter not Playfair | P1 | ✅ fixed `493f0b20` |
-| 16 | Card h3s in TopPicks/ExploreCategories/TrustStats/RateComparison — tokens applied | P2 | ✅ fixed `8b6efd9b` |
-
-**v3 Bold Redesign: 100% site coverage reached on 2026-04-22 (commit `493f0b20`).**
-All public routes (homepage, 7 listing pages, 228 articles, 75 calculators) now
-render in Playfair + ink + gold + canvas tokens. 83 files migrated in single sweep.
-
----
-
-## 8. Session progress (2026-04-21)
-
-**Shipped (6 commits):**
-- `e22b243f` P0 bugs 1-5: surface-* CSS overrides, Playfair hero, gold emphasis
-- `fde017b7` P1/P2 bugs 6-10: 9 H2s to Playfair, token buttons, dedupe config, typo
-- `8d006d60` Doc update
-- `8b6efd9b` Homepage sections polish: RateComparison, TopPicks, TrustStats, ExploreCategories (brainstorm signature elements applied)
-- `b78fcbb1` Footer rebuild: 6-col × sub-sections, 70 SEO links, 3 compliance blocks
-
-**Homepage section status:**
-| # | Section | Status |
+| Decision | Chosen | Locked on |
 |---|---|---|
-| 1 | Hero | ✅ Playfair + gold emphasis |
-| 2 | TrustRail | ✅ ink ticker |
-| 3 | RateComparison | ✅ Polished — mono data strips |
-| 4 | MarketPulse | ⚠️ H2 only (still needs Grok images + category ink badges) |
-| 5 | TopPicks | ✅ Polished — square score badges |
-| 6 | CalculatorSpotlight | ⚠️ H2 only (still needs big mono preview numbers) |
-| 7 | ExploreCategories | ✅ Polished — mono count badges |
-| 8 | Editorial | ⚠️ Partial (asymmetric grid pending) |
-| 9 | TrustStats | ✅ Polished — Playfair 44px numbers |
-| 10 | NewsletterTrust | ✅ Inline signup correct |
-| 11 | MoreResources | ✅ Tab navigation |
-| 12 | Footer | ✅ 6-col NW-style, 70 SEO links, compliance |
-
-**Homepage polish coverage: 9 of 12 sections complete.**
-
-**Still pending for homepage completion:**
-- Section 4 MarketPulse: add Grok image thumbnails + category ink badges
-- Section 6 CalculatorSpotlight: big mono preview numbers + editorial card style
-- Section 8 Editorial: brainstorm Phase 2 §6 asymmetric 1-large + 4-small grid
+| v3 Bold Redesign vs revert | **A — Finish v3** | 2026-04-21 |
+| Blue/purple/pink usage | **Forbidden** | 2026-04-21 |
+| Inventory brags ("228 articles", "75 calcs") | **Forbidden on user-facing pages** | 2026-04-21 |
+| Popups / modals for newsletter | **No popups** — inline only | 2026-04-21 |
+| Gradients | **Only in hero sections** | 2026-04-21 |
+| Rounded corners | **rounded-sm max (2px)** | 2026-04-21 |
+| Scale hover transforms | **Forbidden** | 2026-04-22 |
+| Glassmorphism / backdrop-blur | **Forbidden** | 2026-04-22 |
+| Homepage vanity sections (TrustStats, BrandMarquee) | **Removed** | 2026-04-22 |
+| Author attribution pattern | **Desk bylines, never fake individuals** | 2026-04-22 |
+| Emphasis italic colour | **indian-gold** (never action-green) | 2026-04-22 |
 
 ---
 
-## 5. The Big Decision
+## 6. Content borrowed from NerdWallet (structure only, not design)
 
-**Option A — Finish v3 Bold Redesign (RECOMMENDED)**
-- Keep Navbar/Footer/Hero work (2 weeks committed)
-- Apply Playfair/ink/gold tokens to listings, calculators, articles
-- Fix bugs in §4
-- Est: 15–20 hrs spread over 2 weeks (alongside revenue work)
-- Outcome: Distinctive, "Unapologetically Indian" editorial finance brand
+URL structure, content architecture, editorial patterns — yes.
+Colours / fonts / visual treatment — no, we are distinctively Indian editorial.
 
-**Option B — Revert to NerdWallet-parity clean (Apr 18 state)**
-- Roll back to commit `252b6054`
-- Lose all v3 work
-- Uniformly clean but generic — looks like every other fintech
-- Est: 1 hr revert + cleanup
-- Outcome: Safe, undifferentiated
+### Patterns borrowed
+- "Best of" roundup structure (35 live on our site)
+- Editorial methodology disclosure linked per product
+- Expandable advertiser disclosure
+- "Updated [date]" stamps
+- Per-category weighted rating criteria
+- "APPLY NOW on [Issuer]'s website" CTA subtext
 
-**Option C — Hybrid (worst of both)**
-- Keep ink Navbar/Footer, strip Playfair + gold emphasis
-- Confuses users, wastes half the brainstorm
-- Not recommended
-
-**Decision:** **A — Finish v3 Bold Redesign.** Locked 2026-04-21 by Shiv.
-
----
-
-## 6. What We Borrow from NerdWallet (content patterns only — NOT design)
-
-> We use our own design tokens (ink/gold/canvas/Playfair). We borrow NerdWallet's **content architecture** only.
-
-### URL structure
-- `/{category}/learn/{slug}` for articles (currently `/articles/{slug}` — migrate P2)
-- `/{category}/best/{subcategory}` for "best of" roundups (35 built ✅)
-- `/{category}/reviews/{product}` for individual product reviews (sparse, expand)
-- `/{category}/news` for category news feed (not built)
-
-### Content patterns
-- **"Best of" roundup structure** — ranked list, rating methodology link, table of winners
-- **Editorial methodology disclosure** — every roundup links "How we rate"
-- **Expandable advertiser disclosure** — already built ✅
-- **"Updated [date]" stamps** — every article + product page
-- **Per-category rating criteria** — weighted criteria disclosed per product type ✅
-- **"APPLY NOW on [Issuer]'s website" CTA subtext** — already built ✅
-- **Callout boxes** — simple border + light bg (no gradients) ✅
-
-### SEO patterns
-- **Hub + pillar + supporting + roundup** content structure (per Content Blueprint)
-- **Keyword clusters** per category
-- **Glossary dashed-underline links** ✅
-- **Internal link mesh** — every article links 3+ related
-
-### Trust signals
-- **Desk bylines** (not individual fake authors) ✅
-- **Regulatory citations block** (RBI, SEBI, IRDAI) ✅
-- **Editorial standards page** ✅
-- **Corrections policy page** — not built
-- **Fact-check policy page** — not built
-
-### What we DON'T borrow from NerdWallet
-- ❌ Their Gotham font (we use Playfair + Inter)
-- ❌ Their teal-green `#008254` (we use forest `#166534` + action `#16A34A`)
-- ❌ Their cream footer (we use ink `#0A1F14`)
-- ❌ Their rounded buttons (we use 2–6px square)
-- ❌ Their visual style — generic US fintech look
+### Patterns we beat them on
+- Editorial hero (Playfair 60px) vs NW's plain H1
+- Inline cards with pros/cons on listing vs NW's pill-links only
+- Left-rail filters (7 groups) vs NW has none on listing
+- Visible score badges (`88/100`) vs NW hides ratings
+- Compare tray sticky UX vs NW has none
+- **Weekly Changes editorial ticker** vs NW's static news feed
+- Indian regulatory compliance (RBI/SEBI/IRDAI/PFRDA) vs NW's US-only
 
 ---
 
-## 7. Working Agreement
+## 7. Working agreement (7 rules)
 
-1. **Every PR** must list which numbered item from this doc it closes.
-2. **Every session** starts by reading this doc (§2 + §4 at minimum).
-3. **No new design patterns** without updating §1.
-4. **No reverting** without Shiv writing decision in §5.
-5. **Bugs in §4 are P0** — fix before any new feature.
-6. **Content pipeline runs in parallel** — doesn't block design work.
-7. **Revenue activation is P0 alongside design** — ship both, not sequentially.
+1. **Every PR** lists which item from §4 it closes
+2. **Every session** starts by reading §2 + §4 + §5
+3. **No new design patterns** without updating §1
+4. **No reverting** without Shiv writing decision in this doc
+5. **Pending items in §4 are prioritised** before new features
+6. **Content pipeline runs in parallel** — doesn't block design work
+7. **Revenue activation is P0 alongside design** — ship both, not sequentially
 
 ---
 
-*This doc replaces: homepage_design_audit.md, 2026-04-17-bold-redesign-design.md (archived reference), nerdwallet-parity-gap-report.md (archived reference).*
-*Archive those, link them here if needed, don't edit them.*
+## 8. Quick reference — key file paths
+
+### Design source
+- `app/globals.css` — all CSS variables + `.article-prose` + `.surface-*`
+- `tailwind.config.ts` — single source of truth for tokens
+- `components/v2/home/*` — 11 homepage sections
+
+### Shared components (upgrade once, whole site benefits)
+- `components/products/RichProductCard.tsx` — 7 listing pages inherit
+- `components/products/ApplyNowCTA.tsx` — every affiliate click
+- `components/articles/ArticleRenderer.tsx` — all 228 articles
+- `components/articles/ArticleSources.tsx` — all 228 articles, 8 category citations
+- `components/articles/Callout.tsx` — 5 editorial callout tones
+- `components/articles/ArticleNewsletterInline.tsx` — every article bottom
+- `components/common/WeeklyChanges.tsx` — 6 listing pages
+- `components/common/ContextualTicker.tsx` — 6 listing pages
+- `components/common/CookieConsent.tsx` — every page
+- `components/layout/Footer.tsx` — every page
+- `components/v2/layout/{Navbar,MegaMenu,MobileNav,TrustRail}.tsx` — every page
+- `components/compare/{CompareBar,CompareTray}.tsx` — every page
+- `components/calculators/shared/{SliderInput,ResultCard,TrustStrip,charts}.tsx` — 75 calculators
+
+### Content files (edit without code deploy)
+- `lib/content/weekly-changes.ts` — 6-category weekly editorial items
+- `lib/content/hero-questions.ts` — homepage rotating questions
+- `lib/content/expert-opinions.ts` — product expert opinions
+- `lib/content/author-personas.ts` — desk byline config
+
+### Infrastructure
+- `app/sitemap.ts` — ~1,450 URLs across 10+ page patterns
+- `app/robots.ts` — AI crawler allowlist (ChatGPT/Perplexity allowed, GPTBot blocked)
+- `app/api/newsletter/route.ts` — POST handler, existing API
+- `app/api/out/route.ts` + `app/go/[slug]/route.ts` — affiliate redirect tracking
+- `lib/tracking/affiliate-tracker.ts` — non-blocking click tracking with retry
+- `lib/analytics/posthog-service.tsx` — analytics provider + event helpers
+- `supabase/migrations/20260422_fix_affiliate_clicks_schema.sql` — schema fix (run manually)
+
+---
+
+*This doc consolidates: Session 1 (2026-04-21) + Session 2 (2026-04-22) work.
+Prior design specs archived — see git history for `2026-04-17-bold-redesign-design.md` etc.*
