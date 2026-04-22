@@ -10,7 +10,6 @@ import {
   HeartHandshake,
   GraduationCap,
   ArrowRight,
-  X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -158,8 +157,11 @@ const STAGES: Stage[] = [
 ];
 
 export default function LifeStageHub() {
-  const [openKey, setOpenKey] = useState<string | null>(null);
-  const openStage = STAGES.find((s) => s.key === openKey);
+  // Default-open the first life stage so users see a full bundle
+  // immediately — zero clicks to see value. Other cards swap the
+  // shown bundle with a single click.
+  const [openKey, setOpenKey] = useState<string>(STAGES[0].key);
+  const openStage = STAGES.find((s) => s.key === openKey) || STAGES[0];
 
   return (
     <section className="py-16 md:py-20">
@@ -186,43 +188,64 @@ export default function LifeStageHub() {
             return (
               <button
                 key={stage.key}
-                onClick={() => setOpenKey(isOpen ? null : stage.key)}
+                onClick={() => setOpenKey(stage.key)}
                 className={`group text-left border-2 rounded-sm p-5 transition-all ${
                   isOpen
-                    ? "border-indian-gold bg-indian-gold/5"
+                    ? "border-ink bg-ink text-canvas"
                     : "border-ink/10 bg-white hover:border-ink/30"
                 }`}
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-11 h-11 bg-indian-gold/10 rounded-sm flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-indian-gold" />
+                  <div
+                    className={`w-11 h-11 rounded-sm flex items-center justify-center ${
+                      isOpen ? "bg-indian-gold" : "bg-indian-gold/10"
+                    }`}
+                  >
+                    <Icon
+                      className={`w-5 h-5 ${
+                        isOpen ? "text-ink" : "text-indian-gold"
+                      }`}
+                    />
                   </div>
-                  <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60 border border-ink/15 px-1.5 py-0.5">
+                  <div
+                    className={`font-mono text-[10px] uppercase tracking-wider border px-1.5 py-0.5 ${
+                      isOpen
+                        ? "text-canvas-70 border-canvas-15"
+                        : "text-ink-60 border-ink/15"
+                    }`}
+                  >
                     {stage.articles.length + stage.calculators.length + stage.products.length} items
                   </div>
                 </div>
-                <h3 className="font-display font-bold text-lg text-ink mb-1 leading-snug">
+                <h3
+                  className={`font-display font-bold text-lg mb-1 leading-snug ${
+                    isOpen ? "text-canvas" : "text-ink"
+                  }`}
+                >
                   {stage.title}
                 </h3>
-                <p className="text-[13px] text-ink-60 leading-relaxed mb-3">
+                <p
+                  className={`text-[13px] leading-relaxed mb-3 ${
+                    isOpen ? "text-canvas-70" : "text-ink-60"
+                  }`}
+                >
                   {stage.teaser}
                 </p>
-                <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold flex items-center gap-1">
-                  {isOpen ? "Close" : "Open bundle"}{" "}
-                  <ArrowRight
-                    className={`w-3 h-3 transition-transform ${
-                      isOpen ? "rotate-90" : ""
-                    }`}
-                  />
+                <div
+                  className={`font-mono text-[11px] uppercase tracking-wider flex items-center gap-1 ${
+                    isOpen ? "text-indian-gold" : "text-indian-gold"
+                  }`}
+                >
+                  {isOpen ? "↓ Shown below" : "Show bundle"}{" "}
+                  {!isOpen && <ArrowRight className="w-3 h-3" />}
                 </div>
               </button>
             );
           })}
         </div>
 
-        {/* Expanded bundle — shown below grid, full-width */}
-        {openStage && (
-          <div className="mt-6 bg-white border-2 border-indian-gold rounded-sm p-6 sm:p-8">
+        {/* Expanded bundle — always visible, swaps when card clicked */}
+        <div className="mt-6 bg-white border-2 border-indian-gold rounded-sm p-6 sm:p-8">
             <div className="flex items-start justify-between mb-6">
               <div>
                 <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold mb-2">
@@ -232,13 +255,6 @@ export default function LifeStageHub() {
                   Everything you need, nothing you don&apos;t.
                 </h3>
               </div>
-              <button
-                onClick={() => setOpenKey(null)}
-                className="w-8 h-8 border border-ink/20 rounded-sm flex items-center justify-center hover:border-ink transition-colors"
-                aria-label="Close bundle"
-              >
-                <X className="w-4 h-4 text-ink" />
-              </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -303,7 +319,6 @@ export default function LifeStageHub() {
               </div>
             </div>
           </div>
-        )}
       </div>
     </section>
   );
