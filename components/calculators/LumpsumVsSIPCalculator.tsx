@@ -179,22 +179,22 @@ export function LumpsumVsSIPCalculator() {
               SIP ({formatINR(monthlySIP)}/mo)
             </p>
             {result.winner === "sip" && (
-              <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-bold text-indian-gold bg-indian-gold/20 px-2 py-0.5 rounded-full">
                 WINNER
               </span>
             )}
           </div>
-          <p className="text-4xl font-extrabold text-blue-700">
+          <p className="text-4xl font-extrabold text-indian-gold">
             {formatINR(result.sipFV)}
           </p>
-          <div className="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-blue-200/50">
+          <div className="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-indian-gold/30/50">
             <div>
               <p className="text-[10px] text-ink-60">Invested</p>
               <p className="text-sm font-bold">{formatINR(totalAmount)}</p>
             </div>
             <div>
               <p className="text-[10px] text-ink-60">Returns</p>
-              <p className="text-sm font-bold text-blue-700">
+              <p className="text-sm font-bold text-indian-gold">
                 {formatINR(result.sipReturns)}
               </p>
             </div>
@@ -212,7 +212,7 @@ export function LumpsumVsSIPCalculator() {
           "rounded-sm px-5 py-4 text-sm font-medium",
           result.winner === "lumpsum"
             ? "bg-action-green/10 border border-green-200 text-green-800"
-            : "bg-blue-50 border border-blue-200 text-blue-800",
+            : "bg-indian-gold/10 border border-indian-gold/30 text-authority-green",
         )}
       >
         <strong>
@@ -290,7 +290,7 @@ export function LumpsumVsSIPCalculator() {
             <span className="text-ink-60">Lumpsum</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
-            <div className="w-3 h-0.5 bg-blue-500 rounded" />
+            <div className="w-3 h-0.5 bg-indian-gold/100 rounded" />
             <span className="text-ink-60">SIP</span>
           </div>
         </div>
@@ -313,11 +313,11 @@ export function LumpsumVsSIPCalculator() {
                 <li>• You can tolerate short-term volatility</li>
               </ul>
             </div>
-            <div className="bg-blue-50 rounded-sm p-4">
-              <p className="text-sm font-bold text-blue-800 mb-2">
+            <div className="bg-indian-gold/10 rounded-sm p-4">
+              <p className="text-sm font-bold text-authority-green mb-2">
                 Choose SIP When:
               </p>
-              <ul className="text-xs text-blue-700 space-y-1.5">
+              <ul className="text-xs text-indian-gold space-y-1.5">
                 <li>• You earn monthly salary (disciplined investing)</li>
                 <li>• Markets are at all-time highs</li>
                 <li>• You&apos;re new to equity investing</li>

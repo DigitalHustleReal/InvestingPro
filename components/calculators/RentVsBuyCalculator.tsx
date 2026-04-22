@@ -180,7 +180,7 @@ export function RentVsBuyCalculator() {
           <p
             className={cn(
               "text-4xl font-extrabold mt-1",
-              result.winner === "buy" ? "text-authority-green" : "text-blue-700",
+              result.winner === "buy" ? "text-authority-green" : "text-indian-gold",
             )}
           >
             {formatINR(result.advantage)}
@@ -330,7 +330,7 @@ export function RentVsBuyCalculator() {
               className={cn(
                 "rounded-sm border p-4",
                 result.winner === "rent"
-                  ? "bg-blue-50 border-blue-300 ring-2 ring-blue-200"
+                  ? "bg-indian-gold/10 border-blue-300 ring-2 ring-blue-200"
                   : "bg-white border-ink/10",
               )}
             >
@@ -339,12 +339,12 @@ export function RentVsBuyCalculator() {
                   Rent + Invest
                 </p>
                 {result.winner === "rent" && (
-                  <span className="text-[9px] font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded">
+                  <span className="text-[9px] font-bold text-indian-gold bg-indian-gold/20 px-1.5 py-0.5 rounded">
                     WINS
                   </span>
                 )}
               </div>
-              <p className="text-xl font-bold text-blue-700">
+              <p className="text-xl font-bold text-indian-gold">
                 {formatINR(result.rentNetWealth)}
               </p>
               <div className="mt-2 space-y-1 text-[10px] text-ink-60">
@@ -438,7 +438,7 @@ export function RentVsBuyCalculator() {
             <span className="text-ink-60">Buy Property</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
-            <div className="w-3 h-0.5 bg-blue-500 rounded" />
+            <div className="w-3 h-0.5 bg-indian-gold/100 rounded" />
             <span className="text-ink-60">Rent + Invest</span>
           </div>
         </div>

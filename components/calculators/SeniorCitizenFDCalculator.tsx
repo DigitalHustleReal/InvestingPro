@@ -527,7 +527,7 @@ export function SeniorCitizenFDCalculator() {
                       bank.type === "sfb"
                         ? "bg-indian-gold/10 text-amber-700"
                         : bank.type === "private"
-                          ? "bg-blue-50 text-blue-700"
+                          ? "bg-indian-gold/10 text-indian-gold"
                           : "bg-action-green/10 text-authority-green"
                     }`}
                   >

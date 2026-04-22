@@ -34,8 +34,8 @@ const badgeConfig: Record<
   // Credit Card tags
   "Best for Travel": {
     icon: Plane,
-    color: "text-blue-700",
-    bg: "bg-blue-50 border-blue-200",
+    color: "text-indian-gold",
+    bg: "bg-indian-gold/10 border-indian-gold/30",
   },
   "Top for Shopping": {
     icon: ShoppingBag,
@@ -98,8 +98,8 @@ const badgeConfig: Record<
   },
   "Safe Bet": {
     icon: Shield,
-    color: "text-blue-700",
-    bg: "bg-blue-50 border-blue-200",
+    color: "text-indian-gold",
+    bg: "bg-indian-gold/10 border-indian-gold/30",
   },
 
   // Generic

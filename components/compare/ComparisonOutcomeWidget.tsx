@@ -82,7 +82,7 @@ export default function ComparisonOutcomeWidget({ products }: ComparisonOutcomeW
                        )}
                        {/* Mock Attribute: Lounge */}
                        <li className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                           <Plane className="w-4 h-4 text-blue-500" />
+                           <Plane className="w-4 h-4 text-indian-gold" />
                            {(p1 as any).loungeAccess || p1.specs?.lounge_access || 'Lounge info'}
                        </li>
                    </ul>
@@ -113,7 +113,7 @@ export default function ComparisonOutcomeWidget({ products }: ComparisonOutcomeW
                            </li>
                        )}
                        <li className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                           <Plane className="w-4 h-4 text-blue-500" />
+                           <Plane className="w-4 h-4 text-indian-gold" />
                            {(p2 as any).loungeAccess || p2.specs?.lounge_access || 'Lounge info'}
                        </li>
                    </ul>

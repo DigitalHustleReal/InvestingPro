@@ -18,10 +18,10 @@ interface WhatIfScenariosProps {
 
 const typeStyles = {
   conservative: {
-    border: "border-blue-200",
-    bg: "bg-blue-50",
-    text: "text-blue-700",
-    badge: "bg-blue-100 text-blue-700",
+    border: "border-indian-gold/30",
+    bg: "bg-indian-gold/10",
+    text: "text-indian-gold",
+    badge: "bg-indian-gold/20 text-indian-gold",
   },
   moderate: {
     border: "border-green-300",

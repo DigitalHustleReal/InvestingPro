@@ -245,7 +245,7 @@ export function EPFCalculator() {
               suffix="% p.a."
             />
           </div>
-          <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs text-blue-800">
+          <div className="mt-4 bg-indian-gold/10 border border-indian-gold/30 rounded-lg p-3 text-xs text-authority-green">
             <Info size={14} className="inline mr-1" />
             <strong>FY 2024-25 Rate:</strong> EPFO declared 8.25%. Employee:
             12%, Employer: 12% (8.33% EPS + 3.67% EPF).
