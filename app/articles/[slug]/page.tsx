@@ -38,6 +38,7 @@ import LiveRatesHydrator from "@/components/articles/LiveRateBadge";
 import { ArticleClientShell } from "./ArticleClientShell";
 import ArticleFeedback from "@/components/articles/ArticleFeedback";
 import ArticleSources from "@/components/articles/ArticleSources";
+import ArticleNewsletterInline from "@/components/articles/ArticleNewsletterInline";
 import EmbeddedCalculator from "@/components/articles/EmbeddedCalculator";
 import "./article-content.css";
 
@@ -340,6 +341,12 @@ export default async function ArticlePage({
                   <EmbeddedCalculator category={article.category} />
                 )}
               </div>
+
+              {/* Newsletter capture — inline at article end */}
+              <ArticleNewsletterInline
+                category={article.category || ""}
+                articleSlug={article.slug}
+              />
 
               {/* Feedback */}
               <ArticleFeedback articleId={article.id} />
