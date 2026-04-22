@@ -176,7 +176,7 @@ const COLUMNS = [
         label: "Resources",
         links: [
           { label: "All articles", href: "/articles" },
-          { label: "Glossary (101 terms)", href: "/glossary" },
+          { label: "Glossary", href: "/glossary" },
           {
             label: "Personal finance",
             href: "/articles?category=personal-finance",
@@ -185,7 +185,7 @@ const COLUMNS = [
             label: "Investing basics",
             href: "/articles?category=investing-basics",
           },
-          { label: "All 75 calculators", href: "/calculators" },
+          { label: "All calculators", href: "/calculators" },
         ],
       },
       {
@@ -214,13 +214,6 @@ const LEGAL_LINKS = [
   { label: "Security", href: "/security" },
 ];
 
-const TRUST_BADGES = [
-  { label: "No paid rankings" },
-  { label: "Methodology disclosed" },
-  { label: "SEBI-compliant" },
-  { label: "228+ researched articles" },
-];
-
 export default function Footer() {
   const pathname = usePathname();
   const [openCol, setOpenCol] = useState<number | null>(null);
@@ -230,23 +223,6 @@ export default function Footer() {
   return (
     <footer className="surface-ink pt-16 pb-10">
       <div className="max-w-[1280px] mx-auto px-6">
-        {/* Trust badges — top strip, gold dividers */}
-        <div className="mb-12 pb-8 border-b border-canvas-15">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            {TRUST_BADGES.map((b, i) => (
-              <React.Fragment key={b.label}>
-                <span className="font-mono text-[11px] uppercase tracking-wider text-canvas-70 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-indian-gold" />
-                  {b.label}
-                </span>
-                {i < TRUST_BADGES.length - 1 && (
-                  <span className="hidden sm:inline text-canvas-15">|</span>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
         {/* Main grid — 6 columns desktop with sub-sections per column, accordion on mobile */}
         <div className="hidden md:grid md:grid-cols-6 gap-6">
           {COLUMNS.map((col) => (

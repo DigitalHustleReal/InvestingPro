@@ -11,6 +11,7 @@ import {
   Receipt,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { trackEvent } from "@/lib/analytics/posthog-service";
 
 // "Find Your Fit" — INSTANT VALUE interface.
 // Default state shows the 3 best cashback credit cards immediately.
@@ -209,6 +210,31 @@ export default function FindYourFit() {
     setCatKey(c);
     // Reset intent to first option of new category (valid default)
     setIntentId(cat.intents[0].id);
+    trackEvent("find_your_fit_category_switched", {
+      from: catKey,
+      to: c,
+      source: "homepage",
+    });
+  }
+
+  function switchIntent(newIntent: string) {
+    setIntentId(newIntent);
+    trackEvent("find_your_fit_intent_switched", {
+      category: catKey,
+      intent: newIntent,
+      source: "homepage",
+    });
+  }
+
+  function trackPickClick(pick: Pick, position: number) {
+    trackEvent("find_your_fit_pick_clicked", {
+      category: catKey,
+      intent: intentId,
+      pick_title: pick.title,
+      pick_position: position + 1,
+      pick_href: pick.href,
+      source: "homepage",
+    });
   }
 
   return (
@@ -260,7 +286,7 @@ export default function FindYourFit() {
             return (
               <button
                 key={opt.id}
-                onClick={() => setIntentId(opt.id)}
+                onClick={() => switchIntent(opt.id)}
                 className={`px-3 py-1.5 rounded-sm border transition-all font-mono text-[11px] uppercase tracking-wider ${
                   active
                     ? "border-indian-gold bg-indian-gold/10 text-indian-gold"
@@ -279,6 +305,7 @@ export default function FindYourFit() {
             <Link
               key={`${catKey}-${intentId}-${i}`}
               href={p.href}
+              onClick={() => trackPickClick(p, i)}
               className="group bg-white border-2 border-ink/10 rounded-sm p-6 hover:border-ink/30 transition-colors flex flex-col"
             >
               <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-3">

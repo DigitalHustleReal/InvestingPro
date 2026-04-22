@@ -221,7 +221,7 @@ export default function ArticleSources({
   return (
     <div
       className={cn(
-        "mt-8 border border-border rounded-lg overflow-hidden bg-muted/30",
+        "mt-10 border-2 border-ink/10 rounded-sm overflow-hidden bg-canvas",
         className,
       )}
     >
@@ -229,17 +229,22 @@ export default function ArticleSources({
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-muted/50 transition-colors"
+        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-ink/5 transition-colors"
         aria-expanded={open}
         aria-controls="article-sources-body"
       >
-        <span className="text-sm font-semibold text-foreground">
-          Article Sources
+        <span className="flex items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-indian-gold border border-indian-gold/30 px-1.5 py-0.5">
+            Primary Sources
+          </span>
+          <span className="font-display font-bold text-[15px] text-ink">
+            Article Sources
+          </span>
         </span>
         {open ? (
-          <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
+          <ChevronUp className="w-4 h-4 text-ink-60 shrink-0" />
         ) : (
-          <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
+          <ChevronDown className="w-4 h-4 text-ink-60 shrink-0" />
         )}
       </button>
 
@@ -247,29 +252,29 @@ export default function ArticleSources({
       {open && (
         <div
           id="article-sources-body"
-          className="px-5 pb-5 pt-1 border-t border-border"
+          className="px-5 pb-5 pt-3 border-t border-ink/10"
         >
-          <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
+          <p className="text-[13px] text-ink-60 mb-4 leading-relaxed">
             InvestingPro content is based on data from official regulatory
             sources, bank websites, and government publications. We cite primary
             sources wherever possible.
           </p>
 
-          <ol className="space-y-2">
+          <ol className="space-y-2.5">
             {allSources.map((source, index) => (
               <li
                 key={index}
-                className="flex gap-2 text-xs text-muted-foreground"
+                className="flex gap-3 text-[13px] text-ink-60 leading-relaxed"
               >
-                <span className="shrink-0 font-semibold text-foreground/60 w-5 text-right">
-                  {index + 1}.
+                <span className="font-mono shrink-0 text-ink/50 w-6 text-right text-[11px] pt-0.5">
+                  {String(index + 1).padStart(2, "0")}
                 </span>
                 {source.url ? (
                   <a
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-primary hover:underline transition-colors"
+                    className="text-ink hover:text-authority-green hover:underline transition-colors"
                   >
                     {source.label}
                   </a>
@@ -280,12 +285,12 @@ export default function ArticleSources({
             ))}
           </ol>
 
-          <div className="mt-4 pt-3 border-t border-border/50">
+          <div className="mt-5 pt-4 border-t border-ink/10">
             <Link
               href="/about/editorial-standards"
-              className="text-xs text-primary hover:underline font-medium"
+              className="font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline"
             >
-              Read our editorial standards →
+              Read our editorial standards &rarr;
             </Link>
           </div>
         </div>

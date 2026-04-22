@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/static";
 import { logger } from "@/lib/logger";
+import TopPicksApplyButton from "./TopPicksApplyButton";
 
 interface TopPickCard {
   pick: boolean;
@@ -172,12 +173,12 @@ export default async function TopPicks() {
                     {card.fee}
                   </strong>
                 </span>
-                <Link
+                <TopPicksApplyButton
                   href={card.href}
-                  className="px-4 py-2 bg-action-green text-canvas text-[11px] uppercase tracking-wider rounded-sm hover:bg-authority-green transition-colors"
-                >
-                  Apply Now
-                </Link>
+                  productName={card.name}
+                  productId={card.href.split("/").pop() || card.name}
+                  position={i}
+                />
               </div>
 
               <Link

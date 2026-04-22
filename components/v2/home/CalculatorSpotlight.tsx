@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { TrendingUp, Home, Receipt } from "lucide-react";
+import { trackEvent } from "@/lib/analytics/posthog-service";
 
 // Live, interactive mini-calculators — instant-value pattern.
 // Each card shows a real computed result. User drags the slider,
@@ -163,6 +164,12 @@ export default function CalculatorSpotlight() {
 
             <Link
               href="/calculators/sip"
+              onClick={() =>
+                trackEvent("homepage_calculator_cta_clicked", {
+                  calculator: "sip",
+                  source: "homepage_spotlight",
+                })
+              }
               className="font-mono text-[11px] uppercase tracking-wider text-action-green hover:text-authority-green"
             >
               Full calculator &rarr;
@@ -224,6 +231,12 @@ export default function CalculatorSpotlight() {
 
             <Link
               href="/calculators/emi"
+              onClick={() =>
+                trackEvent("homepage_calculator_cta_clicked", {
+                  calculator: "emi",
+                  source: "homepage_spotlight",
+                })
+              }
               className="font-mono text-[11px] uppercase tracking-wider text-action-green hover:text-authority-green"
             >
               Full calculator &rarr;
@@ -282,6 +295,12 @@ export default function CalculatorSpotlight() {
 
             <Link
               href="/calculators/old-vs-new-tax"
+              onClick={() =>
+                trackEvent("homepage_calculator_cta_clicked", {
+                  calculator: "tax",
+                  source: "homepage_spotlight",
+                })
+              }
               className="font-mono text-[11px] uppercase tracking-wider text-action-green hover:text-authority-green"
             >
               Full calculator &rarr;

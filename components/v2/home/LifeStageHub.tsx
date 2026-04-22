@@ -12,6 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { trackEvent } from "@/lib/analytics/posthog-service";
 
 // Life Stage Hub — replaces MoreResources with intent-driven discovery.
 // Grid of 6 life moments, each opening a curated bundle (3 articles + 3
@@ -188,7 +189,14 @@ export default function LifeStageHub() {
             return (
               <button
                 key={stage.key}
-                onClick={() => setOpenKey(stage.key)}
+                onClick={() => {
+                  setOpenKey(stage.key);
+                  trackEvent("life_stage_selected", {
+                    stage: stage.key,
+                    stage_title: stage.title,
+                    source: "homepage",
+                  });
+                }}
                 className={`group text-left border-2 rounded-sm p-5 transition-all ${
                   isOpen
                     ? "border-ink bg-ink text-canvas"
@@ -268,6 +276,14 @@ export default function LifeStageHub() {
                     <li key={a.href}>
                       <Link
                         href={a.href}
+                        onClick={() =>
+                          trackEvent("life_stage_link_clicked", {
+                            stage: openStage.key,
+                            link_type: "article",
+                            link_label: a.label,
+                            link_href: a.href,
+                          })
+                        }
                         className="group flex items-start gap-2 text-[14px] text-ink hover:text-authority-green transition-colors"
                       >
                         <ArrowRight className="w-3 h-3 text-indian-gold flex-shrink-0 mt-1" />
