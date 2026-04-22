@@ -74,13 +74,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             }
         }
 
-        // Calculator pages — all 23 tools
+        // Calculator pages — all 72 tools (synced with app/calculators/*)
         const calculators = [
-            'sip', 'emi', 'fd', 'tax', 'retirement', 'ppf', 'nps',
-            'lumpsum', 'swp', 'goal-planning', 'inflation-adjusted-returns', 'gst',
-            'compound-interest', 'simple-interest', 'rd', 'mis', 'kvp', 'nsc',
-            'scss', 'ssy', 'portfolio-rebalancing', 'home-loan-vs-sip',
-            'financial-health-score',
+            'atal-pension-yojana', 'brokerage', 'cagr', 'capital-gains-tax',
+            'car-loan-emi', 'child-education', 'compound-interest', 'crypto-tax',
+            'direct-vs-regular-mf', 'dividend-yield', 'education-loan-emi',
+            'elss', 'emi', 'epf', 'epf-vs-vpf', 'fd', 'fd-vs-debt-mf',
+            'financial-health-score', 'fire', 'flat-vs-reducing-rate',
+            'freelancer-tax', 'goal-planning', 'gold-investment', 'gold-vs-equity',
+            'gratuity', 'gst', 'home-loan-emi', 'home-loan-vs-sip', 'hra',
+            'index-vs-active-fund', 'inflation-adjusted-returns', 'kvp',
+            'lumpsum', 'lumpsum-vs-sip', 'marriage-cost', 'mis',
+            'mutual-fund-returns', 'nps', 'nps-vs-ppf', 'nri-tax', 'nsc',
+            'nsc-vs-fd', 'old-vs-new-tax', 'personal-loan-emi', 'pm-kisan',
+            'po-fd-vs-bank-fd', 'portfolio-rebalancing', 'post-office-savings',
+            'ppf', 'ppf-vs-elss', 'rd', 'rd-vs-sip', 'real-estate-roi',
+            'rent-vs-buy', 'rent-vs-buy-comparison', 'retirement', 'salary',
+            'scss', 'senior-citizen-fd', 'simple-interest', 'sip', 'sip-vs-fd',
+            'sip-vs-lumpsum-comparison', 'sip-vs-rd', 'ssy', 'ssy-vs-ppf',
+            'stamp-duty', 'step-up-sip', 'swp', 'tax', 'tds', 'term-vs-endowment',
         ];
         // Calculators hub page
         sitemap.push({
@@ -268,22 +280,64 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             logger.error('Error fetching products for sitemap', error as Error);
         }
 
-        // Static utility pages
+        // Best-of roundup pages — 35 combos (brainstorm Phase 2 content)
+        const bestOfCategories: Record<string, string[]> = {
+            'credit-cards': ['rewards', 'cashback', 'travel', 'no-annual-fee', 'premium', 'fuel', 'shopping', 'dining'],
+            'loans': ['home', 'personal', 'car', 'education', 'gold', 'business'],
+            'mutual-funds': ['equity', 'debt', 'index', 'elss', 'hybrid'],
+            'insurance': ['term', 'health', 'car', 'home', 'travel'],
+            'fixed-deposits': ['senior', 'tax-saving', 'short-term', 'long-term'],
+            'demat-accounts': ['discount', 'full-service', 'low-brokerage'],
+        };
+        for (const [cat, subs] of Object.entries(bestOfCategories)) {
+            for (const sub of subs) {
+                sitemap.push({
+                    url: `${baseUrl}/${cat}/best/${sub}`,
+                    lastModified: new Date(),
+                    changeFrequency: 'weekly',
+                    priority: 0.85,
+                });
+            }
+        }
+
+        // Category article listing pages (/category/[slug])
+        const articleCategories = [
+            'credit-cards', 'loans', 'mutual-funds', 'insurance',
+            'fixed-deposits', 'banking', 'investing', 'personal-finance',
+            'tax', 'small-business',
+        ];
+        for (const cat of articleCategories) {
+            sitemap.push({
+                url: `${baseUrl}/category/${cat}`,
+                lastModified: new Date(),
+                changeFrequency: 'daily',
+                priority: 0.8,
+            });
+        }
+
+        // Static utility pages (URLs verified against actual routes)
         const staticPages = [
+            { path: '/articles', priority: 0.9, frequency: 'daily' as const },
             { path: '/blog', priority: 0.8, frequency: 'weekly' as const },
             { path: '/compare', priority: 0.8, frequency: 'weekly' as const },
-            { path: '/pricing', priority: 0.8, frequency: 'monthly' as const },
-            { path: '/guides', priority: 0.8, frequency: 'weekly' as const },
-            { path: '/glossary', priority: 0.8, frequency: 'weekly' as const },
+            { path: '/glossary', priority: 0.85, frequency: 'weekly' as const },
+            { path: '/credit-cards/find-your-card', priority: 0.85, frequency: 'weekly' as const },
+            { path: '/credit-cards/compare', priority: 0.85, frequency: 'weekly' as const },
             { path: '/about', priority: 0.7, frequency: 'monthly' as const },
-            { path: '/methodology', priority: 0.7, frequency: 'monthly' as const },
-            { path: '/editorial-policy', priority: 0.7, frequency: 'monthly' as const },
-            { path: '/how-we-make-money', priority: 0.7, frequency: 'monthly' as const },
-            { path: '/contact-us', priority: 0.6, frequency: 'monthly' as const },
-            { path: '/disclaimer', priority: 0.6, frequency: 'monthly' as const },
-            { path: '/privacy-policy', priority: 0.6, frequency: 'monthly' as const },
-            { path: '/terms-of-service', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/about/methodology', priority: 0.75, frequency: 'monthly' as const },
+            { path: '/about/editorial-standards', priority: 0.75, frequency: 'monthly' as const },
+            { path: '/about/editorial-team', priority: 0.7, frequency: 'monthly' as const },
+            { path: '/about/how-we-make-money', priority: 0.75, frequency: 'monthly' as const },
+            { path: '/contact', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/corrections', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/privacy', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/terms', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/cookie-policy', priority: 0.5, frequency: 'monthly' as const },
+            { path: '/advertiser-disclosure', priority: 0.6, frequency: 'monthly' as const },
             { path: '/affiliate-disclosure', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/disclaimer', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/security', priority: 0.6, frequency: 'monthly' as const },
+            { path: '/accessibility', priority: 0.5, frequency: 'monthly' as const },
         ];
 
         for (const page of staticPages) {
