@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Star, Check, ChevronDown, X } from "lucide-react";
+import { Check, X, ChevronDown } from "lucide-react";
 import { RichProduct } from "@/types/rich-product";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -10,11 +10,21 @@ import { useCompare } from "@/contexts/CompareContext";
 import { getProductUrl, getAffiliateUrl } from "@/lib/utils/product-urls";
 import {
   getCategoryImageConfig,
-  getCategoryImageSizes,
   type ProductCategory,
 } from "@/lib/images/category-image-config";
 import ApplyNowCTA from "./ApplyNowCTA";
 import { ScoreBreakdownItem } from "./ScoreExplanation";
+
+// NerdWallet-parity+ editorial product card. v3 Bold Redesign tokens.
+//
+// Layout hierarchy:
+//   1. Optional gold "Editor's Pick" strip (when product.bestFor set)
+//   2. Main row: image · name+pros/cons · square score · Apply Now CTA
+//   3. Data strip: 4 key features in mono (ink header + mono values)
+//   4. "Our Take" — 2-line editorial verdict, always visible, gold methodology link
+//   5. Single expandable accordion: "Full details"
+//
+// Every opinion links to methodology (brainstorm Signature Element #1 rule).
 
 interface RichProductCardProps {
   product: RichProduct;
@@ -26,29 +36,23 @@ interface RichProductCardProps {
   rawScore?: number;
 }
 
-type AccordionSection = "benefits" | "details" | "ourTake";
-
 export function RichProductCard({
   product,
-  layout = "grid",
   onCompare,
 }: RichProductCardProps) {
   const { addProduct, removeProduct, isSelected } = useCompare();
   const isCompareSelected = isSelected(product.id);
-  const [openSections, setOpenSections] = useState<Set<AccordionSection>>(
-    new Set(),
-  );
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
-  // Normalize Rating
-  const ratingObj = React.useMemo(() => {
+  // Normalise rating to 0-100 score for editorial display
+  const scoreNum = React.useMemo(() => {
     if (typeof product.rating === "number") {
-      return {
-        overall: product.rating,
-        trust_score: 80,
-        breakdown: {},
-      };
+      return Math.round(product.rating * 20);
     }
-    return product.rating || { overall: 0, trust_score: 0, breakdown: {} };
+    if (typeof product.rating === "object" && product.rating?.overall) {
+      return Math.round(product.rating.overall * 20);
+    }
+    return 75;
   }, [product.rating]);
 
   const handleCompareClick = (e: React.MouseEvent) => {
@@ -57,71 +61,69 @@ export function RichProductCard({
     if (isCompareSelected) {
       removeProduct(product.id);
     } else {
-      const success = addProduct(product);
-      if (!success) {
-        console.warn("Maximum products reached");
-      }
+      addProduct(product);
     }
     if (onCompare) onCompare(product.id);
   };
 
-  const toggleSection = (section: AccordionSection) => {
-    setOpenSections((prev) => {
-      const next = new Set(prev);
-      if (next.has(section)) {
-        next.delete(section);
-      } else {
-        next.add(section);
-      }
-      return next;
-    });
-  };
-
-  // Get category-specific image config
   const imageConfig = getCategoryImageConfig(
     (product.category || "mutual_fund") as ProductCategory,
   );
-  const imageSizes = getCategoryImageSizes(
-    (product.category || "mutual_fund") as ProductCategory,
-  );
 
-  // Extract top 4 features for the data strip
-  const topFeatures = product.key_features.slice(0, 4);
-  // Remaining features for the "Card Details" accordion
-  const extraFeatures = product.key_features.slice(4);
+  // Key features: first 4 in the data strip, rest in accordion
+  const topFeatures = product.key_features?.slice(0, 4) || [];
+  const extraFeatures = product.key_features?.slice(4) || [];
+  const topPros = (product.pros || []).slice(0, 3);
+  const topCons = (product.cons || []).slice(0, 2);
 
   const affiliateUrl = getAffiliateUrl(product);
   const productUrl = getProductUrl(product);
 
   return (
-    <div className="mb-6 border border-gray-200 rounded-xl dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden">
-      {/* "Our pick" badge — sharp, monospace */}
+    <div
+      className={cn(
+        "mb-4 border-2 rounded-sm bg-white overflow-hidden transition-colors",
+        isCompareSelected
+          ? "border-ink"
+          : product.bestFor
+            ? "border-indian-gold/50"
+            : "border-ink/10 hover:border-ink/25",
+      )}
+    >
+      {/* Editor's Pick gold strip */}
       {product.bestFor && (
-        <div className="bg-green-50 dark:bg-green-900/30 border-b border-green-100 dark:border-gray-700 px-4 py-2">
-          <span className="inline-block text-xs text-green-700">
-            Our pick for: {product.bestFor}
+        <div className="bg-indian-gold/10 border-b border-indian-gold/30 px-5 py-2 flex items-center gap-2">
+          <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-indian-gold">
+            Editor&apos;s Pick
+          </span>
+          <span className="font-mono text-[10px] text-ink-60">
+            · {product.bestFor}
           </span>
         </div>
       )}
 
-      {/* Product header row */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 sm:p-5">
-        {/* Left: Product image */}
-        <Link href={productUrl} className="shrink-0">
-          <div className="w-20 h-[50px] overflow-hidden bg-gray-100 dark:bg-gray-800 relative">
+      {/* Main row */}
+      <div className="flex flex-col lg:flex-row gap-5 p-5">
+        {/* Product image */}
+        <Link
+          href={productUrl}
+          className="shrink-0 block"
+          aria-label={`View ${product.name} details`}
+        >
+          <div className="w-28 h-[60px] lg:w-32 lg:h-[70px] bg-ink/5 rounded-sm overflow-hidden relative">
             {product.image_url ? (
               <Image
                 src={product.image_url}
                 alt={product.name}
-                width={80}
-                height={50}
+                width={128}
+                height={70}
                 className="w-full h-full object-contain"
-                sizes="80px"
+                sizes="(max-width: 768px) 112px, 128px"
                 quality={imageConfig.quality}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <span className="text-xl font-bold text-gray-400">
+                <span className="font-display font-bold text-2xl text-ink/30">
                   {product.name.charAt(0)}
                 </span>
               </div>
@@ -129,221 +131,177 @@ export function RichProductCard({
           </div>
         </Link>
 
-        {/* Center: Provider + Name + Compare */}
+        {/* Name + meta + pros/cons */}
         <div className="flex-1 min-w-0">
-          <p className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">
+          <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60 mb-1">
             {product.provider_name}
-          </p>
-          <Link href={productUrl}>
-            <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 leading-tight hover:text-green-700 dark:hover:text-green-400 transition-colors">
+          </div>
+          <Link href={productUrl} className="group">
+            <h3 className="font-display font-bold text-lg lg:text-xl text-ink leading-tight group-hover:text-authority-green transition-colors">
               {product.name}
             </h3>
           </Link>
-          <button
-            onClick={handleCompareClick}
-            className="mt-1.5 flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-green-700 dark:hover:text-green-400 transition-colors"
-          >
-            <div
-              className={cn(
-                "w-4 h-4 border flex items-center justify-center transition-colors",
-                isCompareSelected
-                  ? "bg-green-600 border-green-600"
-                  : "border-gray-300 dark:border-gray-600",
-              )}
-            >
-              {isCompareSelected && <Check className="w-3 h-3 text-white" />}
+
+          {/* Pros / Cons data strip */}
+          {(topPros.length > 0 || topCons.length > 0) && (
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5">
+              {topPros.map((pro, i) => (
+                <div
+                  key={`p-${i}`}
+                  className="flex items-start gap-1.5 text-[13px] text-ink leading-snug"
+                >
+                  <Check className="w-3.5 h-3.5 text-action-green shrink-0 mt-0.5" />
+                  <span className="line-clamp-2">{pro}</span>
+                </div>
+              ))}
+              {topCons.map((con, i) => (
+                <div
+                  key={`c-${i}`}
+                  className="flex items-start gap-1.5 text-[13px] text-ink-60 leading-snug"
+                >
+                  <X className="w-3.5 h-3.5 text-warning-red shrink-0 mt-0.5" />
+                  <span className="line-clamp-2">{con}</span>
+                </div>
+              ))}
             </div>
-            <span>Add to compare</span>
-          </button>
+          )}
         </div>
 
-        {/* Right-center: Score Badge — square, monospace */}
-        <div className="flex flex-col items-center shrink-0 mr-0 sm:mr-4">
-          <div className="w-14 h-14 border border-gray-200 rounded-xl dark:border-gray-600 flex items-center justify-center">
-            <span className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              {typeof ratingObj.overall === "number"
-                ? ratingObj.overall.toFixed(1)
-                : ratingObj.overall}
+        {/* Score badge — square, ink border, mono */}
+        <div className="flex lg:flex-col items-center lg:items-end gap-4 lg:gap-3 shrink-0">
+          <div className="w-16 h-16 border-2 border-ink bg-canvas flex flex-col items-center justify-center">
+            <span className="font-mono text-[24px] font-bold text-ink leading-none tabular-nums">
+              {scoreNum}
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-wider text-ink-60 mt-0.5">
+              /100
             </span>
           </div>
-          <span className="text-[10px] text-gray-500 dark:text-gray-400 text-center mt-1">
-            Score
-          </span>
-        </div>
 
-        {/* Far right: Apply Now CTA */}
-        <div className="shrink-0 w-full sm:w-auto">
-          <ApplyNowCTA
-            href={affiliateUrl}
-            productName={product.name}
-            productSlug={product.slug}
-            productId={product.id}
-            category={product.category}
-            providerName={product.provider_name}
-            sourcePage="listing"
-          />
+          <div className="lg:w-36 flex flex-col gap-2">
+            <ApplyNowCTA
+              href={affiliateUrl}
+              productName={product.name}
+              productSlug={product.slug}
+              productId={product.id}
+              category={product.category}
+              providerName={product.provider_name}
+              sourcePage="listing"
+            />
+            <button
+              onClick={handleCompareClick}
+              className={cn(
+                "flex items-center justify-center gap-1.5 font-mono text-[10px] uppercase tracking-wider py-1.5 border transition-colors",
+                isCompareSelected
+                  ? "border-ink bg-ink text-canvas"
+                  : "border-ink/20 text-ink-60 hover:border-ink hover:text-ink",
+              )}
+            >
+              <div
+                className={cn(
+                  "w-3 h-3 border flex items-center justify-center",
+                  isCompareSelected
+                    ? "bg-canvas border-canvas"
+                    : "border-ink/40",
+                )}
+              >
+                {isCompareSelected && <Check className="w-2 h-2 text-ink" />}
+              </div>
+              {isCompareSelected ? "Selected" : "Compare"}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Data strip — monospace values, ink dividers */}
+      {/* Key features data strip — mono values */}
       {topFeatures.length > 0 && (
-        <div className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 grid grid-cols-2 sm:grid-cols-4">
+        <div className="border-t border-ink/10 bg-canvas grid grid-cols-2 sm:grid-cols-4">
           {topFeatures.map((feat, i) => (
             <div
               key={i}
               className={cn(
                 "px-4 py-3",
-                i < topFeatures.length - 1 &&
-                  "border-r border-gray-200 dark:border-gray-700 sm:border-r",
-                i % 2 === 1 && "border-r-0 sm:border-r",
-                i === topFeatures.length - 1 && "sm:border-r-0",
-                i < 2 &&
-                  topFeatures.length > 2 &&
-                  "border-b border-gray-200 dark:border-gray-700 sm:border-b-0",
+                i < topFeatures.length - 1 && "sm:border-r border-ink/10",
+                i < 2 && topFeatures.length > 2 && "border-b sm:border-b-0 border-ink/10",
+                i % 2 === 1 && i < topFeatures.length - 1 && "border-r-0 sm:border-r",
               )}
             >
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">
+              <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60 mb-0.5">
                 {feat.label}
-              </p>
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+              </div>
+              <div className="font-mono text-sm font-semibold text-ink truncate tabular-nums">
                 {feat.value}
-              </p>
+              </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* Expandable accordion sections */}
-      <div className="border-t border-gray-200 dark:border-gray-700">
-        <div className="flex divide-x divide-gray-200 dark:divide-gray-700">
-          {/* Key Benefits */}
-          {product.pros && product.pros.length > 0 && (
-            <button
-              onClick={() => toggleSection("benefits")}
-              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+      {/* Our Take — always visible editorial verdict */}
+      {product.description && (
+        <div className="border-t border-ink/10 px-5 py-4">
+          <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-1.5">
+            Our Take
+          </div>
+          <p className="font-display text-[15px] text-ink leading-snug line-clamp-2">
+            {product.description}
+          </p>
+          <div className="flex items-center gap-4 mt-3">
+            <Link
+              href={productUrl}
+              className="font-mono text-[11px] uppercase tracking-wider text-action-green hover:text-authority-green"
             >
-              <ChevronDown
-                className={cn(
-                  "w-3.5 h-3.5 transition-transform",
-                  openSections.has("benefits") && "rotate-180",
-                )}
-              />
-              Benefits
-            </button>
-          )}
+              Read full review &rarr;
+            </Link>
+            <Link
+              href="/about/methodology"
+              className="font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline"
+            >
+              Methodology disclosed &rarr;
+            </Link>
+          </div>
+        </div>
+      )}
 
-          {/* Card Details */}
-          {extraFeatures.length > 0 && (
-            <button
-              onClick={() => toggleSection("details")}
-              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-            >
-              <ChevronDown
-                className={cn(
-                  "w-3.5 h-3.5 transition-transform",
-                  openSections.has("details") && "rotate-180",
-                )}
-              />
-              Details
-            </button>
-          )}
-
-          {/* Our Take */}
-          {product.description && (
-            <button
-              onClick={() => toggleSection("ourTake")}
-              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-            >
-              <ChevronDown
-                className={cn(
-                  "w-3.5 h-3.5 transition-transform",
-                  openSections.has("ourTake") && "rotate-180",
-                )}
-              />
-              Our Take
-            </button>
+      {/* Expandable full details — single accordion */}
+      {extraFeatures.length > 0 && (
+        <div className="border-t border-ink/10">
+          <button
+            onClick={() => setDetailsOpen((v) => !v)}
+            className="w-full flex items-center justify-center gap-2 py-3 bg-canvas hover:bg-ink/5 transition-colors"
+            aria-expanded={detailsOpen}
+          >
+            <span className="font-mono text-[11px] uppercase tracking-wider text-ink-60">
+              {detailsOpen ? "Hide" : "Show"} full details
+            </span>
+            <ChevronDown
+              className={cn(
+                "w-3.5 h-3.5 text-ink-60 transition-transform",
+                detailsOpen && "rotate-180",
+              )}
+            />
+          </button>
+          {detailsOpen && (
+            <div className="px-5 py-4 border-t border-ink/10 bg-canvas">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
+                {extraFeatures.map((feat, i) => (
+                  <div
+                    key={i}
+                    className="flex justify-between items-baseline py-1.5 border-b border-ink/5 last:border-b-0"
+                  >
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-ink-60">
+                      {feat.label}
+                    </span>
+                    <span className="font-mono text-[13px] font-semibold text-ink ml-4 text-right tabular-nums">
+                      {feat.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
-
-        {/* Accordion content panels */}
-        {openSections.has("benefits") &&
-          product.pros &&
-          product.pros.length > 0 && (
-            <div className="border-t border-gray-200 dark:border-gray-700 px-5 py-4">
-              <ul className="space-y-2">
-                {product.pros.map((pro, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    <Check className="w-4 h-4 text-green-600 dark:text-green-500 mr-2 mt-0.5 shrink-0" />
-                    {pro}
-                  </li>
-                ))}
-              </ul>
-              {product.cons && product.cons.length > 0 && (
-                <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800">
-                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
-                    Things to consider
-                  </p>
-                  <ul className="space-y-2">
-                    {product.cons.map((con, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start text-sm text-gray-600 dark:text-gray-400"
-                      >
-                        <X className="w-4 h-4 text-red-500 mr-2 mt-0.5 shrink-0" />
-                        {con}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
-
-        {openSections.has("details") && extraFeatures.length > 0 && (
-          <div className="border-t border-gray-200 dark:border-gray-700 px-5 py-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {extraFeatures.map((feat, i) => (
-                <div
-                  key={i}
-                  className="flex justify-between items-baseline py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-b-0"
-                >
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {feat.label}
-                  </span>
-                  <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 ml-4">
-                    {feat.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {openSections.has("ourTake") && product.description && (
-          <div className="border-t border-gray-200 dark:border-gray-700 px-5 py-4">
-            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-              {product.description}
-            </p>
-            <div className="flex items-center gap-4 mt-3">
-              <Link
-                href={productUrl}
-                className="text-sm font-semibold text-gray-900 dark:text-green-400 hover:underline"
-              >
-                Read full review
-              </Link>
-              <Link
-                href="/methodology"
-                className="text-xs font-medium text-green-700 hover:underline"
-              >
-                Methodology disclosed →
-              </Link>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 }

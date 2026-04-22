@@ -117,10 +117,10 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+    <div className="w-full bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white z-10">
-        <h3 className="font-semibold text-gray-900 flex items-center gap-2 text-sm">
+        <h3 className="font-semibold text-ink flex items-center gap-2 text-sm">
           <Filter className="w-4 h-4 text-green-600" />
           Filters
         </h3>
@@ -128,7 +128,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
           variant="ghost"
           size="sm"
           onClick={handleReset}
-          className="h-8 text-xs text-gray-500 hover:text-green-600"
+          className="h-8 text-xs text-ink-60 hover:text-green-600"
         >
           <RotateCcw className="w-3 h-3 mr-1" /> Reset
         </Button>
@@ -137,7 +137,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
       <div className="p-5 space-y-6">
         {/* 1. Credit Score (NEW - High Priority) */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider flex items-center gap-2">
             Eligibility (Score)
             <Badge
               variant="outline"
@@ -158,7 +158,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 />
                 <Label
                   htmlFor={`score-${score.value}`}
-                  className="text-sm font-medium text-gray-600 cursor-pointer"
+                  className="text-sm font-medium text-ink-60 cursor-pointer"
                 >
                   {score.label}
                 </Label>
@@ -171,7 +171,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
         {/* 2. Card Type (NEW) */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
             Card Category
           </label>
           <div className="flex flex-wrap gap-2">
@@ -182,7 +182,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 className={`text-xs px-3.5 py-2 rounded-lg border transition-all font-semibold cursor-pointer ${
                   filters.cardType.includes(type)
                     ? "bg-green-600 text-white border-green-600"
-                    : "bg-white text-gray-500 border-gray-200 hover:border-gray-300"
+                    : "bg-white text-ink-60 border-gray-200 hover:border-gray-300"
                 }`}
               >
                 {type}
@@ -196,10 +196,10 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
         {/* 3. Annual Fee Slider */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+            <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
               Max Annual Fee
             </label>
-            <span className="text-sm font-bold text-gray-900">
+            <span className="text-sm font-bold text-ink">
               ₹{filters.maxFee}
             </span>
           </div>
@@ -215,7 +215,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
         {/* 4. Issuer Bank (Expanded) */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
             Issuer Bank
           </label>
           <div className="space-y-2">
@@ -228,7 +228,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 />
                 <Label
                   htmlFor={`issuer-${issuer}`}
-                  className="text-sm text-gray-600 cursor-pointer"
+                  className="text-sm text-ink-60 cursor-pointer"
                 >
                   {issuer} Bank
                 </Label>
@@ -252,7 +252,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
         {/* 5. Rewards Type (NEW) */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
             Rewards Type
           </label>
           <div className="flex flex-wrap gap-2">
@@ -263,7 +263,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 className={`text-xs px-3.5 py-2 rounded-full border transition-all cursor-pointer ${
                   filters.rewardsType.includes(type)
                     ? "bg-gray-900 text-white border-gray-900"
-                    : "bg-white text-gray-500 border-gray-200 hover:border-gray-300"
+                    : "bg-white text-ink-60 border-gray-200 hover:border-gray-300"
                 }`}
               >
                 {type}
@@ -274,7 +274,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
         {/* 6. Spending Categories */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
             Best For Spending
           </label>
           <div className="space-y-2">
@@ -289,7 +289,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 />
                 <Label
                   htmlFor={`spending-${category.value}`}
-                  className="text-sm font-medium text-gray-600 cursor-pointer flex items-center gap-2"
+                  className="text-sm font-medium text-ink-60 cursor-pointer flex items-center gap-2"
                 >
                   <category.icon className="w-4 h-4 text-green-500" />
                   {category.label}
@@ -301,7 +301,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
 
         {/* 7. Premium Features */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
             Features
           </label>
           <div className="space-y-2">
@@ -314,7 +314,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 />
                 <Label
                   htmlFor={`feat-${feat}`}
-                  className="text-sm font-medium text-gray-600 cursor-pointer"
+                  className="text-sm font-medium text-ink-60 cursor-pointer"
                 >
                   {feat}
                 </Label>
