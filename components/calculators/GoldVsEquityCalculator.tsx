@@ -206,8 +206,8 @@ export function GoldVsEquityCalculator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         {/* Inputs */}
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Investment Details
           </h2>
           <div className="space-y-4">
@@ -252,7 +252,7 @@ export function GoldVsEquityCalculator() {
               formatDisplay={(v) => `${v}%`}
             />
           </div>
-          <div className="mt-5 p-3 bg-green-50 border border-green-100 rounded-xl">
+          <div className="mt-5 p-3 bg-action-green/10 border border-green-100 rounded-sm">
             <p className="text-xs text-green-800">
               <strong>Total Invested:</strong> {formatINR(result.totalInvested)}{" "}
               over {years} years

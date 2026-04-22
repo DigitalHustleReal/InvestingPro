@@ -145,8 +145,8 @@ export function CryptoTaxCalculator() {
       <TrustStrip />
 
       {/* Important warning banner */}
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start gap-3">
-        <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
+      <div className="bg-indian-gold/10 border border-indian-gold/30 rounded-2xl p-4 flex items-start gap-3">
+        <AlertTriangle className="w-5 h-5 text-indian-gold mt-0.5 shrink-0" />
         <div className="text-xs text-amber-800">
           <p className="font-semibold mb-1">
             India Crypto Tax Rules (Section 115BBH)
@@ -181,8 +181,8 @@ export function CryptoTaxCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Crypto Transaction Details
           </h2>
           <div className="space-y-5">
@@ -269,8 +269,8 @@ export function CryptoTaxCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Gain Breakdown
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -298,7 +298,7 @@ export function CryptoTaxCalculator() {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
             {pieData.map((d) => (
               <div key={d.name} className="flex items-center gap-2">
                 <div
@@ -306,8 +306,8 @@ export function CryptoTaxCalculator() {
                   style={{ backgroundColor: d.color }}
                 />
                 <div>
-                  <p className="text-[11px] text-gray-400">{d.name}</p>
-                  <p className="text-sm font-bold text-gray-900">
+                  <p className="text-[11px] text-ink-60">{d.name}</p>
+                  <p className="text-sm font-display font-bold text-ink">
                     {formatINR(d.value)}
                   </p>
                 </div>
@@ -316,11 +316,11 @@ export function CryptoTaxCalculator() {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-4 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             India Crypto Tax Rules
           </h3>
-          <div className="space-y-3 text-xs text-gray-600">
+          <div className="space-y-3 text-xs text-ink-60">
             <div className="flex items-start gap-2">
               <Percent className="w-4 h-4 text-red-600 mt-0.5 shrink-0" />
               <p>
@@ -329,21 +329,21 @@ export function CryptoTaxCalculator() {
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <AlertTriangle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+              <AlertTriangle className="w-4 h-4 text-indian-gold mt-0.5 shrink-0" />
               <p>
                 NO loss set-off — crypto losses cannot offset crypto gains or
                 any other income
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <Receipt className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+              <Receipt className="w-4 h-4 text-action-green mt-0.5 shrink-0" />
               <p>
                 1% TDS on transfers above ₹10,000 (Section 194S). Deducted by
                 exchange automatically.
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <IndianRupee className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+              <IndianRupee className="w-4 h-4 text-action-green mt-0.5 shrink-0" />
               <p>
                 Only deduction allowed: cost of acquisition. No deduction for
                 transaction fees, internet, or hardware.

@@ -243,14 +243,14 @@ export function BrokerageCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Trade Details
           </h2>
           <div className="space-y-5">
             {/* Trade Type Toggle */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-2 block">
+              <label className="text-xs font-medium text-ink-60 mb-2 block">
                 Trade Type
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -260,8 +260,8 @@ export function BrokerageCalculator() {
                     onClick={() => setTradeType(t.value)}
                     className={`px-3 py-2 text-sm font-medium rounded-lg border transition-colors ${
                       tradeType === t.value
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:border-gray-300"
                     }`}
                   >
                     {t.label}
@@ -305,50 +305,50 @@ export function BrokerageCalculator() {
           </div>
 
           {/* Charge Breakdown */}
-          <div className="mt-5 pt-4 border-t border-gray-100">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+          <div className="mt-5 pt-4 border-t border-ink/5">
+            <h3 className="text-xs font-semibold text-ink-60 uppercase tracking-wider mb-3">
               Per-Trade Breakdown (Flat-Fee Broker)
             </h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-500">Brokerage</span>
-                <span className="font-medium text-gray-900">
+                <span className="text-ink-60">Brokerage</span>
+                <span className="font-medium text-ink">
                   {formatINR(result.flatBrokerage)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">STT</span>
-                <span className="font-medium text-gray-900">
+                <span className="text-ink-60">STT</span>
+                <span className="font-medium text-ink">
                   {formatINR(result.stt)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Exchange Txn</span>
-                <span className="font-medium text-gray-900">
+                <span className="text-ink-60">Exchange Txn</span>
+                <span className="font-medium text-ink">
                   ₹{result.exchangeCharge.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">GST (18%)</span>
-                <span className="font-medium text-gray-900">
+                <span className="text-ink-60">GST (18%)</span>
+                <span className="font-medium text-ink">
                   ₹{result.gst.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Stamp Duty</span>
-                <span className="font-medium text-gray-900">
+                <span className="text-ink-60">Stamp Duty</span>
+                <span className="font-medium text-ink">
                   ₹{result.stampDuty.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">SEBI Charges</span>
-                <span className="font-medium text-gray-900">
+                <span className="text-ink-60">SEBI Charges</span>
+                <span className="font-medium text-ink">
                   ₹{result.sebiCharge.toFixed(2)}
                 </span>
               </div>
-              <div className="flex justify-between pt-2 border-t border-gray-100">
-                <span className="font-semibold text-gray-900">Total</span>
-                <span className="font-bold text-green-700">
+              <div className="flex justify-between pt-2 border-t border-ink/5">
+                <span className="font-display font-semibold text-ink">Total</span>
+                <span className="font-bold text-authority-green">
                   {formatINR(result.totalPerTradeFlat)}
                 </span>
               </div>
@@ -379,11 +379,11 @@ export function BrokerageCalculator() {
 
       {/* Flat vs Traditional Comparison Chart */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-1">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-1">
             Flat-Fee vs Traditional Broker — Cumulative Charges
           </h3>
-          <p className="text-xs text-gray-400 mb-3">
+          <p className="text-xs text-ink-60 mb-3">
             See how much you save over 12 months
           </p>
           <div className="h-[240px] sm:h-[280px]">
@@ -442,14 +442,14 @@ export function BrokerageCalculator() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-sm bg-green-500" />
+              <div className="w-3 h-3 rounded-sm bg-action-green/100" />
               <div>
-                <p className="text-[11px] text-gray-400">
+                <p className="text-[11px] text-ink-60">
                   Flat-Fee (Zerodha/Groww)
                 </p>
-                <p className="text-sm font-bold text-gray-900">
+                <p className="text-sm font-display font-bold text-ink">
                   {formatINR(result.yearlyFlat)}/yr
                 </p>
               </div>
@@ -457,8 +457,8 @@ export function BrokerageCalculator() {
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-sm bg-red-500" />
               <div>
-                <p className="text-[11px] text-gray-400">Traditional Broker</p>
-                <p className="text-sm font-bold text-gray-900">
+                <p className="text-[11px] text-ink-60">Traditional Broker</p>
+                <p className="text-sm font-display font-bold text-ink">
                   {formatINR(result.yearlyTrad)}/yr
                 </p>
               </div>
@@ -474,24 +474,24 @@ export function BrokerageCalculator() {
       </div>
 
       {/* Broker Comparison Table */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Broker Comparison —{" "}
           {tradeTypes.find((t) => t.value === tradeType)?.label} Trading
         </h3>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left py-2 text-gray-500 font-medium">
+            <tr className="border-b border-ink/5">
+              <th className="text-left py-2 text-ink-60 font-medium">
                 Broker
               </th>
-              <th className="text-right py-2 text-gray-500 font-medium">
+              <th className="text-right py-2 text-ink-60 font-medium">
                 Per Trade
               </th>
-              <th className="text-right py-2 text-gray-500 font-medium">
+              <th className="text-right py-2 text-ink-60 font-medium">
                 Monthly
               </th>
-              <th className="text-right py-2 text-gray-500 font-medium">
+              <th className="text-right py-2 text-ink-60 font-medium">
                 Yearly
               </th>
             </tr>
@@ -527,19 +527,19 @@ export function BrokerageCalculator() {
               const yearly = monthly * 12;
               return (
                 <tr key={key} className="border-b border-gray-50">
-                  <td className="py-2.5 font-medium text-gray-900">
+                  <td className="py-2.5 font-medium text-ink">
                     {broker.name}
-                    <span className="text-xs text-gray-400 ml-1">
+                    <span className="text-xs text-ink-60 ml-1">
                       ({broker.label})
                     </span>
                   </td>
-                  <td className="text-right py-2.5 text-gray-700">
+                  <td className="text-right py-2.5 text-ink">
                     {formatINR(Math.round(total))}
                   </td>
-                  <td className="text-right py-2.5 text-gray-700">
+                  <td className="text-right py-2.5 text-ink">
                     {formatINR(Math.round(monthly))}
                   </td>
-                  <td className="text-right py-2.5 font-semibold text-gray-900">
+                  <td className="text-right py-2.5 font-display font-semibold text-ink">
                     {formatINR(Math.round(yearly))}
                   </td>
                 </tr>

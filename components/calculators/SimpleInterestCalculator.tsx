@@ -138,7 +138,7 @@ export function SimpleInterestCalculator() {
         <div className="space-y-6 pb-20 md:pb-6">
             {/* SECTION 1 — Mobile Collapsible */}
             <div className="lg:hidden">
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="cursor-pointer" onClick={() => setInputsExpanded(!inputsExpanded)}>
                         <div className="flex items-center justify-between">
                             <div className="flex-1">
@@ -173,7 +173,7 @@ export function SimpleInterestCalculator() {
             {/* SECTION 2 — Desktop 2-col grid */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="hidden lg:block border-border shadow-sm rounded-xl">
+                <Card className="hidden lg:block border-border shadow-sm rounded-sm">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -206,20 +206,20 @@ export function SimpleInterestCalculator() {
                 </Card>
 
                 {/* Right: Results Card */}
-                <Card id="calculator-results" className="order-first lg:order-none border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
+                <Card id="calculator-results" className="order-first lg:order-none border-border shadow-sm rounded-sm bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         {/* 3 stat boxes */}
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">PRINCIPAL</p>
                                 <p className="text-base sm:text-lg font-extrabold text-foreground">{formatCurrency(principal)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">INTEREST EARNED</p>
                                 <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(Math.round(simpleInterest))}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">TOTAL AMOUNT</p>
                                 <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(Math.round(totalAmount))}</p>
                             </div>
@@ -253,7 +253,7 @@ export function SimpleInterestCalculator() {
             {/* SECTION 3 — Bottom 2-col grid */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Growth Projection Chart */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Growth Projection</CardTitle>
                     </CardHeader>
@@ -279,7 +279,7 @@ export function SimpleInterestCalculator() {
                 </Card>
 
                 {/* Year-by-Year Breakdown */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Year-by-Year Breakdown</CardTitle>
                     </CardHeader>
@@ -287,11 +287,11 @@ export function SimpleInterestCalculator() {
                         <div className="space-y-4">
                             {/* Summary Stats */}
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">ANNUAL INTEREST</p>
                                     <p className="text-lg font-bold text-foreground">{formatCurrency(Math.round((principal * rate) / 100))}</p>
                                 </div>
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">TOTAL RETURN %</p>
                                     <p className="text-lg font-bold text-foreground">{((simpleInterest / principal) * 100).toFixed(1)}%</p>
                                 </div>
@@ -300,7 +300,7 @@ export function SimpleInterestCalculator() {
                             {/* Table */}
                             <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
                                 <div className="min-w-full">
-                                    <div className="overflow-hidden rounded-xl border border-border">
+                                    <div className="overflow-hidden rounded-sm border border-border">
                                         <table className="w-full min-w-full sm:min-w-[500px]">
                                             <thead className="bg-muted border-b border-border">
                                                 <tr>
@@ -339,7 +339,7 @@ export function SimpleInterestCalculator() {
                             </div>
 
                             {/* What This Means */}
-                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-xl p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-sm p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-10">
                                     <Trophy className="w-24 h-24 text-emerald-600" />
                                 </div>
@@ -372,7 +372,7 @@ export function SimpleInterestCalculator() {
                             </div>
 
                             {/* Lead Capture */}
-                            <div className="p-5 bg-card rounded-xl border border-border shadow-sm mt-4">
+                            <div className="p-5 bg-card rounded-sm border border-border shadow-sm mt-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className="font-bold text-foreground flex items-center gap-2">
                                         <FileText className="w-4 h-4 text-primary-600" />

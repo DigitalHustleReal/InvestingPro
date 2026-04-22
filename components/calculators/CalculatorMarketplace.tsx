@@ -234,25 +234,25 @@ export default function CalculatorMarketplace({
   if (!loading && products.length === 0) return null;
 
   return (
-    <section className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-4">
+    <section className="border-t border-ink/10 dark:border-gray-800 pt-8 mt-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-green-600" />
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+          <TrendingUp className="w-5 h-5 text-action-green" />
+          <h2 className="text-lg font-display font-bold text-ink dark:text-white">
             {heading}
           </h2>
         </div>
         <a
           href={config.seeAllHref}
-          className="text-sm text-green-600 hover:text-green-700 dark:text-green-500 dark:hover:text-green-400 font-medium transition-colors"
+          className="text-sm text-action-green hover:text-authority-green dark:text-action-green dark:hover:text-green-400 font-medium transition-colors"
         >
           See all →
         </a>
       </div>
 
       {/* Product rows */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 divide-y divide-gray-100 dark:divide-gray-800 overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 rounded-sm border border-ink/10 dark:border-gray-800 divide-y divide-gray-100 dark:divide-gray-800 overflow-hidden">
         {loading ? (
           <>
             <SkeletonRow />
@@ -271,7 +271,7 @@ export default function CalculatorMarketplace({
             return (
               <div
                 key={product.id}
-                className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                className="flex items-center gap-3 px-4 py-3 hover:bg-canvas dark:hover:bg-gray-800/50 transition-colors"
               >
                 {/* Logo / Initial */}
                 <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center shrink-0 overflow-hidden">
@@ -284,7 +284,7 @@ export default function CalculatorMarketplace({
                       className="object-contain w-full h-full"
                     />
                   ) : (
-                    <span className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase">
+                    <span className="text-sm font-bold text-ink-60 dark:text-ink-60 uppercase">
                       {product.name.slice(0, 2)}
                     </span>
                   )}
@@ -292,11 +292,11 @@ export default function CalculatorMarketplace({
 
                 {/* Name + provider */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                  <p className="text-sm font-display font-semibold text-ink dark:text-white truncate">
                     {product.name}
                   </p>
                   {product.provider && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    <p className="text-xs text-ink-60 dark:text-ink-60 truncate">
                       {product.provider}
                     </p>
                   )}
@@ -306,7 +306,7 @@ export default function CalculatorMarketplace({
                 {product.rating > 0 && (
                   <div className="flex items-center gap-1 shrink-0 hidden sm:flex">
                     <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                    <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                    <span className="text-xs font-semibold text-ink dark:text-ink/20">
                       {product.rating.toFixed(1)}
                     </span>
                   </div>
@@ -314,7 +314,7 @@ export default function CalculatorMarketplace({
 
                 {/* Key feature */}
                 {product.keyFeature && (
-                  <span className="text-xs text-gray-600 dark:text-gray-400 shrink-0 hidden md:block max-w-[120px] truncate">
+                  <span className="text-xs text-ink-60 dark:text-ink-60 shrink-0 hidden md:block max-w-[120px] truncate">
                     {product.keyFeature}
                   </span>
                 )}

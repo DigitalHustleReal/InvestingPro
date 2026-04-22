@@ -178,7 +178,7 @@ export function SIPCalculatorWithInflation() {
         <div className="space-y-6 pb-20 md:pb-6">
             {/* Mobile: Collapsible Inputs Card (UI/UX Phase 1) */}
             <div className="lg:hidden">
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader 
                         className="cursor-pointer"
                         onClick={() => setInputsExpanded(!inputsExpanded)}
@@ -279,7 +279,7 @@ export function SIPCalculatorWithInflation() {
                                 </div>
 
                                 {/* Step-Up Toggle */}
-                                <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
+                                <div className="flex items-center justify-between p-3 bg-muted/50 rounded-sm border border-border">
                                     <div className="flex items-center gap-2">
                                         <TrendingDown className="w-4 h-4 text-primary-600 rotate-180" />
                                         <div>
@@ -315,9 +315,9 @@ export function SIPCalculatorWithInflation() {
                                 )}
 
                                 {/* Inflation Toggle */}
-                                <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
+                                <div className="flex items-center justify-between p-3 bg-muted/50 rounded-sm border border-border">
                                     <div className="flex items-center gap-2">
-                                        <TrendingDown className="w-4 h-4 text-amber-600" />
+                                        <TrendingDown className="w-4 h-4 text-indian-gold" />
                                         <div>
                                             <Label className="text-sm text-foreground font-semibold">Adjust for Inflation</Label>
                                             <p className="text-xs text-muted-foreground">Show real returns</p>
@@ -358,7 +358,7 @@ export function SIPCalculatorWithInflation() {
             {/* Desktop: Top Row: Inputs on Left, Results on Right */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card - Hidden on mobile */}
-                <Card className="hidden lg:block border-border shadow-sm rounded-xl">
+                <Card className="hidden lg:block border-border shadow-sm rounded-sm">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -464,7 +464,7 @@ export function SIPCalculatorWithInflation() {
                         </div>
 
                         {/* Step-Up Toggle */}
-                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-sm border border-border">
                             <div className="flex items-center gap-2">
                                 <TrendingDown className="w-4 h-4 text-primary-600 rotate-180" />
                                 <div>
@@ -500,9 +500,9 @@ export function SIPCalculatorWithInflation() {
                         )}
 
                         {/* Inflation Toggle */}
-                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
+                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-sm border border-border">
                             <div className="flex items-center gap-2">
-                                <TrendingDown className="w-4 h-4 text-amber-600" />
+                                <TrendingDown className="w-4 h-4 text-indian-gold" />
                                 <div>
                                     <Label className="text-sm text-foreground font-semibold">Adjust for Inflation</Label>
                                     <p className="text-xs text-muted-foreground">Show real returns</p>
@@ -538,16 +538,16 @@ export function SIPCalculatorWithInflation() {
                 </Card>
 
                 {/* Right: Results Card - Show first on mobile */}
-                <Card id="calculator-results" className="order-first lg:order-none border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden scroll-mt-4">
+                <Card id="calculator-results" className="order-first lg:order-none border-border shadow-sm rounded-sm bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden scroll-mt-4">
                     {/* Decorative gradient overlay */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Invested</p>
                                 <p className="text-base sm:text-lg font-extrabold text-secondary">{formatCurrency(sipResult.invested)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Returns' : 'Returns'}
                                 </p>
@@ -555,7 +555,7 @@ export function SIPCalculatorWithInflation() {
                                     {formatCurrency(adjustForInflation ? sipResult.realReturns : sipResult.returns)}
                                 </p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Value' : 'Total'}
                                 </p>
@@ -566,7 +566,7 @@ export function SIPCalculatorWithInflation() {
                         </div>
 
                         {adjustForInflation && (
-                            <div className="p-3 bg-card rounded-xl border border-border mb-4">
+                            <div className="p-3 bg-card rounded-sm border border-border mb-4">
                                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Nominal Value</p>
                                 <p className="text-sm font-bold text-foreground">{formatCurrency(sipResult.futureValue)}</p>
                                 <p className="text-xs text-muted-foreground mt-1">Before inflation adjustment</p>
@@ -603,7 +603,7 @@ export function SIPCalculatorWithInflation() {
             {/* Bottom Row: Growth Projection & Year-by-Year Breakdown */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Growth Projection Chart */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Growth Projection</CardTitle>
                     </CardHeader>
@@ -643,7 +643,7 @@ export function SIPCalculatorWithInflation() {
                 </Card>
 
                 {/* Right: Year-by-Year Breakdown */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Year-by-Year Breakdown</CardTitle>
                     </CardHeader>
@@ -651,11 +651,11 @@ export function SIPCalculatorWithInflation() {
                         <div className="space-y-4">
                             {/* Summary Stats */}
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Investment</p>
                                     <p className="text-lg font-bold text-foreground">{formatCurrency(monthlyInvestment)}</p>
                                 </div>
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Expected ROI</p>
                                     <p className="text-lg font-bold text-primary-600">{expectedReturn}%</p>
                                 </div>
@@ -664,7 +664,7 @@ export function SIPCalculatorWithInflation() {
                             {/* Yearly Table - Horizontal scroll on mobile (UI/UX Phase 1) */}
                             <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
                                 <div className="min-w-full">
-                                    <div className="overflow-hidden rounded-xl border border-border">
+                                    <div className="overflow-hidden rounded-sm border border-border">
                                         <table className="w-full min-w-full sm:min-w-[500px]">
                                             <thead className="bg-muted border-b border-border">
                                                 <tr>
@@ -709,7 +709,7 @@ export function SIPCalculatorWithInflation() {
                             </div>
 
                             {/* Dynamic Interpretation (Audit Requirement: Results Interpretation) */}
-                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-xl p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-sm p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-10">
                                    <Trophy className="w-24 h-24 text-emerald-600" />
                                 </div>
@@ -755,7 +755,7 @@ export function SIPCalculatorWithInflation() {
                             </div>
 
                             {/* Lead Capture (Audit Requirement: Lead Capture) */}
-                            <div className="p-5 bg-card rounded-xl border border-border shadow-sm mt-4">
+                            <div className="p-5 bg-card rounded-sm border border-border shadow-sm mt-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className="font-bold text-foreground flex items-center gap-2">
                                         <FileText className="w-4 h-4 text-primary-600" />

@@ -166,8 +166,8 @@ export function HomeLoanEMICalculator() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-6 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Loan Details
           </h2>
           <div className="space-y-5">
@@ -214,19 +214,19 @@ export function HomeLoanEMICalculator() {
           </div>
 
           {/* Bank rates reference */}
-          <div className="mt-5 bg-gray-50 rounded-xl p-4">
-            <p className="text-xs font-semibold text-gray-700 mb-2">
+          <div className="mt-5 bg-canvas rounded-sm p-4">
+            <p className="text-xs font-semibold text-ink mb-2">
               Current Home Loan Rates (Apr 2026)
             </p>
             <div className="grid grid-cols-2 gap-1.5">
               {bankRates.map((b) => (
                 <div key={b.bank} className="flex justify-between text-[11px]">
-                  <span className="text-gray-500">{b.bank}</span>
+                  <span className="text-ink-60">{b.bank}</span>
                   <span
                     className={
                       b.rate <= interestRate
-                        ? "font-semibold text-green-600"
-                        : "text-gray-600"
+                        ? "font-semibold text-action-green"
+                        : "text-ink-60"
                     }
                   >
                     {b.rate}%
@@ -270,8 +270,8 @@ export function HomeLoanEMICalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-4">
             Loan Balance Over Time
           </h3>
           <div className="h-[280px]">
@@ -330,7 +330,7 @@ export function HomeLoanEMICalculator() {
             </ResponsiveContainer>
           </div>
           {/* Pie inline */}
-          <div className="flex items-center justify-center gap-8 mt-4 pt-4 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-4 pt-4 border-t border-ink/5">
             {pieData.map((d) => (
               <div key={d.name} className="flex items-center gap-2">
                 <div
@@ -338,8 +338,8 @@ export function HomeLoanEMICalculator() {
                   style={{ backgroundColor: d.color }}
                 />
                 <div>
-                  <p className="text-[11px] text-gray-400">{d.name}</p>
-                  <p className="text-sm font-bold text-gray-900">
+                  <p className="text-[11px] text-ink-60">{d.name}</p>
+                  <p className="text-sm font-display font-bold text-ink">
                     {formatINR(d.value)}
                   </p>
                 </div>

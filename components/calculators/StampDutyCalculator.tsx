@@ -281,8 +281,8 @@ export function StampDutyCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Property Details
           </h2>
           <div className="space-y-5">
@@ -299,13 +299,13 @@ export function StampDutyCalculator() {
 
             {/* State Selector */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1.5">
+              <label className="text-xs font-medium text-ink-60 mb-2 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5" /> State
               </label>
               <select
                 value={state}
                 onChange={(e) => setState(e.target.value)}
-                className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500"
+                className="w-full rounded-lg border border-ink/10 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500"
               >
                 {Object.entries(STATE_RATES)
                   .sort((a, b) => a[1].name.localeCompare(b[1].name))
@@ -319,7 +319,7 @@ export function StampDutyCalculator() {
 
             {/* Gender Toggle */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1.5">
+              <label className="text-xs font-medium text-ink-60 mb-2 flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5" /> Owner Gender
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -329,8 +329,8 @@ export function StampDutyCalculator() {
                     onClick={() => setGender(g.value)}
                     className={`px-3 py-2 text-sm font-medium rounded-lg border transition-colors ${
                       gender === g.value
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:border-gray-300"
                     }`}
                   >
                     {g.label}
@@ -338,7 +338,7 @@ export function StampDutyCalculator() {
                 ))}
               </div>
               {stateRate[gender] < stateRate.male && gender === "female" && (
-                <p className="text-xs text-green-600 mt-1.5">
+                <p className="text-xs text-action-green mt-1.5">
                   Women get {stateRate.male - stateRate.female}% lower stamp
                   duty in {stateRate.name}
                 </p>
@@ -350,7 +350,7 @@ export function StampDutyCalculator() {
               <button
                 onClick={() => setIsFirstHome(!isFirstHome)}
                 className={`relative w-11 h-6 rounded-full transition-colors ${
-                  isFirstHome ? "bg-green-600" : "bg-gray-300"
+                  isFirstHome ? "bg-action-green" : "bg-gray-300"
                 }`}
               >
                 <span
@@ -359,7 +359,7 @@ export function StampDutyCalculator() {
                   }`}
                 />
               </button>
-              <span className="text-sm text-gray-700">First Home Purchase</span>
+              <span className="text-sm text-ink">First Home Purchase</span>
             </div>
           </div>
         </div>
@@ -399,8 +399,8 @@ export function StampDutyCalculator() {
 
       {/* Cost Breakdown + State Comparison */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Cost Breakdown
           </h3>
           <div className="h-[220px]">
@@ -434,9 +434,9 @@ export function StampDutyCalculator() {
                     className="w-3 h-3 rounded-sm"
                     style={{ backgroundColor: d.color }}
                   />
-                  <span className="text-gray-500">{d.name}</span>
+                  <span className="text-ink-60">{d.name}</span>
                 </div>
-                <span className="font-medium text-gray-900">
+                <span className="font-medium text-ink">
                   {formatINR(d.value)}
                 </span>
               </div>
@@ -445,11 +445,11 @@ export function StampDutyCalculator() {
         </div>
 
         {/* State-wise comparison */}
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
-          <h3 className="text-sm font-semibold text-gray-900 mb-1">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
+          <h3 className="text-sm font-display font-semibold text-ink mb-1">
             State-Wise Comparison for {formatINR(propertyValue)}
           </h3>
-          <p className="text-xs text-gray-400 mb-3">
+          <p className="text-xs text-ink-60 mb-3">
             {gender === "male"
               ? "Male"
               : gender === "female"
@@ -459,14 +459,14 @@ export function StampDutyCalculator() {
           </p>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left py-2 text-gray-500 font-medium">
+              <tr className="border-b border-ink/5">
+                <th className="text-left py-2 text-ink-60 font-medium">
                   State
                 </th>
-                <th className="text-right py-2 text-gray-500 font-medium">
+                <th className="text-right py-2 text-ink-60 font-medium">
                   Rate
                 </th>
-                <th className="text-right py-2 text-gray-500 font-medium">
+                <th className="text-right py-2 text-ink-60 font-medium">
                   Total Cost
                 </th>
               </tr>
@@ -475,18 +475,18 @@ export function StampDutyCalculator() {
               {result.stateComparison.slice(0, 10).map((s) => (
                 <tr
                   key={s.key}
-                  className={`border-b border-gray-50 ${s.key === state ? "bg-green-50" : ""}`}
+                  className={`border-b border-gray-50 ${s.key === state ? "bg-action-green/10" : ""}`}
                 >
-                  <td className="py-2 text-gray-900">
+                  <td className="py-2 text-ink">
                     {s.name}
                     {s.key === state && (
-                      <span className="text-xs text-green-600 ml-1">
+                      <span className="text-xs text-action-green ml-1">
                         (selected)
                       </span>
                     )}
                   </td>
-                  <td className="text-right py-2 text-gray-600">{s.rate}%</td>
-                  <td className="text-right py-2 font-semibold text-gray-900">
+                  <td className="text-right py-2 text-ink-60">{s.rate}%</td>
+                  <td className="text-right py-2 font-display font-semibold text-ink">
                     {formatINR(s.total)}
                   </td>
                 </tr>

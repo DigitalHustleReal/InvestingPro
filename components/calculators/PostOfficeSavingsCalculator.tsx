@@ -305,14 +305,14 @@ export function PostOfficeSavingsCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Post Office Scheme
           </h2>
           <div className="space-y-5">
             {/* Scheme Selector */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-2 block">
+              <label className="text-xs font-medium text-ink-60 mb-2 block">
                 Select Scheme
               </label>
               <div className="grid grid-cols-4 gap-2">
@@ -322,16 +322,16 @@ export function PostOfficeSavingsCalculator() {
                     onClick={() => setScheme(s.value)}
                     className={`px-2 py-2.5 text-center rounded-lg border transition-colors ${
                       scheme === s.value
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:border-gray-300"
                     }`}
                   >
                     <div className="text-xs font-semibold">{s.label}</div>
-                    <div className="text-[10px] text-gray-400">{s.rate}</div>
+                    <div className="text-[10px] text-ink-60">{s.rate}</div>
                   </button>
                 ))}
               </div>
-              <p className="text-xs text-gray-400 mt-2">{config.description}</p>
+              <p className="text-xs text-ink-60 mt-2">{config.description}</p>
             </div>
 
             <SliderInput
@@ -346,39 +346,39 @@ export function PostOfficeSavingsCalculator() {
             />
 
             {/* Scheme Info Card */}
-            <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 space-y-2">
+            <div className="p-3 rounded-lg bg-canvas border border-ink/5 space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Interest Rate</span>
-                <span className="font-semibold text-green-700">
+                <span className="text-ink-60">Interest Rate</span>
+                <span className="font-semibold text-authority-green">
                   {config.rate}% p.a.
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Lock-in Period</span>
-                <span className="font-medium text-gray-900">
+                <span className="text-ink-60">Lock-in Period</span>
+                <span className="font-medium text-ink">
                   {config.tenureYears} Years
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Tax Status</span>
+                <span className="text-ink-60">Tax Status</span>
                 <span
-                  className={`font-medium ${config.taxFree ? "text-green-600" : "text-amber-600"}`}
+                  className={`font-medium ${config.taxFree ? "text-action-green" : "text-indian-gold"}`}
                 >
                   {config.taxFree ? "Tax-Free (EEE)" : "Taxable at Slab"}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Section 80C</span>
+                <span className="text-ink-60">Section 80C</span>
                 <span
-                  className={`font-medium ${config.section80C ? "text-green-600" : "text-gray-400"}`}
+                  className={`font-medium ${config.section80C ? "text-action-green" : "text-ink-60"}`}
                 >
                   {config.section80C ? "Yes (up to ₹1.5L)" : "No"}
                 </span>
               </div>
               {scheme === "mis" && (
-                <div className="flex justify-between text-sm pt-2 border-t border-gray-200">
-                  <span className="text-gray-500">Monthly Income</span>
-                  <span className="font-bold text-green-700">
+                <div className="flex justify-between text-sm pt-2 border-t border-ink/10">
+                  <span className="text-ink-60">Monthly Income</span>
+                  <span className="font-bold text-authority-green">
                     {formatINR(result.monthlyInterest)}/mo
                   </span>
                 </div>
@@ -417,8 +417,8 @@ export function PostOfficeSavingsCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             {config.name} — Growth Over {config.tenureYears} Years
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -480,8 +480,8 @@ export function PostOfficeSavingsCalculator() {
         </div>
 
         {/* All Schemes Comparison */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-4 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             All Post Office Rates
           </h3>
           <div className="space-y-2">
@@ -493,18 +493,18 @@ export function PostOfficeSavingsCalculator() {
                   onClick={() => setScheme(s.value)}
                   className={`w-full flex items-center justify-between p-2.5 rounded-lg text-sm transition-colors ${
                     scheme === s.value
-                      ? "bg-green-50 border border-green-200"
-                      : "hover:bg-gray-50"
+                      ? "bg-action-green/10 border border-green-200"
+                      : "hover:bg-canvas"
                   }`}
                 >
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">{cfg.name}</p>
-                    <p className="text-[11px] text-gray-400">
+                    <p className="font-medium text-ink">{cfg.name}</p>
+                    <p className="text-[11px] text-ink-60">
                       {cfg.tenureYears}Y •{" "}
                       {cfg.taxFree ? "Tax-Free" : "Taxable"}
                     </p>
                   </div>
-                  <span className="font-bold text-green-700">{cfg.rate}%</span>
+                  <span className="font-bold text-authority-green">{cfg.rate}%</span>
                 </button>
               );
             })}

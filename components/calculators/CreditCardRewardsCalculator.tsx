@@ -126,11 +126,11 @@ export default function CreditCardRewardsCalculator() {
   ];
 
   return (
-    <div className="bg-card rounded-xl border border-border shadow-2xl shadow-primary-900/10 overflow-hidden">
+    <div className="bg-card rounded-sm border border-border shadow-2xl shadow-primary-900/10 overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-primary-600 to-secondary-600 p-6 sm:p-8">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-xl">
+          <div className="p-3 bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-sm">
             <CreditCard className="w-6 h-6 text-white" />
           </div>
           <h2 className="text-2xl font-bold text-white">Credit Card Rewards Calculator</h2>
@@ -147,7 +147,7 @@ export default function CreditCardRewardsCalculator() {
                 <Calculator className="w-5 h-5 text-primary-600" />
                 Monthly Spending by Category
               </h3>
-              <div className="p-4 bg-muted rounded-xl mb-4">
+              <div className="p-4 bg-muted rounded-sm mb-4">
                 <p className="text-sm text-muted-foreground mb-1">Total Monthly Spending</p>
                 <p className="text-3xl font-bold text-foreground">{formatCurrency(totalMonthlySpending)}</p>
               </div>
@@ -166,7 +166,7 @@ export default function CreditCardRewardsCalculator() {
                       type="number"
                       value={spending[cat.key]}
                       onChange={(e) => updateSpending(cat.key, Number(e.target.value))}
-                      className="w-full pl-8 pr-4 py-3 rounded-xl border border-border bg-input text-foreground font-semibold focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
+                      className="w-full pl-8 pr-4 py-3 rounded-sm border border-border bg-input text-foreground font-semibold focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
                       min="0"
                       step="100"
                     />
@@ -270,7 +270,7 @@ export default function CreditCardRewardsCalculator() {
             </div>
 
             {/* Disclaimer */}
-            <div className="p-4 bg-muted border border-border rounded-xl">
+            <div className="p-4 bg-muted border border-border rounded-sm">
               <p className="text-xs text-muted-foreground">
                 <strong className="font-semibold">Note:</strong> Calculations are based on standard reward rates. Actual rewards may vary based on offer periods, exclusions, and redemption value.
               </p>

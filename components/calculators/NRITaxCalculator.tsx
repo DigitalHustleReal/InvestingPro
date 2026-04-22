@@ -260,12 +260,12 @@ export function NRITaxCalculator() {
       <div
         className={`border rounded-2xl p-4 flex items-start gap-3 ${
           result.isNRI
-            ? "bg-green-50 border-green-200"
-            : "bg-amber-50 border-amber-200"
+            ? "bg-action-green/10 border-green-200"
+            : "bg-indian-gold/10 border-indian-gold/30"
         }`}
       >
         <Plane
-          className={`w-5 h-5 mt-0.5 shrink-0 ${result.isNRI ? "text-green-600" : "text-amber-600"}`}
+          className={`w-5 h-5 mt-0.5 shrink-0 ${result.isNRI ? "text-action-green" : "text-indian-gold"}`}
         />
         <div className="text-xs">
           <p
@@ -273,7 +273,7 @@ export function NRITaxCalculator() {
           >
             Residential Status: {result.status}
           </p>
-          <p className={result.isNRI ? "text-green-700" : "text-amber-700"}>
+          <p className={result.isNRI ? "text-authority-green" : "text-amber-700"}>
             {result.isNRI
               ? `${daysInIndia} days in India (< 182 days). NRE interest is tax-free. Higher TDS rates apply on NRO/FD.`
               : `${daysInIndia} days in India (>= 182 days). You are treated as Resident. All global income may be taxable.`}
@@ -308,8 +308,8 @@ export function NRITaxCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             NRI Income Details
           </h2>
           <div className="space-y-5">
@@ -387,7 +387,7 @@ export function NRITaxCalculator() {
             />
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-ink mb-2">
                 Country of Residence (DTAA)
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -395,10 +395,10 @@ export function NRITaxCalculator() {
                   <button
                     key={key}
                     onClick={() => setCountry(key)}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors ${
                       country === key
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:bg-canvas"
                     }`}
                   >
                     {name}
@@ -441,8 +441,8 @@ export function NRITaxCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Tax Breakdown
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -470,7 +470,7 @@ export function NRITaxCalculator() {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
             {taxPieData.map((d) => (
               <div key={d.name} className="flex items-center gap-2">
                 <div
@@ -478,8 +478,8 @@ export function NRITaxCalculator() {
                   style={{ backgroundColor: d.color }}
                 />
                 <div>
-                  <p className="text-[11px] text-gray-400">{d.name}</p>
-                  <p className="text-sm font-bold text-gray-900">
+                  <p className="text-[11px] text-ink-60">{d.name}</p>
+                  <p className="text-sm font-display font-bold text-ink">
                     {formatINR(d.value)}
                   </p>
                 </div>
@@ -488,34 +488,34 @@ export function NRITaxCalculator() {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-4 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Key NRI Tax Rules
           </h3>
-          <div className="space-y-3 text-xs text-gray-600">
+          <div className="space-y-3 text-xs text-ink-60">
             <div className="flex items-start gap-2">
-              <Globe className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+              <Globe className="w-4 h-4 text-action-green mt-0.5 shrink-0" />
               <p>
                 NRI if stay in India &lt; 182 days. Only India-sourced income is
                 taxable.
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <Landmark className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+              <Landmark className="w-4 h-4 text-action-green mt-0.5 shrink-0" />
               <p>
                 NRE FD interest: completely tax-free for NRIs. NRO interest:
                 taxable at 30%.
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <Percent className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+              <Percent className="w-4 h-4 text-indian-gold mt-0.5 shrink-0" />
               <p>
                 TDS rates higher for NRIs: 30% on FD/rental, 20% on LTCG. File
                 ITR for refund.
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <Plane className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+              <Plane className="w-4 h-4 text-action-green mt-0.5 shrink-0" />
               <p>
                 DTAA with 90+ countries prevents double taxation. Get Tax
                 Residency Certificate (TRC).

@@ -263,8 +263,8 @@ export function RealEstateROICalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Property Details
           </h2>
           <div className="space-y-5">
@@ -370,8 +370,8 @@ export function RealEstateROICalculator() {
           </div>
 
           {/* Ownership cost breakdown */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">
+          <div className="bg-white border border-ink/10 rounded-2xl p-4 shadow-sm">
+            <h3 className="text-sm font-display font-semibold text-ink mb-3">
               Total Cost of Ownership
             </h3>
             <div className="space-y-2">
@@ -388,14 +388,14 @@ export function RealEstateROICalculator() {
                 { label: "Monthly EMI", value: result.emi },
               ].map((item) => (
                 <div key={item.label} className="flex justify-between text-sm">
-                  <span className="text-gray-500">{item.label}</span>
-                  <span className="font-semibold text-gray-900">
+                  <span className="text-ink-60">{item.label}</span>
+                  <span className="font-display font-semibold text-ink">
                     {formatINR(item.value)}
                     {item.label === "Monthly EMI" ? "/mo" : ""}
                   </span>
                 </div>
               ))}
-              <div className="flex justify-between text-sm pt-2 border-t border-gray-100">
+              <div className="flex justify-between text-sm pt-2 border-t border-ink/5">
                 <span className="text-red-600 font-semibold">
                   Total Hidden Cost
                 </span>
@@ -413,8 +413,8 @@ export function RealEstateROICalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Property Value vs Equity SIP Growth
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -485,7 +485,7 @@ export function RealEstateROICalculator() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
             {pieData.map((d) => (
               <div key={d.name} className="flex items-center gap-2">
                 <div
@@ -493,8 +493,8 @@ export function RealEstateROICalculator() {
                   style={{ backgroundColor: d.color }}
                 />
                 <div>
-                  <p className="text-[11px] text-gray-400">{d.name}</p>
-                  <p className="text-sm font-bold text-gray-900">
+                  <p className="text-[11px] text-ink-60">{d.name}</p>
+                  <p className="text-sm font-display font-bold text-ink">
                     {formatINR(d.value)}
                   </p>
                 </div>

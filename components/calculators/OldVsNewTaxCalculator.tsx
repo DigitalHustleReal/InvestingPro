@@ -283,8 +283,8 @@ export function OldVsNewTaxCalculator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         {/* Inputs — left side */}
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Your Income & Deductions
           </h2>
           <div className="space-y-4">
@@ -380,41 +380,41 @@ export function OldVsNewTaxCalculator() {
       </div>
 
       {/* New Regime Slab Breakdown */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           New Tax Regime Slab Breakdown — FY 2025-26
         </h3>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left py-2 text-gray-500 font-medium">
+            <tr className="border-b border-ink/5">
+              <th className="text-left py-2 text-ink-60 font-medium">
                 Income Range
               </th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+              <th className="text-center py-2 text-ink-60 font-medium">
                 Rate
               </th>
-              <th className="text-right py-2 text-gray-500 font-medium">
+              <th className="text-right py-2 text-ink-60 font-medium">
                 Taxable
               </th>
-              <th className="text-right py-2 text-gray-500 font-medium">Tax</th>
+              <th className="text-right py-2 text-ink-60 font-medium">Tax</th>
             </tr>
           </thead>
           <tbody>
             {slabBreakdown.map((s, i) => (
               <tr key={i} className="border-b border-gray-50">
-                <td className="py-2 text-gray-900">{s.range}</td>
-                <td className="text-center py-2 text-amber-600 font-medium">
+                <td className="py-2 text-ink">{s.range}</td>
+                <td className="text-center py-2 text-indian-gold font-medium">
                   {s.rate}
                 </td>
-                <td className="text-right py-2 text-gray-600">{s.taxable}</td>
-                <td className="text-right py-2 font-semibold text-gray-900">
+                <td className="text-right py-2 text-ink-60">{s.taxable}</td>
+                <td className="text-right py-2 font-display font-semibold text-ink">
                   {s.tax}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-ink-60 mt-2">
           * New Regime: Standard deduction ₹75,000. No HRA, 80C, 80D, home loan
           interest deductions. Rebate up to ₹12L taxable income.
         </p>

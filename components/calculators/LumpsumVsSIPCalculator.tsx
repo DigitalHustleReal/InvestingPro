@@ -89,9 +89,9 @@ export function LumpsumVsSIPCalculator() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       {/* Inputs */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900 mb-5 flex items-center gap-2">
-          <ArrowLeftRight size={18} className="text-green-600" /> Compare with
+      <div className="bg-white border border-ink/10 rounded-2xl p-6 shadow-sm">
+        <h2 className="text-base font-display font-semibold text-ink mb-5 flex items-center gap-2">
+          <ArrowLeftRight size={18} className="text-action-green" /> Compare with
           Same Total Investment
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -135,33 +135,33 @@ export function LumpsumVsSIPCalculator() {
             "rounded-2xl p-6 shadow-sm border",
             result.winner === "lumpsum"
               ? "bg-gradient-to-br from-green-50 to-emerald-50 border-green-300 ring-2 ring-green-200"
-              : "bg-white border-gray-200",
+              : "bg-white border-ink/10",
           )}
         >
           <div className="flex items-center justify-between mb-2">
-            <p className="text-sm font-semibold text-gray-700">Lumpsum</p>
+            <p className="text-sm font-semibold text-ink">Lumpsum</p>
             {result.winner === "lumpsum" && (
-              <span className="text-[10px] font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-bold text-authority-green bg-action-green/20 px-2 py-0.5 rounded-full">
                 WINNER
               </span>
             )}
           </div>
-          <p className="text-4xl font-extrabold text-green-700">
+          <p className="text-4xl font-extrabold text-authority-green">
             {formatINR(result.lumpsumFV)}
           </p>
           <div className="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-green-200/50">
             <div>
-              <p className="text-[10px] text-gray-500">Invested</p>
+              <p className="text-[10px] text-ink-60">Invested</p>
               <p className="text-sm font-bold">{formatINR(totalAmount)}</p>
             </div>
             <div>
-              <p className="text-[10px] text-gray-500">Returns</p>
-              <p className="text-sm font-bold text-green-700">
+              <p className="text-[10px] text-ink-60">Returns</p>
+              <p className="text-sm font-bold text-authority-green">
                 {formatINR(result.lumpsumReturns)}
               </p>
             </div>
           </div>
-          <p className="text-xs text-gray-400 mt-2">
+          <p className="text-xs text-ink-60 mt-2">
             Entire {formatINR(totalAmount)} invested on Day 1
           </p>
         </div>
@@ -171,11 +171,11 @@ export function LumpsumVsSIPCalculator() {
             "rounded-2xl p-6 shadow-sm border",
             result.winner === "sip"
               ? "bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-300 ring-2 ring-blue-200"
-              : "bg-white border-gray-200",
+              : "bg-white border-ink/10",
           )}
         >
           <div className="flex items-center justify-between mb-2">
-            <p className="text-sm font-semibold text-gray-700">
+            <p className="text-sm font-semibold text-ink">
               SIP ({formatINR(monthlySIP)}/mo)
             </p>
             {result.winner === "sip" && (
@@ -189,17 +189,17 @@ export function LumpsumVsSIPCalculator() {
           </p>
           <div className="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-blue-200/50">
             <div>
-              <p className="text-[10px] text-gray-500">Invested</p>
+              <p className="text-[10px] text-ink-60">Invested</p>
               <p className="text-sm font-bold">{formatINR(totalAmount)}</p>
             </div>
             <div>
-              <p className="text-[10px] text-gray-500">Returns</p>
+              <p className="text-[10px] text-ink-60">Returns</p>
               <p className="text-sm font-bold text-blue-700">
                 {formatINR(result.sipReturns)}
               </p>
             </div>
           </div>
-          <p className="text-xs text-gray-400 mt-2">
+          <p className="text-xs text-ink-60 mt-2">
             {formatINR(monthlySIP)}/mo × {years * 12} months ={" "}
             {formatINR(totalAmount)}
           </p>
@@ -209,9 +209,9 @@ export function LumpsumVsSIPCalculator() {
       {/* Difference callout */}
       <div
         className={cn(
-          "rounded-xl px-5 py-4 text-sm font-medium",
+          "rounded-sm px-5 py-4 text-sm font-medium",
           result.winner === "lumpsum"
-            ? "bg-green-50 border border-green-200 text-green-800"
+            ? "bg-action-green/10 border border-green-200 text-green-800"
             : "bg-blue-50 border border-blue-200 text-blue-800",
         )}
       >
@@ -225,8 +225,8 @@ export function LumpsumVsSIPCalculator() {
       <AIInsight insights={insights} />
 
       {/* Chart */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-4">
+      <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-4">
           Growth Comparison Over {years} Years
         </h3>
         <div className="h-[300px]">
@@ -286,34 +286,34 @@ export function LumpsumVsSIPCalculator() {
         </div>
         <div className="flex justify-center gap-8 mt-3">
           <div className="flex items-center gap-2 text-xs">
-            <div className="w-3 h-0.5 bg-green-500 rounded" />
-            <span className="text-gray-500">Lumpsum</span>
+            <div className="w-3 h-0.5 bg-action-green/100 rounded" />
+            <span className="text-ink-60">Lumpsum</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
             <div className="w-3 h-0.5 bg-blue-500 rounded" />
-            <span className="text-gray-500">SIP</span>
+            <span className="text-ink-60">SIP</span>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             When to Choose What
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-green-50 rounded-xl p-4">
+            <div className="bg-action-green/10 rounded-sm p-4">
               <p className="text-sm font-bold text-green-800 mb-2">
                 Choose Lumpsum When:
               </p>
-              <ul className="text-xs text-green-700 space-y-1.5">
+              <ul className="text-xs text-authority-green space-y-1.5">
                 <li>• Markets have corrected 15%+ (buying opportunity)</li>
                 <li>• You received a bonus/inheritance/sale proceeds</li>
                 <li>• Investment horizon is 7+ years</li>
                 <li>• You can tolerate short-term volatility</li>
               </ul>
             </div>
-            <div className="bg-blue-50 rounded-xl p-4">
+            <div className="bg-blue-50 rounded-sm p-4">
               <p className="text-sm font-bold text-blue-800 mb-2">
                 Choose SIP When:
               </p>

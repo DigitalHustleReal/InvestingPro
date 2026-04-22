@@ -174,25 +174,25 @@ export function RentVsBuyCalculator() {
               : "bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-300",
           )}
         >
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-ink-60">
             {result.winner === "buy" ? "Buying" : "Renting + Investing"} wins by
           </p>
           <p
             className={cn(
               "text-4xl font-extrabold mt-1",
-              result.winner === "buy" ? "text-green-700" : "text-blue-700",
+              result.winner === "buy" ? "text-authority-green" : "text-blue-700",
             )}
           >
             {formatINR(result.advantage)}
           </p>
-          <p className="text-xs text-gray-400 mt-1">over {years} years</p>
+          <p className="text-xs text-ink-60 mt-1">over {years} years</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5 flex items-center gap-2">
-            <Home size={18} className="text-green-600" /> Property & Rent
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5 flex items-center gap-2">
+            <Home size={18} className="text-action-green" /> Property & Rent
             Details
           </h2>
           <div className="space-y-4">
@@ -290,27 +290,27 @@ export function RentVsBuyCalculator() {
           <div className="grid grid-cols-2 gap-3">
             <div
               className={cn(
-                "rounded-xl border p-4",
+                "rounded-sm border p-4",
                 result.winner === "buy"
-                  ? "bg-green-50 border-green-300 ring-2 ring-green-200"
-                  : "bg-white border-gray-200",
+                  ? "bg-action-green/10 border-green-300 ring-2 ring-green-200"
+                  : "bg-white border-ink/10",
               )}
             >
               <div className="flex items-center justify-between mb-1">
-                <p className="text-xs font-semibold text-gray-700">Buy</p>
+                <p className="text-xs font-semibold text-ink">Buy</p>
                 {result.winner === "buy" && (
-                  <span className="text-[9px] font-bold text-green-700 bg-green-100 px-1.5 py-0.5 rounded">
+                  <span className="text-[9px] font-bold text-authority-green bg-action-green/20 px-1.5 py-0.5 rounded">
                     WINS
                   </span>
                 )}
               </div>
-              <p className="text-xl font-bold text-green-700">
+              <p className="text-xl font-bold text-authority-green">
                 {formatINR(result.buyNetWealth)}
               </p>
-              <div className="mt-2 space-y-1 text-[10px] text-gray-500">
+              <div className="mt-2 space-y-1 text-[10px] text-ink-60">
                 <div className="flex justify-between">
                   <span>Property Value</span>
-                  <span className="text-gray-700">
+                  <span className="text-ink">
                     {formatINR(result.propertyValueEnd)}
                   </span>
                 </div>
@@ -328,14 +328,14 @@ export function RentVsBuyCalculator() {
             </div>
             <div
               className={cn(
-                "rounded-xl border p-4",
+                "rounded-sm border p-4",
                 result.winner === "rent"
                   ? "bg-blue-50 border-blue-300 ring-2 ring-blue-200"
-                  : "bg-white border-gray-200",
+                  : "bg-white border-ink/10",
               )}
             >
               <div className="flex items-center justify-between mb-1">
-                <p className="text-xs font-semibold text-gray-700">
+                <p className="text-xs font-semibold text-ink">
                   Rent + Invest
                 </p>
                 {result.winner === "rent" && (
@@ -347,10 +347,10 @@ export function RentVsBuyCalculator() {
               <p className="text-xl font-bold text-blue-700">
                 {formatINR(result.rentNetWealth)}
               </p>
-              <div className="mt-2 space-y-1 text-[10px] text-gray-500">
+              <div className="mt-2 space-y-1 text-[10px] text-ink-60">
                 <div className="flex justify-between">
                   <span>Investment Corpus</span>
-                  <span className="text-gray-700">
+                  <span className="text-ink">
                     {formatINR(result.investmentCorpus)}
                   </span>
                 </div>
@@ -372,8 +372,8 @@ export function RentVsBuyCalculator() {
       </div>
 
       {/* Chart */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Net Wealth: Buying vs Renting + Investing
         </h3>
         <div className="h-[260px] sm:h-[300px]">
@@ -434,12 +434,12 @@ export function RentVsBuyCalculator() {
         </div>
         <div className="flex justify-center gap-8 mt-3">
           <div className="flex items-center gap-2 text-xs">
-            <div className="w-3 h-0.5 bg-green-500 rounded" />
-            <span className="text-gray-500">Buy Property</span>
+            <div className="w-3 h-0.5 bg-action-green/100 rounded" />
+            <span className="text-ink-60">Buy Property</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
             <div className="w-3 h-0.5 bg-blue-500 rounded" />
-            <span className="text-gray-500">Rent + Invest</span>
+            <span className="text-ink-60">Rent + Invest</span>
           </div>
         </div>
       </div>

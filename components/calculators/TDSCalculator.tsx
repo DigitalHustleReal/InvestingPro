@@ -195,8 +195,8 @@ export function TDSCalculator() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-6 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             TDS Details
           </h2>
 
@@ -207,10 +207,10 @@ export function TDSCalculator() {
                 key={s.type}
                 onClick={() => setSelectedType(s.type)}
                 className={cn(
-                  "px-3 py-2.5 rounded-xl text-xs font-medium transition-all border text-left",
+                  "px-3 py-2.5 rounded-sm text-xs font-medium transition-all border text-left",
                   selectedType === s.type
-                    ? "bg-green-600 text-white border-green-600"
-                    : "bg-white text-gray-600 border-gray-200 hover:border-green-300",
+                    ? "bg-action-green text-white border-green-600"
+                    : "bg-white text-ink-60 border-ink/10 hover:border-green-300",
                 )}
               >
                 <div className="font-semibold">{s.name}</div>
@@ -219,7 +219,7 @@ export function TDSCalculator() {
                     "text-[10px]",
                     selectedType === s.type
                       ? "text-green-100"
-                      : "text-gray-400",
+                      : "text-ink-60",
                   )}
                 >
                   Sec {s.code} · {s.rate}%
@@ -245,14 +245,14 @@ export function TDSCalculator() {
 
           {/* Toggles */}
           <div className="space-y-2 mt-5">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <span className="text-sm text-gray-700">PAN submitted?</span>
+            <div className="flex items-center justify-between p-3 bg-canvas rounded-sm">
+              <span className="text-sm text-ink">PAN submitted?</span>
               <button
                 onClick={() => setHasPAN(!hasPAN)}
                 className={cn(
                   "px-3 py-1 rounded-full text-xs font-semibold",
                   hasPAN
-                    ? "bg-green-100 text-green-700"
+                    ? "bg-action-green/20 text-authority-green"
                     : "bg-red-100 text-red-700",
                 )}
               >
@@ -261,8 +261,8 @@ export function TDSCalculator() {
             </div>
             {selectedType === "fd" && (
               <>
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-sm text-gray-700">
+                <div className="flex items-center justify-between p-3 bg-canvas rounded-sm">
+                  <span className="text-sm text-ink">
                     Senior Citizen (60+)?
                   </span>
                   <button
@@ -270,15 +270,15 @@ export function TDSCalculator() {
                     className={cn(
                       "px-3 py-1 rounded-full text-xs font-semibold",
                       isSenior
-                        ? "bg-green-100 text-green-700"
-                        : "bg-gray-200 text-gray-600",
+                        ? "bg-action-green/20 text-authority-green"
+                        : "bg-gray-200 text-ink-60",
                     )}
                   >
                     {isSenior ? "Yes (₹50K limit)" : "No (₹40K limit)"}
                   </button>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-sm text-gray-700">
+                <div className="flex items-center justify-between p-3 bg-canvas rounded-sm">
+                  <span className="text-sm text-ink">
                     Form 15G/15H submitted?
                   </span>
                   <button
@@ -286,8 +286,8 @@ export function TDSCalculator() {
                     className={cn(
                       "px-3 py-1 rounded-full text-xs font-semibold",
                       hasForm15G
-                        ? "bg-green-100 text-green-700"
-                        : "bg-gray-200 text-gray-600",
+                        ? "bg-action-green/20 text-authority-green"
+                        : "bg-gray-200 text-ink-60",
                     )}
                   >
                     {hasForm15G ? "Yes (No TDS)" : "No"}
@@ -333,7 +333,7 @@ export function TDSCalculator() {
           <AIInsight insights={insights} />
 
           {/* Section info */}
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
+          <div className="bg-blue-50 border border-blue-200 rounded-sm p-4 text-sm text-blue-800">
             <FileText size={14} className="inline mr-1" />
             <strong>Sec {section.code}:</strong> {section.desc}. Rate:{" "}
             {section.rate}% (with PAN) / {section.noPan}% (without). Threshold:
@@ -344,8 +344,8 @@ export function TDSCalculator() {
 
       {/* TDS Rate Card */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             TDS Rate Card — All Sections
           </h3>
           <div className="space-y-2">
@@ -355,35 +355,35 @@ export function TDSCalculator() {
                 className={cn(
                   "flex items-center justify-between py-2.5 px-3 rounded-lg text-xs",
                   s.type === selectedType
-                    ? "bg-green-50 border border-green-200"
-                    : "hover:bg-gray-50",
+                    ? "bg-action-green/10 border border-green-200"
+                    : "hover:bg-canvas",
                 )}
               >
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-gray-700 w-12">
+                  <span className="font-bold text-ink w-12">
                     Sec {s.code}
                   </span>
-                  <span className="text-gray-500">{s.name}</span>
+                  <span className="text-ink-60">{s.name}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-bold text-green-700">{s.rate}%</span>
-                  <span className="text-gray-300">|</span>
+                  <span className="font-bold text-authority-green">{s.rate}%</span>
+                  <span className="text-ink/20">|</span>
                   <span className="font-semibold text-red-600">{s.noPan}%</span>
-                  <span className="text-gray-300">|</span>
-                  <span className="text-gray-400">
+                  <span className="text-ink/20">|</span>
+                  <span className="text-ink-60">
                     ₹{s.threshold.toLocaleString("en-IN")}
                   </span>
                 </div>
               </div>
             ))}
-            <div className="text-[10px] text-gray-400 text-center mt-2">
+            <div className="text-[10px] text-ink-60 text-center mt-2">
               With PAN | Without PAN | Annual Threshold
             </div>
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Payment Split
           </h3>
           <div className="h-[200px]">
@@ -421,7 +421,7 @@ export function TDSCalculator() {
                   className="w-2.5 h-2.5 rounded-full"
                   style={{ backgroundColor: d.color }}
                 />
-                <span className="text-gray-500">{d.name}</span>
+                <span className="text-ink-60">{d.name}</span>
               </div>
             ))}
           </div>

@@ -227,8 +227,8 @@ export function SalaryCalculator() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-6 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Salary Details
           </h2>
           <div className="space-y-5">
@@ -265,7 +265,7 @@ export function SalaryCalculator() {
               />
             </div>
 
-            <div className="flex items-center gap-2 p-1 bg-gray-100 rounded-xl">
+            <div className="flex items-center gap-2 p-1 bg-gray-100 rounded-sm">
               {(["new", "old"] as const).map((r) => (
                 <button
                   key={r}
@@ -273,8 +273,8 @@ export function SalaryCalculator() {
                   className={cn(
                     "flex-1 py-2 rounded-lg text-sm font-medium transition-all",
                     taxRegime === r
-                      ? "bg-white text-green-700 shadow-sm"
-                      : "text-gray-500 hover:text-gray-700",
+                      ? "bg-white text-authority-green shadow-sm"
+                      : "text-ink-60 hover:text-ink",
                   )}
                 >
                   {r === "new" ? "New Regime" : "Old Regime"}
@@ -285,8 +285,8 @@ export function SalaryCalculator() {
             {taxRegime === "old" && (
               <>
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-gray-600 flex items-center gap-1.5">
-                    <Building2 size={14} className="text-green-600" /> Metro
+                  <label className="text-sm font-medium text-ink-60 flex items-center gap-1.5">
+                    <Building2 size={14} className="text-action-green" /> Metro
                     City?
                   </label>
                   <Switch checked={isMetro} onCheckedChange={setIsMetro} />
@@ -346,37 +346,37 @@ export function SalaryCalculator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Breakdown Table */}
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-            <Receipt size={15} className="text-green-600" /> Complete Salary
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3 flex items-center gap-2">
+            <Receipt size={15} className="text-action-green" /> Complete Salary
             Breakdown
           </h3>
           <div className="space-y-1 text-sm">
-            <div className="bg-green-50 rounded-lg p-2.5 flex justify-between font-semibold">
+            <div className="bg-action-green/10 rounded-lg p-2.5 flex justify-between font-semibold">
               <span>Annual CTC</span>
               <span>{formatINR(annualCTC)}</span>
             </div>
             <div className="flex justify-between py-1.5 px-2.5">
-              <span className="text-gray-600">Basic ({basicPercent}%)</span>
+              <span className="text-ink-60">Basic ({basicPercent}%)</span>
               <span>{formatINR(result.basic)}</span>
             </div>
             <div className="flex justify-between py-1.5 px-2.5">
-              <span className="text-gray-600">HRA ({hraPercent}%)</span>
+              <span className="text-ink-60">HRA ({hraPercent}%)</span>
               <span>{formatINR(result.hra)}</span>
             </div>
             <div className="flex justify-between py-1.5 px-2.5">
-              <span className="text-gray-600">Special Allowance</span>
+              <span className="text-ink-60">Special Allowance</span>
               <span>{formatINR(result.specialAllow)}</span>
             </div>
-            <div className="flex justify-between py-1.5 px-2.5 text-gray-400">
+            <div className="flex justify-between py-1.5 px-2.5 text-ink-60">
               <span>(-) Employer EPF</span>
               <span>-{formatINR(result.epfEmployer)}</span>
             </div>
-            <div className="flex justify-between py-1.5 px-2.5 text-gray-400">
+            <div className="flex justify-between py-1.5 px-2.5 text-ink-60">
               <span>(-) Gratuity</span>
               <span>-{formatINR(result.gratuity)}</span>
             </div>
-            <div className="bg-gray-50 rounded-lg p-2.5 flex justify-between font-semibold mt-2">
+            <div className="bg-canvas rounded-sm p-2.5 flex justify-between font-semibold mt-2">
               <span>Gross Salary</span>
               <span>{formatINR(result.grossSalary)}</span>
             </div>
@@ -392,7 +392,7 @@ export function SalaryCalculator() {
               <span>(-) Income Tax + Cess</span>
               <span>-{formatINR(result.totalTax)}</span>
             </div>
-            <div className="bg-green-600 text-white rounded-lg p-3 flex justify-between font-bold text-base mt-2">
+            <div className="bg-action-green text-white rounded-lg p-3 flex justify-between font-bold text-base mt-2">
               <span>Monthly In-Hand</span>
               <span>{formatINR(result.monthlyTakeHome)}</span>
             </div>
@@ -400,8 +400,8 @@ export function SalaryCalculator() {
         </div>
 
         {/* CTC Pie */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Where CTC Goes
           </h3>
           <div className="h-[200px]">
@@ -436,7 +436,7 @@ export function SalaryCalculator() {
                   className="w-2 h-2 rounded-full"
                   style={{ backgroundColor: d.color }}
                 />
-                <span className="text-gray-500">
+                <span className="text-ink-60">
                   {d.name} ({((d.value / annualCTC) * 100).toFixed(0)}%)
                 </span>
               </div>

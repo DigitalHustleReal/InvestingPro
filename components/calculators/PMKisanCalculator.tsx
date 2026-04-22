@@ -185,8 +185,8 @@ export function PMKisanCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             PM-KISAN Details
           </h2>
           <div className="space-y-5">
@@ -212,7 +212,7 @@ export function PMKisanCalculator() {
             />
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-ink mb-2">
                 Investment Plan for PM-KISAN Money
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -222,10 +222,10 @@ export function PMKisanCalculator() {
                     onClick={() =>
                       setInvestmentType(key as "savings" | "sip" | "ppf")
                     }
-                    className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors ${
                       investmentType === key
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:bg-canvas"
                     }`}
                   >
                     {label}
@@ -268,8 +268,8 @@ export function PMKisanCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             PM-KISAN Received vs Investment Growth
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -328,7 +328,7 @@ export function PMKisanCalculator() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
             {pieData.map((d) => (
               <div key={d.name} className="flex items-center gap-2">
                 <div
@@ -336,8 +336,8 @@ export function PMKisanCalculator() {
                   style={{ backgroundColor: d.color }}
                 />
                 <div>
-                  <p className="text-[11px] text-gray-400">{d.name}</p>
-                  <p className="text-sm font-bold text-gray-900">
+                  <p className="text-[11px] text-ink-60">{d.name}</p>
+                  <p className="text-sm font-display font-bold text-ink">
                     {formatINR(d.value)}
                   </p>
                 </div>
@@ -346,34 +346,34 @@ export function PMKisanCalculator() {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-4 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             PM-KISAN Scheme Details
           </h3>
-          <div className="space-y-3 text-xs text-gray-600">
+          <div className="space-y-3 text-xs text-ink-60">
             <div className="flex items-start gap-2">
-              <IndianRupee className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+              <IndianRupee className="w-4 h-4 text-action-green mt-0.5 shrink-0" />
               <p>
                 ₹6,000/year in 3 installments of ₹2,000 each (Apr-Jul, Aug-Nov,
                 Dec-Mar)
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <Sprout className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+              <Sprout className="w-4 h-4 text-action-green mt-0.5 shrink-0" />
               <p>
                 Eligible: Small & marginal farmer families with up to 2 hectares
                 of cultivable land
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <TrendingUp className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+              <TrendingUp className="w-4 h-4 text-action-green mt-0.5 shrink-0" />
               <p>
                 Direct Benefit Transfer (DBT) — money goes straight to
                 Aadhaar-linked bank account
               </p>
             </div>
             <div className="flex items-start gap-2">
-              <Calendar className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+              <Calendar className="w-4 h-4 text-action-green mt-0.5 shrink-0" />
               <p>
                 Launched Feb 2019. Over 11 crore farmers enrolled. No income tax
                 on this benefit.

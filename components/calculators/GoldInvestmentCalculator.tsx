@@ -163,9 +163,9 @@ export function GoldInvestmentCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5 flex items-center gap-2">
-            <Gem size={18} className="text-amber-600" /> Gold Investment Details
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5 flex items-center gap-2">
+            <Gem size={18} className="text-indian-gold" /> Gold Investment Details
           </h2>
           <div className="space-y-5">
             <SliderInput
@@ -199,7 +199,7 @@ export function GoldInvestmentCalculator() {
               suffix="%"
             />
           </div>
-          <p className="text-[10px] text-gray-400 mt-3">
+          <p className="text-[10px] text-ink-60 mt-3">
             Gold 10-year CAGR: ~10.5%. SGB adds 2.5% interest on top. Making
             charges vary 8-25% for jewellery.
           </p>
@@ -229,18 +229,18 @@ export function GoldInvestmentCalculator() {
 
       {/* 4-way comparison cards */}
       <div>
-        <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          <Scale size={15} className="text-green-600" /> 4-Way Gold Comparison
+        <h3 className="text-sm font-display font-semibold text-ink mb-3 flex items-center gap-2">
+          <Scale size={15} className="text-action-green" /> 4-Way Gold Comparison
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {results.map((r) => (
             <div
               key={r.type}
               className={cn(
-                "rounded-xl border p-4 transition-all",
+                "rounded-sm border p-4 transition-all",
                 r.type === bestOption.type
-                  ? "bg-green-50 border-green-300 ring-2 ring-green-200"
-                  : "bg-white border-gray-200",
+                  ? "bg-action-green/10 border-green-300 ring-2 ring-green-200"
+                  : "bg-white border-ink/10",
               )}
             >
               <div className="flex items-center justify-between mb-2">
@@ -249,12 +249,12 @@ export function GoldInvestmentCalculator() {
                   style={{ backgroundColor: colors[r.type] }}
                 />
                 {r.type === bestOption.type && (
-                  <span className="text-[9px] font-bold text-green-700 bg-green-100 px-1.5 py-0.5 rounded">
+                  <span className="text-[9px] font-bold text-authority-green bg-action-green/20 px-1.5 py-0.5 rounded">
                     BEST
                   </span>
                 )}
               </div>
-              <p className="text-xs font-semibold text-gray-900 mb-1">
+              <p className="text-xs font-display font-semibold text-ink mb-1">
                 {r.name.split("(")[0].trim()}
               </p>
               <p
@@ -263,16 +263,16 @@ export function GoldInvestmentCalculator() {
               >
                 {formatINR(r.fv)}
               </p>
-              <div className="mt-2 space-y-1 text-[10px] text-gray-500">
+              <div className="mt-2 space-y-1 text-[10px] text-ink-60">
                 <div className="flex justify-between">
                   <span>Making/Entry</span>
-                  <span className="font-semibold text-gray-700">
+                  <span className="font-semibold text-ink">
                     {r.makingCharge}%
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span>Annual Cost</span>
-                  <span className="font-semibold text-gray-700">
+                  <span className="font-semibold text-ink">
                     {r.annualCost}%
                   </span>
                 </div>
@@ -286,7 +286,7 @@ export function GoldInvestmentCalculator() {
                   </span>
                 </div>
               </div>
-              <p className="text-[9px] text-gray-400 mt-2 leading-relaxed">
+              <p className="text-[9px] text-ink-60 mt-2 leading-relaxed">
                 {r.taxBenefit}
               </p>
             </div>
@@ -295,8 +295,8 @@ export function GoldInvestmentCalculator() {
       </div>
 
       {/* Growth chart */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Growth Comparison — {years} Years
         </h3>
         <div className="h-[260px] sm:h-[300px]">
@@ -363,7 +363,7 @@ export function GoldInvestmentCalculator() {
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="flex flex-wrap justify-center gap-4 mt-3 pt-3 border-t border-gray-100">
+        <div className="flex flex-wrap justify-center gap-4 mt-3 pt-3 border-t border-ink/5">
           {GOLD_OPTIONS.map((opt) => (
             <div
               key={opt.type}
@@ -373,7 +373,7 @@ export function GoldInvestmentCalculator() {
                 className="w-3 h-0.5 rounded"
                 style={{ backgroundColor: colors[opt.type] }}
               />
-              <span className="text-gray-500">
+              <span className="text-ink-60">
                 {opt.name.split("(")[0].trim()}
               </span>
             </div>

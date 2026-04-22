@@ -53,7 +53,7 @@ function StarRating({ rating }: { rating: number }) {
             "w-3.5 h-3.5",
             i < stars
               ? "fill-amber-400 text-amber-400"
-              : "fill-none text-gray-300 dark:text-gray-600",
+              : "fill-none text-ink/20 dark:text-ink-60",
           )}
         />
       ))}
@@ -115,11 +115,11 @@ export default function InlineProductCard({
   };
 
   return (
-    <div className="my-8 rounded-xl border border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-950/20 p-4 sm:p-5">
+    <div className="my-8 rounded-sm border border-green-200 dark:border-green-800 bg-action-green/10/50 dark:bg-green-950/20 p-4 sm:p-5">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
-        <Award className="w-4 h-4 text-green-600 dark:text-green-400" />
-        <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-300">
+        <Award className="w-4 h-4 text-action-green dark:text-green-400" />
+        <span className="text-xs font-bold uppercase tracking-wider text-authority-green dark:text-green-300">
           Editor&apos;s Choice
         </span>
       </div>
@@ -134,13 +134,13 @@ export default function InlineProductCard({
             {/* Sponsored badge */}
             <Badge
               variant="outline"
-              className="absolute top-2 right-2 text-[10px] px-1.5 py-0 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700"
+              className="absolute top-2 right-2 text-[10px] px-1.5 py-0 text-ink-60 dark:text-ink-60 border-ink/10 dark:border-gray-700"
             >
               Sponsored
             </Badge>
 
             {/* Image / icon */}
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-50 dark:bg-green-900/40 rounded-lg p-1 shrink-0 relative overflow-hidden">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-canvas dark:bg-green-900/40 rounded-lg p-1 shrink-0 relative overflow-hidden">
               {p.image_url ? (
                 <Image
                   src={p.image_url}
@@ -151,17 +151,17 @@ export default function InlineProductCard({
                   loading="lazy"
                 />
               ) : (
-                <div className="w-full h-full bg-green-100 dark:bg-green-800 rounded" />
+                <div className="w-full h-full bg-action-green/20 dark:bg-green-800 rounded" />
               )}
             </div>
 
             {/* Name + feature */}
             <div className="flex-1 min-w-0 pr-16 sm:pr-0">
-              <h4 className="font-bold text-sm text-gray-900 dark:text-gray-100 truncate">
+              <h4 className="font-bold text-sm text-ink dark:text-gray-100 truncate">
                 {p.name}
               </h4>
               {getFeatureLine(p) && (
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">
+                <p className="text-xs text-ink-60 dark:text-ink-60 mt-0.5 line-clamp-1">
                   {getFeatureLine(p)}
                 </p>
               )}
@@ -180,7 +180,7 @@ export default function InlineProductCard({
             >
               <Button
                 size="sm"
-                className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white text-xs font-bold gap-1"
+                className="w-full sm:w-auto bg-action-green hover:bg-authority-green text-white text-xs font-bold gap-1"
               >
                 Apply Now <ArrowRight className="w-3 h-3" />
               </Button>

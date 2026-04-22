@@ -108,19 +108,19 @@ export default function EmbeddedCalculator({ category }: { category: string }) {
   if (!calc) return null;
 
   return (
-    <div className="my-10 mx-auto max-w-2xl rounded-xl border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950/40 border-l-4 border-l-green-600 p-6 sm:p-8">
+    <div className="my-10 mx-auto max-w-2xl rounded-sm border border-green-200 dark:border-green-800 bg-action-green/10 dark:bg-green-950/40 border-l-4 border-l-green-600 p-6 sm:p-8">
       <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 flex items-center justify-center w-11 h-11 rounded-lg bg-green-100 dark:bg-green-900/60">
-          <Calculator className="w-5 h-5 text-green-700 dark:text-green-400" />
+        <div className="flex-shrink-0 flex items-center justify-center w-11 h-11 rounded-lg bg-action-green/20 dark:bg-green-900/60">
+          <Calculator className="w-5 h-5 text-authority-green dark:text-green-400" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-bold uppercase tracking-widest text-green-700 dark:text-green-400 mb-1">
+          <p className="text-xs font-bold uppercase tracking-widest text-authority-green dark:text-green-400 mb-1">
             Try Our Calculator
           </p>
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 font-heading">
+          <h3 className="text-lg font-bold text-ink dark:text-white mb-1 font-heading">
             {calc.name}
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          <p className="text-sm text-ink-60 dark:text-ink-60 mb-4">
             {calc.description}
           </p>
 
@@ -128,9 +128,9 @@ export default function EmbeddedCalculator({ category }: { category: string }) {
             {calc.bullets.map((bullet, i) => (
               <li
                 key={i}
-                className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300"
+                className="flex items-start gap-2 text-sm text-ink dark:text-ink/20"
               >
-                <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-500 flex-shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-action-green dark:text-action-green flex-shrink-0 mt-0.5" />
                 <span>{bullet}</span>
               </li>
             ))}
@@ -138,7 +138,7 @@ export default function EmbeddedCalculator({ category }: { category: string }) {
 
           <Link
             href={calc.href}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-semibold transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-action-green hover:bg-authority-green text-white text-sm font-semibold transition-colors"
           >
             Try Calculator
             <ArrowRight className="w-4 h-4" />

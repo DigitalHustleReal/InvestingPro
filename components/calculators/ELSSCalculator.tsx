@@ -199,14 +199,14 @@ export function ELSSCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             ELSS Investment Details
           </h2>
           <div className="space-y-5">
             {/* Tax Regime Toggle */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-2 block">
+              <label className="text-xs font-medium text-ink-60 mb-2 block">
                 Tax Regime
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -214,8 +214,8 @@ export function ELSSCalculator() {
                   onClick={() => setRegime("old")}
                   className={`px-3 py-2 text-sm font-medium rounded-lg border transition-colors ${
                     regime === "old"
-                      ? "bg-green-50 border-green-600 text-green-700"
-                      : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
+                      ? "bg-action-green/10 border-green-600 text-authority-green"
+                      : "bg-white border-ink/10 text-ink-60 hover:border-gray-300"
                   }`}
                 >
                   Old Regime (80C)
@@ -224,8 +224,8 @@ export function ELSSCalculator() {
                   onClick={() => setRegime("new")}
                   className={`px-3 py-2 text-sm font-medium rounded-lg border transition-colors ${
                     regime === "new"
-                      ? "bg-green-50 border-green-600 text-green-700"
-                      : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
+                      ? "bg-action-green/10 border-green-600 text-authority-green"
+                      : "bg-white border-ink/10 text-ink-60 hover:border-gray-300"
                   }`}
                 >
                   New Regime (No 80C)
@@ -278,18 +278,18 @@ export function ELSSCalculator() {
 
             {/* 80C Utilization Bar */}
             {regime === "old" && (
-              <div className="p-3 rounded-lg bg-green-50 border border-green-100">
+              <div className="p-3 rounded-lg bg-action-green/10 border border-green-100">
                 <div className="flex justify-between text-xs mb-1.5">
-                  <span className="text-green-700 font-medium">
+                  <span className="text-authority-green font-medium">
                     Section 80C Utilization
                   </span>
-                  <span className="text-green-600">
+                  <span className="text-action-green">
                     {formatINR(result.eligible80C)} / ₹1.5L
                   </span>
                 </div>
-                <div className="w-full h-2 bg-green-100 rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-action-green/20 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-green-600 rounded-full transition-all"
+                    className="h-full bg-action-green rounded-full transition-all"
                     style={{
                       width: `${Math.min(100, (result.eligible80C / 150000) * 100)}%`,
                     }}
@@ -328,8 +328,8 @@ export function ELSSCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             ELSS Growth + Tax Savings Over Time
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -412,68 +412,68 @@ export function ELSSCalculator() {
       </div>
 
       {/* 80C Comparison Table */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Section 80C Options Compared — {formatINR(monthlyInvestment * 12)}/yr
           for {tenure} years
         </h3>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left py-2 text-gray-500 font-medium">
+            <tr className="border-b border-ink/5">
+              <th className="text-left py-2 text-ink-60 font-medium">
                 Option
               </th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+              <th className="text-center py-2 text-ink-60 font-medium">
                 Returns
               </th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+              <th className="text-center py-2 text-ink-60 font-medium">
                 Lock-in
               </th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+              <th className="text-center py-2 text-ink-60 font-medium">
                 Risk
               </th>
-              <th className="text-right py-2 text-gray-500 font-medium">
+              <th className="text-right py-2 text-ink-60 font-medium">
                 Value in {tenure}Y
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-gray-50 bg-green-50">
-              <td className="py-2.5 font-medium text-gray-900">
+            <tr className="border-b border-gray-50 bg-action-green/10">
+              <td className="py-2.5 font-medium text-ink">
                 ELSS Mutual Fund
               </td>
-              <td className="text-center py-2.5 text-gray-600">12-16%</td>
-              <td className="text-center py-2.5 text-green-700 font-medium">
+              <td className="text-center py-2.5 text-ink-60">12-16%</td>
+              <td className="text-center py-2.5 text-authority-green font-medium">
                 3 years
               </td>
-              <td className="text-center py-2.5 text-amber-600">High</td>
-              <td className="text-right py-2.5 font-bold text-green-700">
+              <td className="text-center py-2.5 text-indian-gold">High</td>
+              <td className="text-right py-2.5 font-bold text-authority-green">
                 {formatINR(result.futureValue)}
               </td>
             </tr>
             <tr className="border-b border-gray-50">
-              <td className="py-2.5 font-medium text-gray-900">PPF</td>
-              <td className="text-center py-2.5 text-gray-600">7.1%</td>
-              <td className="text-center py-2.5 text-gray-600">15 years</td>
-              <td className="text-center py-2.5 text-green-600">Zero</td>
-              <td className="text-right py-2.5 font-semibold text-gray-900">
+              <td className="py-2.5 font-medium text-ink">PPF</td>
+              <td className="text-center py-2.5 text-ink-60">7.1%</td>
+              <td className="text-center py-2.5 text-ink-60">15 years</td>
+              <td className="text-center py-2.5 text-action-green">Zero</td>
+              <td className="text-right py-2.5 font-display font-semibold text-ink">
                 {formatINR(result.ppfFV)}
               </td>
             </tr>
             <tr className="border-b border-gray-50">
-              <td className="py-2.5 font-medium text-gray-900">
+              <td className="py-2.5 font-medium text-ink">
                 Tax-Saving FD
               </td>
-              <td className="text-center py-2.5 text-gray-600">7.5%</td>
-              <td className="text-center py-2.5 text-gray-600">5 years</td>
-              <td className="text-center py-2.5 text-green-600">Zero</td>
-              <td className="text-right py-2.5 font-semibold text-gray-900">
+              <td className="text-center py-2.5 text-ink-60">7.5%</td>
+              <td className="text-center py-2.5 text-ink-60">5 years</td>
+              <td className="text-center py-2.5 text-action-green">Zero</td>
+              <td className="text-right py-2.5 font-display font-semibold text-ink">
                 {formatINR(result.fdFV)}
               </td>
             </tr>
           </tbody>
         </table>
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-ink-60 mt-2">
           * ELSS returns are market-linked and not guaranteed. PPF returns are
           government-guaranteed. FD returns are taxable yearly.
         </p>

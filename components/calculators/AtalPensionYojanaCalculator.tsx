@@ -224,8 +224,8 @@ export function AtalPensionYojanaCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             APY Details
           </h2>
           <div className="space-y-5">
@@ -251,8 +251,8 @@ export function AtalPensionYojanaCalculator() {
             />
             {/* Gender toggle */}
             <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Users className="w-4 h-4 text-green-700" />
+              <label className="flex items-center gap-2 text-sm font-medium text-ink mb-2">
+                <Users className="w-4 h-4 text-authority-green" />
                 Gender
               </label>
               <div className="flex gap-2">
@@ -262,15 +262,15 @@ export function AtalPensionYojanaCalculator() {
                     onClick={() => setGender(g)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       gender === g
-                        ? "bg-green-700 text-white"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        ? "bg-authority-green text-white"
+                        : "bg-gray-100 text-ink-60 hover:bg-gray-200"
                     }`}
                   >
                     {g === "male" ? "Male" : "Female"}
                   </button>
                 ))}
               </div>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-ink-60 mt-1">
                 Same contribution for both — spouse gets pension after death
               </p>
             </div>
@@ -308,25 +308,25 @@ export function AtalPensionYojanaCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       {/* Comparison table: all pension options for current age */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          <Shield className="w-4 h-4 text-green-700" />
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3 flex items-center gap-2">
+          <Shield className="w-4 h-4 text-authority-green" />
           All Pension Options at Age {currentAge}
         </h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left py-2 px-3 text-gray-500 font-medium">
+              <tr className="border-b border-ink/5">
+                <th className="text-left py-2 px-3 text-ink-60 font-medium">
                   Pension/Month
                 </th>
-                <th className="text-right py-2 px-3 text-gray-500 font-medium">
+                <th className="text-right py-2 px-3 text-ink-60 font-medium">
                   Contribution/Month
                 </th>
-                <th className="text-right py-2 px-3 text-gray-500 font-medium">
+                <th className="text-right py-2 px-3 text-ink-60 font-medium">
                   Total Paid
                 </th>
-                <th className="text-right py-2 px-3 text-gray-500 font-medium">
+                <th className="text-right py-2 px-3 text-ink-60 font-medium">
                   Corpus at 60
                 </th>
               </tr>
@@ -337,25 +337,25 @@ export function AtalPensionYojanaCalculator() {
                   key={row.pension}
                   className={`border-b border-gray-50 ${
                     row.pension === desiredPension
-                      ? "bg-green-50"
-                      : "hover:bg-gray-50"
+                      ? "bg-action-green/10"
+                      : "hover:bg-canvas"
                   }`}
                 >
-                  <td className="py-2.5 px-3 font-semibold text-gray-900">
+                  <td className="py-2.5 px-3 font-display font-semibold text-ink">
                     {formatINR(row.pension)}
                     {row.pension === desiredPension && (
-                      <span className="ml-2 text-[10px] bg-green-700 text-white px-1.5 py-0.5 rounded-full">
+                      <span className="ml-2 text-[10px] bg-authority-green text-white px-1.5 py-0.5 rounded-full">
                         Selected
                       </span>
                     )}
                   </td>
-                  <td className="py-2.5 px-3 text-right text-gray-700">
+                  <td className="py-2.5 px-3 text-right text-ink">
                     {formatINR(row.monthlyContribution)}
                   </td>
-                  <td className="py-2.5 px-3 text-right text-gray-700">
+                  <td className="py-2.5 px-3 text-right text-ink">
                     {formatINR(row.totalPaid)}
                   </td>
-                  <td className="py-2.5 px-3 text-right font-semibold text-green-700">
+                  <td className="py-2.5 px-3 text-right font-semibold text-authority-green">
                     {formatINR(row.corpus)}
                   </td>
                 </tr>
@@ -366,8 +366,8 @@ export function AtalPensionYojanaCalculator() {
       </div>
 
       {/* Chart: Contribution growth to corpus */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Contribution vs Estimated Corpus Growth
         </h3>
         <div className="h-[240px] sm:h-[280px]">
@@ -426,15 +426,15 @@ export function AtalPensionYojanaCalculator() {
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+        <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
           <div className="flex items-center gap-2">
             <div
               className="w-3 h-3 rounded-sm"
               style={{ backgroundColor: "#d97706" }}
             />
             <div>
-              <p className="text-[11px] text-gray-400">Total Contributed</p>
-              <p className="text-sm font-bold text-gray-900">
+              <p className="text-[11px] text-ink-60">Total Contributed</p>
+              <p className="text-sm font-display font-bold text-ink">
                 {formatINR(result.totalAmountPaid)}
               </p>
             </div>
@@ -445,8 +445,8 @@ export function AtalPensionYojanaCalculator() {
               style={{ backgroundColor: "#166534" }}
             />
             <div>
-              <p className="text-[11px] text-gray-400">Corpus at 60</p>
-              <p className="text-sm font-bold text-gray-900">
+              <p className="text-[11px] text-ink-60">Corpus at 60</p>
+              <p className="text-sm font-display font-bold text-ink">
                 {formatINR(result.corpus)}
               </p>
             </div>

@@ -219,14 +219,14 @@ export function ChildEducationCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Education Plan Details
           </h2>
           <div className="space-y-5">
             {/* Education Goal Selector */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-2 block">
+              <label className="text-xs font-medium text-ink-60 mb-2 block">
                 Education Goal
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -234,14 +234,14 @@ export function ChildEducationCalculator() {
                   <button
                     key={goal.label}
                     onClick={() => handleGoalChange(idx)}
-                    className={`text-left px-3 py-2 rounded-xl text-xs font-medium border transition-all ${
+                    className={`text-left px-3 py-2 rounded-sm text-xs font-medium border transition-all ${
                       goalIndex === idx
-                        ? "bg-green-50 border-green-500 text-green-800"
-                        : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
+                        ? "bg-action-green/10 border-green-500 text-green-800"
+                        : "bg-white border-ink/10 text-ink-60 hover:border-gray-300"
                     }`}
                   >
                     <span className="block truncate">{goal.label}</span>
-                    <span className="text-[10px] text-gray-400">
+                    <span className="text-[10px] text-ink-60">
                       {formatINR(goal.cost)} (2026)
                     </span>
                   </button>
@@ -344,8 +344,8 @@ export function ChildEducationCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Savings Growth vs Education Cost
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -404,15 +404,15 @@ export function ChildEducationCalculator() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
             <div className="flex items-center gap-2">
               <div
                 className="w-3 h-3 rounded-sm"
                 style={{ backgroundColor: "#22c55e" }}
               />
               <div>
-                <p className="text-[11px] text-gray-400">Your Savings</p>
-                <p className="text-sm font-bold text-gray-900">
+                <p className="text-[11px] text-ink-60">Your Savings</p>
+                <p className="text-sm font-display font-bold text-ink">
                   {formatINR(
                     result.yearlyData[result.yearlyData.length - 1]?.savings ??
                       0,
@@ -426,8 +426,8 @@ export function ChildEducationCalculator() {
                 style={{ backgroundColor: "#d97706" }}
               />
               <div>
-                <p className="text-[11px] text-gray-400">Future Cost</p>
-                <p className="text-sm font-bold text-gray-900">
+                <p className="text-[11px] text-ink-60">Future Cost</p>
+                <p className="text-sm font-display font-bold text-ink">
                   {formatINR(result.futureCost)}
                 </p>
               </div>

@@ -29,15 +29,15 @@ export default function RiskResult({ score, profile, onRetake }: RiskResultProps
             {/* Score & Profile Header */}
             <div className="text-center space-y-4">
                 <div className="inline-block">
-                     <span className="text-sm font-bold text-gray-500 uppercase tracking-wider">Your Risk Score</span>
-                     <div className="text-6xl font-bold text-primary-600 my-2">{score}<span className="text-2xl text-gray-600">/48</span></div>
+                     <span className="text-sm font-bold text-ink-60 uppercase tracking-wider">Your Risk Score</span>
+                     <div className="text-6xl font-bold text-primary-600 my-2">{score}<span className="text-2xl text-ink-60">/48</span></div>
                 </div>
                 
                 <div>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                    <h2 className="text-3xl font-display font-bold text-ink dark:text-white mb-2">
                         {profile.label} Investor
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    <p className="text-ink-60 dark:text-ink-60 max-w-2xl mx-auto">
                         {profile.description}
                     </p>
                 </div>
@@ -85,17 +85,17 @@ export default function RiskResult({ score, profile, onRetake }: RiskResultProps
                     <CardContent className="space-y-6">
                         <div className="grid grid-cols-1 gap-3">
                             {profile.recommendations.map((rec, idx) => (
-                                <div key={idx} className="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
+                                <div key={idx} className="flex items-center p-3 bg-canvas dark:bg-gray-800 rounded-lg border border-ink/5 dark:border-gray-700">
                                     <div className="bg-success-100 dark:bg-success-900/30 p-2 rounded-full mr-3">
                                         <ArrowRight className="w-4 h-4 text-success-600 dark:text-success-400" />
                                     </div>
-                                    <span className="font-medium text-gray-700 dark:text-gray-200">{rec}</span>
+                                    <span className="font-medium text-ink dark:text-gray-200">{rec}</span>
                                 </div>
                             ))}
                         </div>
                         
-                        <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-                            <h4 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Example Portfolio</h4>
+                        <div className="pt-4 border-t border-ink/5 dark:border-gray-800">
+                            <h4 className="text-sm font-semibold text-ink-60 mb-3 uppercase tracking-wider">Example Portfolio</h4>
                             <div className="flex gap-2 flex-wrap">
                                 {profile.allocation.equity > 0 && <Badge variant="outline" className="border-primary-200 text-primary-700 bg-primary-50">Equity {profile.allocation.equity}%</Badge>}
                                 {profile.allocation.debt > 0 && <Badge variant="outline" className="border-secondary-200 text-secondary-700 bg-secondary-50">Debt {profile.allocation.debt}%</Badge>}

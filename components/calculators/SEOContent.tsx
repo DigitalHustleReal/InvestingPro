@@ -18,16 +18,16 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
     return (
         <div className="space-y-8 mt-12">
             {/* SEO-Optimized Introduction */}
-            <Card className="border-0 shadow-lg rounded-xl bg-gradient-to-br from-gray-50 dark:from-gray-900 to-white dark:to-gray-800">
+            <Card className="border-0 shadow-lg rounded-sm bg-gradient-to-br from-gray-50 dark:from-gray-900 to-white dark:to-gray-800">
                 <CardContent className="p-8">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{content.h1}</h2>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6">{content.intro}</p>
+                    <h2 className="text-3xl font-display font-bold text-ink dark:text-gray-100 mb-4">{content.h1}</h2>
+                    <p className="text-lg text-ink-60 dark:text-ink-60 leading-relaxed mb-6">{content.intro}</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {content.benefits.map((benefit, idx) => (
                             <div key={idx} className="flex items-start gap-3">
                                 <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                                <p className="text-gray-700 dark:text-gray-300 font-medium">{benefit}</p>
+                                <p className="text-ink dark:text-ink/20 font-medium">{benefit}</p>
                             </div>
                         ))}
                     </div>
@@ -36,9 +36,9 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
 
             {/* How It Works Section */}
             {'howItWorks' in content && content.howItWorks && (
-                <Card className="border-0 shadow-lg rounded-xl">
+                <Card className="border-0 shadow-lg rounded-sm">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">How to Use {content.title.split(' - ')[0]}</CardTitle>
+                        <CardTitle className="text-2xl font-display font-bold text-ink dark:text-gray-100">How to Use {content.title.split(' - ')[0]}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -48,8 +48,8 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
                                         {step.step}
                                     </div>
                                     <div className="pl-6">
-                                        <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">{step.title}</h3>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{step.description}</p>
+                                        <h3 className="font-display font-bold text-ink dark:text-gray-100 mb-2">{step.title}</h3>
+                                        <p className="text-sm text-ink-60 dark:text-ink-60 leading-relaxed">{step.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -60,9 +60,9 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
 
             {/* FAQ Section */}
             {'faqs' in content && content.faqs && (
-                <Card className="border-0 shadow-lg rounded-xl">
+                <Card className="border-0 shadow-lg rounded-sm">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-2xl font-display font-bold text-ink dark:text-gray-100 flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-primary-600" />
                             Frequently Asked Questions
                         </CardTitle>
@@ -70,11 +70,11 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
                     <CardContent>
                         <Accordion type="single" collapsible className="w-full">
                             {content.faqs.map((faq, idx) => (
-                                <AccordionItem key={idx} value={`item-${idx}`} className="border-b border-gray-200 dark:border-gray-700">
-                                    <AccordionTrigger className="text-left font-semibold text-gray-900 dark:text-gray-100 hover:text-primary-600">
+                                <AccordionItem key={idx} value={`item-${idx}`} className="border-b border-ink/10 dark:border-gray-700">
+                                    <AccordionTrigger className="text-left font-display font-semibold text-ink dark:text-gray-100 hover:text-primary-600">
                                         {faq.q}
                                     </AccordionTrigger>
-                                    <AccordionContent className="text-gray-600 dark:text-gray-400 leading-relaxed pt-2">
+                                    <AccordionContent className="text-ink-60 dark:text-ink-60 leading-relaxed pt-2">
                                         {faq.a}
                                     </AccordionContent>
                                 </AccordionItem>
@@ -85,9 +85,9 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
             )}
 
             {/* Related Calculators */}
-            <Card className="border-0 shadow-lg rounded-xl bg-gradient-to-br from-primary-50 dark:from-primary-900/20 to-success-50 dark:to-success-900/20">
+            <Card className="border-0 shadow-lg rounded-sm bg-gradient-to-br from-primary-50 dark:from-primary-900/20 to-success-50 dark:to-success-900/20">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">Related Calculators</CardTitle>
+                    <CardTitle className="text-2xl font-display font-bold text-ink dark:text-gray-100">Related Calculators</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -95,13 +95,13 @@ export function SEOContent({ calculatorType }: SEOContentProps) {
                             <Link
                                 key={calc}
                                 href={`/calculators?type=${calc.toLowerCase().replace(' ', '-')}`}
-                                className="p-4 bg-white dark:bg-gray-800 rounded-xl hover:shadow-md transition-all group"
+                                className="p-4 bg-white dark:bg-gray-800 rounded-sm hover:shadow-md transition-all group"
                             >
                                 <div className="flex items-center gap-2 mb-2">
                                     <Calculator className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
-                                    <span className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600">{calc}</span>
+                                    <span className="font-display font-semibold text-ink dark:text-gray-100 group-hover:text-primary-600">{calc}</span>
                                 </div>
-                                <ArrowRight className="w-4 h-4 text-gray-600 group-hover:text-primary-600 group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="w-4 h-4 text-ink-60 group-hover:text-primary-600 group-hover:translate-x-1 transition-transform" />
                             </Link>
                         ))}
                     </div>

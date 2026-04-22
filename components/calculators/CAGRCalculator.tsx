@@ -99,14 +99,14 @@ function SliderInput({
   return (
     <div className="space-y-2.5">
       <div className="flex items-center justify-between">
-        <label className="text-[13px] font-medium text-gray-600 flex items-center gap-2">
-          <Icon size={15} className="text-green-600" />
+        <label className="text-[13px] font-medium text-ink-60 flex items-center gap-2">
+          <Icon size={15} className="text-action-green" />
           {label}
         </label>
         {editing ? (
           <input
             type="text"
-            className="w-32 text-right text-sm font-semibold text-green-700 bg-green-50 border border-green-300 rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-green-200"
+            className="w-32 text-right text-sm font-semibold text-authority-green bg-action-green/10 border border-green-300 rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-green-200"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
             onBlur={handleBlur}
@@ -119,7 +119,7 @@ function SliderInput({
               setEditing(true);
               setInputVal(String(value));
             }}
-            className="text-sm font-bold text-green-700 bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg px-3 py-1.5 transition-colors cursor-text"
+            className="text-sm font-bold text-authority-green bg-action-green/10 hover:bg-action-green/20 border border-green-200 rounded-lg px-3 py-1.5 transition-colors cursor-text"
           >
             {display}
           </button>
@@ -132,7 +132,7 @@ function SliderInput({
         max={max}
         step={step}
       />
-      <div className="flex justify-between text-[10px] text-gray-400 -mt-0.5">
+      <div className="flex justify-between text-[10px] text-ink-60 -mt-0.5">
         <span>
           {prefix}
           {min.toLocaleString("en-IN")}
@@ -195,11 +195,11 @@ export function CAGRCalculator() {
 
   const cagrRating =
     result.cagr >= 20
-      ? { label: "Excellent", icon: ArrowUpRight, color: "text-green-600" }
+      ? { label: "Excellent", icon: ArrowUpRight, color: "text-action-green" }
       : result.cagr >= 12
-        ? { label: "Good", icon: ArrowUpRight, color: "text-green-600" }
+        ? { label: "Good", icon: ArrowUpRight, color: "text-action-green" }
         : result.cagr >= 8
-          ? { label: "Average", icon: Minus, color: "text-amber-600" }
+          ? { label: "Average", icon: Minus, color: "text-indian-gold" }
           : {
               label: "Below Avg",
               icon: ArrowDownRight,
@@ -219,8 +219,8 @@ export function CAGRCalculator() {
       {/* ─── Top: Inputs + Result ────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Inputs — always visible, never collapsed */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-6">
+        <div className="bg-white border border-ink/10 rounded-2xl p-6 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-6">
             Enter Investment Details
           </h2>
           <div className="space-y-6">
@@ -260,9 +260,9 @@ export function CAGRCalculator() {
         {/* Result Card — bold, Groww-style */}
         <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 border border-green-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
           <div>
-            <p className="text-sm text-gray-500 font-medium">Your CAGR</p>
+            <p className="text-sm text-ink-60 font-medium">Your CAGR</p>
             <div className="mt-2 flex items-end gap-3">
-              <span className="text-6xl md:text-7xl font-extrabold text-green-700 tracking-tight leading-none">
+              <span className="text-6xl md:text-7xl font-extrabold text-authority-green tracking-tight leading-none">
                 {result.cagr.toFixed(2)}%
               </span>
               <span
@@ -279,31 +279,31 @@ export function CAGRCalculator() {
 
           <div className="grid grid-cols-3 gap-4 mt-8 pt-5 border-t border-green-200/60">
             <div>
-              <p className="text-[11px] text-gray-500 font-medium">Invested</p>
-              <p className="text-[15px] font-bold text-gray-900 mt-0.5">
+              <p className="text-[11px] text-ink-60 font-medium">Invested</p>
+              <p className="text-[15px] font-display font-bold text-ink mt-0.5">
                 {formatCurrency(initialValue)}
               </p>
             </div>
             <div>
-              <p className="text-[11px] text-gray-500 font-medium">
+              <p className="text-[11px] text-ink-60 font-medium">
                 Final Value
               </p>
-              <p className="text-[15px] font-bold text-green-700 mt-0.5">
+              <p className="text-[15px] font-bold text-authority-green mt-0.5">
                 {formatCurrency(finalValue)}
               </p>
             </div>
             <div>
-              <p className="text-[11px] text-gray-500 font-medium">
+              <p className="text-[11px] text-ink-60 font-medium">
                 Absolute Return
               </p>
-              <p className="text-[15px] font-bold text-green-700 mt-0.5">
+              <p className="text-[15px] font-bold text-authority-green mt-0.5">
                 {result.absoluteReturnPct.toFixed(1)}%
               </p>
             </div>
           </div>
 
           {/* Inline nudge */}
-          <p className="text-xs text-gray-500 mt-4 leading-relaxed">
+          <p className="text-xs text-ink-60 mt-4 leading-relaxed">
             {result.cagr >= 15
               ? `Your investment beat Nifty 50's 10-year average (12.5%). Strong performance.`
               : result.cagr >= 8
@@ -316,9 +316,9 @@ export function CAGRCalculator() {
       {/* ─── Middle: Chart + Donut ───────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
         {/* Growth Chart — 2/3 width */}
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <TrendingUp size={15} className="text-green-600" />
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-4 flex items-center gap-2">
+            <TrendingUp size={15} className="text-action-green" />
             Growth Trajectory
           </h3>
           <div className="h-[280px]">
@@ -390,8 +390,8 @@ export function CAGRCalculator() {
         </div>
 
         {/* Donut — 1/3 width */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Investment Split
           </h3>
           <div className="h-[200px]">
@@ -432,7 +432,7 @@ export function CAGRCalculator() {
                   className="w-2.5 h-2.5 rounded-full"
                   style={{ backgroundColor: d.color }}
                 />
-                <span className="text-gray-500">{d.name}</span>
+                <span className="text-ink-60">{d.name}</span>
               </div>
             ))}
           </div>
@@ -442,8 +442,8 @@ export function CAGRCalculator() {
       {/* ─── Bottom: Benchmarks + Formula ────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         {/* Benchmark Comparison */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-4">
             Your CAGR vs Benchmarks
           </h3>
           <div className="space-y-3">
@@ -452,8 +452,8 @@ export function CAGRCalculator() {
               return (
                 <div key={bm.name}>
                   <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-xs text-gray-500">{bm.name}</span>
-                    <span className="text-xs font-semibold text-gray-700">
+                    <span className="text-xs text-ink-60">{bm.name}</span>
+                    <span className="text-xs font-semibold text-ink">
                       {bm.cagr}%
                     </span>
                   </div>
@@ -469,18 +469,18 @@ export function CAGRCalculator() {
               );
             })}
             {/* Your CAGR */}
-            <div className="pt-3 border-t border-gray-100">
+            <div className="pt-3 border-t border-ink/5">
               <div className="flex justify-between items-center mb-1.5">
-                <span className="text-xs font-bold text-green-700">
+                <span className="text-xs font-bold text-authority-green">
                   Your CAGR
                 </span>
-                <span className="text-xs font-bold text-green-700">
+                <span className="text-xs font-bold text-authority-green">
                   {result.cagr.toFixed(2)}%
                 </span>
               </div>
-              <div className="h-2.5 bg-green-100 rounded-full overflow-hidden">
+              <div className="h-2.5 bg-action-green/20 rounded-full overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-green-600 transition-all duration-500"
+                  className="h-full rounded-full bg-action-green transition-all duration-500"
                   style={{
                     width: `${Math.min((result.cagr / Math.max(result.cagr, 25)) * 100, 100)}%`,
                   }}
@@ -491,38 +491,38 @@ export function CAGRCalculator() {
         </div>
 
         {/* Formula */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-4">
             How CAGR is Calculated
           </h3>
-          <div className="bg-gray-50 rounded-xl p-4 text-center mb-5">
-            <p className="text-base font-mono text-gray-700 tracking-wide">
+          <div className="bg-canvas rounded-sm p-4 text-center mb-5">
+            <p className="text-base font-mono text-ink tracking-wide">
               CAGR = (FV / IV)<sup className="text-xs">1/n</sup> − 1
             </p>
           </div>
           <div className="grid grid-cols-3 gap-3">
-            <div className="bg-green-50 rounded-xl p-3 text-center">
-              <p className="text-[10px] text-gray-500 font-medium">FV / IV</p>
-              <p className="text-base font-bold text-green-700 mt-1">
+            <div className="bg-action-green/10 rounded-sm p-3 text-center">
+              <p className="text-[10px] text-ink-60 font-medium">FV / IV</p>
+              <p className="text-base font-bold text-authority-green mt-1">
                 {(finalValue / initialValue).toFixed(2)}x
               </p>
             </div>
-            <div className="bg-green-50 rounded-xl p-3 text-center">
-              <p className="text-[10px] text-gray-500 font-medium">
+            <div className="bg-action-green/10 rounded-sm p-3 text-center">
+              <p className="text-[10px] text-ink-60 font-medium">
                 Power (1/n)
               </p>
-              <p className="text-base font-bold text-green-700 mt-1">
+              <p className="text-base font-bold text-authority-green mt-1">
                 {(1 / years).toFixed(3)}
               </p>
             </div>
-            <div className="bg-green-50 rounded-xl p-3 text-center">
-              <p className="text-[10px] text-gray-500 font-medium">CAGR</p>
-              <p className="text-base font-bold text-green-700 mt-1">
+            <div className="bg-action-green/10 rounded-sm p-3 text-center">
+              <p className="text-[10px] text-ink-60 font-medium">CAGR</p>
+              <p className="text-base font-bold text-authority-green mt-1">
                 {result.cagr.toFixed(2)}%
               </p>
             </div>
           </div>
-          <p className="text-[11px] text-gray-400 mt-4 leading-relaxed">
+          <p className="text-[11px] text-ink-60 mt-4 leading-relaxed">
             CAGR smooths out investment returns over time, showing the constant
             annual rate needed to grow from initial to final value. Unlike
             absolute returns, it accounts for compounding — making it the best

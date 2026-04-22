@@ -83,18 +83,18 @@ export default function RelatedArticles({
     if (variant === 'sidebar') {
         return (
             <div className={cn("space-y-4", className)}>
-                <h3 className="font-bold text-lg text-gray-900 dark:text-white flex items-center gap-2">
+                <h3 className="font-bold text-lg text-ink dark:text-white flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-primary-500" />
                     {title}
                 </h3>
                 <div className="space-y-3">
                     {articles.map((article) => (
                         <Link key={article.id} href={`/articles/${article.slug}`}>
-                            <div className="group p-3 bg-gray-50 dark:bg-gray-800 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                                <h4 className="font-semibold text-sm text-gray-900 dark:text-white group-hover:text-primary-600 line-clamp-2 mb-1">
+                            <div className="group p-3 bg-canvas dark:bg-gray-800 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <h4 className="font-semibold text-sm text-ink dark:text-white group-hover:text-primary-600 line-clamp-2 mb-1">
                                     {article.title}
                                 </h4>
-                                <div className="flex items-center gap-2 text-xs text-gray-500">
+                                <div className="flex items-center gap-2 text-xs text-ink-60">
                                     <Badge variant="outline" className="text-[10px] px-1.5 py-0">
                                         {article.category.replace(/-/g, ' ')}
                                     </Badge>
@@ -118,7 +118,7 @@ export default function RelatedArticles({
         return (
             <div className={cn("space-y-6", className)}>
                 <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-xl text-gray-900 dark:text-white flex items-center gap-2">
+                    <h3 className="font-bold text-xl text-ink dark:text-white flex items-center gap-2">
                         <TrendingUp className="w-5 h-5 text-primary-500" />
                         {title}
                     </h3>
@@ -144,15 +144,15 @@ export default function RelatedArticles({
                                     <Badge variant="outline" className="text-xs mb-2">
                                         {article.category.replace(/-/g, ' ')}
                                     </Badge>
-                                    <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-primary-600 line-clamp-2 mb-2">
+                                    <h4 className="font-bold text-ink dark:text-white group-hover:text-primary-600 line-clamp-2 mb-2">
                                         {article.title}
                                     </h4>
                                     {article.excerpt && (
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                                        <p className="text-sm text-ink-60 dark:text-ink-60 line-clamp-2 mb-3">
                                             {article.excerpt}
                                         </p>
                                     )}
-                                    <div className="flex items-center justify-between text-xs text-gray-500">
+                                    <div className="flex items-center justify-between text-xs text-ink-60">
                                         {article.read_time && (
                                             <span className="flex items-center gap-1">
                                                 <Clock className="w-3 h-3" />
@@ -173,11 +173,11 @@ export default function RelatedArticles({
     // List variant
     return (
         <div className={cn("space-y-4", className)}>
-            <h3 className="font-bold text-xl text-gray-900 dark:text-white">{title}</h3>
+            <h3 className="font-bold text-xl text-ink dark:text-white">{title}</h3>
             <div className="space-y-3">
                 {articles.map((article) => (
                     <Link key={article.id} href={`/articles/${article.slug}`}>
-                        <div className="group flex gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <div className="group flex gap-4 p-4 bg-canvas dark:bg-gray-800 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                             {article.featured_image && (
                                 <div className="w-24 h-16 rounded-lg overflow-hidden shrink-0">
                                     <img
@@ -188,15 +188,15 @@ export default function RelatedArticles({
                                 </div>
                             )}
                             <div className="flex-1 min-w-0">
-                                <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 line-clamp-1 mb-1">
+                                <h4 className="font-semibold text-ink dark:text-white group-hover:text-primary-600 line-clamp-1 mb-1">
                                     {article.title}
                                 </h4>
                                 {article.excerpt && (
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-1 mb-2">
+                                    <p className="text-sm text-ink-60 dark:text-ink-60 line-clamp-1 mb-2">
                                         {article.excerpt}
                                     </p>
                                 )}
-                                <div className="flex items-center gap-3 text-xs text-gray-500">
+                                <div className="flex items-center gap-3 text-xs text-ink-60">
                                     <Badge variant="outline" className="text-[10px]">
                                         {article.category.replace(/-/g, ' ')}
                                     </Badge>
@@ -205,7 +205,7 @@ export default function RelatedArticles({
                                     )}
                                 </div>
                             </div>
-                            <ArrowRight className="w-5 h-5 text-gray-600 shrink-0 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
+                            <ArrowRight className="w-5 h-5 text-ink-60 shrink-0 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
                         </div>
                     </Link>
                 ))}

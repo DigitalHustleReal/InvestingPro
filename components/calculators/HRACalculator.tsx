@@ -137,11 +137,11 @@ export function HRACalculator() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-6 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             HRA Details
           </h2>
-          <div className="flex items-center gap-2 mb-6 p-1 bg-gray-100 rounded-xl">
+          <div className="flex items-center gap-2 mb-6 p-1 bg-gray-100 rounded-sm">
             {(["metro", "non-metro"] as const).map((type) => (
               <button
                 key={type}
@@ -149,15 +149,15 @@ export function HRACalculator() {
                 className={cn(
                   "flex-1 py-2 rounded-lg text-sm font-medium transition-all",
                   cityType === type
-                    ? "bg-white text-green-700 shadow-sm"
-                    : "text-gray-500 hover:text-gray-700",
+                    ? "bg-white text-authority-green shadow-sm"
+                    : "text-ink-60 hover:text-ink",
                 )}
               >
                 {type === "metro" ? "Metro (50%)" : "Non-Metro (40%)"}
               </button>
             ))}
           </div>
-          <p className="text-[10px] text-gray-400 -mt-4 mb-5">
+          <p className="text-[10px] text-ink-60 -mt-4 mb-5">
             Metro: Delhi, Mumbai, Chennai, Kolkata only.
           </p>
           <div className="space-y-6">
@@ -193,7 +193,7 @@ export function HRACalculator() {
             />
           </div>
           {rentPaid > 100000 && (
-            <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800">
+            <div className="mt-4 bg-indian-gold/10 border border-indian-gold/30 rounded-lg p-3 text-xs text-amber-800">
               <Info size={14} className="inline mr-1" /> Rent above ₹1,00,000/mo
               requires landlord&apos;s PAN.
             </div>
@@ -231,9 +231,9 @@ export function HRACalculator() {
 
       {/* Three-Rule Comparison — key differentiator for HRA */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <Calculator size={15} className="text-green-600" /> Three-Rule
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-4 flex items-center gap-2">
+            <Calculator size={15} className="text-action-green" /> Three-Rule
             Comparison (Lowest Wins)
           </h3>
           <div className="space-y-3">
@@ -241,38 +241,38 @@ export function HRACalculator() {
               <div
                 key={r.rule}
                 className={cn(
-                  "flex items-center gap-3 p-4 rounded-xl border transition-all",
+                  "flex items-center gap-3 p-4 rounded-sm border transition-all",
                   r.rule === result.limitingRule
-                    ? "bg-green-50 border-green-300 ring-2 ring-green-100"
-                    : "bg-white border-gray-100",
+                    ? "bg-action-green/10 border-green-300 ring-2 ring-green-100"
+                    : "bg-white border-ink/5",
                 )}
               >
                 <div
                   className={cn(
                     "w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0",
                     r.rule === result.limitingRule
-                      ? "bg-green-600 text-white"
-                      : "bg-gray-100 text-gray-500",
+                      ? "bg-action-green text-white"
+                      : "bg-gray-100 text-ink-60",
                   )}
                 >
                   {r.rule}
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-gray-700">{r.label}</p>
+                  <p className="text-sm text-ink">{r.label}</p>
                 </div>
                 <div className="text-right">
                   <p
                     className={cn(
                       "text-base font-bold",
                       r.rule === result.limitingRule
-                        ? "text-green-700"
-                        : "text-gray-600",
+                        ? "text-authority-green"
+                        : "text-ink-60",
                     )}
                   >
                     {formatINR(r.value)}
                   </p>
                   {r.rule === result.limitingRule && (
-                    <span className="text-[10px] text-green-600 font-semibold">
+                    <span className="text-[10px] text-action-green font-semibold">
                       LOWEST = EXEMPT
                     </span>
                   )}
@@ -282,8 +282,8 @@ export function HRACalculator() {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             HRA Split
           </h3>
           <div className="h-[180px]">
@@ -321,25 +321,25 @@ export function HRACalculator() {
                   className="w-2.5 h-2.5 rounded-full"
                   style={{ backgroundColor: d.color }}
                 />
-                <span className="text-gray-500">{d.name}</span>
+                <span className="text-ink-60">{d.name}</span>
               </div>
             ))}
           </div>
 
           {/* Tax savings at different brackets */}
-          <div className="mt-5 pt-4 border-t border-gray-100 space-y-3">
-            <div className="bg-green-50 rounded-lg p-3 text-center">
-              <p className="text-[10px] text-gray-500">30% bracket</p>
-              <p className="text-xl font-bold text-green-700">
+          <div className="mt-5 pt-4 border-t border-ink/5 space-y-3">
+            <div className="bg-action-green/10 rounded-lg p-3 text-center">
+              <p className="text-[10px] text-ink-60">30% bracket</p>
+              <p className="text-xl font-bold text-authority-green">
                 {formatINR(result.taxSaved30)}
-                <span className="text-xs font-normal text-gray-400">/yr</span>
+                <span className="text-xs font-normal text-ink-60">/yr</span>
               </p>
             </div>
-            <div className="bg-gray-50 rounded-lg p-3 text-center">
-              <p className="text-[10px] text-gray-500">20% bracket</p>
-              <p className="text-lg font-bold text-gray-700">
+            <div className="bg-canvas rounded-sm p-3 text-center">
+              <p className="text-[10px] text-ink-60">20% bracket</p>
+              <p className="text-lg font-bold text-ink">
                 {formatINR(result.taxSaved20)}
-                <span className="text-xs font-normal text-gray-400">/yr</span>
+                <span className="text-xs font-normal text-ink-60">/yr</span>
               </p>
             </div>
           </div>
