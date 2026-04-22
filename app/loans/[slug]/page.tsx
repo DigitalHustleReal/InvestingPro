@@ -358,7 +358,7 @@ export default async function LoanDetailPage({
                   <p className="text-[10px] text-muted-foreground text-center mb-3">
                     Check eligibility in 2 min -- No CIBIL impact
                   </p>
-                  <div className="bg-action-green/10 dark:bg-green-900/30 border border-green-500/50 rounded-lg p-3 text-center">
+                  <div className="bg-action-green/10 dark:bg-green-900/30 border border-green-500/50 rounded-sm p-3 text-center">
                     <Clock className="w-5 h-5 mx-auto mb-1 text-action-green dark:text-green-400" />
                     <p className="text-sm text-action-green dark:text-green-400 font-semibold">
                       Disbursal in 48 hours
@@ -411,7 +411,7 @@ export default async function LoanDetailPage({
                     </p>
                   </div>
                 </div>
-                <div className="bg-white/10 rounded-lg p-3">
+                <div className="bg-white/10 rounded-sm p-3">
                   <p className="text-sm text-green-200">
                     Total Interest: ₹
                     {loan.emiExample.totalInterest.toLocaleString()}
@@ -467,7 +467,7 @@ export default async function LoanDetailPage({
                 </ul>
 
                 {loan.specialOffers && (
-                  <div className="mt-4 bg-indian-gold/10 dark:bg-amber-900/20 border border-indian-gold/30 dark:border-amber-700 rounded-lg p-4">
+                  <div className="mt-4 bg-indian-gold/10 dark:bg-amber-900/20 border border-indian-gold/30 dark:border-amber-700 rounded-sm p-4">
                     <p className="text-sm font-semibold text-amber-800 dark:text-amber-400 mb-1">
                       Special Offer
                     </p>
@@ -503,9 +503,9 @@ export default async function LoanDetailPage({
                 </CardContent>
               </Card>
 
-              <Card className="border-red-200 dark:border-red-800">
+              <Card className="border-warning-red/30 dark:border-red-800">
                 <CardHeader className="bg-red-100 dark:bg-red-900/30">
-                  <CardTitle className="text-red-600 dark:text-red-400 flex items-center gap-2">
+                  <CardTitle className="text-warning-red dark:text-red-400 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Disadvantages
                   </CardTitle>
@@ -517,7 +517,7 @@ export default async function LoanDetailPage({
                         key={index}
                         className="flex items-start gap-2 text-sm"
                       >
-                        <XCircle className="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-warning-red dark:text-red-400 flex-shrink-0 mt-0.5" />
                         <span className="text-foreground">{con}</span>
                       </li>
                     ))}
@@ -712,11 +712,11 @@ export default async function LoanDetailPage({
               </Card>
 
               {/* Important Notice */}
-              <Card className="mt-6 bg-red-100 dark:bg-red-900/30 border-red-200 dark:border-red-800">
+              <Card className="mt-6 bg-red-100 dark:bg-red-900/30 border-warning-red/30 dark:border-red-800">
                 <CardContent className="p-4">
                   <div className="flex gap-3">
-                    <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
-                    <div className="text-xs text-red-600 dark:text-red-400">
+                    <AlertTriangle className="w-5 h-5 text-warning-red dark:text-red-400 flex-shrink-0 mt-0.5" />
+                    <div className="text-xs text-warning-red dark:text-red-400">
                       <p className="font-semibold mb-1">Borrow Responsibly</p>
                       <p>
                         Failure to repay may impact your credit score and lead

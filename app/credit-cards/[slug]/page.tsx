@@ -299,14 +299,23 @@ export default async function CreditCardDetailPage(props: {
         }}
       />
 
-      {/* Hero Section - The "Decision Layer" */}
-      <div className="bg-card border-b border-border pt-8 pb-12">
+      {/* Hero Section — NerdWallet+ editorial decision layer */}
+      <div className="bg-canvas border-b-2 border-ink/10 pt-6 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AutoBreadcrumbs />
-          <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
-            {/* Visual Anchor (Left) */}
-            <div className="w-full md:w-1/3 lg:w-1/4 flex-shrink-0">
-              <div className="aspect-[1.586/1] w-full relative rounded-2xl overflow-hidden shadow-2xl shadow-gray-200 ring-1 ring-gray-900/10">
+          {/* Top strip: breadcrumb + advertiser disclosure */}
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-ink/10">
+            <AutoBreadcrumbs />
+            <AffiliateDisclosure
+              variant="inline"
+              hasAffiliateLink={true}
+              className="font-mono text-[11px] uppercase tracking-wider text-ink-60"
+            />
+          </div>
+
+          <div className="grid lg:grid-cols-[340px_1fr] gap-8 lg:gap-10 items-start">
+            {/* LEFT: Card image + approval odds card */}
+            <div className="flex flex-col gap-5">
+              <div className="aspect-[1.586/1] w-full relative rounded-sm overflow-hidden border-2 border-ink/10 bg-ink/5">
                 {card.image ? (
                   <img
                     src={card.image}
@@ -314,140 +323,130 @@ export default async function CreditCardDetailPage(props: {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-900 flex items-center justify-center">
-                    <span className="text-white font-bold text-2xl">
+                  <div className="w-full h-full bg-ink flex items-center justify-center">
+                    <span className="font-display font-black text-canvas text-3xl tracking-tight">
                       {card.provider}
                     </span>
                   </div>
                 )}
-                {/* Best For Tag overlay */}
-                <div className="absolute top-3 left-3 bg-gray-900/90 backdrop-blur-sm border border-white/20 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1.5 rounded-full shadow-lg z-10">
-                  Best for {card.type}
+                {/* Editor's Pick gold strip — brainstorm editorial signature */}
+                <div className="absolute bottom-0 left-0 right-0 bg-indian-gold text-ink font-mono text-[10px] uppercase tracking-wider font-bold px-3 py-1.5 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-ink" />
+                  Editor&apos;s Pick · Best for {card.type}
                 </div>
               </div>
 
-              {/* Approval Odds Meter (Indian Context Mechanics) */}
-              <div className="mt-6 bg-canvas border-2 border-ink/10 rounded-sm p-4 text-center">
-                <p className="text-xs font-bold text-ink-60 uppercase tracking-wider mb-2">
+              {/* Approval odds — brainstorm palette only */}
+              <div className="bg-white border-2 border-ink/10 rounded-sm p-4">
+                <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60 mb-2 font-semibold">
                   Approval Odds
-                </p>
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
-                  {/* Mock logic for visualization - typically would be dynamic based on user profile */}
+                </div>
+                <div className="h-1.5 bg-ink/5 rounded-sm overflow-hidden mb-2">
                   <div
-                    className={`h-full rounded-full ${card.minCreditScore && card.minCreditScore > 750 ? "w-1/3 bg-red-500" : "w-3/4 bg-action-green/100"}`}
-                  ></div>
-                </div>
-                <p className="text-sm font-semibold text-ink">
-                  {card.minCreditScore && card.minCreditScore > 750
-                    ? "Excellent Credit Req."
-                    : "Good Chance"}
-                  <span className="text-ink-60 dark:text-ink-60 font-normal ml-1">
-                    ({card.minCreditScore}+)
-                  </span>
-                </p>
-              </div>
-            </div>
-
-            {/* Decision Data (Right) */}
-            <div className="flex-1 space-y-6">
-              {/* Header */}
-              <div>
-                <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <span className="text-blue-600 font-bold tracking-tight text-xs uppercase">
-                    {card.provider} Bank
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <TrustBadge type="verified" />
-                    <TrustBadge type="fact-checked" />
-                  </div>
-                </div>
-                <h1 className="font-display font-black text-[36px] md:text-[56px] text-ink tracking-tight mb-4 leading-[1.05]">
-                  {card.name}
-                </h1>
-
-                {/* Pre-Launch Critical: Affiliate Disclosure above the fold */}
-                <div className="mb-6">
-                  <AffiliateDisclosure
-                    variant="inline"
-                    hasAffiliateLink={true}
-                    className="bg-gray-50 border-gray-200 rounded-lg p-3 max-w-fit"
+                    className={`h-full rounded-sm ${
+                      card.minCreditScore && card.minCreditScore > 750
+                        ? "w-1/3 bg-warning-red"
+                        : "w-3/4 bg-action-green"
+                    }`}
                   />
                 </div>
+                <div className="flex items-baseline justify-between">
+                  <span className="font-display font-bold text-sm text-ink">
+                    {card.minCreditScore && card.minCreditScore > 750
+                      ? "Excellent credit"
+                      : "Good chance"}
+                  </span>
+                  <span className="font-mono text-[11px] text-ink-60 tabular-nums">
+                    CIBIL {card.minCreditScore}+
+                  </span>
+                </div>
+              </div>
 
-                <p className="text-lg text-ink-60 leading-relaxed max-w-2xl">
+              {/* Secondary CTA — eligibility check */}
+              <a
+                href="#eligibility-checker"
+                className="block text-center font-mono text-[11px] uppercase tracking-wider text-ink border-2 border-ink py-3 rounded-sm hover:bg-ink hover:text-canvas transition-colors"
+              >
+                Check eligibility &rarr;
+              </a>
+            </div>
+
+            {/* RIGHT: Editorial content */}
+            <div className="min-w-0">
+              {/* Eyebrow — provider + mono */}
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-mono text-[11px] uppercase tracking-wider text-indian-gold font-semibold">
+                  {card.provider} Bank
+                </span>
+                <span className="text-ink/20">·</span>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-ink-60">
+                  Credit Card
+                </span>
+              </div>
+
+              {/* Playfair hero title */}
+              <h1 className="font-display font-black text-[36px] md:text-[52px] lg:text-[60px] text-ink tracking-tight leading-[1.02] mb-5">
+                {card.name}
+              </h1>
+
+              {/* Our Take — editorial verdict inline, always visible */}
+              <div className="mb-5 pb-5 border-b border-ink/10">
+                <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-1.5 font-semibold">
+                  Our Take
+                </div>
+                <p className="font-display text-[17px] text-ink leading-snug max-w-2xl">
                   {card.description}
                 </p>
+              </div>
+
+              {/* Byline row: author + share */}
+              <div className="flex items-center justify-between gap-4 mb-6">
                 <AuthorByline />
                 <ProductShareButtons
                   productName={card.name}
                   productUrl={`/credit-cards/${params.slug}`}
-                  className="mt-3"
                 />
               </div>
 
-              {/* Expert Opinion Box - NEW */}
-              <ExpertOpinion
-                productName={card.name}
-                opinion={getExpertOpinion(params.slug, "credit_card")}
-              />
-
-              {/* Application Statistics - NEW */}
-              <ApplicationStats productName={card.name} className="mt-6" />
-
-              {/* Trust Strip & Real Math */}
-              <div className="grid grid-cols-3 gap-4 border-y border-gray-100 py-6">
-                <div>
-                  <p className="text-xs text-ink-60 uppercase font-bold mb-1">
+              {/* Key stats — mono data strip with SQUARE SCORE at left */}
+              <div className="grid grid-cols-[auto_1fr_1fr_1fr] gap-0 border-2 border-ink/10 rounded-sm mb-6 bg-white">
+                {/* Square score badge */}
+                <div className="flex flex-col items-center justify-center border-r-2 border-ink/10 px-5 py-4">
+                  <span className="font-mono text-[28px] font-bold text-ink leading-none tabular-nums">
+                    {Math.round((card.rating || 4) * 20)}
+                  </span>
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-ink-60 mt-0.5">
+                    /100
+                  </span>
+                </div>
+                <div className="px-4 py-3 border-r border-ink/10">
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60">
                     Annual Fee
-                  </p>
-                  <p className="text-xl font-display font-bold text-ink">
-                    ₹{card.annualFee}
-                  </p>
-                  <p className="text-xs text-ink-60 dark:text-ink-60">
-                    + GST
-                  </p>
+                  </div>
+                  <div className="font-mono text-[17px] font-bold text-ink tabular-nums mt-0.5">
+                    ₹{(card.annualFee || 0).toLocaleString("en-IN")}
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs text-ink-60 uppercase font-bold mb-1">
-                    Reward Value
-                  </p>
-                  <p className="text-xl font-bold text-action-green">
-                    ~1.5% - 3.3%
-                  </p>
-                  <p className="text-xs text-ink-60 dark:text-ink-60">
-                    Real Return
-                  </p>
+                <div className="px-4 py-3 border-r border-ink/10">
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60">
+                    Reward Rate
+                  </div>
+                  <div className="font-mono text-[17px] font-bold text-action-green tabular-nums mt-0.5">
+                    {card.rewardRate || "1.5–3.3%"}
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs text-ink-60 uppercase font-bold mb-1">
-                    Rating
-                  </p>
-                  <div className="flex items-center gap-1">
-                    <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
-                    <span className="text-xl font-display font-bold text-ink">
-                      {card.rating}
-                    </span>
-                    <span className="text-sm text-ink-60 dark:text-ink-60">
-                      /5
-                    </span>
+                <div className="px-4 py-3">
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60">
+                    Interest
+                  </div>
+                  <div className="font-mono text-[17px] font-bold text-ink tabular-nums mt-0.5">
+                    {card.interestRate || "42% p.a."}
                   </div>
                 </div>
               </div>
 
-              {/* Quick Math Value Calculator (New Audit Feature) */}
-              <div className="mb-6">
-                <CreditCardValueCalculator
-                  annualFee={card.annualFee}
-                  cashbackRate={
-                    card.type === "Premium" || card.type === "Travel"
-                      ? 2.5
-                      : 1.5
-                  }
-                />
-              </div>
-
-              {/* CTA Area */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              {/* Primary CTA */}
+              <div className="max-w-sm mb-3">
                 <ApplyNowCTA
                   href={`/go/${params.slug}`}
                   productName={card.name}
@@ -457,23 +456,32 @@ export default async function CreditCardDetailPage(props: {
                   providerName={card.provider}
                   sourcePage="credit-card-detail"
                   variant="default"
-                  className="flex-1 sm:flex-none"
                 />
-                <a href="#eligibility-checker">
-                  <Button
-                    variant="outline"
-                    className="h-auto py-3 px-6 rounded-sm border-ink/10 dark:border-gray-700 text-ink dark:text-ink/20 font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
-                  >
-                    Check Eligibility
-                  </Button>
-                </a>
               </div>
-
-              <p className="text-xs text-ink-60 dark:text-ink-60 flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3" />
-                Secure application via {card.provider} official site.
+              <p className="font-mono text-[10px] uppercase tracking-wider text-ink-60 flex items-center gap-2">
+                <ShieldCheck className="w-3 h-3 text-action-green" />
+                Secure application on {card.provider}&apos;s official site
               </p>
             </div>
+          </div>
+
+          {/* Expert opinion + application stats — below hero grid */}
+          <div className="grid md:grid-cols-2 gap-6 mt-10 pt-8 border-t border-ink/10">
+            <ExpertOpinion
+              productName={card.name}
+              opinion={getExpertOpinion(params.slug, "credit_card")}
+            />
+            <ApplicationStats productName={card.name} />
+          </div>
+
+          {/* Quick Math Value Calculator — separate section below */}
+          <div className="mt-8">
+            <CreditCardValueCalculator
+              annualFee={card.annualFee}
+              cashbackRate={
+                card.type === "Premium" || card.type === "Travel" ? 2.5 : 1.5
+              }
+            />
           </div>
         </div>
       </div>
@@ -509,7 +517,7 @@ export default async function CreditCardDetailPage(props: {
             <Card className="border-none bg-action-green/10 dark:bg-green-950/30 overflow-hidden group">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-green-600 text-white rounded-lg group-hover:scale-110 transition-transform">
+                  <div className="p-2 bg-green-600 text-white rounded-sm group-hover:scale-110 transition-transform">
                     <MessageCircle size={18} />
                   </div>
                   <h4 className="font-bold text-foreground">Rate Alerts</h4>
@@ -522,7 +530,7 @@ export default async function CreditCardDetailPage(props: {
                 <WhatsAppAlerts
                   productName={card.name}
                   trigger={
-                    <Button className="w-full bg-action-green hover:bg-authority-green text-white font-black rounded-xl h-12 shadow-lg shadow-green-500/20">
+                    <Button className="w-full bg-action-green hover:bg-authority-green text-white font-black rounded-xl h-12 shadow-none shadow-green-500/20">
                       Activate via WhatsApp
                     </Button>
                   }
@@ -538,7 +546,7 @@ export default async function CreditCardDetailPage(props: {
         <div className="grid lg:grid-cols-[1fr_260px] gap-8">
           <div className="space-y-12">
             {/* Unified Editorial Card */}
-            <Card className="p-8 space-y-12 shadow-xl shadow-gray-200/50">
+            <Card className="p-8 space-y-12 shadow-none shadow-gray-200/50">
               {/* Key Features Section */}
               <section id="key-features" className="scroll-mt-24">
                 <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-ink">
@@ -549,7 +557,7 @@ export default async function CreditCardDetailPage(props: {
                   {card.keyFeatures.map((feature, index) => (
                     <li
                       key={index}
-                      className="flex items-start gap-3 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg"
+                      className="flex items-start gap-3 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-sm"
                     >
                       <div className="bg-white dark:bg-gray-700 rounded-full p-1 mt-0.5 shadow-sm">
                         <CheckCircle2 className="w-4 h-4 text-action-green flex-shrink-0" />
@@ -568,7 +576,7 @@ export default async function CreditCardDetailPage(props: {
 
               <div
                 id="rating"
-                className="p-8 bg-gray-50 rounded-2xl scroll-mt-24"
+                className="p-8 bg-gray-50 rounded-sm scroll-mt-24"
               >
                 <h3 className="text-xl font-bold mb-6 text-ink">
                   Rating Overview
@@ -679,7 +687,7 @@ export default async function CreditCardDetailPage(props: {
                   {card.benefits.map((benefit, index) => (
                     <div key={index}>
                       <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-ink">
-                        <div className="p-2 bg-gray-100 rounded-lg text-ink">
+                        <div className="p-2 bg-gray-100 rounded-sm text-ink">
                           {benefit.category === "Travel" && (
                             <Plane className="w-5 h-5" />
                           )}
@@ -718,7 +726,7 @@ export default async function CreditCardDetailPage(props: {
               {/* Pros & Cons Section (Embedded) */}
               <section
                 id="pros-cons"
-                className="bg-gray-50/50 rounded-2xl p-2 border border-gray-100 scroll-mt-24"
+                className="bg-gray-50/50 rounded-sm p-2 border border-gray-100 scroll-mt-24"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-200">
                   {/* Pros */}
@@ -750,7 +758,7 @@ export default async function CreditCardDetailPage(props: {
                           key={index}
                           className="flex items-start gap-2 text-ink text-sm"
                         >
-                          <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                          <XCircle className="w-4 h-4 text-warning-red flex-shrink-0 mt-0.5" />
                           <span>{con}</span>
                         </li>
                       ))}

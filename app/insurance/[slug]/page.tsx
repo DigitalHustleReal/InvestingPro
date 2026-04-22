@@ -333,7 +333,7 @@ export default async function InsuranceDetailPage({
             {/* Exclusions */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-red-600">
+                <CardTitle className="flex items-center gap-2 text-warning-red">
                   <XCircle className="w-5 h-5" />
                   What&apos;s Not Covered
                 </CardTitle>
@@ -342,7 +342,7 @@ export default async function InsuranceDetailPage({
                 <ul className="space-y-3">
                   {insurance.exclusions.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <XCircle className="w-5 h-5 text-warning-red flex-shrink-0 mt-0.5" />
                       <span className="text-muted-foreground">{item}</span>
                     </li>
                   ))}
@@ -374,9 +374,9 @@ export default async function InsuranceDetailPage({
                 </CardContent>
               </Card>
 
-              <Card className="border-red-200 dark:border-red-900">
+              <Card className="border-warning-red/30 dark:border-red-900">
                 <CardHeader className="bg-red-100 dark:bg-red-950/40">
-                  <CardTitle className="text-red-600 flex items-center gap-2">
+                  <CardTitle className="text-warning-red flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -388,7 +388,7 @@ export default async function InsuranceDetailPage({
                         key={index}
                         className="flex items-start gap-2 text-sm"
                       >
-                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-warning-red flex-shrink-0 mt-0.5" />
                         <span className="text-foreground">{con}</span>
                       </li>
                     ))}

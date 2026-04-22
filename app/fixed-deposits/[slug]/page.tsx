@@ -364,9 +364,9 @@ export default async function FixedDepositDetailPage({
                 </CardContent>
               </Card>
 
-              <Card className="border-red-200 dark:border-red-800">
+              <Card className="border-warning-red/30 dark:border-red-800">
                 <CardHeader className="bg-red-100 dark:bg-red-900/30">
-                  <CardTitle className="text-red-600 dark:text-red-400 flex items-center gap-2">
+                  <CardTitle className="text-warning-red dark:text-red-400 flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -378,7 +378,7 @@ export default async function FixedDepositDetailPage({
                         key={index}
                         className="flex items-start gap-2 text-sm"
                       >
-                        <XCircle className="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-warning-red dark:text-red-400 flex-shrink-0 mt-0.5" />
                         <span className="text-foreground">{con}</span>
                       </li>
                     ))}
@@ -469,11 +469,11 @@ export default async function FixedDepositDetailPage({
               </Card>
 
               {/* Safety Notice */}
-              <Card className="mt-6 bg-blue-100 dark:bg-blue-900/30 border-blue-600 dark:border-blue-500">
+              <Card className="mt-6 bg-indian-gold/20 dark:bg-blue-900/30 border-blue-600 dark:border-blue-500">
                 <CardContent className="p-4">
                   <div className="flex gap-3">
-                    <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-                    <div className="text-xs text-blue-600 dark:text-blue-400">
+                    <ShieldCheck className="w-5 h-5 text-indian-gold dark:text-blue-400 flex-shrink-0" />
+                    <div className="text-xs text-indian-gold dark:text-blue-400">
                       <p className="font-semibold mb-1">Safe Investment</p>
                       <p>
                         Bank FDs are insured by DICGC for up to ₹5 Lakh per

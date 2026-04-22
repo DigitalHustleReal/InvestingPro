@@ -450,7 +450,7 @@ const getRiskColor = (risk: string) => {
     case "high":
       return "bg-amber-100 text-indian-gold border-amber-600";
     case "very_high":
-      return "bg-red-100 text-red-600 border-red-200";
+      return "bg-red-100 text-warning-red border-warning-red/30";
     default:
       return "bg-gray-100 text-ink border-gray-200";
   }
@@ -460,7 +460,7 @@ const getReturnColor = (value: number) => {
   if (value >= 15) return "text-action-green";
   if (value >= 10) return "text-action-green";
   if (value >= 5) return "text-indian-gold";
-  return "text-red-600";
+  return "text-warning-red";
 };
 
 export default async function MutualFundDetailPage({
@@ -560,7 +560,7 @@ export default async function MutualFundDetailPage({
                 <AffiliateDisclosure
                   variant="inline"
                   hasAffiliateLink={true}
-                  className="bg-gray-50 border-gray-200 text-ink rounded-lg p-3 max-w-fit"
+                  className="bg-gray-50 border-gray-200 text-ink rounded-sm p-3 max-w-fit"
                 />
               </div>
 
@@ -568,16 +568,16 @@ export default async function MutualFundDetailPage({
 
               {/* Category & Rating */}
               <div className="flex flex-wrap items-center gap-4 mb-6">
-                <div className="bg-action-green/10 px-4 py-2 rounded-lg">
+                <div className="bg-action-green/10 px-4 py-2 rounded-sm">
                   <span className="text-sm text-action-green">Category: </span>
                   <span className="font-semibold">{fund.subCategory}</span>
                 </div>
-                <div className="flex items-center gap-2 bg-indian-gold/100 px-4 py-2 rounded-lg">
-                  <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
+                <div className="flex items-center gap-2 bg-indian-gold/100 px-4 py-2 rounded-sm">
+                  <Star className="w-5 h-5 fill-indian-gold text-indian-gold" />
                   <span className="font-bold">{fund.rating}/5</span>
                 </div>
                 <div
-                  className={`px-4 py-2 rounded-lg border ${getRiskColor(fund.riskLevel)}`}
+                  className={`px-4 py-2 rounded-sm border ${getRiskColor(fund.riskLevel)}`}
                 >
                   <span className="text-sm font-semibold capitalize">
                     {fund.riskLevel.replace("_", " ")} Risk
@@ -590,7 +590,7 @@ export default async function MutualFundDetailPage({
                 {Object.entries(fund.returns).map(([period, value]) => (
                   <div
                     key={period}
-                    className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 text-center"
+                    className="bg-gray-50 dark:bg-gray-800 rounded-sm p-3 text-center"
                   >
                     <p className="text-sm text-action-green mb-1">
                       {period === "sinceInception" ? "Since Inception" : period}
@@ -833,9 +833,9 @@ export default async function MutualFundDetailPage({
                 </CardContent>
               </Card>
 
-              <Card className="border-red-200 bg-red-100/30">
+              <Card className="border-warning-red/30 bg-red-100/30">
                 <CardHeader>
-                  <CardTitle className="text-red-600 flex items-center gap-6 md:p-8">
+                  <CardTitle className="text-warning-red flex items-center gap-6 md:p-8">
                     <XCircle className="w-5 h-5" />
                     Limitations
                   </CardTitle>
@@ -847,7 +847,7 @@ export default async function MutualFundDetailPage({
                         key={index}
                         className="flex items-start gap-2 text-ink"
                       >
-                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
+                        <XCircle className="w-4 h-4 text-warning-red flex-shrink-0 mt-1" />
                         <span className="text-sm">{con}</span>
                       </li>
                     ))}
@@ -1003,14 +1003,14 @@ export default async function MutualFundDetailPage({
 
               {/* Tax Benefits */}
               {fund.taxBenefits && (
-                <Card className="bg-blue-100 border-blue-600">
+                <Card className="bg-indian-gold/20 border-blue-600">
                   <CardHeader>
-                    <CardTitle className="text-base text-blue-600">
+                    <CardTitle className="text-base text-indian-gold">
                       Tax Information
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-blue-600">{fund.taxBenefits}</p>
+                    <p className="text-sm text-indian-gold">{fund.taxBenefits}</p>
                   </CardContent>
                 </Card>
               )}
@@ -1068,7 +1068,7 @@ export default async function MutualFundDetailPage({
                           {period}
                         </td>
                         <td
-                          className={`py-3 px-4 text-right font-bold tabular-nums ${fundReturn >= 0 ? "text-action-green" : "text-red-500"}`}
+                          className={`py-3 px-4 text-right font-bold tabular-nums ${fundReturn >= 0 ? "text-action-green" : "text-warning-red"}`}
                         >
                           {fundReturn}%
                         </td>
@@ -1076,7 +1076,7 @@ export default async function MutualFundDetailPage({
                           {hasBench ? `${benchReturn}%` : "—"}
                         </td>
                         <td
-                          className={`py-3 px-4 text-right font-semibold tabular-nums ${diff != null ? (diff >= 0 ? "text-action-green" : "text-red-500") : "text-ink-60"}`}
+                          className={`py-3 px-4 text-right font-semibold tabular-nums ${diff != null ? (diff >= 0 ? "text-action-green" : "text-warning-red") : "text-ink-60"}`}
                         >
                           {diff != null
                             ? `${diff >= 0 ? "+" : ""}${diff.toFixed(1)}%`
@@ -1109,7 +1109,7 @@ export default async function MutualFundDetailPage({
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-amber-500" />
+                <AlertTriangle className="w-5 h-5 text-indian-gold" />
                 Risk in Plain English
               </CardTitle>
             </CardHeader>
@@ -1121,7 +1121,7 @@ export default async function MutualFundDetailPage({
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
                         <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                          <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
+                          <TrendingUp className="w-4 h-4 text-warning-red rotate-180" />
                         </div>
                         <div>
                           <p className="text-sm font-display font-semibold text-ink">
@@ -1169,12 +1169,12 @@ export default async function MutualFundDetailPage({
                     </div>
                     <div className="space-y-4">
                       {rm.best_1y_return > 0 && (
-                        <div className="bg-gray-50 rounded-lg p-4">
+                        <div className="bg-gray-50 rounded-sm p-4">
                           <p className="text-xs text-ink-60 mb-2">
                             Rolling 1-Year Return Range
                           </p>
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-semibold text-red-500">
+                            <span className="text-sm font-semibold text-warning-red">
                               Worst: {rm.worst_1y_return}%
                             </span>
                             <span className="text-sm font-semibold text-action-green">
@@ -1190,7 +1190,7 @@ export default async function MutualFundDetailPage({
                         </div>
                       )}
                       {rm.volatility_1y && (
-                        <div className="bg-gray-50 rounded-lg p-4">
+                        <div className="bg-gray-50 rounded-sm p-4">
                           <p className="text-xs text-ink-60 mb-1">
                             Annualized Volatility
                           </p>

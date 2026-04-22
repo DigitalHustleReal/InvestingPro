@@ -299,7 +299,7 @@ export default async function DematAccountDetailPage({
                   {account.tradingPlatforms.map((platform, index) => (
                     <div
                       key={index}
-                      className="bg-muted/50 dark:bg-muted/30 p-4 rounded-lg text-center"
+                      className="bg-muted/50 dark:bg-muted/30 p-4 rounded-sm text-center"
                     >
                       <Smartphone className="w-8 h-8 text-action-green mx-auto mb-2" />
                       <p className="font-medium">{platform}</p>
@@ -391,9 +391,9 @@ export default async function DematAccountDetailPage({
                 </CardContent>
               </Card>
 
-              <Card className="border-red-200 dark:border-red-900">
+              <Card className="border-warning-red/30 dark:border-red-900">
                 <CardHeader className="bg-red-100 dark:bg-red-900/30">
-                  <CardTitle className="text-red-600 flex items-center gap-2">
+                  <CardTitle className="text-warning-red flex items-center gap-2">
                     <XCircle className="w-5 h-5" />
                     Cons
                   </CardTitle>
@@ -405,7 +405,7 @@ export default async function DematAccountDetailPage({
                         key={index}
                         className="flex items-start gap-2 text-sm"
                       >
-                        <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-4 h-4 text-warning-red flex-shrink-0 mt-0.5" />
                         <span>{con}</span>
                       </li>
                     ))}
