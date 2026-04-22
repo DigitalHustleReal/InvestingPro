@@ -24,8 +24,8 @@ export default function FinancialHealthPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Financial Health Score</h1>
-        <p className="text-lg text-gray-600 mb-6">
+        <h1 className="text-3xl font-display font-bold text-ink mb-4">Financial Health Score</h1>
+        <p className="text-lg text-ink-60 mb-6">
           Understanding your financial health is the first step towards wealth creation. 
           Use this tool to get a comprehensive assessment of your financial wellbeing based on key metrics like savings rate, emergency fund, and debt levels.
         </p>

@@ -225,7 +225,7 @@ export default async function ArticlePage({
               {article.id && (
                 <a
                   href={`/admin/articles/${article.id}/edit`}
-                  className="ml-3 underline hover:text-amber-600"
+                  className="ml-3 underline hover:text-indian-gold"
                 >
                   Edit Article ✏️
                 </a>
@@ -242,13 +242,13 @@ export default async function ArticlePage({
             <article className="lg:col-span-8 min-w-0">
               {/* Category badge */}
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <span className="text-xs font-semibold uppercase tracking-wider text-green-600 bg-green-50 px-2.5 py-1 rounded-md">
+                <span className="text-xs font-semibold uppercase tracking-wider text-action-green bg-green-50 px-2.5 py-1 rounded-md">
                   {formatSlug(article.category || "")}
                 </span>
               </div>
 
               {/* Title */}
-              <h1 className="text-[28px] sm:text-[36px] lg:text-[42px] font-medium text-ink dark:text-white mb-5 leading-[1.1] tracking-tight">
+              <h1 className="font-display font-black text-[32px] sm:text-[40px] lg:text-[52px] text-ink dark:text-white mb-5 leading-[1.05] tracking-tight">
                 {article.title}
               </h1>
 
@@ -277,7 +277,7 @@ export default async function ArticlePage({
                     articleTitle={article.title}
                   />
                 </div>
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-gray-500">
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-ink-60">
                   <span className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
                     {article.updated_at &&
@@ -351,12 +351,12 @@ export default async function ArticlePage({
               {article.tags?.length > 0 && (
                 <div className="mt-10 pt-6 border-t border-gray-200">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider mr-2">
+                    <span className="text-xs font-semibold text-ink-60 uppercase tracking-wider mr-2">
                       Tags
                     </span>
                     {article.tags.map((tag: string) => (
                       <Link key={tag} href={`/tag/${tag}`}>
-                        <span className="text-xs px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg hover:bg-green-50 hover:text-green-700 transition-colors cursor-pointer">
+                        <span className="text-xs px-3 py-1.5 bg-gray-100 text-ink-60 rounded-lg hover:bg-green-50 hover:text-authority-green transition-colors cursor-pointer">
                           {tag}
                         </span>
                       </Link>

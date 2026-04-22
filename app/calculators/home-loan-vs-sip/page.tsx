@@ -26,13 +26,13 @@ export default function HomeLoanVsSIPPage() {
 
         {/* Hero */}
         <div className="mt-6 mb-10">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-ink dark:text-white mb-3">
             Home Loan vs SIP —{" "}
             <span className="text-primary-600 dark:text-primary-400">
               Which is smarter?
             </span>
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+          <p className="text-lg text-ink-60 dark:text-ink-60 max-w-2xl leading-relaxed">
             Got an extra ₹10,000/month? Should you prepay your home loan or
             invest in mutual fund SIPs? This calculator runs the numbers so you
             don't have to guess.
@@ -52,7 +52,7 @@ export default function HomeLoanVsSIPPage() {
                 <div className="w-9 h-9 rounded-xl bg-success-DEFAULT/10 flex items-center justify-center">
                   <Home className="w-4 h-4 text-success-DEFAULT" />
                 </div>
-                <h3 className="font-bold text-gray-900 dark:text-white">
+                <h3 className="font-display font-bold text-ink dark:text-white">
                   Prepay When...
                 </h3>
               </div>
@@ -66,7 +66,7 @@ export default function HomeLoanVsSIPPage() {
                 ].map((p) => (
                   <li
                     key={p}
-                    className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
+                    className="flex items-start gap-2 text-sm text-ink-60 dark:text-ink-60"
                   >
                     <CheckCircle2 className="w-4 h-4 text-success-DEFAULT flex-shrink-0 mt-0.5" />
                     {p}
@@ -82,7 +82,7 @@ export default function HomeLoanVsSIPPage() {
                 <div className="w-9 h-9 rounded-xl bg-primary-500/10 flex items-center justify-center">
                   <TrendingUp className="w-4 h-4 text-primary-500" />
                 </div>
-                <h3 className="font-bold text-gray-900 dark:text-white">
+                <h3 className="font-display font-bold text-ink dark:text-white">
                   Invest in SIP When...
                 </h3>
               </div>
@@ -96,7 +96,7 @@ export default function HomeLoanVsSIPPage() {
                 ].map((p) => (
                   <li
                     key={p}
-                    className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
+                    className="flex items-start gap-2 text-sm text-ink-60 dark:text-ink-60"
                   >
                     <CheckCircle2 className="w-4 h-4 text-primary-500 flex-shrink-0 mt-0.5" />
                     {p}
@@ -109,7 +109,7 @@ export default function HomeLoanVsSIPPage() {
 
         {/* FAQ */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2 className="text-2xl font-display font-bold text-ink dark:text-white mb-6">
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
@@ -136,10 +136,10 @@ export default function HomeLoanVsSIPPage() {
                 className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800"
               >
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="font-display font-semibold text-ink dark:text-white mb-2">
                     {q}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p className="text-sm text-ink-60 dark:text-ink-60 leading-relaxed">
                     {a}
                   </p>
                 </CardContent>

@@ -87,7 +87,7 @@ export default function ArticlesClient() {
       {/* Search + Category Filters */}
       <div className="mb-8">
         <div className="relative max-w-md mb-5">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-60 w-4 h-4" />
           <Input
             placeholder="Search articles..."
             value={searchTerm}
@@ -108,8 +108,8 @@ export default function ArticlesClient() {
               }}
               className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors rounded-full ${
                 selectedCategory === "all"
-                  ? "bg-green-700 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                  ? "bg-authority-green text-white"
+                  : "bg-gray-100 text-ink-60 hover:bg-gray-200 hover:text-ink"
               }`}
             >
               All Articles
@@ -123,8 +123,8 @@ export default function ArticlesClient() {
                 }}
                 className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors rounded-full ${
                   selectedCategory === category
-                    ? "bg-green-700 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                    ? "bg-authority-green text-white"
+                    : "bg-gray-100 text-ink-60 hover:bg-gray-200 hover:text-ink"
                 }`}
               >
                 {formatSlug(category)}
@@ -136,7 +136,7 @@ export default function ArticlesClient() {
 
       {/* Article count */}
       {!isLoading && filteredArticles.length > 0 && (
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-ink-60 mb-4">
           {filteredArticles.length} article
           {filteredArticles.length !== 1 ? "s" : ""}
           {selectedCategory !== "all" && (
@@ -191,19 +191,19 @@ export default function ArticlesClient() {
                   </div>
                   <div className="p-5">
                     <div className="flex items-center gap-2 mb-2.5">
-                      <span className="text-xs text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full font-medium">
+                      <span className="text-xs text-authority-green bg-green-50 px-2.5 py-0.5 rounded-full font-medium">
                         {formatSlug(article.category || "")}
                       </span>
                     </div>
-                    <h2 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 leading-snug group-hover:text-green-700 transition-colors">
+                    <h2 className="text-lg font-display font-bold text-ink mb-2 line-clamp-2 leading-snug group-hover:text-authority-green transition-colors">
                       {article.title}
                     </h2>
                     {article.excerpt && (
-                      <p className="text-gray-500 text-sm mb-3 line-clamp-2">
+                      <p className="text-ink-60 text-sm mb-3 line-clamp-2">
                         {article.excerpt}
                       </p>
                     )}
-                    <div className="flex items-center justify-between text-xs text-gray-400 pt-2 border-t border-gray-100">
+                    <div className="flex items-center justify-between text-xs text-ink-60 pt-2 border-t border-gray-100">
                       <div className="flex items-center gap-3">
                         {article.read_time && (
                           <span className="flex items-center gap-1">
@@ -243,7 +243,7 @@ export default function ArticlesClient() {
               >
                 Previous
               </Button>
-              <span className="text-sm text-gray-500 px-3">
+              <span className="text-sm text-ink-60 px-3">
                 Page {currentPage} of {totalPages}
               </span>
               <Button

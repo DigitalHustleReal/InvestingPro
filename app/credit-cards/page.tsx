@@ -136,11 +136,11 @@ export default async function CreditCardsPage() {
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-sm text-gray-500">
+            <ol className="flex items-center gap-1.5 text-sm text-ink-60">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-gray-900 transition-colors"
+                  className="hover:text-ink transition-colors"
                 >
                   Home
                 </Link>
@@ -148,7 +148,7 @@ export default async function CreditCardsPage() {
               <li>
                 <ChevronRight size={14} />
               </li>
-              <li className="text-gray-900 font-medium">Credit Cards</li>
+              <li className="text-ink font-medium">Credit Cards</li>
             </ol>
           </nav>
 
@@ -157,20 +157,20 @@ export default async function CreditCardsPage() {
           {/* Title row */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+              <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
                 Best Credit Cards{" "}
                 <em className="italic text-authority-green">in India</em>
               </h1>
-              <p className="text-base text-gray-500 mt-3 max-w-xl leading-relaxed">
+              <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
                 Compare {cardCount}+ credit cards. Filter by rewards, fees, and
                 network. Ranked by real outcomes — not what pays us most.
               </p>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0 mt-1">
-              <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">
+              <span className="text-xs text-ink-60 bg-gray-100 px-3 py-1.5 rounded-full">
                 {cardCount}+ tested
               </span>
-              <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">
+              <span className="text-xs text-ink-60 bg-gray-100 px-3 py-1.5 rounded-full">
                 Updated daily
               </span>
             </div>
@@ -190,7 +190,7 @@ export default async function CreditCardsPage() {
       {/* ── Related tools ── */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">
             Related Tools
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -221,10 +221,10 @@ export default async function CreditCardsPage() {
                 href={tool.href}
                 className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
               >
-                <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
                   {tool.label}
                 </p>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
                   {tool.desc}
                 </p>
               </Link>
@@ -236,7 +236,7 @@ export default async function CreditCardsPage() {
       {/* ── Popular comparisons ── */}
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">
             Popular Comparisons
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -277,14 +277,14 @@ export default async function CreditCardsPage() {
                 href={comp.href}
                 className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
               >
-                <span className="text-xs font-bold text-green-700 bg-green-50 px-2 py-1 mt-0.5 flex-shrink-0 rounded">
+                <span className="text-xs font-bold text-authority-green bg-green-50 px-2 py-1 mt-0.5 flex-shrink-0 rounded">
                   VS
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                  <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
                     {comp.title}
                   </p>
-                  <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
+                  <p className="text-xs text-ink-60 mt-0.5 leading-relaxed">
                     {comp.desc}
                   </p>
                 </div>
@@ -297,7 +297,7 @@ export default async function CreditCardsPage() {
       {/* ── How we rate ── */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">
             How We Rate Products
           </h2>
           {/* Quick stats row */}
@@ -323,11 +323,11 @@ export default async function CreditCardsPage() {
                 key={stat.label}
                 className="p-4 bg-gray-50 border border-gray-200 rounded-xl"
               >
-                <p className="text-2xl font-bold text-gray-900">{stat.num}</p>
-                <p className="text-sm font-semibold text-gray-900 mt-1">
+                <p className="text-2xl font-display font-bold text-ink">{stat.num}</p>
+                <p className="text-sm font-display font-semibold text-ink mt-1">
                   {stat.label}
                 </p>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
                   {stat.desc}
                 </p>
               </div>
@@ -342,7 +342,7 @@ export default async function CreditCardsPage() {
       {/* ── FAQ — with schema markup ── */}
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">
             Frequently Asked Questions
           </h2>
           <div className="space-y-3">
@@ -376,14 +376,14 @@ export default async function CreditCardsPage() {
                 key={i}
                 className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
               >
-                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
+                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-ink hover:bg-gray-50 transition-colors list-none">
                   {faq.q}
                   <ChevronRight
                     size={16}
-                    className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
+                    className="text-ink-60 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
                   />
                 </summary>
-                <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+                <div className="px-5 pb-4 text-sm text-ink-60 leading-relaxed border-t border-gray-100 pt-3">
                   {faq.a}
                 </div>
               </details>
@@ -395,13 +395,13 @@ export default async function CreditCardsPage() {
       {/* ── Next steps CTAs ── */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-xl font-bold text-gray-900 mb-5">
+          <h2 className="text-xl font-display font-bold text-ink mb-5">
             Not sure yet?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link
               href="/credit-cards/find-your-card"
-              className="p-5 bg-green-700 hover:bg-green-800 transition-colors text-center rounded-xl"
+              className="p-5 bg-authority-green hover:bg-green-800 transition-colors text-center rounded-xl"
             >
               <p className="text-sm font-semibold text-white">
                 Take the Card Finder Quiz
@@ -414,10 +414,10 @@ export default async function CreditCardsPage() {
               href="/credit-cards/compare"
               className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all text-center"
             >
-              <p className="text-sm font-semibold text-gray-900">
+              <p className="text-sm font-display font-semibold text-ink">
                 Compare Cards Side-by-Side
               </p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-ink-60 mt-1">
                 Pick 2-3 cards and see the difference
               </p>
             </Link>
@@ -425,10 +425,10 @@ export default async function CreditCardsPage() {
               href="/credit-cards/guides"
               className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all text-center"
             >
-              <p className="text-sm font-semibold text-gray-900">
+              <p className="text-sm font-display font-semibold text-ink">
                 Read the Credit Card Guide
               </p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-ink-60 mt-1">
                 Everything you need to know
               </p>
             </Link>

@@ -123,11 +123,11 @@ export default async function DematAccountsPage() {
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-300">
+            <ol className="flex items-center gap-1.5 text-sm text-ink-60 dark:text-gray-300">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-gray-900 transition-colors"
+                  className="hover:text-ink transition-colors"
                 >
                   Home
                 </Link>
@@ -135,27 +135,27 @@ export default async function DematAccountsPage() {
               <li>
                 <ChevronRight size={14} />
               </li>
-              <li className="text-gray-900 font-medium">Demat Accounts</li>
+              <li className="text-ink font-medium">Demat Accounts</li>
             </ol>
           </nav>
           <AdvertiserDisclosure variant="expandable" className="mb-3" />
 
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+              <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
                 Best Demat Accounts{" "}
                 <em className="italic text-authority-green">in India</em>
               </h1>
-              <p className="text-base text-gray-500 mt-3 max-w-xl leading-relaxed">
+              <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
                 Compare brokerage charges, platform features, and account
                 opening fees across discount and full-service brokers.
               </p>
             </div>
             <div className="flex items-center gap-4 flex-shrink-0 mt-1">
-              <span className="text-xs text-gray-500 border border-gray-200 px-3 py-1.5">
+              <span className="text-xs text-ink-60 border border-gray-200 px-3 py-1.5">
                 SEBI-registered
               </span>
-              <span className="text-xs text-gray-500 border border-gray-200 px-3 py-1.5">
+              <span className="text-xs text-ink-60 border border-gray-200 px-3 py-1.5">
                 Updated monthly
               </span>
             </div>
@@ -176,7 +176,7 @@ export default async function DematAccountsPage() {
                     ? "/demat-accounts"
                     : `/demat-accounts?type=${p.toLowerCase().replace(/ /g, "-")}`
                 }
-                className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors rounded-full ${i === 0 ? "bg-green-700 text-white rounded-full" : "bg-gray-100 text-gray-600 hover:bg-gray-100"}`}
+                className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors rounded-full ${i === 0 ? "bg-authority-green text-white rounded-full" : "bg-gray-100 text-ink-60 hover:bg-gray-100"}`}
               >
                 {p}
               </Link>
@@ -191,7 +191,7 @@ export default async function DematAccountsPage() {
       </section>
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">
             Related Tools
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -222,10 +222,10 @@ export default async function DematAccountsPage() {
                 href={t.href}
                 className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
               >
-                <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
                   {t.label}
                 </p>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
                   {t.desc}
                 </p>
               </Link>
@@ -235,7 +235,7 @@ export default async function DematAccountsPage() {
       </section>
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">FAQs</h2>
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">FAQs</h2>
           <div className="space-y-2">
             {[
               {
@@ -267,14 +267,14 @@ export default async function DematAccountsPage() {
                 key={i}
                 className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
               >
-                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
+                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-ink hover:bg-gray-50 transition-colors list-none">
                   {f.q}
                   <ChevronRight
                     size={16}
-                    className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
+                    className="text-ink-60 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
                   />
                 </summary>
-                <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-200 pt-3">
+                <div className="px-5 pb-4 text-sm text-ink-60 leading-relaxed border-t border-gray-200 pt-3">
                   {f.a}
                 </div>
               </details>

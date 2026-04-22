@@ -97,10 +97,10 @@ export default function SeniorCitizenFDPage() {
       <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6">
         <AutoBreadcrumbs />
         <div className="mt-4 mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
+          <h1 className="font-display font-black text-[32px] sm:text-[40px] text-ink tracking-tight leading-[1.1]">
             Senior Citizen FD Calculator
           </h1>
-          <p className="text-sm text-gray-500 mt-1.5 max-w-2xl">
+          <p className="text-sm text-ink-60 mt-1.5 max-w-2xl">
             Calculate FD returns with senior citizen extra rates. Compare SBI,
             HDFC, ICICI, SFBs side by side. See monthly income, TDS impact,
             Section 80TTB benefit, and inflation-adjusted real returns.
@@ -108,7 +108,7 @@ export default function SeniorCitizenFDPage() {
         </div>
         <SeniorCitizenFDCalculator />
         <div className="mt-10">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
+          <h2 className="text-xl font-display font-bold text-ink mb-4">
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
@@ -117,13 +117,13 @@ export default function SeniorCitizenFDPage() {
                 key={i}
                 className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
               >
-                <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors">
+                <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium text-ink hover:bg-gray-50 transition-colors">
                   {faq.name}
-                  <span className="text-gray-400 group-open:rotate-180 transition-transform">
+                  <span className="text-ink-60 group-open:rotate-180 transition-transform">
                     ▼
                   </span>
                 </summary>
-                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
+                <div className="px-4 pb-4 text-sm text-ink-60 leading-relaxed border-t border-gray-100 pt-3">
                   {faq.acceptedAnswer.text}
                 </div>
               </details>
