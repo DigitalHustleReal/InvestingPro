@@ -23,15 +23,15 @@ export default function ArticleRenderer({
   body_html,
   body_markdown,
   content,
-  className = "prose prose-lg max-w-none dark:prose-invert prose-headings:font-bold prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-a:text-primary hover:prose-a:text-primary/80 prose-th:bg-muted/50 prose-th:text-foreground prose-th:p-4 prose-th:rounded-t-lg prose-td:p-4 prose-img:rounded-xl prose-img:shadow-lg",
+  className = "article-prose",
 }: ArticleRendererProps) {
   // Get raw content from any source (priority: body_html > body_markdown > content)
   const rawContent = body_html || body_markdown || content || "";
 
   if (!rawContent || !rawContent.trim()) {
     return (
-      <div className="p-8 bg-gray-50 rounded-lg border border-gray-200">
-        <p className="text-gray-500 text-center">
+      <div className="p-8 bg-canvas rounded-sm border-2 border-ink/10">
+        <p className="font-mono text-[12px] uppercase tracking-wider text-ink-60 text-center">
           No content available for this article.
         </p>
       </div>
@@ -44,8 +44,8 @@ export default function ArticleRenderer({
 
     if (!normalizedHTML || normalizedHTML.trim().length < 10) {
       return (
-        <div className="p-8 bg-danger-50 rounded-lg border border-danger-200">
-          <p className="text-danger-800 text-center">
+        <div className="p-8 bg-warning-red/5 rounded-sm border-2 border-warning-red/20">
+          <p className="font-mono text-[12px] uppercase tracking-wider text-warning-red text-center">
             Error rendering content.
           </p>
         </div>

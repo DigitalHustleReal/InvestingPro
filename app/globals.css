@@ -516,4 +516,316 @@ html, body {
   font-style: italic;
 }
 
+/* =====================================================================
+   ARTICLE TYPOGRAPHY — v3 Bold Redesign editorial body
+   Used by ArticleRenderer and anywhere long-form HTML content renders.
+   Applies to all 228+ articles via the `article-prose` class.
+   ===================================================================== */
+
+.article-prose {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 720px;
+  margin: 0;
+}
+
+.article-prose > * + * {
+  margin-top: 1.25em;
+}
+
+/* Headings — Playfair editorial */
+.article-prose h1,
+.article-prose h2,
+.article-prose h3,
+.article-prose h4 {
+  font-family: var(--font-playfair), Georgia, serif;
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 80px;
+}
+.article-prose h2 {
+  font-size: 30px;
+  font-weight: 900;
+  margin-top: 2.4em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid rgb(10 31 20 / 0.08);
+}
+.article-prose h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 1.8em;
+  margin-bottom: 0.4em;
+}
+.article-prose h4 {
+  font-size: 18px;
+  margin-top: 1.4em;
+  margin-bottom: 0.35em;
+}
+
+/* Body text */
+.article-prose p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgb(10 31 20 / 0.85);
+}
+
+/* Links — gold, underline on hover */
+.article-prose a {
+  color: var(--indian-gold);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: rgb(217 119 6 / 0.3);
+  transition: text-decoration-color 120ms ease;
+}
+.article-prose a:hover {
+  text-decoration-color: var(--indian-gold);
+}
+
+/* Glossary hover-link pattern (dashed underline) */
+.article-prose a.glossary-term,
+.article-prose a[data-glossary] {
+  text-decoration-style: dashed;
+  text-decoration-color: rgb(10 31 20 / 0.35);
+  color: var(--ink);
+}
+.article-prose a.glossary-term:hover,
+.article-prose a[data-glossary]:hover {
+  color: var(--indian-gold);
+  text-decoration-color: var(--indian-gold);
+}
+
+/* Strong emphasis */
+.article-prose strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Lists */
+.article-prose ul,
+.article-prose ol {
+  margin-left: 1.25em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.article-prose ul { list-style-type: none; padding-left: 0; }
+.article-prose ul > li {
+  position: relative;
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.7;
+}
+.article-prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.5em;
+  height: 2px;
+  background: var(--indian-gold);
+}
+.article-prose ol {
+  list-style: none;
+  counter-reset: article-ol;
+  padding-left: 0;
+}
+.article-prose ol > li {
+  position: relative;
+  padding-left: 2.2em;
+  margin-bottom: 0.5em;
+  counter-increment: article-ol;
+  line-height: 1.7;
+}
+.article-prose ol > li::before {
+  content: counter(article-ol, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--indian-gold);
+  letter-spacing: 0.05em;
+}
+
+/* Blockquotes — editorial pull-quote with gold left border */
+.article-prose blockquote {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--ink);
+  border-left: 4px solid var(--indian-gold);
+  padding: 0.5em 0 0.5em 1.5em;
+  margin: 2em 0;
+  position: relative;
+}
+.article-prose blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: 1rem;
+  top: -0.3em;
+  font-size: 3em;
+  color: rgb(217 119 6 / 0.3);
+  font-family: var(--font-playfair), Georgia, serif;
+  line-height: 1;
+  pointer-events: none;
+}
+.article-prose blockquote p { margin: 0; font-size: inherit; color: inherit; }
+.article-prose blockquote cite,
+.article-prose blockquote footer {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-style: normal;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgb(10 31 20 / 0.6);
+  margin-top: 0.75em;
+}
+
+/* Inline code — mono with subtle bg */
+.article-prose code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.9em;
+  background: rgb(10 31 20 / 0.05);
+  border: 1px solid rgb(10 31 20 / 0.1);
+  padding: 0.1em 0.4em;
+  border-radius: 2px;
+  color: var(--ink);
+}
+
+/* Code blocks */
+.article-prose pre {
+  font-family: var(--font-mono), monospace;
+  background: var(--ink);
+  color: var(--canvas);
+  padding: 1.2em 1.4em;
+  border-radius: 2px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 1.5em 0;
+}
+.article-prose pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+}
+
+/* Tables — mono data, ink header, zebra rows */
+.article-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2em 0;
+  font-size: 14px;
+  border: 2px solid rgb(10 31 20 / 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.article-prose thead {
+  background: var(--ink);
+}
+.article-prose th {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--canvas);
+  padding: 0.85em 1em;
+  text-align: left;
+  border: 0;
+}
+.article-prose td {
+  padding: 0.85em 1em;
+  border-top: 1px solid rgb(10 31 20 / 0.08);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.article-prose tbody tr:nth-child(even) {
+  background: rgb(10 31 20 / 0.02);
+}
+.article-prose td:last-child,
+.article-prose th:last-child {
+  text-align: right;
+  font-family: var(--font-mono), monospace;
+  font-size: 13px;
+}
+
+/* Images — sharp frame, no shadow */
+.article-prose img {
+  border-radius: 2px;
+  border: 2px solid rgb(10 31 20 / 0.08);
+  margin: 1.5em 0;
+  max-width: 100%;
+  height: auto;
+}
+.article-prose figure {
+  margin: 1.75em 0;
+}
+.article-prose figcaption {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgb(10 31 20 / 0.6);
+  text-align: center;
+  margin-top: 0.75em;
+}
+
+/* Horizontal rule — gold underline, editorial separator */
+.article-prose hr {
+  border: 0;
+  border-top: 2px solid var(--indian-gold);
+  width: 60px;
+  margin: 3em auto;
+}
+
+/* Data callout — pull-number style ("₹75.8 L after 15 years")
+   Opt-in via: <p class="data-callout">...</p> in article body. */
+.article-prose .data-callout {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 900;
+  color: var(--ink);
+  margin: 1.5em 0;
+  padding: 0.5em 0;
+  border-top: 2px solid var(--indian-gold);
+  border-bottom: 2px solid rgb(10 31 20 / 0.08);
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+/* Key takeaways block — opt-in via: <div class="takeaways">...</div> */
+.article-prose .takeaways {
+  background: var(--indian-gold) / 10;
+  background: rgb(217 119 6 / 0.08);
+  border-left: 4px solid var(--indian-gold);
+  padding: 1em 1.25em 1em 1.5em;
+  margin: 2em 0;
+  border-radius: 2px;
+}
+.article-prose .takeaways strong:first-child,
+.article-prose .takeaways h3 {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--indian-gold);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5em;
+}
+.article-prose .takeaways ul > li::before {
+  background: var(--indian-gold);
+}
+
 
