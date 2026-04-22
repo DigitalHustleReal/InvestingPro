@@ -234,11 +234,11 @@ export default function CalculatorsPage() {
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-400">
+            <ol className="flex items-center gap-1.5 text-[13px] text-ink-60 dark:text-ink-60">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-green-600 transition-colors"
+                  className="hover:text-action-green transition-colors"
                 >
                   Home
                 </Link>
@@ -251,22 +251,22 @@ export default function CalculatorsPage() {
           </nav>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
             <div>
-              <h1 className="text-2xl md:text-4xl font-bold text-gray-900 tracking-tight leading-tight">
+              <h1 className="text-2xl md:text-4xl font-display font-bold text-ink tracking-tight leading-tight">
                 Free Financial Calculators
               </h1>
-              <p className="text-base text-gray-500 mt-2 max-w-xl leading-relaxed">
+              <p className="text-base text-ink-60 mt-2 max-w-xl leading-relaxed">
                 25 calculators with inflation adjustment, tax impact, and
                 shareable results. No sign-up. Run the numbers before you
                 commit.
               </p>
             </div>
-            <div className="flex items-center gap-5 text-[12px] text-gray-500 flex-shrink-0 mt-1">
+            <div className="flex items-center gap-5 text-[12px] text-ink-60 flex-shrink-0 mt-1">
               <span className="flex items-center gap-1.5">
-                <Shield size={13} className="text-green-600" />
+                <Shield size={13} className="text-action-green" />
                 100% free
               </span>
               <span className="flex items-center gap-1.5">
-                <CalendarDays size={13} className="text-green-600" />
+                <CalendarDays size={13} className="text-action-green" />
                 Updated for 2026
               </span>
             </div>
@@ -281,10 +281,10 @@ export default function CalculatorsPage() {
             {CATEGORIES.map((cat) => (
               <div key={cat.title}>
                 <div className="mb-4">
-                  <h2 className="text-lg font-bold text-gray-900">
+                  <h2 className="text-lg font-display font-bold text-ink">
                     {cat.title}
                   </h2>
-                  <p className="text-sm text-gray-500">{cat.desc}</p>
+                  <p className="text-sm text-ink-60">{cat.desc}</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {cat.calcs.map((calc) => {
@@ -296,26 +296,26 @@ export default function CalculatorsPage() {
                         className="flex items-start gap-3.5 p-4 bg-white border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
                       >
                         <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                          <Icon size={18} className="text-green-600" />
+                          <Icon size={18} className="text-action-green" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                            <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
                               {calc.name}
                             </p>
                             {calc.badge && (
-                              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wide bg-green-50 text-green-600">
+                              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wide bg-green-50 text-action-green">
                                 {calc.badge}
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
+                          <p className="text-xs text-ink-60 mt-0.5 leading-relaxed">
                             {calc.desc}
                           </p>
                         </div>
                         <ArrowRight
                           size={14}
-                          className="text-gray-300 group-hover:text-green-500 transition-colors mt-1 flex-shrink-0"
+                          className="text-gray-300 group-hover:text-action-green transition-colors mt-1 flex-shrink-0"
                         />
                       </Link>
                     );
@@ -330,21 +330,21 @@ export default function CalculatorsPage() {
       {/* Bottom */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <h2 className="text-lg font-display font-bold text-ink mb-4">
             About Our Calculators
           </h2>
-          <p className="text-sm text-gray-500 leading-relaxed max-w-2xl">
+          <p className="text-sm text-ink-60 leading-relaxed max-w-2xl">
             Every calculator on InvestingPro accounts for inflation, taxes, and
             real-world scenarios. Results are shareable and printable. The math
             formulas are transparent — you can see exactly how we calculate
             every number. Built for Indian investors, updated for Budget 2026.
           </p>
-          <p className="text-sm text-gray-500 leading-relaxed max-w-2xl mt-3">
+          <p className="text-sm text-ink-60 leading-relaxed max-w-2xl mt-3">
             These tools are for educational purposes only and do not constitute
             financial advice. See our{" "}
             <Link
               href="/disclaimer"
-              className="text-green-600 font-medium hover:text-green-700"
+              className="text-action-green font-medium hover:text-authority-green"
             >
               disclaimer
             </Link>

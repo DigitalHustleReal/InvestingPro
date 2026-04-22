@@ -125,10 +125,10 @@ export default function GSTCalculatorPage() {
             {/* Hero Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                 <div className="text-center mb-6">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-display font-bold text-ink mb-4">
                         GST Calculator - Calculate GST Online
                     </h1>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4">
+                    <p className="text-xl text-ink-60 max-w-3xl mx-auto leading-relaxed mb-4">
                         Calculate GST for goods and services in India. Supports GST exclusive and inclusive calculations with CGST, SGST, and IGST breakdown.
                     </p>
                 </div>
@@ -144,16 +144,16 @@ export default function GSTCalculatorPage() {
                 {/* Introduction */}
                 <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-gray-50 to-white">
                     <CardContent className="p-8 lg:p-6 md:p-8">
-                        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                        <h2 className="text-3xl lg:text-4xl font-display font-bold text-ink mb-6">
                             GST Calculator India - Calculate Goods and Services Tax
                         </h2>
                         <div className="prose prose-slate dark:prose-invert max-w-none">
-                            <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                            <p className="text-lg text-ink-60 leading-relaxed mb-6">
                                 GST (Goods and Services Tax) is a comprehensive indirect tax levied on the supply of goods and services in India. 
                                 Our free GST calculator helps you calculate GST for any amount, whether you need to add GST to a base amount 
                                 (GST exclusive) or extract GST from a total amount (GST inclusive).
                             </p>
-                            <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                            <p className="text-lg text-ink-60 leading-relaxed mb-6">
                                 The calculator automatically breaks down GST into CGST (Central GST) and SGST (State GST) for intra-state 
                                 transactions, or IGST (Integrated GST) for inter-state transactions. This helps businesses, freelancers, and 
                                 individuals accurately calculate GST for invoicing, tax filing, and financial planning.
@@ -180,7 +180,7 @@ export default function GSTCalculatorPage() {
                 {/* GST Rates Information */}
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-gray-900 flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-2xl font-display font-bold text-ink flex items-center gap-6 md:p-8">
                             <Percent className="w-6 h-6 text-primary-600" />
                             GST Rates in India
                         </CardTitle>
@@ -199,9 +199,9 @@ export default function GSTCalculatorPage() {
                                         <Badge className="bg-primary-100 text-primary-700 border-0 font-bold">
                                             {item.rate}
                                         </Badge>
-                                        <span className="text-sm font-semibold text-gray-900">GST Rate</span>
+                                        <span className="text-sm font-display font-semibold text-ink">GST Rate</span>
                                     </div>
-                                    <p className="text-sm text-gray-600">{item.items}</p>
+                                    <p className="text-sm text-ink-60">{item.items}</p>
                                 </div>
                             ))}
                         </div>
@@ -211,7 +211,7 @@ export default function GSTCalculatorPage() {
                 {/* FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-gray-900 flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-2xl font-display font-bold text-ink flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-primary-600" />
                             GST Calculator - Frequently Asked Questions
                         </CardTitle>
@@ -245,8 +245,8 @@ export default function GSTCalculatorPage() {
                                 }
                             ].map((faq, idx) => (
                                 <div key={idx} className="border-b border-gray-200 pb-6 last:border-0">
-                                    <h3 className="font-bold text-gray-900 mb-2 text-lg">{faq.q}</h3>
-                                    <p className="text-gray-600 leading-relaxed">{faq.a}</p>
+                                    <h3 className="font-display font-bold text-ink mb-2 text-lg">{faq.q}</h3>
+                                    <p className="text-ink-60 leading-relaxed">{faq.a}</p>
                                 </div>
                             ))}
                         </div>
@@ -256,7 +256,7 @@ export default function GSTCalculatorPage() {
                 {/* Related Calculators */}
                 <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-primary-50 to-success-50">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-gray-900">Related Business Calculators</CardTitle>
+                        <CardTitle className="text-2xl font-display font-bold text-ink">Related Business Calculators</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -272,9 +272,9 @@ export default function GSTCalculatorPage() {
                                 >
                                     <div className="flex items-center gap-2 mb-2">
                                         <Calculator className="w-4 h-4 text-primary-600 group-hover:text-primary-700" />
-                                        <span className="font-semibold text-gray-900 group-hover:text-primary-600">{item.name}</span>
+                                        <span className="font-display font-semibold text-ink group-hover:text-primary-600">{item.name}</span>
                                     </div>
-                                    <p className="text-sm text-gray-600">{item.desc}</p>
+                                    <p className="text-sm text-ink-60">{item.desc}</p>
                                 </Link>
                             ))}
                         </div>

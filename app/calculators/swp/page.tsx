@@ -135,22 +135,22 @@ export default function SWPCalculatorPage() {
             
             {/* Breadcrumbs */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
-                <nav className="flex items-center gap-2 text-sm text-gray-600">
+                <nav className="flex items-center gap-2 text-sm text-ink-60">
                     <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
                     <span>/</span>
                     <Link href="/calculators" className="hover:text-primary-600 transition-colors">Calculators</Link>
                     <span>/</span>
-                    <span className="text-gray-900 font-medium">SWP Calculator</span>
+                    <span className="text-ink font-medium">SWP Calculator</span>
                 </nav>
             </div>
 
             {/* Hero Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                    <h1 className="text-4xl lg:text-5xl font-display font-bold text-ink mb-4">
                         SWP Calculator - Systematic Withdrawal Plan Calculator
                     </h1>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl text-ink-60 max-w-3xl mx-auto leading-relaxed">
                         Calculate monthly withdrawals from your investment corpus with our free SWP calculator. Plan retirement income, see corpus sustainability, and check how long your investments will last.
                     </p>
                 </div>
@@ -168,7 +168,7 @@ export default function SWPCalculatorPage() {
                     {/* What is SWP Section */}
                     <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-gray-900">
                         <CardHeader>
-                            <CardTitle className="text-3xl font-bold text-gray-900 dark:text-white">What is Systematic Withdrawal Plan (SWP)?</CardTitle>
+                            <CardTitle className="text-3xl font-display font-bold text-ink dark:text-white">What is Systematic Withdrawal Plan (SWP)?</CardTitle>
                         </CardHeader>
                         <CardContent className="prose prose-slate dark:prose-invert max-w-none">
                             <p className="text-lg leading-relaxed">
@@ -190,7 +190,7 @@ export default function SWPCalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-ink-60 dark:text-gray-300">
                                     Just as SIP helps in averaging purchase cost, SWP helps in averaging withdrawal units. When markets are high, fewer units are redeemed. When markets are low, more units are redeemed.
                                 </p>
                             </CardContent>
@@ -203,7 +203,7 @@ export default function SWPCalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-ink-60 dark:text-gray-300">
                                     SWP is more tax-efficient than FDs. In SWP, you only pay tax on the capital gains portion of the withdrawal, not the entire amount. Long-term capital gains up to ₹1.25 Lakh are tax-free.
                                 </p>
                             </CardContent>
@@ -216,7 +216,7 @@ export default function SWPCalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-ink-60 dark:text-gray-300">
                                     You have full control. You can choose the amount, date, and frequency of withdrawals. You can also stop, pause, or increase the SWP amount anytime without penalties.
                                 </p>
                             </CardContent>
@@ -229,7 +229,7 @@ export default function SWPCalculatorPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-ink-60 dark:text-gray-300">
                                     It guarantees a fixed cash flow to meet monthly expenses, acting like a self-funded pension plan for retirees or anyone seeking passive income.
                                 </p>
                             </CardContent>
@@ -248,28 +248,28 @@ export default function SWPCalculatorPage() {
                                     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">1</div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Investment Phase</h4>
-                                        <p className="text-gray-600">You invest ₹50 Lakhs in a Mutual Fund (e.g., Balanced Advantage Fund).</p>
+                                        <p className="text-ink-60">You invest ₹50 Lakhs in a Mutual Fund (e.g., Balanced Advantage Fund).</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
                                     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">2</div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Instruction Phase</h4>
-                                        <p className="text-gray-600">You instruct the fund house to withdraw <span className="font-bold text-gray-900">₹40,000 per month</span> on the 5th of every month.</p>
+                                        <p className="text-ink-60">You instruct the fund house to withdraw <span className="font-display font-bold text-ink">₹40,000 per month</span> on the 5th of every month.</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
                                     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">3</div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Execution</h4>
-                                        <p className="text-gray-600">Every month, units worth ₹40,000 are sold and credited to your bank account.</p>
+                                        <p className="text-ink-60">Every month, units worth ₹40,000 are sold and credited to your bank account.</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
                                     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold flex-shrink-0">4</div>
                                     <div>
                                         <h4 className="font-bold text-lg mb-1">Growth</h4>
-                                        <p className="text-gray-600">Since your withdrawal (₹4.8L/year) is less than returns (10% of 50L = ₹5L/year), your original corpus actually <span className="font-bold text-emerald-600">GROWS</span> over time despite withdrawals.</p>
+                                        <p className="text-ink-60">Since your withdrawal (₹4.8L/year) is less than returns (10% of 50L = ₹5L/year), your original corpus actually <span className="font-bold text-emerald-600">GROWS</span> over time despite withdrawals.</p>
                                     </div>
                                 </div>
                             </div>
@@ -279,19 +279,19 @@ export default function SWPCalculatorPage() {
                     {/* Taxation Section */}
                     <Card className="border border-gray-200 shadow-sm rounded-2xl bg-white">
                         <CardHeader>
-                            <CardTitle className="text-2xl font-bold text-gray-900">SWP Taxation Rules (FY 2025-26)</CardTitle>
+                            <CardTitle className="text-2xl font-display font-bold text-ink">SWP Taxation Rules (FY 2025-26)</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left border-collapse">
                                     <thead>
                                         <tr className="border-b border-gray-200">
-                                            <th className="p-4 font-bold text-gray-900">Fund Type</th>
-                                            <th className="p-4 font-bold text-gray-900">Holding Period</th>
-                                            <th className="p-4 font-bold text-gray-900">Tax Rates</th>
+                                            <th className="p-4 font-display font-bold text-ink">Fund Type</th>
+                                            <th className="p-4 font-display font-bold text-ink">Holding Period</th>
+                                            <th className="p-4 font-display font-bold text-ink">Tax Rates</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="text-gray-600">
+                                    <tbody className="text-ink-60">
                                         <tr className="border-b border-gray-100">
                                             <td className="p-4 font-medium">Equity Funds</td>
                                             <td className="p-4">&lt; 1 Year</td>
@@ -310,7 +310,7 @@ export default function SWPCalculatorPage() {
                                     </tbody>
                                 </table>
                             </div>
-                            <p className="text-sm text-gray-500 mt-4 italic">
+                            <p className="text-sm text-ink-60 mt-4 italic">
                                 *Note: Changes as per Budget 2024. Long Term Capital Gains (LTCG) on equity funds are tax-free up to ₹1.25 Lakhs per financial year. Withdrawals are taxed on a First-In-First-Out (FIFO) basis.
                             </p>
                         </CardContent>
@@ -320,11 +320,11 @@ export default function SWPCalculatorPage() {
                 {/* Expanded FAQ Section */}
                 <Card className="border-0 shadow-lg rounded-2xl">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-gray-900 flex items-center gap-6 md:p-8">
+                        <CardTitle className="text-2xl font-display font-bold text-ink flex items-center gap-6 md:p-8">
                             <Info className="w-6 h-6 text-primary-600" />
                             SWP Calculator - Frequently Asked Questions (FAQs)
                         </CardTitle>
-                        <p className="text-gray-600 mt-2">Find answers to the most common questions about SWP calculator and systematic withdrawal plans</p>
+                        <p className="text-ink-60 mt-2">Find answers to the most common questions about SWP calculator and systematic withdrawal plans</p>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-8">
@@ -431,7 +431,7 @@ export default function SWPCalculatorPage() {
                                 }
                             ].map((faq, idx) => (
                                 <div key={idx} className="border-b border-gray-200 pb-8 last:border-0">
-                                    <h3 className="font-bold text-gray-900 mb-3 text-xl flex items-start gap-3">
+                                    <h3 className="font-display font-bold text-ink mb-3 text-xl flex items-start gap-3">
                                         <span className="text-primary-600 font-bold text-lg">Q{idx + 1}.</span>
                                         <span>{faq.q}</span>
                                     </h3>

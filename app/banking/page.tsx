@@ -122,11 +122,11 @@ export default async function BankingPage() {
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-400">
+            <ol className="flex items-center gap-1.5 text-[13px] text-ink-60 dark:text-ink-60">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-green-600 transition-colors"
+                  className="hover:text-action-green transition-colors"
                 >
                   Home
                 </Link>
@@ -139,22 +139,22 @@ export default async function BankingPage() {
           </nav>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl md:text-4xl font-bold text-gray-900 tracking-tight leading-tight">
+              <h1 className="text-2xl md:text-4xl font-display font-bold text-ink tracking-tight leading-tight">
                 Banking Products
               </h1>
-              <p className="text-base text-gray-500 mt-2 max-w-xl leading-relaxed">
+              <p className="text-base text-ink-60 mt-2 max-w-xl leading-relaxed">
                 Compare savings accounts, fixed deposits, and recurring
                 deposits. Find the best rates from 50+ banks. Independent
                 ratings — DICGC insured.
               </p>
             </div>
-            <div className="flex items-center gap-5 text-[12px] text-gray-500 flex-shrink-0 mt-1">
+            <div className="flex items-center gap-5 text-[12px] text-ink-60 flex-shrink-0 mt-1">
               <span className="flex items-center gap-1.5">
-                <Shield size={13} className="text-green-600" />
+                <Shield size={13} className="text-action-green" />
                 DICGC insured
               </span>
               <span className="flex items-center gap-1.5">
-                <CalendarDays size={13} className="text-green-600" />
+                <CalendarDays size={13} className="text-action-green" />
                 Rates updated daily
               </span>
             </div>
@@ -179,25 +179,25 @@ export default async function BankingPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                      <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
                         {product.label}
                       </p>
                       {product.badge && (
-                        <span className="text-[9px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded uppercase">
+                        <span className="text-[9px] font-bold text-action-green bg-green-50 px-1.5 py-0.5 rounded uppercase">
                           {product.badge}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
+                    <p className="text-xs text-ink-60 mt-0.5 leading-relaxed">
                       {product.desc}
                     </p>
-                    <p className="text-xs font-semibold text-green-600 mt-1.5">
+                    <p className="text-xs font-semibold text-action-green mt-1.5">
                       {product.rate}
                     </p>
                   </div>
                   <ArrowRight
                     size={14}
-                    className="text-gray-300 group-hover:text-green-500 transition-colors mt-1 flex-shrink-0"
+                    className="text-gray-300 group-hover:text-action-green transition-colors mt-1 flex-shrink-0"
                   />
                 </Link>
               );
@@ -210,7 +210,7 @@ export default async function BankingPage() {
       {initialAccounts.length > 0 && (
         <section className="bg-white border-t border-gray-200">
           <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-            <h2 className="text-lg font-bold text-gray-900 mb-5">
+            <h2 className="text-lg font-display font-bold text-ink mb-5">
               Compare Savings Account Rates
             </h2>
             <SavingsAccountsClient initialAccounts={initialAccounts} />
@@ -221,7 +221,7 @@ export default async function BankingPage() {
       {/* Related tools */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-gray-900 mb-5">
+          <h2 className="text-lg font-display font-bold text-ink mb-5">
             Banking Tools
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -252,10 +252,10 @@ export default async function BankingPage() {
                 href={t.href}
                 className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
               >
-                <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
                   {t.label}
                 </p>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
                   {t.desc}
                 </p>
               </Link>
@@ -267,7 +267,7 @@ export default async function BankingPage() {
       {/* FAQ */}
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-bold text-gray-900 mb-5">Banking FAQs</h2>
+          <h2 className="text-lg font-display font-bold text-ink mb-5">Banking FAQs</h2>
           <div className="space-y-2">
             {[
               {
@@ -299,14 +299,14 @@ export default async function BankingPage() {
                 key={i}
                 className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
               >
-                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
+                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-ink hover:bg-gray-50 transition-colors list-none">
                   {f.q}
                   <ChevronRight
                     size={16}
-                    className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
+                    className="text-ink-60 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
                   />
                 </summary>
-                <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+                <div className="px-5 pb-4 text-sm text-ink-60 leading-relaxed border-t border-gray-100 pt-3">
                   {f.a}
                 </div>
               </details>

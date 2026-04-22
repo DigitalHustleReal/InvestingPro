@@ -58,7 +58,7 @@ export default function EMICalculatorPage() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-6">
-        <nav className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+        <nav className="flex items-center gap-2 text-sm text-ink-60 dark:text-ink-60">
           <Link
             href="/"
             className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
@@ -73,7 +73,7 @@ export default function EMICalculatorPage() {
             Calculators
           </Link>
           <span>/</span>
-          <span className="text-gray-900 dark:text-white font-medium">
+          <span className="text-ink dark:text-white font-medium">
             EMI Calculator
           </span>
         </nav>
@@ -81,10 +81,10 @@ export default function EMICalculatorPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="font-display font-black text-[36px] sm:text-[48px] lg:text-[56px] text-ink dark:text-white mb-4 leading-[1.05] tracking-tight">
             EMI Calculator - Calculate Loan EMI Online
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-ink-60 dark:text-ink-60 max-w-3xl mx-auto leading-relaxed">
             Calculate EMI for home loans, car loans, personal loans, and
             education loans. See principal vs interest breakdown and total
             interest paid over loan tenure.
@@ -105,7 +105,7 @@ export default function EMICalculatorPage() {
           {/* What is EMI Section */}
           <Card className="border-0 shadow-lg rounded-2xl bg-white dark:bg-gray-900">
             <CardHeader>
-              <CardTitle className="text-3xl font-bold text-gray-900 dark:text-white">
+              <CardTitle className="text-3xl font-display font-bold text-ink dark:text-white">
                 What is Equated Monthly Installment (EMI)?
               </CardTitle>
             </CardHeader>
@@ -136,7 +136,7 @@ export default function EMICalculatorPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-ink-60 dark:text-gray-300">
                   Knowing your exact EMI amount helps you plan your monthly
                   budget effectively. You know exactly how much to set aside for
                   loan repayment.
@@ -151,7 +151,7 @@ export default function EMICalculatorPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-ink-60 dark:text-gray-300">
                   You can choose a tenure that suits your repayment capacity.
                   Longer tenure means lower EMI but higher total interest;
                   shorter tenure means higher EMI but lower interest.
@@ -166,7 +166,7 @@ export default function EMICalculatorPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-ink-60 dark:text-gray-300">
                   EMIs make expensive assets like homes and cars accessible to
                   the middle class by breaking down the cost into manageable
                   monthly payments.
@@ -181,7 +181,7 @@ export default function EMICalculatorPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-ink-60 dark:text-gray-300">
                   Most loans work on a reducing balance method. As you pay EMIs,
                   the principal reduces, and the interest component decreases
                   over time.
@@ -193,38 +193,38 @@ export default function EMICalculatorPage() {
           {/* Formula Section */}
           <Card className="border border-gray-200 shadow-sm rounded-2xl bg-white dark:bg-gray-900">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+              <CardTitle className="text-2xl font-display font-bold text-ink dark:text-white">
                 How is EMI Calculated?
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-ink-60 dark:text-gray-300">
                 The mathematical formula for calculating EMI is:
               </p>
               <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl font-mono text-center text-lg font-bold text-primary-700 dark:text-primary-400 border border-gray-200 dark:border-gray-700">
                 EMI = [P x R x (1+R)^N] / [(1+R)^N-1]
               </div>
-              <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
+              <div className="grid grid-cols-2 gap-4 text-sm text-ink-60 dark:text-ink-60">
                 <div>
-                  <span className="font-bold text-gray-900 dark:text-white">
+                  <span className="font-display font-bold text-ink dark:text-white">
                     P
                   </span>{" "}
                   = Principal Loan Amount
                 </div>
                 <div>
-                  <span className="font-bold text-gray-900 dark:text-white">
+                  <span className="font-display font-bold text-ink dark:text-white">
                     R
                   </span>{" "}
                   = Monthly Interest Rate (Annual Rate/12/100)
                 </div>
                 <div>
-                  <span className="font-bold text-gray-900 dark:text-white">
+                  <span className="font-display font-bold text-ink dark:text-white">
                     N
                   </span>{" "}
                   = Loan Tenure in Months
                 </div>
               </div>
-              <p className="text-sm text-gray-500 italic mt-4">
+              <p className="text-sm text-ink-60 italic mt-4">
                 *Note: This formula assumes interest is compounded monthly,
                 which is the standard for most retail loans in India.
               </p>
@@ -235,11 +235,11 @@ export default function EMICalculatorPage() {
         {/* Expanded FAQ Section */}
         <Card className="border-0 shadow-lg rounded-2xl">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-6 md:p-8">
+            <CardTitle className="text-2xl font-display font-bold text-ink dark:text-white flex items-center gap-6 md:p-8">
               <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
               EMI Calculator - Frequently Asked Questions (FAQs)
             </CardTitle>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <p className="text-ink-60 dark:text-ink-60 mt-2">
               Find answers to the most common questions about EMI calculator and
               loan repayments
             </p>
@@ -356,7 +356,7 @@ export default function EMICalculatorPage() {
                   key={idx}
                   className="border-b border-gray-200 dark:border-gray-800 pb-8 last:border-0"
                 >
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-xl flex items-start gap-3">
+                  <h3 className="font-display font-bold text-ink dark:text-white mb-3 text-xl flex items-start gap-3">
                     <span className="text-primary-600 font-bold text-lg">
                       Q{idx + 1}.
                     </span>

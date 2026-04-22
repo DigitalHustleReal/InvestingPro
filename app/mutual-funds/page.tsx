@@ -115,11 +115,11 @@ export default async function MutualFundsPage() {
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
           <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-sm text-gray-500">
+            <ol className="flex items-center gap-1.5 text-sm text-ink-60">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-gray-900 transition-colors"
+                  className="hover:text-ink transition-colors"
                 >
                   Home
                 </Link>
@@ -127,27 +127,27 @@ export default async function MutualFundsPage() {
               <li>
                 <ChevronRight size={14} />
               </li>
-              <li className="text-gray-900 font-medium">Mutual Funds</li>
+              <li className="text-ink font-medium">Mutual Funds</li>
             </ol>
           </nav>
           <AdvertiserDisclosure variant="expandable" className="mb-3" />
 
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink">
+              <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
                 Best Mutual Funds{" "}
                 <em className="italic text-authority-green">in India</em>
               </h1>
-              <p className="text-base text-gray-500 mt-3 max-w-xl leading-relaxed">
+              <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
                 Compare mutual funds by returns, expense ratio, and risk grade.
                 Ranked by real performance — not what pays us most.
               </p>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0 mt-1">
-              <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">
+              <span className="text-xs text-ink-60 bg-gray-100 px-3 py-1.5 rounded-full">
                 40+ AMCs
               </span>
-              <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">
+              <span className="text-xs text-ink-60 bg-gray-100 px-3 py-1.5 rounded-full">
                 NAV daily
               </span>
             </div>
@@ -172,7 +172,7 @@ export default async function MutualFundsPage() {
                     ? "/mutual-funds"
                     : `/mutual-funds?type=${p.toLowerCase().replace(" ", "-")}`
                 }
-                className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors rounded-full ${i === 0 ? "bg-green-700 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"}`}
+                className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors rounded-full ${i === 0 ? "bg-authority-green text-white" : "bg-gray-100 text-ink-60 hover:bg-gray-200 hover:text-ink"}`}
               >
                 {p}
               </Link>
@@ -191,28 +191,28 @@ export default async function MutualFundsPage() {
                 label: "Equity Funds",
                 sub: "Higher returns, higher risk",
                 href: "/mutual-funds?type=equity",
-                color: "text-green-700 bg-green-50",
+                color: "text-authority-green bg-green-50",
               },
               {
                 icon: PiggyBank,
                 label: "Debt Funds",
                 sub: "Stable returns, lower risk",
                 href: "/mutual-funds?type=debt",
-                color: "text-green-700 bg-green-50",
+                color: "text-authority-green bg-green-50",
               },
               {
                 icon: Layers,
                 label: "Hybrid Funds",
                 sub: "Mix of equity + debt",
                 href: "/mutual-funds?type=hybrid",
-                color: "text-amber-600 bg-amber-50",
+                color: "text-indian-gold bg-amber-50",
               },
               {
                 icon: BarChart3,
                 label: "Index Funds",
                 sub: "Low cost, market returns",
                 href: "/mutual-funds?type=index",
-                color: "text-amber-600 bg-amber-50",
+                color: "text-indian-gold bg-amber-50",
               },
             ].map((cat) => {
               const Icon = cat.icon;
@@ -228,10 +228,10 @@ export default async function MutualFundsPage() {
                     <Icon size={18} />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                    <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
                       {cat.label}
                     </p>
-                    <p className="text-xs text-gray-500">{cat.sub}</p>
+                    <p className="text-xs text-ink-60">{cat.sub}</p>
                   </div>
                 </Link>
               );
@@ -252,20 +252,20 @@ export default async function MutualFundsPage() {
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row items-center gap-6 p-6 border border-gray-200 rounded-xl bg-gray-50">
             <div className="flex-1">
-              <span className="text-xs text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full font-medium mb-2 inline-block">
+              <span className="text-xs text-authority-green bg-green-50 px-2.5 py-0.5 rounded-full font-medium mb-2 inline-block">
                 Free Tool
               </span>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">
+              <h3 className="text-lg font-display font-bold text-ink mb-1">
                 Mutual Fund Overlap Checker
               </h3>
-              <p className="text-sm text-gray-500 leading-relaxed max-w-md">
+              <p className="text-sm text-ink-60 leading-relaxed max-w-md">
                 Holding 3+ funds? Check if they invest in the same stocks. Avoid
                 paying multiple expense ratios for the same exposure.
               </p>
             </div>
             <Link
               href="/mutual-funds/overlap-checker"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-green-700 text-white text-sm font-semibold rounded-xl hover:bg-green-800 transition-colors flex-shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-authority-green text-white text-sm font-semibold rounded-xl hover:bg-green-800 transition-colors flex-shrink-0"
             >
               Check Overlap
               <ArrowRight size={15} />
@@ -277,7 +277,7 @@ export default async function MutualFundsPage() {
       {/* ── Related Tools ── */}
       <section className="bg-white">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">
             Related Tools
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -313,10 +313,10 @@ export default async function MutualFundsPage() {
                 href={t.href}
                 className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
               >
-                <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
                   {t.label}
                 </p>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
                   {t.desc}
                 </p>
               </Link>
@@ -328,7 +328,7 @@ export default async function MutualFundsPage() {
       {/* ── Popular comparisons ── */}
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">
             Popular Comparisons
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -369,14 +369,14 @@ export default async function MutualFundsPage() {
                 href={comp.href}
                 className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
               >
-                <span className="text-xs font-bold text-green-700 bg-green-50 px-2 py-1 mt-0.5 flex-shrink-0 rounded">
+                <span className="text-xs font-bold text-authority-green bg-green-50 px-2 py-1 mt-0.5 flex-shrink-0 rounded">
                   VS
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                  <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
                     {comp.title}
                   </p>
-                  <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
+                  <p className="text-xs text-ink-60 mt-0.5 leading-relaxed">
                     {comp.desc}
                   </p>
                 </div>
@@ -389,7 +389,7 @@ export default async function MutualFundsPage() {
       {/* ── How We Rate ── */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">
             How We Rate
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -419,31 +419,31 @@ export default async function MutualFundsPage() {
                 key={stat.label}
                 className="p-4 bg-gray-50 border border-gray-200 rounded-xl"
               >
-                <p className="text-2xl font-bold text-gray-900">{stat.num}</p>
-                <p className="text-sm font-semibold text-gray-900 mt-1">
+                <p className="text-2xl font-display font-bold text-ink">{stat.num}</p>
+                <p className="text-sm font-display font-semibold text-ink mt-1">
                   {stat.label}
                 </p>
-                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
                   {stat.desc}
                 </p>
               </div>
             ))}
           </div>
-          <p className="text-sm text-gray-500 leading-relaxed max-w-2xl">
+          <p className="text-sm text-ink-60 leading-relaxed max-w-2xl">
             We evaluate funds on returns (1-10yr), expense ratio, Sharpe ratio,
             fund manager consistency, AUM stability, and category rank. When you
             invest through our links, we may earn a commission. This never
             influences ratings.{" "}
             <Link
               href="/methodology"
-              className="text-green-700 hover:underline font-medium"
+              className="text-authority-green hover:underline font-medium"
             >
               Methodology disclosed →
             </Link>{" "}
             ·{" "}
             <Link
               href="/how-we-make-money"
-              className="text-green-700 hover:underline font-medium"
+              className="text-authority-green hover:underline font-medium"
             >
               How we make money →
             </Link>
@@ -454,7 +454,7 @@ export default async function MutualFundsPage() {
       {/* ── FAQs ── */}
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <h2 className="text-lg font-display font-semibold text-ink mb-6">
             Frequently Asked Questions
           </h2>
           <div className="space-y-3">
@@ -492,14 +492,14 @@ export default async function MutualFundsPage() {
                 key={i}
                 className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
               >
-                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors list-none">
+                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-ink hover:bg-gray-50 transition-colors list-none">
                   {f.q}
                   <ChevronRight
                     size={16}
-                    className="text-gray-400 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
+                    className="text-ink-60 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
                   />
                 </summary>
-                <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+                <div className="px-5 pb-4 text-sm text-ink-60 leading-relaxed border-t border-gray-100 pt-3">
                   {f.a}
                 </div>
               </details>
@@ -511,13 +511,13 @@ export default async function MutualFundsPage() {
       {/* ── Next steps ── */}
       <section className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-xl font-bold text-gray-900 mb-5">
+          <h2 className="text-xl font-display font-bold text-ink mb-5">
             Not sure where to start?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link
               href="/calculators/sip"
-              className="p-5 bg-green-700 hover:bg-green-800 transition-colors text-center rounded-xl"
+              className="p-5 bg-authority-green hover:bg-green-800 transition-colors text-center rounded-xl"
             >
               <p className="text-sm font-semibold text-white">
                 Try the SIP Calculator
@@ -530,10 +530,10 @@ export default async function MutualFundsPage() {
               href="/mutual-funds/compare"
               className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all text-center"
             >
-              <p className="text-sm font-semibold text-gray-900">
+              <p className="text-sm font-display font-semibold text-ink">
                 Compare Funds Side-by-Side
               </p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-ink-60 mt-1">
                 Pick 2-3 funds and see the difference
               </p>
             </Link>
@@ -541,10 +541,10 @@ export default async function MutualFundsPage() {
               href="/mutual-funds/find-your-fund"
               className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all text-center"
             >
-              <p className="text-sm font-semibold text-gray-900">
+              <p className="text-sm font-display font-semibold text-ink">
                 Find Your Fund
               </p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-ink-60 mt-1">
                 Personalized recommendation quiz
               </p>
             </Link>

@@ -162,17 +162,17 @@ export default function SIPCalculatorPage() {
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <div className="text-center mb-6">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="font-display font-black text-[36px] sm:text-[48px] lg:text-[56px] text-ink dark:text-white mb-4 leading-[1.05] tracking-tight">
             SIP Calculator - Calculate Systematic Investment Plan Returns
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed mb-4">
+          <p className="text-xl text-ink-60 dark:text-ink-60 max-w-3xl mx-auto leading-relaxed mb-4">
             Calculate returns on your SIP investments with our free SIP
             calculator. Includes inflation adjustment to show real returns and
             help you plan your financial goals.
           </p>
 
           {/* Usage Counter & Last Updated */}
-          <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500 mb-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-ink-60 mb-4">
             <span className="flex items-center gap-2">
               <span className="font-semibold text-primary-600">
                 Verified by Experts
@@ -229,11 +229,11 @@ export default function SIPCalculatorPage() {
         {/* External Authority Links */}
         <Card className="border-0 shadow-lg rounded-2xl bg-gradient-to-br from-secondary-50 to-secondary-100">
           <CardHeader>
-            <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-6 md:p-8">
+            <CardTitle className="text-xl font-display font-bold text-ink dark:text-white flex items-center gap-6 md:p-8">
               <Info className="w-6 h-6 text-primary-600 dark:text-primary-400" />
               Official Resources & Guidelines
             </CardTitle>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <p className="text-ink-60 dark:text-ink-60 mt-2">
               Refer to these authoritative sources for official information
               about SIP investments and mutual funds in India.
             </p>
@@ -250,10 +250,10 @@ export default function SIPCalculatorPage() {
                   <ExternalLink className="w-5 h-5 text-primary-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 dark:text-white">
+                  <p className="font-display font-bold text-ink dark:text-white">
                     SEBI
                   </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                  <p className="text-xs text-ink-60 dark:text-ink-60">
                     Securities and Exchange Board of India
                   </p>
                 </div>
@@ -268,8 +268,8 @@ export default function SIPCalculatorPage() {
                   <ExternalLink className="w-5 h-5 text-primary-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">AMFI</p>
-                  <p className="text-xs text-gray-600">
+                  <p className="font-display font-bold text-ink">AMFI</p>
+                  <p className="text-xs text-ink-60">
                     Association of Mutual Funds in India
                   </p>
                 </div>
@@ -284,8 +284,8 @@ export default function SIPCalculatorPage() {
                   <ExternalLink className="w-5 h-5 text-primary-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 dark:text-white">RBI</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                  <p className="font-display font-bold text-ink dark:text-white">RBI</p>
+                  <p className="text-xs text-ink-60 dark:text-ink-60">
                     Reserve Bank of India
                   </p>
                 </div>
