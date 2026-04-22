@@ -1,8 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Cookie } from "lucide-react";
+import { X } from "lucide-react";
 import Link from "next/link";
+
+// Cookie consent — slim single-line bar bottom-fixed.
+// v3 Bold Redesign: ink bg, gold accent, mono copy, sharp corners.
+// Replaces earlier 3-line card that was too tall on mobile (bug #11).
 
 export default function CookieConsent() {
   const [show, setShow] = useState(false);
@@ -10,7 +14,8 @@ export default function CookieConsent() {
   useEffect(() => {
     const consent = localStorage.getItem("cookieConsent");
     if (!consent) {
-      setTimeout(() => setShow(true), 2000);
+      // Delay reveal slightly so it doesn't compete with first paint
+      setTimeout(() => setShow(true), 1500);
     }
   }, []);
 
@@ -27,34 +32,42 @@ export default function CookieConsent() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-sm z-[100]">
-      <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-4">
-        <div className="flex items-start gap-3">
-          <Cookie className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-          <div className="flex-1 min-w-0">
-            <p className="text-[13px] text-gray-600 leading-relaxed">
-              We use cookies to improve your experience.{" "}
-              <Link
-                href="/cookie-policy"
-                className="text-green-600 hover:underline"
-              >
-                Learn more
-              </Link>
-            </p>
-            <div className="flex gap-2 mt-3">
-              <button
-                onClick={acceptCookies}
-                className="px-4 py-1.5 bg-green-600 text-white text-xs font-semibold rounded-lg hover:bg-green-700 transition-colors cursor-pointer"
-              >
-                Accept
-              </button>
-              <button
-                onClick={declineCookies}
-                className="px-4 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-lg hover:bg-gray-200 transition-colors cursor-pointer"
-              >
-                Decline
-              </button>
-            </div>
+    <div
+      role="region"
+      aria-label="Cookie consent"
+      className="fixed bottom-0 left-0 right-0 z-[100] pb-safe"
+    >
+      <div className="bg-ink text-canvas border-t-2 border-indian-gold">
+        <div className="max-w-7xl mx-auto px-4 py-2.5 flex flex-col sm:flex-row items-center gap-3">
+          <p className="font-mono text-[11px] uppercase tracking-wider text-canvas-70 text-center sm:text-left flex-1">
+            We use cookies for analytics &amp; affiliate tracking.{" "}
+            <Link
+              href="/cookie-policy"
+              className="text-indian-gold hover:underline"
+            >
+              Learn more
+            </Link>
+          </p>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <button
+              onClick={declineCookies}
+              className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 hover:text-canvas px-3 py-1.5 transition-colors"
+            >
+              Decline
+            </button>
+            <button
+              onClick={acceptCookies}
+              className="font-mono text-[11px] uppercase tracking-wider bg-indian-gold text-ink px-4 py-1.5 rounded-sm hover:bg-canvas transition-colors font-semibold"
+            >
+              Accept
+            </button>
+            <button
+              onClick={declineCookies}
+              aria-label="Close"
+              className="text-canvas-70 hover:text-canvas transition-colors p-1 -mr-1"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       </div>
