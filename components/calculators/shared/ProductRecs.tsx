@@ -129,12 +129,12 @@ export function ProductRecs({
 
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+      <div className="bg-white border border-ink/10 rounded-sm p-5 shadow-none">
         <div className="animate-pulse space-y-3">
-          <div className="h-4 bg-gray-100 rounded w-1/3" />
-          <div className="h-10 bg-gray-50 rounded" />
-          <div className="h-10 bg-gray-50 rounded" />
-          <div className="h-10 bg-gray-50 rounded" />
+          <div className="h-4 bg-ink/5 rounded w-1/3" />
+          <div className="h-10 bg-canvas rounded" />
+          <div className="h-10 bg-canvas rounded" />
+          <div className="h-10 bg-canvas rounded" />
         </div>
       </div>
     );
@@ -159,14 +159,14 @@ export function ProductRecs({
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+    <div className="bg-white border border-ink/10 rounded-sm p-5 shadow-none">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-ink flex items-center gap-2">
           <Star size={15} className="text-amber-500 fill-amber-500" />
           {title || defaultTitles[category] || "Recommended Products"}
         </h3>
         {matchCriteria && (
-          <span className="text-[10px] font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
+          <span className="text-[10px] font-medium text-action-green bg-action-green/10 px-2 py-0.5 rounded-full">
             {matchCriteria}
           </span>
         )}
@@ -177,16 +177,16 @@ export function ProductRecs({
           <Link
             key={p.slug || i}
             href={`${routeMap[category]}/${p.slug}`}
-            className="flex items-center justify-between py-2.5 px-3 rounded-lg hover:bg-green-50 transition-colors group"
+            className="flex items-center justify-between py-2.5 px-3 rounded-sm hover:bg-action-green/10 transition-colors group"
           >
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate group-hover:text-green-700 transition-colors">
+              <p className="text-sm font-medium text-ink truncate group-hover:text-authority-green transition-colors">
                 {p.name}
               </p>
-              <p className="text-[11px] text-gray-400">{p.provider}</p>
+              <p className="text-[11px] text-ink-60">{p.provider}</p>
             </div>
             {p.highlight && (
-              <span className="text-xs font-bold text-green-700 bg-green-50 group-hover:bg-green-100 px-2 py-1 rounded-lg ml-3 whitespace-nowrap">
+              <span className="text-xs font-bold text-authority-green bg-action-green/10 group-hover:bg-green-100 px-2 py-1 rounded-sm ml-3 whitespace-nowrap">
                 {p.highlight}
               </span>
             )}
@@ -196,7 +196,7 @@ export function ProductRecs({
 
       <Link
         href={routeMap[category] || "/"}
-        className="flex items-center justify-center gap-1 mt-3 pt-3 border-t border-gray-100 text-xs font-semibold text-green-600 hover:text-green-700 transition-colors"
+        className="flex items-center justify-center gap-1 mt-3 pt-3 border-t border-ink/5 text-xs font-semibold text-action-green hover:text-authority-green transition-colors"
       >
         View all {category.replace("-", " ")}
         <ArrowRight size={12} />

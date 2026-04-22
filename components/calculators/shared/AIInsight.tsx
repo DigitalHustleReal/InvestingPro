@@ -17,7 +17,7 @@ export function AIInsight({ insights }: AIInsightProps) {
   return (
     <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 space-y-2">
       <div className="flex items-center gap-1.5 text-amber-800">
-        <Sparkles size={14} className="text-amber-600" />
+        <Sparkles size={14} className="text-indian-gold" />
         <span className="text-xs font-bold uppercase tracking-wider">
           AI Insight
         </span>
