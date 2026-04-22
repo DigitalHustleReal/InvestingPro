@@ -374,14 +374,14 @@ function VerdictBadge({
 }) {
   if (verdict === "tie") {
     return (
-      <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-500 dark:text-gray-400">
+      <span className="inline-flex items-center gap-1 text-xs font-medium text-ink-60 dark:text-ink-60">
         <Minus className="w-3 h-3" /> Tie
       </span>
     );
   }
   const winner = verdict === "card1" ? card1Name : card2Name;
   return (
-    <span className="inline-flex items-center gap-1 text-xs font-semibold text-green-700 dark:text-green-400">
+    <span className="inline-flex items-center gap-1 text-xs font-semibold text-authority-green dark:text-green-400">
       <Trophy className="w-3 h-3" /> {winner.split(" ").slice(0, 2).join(" ")}
     </span>
   );
@@ -417,7 +417,7 @@ export default async function CreditCardVersusPage(props: {
   const card2Wins = comparisonRows.filter((r) => r.verdict === "card2").length;
 
   return (
-    <div className="bg-gray-50 dark:bg-black min-h-screen">
+    <div className="bg-canvas dark:bg-black min-h-screen">
       {/* Schema Markup */}
       <VersusSchema
         product1Name={card1.name}
@@ -433,21 +433,21 @@ export default async function CreditCardVersusPage(props: {
       />
 
       {/* Hero Section */}
-      <div className="bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 pt-8 pb-12">
+      <div className="bg-white dark:bg-gray-950 border-b border-ink/10 dark:border-ink/10 pt-8 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AutoBreadcrumbs />
 
           <div className="text-center mt-6 mb-8">
             <Badge
               variant="outline"
-              className="mb-4 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800"
+              className="mb-4 text-authority-green dark:text-green-400 border-green-200 dark:border-green-800"
             >
               <Scale className="w-3 h-3 mr-1" /> Credit Card Comparison
             </Badge>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-ink dark:text-white">
               {card1.name} vs {card2.name}
             </h1>
-            <p className="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="mt-3 text-ink-60 dark:text-ink-60 max-w-2xl mx-auto">
               Detailed side-by-side comparison of features, fees, rewards, and
               benefits to help you pick the right card in {year}.
             </p>
@@ -459,7 +459,7 @@ export default async function CreditCardVersusPage(props: {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 mt-8 max-w-4xl mx-auto">
             {/* Card 1 */}
             <div className="flex flex-col items-center text-center">
-              <div className="aspect-[1.586/1] w-full max-w-xs relative rounded-2xl overflow-hidden shadow-xl ring-1 ring-gray-900/10 dark:ring-gray-50/10">
+              <div className="aspect-[1.586/1] w-full max-w-xs relative rounded-sm overflow-hidden shadow-sm ring-1 ring-gray-900/10 dark:ring-gray-50/10">
                 {card1.image_url ? (
                   <img
                     src={card1.image_url}
@@ -476,17 +476,17 @@ export default async function CreditCardVersusPage(props: {
                   />
                 )}
               </div>
-              <h2 className="mt-4 text-lg font-bold text-gray-900 dark:text-white">
+              <h2 className="mt-4 text-lg font-bold text-ink dark:text-white">
                 {card1.name}
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-ink-60 dark:text-ink-60">
                 {card1.bank}
               </p>
               <div className="flex items-center gap-2 mt-2">
-                <Badge className="bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800">
+                <Badge className="bg-action-green/10 text-authority-green dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800">
                   {card1.type}
                 </Badge>
-                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <span className="text-sm font-semibold text-ink dark:text-ink/20">
                   {card1.rating || 4.5}/5
                 </span>
               </div>
@@ -504,7 +504,7 @@ export default async function CreditCardVersusPage(props: {
                       Apply Now <ExternalLink className="w-3 h-3 ml-1" />
                     </Link>
                   </Button>
-                  <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                  <span className="text-[10px] text-ink-60 dark:text-ink-60">
                     No CIBIL impact · 3-5 min
                   </span>
                 </div>
@@ -518,7 +518,7 @@ export default async function CreditCardVersusPage(props: {
 
             {/* Card 2 */}
             <div className="flex flex-col items-center text-center">
-              <div className="aspect-[1.586/1] w-full max-w-xs relative rounded-2xl overflow-hidden shadow-xl ring-1 ring-gray-900/10 dark:ring-gray-50/10">
+              <div className="aspect-[1.586/1] w-full max-w-xs relative rounded-sm overflow-hidden shadow-sm ring-1 ring-gray-900/10 dark:ring-gray-50/10">
                 {card2.image_url ? (
                   <img
                     src={card2.image_url}
@@ -535,17 +535,17 @@ export default async function CreditCardVersusPage(props: {
                   />
                 )}
               </div>
-              <h2 className="mt-4 text-lg font-bold text-gray-900 dark:text-white">
+              <h2 className="mt-4 text-lg font-bold text-ink dark:text-white">
                 {card2.name}
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-ink-60 dark:text-ink-60">
                 {card2.bank}
               </p>
               <div className="flex items-center gap-2 mt-2">
-                <Badge className="bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800">
+                <Badge className="bg-action-green/10 text-authority-green dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800">
                   {card2.type}
                 </Badge>
-                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <span className="text-sm font-semibold text-ink dark:text-ink/20">
                   {card2.rating || 4.5}/5
                 </span>
               </div>
@@ -563,7 +563,7 @@ export default async function CreditCardVersusPage(props: {
                       Apply Now <ExternalLink className="w-3 h-3 ml-1" />
                     </Link>
                   </Button>
-                  <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                  <span className="text-[10px] text-ink-60 dark:text-ink-60">
                     No CIBIL impact · 3-5 min
                   </span>
                 </div>
@@ -573,7 +573,7 @@ export default async function CreditCardVersusPage(props: {
 
           {/* VS badge between cards on mobile */}
           <div className="flex justify-center -mt-2 md:hidden">
-            <div className="w-12 h-12 rounded-full bg-green-700 text-white flex items-center justify-center font-bold text-sm shadow-lg">
+            <div className="w-12 h-12 rounded-sm bg-green-700 text-white flex items-center justify-center font-bold text-sm shadow-sm">
               VS
             </div>
           </div>
@@ -589,16 +589,16 @@ export default async function CreditCardVersusPage(props: {
         />
 
         {/* Feature-by-Feature Comparison Table */}
-        <Card className="mt-8 border-gray-200 dark:border-gray-800 shadow-sm">
-          <CardHeader className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-800">
-            <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
-              <Scale className="w-5 h-5 text-green-700 dark:text-green-400" />
+        <Card className="mt-8 border-ink/10 dark:border-ink/10 shadow-sm">
+          <CardHeader className="bg-canvas dark:bg-gray-900/50 border-b border-ink/10 dark:border-ink/10">
+            <CardTitle className="flex items-center gap-2 text-ink dark:text-white">
+              <Scale className="w-5 h-5 text-authority-green dark:text-green-400" />
               Feature-by-Feature Comparison
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             {/* Table Header */}
-            <div className="hidden md:grid grid-cols-4 gap-4 px-6 py-4 bg-gray-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 text-sm font-semibold text-gray-600 dark:text-gray-400">
+            <div className="hidden md:grid grid-cols-4 gap-4 px-6 py-4 bg-ink/5 dark:bg-gray-900 border-b border-ink/10 dark:border-ink/10 text-sm font-semibold text-ink-60 dark:text-ink-60">
               <div>Feature</div>
               <div className="text-center">
                 {card1.name.split(" ").slice(0, 3).join(" ")}
@@ -614,16 +614,16 @@ export default async function CreditCardVersusPage(props: {
               <div
                 key={row.label}
                 className={cn(
-                  "px-6 py-4 border-b border-gray-100 dark:border-gray-800 last:border-b-0",
+                  "px-6 py-4 border-b border-ink/5 dark:border-ink/10 last:border-b-0",
                   index % 2 === 0
                     ? "bg-white dark:bg-gray-950"
-                    : "bg-gray-50/50 dark:bg-gray-900/30",
+                    : "bg-canvas/50 dark:bg-gray-900/30",
                 )}
               >
                 {/* Desktop Layout */}
                 <div className="hidden md:grid grid-cols-4 gap-4 items-center">
-                  <div className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                    <span className="text-green-700 dark:text-green-400">
+                  <div className="flex items-center gap-2 text-sm font-medium text-ink dark:text-ink/20">
+                    <span className="text-authority-green dark:text-green-400">
                       {row.icon}
                     </span>
                     {row.label}
@@ -632,26 +632,26 @@ export default async function CreditCardVersusPage(props: {
                     className={cn(
                       "text-center text-sm font-medium",
                       row.verdict === "card1"
-                        ? "text-green-700 dark:text-green-400 font-bold"
-                        : "text-gray-700 dark:text-gray-300",
+                        ? "text-authority-green dark:text-green-400 font-bold"
+                        : "text-ink dark:text-ink/20",
                     )}
                   >
                     {row.card1Value}
                     {row.verdict === "card1" && (
-                      <CheckCircle2 className="w-4 h-4 inline ml-1 text-green-600" />
+                      <CheckCircle2 className="w-4 h-4 inline ml-1 text-action-green" />
                     )}
                   </div>
                   <div
                     className={cn(
                       "text-center text-sm font-medium",
                       row.verdict === "card2"
-                        ? "text-green-700 dark:text-green-400 font-bold"
-                        : "text-gray-700 dark:text-gray-300",
+                        ? "text-authority-green dark:text-green-400 font-bold"
+                        : "text-ink dark:text-ink/20",
                     )}
                   >
                     {row.card2Value}
                     {row.verdict === "card2" && (
-                      <CheckCircle2 className="w-4 h-4 inline ml-1 text-green-600" />
+                      <CheckCircle2 className="w-4 h-4 inline ml-1 text-action-green" />
                     )}
                   </div>
                   <div className="text-center">
@@ -665,8 +665,8 @@ export default async function CreditCardVersusPage(props: {
 
                 {/* Mobile Layout */}
                 <div className="md:hidden space-y-3">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-200">
-                    <span className="text-green-700 dark:text-green-400">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-ink dark:text-gray-200">
+                    <span className="text-authority-green dark:text-green-400">
                       {row.icon}
                     </span>
                     {row.label}
@@ -674,26 +674,26 @@ export default async function CreditCardVersusPage(props: {
                   <div className="grid grid-cols-2 gap-3">
                     <div
                       className={cn(
-                        "p-3 rounded-lg text-center text-sm",
+                        "p-3 rounded-sm text-center text-sm",
                         row.verdict === "card1"
-                          ? "bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 font-bold text-green-700 dark:text-green-400"
-                          : "bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
+                          ? "bg-action-green/10 dark:bg-green-900/20 border border-green-200 dark:border-green-800 font-bold text-authority-green dark:text-green-400"
+                          : "bg-canvas dark:bg-gray-800 text-ink dark:text-ink/20",
                       )}
                     >
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1 truncate">
+                      <p className="text-xs text-ink-60 dark:text-ink-60 mb-1 truncate">
                         {card1.name.split(" ").slice(0, 2).join(" ")}
                       </p>
                       <p className="font-medium">{row.card1Value}</p>
                     </div>
                     <div
                       className={cn(
-                        "p-3 rounded-lg text-center text-sm",
+                        "p-3 rounded-sm text-center text-sm",
                         row.verdict === "card2"
-                          ? "bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 font-bold text-green-700 dark:text-green-400"
-                          : "bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
+                          ? "bg-action-green/10 dark:bg-green-900/20 border border-green-200 dark:border-green-800 font-bold text-authority-green dark:text-green-400"
+                          : "bg-canvas dark:bg-gray-800 text-ink dark:text-ink/20",
                       )}
                     >
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1 truncate">
+                      <p className="text-xs text-ink-60 dark:text-ink-60 mb-1 truncate">
                         {card2.name.split(" ").slice(0, 2).join(" ")}
                       </p>
                       <p className="font-medium">{row.card2Value}</p>
@@ -713,16 +713,16 @@ export default async function CreditCardVersusPage(props: {
         </Card>
 
         {/* Overall Verdict */}
-        <Card className="mt-8 border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-950/20 shadow-sm">
+        <Card className="mt-8 border-green-200 dark:border-green-800 bg-action-green/10/50 dark:bg-green-950/20 shadow-sm">
           <CardContent className="p-6 sm:p-8">
             <div className="text-center">
-              <Trophy className="w-8 h-8 text-green-700 dark:text-green-400 mx-auto mb-3" />
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <Trophy className="w-8 h-8 text-authority-green dark:text-green-400 mx-auto mb-3" />
+              <h3 className="text-xl font-bold text-ink dark:text-white mb-2">
                 Overall Verdict
               </h3>
               {card1Wins > card2Wins ? (
-                <p className="text-gray-600 dark:text-gray-400">
-                  <span className="font-bold text-green-700 dark:text-green-400">
+                <p className="text-ink-60 dark:text-ink-60">
+                  <span className="font-bold text-authority-green dark:text-green-400">
                     {card1.name}
                   </span>{" "}
                   edges ahead in {card1Wins} categories, while{" "}
@@ -731,8 +731,8 @@ export default async function CreditCardVersusPage(props: {
                   spending patterns and lifestyle needs.
                 </p>
               ) : card2Wins > card1Wins ? (
-                <p className="text-gray-600 dark:text-gray-400">
-                  <span className="font-bold text-green-700 dark:text-green-400">
+                <p className="text-ink-60 dark:text-ink-60">
+                  <span className="font-bold text-authority-green dark:text-green-400">
                     {card2.name}
                   </span>{" "}
                   edges ahead in {card2Wins} categories, while{" "}
@@ -741,7 +741,7 @@ export default async function CreditCardVersusPage(props: {
                   spending patterns and lifestyle needs.
                 </p>
               ) : (
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-ink-60 dark:text-ink-60">
                   Both <span className="font-semibold">{card1.name}</span> and{" "}
                   <span className="font-semibold">{card2.name}</span> are
                   closely matched. Your choice should depend on your spending
@@ -753,17 +753,17 @@ export default async function CreditCardVersusPage(props: {
 
             {/* Quick recommendation cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-              <div className="p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
-                <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-2">
+              <div className="p-4 bg-white dark:bg-gray-900 rounded-sm border border-ink/10 dark:border-ink/10">
+                <h4 className="font-semibold text-ink dark:text-white text-sm mb-2">
                   Choose {card1.name} if:
                 </h4>
                 <ul className="space-y-1.5">
                   {(card1.pros || []).slice(0, 3).map((pro, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
+                      className="flex items-start gap-2 text-sm text-ink-60 dark:text-ink-60"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-action-green flex-shrink-0 mt-0.5" />
                       {pro}
                     </li>
                   ))}
@@ -785,17 +785,17 @@ export default async function CreditCardVersusPage(props: {
                   </Button>
                 )}
               </div>
-              <div className="p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
-                <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-2">
+              <div className="p-4 bg-white dark:bg-gray-900 rounded-sm border border-ink/10 dark:border-ink/10">
+                <h4 className="font-semibold text-ink dark:text-white text-sm mb-2">
                   Choose {card2.name} if:
                 </h4>
                 <ul className="space-y-1.5">
                   {(card2.pros || []).slice(0, 3).map((pro, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
+                      className="flex items-start gap-2 text-sm text-ink-60 dark:text-ink-60"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-action-green flex-shrink-0 mt-0.5" />
                       {pro}
                     </li>
                   ))}
@@ -826,24 +826,24 @@ export default async function CreditCardVersusPage(props: {
           {[card1, card2].map((card) => (
             <Card
               key={card.id}
-              className="border-gray-200 dark:border-gray-800 shadow-sm"
+              className="border-ink/10 dark:border-ink/10 shadow-sm"
             >
               <CardHeader>
-                <CardTitle className="text-lg text-gray-900 dark:text-white">
+                <CardTitle className="text-lg text-ink dark:text-white">
                   {card.name}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Pros */}
                 <div>
-                  <h4 className="text-sm font-semibold text-green-700 dark:text-green-400 mb-2 flex items-center gap-1">
+                  <h4 className="text-sm font-semibold text-authority-green dark:text-green-400 mb-2 flex items-center gap-1">
                     <CheckCircle2 className="w-4 h-4" /> Pros
                   </h4>
                   <ul className="space-y-1.5">
                     {(card.pros || []).map((pro, i) => (
                       <li
                         key={i}
-                        className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2"
+                        className="text-sm text-ink-60 dark:text-ink-60 flex items-start gap-2"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-green-500 flex-shrink-0 mt-0.5" />
                         {pro}
@@ -853,14 +853,14 @@ export default async function CreditCardVersusPage(props: {
                 </div>
                 {/* Cons */}
                 <div>
-                  <h4 className="text-sm font-semibold text-red-600 dark:text-red-400 mb-2 flex items-center gap-1">
+                  <h4 className="text-sm font-semibold text-warning-red dark:text-red-400 mb-2 flex items-center gap-1">
                     <XCircle className="w-4 h-4" /> Cons
                   </h4>
                   <ul className="space-y-1.5">
                     {(card.cons || []).map((con, i) => (
                       <li
                         key={i}
-                        className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2"
+                        className="text-sm text-ink-60 dark:text-ink-60 flex items-start gap-2"
                       >
                         <XCircle className="w-3.5 h-3.5 text-red-400 flex-shrink-0 mt-0.5" />
                         {con}
@@ -874,28 +874,28 @@ export default async function CreditCardVersusPage(props: {
         </div>
 
         {/* SEO Content Block */}
-        <Card className="mt-8 border-gray-200 dark:border-gray-800 shadow-sm">
+        <Card className="mt-8 border-ink/10 dark:border-ink/10 shadow-sm">
           <CardContent className="p-6 sm:p-8 prose prose-slate dark:prose-invert max-w-none">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mt-0">
+            <h2 className="text-xl font-bold text-ink dark:text-white mt-0">
               {card1.name} vs {card2.name}: Complete Comparison Guide ({year})
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-ink-60 dark:text-ink-60">
               Choosing between {card1.name} and {card2.name} is a common dilemma
               for Indian credit card users. Both cards are offered by reputable
               banks -- {card1.bank} and {card2.bank} respectively -- and cater
               to different spending patterns and lifestyles.
             </p>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-ink-60 dark:text-ink-60">
               The {card1.name} is a <strong>{card1.type}</strong> credit card
               with an annual fee of {formatFee(card1.annual_fee)}.
               {card1.description}
             </p>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-ink-60 dark:text-ink-60">
               On the other hand, the {card2.name} is a{" "}
               <strong>{card2.type}</strong> credit card with an annual fee of{" "}
               {formatFee(card2.annual_fee)}.{card2.description}
             </p>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-ink-60 dark:text-ink-60">
               When comparing these cards, consider factors such as your monthly
               spending patterns, preferred reward categories, travel frequency,
               and whether you value lounge access or cashback more. The right
@@ -923,7 +923,7 @@ export default async function CreditCardVersusPage(props: {
           <Button
             asChild
             variant="outline"
-            className="border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-950"
+            className="border-green-200 dark:border-green-800 text-authority-green dark:text-green-400 hover:bg-action-green/10 dark:hover:bg-green-950"
           >
             <Link href="/credit-cards/compare">
               <ChevronRight className="w-4 h-4 mr-1 rotate-180" />

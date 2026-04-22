@@ -1,78 +1,74 @@
 "use client";
 
-import React from 'react';
-import { useCompare } from '@/contexts/CompareContext';
-import { Button } from "@/components/ui/Button";
-import { X, ArrowRight, Layers } from "lucide-react";
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from "react";
+import { useCompare } from "@/contexts/CompareContext";
+import { X, ArrowRight } from "lucide-react";
+import Link from "next/link";
+
+// CompareTray — v3 Bold Redesign.
+// Floating ink tray that appears when products are selected for comparison.
+// Sibling to CompareBar (different containers use one or the other).
+// Removed: framer-motion, gradients, rounded-xl, backdrop-blur, scale transforms.
 
 export function CompareTray() {
-    const { selectedProducts, removeProduct, clearAll } = useCompare();
-    
-    // Don't render if no products selected
-    // We use AnimatePresence in parent usually, or handled here via conditional rendering with exit animation
-    if (selectedProducts.length === 0) return null;
+  const { selectedProducts, clearAll } = useCompare();
 
-    return (
-        <AnimatePresence>
-            {selectedProducts.length > 0 && (
-                <motion.div 
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 100, opacity: 0 }}
-                    className="fixed bottom-6 left-0 right-0 z-50 px-4 flex justify-center pointer-events-none"
-                >
-                    <div className="bg-gray-900 text-white rounded-2xl shadow-2xl p-4 flex items-center gap-6 pointer-events-auto max-w-2xl w-full border border-white/10 backdrop-blur-md">
-                        
-                        {/* Count Indicator */}
-                         <div className="flex items-center gap-3">
-                            <div className="bg-primary-500 text-gray-900 w-10 h-10 rounded-xl flex items-center justify-center font-black text-lg shadow-lg shadow-primary-500/20">
-                                {selectedProducts.length}
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-sm leading-tight">Ready to Compare</h3>
-                                <p className="text-xs text-gray-600">Select up to 4 items</p>
-                            </div>
-                        </div>
+  if (selectedProducts.length === 0) return null;
 
-                        {/* Selected Thumbnails (Hidden on mobile usually, distinct on desktop) */}
-                        <div className="hidden sm:flex -space-x-2">
-                            {selectedProducts.map((p) => (
-                                <div key={p.id} className="w-10 h-10 rounded-full border-2 border-gray-900 bg-white overflow-hidden relative" title={p.name}>
-                                    {/* Fallback to initials if no image, or generic icon */}
-                                    <div className="w-full h-full flex items-center justify-center text-gray-900 text-[10px] font-bold bg-gray-100">
-                                        {p.name.substring(0, 2).toUpperCase()}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+  return (
+    <div
+      role="region"
+      aria-label="Comparison tray"
+      className="fixed bottom-4 left-0 right-0 z-50 px-4 flex justify-center pointer-events-none"
+    >
+      <div className="bg-ink text-canvas rounded-sm border-2 border-indian-gold shadow-[0_6px_20px_rgba(10,31,20,0.2)] px-5 py-3 flex items-center gap-4 pointer-events-auto max-w-2xl w-full">
+        {/* Count badge — square, mono */}
+        <div className="flex items-center gap-3">
+          <div className="bg-indian-gold text-ink w-9 h-9 flex items-center justify-center font-mono font-bold text-[18px] tabular-nums rounded-sm flex-shrink-0">
+            {selectedProducts.length}
+          </div>
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold font-semibold">
+              Ready to Compare
+            </div>
+            <p className="font-mono text-[11px] text-canvas-70">
+              Up to 4 products
+            </p>
+          </div>
+        </div>
 
-                        <div className="flex-1" />
+        {/* Selected product initials */}
+        <div className="hidden sm:flex -space-x-1.5 flex-1">
+          {selectedProducts.map((p) => (
+            <div
+              key={p.id}
+              className="w-9 h-9 border-2 border-ink bg-canvas text-ink text-[11px] font-mono font-bold flex items-center justify-center rounded-sm flex-shrink-0"
+              title={p.name}
+            >
+              {p.name.substring(0, 2).toUpperCase()}
+            </div>
+          ))}
+        </div>
 
-                        {/* Actions */}
-                        <div className="flex items-center gap-3">
-                             <Button 
-                                variant="ghost" 
-                                size="sm" 
-                                className="text-gray-600 hover:text-white hover:bg-white/10 h-10 rounded-lg px-3"
-                                onClick={clearAll}
-                            >
-                                <X className="w-4 h-4 mr-2" />
-                                Clear
-                            </Button>
-                            
-                            <Link href="/credit-cards/compare"> 
-                                {/* Note: Comparison link is generic here, ideally dynamic based on category */}
-                                <Button className="h-12 px-6 rounded-xl bg-primary-500 hover:bg-primary-400 text-gray-900 font-bold shadow-xl shadow-primary-500/20 transition-all hover:scale-105 active:scale-95">
-                                    Compare Now
-                                    <ArrowRight className="w-4 h-4 ml-2" />
-                                </Button>
-                            </Link>
-                        </div>
-                    </div>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    );
+        <div className="flex-1 sm:hidden" />
+
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <button
+            onClick={clearAll}
+            className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-canvas-70 hover:text-canvas transition-colors px-2 py-1"
+          >
+            <X className="w-3 h-3" />
+            Clear
+          </button>
+          <Link
+            href="/credit-cards/compare"
+            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider bg-indian-gold text-ink px-4 py-2 rounded-sm hover:bg-canvas transition-colors font-semibold whitespace-nowrap"
+          >
+            Compare Now
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 }
