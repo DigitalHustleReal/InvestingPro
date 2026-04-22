@@ -327,21 +327,21 @@ export default async function CreditCardDetailPage(props: {
               </div>
 
               {/* Approval Odds Meter (Indian Context Mechanics) */}
-              <div className="mt-6 bg-gray-50 rounded-xl p-4 border border-gray-100 text-center">
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+              <div className="mt-6 bg-canvas border-2 border-ink/10 rounded-sm p-4 text-center">
+                <p className="text-xs font-bold text-ink-60 uppercase tracking-wider mb-2">
                   Approval Odds
                 </p>
                 <div className="h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
                   {/* Mock logic for visualization - typically would be dynamic based on user profile */}
                   <div
-                    className={`h-full rounded-full ${card.minCreditScore && card.minCreditScore > 750 ? "w-1/3 bg-red-500" : "w-3/4 bg-green-500"}`}
+                    className={`h-full rounded-full ${card.minCreditScore && card.minCreditScore > 750 ? "w-1/3 bg-red-500" : "w-3/4 bg-action-green/100"}`}
                   ></div>
                 </div>
-                <p className="text-sm font-semibold text-gray-700">
+                <p className="text-sm font-semibold text-ink">
                   {card.minCreditScore && card.minCreditScore > 750
                     ? "Excellent Credit Req."
                     : "Good Chance"}
-                  <span className="text-gray-500 dark:text-gray-400 font-normal ml-1">
+                  <span className="text-ink-60 dark:text-ink-60 font-normal ml-1">
                     ({card.minCreditScore}+)
                   </span>
                 </p>
@@ -361,7 +361,7 @@ export default async function CreditCardDetailPage(props: {
                     <TrustBadge type="fact-checked" />
                   </div>
                 </div>
-                <h1 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tight mb-4 font-heading">
+                <h1 className="font-display font-black text-[36px] md:text-[56px] text-ink tracking-tight mb-4 leading-[1.05]">
                   {card.name}
                 </h1>
 
@@ -374,7 +374,7 @@ export default async function CreditCardDetailPage(props: {
                   />
                 </div>
 
-                <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+                <p className="text-lg text-ink-60 leading-relaxed max-w-2xl">
                   {card.description}
                 </p>
                 <AuthorByline />
@@ -397,37 +397,37 @@ export default async function CreditCardDetailPage(props: {
               {/* Trust Strip & Real Math */}
               <div className="grid grid-cols-3 gap-4 border-y border-gray-100 py-6">
                 <div>
-                  <p className="text-xs text-gray-500 uppercase font-bold mb-1">
+                  <p className="text-xs text-ink-60 uppercase font-bold mb-1">
                     Annual Fee
                   </p>
-                  <p className="text-xl font-bold text-gray-900">
+                  <p className="text-xl font-display font-bold text-ink">
                     ₹{card.annualFee}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-ink-60 dark:text-ink-60">
                     + GST
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 uppercase font-bold mb-1">
+                  <p className="text-xs text-ink-60 uppercase font-bold mb-1">
                     Reward Value
                   </p>
-                  <p className="text-xl font-bold text-green-600">
+                  <p className="text-xl font-bold text-action-green">
                     ~1.5% - 3.3%
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-ink-60 dark:text-ink-60">
                     Real Return
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 uppercase font-bold mb-1">
+                  <p className="text-xs text-ink-60 uppercase font-bold mb-1">
                     Rating
                   </p>
                   <div className="flex items-center gap-1">
                     <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
-                    <span className="text-xl font-bold text-gray-900">
+                    <span className="text-xl font-display font-bold text-ink">
                       {card.rating}
                     </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                    <span className="text-sm text-ink-60 dark:text-ink-60">
                       /5
                     </span>
                   </div>
@@ -462,14 +462,14 @@ export default async function CreditCardDetailPage(props: {
                 <a href="#eligibility-checker">
                   <Button
                     variant="outline"
-                    className="h-auto py-3 px-6 rounded-xl border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
+                    className="h-auto py-3 px-6 rounded-sm border-ink/10 dark:border-gray-700 text-ink dark:text-ink/20 font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
                     Check Eligibility
                   </Button>
                 </a>
               </div>
 
-              <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+              <p className="text-xs text-ink-60 dark:text-ink-60 flex items-center gap-1">
                 <ShieldCheck className="w-3 h-3" />
                 Secure application via {card.provider} official site.
               </p>
@@ -506,7 +506,7 @@ export default async function CreditCardDetailPage(props: {
             />
 
             {/* WhatsApp Alerts - NEW */}
-            <Card className="border-none bg-green-50 dark:bg-green-950/30 overflow-hidden group">
+            <Card className="border-none bg-action-green/10 dark:bg-green-950/30 overflow-hidden group">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 bg-green-600 text-white rounded-lg group-hover:scale-110 transition-transform">
@@ -522,7 +522,7 @@ export default async function CreditCardDetailPage(props: {
                 <WhatsAppAlerts
                   productName={card.name}
                   trigger={
-                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-black rounded-xl h-12 shadow-lg shadow-green-500/20">
+                    <Button className="w-full bg-action-green hover:bg-authority-green text-white font-black rounded-xl h-12 shadow-lg shadow-green-500/20">
                       Activate via WhatsApp
                     </Button>
                   }
@@ -541,8 +541,8 @@ export default async function CreditCardDetailPage(props: {
             <Card className="p-8 space-y-12 shadow-xl shadow-gray-200/50">
               {/* Key Features Section */}
               <section id="key-features" className="scroll-mt-24">
-                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
-                  <CheckCircle2 className="w-6 h-6 text-green-600" />
+                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-ink">
+                  <CheckCircle2 className="w-6 h-6 text-action-green" />
                   Key Features
                 </h2>
                 <ul className="grid md:grid-cols-2 gap-4">
@@ -552,9 +552,9 @@ export default async function CreditCardDetailPage(props: {
                       className="flex items-start gap-3 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg"
                     >
                       <div className="bg-white dark:bg-gray-700 rounded-full p-1 mt-0.5 shadow-sm">
-                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-action-green flex-shrink-0" />
                       </div>
-                      <span className="text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+                      <span className="text-ink dark:text-ink/20 font-medium leading-relaxed">
                         {feature}
                       </span>
                     </li>
@@ -570,7 +570,7 @@ export default async function CreditCardDetailPage(props: {
                 id="rating"
                 className="p-8 bg-gray-50 rounded-2xl scroll-mt-24"
               >
-                <h3 className="text-xl font-bold mb-6 text-gray-900">
+                <h3 className="text-xl font-bold mb-6 text-ink">
                   Rating Overview
                 </h3>
                 <RatingBreakdown
@@ -583,37 +583,37 @@ export default async function CreditCardDetailPage(props: {
 
               {/* Eligibility Section (Moved from Sidebar) */}
               <section id="eligibility" className="scroll-mt-24">
-                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
-                  <ShieldCheck className="w-6 h-6 text-green-600" />
+                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-ink">
+                  <ShieldCheck className="w-6 h-6 text-action-green" />
                   Eligibility Criteria
                 </h2>
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                    <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">
+                    <p className="text-ink-60 text-sm font-bold uppercase tracking-wider mb-2">
                       Age
                     </p>
-                    <p className="text-xl font-bold text-gray-900">
+                    <p className="text-xl font-display font-bold text-ink">
                       {card.eligibility.minAge}+ Years
                     </p>
                   </div>
                   <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                    <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">
+                    <p className="text-ink-60 text-sm font-bold uppercase tracking-wider mb-2">
                       Income
                     </p>
-                    <p className="text-xl font-bold text-gray-900">
+                    <p className="text-xl font-display font-bold text-ink">
                       ₹
                       {(typeof card.eligibility.minIncome === "number"
                         ? card.eligibility.minIncome / 100000
                         : 0.25
                       ).toFixed(1)}
                       L{" "}
-                      <span className="text-xs font-normal text-gray-500">
+                      <span className="text-xs font-normal text-ink-60">
                         / year
                       </span>
                     </p>
                   </div>
                   <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                    <p className="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">
+                    <p className="text-ink-60 text-sm font-bold uppercase tracking-wider mb-2">
                       Documents
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -634,17 +634,17 @@ export default async function CreditCardDetailPage(props: {
 
               {/* Rewards Program Section */}
               <section id="rewards" className="scroll-mt-24">
-                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
-                  <Gift className="w-6 h-6 text-green-600" />
+                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-ink">
+                  <Gift className="w-6 h-6 text-action-green" />
                   Rewards Program
                 </h2>
-                <div className="bg-gray-50 border border-gray-100 rounded-xl p-6 mb-6">
-                  <h3 className="font-bold text-xl mb-2 text-gray-900">
+                <div className="bg-canvas border-2 border-ink/10 rounded-sm p-6 mb-6">
+                  <h3 className="font-bold text-xl mb-2 text-ink">
                     {card.rewardProgram.name}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-ink-60">
                     Earn{" "}
-                    <strong className="text-green-700">
+                    <strong className="text-authority-green">
                       {card.rewardProgram.pointsPerRupee} points per ₹150
                     </strong>{" "}
                     spent. Redemption value:{" "}
@@ -672,14 +672,14 @@ export default async function CreditCardDetailPage(props: {
 
               {/* Benefits Section */}
               <section id="benefits" className="scroll-mt-24">
-                <h2 className="text-2xl font-bold mb-6 text-gray-900">
+                <h2 className="text-2xl font-bold mb-6 text-ink">
                   Benefits Breakdown
                 </h2>
                 <div className="grid gap-8">
                   {card.benefits.map((benefit, index) => (
                     <div key={index}>
-                      <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-gray-900">
-                        <div className="p-2 bg-gray-100 rounded-lg text-gray-700">
+                      <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-ink">
+                        <div className="p-2 bg-gray-100 rounded-lg text-ink">
                           {benefit.category === "Travel" && (
                             <Plane className="w-5 h-5" />
                           )}
@@ -701,9 +701,9 @@ export default async function CreditCardDetailPage(props: {
                         {benefit.items.map((item, idx) => (
                           <li
                             key={idx}
-                            className="text-gray-600 flex items-start gap-2 text-sm leading-6"
+                            className="text-ink-60 flex items-start gap-2 text-sm leading-6"
                           >
-                            <span className="text-green-500 font-bold mt-1">
+                            <span className="text-action-green font-bold mt-1">
                               •
                             </span>
                             {item}
@@ -723,16 +723,16 @@ export default async function CreditCardDetailPage(props: {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-200">
                   {/* Pros */}
                   <div className="p-6">
-                    <h3 className="font-bold text-lg text-green-700 flex items-center gap-2 mb-4">
+                    <h3 className="font-bold text-lg text-authority-green flex items-center gap-2 mb-4">
                       <CheckCircle2 className="w-5 h-5" /> Pros
                     </h3>
                     <ul className="space-y-3">
                       {card.pros.map((pro, index) => (
                         <li
                           key={index}
-                          className="flex items-start gap-2 text-gray-700 text-sm"
+                          className="flex items-start gap-2 text-ink text-sm"
                         >
-                          <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-action-green flex-shrink-0 mt-0.5" />
                           <span>{pro}</span>
                         </li>
                       ))}
@@ -748,7 +748,7 @@ export default async function CreditCardDetailPage(props: {
                       {card.cons.map((con, index) => (
                         <li
                           key={index}
-                          className="flex items-start gap-2 text-gray-700 text-sm"
+                          className="flex items-start gap-2 text-ink text-sm"
                         >
                           <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
                           <span>{con}</span>
@@ -784,13 +784,13 @@ export default async function CreditCardDetailPage(props: {
 
               {/* Fees Section */}
               <section id="fees" className="scroll-mt-24">
-                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-gray-900">
-                  <IndianRupee className="w-6 h-6 text-gray-700" />
+                <h2 className="text-2xl font-bold flex items-center gap-3 mb-6 text-ink">
+                  <IndianRupee className="w-6 h-6 text-ink" />
                   Fees & Charges
                 </h2>
-                <div className="border border-gray-200 rounded-xl overflow-hidden">
+                <div className="border-2 border-ink/10 rounded-sm overflow-hidden">
                   <table className="w-full text-left text-sm">
-                    <thead className="bg-gray-50 text-gray-500 font-medium border-b border-gray-200">
+                    <thead className="bg-gray-50 text-ink-60 font-medium border-b border-gray-200">
                       <tr>
                         <th className="px-6 py-4">Fee Type</th>
                         <th className="px-6 py-4">Amount</th>
@@ -803,16 +803,16 @@ export default async function CreditCardDetailPage(props: {
                           className="hover:bg-gray-50/50 transition-colors"
                         >
                           <td className="px-6 py-4">
-                            <div className="font-semibold text-gray-900">
+                            <div className="font-display font-semibold text-ink">
                               {fee.name}
                             </div>
                             {fee.details && (
-                              <div className="text-gray-500 text-xs mt-0.5">
+                              <div className="text-ink-60 text-xs mt-0.5">
                                 {fee.details}
                               </div>
                             )}
                           </td>
-                          <td className="px-6 py-4 font-bold text-gray-900">
+                          <td className="px-6 py-4 font-display font-bold text-ink">
                             {fee.amount}
                           </td>
                         </tr>
@@ -879,7 +879,7 @@ export default async function CreditCardDetailPage(props: {
               />
 
               {/* Compact Apply Now CTA */}
-              <Card className="border-green-200 bg-green-50/50 dark:bg-green-950/20 dark:border-green-900">
+              <Card className="border-green-200 bg-action-green/10/50 dark:bg-green-950/20 dark:border-green-900">
                 <CardContent className="p-4 text-center space-y-3">
                   <p className="text-sm font-bold text-foreground">
                     {card.name}
@@ -912,7 +912,7 @@ export default async function CreditCardDetailPage(props: {
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to upgrade your wallet?
           </h2>
-          <p className="text-gray-300 mb-10 text-lg max-w-2xl mx-auto">
+          <p className="text-ink/20 mb-10 text-lg max-w-2xl mx-auto">
             Apply for the {card.name} today and start earning rewards on every
             spend.
           </p>
@@ -926,7 +926,7 @@ export default async function CreditCardDetailPage(props: {
             sourcePage="credit-card-detail"
             variant="default"
           />
-          <p className="text-gray-500 text-xs mt-6">
+          <p className="text-ink-60 text-xs mt-6">
             Application processed securely by {card.provider}
           </p>
         </div>

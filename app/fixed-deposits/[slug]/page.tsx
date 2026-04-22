@@ -190,7 +190,7 @@ export default async function FixedDepositDetailPage({
             {/* Left: Details */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-emerald-500/20 text-green-600 dark:text-green-400 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                <span className="bg-emerald-500/20 text-action-green dark:text-green-400 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                   <Landmark className="w-4 h-4" />
                   Fixed Deposit
                 </span>
@@ -199,7 +199,7 @@ export default async function FixedDepositDetailPage({
                   <span className="font-bold text-lg text-foreground">
                     {fd.rating}
                   </span>
-                  <span className="text-green-600 dark:text-green-400 text-sm">
+                  <span className="text-action-green dark:text-green-400 text-sm">
                     /5
                   </span>
                 </div>
@@ -208,7 +208,7 @@ export default async function FixedDepositDetailPage({
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
                 {fd.name}
               </h1>
-              <p className="text-green-600 dark:text-green-400 mb-6">
+              <p className="text-action-green dark:text-green-400 mb-6">
                 {fd.provider}
               </p>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
@@ -258,7 +258,7 @@ export default async function FixedDepositDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-500 text-white font-semibold py-6 text-lg mb-3">
+                    <Button className="w-full bg-action-green hover:bg-authority-green dark:bg-green-600 dark:hover:bg-action-green/100 text-white font-semibold py-6 text-lg mb-3">
                       Open FD <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
@@ -282,7 +282,7 @@ export default async function FixedDepositDetailPage({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Percent className="w-5 h-5 text-green-600" />
+                  <Percent className="w-5 h-5 text-action-green" />
                   Interest Rates by Tenure
                 </CardTitle>
               </CardHeader>
@@ -306,7 +306,7 @@ export default async function FixedDepositDetailPage({
                             <Calendar className="w-4 h-4 text-muted-foreground" />
                             {option.tenure}
                           </td>
-                          <td className="py-3 px-4 text-right font-bold text-green-600 dark:text-green-400">
+                          <td className="py-3 px-4 text-right font-bold text-action-green dark:text-green-400">
                             {option.rate}
                           </td>
                         </tr>
@@ -324,7 +324,7 @@ export default async function FixedDepositDetailPage({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-green-600" />
+                  <TrendingUp className="w-5 h-5 text-action-green" />
                   Key Features
                 </CardTitle>
               </CardHeader>
@@ -332,7 +332,7 @@ export default async function FixedDepositDetailPage({
                 <ul className="space-y-3">
                   {fd.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-action-green flex-shrink-0 mt-0.5" />
                       <span className="text-muted-foreground">{feature}</span>
                     </li>
                   ))}
@@ -344,7 +344,7 @@ export default async function FixedDepositDetailPage({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-green-600 dark:border-green-500">
                 <CardHeader className="bg-green-100 dark:bg-green-900/30">
-                  <CardTitle className="text-green-600 dark:text-green-400 flex items-center gap-2">
+                  <CardTitle className="text-action-green dark:text-green-400 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
                   </CardTitle>
@@ -356,7 +356,7 @@ export default async function FixedDepositDetailPage({
                         key={index}
                         className="flex items-start gap-2 text-sm"
                       >
-                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-action-green flex-shrink-0 mt-0.5" />
                         <span className="text-foreground">{pro}</span>
                       </li>
                     ))}
@@ -427,7 +427,7 @@ export default async function FixedDepositDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-card text-green-600 hover:bg-muted dark:bg-muted dark:text-green-400 dark:hover:bg-muted/80 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-card text-action-green hover:bg-muted dark:bg-muted dark:text-green-400 dark:hover:bg-muted/80 font-semibold py-6 mb-3">
                       Open FD <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
@@ -438,7 +438,7 @@ export default async function FixedDepositDetailPage({
               <Card className="mt-6">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-green-600" />
+                    <ShieldCheck className="w-5 h-5 text-action-green" />
                     Eligibility
                   </CardTitle>
                 </CardHeader>
@@ -459,7 +459,7 @@ export default async function FixedDepositDetailPage({
                           key={index}
                           className="text-muted-foreground text-xs flex items-start gap-2"
                         >
-                          <CheckCircle2 className="w-3 h-3 text-green-600 flex-shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3 h-3 text-action-green flex-shrink-0 mt-0.5" />
                           {doc}
                         </li>
                       ))}
@@ -517,11 +517,11 @@ export default async function FixedDepositDetailPage({
       <div className="bg-gray-900 dark:bg-gray-950 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Open {fd.name} Today</h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-ink-60 mb-8">
             Earn guaranteed returns with India&#39;s trusted bank!
           </p>
           <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-green-600 hover:bg-green-700 dark:hover:bg-green-500 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-action-green hover:bg-authority-green dark:hover:bg-action-green/100 text-white font-semibold px-12 py-6 text-lg">
               Open FD Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>
