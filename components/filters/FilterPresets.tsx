@@ -62,17 +62,19 @@ interface FilterPresetsProps {
 export default function FilterPresets({ onPresetClick, className }: FilterPresetsProps) {
   return (
     <div className={cn("w-full", className)}>
-      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-        Quick Filters
-      </h3>
+      <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold mb-3">
+        Quick filters · One click
+      </div>
       <div className="flex flex-wrap gap-2">
         {CREDIT_CARD_PRESETS.map((preset) => (
           <button
             key={preset.id}
             onClick={() => onPresetClick(preset.filters)}
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950/30 transition-all"
+            className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-ink/10 rounded-sm font-medium text-[13px] text-ink hover:border-ink hover:bg-ink hover:text-canvas transition-all"
           >
-            {preset.icon}
+            <span className="text-indian-gold [&_svg]:w-4 [&_svg]:h-4">
+              {preset.icon}
+            </span>
             {preset.label}
           </button>
         ))}
