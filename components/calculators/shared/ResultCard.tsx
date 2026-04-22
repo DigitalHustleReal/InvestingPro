@@ -4,6 +4,13 @@ import React from "react";
 import { ArrowUpRight, ArrowDownRight, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Hero result block for calculator widgets.
+ * v3 Bold Redesign: cream editorial bg, Playfair display value,
+ * mono eyebrow label, gold underline accent (matches investment-calculator
+ * gold-standard prototype).
+ */
+
 interface Metric {
   label: string;
   value: string;
@@ -35,32 +42,37 @@ export function ResultCard({
         : Minus;
   const ratingColor =
     ratingType === "positive"
-      ? "text-green-600"
+      ? "text-action-green"
       : ratingType === "negative"
-        ? "text-red-500"
-        : "text-amber-600";
+        ? "text-warning-red"
+        : "text-indian-gold";
 
   return (
     <div
       className={cn(
-        "bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 border border-green-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between min-h-[220px]",
+        "relative bg-indian-gold/5 border-2 border-ink/10 rounded-sm p-7 flex flex-col justify-between min-h-[220px]",
         className,
       )}
     >
+      {/* Gold underline accent — brainstorm signature */}
+      <div className="absolute bottom-0 left-7 w-14 h-[3px] bg-indian-gold rounded-t" />
+
       <div>
-        <p className="text-sm text-gray-500 font-medium">{title}</p>
+        <p className="font-mono text-[11px] uppercase tracking-wider text-ink-60 font-semibold mb-3">
+          {title}
+        </p>
         <div className="mt-2 flex items-end gap-3 flex-wrap">
-          <span className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-green-700 tracking-tight leading-none">
+          <span className="font-display font-black text-[44px] sm:text-[56px] lg:text-[64px] text-ink tracking-tight leading-none tabular-nums">
             {value}
           </span>
           {ratingLabel && (
             <span
               className={cn(
-                "flex items-center gap-0.5 text-sm font-semibold mb-1.5",
+                "flex items-center gap-0.5 font-mono text-[11px] uppercase tracking-wider font-semibold mb-3",
                 ratingColor,
               )}
             >
-              <RatingIcon size={16} />
+              <RatingIcon size={14} />
               {ratingLabel}
             </span>
           )}
@@ -69,17 +81,19 @@ export function ResultCard({
 
       <div
         className={cn(
-          "grid gap-4 mt-6 pt-5 border-t border-green-200/60",
+          "grid gap-4 mt-6 pt-5 border-t border-ink/10",
           metrics.length <= 3 ? "grid-cols-3" : "grid-cols-2 sm:grid-cols-4",
         )}
       >
         {metrics.map((m) => (
           <div key={m.label}>
-            <p className="text-[11px] text-gray-500 font-medium">{m.label}</p>
+            <p className="font-mono text-[10px] uppercase tracking-wider text-ink-60">
+              {m.label}
+            </p>
             <p
               className={cn(
-                "text-[15px] font-bold mt-0.5",
-                m.highlight ? "text-green-700" : "text-gray-900",
+                "font-mono text-[15px] font-bold mt-1 tabular-nums",
+                m.highlight ? "text-action-green" : "text-ink",
               )}
             >
               {m.value}

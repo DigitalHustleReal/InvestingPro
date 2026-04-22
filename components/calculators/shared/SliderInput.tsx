@@ -4,13 +4,14 @@ import React, { useState, useCallback } from "react";
 import { Slider } from "@/components/ui/slider";
 
 /**
- * Editable Slider Input — Groww-pattern reusable component
+ * Slider + editable value input. v3 Bold Redesign matching the
+ * gold-standard investment-calculator prototype:
+ *   - Mono uppercase label (+ optional icon)
+ *   - Mono value pill with ink border, tabular-nums
+ *   - Click pill → inline number input with gold focus ring
+ *   - Slider with gold accent thumb, mono min/max bounds below
  *
- * Features:
- * - Label + icon on left, editable value badge on right
- * - Click badge → inline text input with green border
- * - Press Enter or blur → validates and clamps to min/max
- * - Slider below synced with input
+ * Used by every calculator widget. One upgrade lifts all 84.
  */
 export function SliderInput({
   label,
@@ -61,15 +62,15 @@ export function SliderInput({
 
   return (
     <div className="space-y-2.5">
-      <div className="flex items-center justify-between">
-        <label className="text-[13px] font-medium text-gray-600 flex items-center gap-2">
-          <Icon size={15} className="text-green-600" />
+      <div className="flex items-center justify-between gap-3">
+        <label className="font-mono text-[11px] uppercase tracking-wider text-ink-60 flex items-center gap-2">
+          <Icon size={14} className="text-indian-gold" />
           {label}
         </label>
         {editing ? (
           <input
             type="text"
-            className="w-32 text-right text-sm font-semibold text-green-700 bg-green-50 border border-green-300 rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-green-200"
+            className="w-32 text-right font-mono text-[13px] font-semibold text-ink bg-canvas border-2 border-indian-gold rounded-sm px-2.5 py-1 outline-none tabular-nums"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
             onBlur={handleBlur}
@@ -82,7 +83,7 @@ export function SliderInput({
               setEditing(true);
               setInputVal(String(value));
             }}
-            className="text-sm font-bold text-green-700 bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg px-3 py-1.5 transition-colors cursor-text"
+            className="font-mono text-[13px] font-semibold text-ink bg-white border-2 border-ink/15 hover:border-ink rounded-sm px-2.5 py-1 transition-colors cursor-text tabular-nums"
           >
             {display}
           </button>
@@ -94,14 +95,15 @@ export function SliderInput({
         min={min}
         max={max}
         step={step}
+        className="[&_[role=slider]]:bg-indian-gold [&_[role=slider]]:border-canvas"
       />
-      <div className="flex justify-between text-[10px] text-gray-400 -mt-0.5">
-        <span>
+      <div className="flex justify-between font-mono text-[10px] uppercase tracking-wider text-ink-60/70">
+        <span className="tabular-nums">
           {prefix}
           {min.toLocaleString("en-IN")}
           {suffix}
         </span>
-        <span>
+        <span className="tabular-nums">
           {prefix}
           {max.toLocaleString("en-IN")}
           {suffix}
