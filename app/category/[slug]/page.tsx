@@ -102,24 +102,25 @@ export default function CategoryPage() {
         description={`Explore articles about ${categoryName.toLowerCase()} on InvestingPro.`}
       />
 
-      {/* Header */}
-      <div className="bg-gradient-to-br from-primary-50 to-secondary-50 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="mb-4">
-            <Link href="/articles">
-              <Button variant="ghost" size="sm" className="mb-4">
-                ← All Articles
-              </Button>
-            </Link>
+      {/* Header — v3 Bold Redesign editorial */}
+      <div className="bg-canvas border-b-2 border-ink/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold mb-3">
+            Category · Research-backed
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="font-display font-black text-[36px] sm:text-[52px] lg:text-[64px] text-ink leading-[1.05] tracking-tight mb-4">
             {categoryName}
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl">
+          <p className="font-mono text-[12px] uppercase tracking-wider text-ink-60">
             {paginatedArticles.length > 0
-              ? `${articles.length} article${articles.length !== 1 ? "s" : ""} about ${categoryName.toLowerCase()}`
-              : `Articles about ${categoryName.toLowerCase()}`}
+              ? `${articles.length} researched article${articles.length !== 1 ? "s" : ""} · No sponsored content`
+              : `Articles · Published as research completes`}
           </p>
+          <div className="mt-6">
+            <Link href="/articles" className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-ink flex items-center gap-1 w-fit">
+              ← All articles
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -127,7 +128,7 @@ export default function CategoryPage() {
         {/* Search */}
         <div className="mb-8">
           <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-ink-60 w-5 h-5" />
             <Input
               placeholder="Search articles..."
               value={searchTerm}
@@ -143,7 +144,7 @@ export default function CategoryPage() {
         {/* Articles Grid */}
         {isLoading ? (
           <div className="text-center py-12">
-            <div className="text-gray-600">Loading articles...</div>
+            <div className="text-ink-60">Loading articles...</div>
           </div>
         ) : paginatedArticles.length === 0 ? (
           <EmptyState
@@ -156,58 +157,53 @@ export default function CategoryPage() {
           />
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
               {paginatedArticles.map((article) => (
-                <Link key={article.id} href={`/articles/${article.slug}`}>
-                  <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-                    {article.featured_image && (
-                      <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-                        <img
-                          src={article.featured_image}
-                          alt={article.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    )}
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Badge variant="outline" className="text-xs">
-                          {article.category?.replace(/-/g, " ")}
-                        </Badge>
-                      </div>
-                      <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
-                        {article.title}
-                      </h2>
-                      {article.excerpt && (
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                          {article.excerpt}
-                        </p>
+                <Link
+                  key={article.id}
+                  href={`/articles/${article.slug}`}
+                  className="group bg-white border-2 border-ink/10 rounded-sm hover:border-ink/30 transition-all overflow-hidden flex flex-col"
+                >
+                  {article.featured_image && (
+                    <div className="aspect-video w-full overflow-hidden bg-ink/5">
+                      <img
+                        src={article.featured_image}
+                        alt={article.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  )}
+                  <div className="p-5 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-indian-gold border border-indian-gold/30 px-1.5 py-0.5">
+                        {article.category?.replace(/-/g, " ")}
+                      </span>
+                      {article.read_time && (
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-ink-60">
+                          {article.read_time} MIN
+                        </span>
                       )}
-                      <div className="flex items-center justify-between text-xs text-gray-500">
-                        <div className="flex items-center gap-4">
-                          {article.read_time && (
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {article.read_time} min
-                            </span>
+                    </div>
+                    <h2 className="font-display font-bold text-lg text-ink leading-snug mb-2 line-clamp-2 group-hover:text-authority-green transition-colors">
+                      {article.title}
+                    </h2>
+                    {article.excerpt && (
+                      <p className="text-[13px] text-ink-60 line-clamp-3 leading-relaxed mb-4 flex-1">
+                        {article.excerpt}
+                      </p>
+                    )}
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-ink/5">
+                      {article.published_date && (
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-ink-60">
+                          {new Date(article.published_date).toLocaleDateString(
+                            "en-IN",
+                            { month: "short", day: "numeric", year: "numeric" },
                           )}
-                          {article.published_date && (
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              {new Date(
-                                article.published_date,
-                              ).toLocaleDateString("en-IN", {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                              })}
-                            </span>
-                          )}
-                        </div>
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
-                    </CardContent>
-                  </Card>
+                        </span>
+                      )}
+                      <ArrowRight className="w-4 h-4 text-indian-gold group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -222,7 +218,7 @@ export default function CategoryPage() {
                 >
                   Previous
                 </Button>
-                <span className="flex items-center px-4 text-gray-600">
+                <span className="flex items-center px-4 text-ink-60">
                   Page {currentPage} of {totalPages}
                 </span>
                 <Button
@@ -290,16 +286,16 @@ function RelatedProductsSection({ category }: { category: string }) {
   if (isLoading || !products || products.length === 0) return null;
 
   return (
-    <div className="mt-16 pt-12 border-t border-gray-200 dark:border-gray-800">
+    <div className="mt-16 pt-12 border-t border-ink/10 dark:border-gray-800">
       <div className="flex items-center justify-between mb-8">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Package className="w-5 h-5 text-primary-500" />
-            <Badge className="bg-primary-50 text-primary-700 border-0">
+            <Package className="w-5 h-5 text-action-green" />
+            <Badge className="bg-indian-gold/10 text-authority-green border-0">
               Explore Products
             </Badge>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-bold text-ink dark:text-white">
             Top{" "}
             {category
               .replace(/-/g, " ")
@@ -329,17 +325,17 @@ function RelatedProductsSection({ category }: { category: string }) {
                 </div>
               )}
               <CardContent className="p-4">
-                <p className="text-xs font-semibold text-gray-500 uppercase mb-1">
+                <p className="text-xs font-semibold text-ink-60 uppercase mb-1">
                   {product.provider_name || product.provider || "Provider"}
                 </p>
-                <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-primary-600 line-clamp-2 mb-2">
+                <h3 className="font-bold text-ink dark:text-white group-hover:text-primary-600 line-clamp-2 mb-2">
                   {product.name}
                 </h3>
                 {product.rating && (
                   <div className="flex items-center gap-1 text-sm">
                     <TrendingUp className="w-4 h-4 text-amber-500" />
                     <span className="font-semibold">{product.rating}</span>
-                    <span className="text-gray-400">/5</span>
+                    <span className="text-ink-60">/5</span>
                   </div>
                 )}
               </CardContent>
