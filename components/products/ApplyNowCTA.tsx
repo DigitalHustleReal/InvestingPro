@@ -18,11 +18,13 @@ interface ApplyNowCTAProps {
   className?: string;
 }
 
+// v3 Bold Redesign: square corners, mono tracking-wider uppercase.
+// Action-green for conversion prominence, authority-green on hover.
 const variantStyles = {
   default:
-    "bg-green-600 hover:bg-green-700 text-white font-semibold uppercase tracking-wide rounded-sm px-6 py-3 text-sm transition-colors",
+    "bg-action-green hover:bg-authority-green text-canvas font-mono font-semibold uppercase tracking-wider rounded-sm px-6 py-3 text-[12px] transition-colors flex items-center justify-center gap-2 w-full",
   compact:
-    "bg-green-600 hover:bg-green-700 text-white font-semibold uppercase tracking-wide rounded-sm px-4 py-2 text-xs transition-colors",
+    "bg-action-green hover:bg-authority-green text-canvas font-mono font-semibold uppercase tracking-wider rounded-sm px-4 py-2 text-[11px] transition-colors flex items-center justify-center gap-1.5 w-full",
 };
 
 /**
@@ -56,10 +58,10 @@ export default function ApplyNowCTA({
         showIcon={false}
         className={cn(variantStyles[variant], className)}
       >
-        APPLY NOW <ExternalLink className="w-4 h-4 ml-2 inline-block" />
+        APPLY NOW <ExternalLink className="w-3.5 h-3.5" />
       </TrackedAffiliateLink>
       {providerName && (
-        <span className="text-[11px] text-gray-500 dark:text-gray-400 text-center leading-tight">
+        <span className="font-mono text-[10px] uppercase tracking-wider text-ink-60 text-center leading-tight">
           on {providerName}&apos;s website
         </span>
       )}

@@ -281,7 +281,7 @@ export default async function LoanDetailPage({
             {/* Left: Loan Info */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-emerald-500/20 text-green-600 dark:text-green-400 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                <span className="bg-emerald-500/20 text-action-green dark:text-green-400 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                   <IndianRupee className="w-4 h-4" />
                   {loan.loanType}
                 </span>
@@ -297,7 +297,7 @@ export default async function LoanDetailPage({
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
                 {loan.name}
               </h1>
-              <p className="text-green-600 dark:text-green-400 mb-4">
+              <p className="text-action-green dark:text-green-400 mb-4">
                 {loan.provider}
               </p>
               <p className="text-lg text-muted-foreground mb-6 max-w-2xl">
@@ -351,16 +351,16 @@ export default async function LoanDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-500 text-white font-semibold py-6 text-lg mb-3">
+                    <Button className="w-full bg-action-green hover:bg-authority-green dark:bg-green-600 dark:hover:bg-action-green/100 text-white font-semibold py-6 text-lg mb-3">
                       Apply Now <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
                   <p className="text-[10px] text-muted-foreground text-center mb-3">
                     Check eligibility in 2 min -- No CIBIL impact
                   </p>
-                  <div className="bg-green-50 dark:bg-green-900/30 border border-green-500/50 rounded-lg p-3 text-center">
-                    <Clock className="w-5 h-5 mx-auto mb-1 text-green-600 dark:text-green-400" />
-                    <p className="text-sm text-green-600 dark:text-green-400 font-semibold">
+                  <div className="bg-action-green/10 dark:bg-green-900/30 border border-green-500/50 rounded-lg p-3 text-center">
+                    <Clock className="w-5 h-5 mx-auto mb-1 text-action-green dark:text-green-400" />
+                    <p className="text-sm text-action-green dark:text-green-400 font-semibold">
                       Disbursal in 48 hours
                     </p>
                   </div>
@@ -430,7 +430,7 @@ export default async function LoanDetailPage({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-green-600" />
+                  <CheckCircle2 className="w-5 h-5 text-action-green" />
                   Key Features
                 </CardTitle>
               </CardHeader>
@@ -438,7 +438,7 @@ export default async function LoanDetailPage({
                 <ul className="space-y-3">
                   {loan.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-action-green flex-shrink-0 mt-0.5" />
                       <span className="text-muted-foreground">{feature}</span>
                     </li>
                   ))}
@@ -450,7 +450,7 @@ export default async function LoanDetailPage({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <TrendingDown className="w-5 h-5 text-green-600" />
+                  <TrendingDown className="w-5 h-5 text-action-green" />
                   Loan Benefits
                 </CardTitle>
               </CardHeader>
@@ -458,7 +458,7 @@ export default async function LoanDetailPage({
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {loan.benefits.map((benefit, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-4 h-4 text-action-green flex-shrink-0 mt-1" />
                       <span className="text-muted-foreground text-sm">
                         {benefit}
                       </span>
@@ -467,7 +467,7 @@ export default async function LoanDetailPage({
                 </ul>
 
                 {loan.specialOffers && (
-                  <div className="mt-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg p-4">
+                  <div className="mt-4 bg-indian-gold/10 dark:bg-amber-900/20 border border-indian-gold/30 dark:border-amber-700 rounded-lg p-4">
                     <p className="text-sm font-semibold text-amber-800 dark:text-amber-400 mb-1">
                       Special Offer
                     </p>
@@ -483,7 +483,7 @@ export default async function LoanDetailPage({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-green-600 dark:border-green-500">
                 <CardHeader className="bg-green-100 dark:bg-green-900/30">
-                  <CardTitle className="text-green-600 dark:text-green-400 flex items-center gap-2">
+                  <CardTitle className="text-action-green dark:text-green-400 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Advantages
                   </CardTitle>
@@ -495,7 +495,7 @@ export default async function LoanDetailPage({
                         key={index}
                         className="flex items-start gap-2 text-sm"
                       >
-                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-action-green flex-shrink-0 mt-0.5" />
                         <span className="text-foreground">{pro}</span>
                       </li>
                     ))}
@@ -639,7 +639,7 @@ export default async function LoanDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-white text-green-600 hover:bg-gray-100 dark:hover:bg-gray-200 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-white text-action-green hover:bg-gray-100 dark:hover:bg-gray-200 font-semibold py-6 mb-3">
                       Check Eligibility{" "}
                       <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
@@ -654,7 +654,7 @@ export default async function LoanDetailPage({
               <Card className="mt-6">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-green-600" />
+                    <ShieldCheck className="w-5 h-5 text-action-green" />
                     Eligibility Criteria
                   </CardTitle>
                 </CardHeader>
@@ -702,7 +702,7 @@ export default async function LoanDetailPage({
                           key={index}
                           className="text-muted-foreground text-xs flex items-start gap-2"
                         >
-                          <CheckCircle2 className="w-3 h-3 text-green-600 flex-shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3 h-3 text-action-green flex-shrink-0 mt-0.5" />
                           {doc}
                         </li>
                       ))}
@@ -767,11 +767,11 @@ export default async function LoanDetailPage({
           <h2 className="text-3xl font-bold mb-4">
             Apply for {loan.name} in Minutes
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-ink-60 mb-8">
             100% digital process -- Quick approval -- Instant disbursal
           </p>
           <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-green-600 hover:bg-green-700 dark:hover:bg-green-500 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-action-green hover:bg-authority-green dark:hover:bg-action-green/100 text-white font-semibold px-12 py-6 text-lg">
               Check Eligibility Now <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>

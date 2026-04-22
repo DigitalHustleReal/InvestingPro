@@ -208,7 +208,7 @@ export default async function InsuranceDetailPage({
             {/* Left: Details */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-green-50 dark:bg-green-950/40 text-green-600 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                <span className="bg-action-green/10 dark:bg-green-950/40 text-action-green px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                   <InsuranceIcon className="w-4 h-4" />
                   {insurance.insuranceType}
                 </span>
@@ -217,14 +217,14 @@ export default async function InsuranceDetailPage({
                   <span className="font-bold text-lg text-foreground">
                     {insurance.rating}
                   </span>
-                  <span className="text-green-600 text-sm">/5</span>
+                  <span className="text-action-green text-sm">/5</span>
                 </div>
               </div>
 
               <h1 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
                 {insurance.name}
               </h1>
-              <p className="text-green-600 mb-6">{insurance.provider}</p>
+              <p className="text-action-green mb-6">{insurance.provider}</p>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
                 {insurance.description}
               </p>
@@ -270,7 +270,7 @@ export default async function InsuranceDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-6 text-lg mb-3">
+                    <Button className="w-full bg-action-green hover:bg-authority-green text-white font-semibold py-6 text-lg mb-3">
                       Get Quote <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
@@ -294,7 +294,7 @@ export default async function InsuranceDetailPage({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-green-600" />
+                  <Shield className="w-5 h-5 text-action-green" />
                   What&apos;s Covered
                 </CardTitle>
               </CardHeader>
@@ -302,7 +302,7 @@ export default async function InsuranceDetailPage({
                 <ul className="space-y-3">
                   {insurance.coverageDetails.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-action-green flex-shrink-0 mt-0.5" />
                       <span className="text-muted-foreground">{item}</span>
                     </li>
                   ))}
@@ -314,7 +314,7 @@ export default async function InsuranceDetailPage({
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-green-600" />
+                  <CheckCircle2 className="w-5 h-5 text-action-green" />
                   Key Features
                 </CardTitle>
               </CardHeader>
@@ -322,7 +322,7 @@ export default async function InsuranceDetailPage({
                 <ul className="space-y-3">
                   {insurance.keyFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-action-green flex-shrink-0 mt-0.5" />
                       <span className="text-muted-foreground">{feature}</span>
                     </li>
                   ))}
@@ -354,7 +354,7 @@ export default async function InsuranceDetailPage({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-green-600">
                 <CardHeader className="bg-green-100 dark:bg-green-950/40">
-                  <CardTitle className="text-green-600 flex items-center gap-2">
+                  <CardTitle className="text-action-green flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5" />
                     Pros
                   </CardTitle>
@@ -366,7 +366,7 @@ export default async function InsuranceDetailPage({
                         key={index}
                         className="flex items-start gap-2 text-sm"
                       >
-                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-action-green flex-shrink-0 mt-0.5" />
                         <span className="text-foreground">{pro}</span>
                       </li>
                     ))}
@@ -449,7 +449,7 @@ export default async function InsuranceDetailPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="w-full bg-white text-green-600 hover:bg-gray-100 dark:hover:bg-gray-200 font-semibold py-6 mb-3">
+                    <Button className="w-full bg-white text-action-green hover:bg-gray-100 dark:hover:bg-gray-200 font-semibold py-6 mb-3">
                       Get Quote <ExternalLink className="w-5 h-5 ml-2" />
                     </Button>
                   </a>
@@ -460,7 +460,7 @@ export default async function InsuranceDetailPage({
               <Card className="mt-6">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <Users className="w-5 h-5 text-green-600" />
+                    <Users className="w-5 h-5 text-action-green" />
                     Eligibility
                   </CardTitle>
                 </CardHeader>
@@ -483,7 +483,7 @@ export default async function InsuranceDetailPage({
                             key={index}
                             className="text-muted-foreground text-xs flex items-start gap-2"
                           >
-                            <FileText className="w-3 h-3 text-green-600 flex-shrink-0 mt-0.5" />
+                            <FileText className="w-3 h-3 text-action-green flex-shrink-0 mt-0.5" />
                             {doc}
                           </li>
                         ),
@@ -494,10 +494,10 @@ export default async function InsuranceDetailPage({
               </Card>
 
               {/* Disclaimer */}
-              <Card className="mt-6 bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800">
+              <Card className="mt-6 bg-indian-gold/10 dark:bg-amber-950/30 border-indian-gold/30 dark:border-amber-800">
                 <CardContent className="p-4">
                   <div className="flex gap-3">
-                    <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                    <AlertCircle className="w-5 h-5 text-indian-gold flex-shrink-0" />
                     <div className="text-xs text-amber-800 dark:text-amber-200">
                       <p className="font-semibold mb-1">Important</p>
                       <p>
@@ -544,11 +544,11 @@ export default async function InsuranceDetailPage({
           <h2 className="text-3xl font-bold mb-4">
             Secure Your Future with {insurance.name}
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-ink-60 mb-8">
             Get comprehensive coverage at the best rates!
           </p>
           <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-12 py-6 text-lg">
+            <Button className="bg-action-green hover:bg-authority-green text-white font-semibold px-12 py-6 text-lg">
               Get Free Quote <ExternalLink className="w-5 h-5 ml-2" />
             </Button>
           </a>
