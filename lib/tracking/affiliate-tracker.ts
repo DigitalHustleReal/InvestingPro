@@ -121,7 +121,15 @@ export async function trackAffiliateClick(
       .single();
 
     if (error) {
-      logger.error("Failed to track affiliate click", error);
+      // Log full error so 400 schema-mismatch / RLS issues are debuggable
+      logger.error(
+        `Failed to track affiliate click: ${error.message} (code: ${error.code})`,
+        error,
+      );
+      if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
+        // eslint-disable-next-line no-console
+        console.warn("[affiliate_click] Supabase insert failed:", error);
+      }
       return null;
     }
 

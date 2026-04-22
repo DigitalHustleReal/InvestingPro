@@ -41,7 +41,7 @@ export default function ArticlesPage() {
             <div>
               <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
                 Research &{" "}
-                <em className="italic text-authority-green">Analysis</em>
+                <em className="italic text-indian-gold">Analysis</em>
               </h1>
               <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
                 Independent financial research and expert guides. No sponsored

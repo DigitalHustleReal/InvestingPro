@@ -115,7 +115,7 @@ export default async function FixedDepositsPage() {
             <div>
               <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
                 Best Fixed Deposit Rates{" "}
-                <em className="italic text-authority-green">in India</em>
+                <em className="italic text-indian-gold">in India</em>
               </h1>
               <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
                 Compare FD rates from 50+ banks. Senior citizen rates,
