@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { getCreditCardsServer } from "@/lib/products/get-credit-cards-server";
 import CreditCardsClient from "./CreditCardsClient";
+import WeeklyChanges from "@/components/common/WeeklyChanges";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { logger } from "@/lib/logger";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
@@ -181,9 +182,16 @@ export default async function CreditCardsPage() {
       </section>
 
       {/* ── Main content ── */}
-      <section className="bg-gray-50 min-h-screen">
+      <section className="bg-canvas min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <CreditCardsClient initialAssets={assets as any} />
+        </div>
+      </section>
+
+      {/* ── This Week in Indian Money — editorial velocity (NW parity+) ── */}
+      <section className="bg-white border-t-2 border-ink/10 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+          <WeeklyChanges category="credit-cards" />
         </div>
       </section>
 

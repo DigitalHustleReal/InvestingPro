@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import FixedDepositsClient from "./FixedDepositsClient";
+import WeeklyChanges from "@/components/common/WeeklyChanges";
 import { getFixedDepositsServer } from "@/lib/products/get-fixed-deposits-server";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
@@ -159,6 +160,13 @@ export default async function FixedDepositsPage() {
       <section className="bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <FixedDepositsClient initialFDs={initialFDs} />
+        </div>
+      </section>
+
+      {/* This Week in Indian Money — editorial velocity (NW parity+) */}
+      <section className="bg-white border-t-2 border-ink/10 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+          <WeeklyChanges category="fixed-deposits" />
         </div>
       </section>
       <section className="bg-white border-t border-gray-200">
