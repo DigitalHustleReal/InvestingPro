@@ -1,30 +1,34 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, Star, Clock, Users } from "lucide-react";
+import { ShieldCheck, Clock, Users, FileSearch } from "lucide-react";
 
 /**
- * Trust signals strip — addresses trust gap vs Groww/ET Money.
- * Shows credibility without requiring login.
+ * Trust strip under calculator page H1.
+ * v3 Bold Redesign: mono uppercase labels with gold dot separators.
+ * Removed vanity "75+ calculators" — replaced with factual signals only.
  */
 export function TrustStrip() {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12px] text-gray-500 py-3">
-      <span className="flex items-center gap-1.5">
-        <ShieldCheck size={13} className="text-green-600" />
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 py-3">
+      <span className="font-mono text-[11px] uppercase tracking-wider text-ink-60 flex items-center gap-2">
+        <ShieldCheck size={13} className="text-indian-gold" />
         SEBI-compliant formulas
       </span>
-      <span className="flex items-center gap-1.5">
-        <Star size={13} className="text-amber-500 fill-amber-500" />
-        75+ financial calculators
+      <span className="text-ink/20">·</span>
+      <span className="font-mono text-[11px] uppercase tracking-wider text-ink-60 flex items-center gap-2">
+        <FileSearch size={13} className="text-indian-gold" />
+        Methodology disclosed
       </span>
-      <span className="flex items-center gap-1.5">
-        <Clock size={13} className="text-green-600" />
+      <span className="text-ink/20">·</span>
+      <span className="font-mono text-[11px] uppercase tracking-wider text-ink-60 flex items-center gap-2">
+        <Clock size={13} className="text-indian-gold" />
         Updated April 2026
       </span>
-      <span className="flex items-center gap-1.5">
-        <Users size={13} className="text-green-600" />
-        Free · No signup required
+      <span className="text-ink/20">·</span>
+      <span className="font-mono text-[11px] uppercase tracking-wider text-ink-60 flex items-center gap-2">
+        <Users size={13} className="text-indian-gold" />
+        Free · No signup
       </span>
     </div>
   );
