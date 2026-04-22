@@ -111,21 +111,77 @@ async function getCreditCardData(
   // Use service client for build-time (generateStaticParams), static client for runtime
   const supabase = useServiceClient ? createServiceClient() : createClient();
   logger.info(`[CardPage] Fetching slug: ${slug}`);
-  const { data: card, error } = await supabase
+
+  const SELECT_COLS =
+    "id, slug, name, type, bank, image_url, rating, annual_fee, joining_fee, rewards, interest_rate_text, description, apply_link, pros, cons, features, updated_at, reward_rate, reward_type, min_income, annual_fee_text, joining_fee_text";
+
+  // Primary attempt: exact slug match
+  let { data: card, error } = await supabase
     .from("credit_cards")
-    .select(
-      "id, slug, name, type, bank, image_url, rating, annual_fee, joining_fee, rewards, interest_rate_text, description, apply_link, pros, cons, features, updated_at, reward_rate, reward_type, min_income, annual_fee_text, joining_fee_text",
-    )
+    .select(SELECT_COLS)
     .eq("slug", slug)
-    .maybeSingle(); // Use maybeSingle() instead of single() to handle 0 rows gracefully
+    .maybeSingle();
 
   if (error) {
     logger.error(`[CardPage] Error fetching ${slug}:`, error as Error);
     return null;
   }
 
+  // FALLBACK 1: fuzzy slug match (handles URL-DB slug drift across all cards
+  // — e.g., listing links to `hdfc-swiggy-credit-card` but DB has
+  // `hdfc-bank-swiggy-credit-card`). Tries progressively relaxed matches.
+  if (!card && slug) {
+    logger.info(`[CardPage] Exact match failed, trying fuzzy match for ${slug}`);
+
+    // Strategy A: ilike pattern — slug contained in DB slug OR DB slug
+    // contained in URL slug
+    const { data: fuzzyMatches } = await supabase
+      .from("credit_cards")
+      .select(SELECT_COLS)
+      .or(`slug.ilike.%${slug}%,slug.ilike.${slug.replace(/-credit-card$/, "")}%`)
+      .limit(2);
+
+    if (fuzzyMatches && fuzzyMatches.length > 0) {
+      card = fuzzyMatches[0] as unknown as typeof card;
+      logger.info(
+        `[CardPage] Fuzzy matched ${slug} → ${(card as any).slug} (${(card as any).name})`,
+      );
+    }
+  }
+
+  // FALLBACK 2: token-overlap match — split slug into tokens, find card whose
+  // slug contains the most tokens. Handles "swiggy" → "hdfc-swiggy-credit-card"
+  // vs DB "swiggy-hdfc-card".
+  if (!card && slug) {
+    const tokens = slug
+      .split("-")
+      .filter((t) => t.length > 2 && !["credit", "card", "the", "and"].includes(t));
+    if (tokens.length > 0) {
+      const { data: tokenMatches } = await supabase
+        .from("credit_cards")
+        .select(SELECT_COLS)
+        .or(tokens.map((t) => `slug.ilike.%${t}%`).join(","))
+        .limit(5);
+
+      if (tokenMatches && tokenMatches.length > 0) {
+        // Pick the card with most token matches
+        const scored = tokenMatches.map((m: any) => ({
+          card: m,
+          score: tokens.filter((t) => (m.slug || "").includes(t)).length,
+        }));
+        scored.sort((a, b) => b.score - a.score);
+        if (scored[0].score >= Math.ceil(tokens.length / 2)) {
+          card = scored[0].card as unknown as typeof card;
+          logger.info(
+            `[CardPage] Token-matched ${slug} → ${(card as any).slug} (score ${scored[0].score}/${tokens.length})`,
+          );
+        }
+      }
+    }
+  }
+
   if (!card) {
-    logger.warn(`[CardPage] No card found for ${slug}`);
+    logger.warn(`[CardPage] No card found for ${slug} (exact + fuzzy + token all failed)`);
     return null;
   }
 

@@ -85,8 +85,14 @@ export async function trackAffiliateClick(
     const supabase = createClient();
     const utmParams = getUtmParams();
 
-    const clickData = {
-      product_id: data.productId || null,
+    // UUID validator — some callers pass slugs or empty strings for productId
+    // which would violate the UUID FK constraint and cause a 400.
+    const isValidUuid = (v: unknown): v is string =>
+      typeof v === "string" &&
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
+
+    const fullClickData = {
+      product_id: isValidUuid(data.productId) ? data.productId : null,
       product_slug: data.productSlug || null,
       product_name: data.productName,
       category: data.category || null,
@@ -97,10 +103,10 @@ export async function trackAffiliateClick(
         data.sourceUrl ||
         (typeof window !== "undefined" ? window.location.href : null),
       source_component: data.sourceComponent || null,
-      article_id: data.articleId || null,
+      article_id: isValidUuid(data.articleId) ? data.articleId : null,
 
       session_id: data.sessionId || getSessionId(),
-      user_id: data.userId || null,
+      user_id: isValidUuid(data.userId) ? data.userId : null,
       user_agent: typeof navigator !== "undefined" ? navigator.userAgent : null,
 
       affiliate_link: data.affiliateLink || null,
@@ -114,11 +120,40 @@ export async function trackAffiliateClick(
       conversion_status: "pending",
     };
 
-    const { data: result, error } = await supabase
+    // Primary attempt — full payload
+    let { data: result, error } = await supabase
       .from("affiliate_clicks")
-      .insert(clickData)
+      .insert(fullClickData)
       .select("id")
       .single();
+
+    // Fallback: if the full insert 400s (schema mismatch — e.g., article_id
+    // column missing from a partial migration), retry with minimal payload
+    // that matches the original migration's core fields only.
+    if (error && (error.code === "PGRST204" || error.code === "42703" || error.message?.includes("column"))) {
+      logger.warn(
+        `[affiliate_click] Full payload failed (${error.message}), retrying minimal`,
+      );
+      const minimalClickData = {
+        product_id: fullClickData.product_id,
+        product_slug: fullClickData.product_slug,
+        product_name: fullClickData.product_name,
+        category: fullClickData.category,
+        provider_name: fullClickData.provider_name,
+        source_page: fullClickData.source_page,
+        source_component: fullClickData.source_component,
+        session_id: fullClickData.session_id,
+        affiliate_link: fullClickData.affiliate_link,
+        affiliate_network: fullClickData.affiliate_network,
+      };
+      const retry = await supabase
+        .from("affiliate_clicks")
+        .insert(minimalClickData)
+        .select("id")
+        .single();
+      result = retry.data;
+      error = retry.error;
+    }
 
     if (error) {
       // Log full error so 400 schema-mismatch / RLS issues are debuggable
@@ -130,6 +165,16 @@ export async function trackAffiliateClick(
         // eslint-disable-next-line no-console
         console.warn("[affiliate_click] Supabase insert failed:", error);
       }
+      // Still fire PostHog event — we have data, just not a Supabase row ID
+      trackEvent("affiliate_click", {
+        product_name: data.productName,
+        product_slug: data.productSlug,
+        category: data.category,
+        provider: data.providerName,
+        source_page: data.sourcePage,
+        source_component: data.sourceComponent,
+        supabase_error: error.message,
+      });
       return null;
     }
 
