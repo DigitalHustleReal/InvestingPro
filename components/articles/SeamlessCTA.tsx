@@ -23,14 +23,14 @@ export default function SeamlessCTA({ category }: SeamlessCTAProps) {
     if (actions.length === 0) return null;
 
     return (
-        <section className="my-16 border-t border-gray-200 pt-16">
+        <section className="my-16 border-t border-ink/10 pt-16">
             <div className="flex items-center gap-3 mb-8">
                 <div className="w-10 h-10 rounded-2xl bg-primary-600 flex items-center justify-center text-white shadow-lg shadow-primary-500/20">
                     <Zap className="w-5 h-5" />
                 </div>
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Next Steps for You</h2>
-                    <p className="text-gray-500 text-sm">Take data-driven actions based on this article</p>
+                    <h2 className="text-2xl font-bold text-ink tracking-tight">Next Steps for You</h2>
+                    <p className="text-ink-60 text-sm">Take data-driven actions based on this article</p>
                 </div>
             </div>
 
@@ -48,19 +48,19 @@ export default function SeamlessCTA({ category }: SeamlessCTAProps) {
                             <h3 className="text-xl font-bold mb-3 tracking-tight group-hover:text-primary-400 transition-colors">
                                 {action.title}
                             </h3>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-8 flex-1">
+                            <p className="text-ink-60 text-sm leading-relaxed mb-8 flex-1">
                                 {action.description}
                             </p>
 
                             <Link href={action.href} className="mt-auto">
-                                <Button className="w-full bg-white text-primary-950 hover:bg-primary-500 hover:text-white font-bold rounded-xl py-6 flex items-center justify-center gap-2 group/btn border border-transparent hover:border-primary-400/20">
+                                <Button className="w-full bg-white text-primary-950 hover:bg-primary-500 hover:text-white font-bold rounded-sm py-6 flex items-center justify-center gap-2 group/btn border border-transparent hover:border-primary-400/20">
                                     {action.cta}
                                     <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                                 </Button>
                             </Link>
 
                             {action.trustBadge && (
-                                <div className="flex items-center gap-1.5 mt-4 text-[10px] text-gray-500 font-bold uppercase tracking-widest">
+                                <div className="flex items-center gap-1.5 mt-4 text-[10px] text-ink-60 font-bold uppercase tracking-widest">
                                     <ShieldCheck className="w-3 h-3 text-primary-500" />
                                     {action.trustBadge}
                                 </div>

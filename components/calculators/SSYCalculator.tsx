@@ -178,9 +178,9 @@ export function SSYCalculator() {
                 <p className="text-xs text-muted-foreground">Current SSY rate: 8.2% (updated quarterly)</p>
             </div>
 
-            <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
+            <div className="flex items-center justify-between p-3 bg-muted/50 rounded-sm border border-border">
                 <div className="flex items-center gap-2">
-                    <TrendingDown className="w-4 h-4 text-amber-600" />
+                    <TrendingDown className="w-4 h-4 text-indian-gold" />
                     <div>
                         <Label className="text-sm text-foreground font-semibold">Adjust for Inflation</Label>
                         <p className="text-xs text-muted-foreground">Show real purchasing power</p>
@@ -203,11 +203,11 @@ export function SSYCalculator() {
             )}
 
             <div className="grid grid-cols-2 gap-3 mt-2">
-                <div className="p-3 bg-primary/5 border border-primary/20 rounded-xl">
+                <div className="p-3 bg-primary/5 border border-primary/20 rounded-sm">
                     <p className="text-[10px] font-bold text-primary-700 uppercase tracking-widest mb-1">Tax Benefits</p>
                     <p className="text-xs text-primary-800 font-medium">EEE Status: Tax-free Invest, Interest & Maturity</p>
                 </div>
-                <div className="p-3 bg-primary/5 border border-primary/20 rounded-xl">
+                <div className="p-3 bg-primary/5 border border-primary/20 rounded-sm">
                     <p className="text-[10px] font-bold text-primary-700 uppercase tracking-widest mb-1">Maturity</p>
                     <p className="text-xs text-primary-800 font-medium">21 Years from opening (Age {girlAge + 21})</p>
                 </div>
@@ -219,7 +219,7 @@ export function SSYCalculator() {
         <div className="space-y-6 pb-20 md:pb-6">
             {/* Section 1 — Mobile Collapsible */}
             <div className="lg:hidden">
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="cursor-pointer" onClick={() => setInputsExpanded(!inputsExpanded)}>
                         <div className="flex items-center justify-between">
                             <div className="flex-1">
@@ -254,7 +254,7 @@ export function SSYCalculator() {
             {/* Section 2 — Desktop 2-col grid */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="hidden lg:block border-border shadow-sm rounded-xl">
+                <Card className="hidden lg:block border-border shadow-sm rounded-sm">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -292,15 +292,15 @@ export function SSYCalculator() {
                 </Card>
 
                 {/* Right: Results Card */}
-                <Card className="order-first lg:order-none border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
+                <Card className="order-first lg:order-none border-border shadow-sm rounded-sm bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Total Invested</p>
                                 <p className="text-base sm:text-lg font-extrabold text-foreground">{formatCurrency(result.totalContributed)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Interest' : 'Interest Earned'}
                                 </p>
@@ -308,7 +308,7 @@ export function SSYCalculator() {
                                     +{formatCurrency(adjustForInflation ? Math.max(0, result.realReturns) : result.returns)}
                                 </p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">
                                     {adjustForInflation ? 'Real Maturity' : 'Maturity Amount'}
                                 </p>
@@ -319,7 +319,7 @@ export function SSYCalculator() {
                         </div>
 
                         {adjustForInflation && (
-                            <div className="p-3 bg-card rounded-xl border border-border mb-4">
+                            <div className="p-3 bg-card rounded-sm border border-border mb-4">
                                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Nominal Maturity</p>
                                 <p className="text-sm font-bold text-foreground">{formatCurrency(result.maturityAmount)}</p>
                                 <p className="text-xs text-muted-foreground mt-1">Before inflation adjustment</p>
@@ -369,7 +369,7 @@ export function SSYCalculator() {
             {/* Section 3 — Bottom 2-col grid */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Growth Chart */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">SSY Growth Projection</CardTitle>
                     </CardHeader>
@@ -415,18 +415,18 @@ export function SSYCalculator() {
                 </Card>
 
                 {/* Right: Breakdown */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Year-by-Year Breakdown</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Annual Deposit</p>
                                     <p className="text-lg font-bold text-foreground">{formatCurrency(annualContribution)}</p>
                                 </div>
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">SSY Rate</p>
                                     <p className="text-lg font-bold text-primary-600">{interestRate}%</p>
                                 </div>
@@ -434,7 +434,7 @@ export function SSYCalculator() {
 
                             <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
                                 <div className="min-w-full">
-                                    <div className="overflow-hidden rounded-xl border border-border">
+                                    <div className="overflow-hidden rounded-sm border border-border">
                                         <table className="w-full min-w-full sm:min-w-[500px]">
                                             <thead className="bg-muted border-b border-border">
                                                 <tr>
@@ -476,7 +476,7 @@ export function SSYCalculator() {
                             </div>
 
                             {/* What This Means */}
-                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-xl p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-sm p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-10"><Trophy className="w-24 h-24 text-emerald-600" /></div>
                                 <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
                                     <Sparkles className="w-4 h-4" /> What This Means
@@ -498,7 +498,7 @@ export function SSYCalculator() {
                             </div>
 
                             {/* Lead Capture */}
-                            <div className="p-5 bg-card rounded-xl border border-border shadow-sm mt-4">
+                            <div className="p-5 bg-card rounded-sm border border-border shadow-sm mt-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className="font-bold text-foreground flex items-center gap-2">
                                         <FileText className="w-4 h-4 text-primary-600" />Get Detailed Report (Free)

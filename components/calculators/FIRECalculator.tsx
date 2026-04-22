@@ -212,14 +212,14 @@ export function FIRECalculator() {
           <Flame
             size={24}
             className={
-              result.onTrack ? "text-green-600 mx-auto" : "text-red-500 mx-auto"
+              result.onTrack ? "text-action-green mx-auto" : "text-red-500 mx-auto"
             }
           />
-          <p className="text-sm text-gray-500 mt-2">FIRE Number</p>
+          <p className="text-sm text-ink-60 mt-2">FIRE Number</p>
           <p
             className={cn(
               "text-4xl font-extrabold mt-1",
-              result.onTrack ? "text-green-700" : "text-red-600",
+              result.onTrack ? "text-authority-green" : "text-red-600",
             )}
           >
             {formatINR(result.fireNumber)}
@@ -233,8 +233,8 @@ export function FIRECalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5 flex items-center gap-2">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5 flex items-center gap-2">
             <Flame size={18} className="text-orange-500" /> FIRE Planning
           </h2>
           <div className="space-y-4">
@@ -378,8 +378,8 @@ export function FIRECalculator() {
 
       <WhatIfScenarios scenarios={scenarios} />
 
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Your Journey to FIRE
         </h3>
         <div className="h-[260px] sm:h-[300px]">
@@ -438,12 +438,12 @@ export function FIRECalculator() {
         </div>
         <div className="flex justify-center gap-8 mt-3">
           <div className="flex items-center gap-2 text-xs">
-            <div className="w-4 h-0.5 bg-green-500 rounded" />
-            <span className="text-gray-500">Your Corpus</span>
+            <div className="w-4 h-0.5 bg-action-green/100 rounded" />
+            <span className="text-ink-60">Your Corpus</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
             <div className="w-4 h-0.5 bg-red-500 rounded border-dashed" />
-            <span className="text-gray-500">FIRE Target</span>
+            <span className="text-ink-60">FIRE Target</span>
           </div>
         </div>
       </div>

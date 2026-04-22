@@ -179,12 +179,12 @@ export default function MidArticleCapture({
     return (
       <div className="my-10 rounded-2xl border border-green-200 bg-gradient-to-r from-green-50 to-white px-8 py-8 dark:border-green-800 dark:from-green-950/30 dark:to-gray-900">
         <div className="flex items-center gap-3">
-          <CheckCircle2 className="h-6 w-6 text-green-600 dark:text-green-400" />
+          <CheckCircle2 className="h-6 w-6 text-action-green dark:text-green-400" />
           <div>
             <p className="text-base font-semibold text-green-800 dark:text-green-300">
               You&apos;re in! Check your inbox.
             </p>
-            <p className="mt-1 text-sm text-green-700/80 dark:text-green-400/70">
+            <p className="mt-1 text-sm text-authority-green/80 dark:text-green-400/70">
               We&apos;ve sent your free guide to {email}
             </p>
           </div>
@@ -200,7 +200,7 @@ export default function MidArticleCapture({
 
       <div
         className={cn(
-          "my-10 overflow-hidden rounded-2xl border-l-[6px] border-l-green-600 border border-gray-200 bg-gradient-to-r from-green-50 to-white shadow-sm transition-all duration-700 dark:border-gray-700 dark:border-l-green-500 dark:from-green-950/20 dark:to-gray-900",
+          "my-10 overflow-hidden rounded-2xl border-l-[6px] border-l-green-600 border border-ink/10 bg-gradient-to-r from-green-50 to-white shadow-sm transition-all duration-700 dark:border-gray-700 dark:border-l-green-500 dark:from-green-950/20 dark:to-gray-900",
           visible
             ? "translate-y-0 opacity-100"
             : "translate-y-4 opacity-0 pointer-events-none",
@@ -211,7 +211,7 @@ export default function MidArticleCapture({
           <button
             onClick={handleDismiss}
             aria-label="Dismiss"
-            className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+            className="absolute right-4 top-4 rounded-full p-1.5 text-ink-60 transition-colors hover:bg-gray-100 hover:text-ink-60 dark:hover:bg-gray-800 dark:hover:text-ink/20"
           >
             <X className="h-4 w-4" />
           </button>
@@ -220,15 +220,15 @@ export default function MidArticleCapture({
             {/* Left: content */}
             <div className="flex-1">
               <div className="mb-2 flex items-center gap-2">
-                <Mail className="h-5 w-5 text-green-600 dark:text-green-400" />
-                <span className="text-xs font-bold uppercase tracking-widest text-green-700 dark:text-green-400">
+                <Mail className="h-5 w-5 text-action-green dark:text-green-400" />
+                <span className="text-xs font-bold uppercase tracking-widest text-authority-green dark:text-green-400">
                   Free Resource
                 </span>
               </div>
-              <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-gray-100">
+              <h3 className="mb-2 text-lg font-bold text-ink dark:text-gray-100">
                 {leadMagnet.title}
               </h3>
-              <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+              <p className="text-sm leading-relaxed text-ink-60 dark:text-ink-60">
                 {leadMagnet.description}
               </p>
             </div>
@@ -248,9 +248,9 @@ export default function MidArticleCapture({
                 placeholder="your@email.com"
                 required
                 className={cn(
-                  "w-full rounded-lg border bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors",
+                  "w-full rounded-lg border bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-60 outline-none transition-colors",
                   "focus:border-green-500 focus:ring-2 focus:ring-green-500/20",
-                  "dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-green-500",
+                  "dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-ink-60 dark:focus:border-green-500",
                   error
                     ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
                     : "border-gray-300",
@@ -264,12 +264,12 @@ export default function MidArticleCapture({
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full gap-2 rounded-lg bg-green-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700"
+                className="w-full gap-2 rounded-lg bg-authority-green px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-800 dark:bg-action-green dark:hover:bg-authority-green"
               >
                 {loading ? "Sending..." : "Get Free Guide"}
                 {!loading && <ArrowRight className="h-4 w-4" />}
               </Button>
-              <p className="text-center text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="text-center text-[11px] text-ink-60 dark:text-ink-60">
                 No spam. Unsubscribe anytime.
               </p>
             </form>

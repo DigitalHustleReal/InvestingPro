@@ -54,7 +54,7 @@ export function AuthorBadge({
       className={`flex items-center gap-3 ${className} cursor-pointer group`}
     >
       <Avatar
-        className={`${sizeClasses[size]} border border-gray-200 bg-gray-50 transition-transform group-hover:scale-105`}
+        className={`${sizeClasses[size]} border border-ink/10 bg-canvas transition-transform group-hover:scale-105`}
       >
         <AvatarImage src={avatarUrl || ""} alt={name} />
         <AvatarFallback className="bg-primary/10 text-primary font-bold text-xs">
@@ -68,12 +68,12 @@ export function AuthorBadge({
       </Avatar>
       <div className="flex flex-col">
         <span
-          className={`font-semibold text-gray-900 leading-tight ${textSizeClasses[size]} group-hover:text-primary-600 group-hover:underline decoration-primary-600/30 underline-offset-4 transition-colors`}
+          className={`font-semibold text-ink leading-tight ${textSizeClasses[size]} group-hover:text-primary-600 group-hover:underline decoration-primary-600/30 underline-offset-4 transition-colors`}
         >
           {name}
         </span>
         {showRole && (
-          <span className="text-xs text-gray-500 font-medium">{role}</span>
+          <span className="text-xs text-ink-60 font-medium">{role}</span>
         )}
       </div>
     </div>

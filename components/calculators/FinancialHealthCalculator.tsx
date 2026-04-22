@@ -105,7 +105,7 @@ export function FinancialHealthCalculator() {
         let color = "text-destructive";
         if (finalScore >= 80) { status = "Excellent"; grade = "A+"; color = "text-primary"; }
         else if (finalScore >= 60) { status = "Good"; grade = "A"; color = "text-primary"; }
-        else if (finalScore >= 40) { status = "Fair"; grade = "B"; color = "text-amber-600"; }
+        else if (finalScore >= 40) { status = "Fair"; grade = "B"; color = "text-indian-gold"; }
 
         return {
             score: finalScore,
@@ -161,7 +161,7 @@ export function FinancialHealthCalculator() {
         <div className="space-y-6 pb-20 md:pb-6">
             {/* Section 1: Mobile Collapsible */}
             <div className="lg:hidden">
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="cursor-pointer" onClick={() => setInputsExpanded(!inputsExpanded)}>
                         <div className="flex items-center justify-between">
                             <div className="flex-1">
@@ -219,7 +219,7 @@ export function FinancialHealthCalculator() {
 
             {/* Section 2: Desktop 2-col */}
             <div className="grid lg:grid-cols-2 gap-6">
-                <Card className="hidden lg:block border-border shadow-sm rounded-xl">
+                <Card className="hidden lg:block border-border shadow-sm rounded-sm">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -302,11 +302,11 @@ export function FinancialHealthCalculator() {
                         {/* Protection */}
                         <div className="space-y-4 pt-2">
                             <h3 className="text-sm font-bold text-foreground uppercase tracking-wider border-b border-border pb-2">Protection</h3>
-                            <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
+                            <div className="flex items-center justify-between p-3 bg-muted/50 rounded-sm border border-border">
                                 <Label className="text-sm font-medium text-foreground">Health Insurance</Label>
                                 <Switch checked={hasHealthInsurance} onCheckedChange={setHasHealthInsurance} />
                             </div>
-                            <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl border border-border">
+                            <div className="flex items-center justify-between p-3 bg-muted/50 rounded-sm border border-border">
                                 <Label className="text-sm font-medium text-foreground">Term / Life Insurance</Label>
                                 <Switch checked={hasTermInsurance} onCheckedChange={setHasTermInsurance} />
                             </div>
@@ -314,26 +314,26 @@ export function FinancialHealthCalculator() {
                     </CardContent>
                 </Card>
 
-                <Card id="calculator-results" className="order-first lg:order-none border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
+                <Card id="calculator-results" className="order-first lg:order-none border-border shadow-sm rounded-sm bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-6">
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Score</p>
                                 <p className="text-base sm:text-lg font-extrabold" style={{ color: getScoreColor(result.score) }}>{result.score}/100</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Grade</p>
                                 <p className="text-base sm:text-lg font-extrabold" style={{ color: getScoreColor(result.score) }}>{result.grade}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Status</p>
                                 <p className="text-base sm:text-lg font-extrabold" style={{ color: getScoreColor(result.score) }}>{result.status}</p>
                             </div>
                         </div>
 
                         {/* Large Score Display */}
-                        <div className="flex flex-col items-center justify-center py-6 bg-card rounded-xl border border-border mb-4">
+                        <div className="flex flex-col items-center justify-center py-6 bg-card rounded-sm border border-border mb-4">
                             <div className="text-6xl font-black mb-1" style={{ color: getScoreColor(result.score) }}>{result.score}</div>
                             <div className="text-sm text-muted-foreground font-medium">out of 100</div>
                             <div className="mt-3">
@@ -344,19 +344,19 @@ export function FinancialHealthCalculator() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-3">
-                            <div className="text-center p-3 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-3 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Savings Rate</p>
                                 <p className="text-base font-extrabold text-foreground">{result.metrics.savingsRate}%</p>
                             </div>
-                            <div className="text-center p-3 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-3 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Emergency Fund</p>
                                 <p className="text-base font-extrabold text-foreground">{result.metrics.emergencyMonths} Mo</p>
                             </div>
-                            <div className="text-center p-3 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-3 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Debt Fraction</p>
                                 <p className="text-base font-extrabold text-foreground">{result.metrics.dti}%</p>
                             </div>
-                            <div className="text-center p-3 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-3 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Asset Ratio</p>
                                 <p className="text-base font-extrabold text-foreground">{result.metrics.netWorthRatio}x</p>
                             </div>
@@ -367,7 +367,7 @@ export function FinancialHealthCalculator() {
 
             {/* Section 3: Bottom 2-col */}
             <div className="grid lg:grid-cols-2 gap-6">
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Score Breakdown</CardTitle>
                     </CardHeader>
@@ -391,7 +391,7 @@ export function FinancialHealthCalculator() {
                     </CardContent>
                 </Card>
 
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Score Breakdown Table</CardTitle>
                     </CardHeader>
@@ -399,7 +399,7 @@ export function FinancialHealthCalculator() {
                         <div className="space-y-4">
                             <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
                                 <div className="min-w-full">
-                                    <div className="overflow-hidden rounded-xl border border-border">
+                                    <div className="overflow-hidden rounded-sm border border-border">
                                         <table className="w-full">
                                             <thead className="bg-muted border-b border-border">
                                                 <tr>
@@ -438,7 +438,7 @@ export function FinancialHealthCalculator() {
                                     {result.insights.map((insight, i) => (
                                         <div key={i} className={`flex gap-3 p-3 rounded-lg border text-sm ${
                                             insight.type === 'danger' ? 'bg-destructive/10 border-destructive/20 text-destructive' :
-                                            insight.type === 'warning' ? 'bg-amber-50 border-amber-100 text-amber-800 dark:bg-amber-950/30 dark:border-amber-900/50 dark:text-amber-200' :
+                                            insight.type === 'warning' ? 'bg-indian-gold/10 border-amber-100 text-amber-800 dark:bg-amber-950/30 dark:border-amber-900/50 dark:text-amber-200' :
                                             insight.type === 'critical' ? 'bg-destructive/15 border-destructive/30 text-destructive font-bold' :
                                             'bg-muted border-border text-muted-foreground'
                                         }`}>
@@ -449,7 +449,7 @@ export function FinancialHealthCalculator() {
                                 </div>
                             )}
 
-                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-xl p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-sm p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-10"><Trophy className="w-24 h-24 text-emerald-600" /></div>
                                 <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
                                     <Sparkles className="w-4 h-4" /> What This Means
@@ -485,7 +485,7 @@ export function FinancialHealthCalculator() {
                                 </div>
                             </div>
 
-                            <div className="p-5 bg-card rounded-xl border border-border shadow-sm mt-4">
+                            <div className="p-5 bg-card rounded-sm border border-border shadow-sm mt-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className="font-bold text-foreground flex items-center gap-2">
                                         <FileText className="w-4 h-4 text-primary-600" />Get Personalized Health Plan (Free)

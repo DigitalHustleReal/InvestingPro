@@ -77,7 +77,7 @@ export function MISCalculator() {
     const inputSliders = (
         <div className="space-y-4">
             {/* Account Type Toggle */}
-            <div className="flex items-center gap-2 p-3 bg-muted/50 rounded-xl border border-border">
+            <div className="flex items-center gap-2 p-3 bg-muted/50 rounded-sm border border-border">
                 <button
                     onClick={() => setIsJointAccount(false)}
                     className={`flex-1 text-xs px-3 py-1.5 rounded-lg font-medium transition-colors ${!isJointAccount ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}`}
@@ -131,24 +131,24 @@ export function MISCalculator() {
                 <Slider value={[interestRate]} onValueChange={(v) => setInterestRate(v[0])} min={6} max={9} step={0.1} className="py-2" />
                 <div className="flex items-center justify-between text-[10px] text-muted-foreground">
                     <span>6%</span>
-                    <span className="bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full font-medium">Current: 7.4% p.a. monthly payout</span>
+                    <span className="bg-indian-gold/20 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full font-medium">Current: 7.4% p.a. monthly payout</span>
                     <span>9%</span>
                 </div>
             </div>
 
             {/* Info boxes */}
             <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 bg-muted/50 rounded-xl border border-border text-center">
+                <div className="p-3 bg-muted/50 rounded-sm border border-border text-center">
                     <p className="text-[10px] text-muted-foreground mb-1">Payout Frequency</p>
                     <p className="text-sm font-bold text-foreground">Monthly</p>
                 </div>
-                <div className="p-3 bg-muted/50 rounded-xl border border-border text-center">
+                <div className="p-3 bg-muted/50 rounded-sm border border-border text-center">
                     <p className="text-[10px] text-muted-foreground mb-1">Tenure</p>
                     <p className="text-sm font-bold text-foreground">5 Years</p>
                 </div>
             </div>
 
-            <div className="p-4 bg-muted/50 rounded-xl border border-border flex items-start gap-3">
+            <div className="p-4 bg-muted/50 rounded-sm border border-border flex items-start gap-3">
                 <TrendingUp className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                     <p className="text-sm font-bold text-foreground mb-1">Guaranteed Monthly Income</p>
@@ -164,7 +164,7 @@ export function MISCalculator() {
         <div className="space-y-6 pb-20 md:pb-6">
             {/* SECTION 1 — Mobile Collapsible */}
             <div className="lg:hidden">
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="cursor-pointer" onClick={() => setInputsExpanded(!inputsExpanded)}>
                         <div className="flex items-center justify-between">
                             <div className="flex-1">
@@ -199,7 +199,7 @@ export function MISCalculator() {
             {/* SECTION 2 — Desktop 2-col grid */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="hidden lg:block border-border shadow-sm rounded-xl">
+                <Card className="hidden lg:block border-border shadow-sm rounded-sm">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -210,7 +210,7 @@ export function MISCalculator() {
                                 <Badge variant="secondary" className="bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100">
                                     <CheckCircle2 className="w-3 h-3 mr-1" /> Govt Scheme
                                 </Badge>
-                                <Badge variant="secondary" className="bg-amber-50 text-amber-700 border-amber-200 text-[10px]">
+                                <Badge variant="secondary" className="bg-indian-gold/10 text-amber-700 border-indian-gold/30 text-[10px]">
                                     Monthly Payout
                                 </Badge>
                             </div>
@@ -235,20 +235,20 @@ export function MISCalculator() {
                 </Card>
 
                 {/* Right: Results Card */}
-                <Card id="calculator-results" className="order-first lg:order-none border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
+                <Card id="calculator-results" className="order-first lg:order-none border-border shadow-sm rounded-sm bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         {/* 3 stat boxes */}
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">MONTHLY INCOME</p>
                                 <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(Math.round(monthlyInterest))}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">ANNUAL INCOME</p>
                                 <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(Math.round(annualInterest))}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">TOTAL (5Y)</p>
                                 <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(Math.round(totalInterest))}</p>
                             </div>
@@ -289,7 +289,7 @@ export function MISCalculator() {
             {/* SECTION 3 — Bottom 2-col grid */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Growth Projection Chart */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Cumulative Interest Income</CardTitle>
                     </CardHeader>
@@ -315,7 +315,7 @@ export function MISCalculator() {
                 </Card>
 
                 {/* Year-by-Year Breakdown */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Annual Income Breakdown</CardTitle>
                     </CardHeader>
@@ -323,11 +323,11 @@ export function MISCalculator() {
                         <div className="space-y-4">
                             {/* Summary Stats */}
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">TOTAL 5-YEAR INCOME</p>
                                     <p className="text-lg font-bold text-foreground">{formatCurrency(Math.round(totalInterest))}</p>
                                 </div>
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">MONTHLY INCOME</p>
                                     <p className="text-lg font-bold text-foreground">{formatCurrency(Math.round(monthlyInterest))}</p>
                                 </div>
@@ -336,7 +336,7 @@ export function MISCalculator() {
                             {/* Table */}
                             <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
                                 <div className="min-w-full">
-                                    <div className="overflow-hidden rounded-xl border border-border">
+                                    <div className="overflow-hidden rounded-sm border border-border">
                                         <table className="w-full min-w-full sm:min-w-[500px]">
                                             <thead className="bg-muted border-b border-border">
                                                 <tr>
@@ -375,7 +375,7 @@ export function MISCalculator() {
                             </div>
 
                             {/* What This Means */}
-                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-xl p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-sm p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-10">
                                     <Trophy className="w-24 h-24 text-emerald-600" />
                                 </div>
@@ -408,7 +408,7 @@ export function MISCalculator() {
                             </div>
 
                             {/* Lead Capture */}
-                            <div className="p-5 bg-card rounded-xl border border-border shadow-sm mt-4">
+                            <div className="p-5 bg-card rounded-sm border border-border shadow-sm mt-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className="font-bold text-foreground flex items-center gap-2">
                                         <FileText className="w-4 h-4 text-primary-600" />

@@ -338,9 +338,9 @@ export function RentVsBuyComparisonCalculator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         {/* Inputs */}
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5 flex items-center gap-2">
-            <Home size={18} className="text-green-600" />
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5 flex items-center gap-2">
+            <Home size={18} className="text-action-green" />
             Property & Rent Details
           </h2>
           <div className="space-y-4">
@@ -416,7 +416,7 @@ export function RentVsBuyComparisonCalculator() {
             />
           </div>
 
-          <div className="mt-5 p-3 bg-green-50 border border-green-100 rounded-xl space-y-1">
+          <div className="mt-5 p-3 bg-action-green/10 border border-green-100 rounded-sm space-y-1">
             <p className="text-xs text-green-800">
               <strong>EMI:</strong> {formatINR(result.emi)}/mo (20 yr loan)
             </p>
@@ -446,32 +446,32 @@ export function RentVsBuyComparisonCalculator() {
           />
 
           {/* Multi-Period Snapshot */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">
+          <div className="bg-white border border-ink/10 rounded-2xl p-4 shadow-sm">
+            <h3 className="text-sm font-display font-semibold text-ink mb-3">
               Net Wealth Over Time
             </h3>
             <div className="grid grid-cols-3 gap-3">
               {result.periodResults.map((p) => (
                 <div
                   key={p.years}
-                  className={`rounded-xl p-3 border text-center ${
+                  className={`rounded-sm p-3 border text-center ${
                     p.winner === "rent"
-                      ? "bg-green-50 border-green-200"
-                      : "bg-amber-50 border-amber-200"
+                      ? "bg-action-green/10 border-green-200"
+                      : "bg-indian-gold/10 border-indian-gold/30"
                   }`}
                 >
-                  <p className="text-[10px] font-bold text-gray-500 uppercase">
+                  <p className="text-[10px] font-bold text-ink-60 uppercase">
                     {p.years} Years
                   </p>
                   <div className="mt-2 space-y-1">
                     <div>
-                      <p className="text-[10px] text-gray-400">Rent+Invest</p>
-                      <p className="text-xs font-bold text-green-700">
+                      <p className="text-[10px] text-ink-60">Rent+Invest</p>
+                      <p className="text-xs font-bold text-authority-green">
                         {formatINR(p.rentNetWealth)}
                       </p>
                     </div>
                     <div>
-                      <p className="text-[10px] text-gray-400">Buy</p>
+                      <p className="text-[10px] text-ink-60">Buy</p>
                       <p className="text-xs font-bold text-amber-700">
                         {formatINR(p.buyNetWealth)}
                       </p>
@@ -480,8 +480,8 @@ export function RentVsBuyComparisonCalculator() {
                   <p
                     className={`text-[9px] font-bold mt-1.5 px-1.5 py-0.5 rounded ${
                       p.winner === "rent"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-amber-100 text-amber-700"
+                        ? "bg-action-green/20 text-authority-green"
+                        : "bg-indian-gold/20 text-amber-700"
                     }`}
                   >
                     {p.winner === "rent" ? "RENT" : "BUY"} +{formatINR(p.diff)}
@@ -492,46 +492,46 @@ export function RentVsBuyComparisonCalculator() {
           </div>
 
           {/* Price-to-Rent Guide */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-            <h3 className="text-sm font-semibold text-gray-900 mb-2">
+          <div className="bg-white border border-ink/10 rounded-2xl p-4 shadow-sm">
+            <h3 className="text-sm font-display font-semibold text-ink mb-2">
               Price-to-Rent Ratio Guide
             </h3>
             <div className="grid grid-cols-3 gap-2 text-center">
               <div
                 className={`rounded-lg p-2.5 border ${
                   result.priceToRent < 15
-                    ? "bg-amber-50 border-amber-300 ring-2 ring-amber-200"
-                    : "bg-gray-50 border-gray-200"
+                    ? "bg-indian-gold/10 border-amber-300 ring-2 ring-amber-200"
+                    : "bg-canvas border-ink/10"
                 }`}
               >
                 <p className="text-lg font-bold text-amber-700">&lt; 15x</p>
-                <p className="text-[10px] text-gray-600 font-medium">Buy</p>
-                <p className="text-[9px] text-gray-400">Fairly priced</p>
+                <p className="text-[10px] text-ink-60 font-medium">Buy</p>
+                <p className="text-[9px] text-ink-60">Fairly priced</p>
               </div>
               <div
                 className={`rounded-lg p-2.5 border ${
                   result.priceToRent >= 15 && result.priceToRent <= 20
                     ? "bg-gray-100 border-gray-400 ring-2 ring-gray-300"
-                    : "bg-gray-50 border-gray-200"
+                    : "bg-canvas border-ink/10"
                 }`}
               >
-                <p className="text-lg font-bold text-gray-700">15-20x</p>
-                <p className="text-[10px] text-gray-600 font-medium">Toss-up</p>
-                <p className="text-[9px] text-gray-400">Depends on you</p>
+                <p className="text-lg font-bold text-ink">15-20x</p>
+                <p className="text-[10px] text-ink-60 font-medium">Toss-up</p>
+                <p className="text-[9px] text-ink-60">Depends on you</p>
               </div>
               <div
                 className={`rounded-lg p-2.5 border ${
                   result.priceToRent > 20
-                    ? "bg-green-50 border-green-300 ring-2 ring-green-200"
-                    : "bg-gray-50 border-gray-200"
+                    ? "bg-action-green/10 border-green-300 ring-2 ring-green-200"
+                    : "bg-canvas border-ink/10"
                 }`}
               >
-                <p className="text-lg font-bold text-green-700">&gt; 20x</p>
-                <p className="text-[10px] text-gray-600 font-medium">Rent</p>
-                <p className="text-[9px] text-gray-400">Overpriced</p>
+                <p className="text-lg font-bold text-authority-green">&gt; 20x</p>
+                <p className="text-[10px] text-ink-60 font-medium">Rent</p>
+                <p className="text-[9px] text-ink-60">Overpriced</p>
               </div>
             </div>
-            <p className="text-[10px] text-gray-400 mt-2 text-center">
+            <p className="text-[10px] text-ink-60 mt-2 text-center">
               Your ratio: <strong>{result.priceToRent}x</strong> — property
               price / annual rent
             </p>

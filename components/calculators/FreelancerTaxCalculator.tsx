@@ -228,8 +228,8 @@ export function FreelancerTaxCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Freelancer Income Details
           </h2>
           <div className="space-y-5">
@@ -266,26 +266,26 @@ export function FreelancerTaxCalculator() {
 
             <div className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-ink mb-2">
                   Tax Computation Method
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setUsePresumptive(true)}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors ${
                       usePresumptive
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:bg-canvas"
                     }`}
                   >
                     Presumptive (44ADA)
                   </button>
                   <button
                     onClick={() => setUsePresumptive(false)}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors ${
                       !usePresumptive
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:bg-canvas"
                     }`}
                   >
                     Normal (Actual Expenses)
@@ -294,26 +294,26 @@ export function FreelancerTaxCalculator() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-ink mb-2">
                   GST Registered?
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setGstRegistered(true)}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors ${
                       gstRegistered
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:bg-canvas"
                     }`}
                   >
                     Yes
                   </button>
                   <button
                     onClick={() => setGstRegistered(false)}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors ${
                       !gstRegistered
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:bg-canvas"
                     }`}
                   >
                     No
@@ -351,8 +351,8 @@ export function FreelancerTaxCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Income Breakdown
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -380,7 +380,7 @@ export function FreelancerTaxCalculator() {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
             {pieData.map((d) => (
               <div key={d.name} className="flex items-center gap-2">
                 <div
@@ -388,8 +388,8 @@ export function FreelancerTaxCalculator() {
                   style={{ backgroundColor: d.color }}
                 />
                 <div>
-                  <p className="text-[11px] text-gray-400">{d.name}</p>
-                  <p className="text-sm font-bold text-gray-900">
+                  <p className="text-[11px] text-ink-60">{d.name}</p>
+                  <p className="text-sm font-display font-bold text-ink">
                     {formatINR(d.value)}
                   </p>
                 </div>
@@ -399,8 +399,8 @@ export function FreelancerTaxCalculator() {
         </div>
 
         {/* Advance Tax Schedule */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-4 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Advance Tax Schedule
           </h3>
           {result.advanceTaxDue ? (
@@ -408,28 +408,28 @@ export function FreelancerTaxCalculator() {
               {result.advanceSchedule.map((q) => (
                 <div
                   key={q.date}
-                  className="flex items-center justify-between p-2 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between p-2 bg-canvas rounded-sm"
                 >
                   <div>
-                    <p className="text-xs font-medium text-gray-900">
+                    <p className="text-xs font-medium text-ink">
                       {q.date}
                     </p>
-                    <p className="text-[11px] text-gray-500">
+                    <p className="text-[11px] text-ink-60">
                       {q.percent}% cumulative
                     </p>
                   </div>
-                  <p className="text-sm font-bold text-green-700">
+                  <p className="text-sm font-bold text-authority-green">
                     {formatINR(q.amount)}
                   </p>
                 </div>
               ))}
-              <p className="text-[11px] text-gray-500 mt-2">
+              <p className="text-[11px] text-ink-60 mt-2">
                 * Late payment attracts 1% per month interest under Section 234C
               </p>
             </div>
           ) : (
-            <div className="flex items-center gap-2 text-xs text-gray-500 p-3">
-              <Calendar className="w-4 h-4 text-green-600" />
+            <div className="flex items-center gap-2 text-xs text-ink-60 p-3">
+              <Calendar className="w-4 h-4 text-action-green" />
               <p>Tax liability under ₹10,000 — advance tax not required</p>
             </div>
           )}

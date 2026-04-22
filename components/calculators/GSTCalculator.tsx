@@ -108,7 +108,7 @@ export function GSTCalculator() {
         <div className="space-y-6 pb-20 md:pb-6">
             {/* Section 1 — Mobile Collapsible */}
             <div className="lg:hidden">
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="cursor-pointer" onClick={() => setInputsExpanded(!inputsExpanded)}>
                         <div className="flex items-center justify-between">
                             <div className="flex-1">
@@ -179,7 +179,7 @@ export function GSTCalculator() {
             {/* Section 2 — Desktop 2-col grid */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="hidden lg:block border-border shadow-sm rounded-xl">
+                <Card className="hidden lg:block border-border shadow-sm rounded-sm">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -273,26 +273,26 @@ export function GSTCalculator() {
                 </Card>
 
                 {/* Right: Results Card */}
-                <Card className="order-first lg:order-none border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
+                <Card className="order-first lg:order-none border-border shadow-sm rounded-sm bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Base Amount</p>
                                 <p className="text-base sm:text-lg font-extrabold text-foreground">{formatCurrency(result.baseAmount)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">GST ({gstRate}%)</p>
                                 <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(result.gstAmount)}</p>
                             </div>
-                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-6 md:p-8 sm:p-4 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 sm:mb-2">Total Amount</p>
                                 <p className="text-base sm:text-lg font-extrabold text-primary">{formatCurrency(result.totalAmount)}</p>
                             </div>
                         </div>
 
                         {/* Visual breakdown bar */}
-                        <div className="p-4 bg-card rounded-xl border border-border mb-4">
+                        <div className="p-4 bg-card rounded-sm border border-border mb-4">
                             <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">Amount Breakdown</p>
                             <div className="space-y-3">
                                 <div>
@@ -317,7 +317,7 @@ export function GSTCalculator() {
                         </div>
 
                         {/* GST Component Breakdown */}
-                        <div className="p-4 bg-card rounded-xl border border-border">
+                        <div className="p-4 bg-card rounded-sm border border-border">
                             <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">GST Components</p>
                             <div className="space-y-2 text-sm">
                                 <div className="flex justify-between items-center">
@@ -341,7 +341,7 @@ export function GSTCalculator() {
             {/* Section 3 — Bottom 2-col grid */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: GST Rate Comparison Chart */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">GST Rate Comparison</CardTitle>
                     </CardHeader>
@@ -372,18 +372,18 @@ export function GSTCalculator() {
                 </Card>
 
                 {/* Right: Tax Breakdown Table */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Tax Breakdown Table</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Current Rate</p>
                                     <p className="text-lg font-bold text-foreground">{gstRate}%</p>
                                 </div>
-                                <div className="p-4 bg-primary-50 rounded-xl border border-primary-100">
+                                <div className="p-4 bg-primary-50 rounded-sm border border-primary-100">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Input Amount</p>
                                     <p className="text-lg font-bold text-primary-600">{formatCurrency(amount)}</p>
                                 </div>
@@ -391,7 +391,7 @@ export function GSTCalculator() {
 
                             <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
                                 <div className="min-w-full">
-                                    <div className="overflow-hidden rounded-xl border border-border">
+                                    <div className="overflow-hidden rounded-sm border border-border">
                                         <table className="w-full min-w-full">
                                             <thead className="bg-muted border-b border-border">
                                                 <tr>
@@ -419,7 +419,7 @@ export function GSTCalculator() {
                             </div>
 
                             {/* What This Means */}
-                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-xl p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-sm p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-10"><Trophy className="w-24 h-24 text-emerald-600" /></div>
                                 <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
                                     <Sparkles className="w-4 h-4" /> What This Means
@@ -438,7 +438,7 @@ export function GSTCalculator() {
                             </div>
 
                             {/* Lead Capture */}
-                            <div className="p-5 bg-card rounded-xl border border-border shadow-sm mt-4">
+                            <div className="p-5 bg-card rounded-sm border border-border shadow-sm mt-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className="font-bold text-foreground flex items-center gap-2">
                                         <FileText className="w-4 h-4 text-primary-600" />Get Detailed Report (Free)

@@ -194,11 +194,11 @@ export function EducationLoanEMICalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Education Loan Details
           </h2>
-          <div className="flex items-center gap-1 mb-5 p-1 bg-gray-100 rounded-xl">
+          <div className="flex items-center gap-1 mb-5 p-1 bg-gray-100 rounded-sm">
             {(["india", "abroad"] as const).map((t) => (
               <button
                 key={t}
@@ -209,8 +209,8 @@ export function EducationLoanEMICalculator() {
                 className={cn(
                   "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-[13px] font-semibold transition-all",
                   studyType === t
-                    ? "bg-white text-green-700 shadow-sm"
-                    : "text-gray-500",
+                    ? "bg-white text-authority-green shadow-sm"
+                    : "text-ink-60",
                 )}
               >
                 {t === "india" ? (
@@ -300,8 +300,8 @@ export function EducationLoanEMICalculator() {
 
       <WhatIfScenarios scenarios={scenarios} />
 
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Loan Balance Over Repayment Period
         </h3>
         <div className="h-[240px] sm:h-[260px]">
@@ -357,7 +357,7 @@ export function EducationLoanEMICalculator() {
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+        <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
           {pieData.map((d) => (
             <div key={d.name} className="flex items-center gap-2">
               <div
@@ -365,8 +365,8 @@ export function EducationLoanEMICalculator() {
                 style={{ backgroundColor: d.color }}
               />
               <div>
-                <p className="text-[10px] text-gray-400">{d.name}</p>
-                <p className="text-xs font-bold text-gray-900">
+                <p className="text-[10px] text-ink-60">{d.name}</p>
+                <p className="text-xs font-display font-bold text-ink">
                   {formatINR(d.value)}
                 </p>
               </div>

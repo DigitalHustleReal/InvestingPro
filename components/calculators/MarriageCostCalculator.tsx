@@ -193,13 +193,13 @@ export function MarriageCostCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5 flex items-center gap-2">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5 flex items-center gap-2">
             <Heart size={18} className="text-pink-500" /> Wedding Details
           </h2>
 
           <div className="mb-5">
-            <label className="text-[13px] font-medium text-gray-600 mb-2 block">
+            <label className="text-[13px] font-medium text-ink-60 mb-2 block">
               City Tier
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -213,10 +213,10 @@ export function MarriageCostCalculator() {
                   key={key}
                   onClick={() => setCityTier(key)}
                   className={cn(
-                    "py-2.5 rounded-xl text-[11px] font-medium transition-all border text-center",
+                    "py-2.5 rounded-sm text-[11px] font-medium transition-all border text-center",
                     cityTier === key
-                      ? "bg-green-600 text-white border-green-600"
-                      : "bg-white text-gray-600 border-gray-200 hover:border-green-300",
+                      ? "bg-action-green text-white border-green-600"
+                      : "bg-white text-ink-60 border-ink/10 hover:border-green-300",
                   )}
                 >
                   {val.label.split("(")[0].trim()}
@@ -296,8 +296,8 @@ export function MarriageCostCalculator() {
 
       {/* Cost Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Cost Breakdown
           </h3>
           <div className="h-[220px]">
@@ -335,7 +335,7 @@ export function MarriageCostCalculator() {
                   className="w-2 h-2 rounded-full shrink-0"
                   style={{ backgroundColor: d.color }}
                 />
-                <span className="text-gray-500 truncate">
+                <span className="text-ink-60 truncate">
                   {d.name}: {formatINR(d.value)}
                 </span>
               </div>
@@ -343,46 +343,46 @@ export function MarriageCostCalculator() {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Saving Plan
           </h3>
           <div className="space-y-4">
-            <div className="bg-green-50 rounded-xl p-4 text-center">
-              <p className="text-xs text-gray-500">
+            <div className="bg-action-green/10 rounded-sm p-4 text-center">
+              <p className="text-xs text-ink-60">
                 Start SIP today to be ready
               </p>
-              <p className="text-3xl font-bold text-green-700 mt-1">
+              <p className="text-3xl font-bold text-authority-green mt-1">
                 {formatINR(result.monthlySIP)}
-                <span className="text-sm font-normal text-gray-400">/mo</span>
+                <span className="text-sm font-normal text-ink-60">/mo</span>
               </p>
-              <p className="text-[10px] text-gray-400 mt-1">
+              <p className="text-[10px] text-ink-60 mt-1">
                 At 12% equity return for {yearsFromNow} years
               </p>
             </div>
             <div className="space-y-2 text-sm">
-              <div className="flex justify-between py-1.5 border-b border-gray-100">
-                <span className="text-gray-600">Today&apos;s Cost</span>
+              <div className="flex justify-between py-1.5 border-b border-ink/5">
+                <span className="text-ink-60">Today&apos;s Cost</span>
                 <span className="font-semibold">
                   {formatINR(result.todayCost)}
                 </span>
               </div>
-              <div className="flex justify-between py-1.5 border-b border-gray-100">
-                <span className="text-gray-600">
+              <div className="flex justify-between py-1.5 border-b border-ink/5">
+                <span className="text-ink-60">
                   Cost in {yearsFromNow} years
                 </span>
                 <span className="font-semibold text-red-600">
                   {formatINR(result.futureCost)}
                 </span>
               </div>
-              <div className="flex justify-between py-1.5 border-b border-gray-100">
-                <span className="text-gray-600">Inflation Impact</span>
+              <div className="flex justify-between py-1.5 border-b border-ink/5">
+                <span className="text-ink-60">Inflation Impact</span>
                 <span className="font-semibold text-red-600">
                   +{formatINR(result.futureCost - result.todayCost)}
                 </span>
               </div>
               <div className="flex justify-between py-1.5">
-                <span className="text-gray-600">Per Guest Cost</span>
+                <span className="text-ink-60">Per Guest Cost</span>
                 <span className="font-semibold">
                   {formatINR(Math.round(result.todayCost / guests))}
                 </span>

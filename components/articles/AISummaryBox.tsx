@@ -25,15 +25,15 @@ export default function AISummaryBox({
   if (!excerpt || excerpt.length < 30) return null;
 
   return (
-    <div className="mb-8 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
+    <div className="mb-8 rounded-lg border border-ink/10 bg-canvas overflow-hidden">
       {/* Header */}
       <button
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center justify-between px-5 py-3 hover:bg-gray-100 transition-colors cursor-pointer"
       >
         <div className="flex items-center gap-2">
-          <Sparkles className="w-3.5 h-3.5 text-gray-500" />
-          <span className="text-[13px] font-bold text-gray-700 uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5 text-ink-60" />
+          <span className="text-[13px] font-bold text-ink uppercase tracking-wider">
             Quick Summary
           </span>
           {readTime && (
@@ -57,12 +57,12 @@ export default function AISummaryBox({
         )}
       >
         <div className="px-5 pb-4 pt-1">
-          <p className="text-[15px] text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-[15px] text-ink dark:text-ink/20 leading-relaxed">
             {excerpt}
           </p>
           {category && (
             <div className="mt-3 flex items-center gap-2 text-[11px] text-muted-foreground">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gray-200 text-gray-600 font-semibold uppercase tracking-wider">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gray-200 text-ink-60 font-semibold uppercase tracking-wider">
                 {category
                   .split("-")
                   .map((w) => {

@@ -198,16 +198,16 @@ export function SIPCalculatorV2() {
       {/* ─── Desktop: 3-column layout ────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Inputs — 5 cols on desktop, full width mobile */}
-        <div className="lg:col-span-5 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+        <div className="lg:col-span-5 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
           {/* Clear mode labels */}
-          <div className="flex items-center gap-1 mb-5 p-1 bg-gray-100 rounded-xl">
+          <div className="flex items-center gap-1 mb-5 p-1 bg-gray-100 rounded-sm">
             <button
               onClick={() => setMode("returns")}
               className={cn(
                 "flex-1 py-2.5 rounded-lg text-[13px] font-semibold transition-all",
                 mode === "returns"
-                  ? "bg-white text-green-700 shadow-sm"
-                  : "text-gray-500",
+                  ? "bg-white text-authority-green shadow-sm"
+                  : "text-ink-60",
               )}
             >
               SIP Returns
@@ -217,8 +217,8 @@ export function SIPCalculatorV2() {
               className={cn(
                 "flex-1 py-2.5 rounded-lg text-[13px] font-semibold transition-all",
                 mode === "goal"
-                  ? "bg-white text-green-700 shadow-sm"
-                  : "text-gray-500",
+                  ? "bg-white text-authority-green shadow-sm"
+                  : "text-ink-60",
               )}
             >
               Goal Planning
@@ -309,8 +309,8 @@ export function SIPCalculatorV2() {
 
       {/* ─── Chart + Product Recs ─────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Your Wealth Journey — {years} Years
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -371,7 +371,7 @@ export function SIPCalculatorV2() {
             </ResponsiveContainer>
           </div>
           {/* Inline legend — bigger, clearer */}
-          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
             {pieData.map((d) => (
               <div key={d.name} className="flex items-center gap-2">
                 <div
@@ -379,8 +379,8 @@ export function SIPCalculatorV2() {
                   style={{ backgroundColor: d.color }}
                 />
                 <div>
-                  <p className="text-[11px] text-gray-400">{d.name}</p>
-                  <p className="text-sm font-bold text-gray-900">
+                  <p className="text-[11px] text-ink-60">{d.name}</p>
+                  <p className="text-sm font-display font-bold text-ink">
                     {formatINR(d.value)}
                   </p>
                 </div>
@@ -397,24 +397,24 @@ export function SIPCalculatorV2() {
       </div>
 
       {/* ─── Year-wise Breakdown ─────────────────────────────── */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Year-by-Year Breakdown
         </h3>
         <div className="overflow-x-auto -mx-2 px-2">
           <table className="w-full text-sm min-w-[400px]">
             <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left py-2 px-2 text-xs font-medium text-gray-500">
+              <tr className="border-b border-ink/5">
+                <th className="text-left py-2 px-2 text-xs font-medium text-ink-60">
                   Year
                 </th>
-                <th className="text-right py-2 px-2 text-xs font-medium text-gray-500">
+                <th className="text-right py-2 px-2 text-xs font-medium text-ink-60">
                   Invested
                 </th>
-                <th className="text-right py-2 px-2 text-xs font-medium text-gray-500">
+                <th className="text-right py-2 px-2 text-xs font-medium text-ink-60">
                   Earned
                 </th>
-                <th className="text-right py-2 px-2 text-xs font-medium text-gray-500">
+                <th className="text-right py-2 px-2 text-xs font-medium text-ink-60">
                   Total
                 </th>
               </tr>
@@ -426,18 +426,18 @@ export function SIPCalculatorV2() {
               ).map((row) => (
                 <tr
                   key={row.year}
-                  className="border-b border-gray-50 hover:bg-green-50/50 transition-colors"
+                  className="border-b border-gray-50 hover:bg-action-green/10/50 transition-colors"
                 >
-                  <td className="py-2 px-2 font-medium text-gray-700">
+                  <td className="py-2 px-2 font-medium text-ink">
                     Y{row.year}
                   </td>
-                  <td className="py-2 px-2 text-right text-gray-600">
+                  <td className="py-2 px-2 text-right text-ink-60">
                     {formatINR(row.invested)}
                   </td>
-                  <td className="py-2 px-2 text-right text-green-600 font-medium">
+                  <td className="py-2 px-2 text-right text-action-green font-medium">
                     +{formatINR(row.returns)}
                   </td>
-                  <td className="py-2 px-2 text-right font-bold text-gray-900">
+                  <td className="py-2 px-2 text-right font-display font-bold text-ink">
                     {formatINR(row.total)}
                   </td>
                 </tr>
@@ -448,7 +448,7 @@ export function SIPCalculatorV2() {
         {yearlyBreakdown.length > 5 && (
           <button
             onClick={() => setShowAllYears(!showAllYears)}
-            className="w-full mt-3 py-2.5 text-xs font-semibold text-green-600 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors"
+            className="w-full mt-3 py-2.5 text-xs font-semibold text-action-green hover:text-authority-green hover:bg-action-green/10 rounded-lg transition-colors"
           >
             {showAllYears
               ? "Show less"

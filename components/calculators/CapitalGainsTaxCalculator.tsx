@@ -293,14 +293,14 @@ export function CapitalGainsTaxCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Transaction Details
           </h2>
           <div className="space-y-5">
             {/* Asset Type Toggle */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-2 block">
+              <label className="text-xs font-medium text-ink-60 mb-2 block">
                 Asset Type
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
@@ -310,8 +310,8 @@ export function CapitalGainsTaxCalculator() {
                     onClick={() => setAssetType(a.value)}
                     className={`px-2 py-2 text-xs font-medium rounded-lg border transition-colors ${
                       assetType === a.value
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:border-gray-300"
                     }`}
                   >
                     {a.label}
@@ -368,16 +368,16 @@ export function CapitalGainsTaxCalculator() {
             )}
 
             {/* Type Badge */}
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-gray-50 border border-gray-100">
-              <Scale className="w-4 h-4 text-gray-400" />
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-canvas border border-ink/5">
+              <Scale className="w-4 h-4 text-ink-60" />
               <div className="text-sm">
                 <span
-                  className={`font-semibold ${result.isLongTerm ? "text-green-700" : "text-amber-600"}`}
+                  className={`font-semibold ${result.isLongTerm ? "text-authority-green" : "text-indian-gold"}`}
                 >
                   {result.isLongTerm ? "Long-Term" : "Short-Term"} Capital Gain
                 </span>
                 {config.holdingPeriodMonths > 0 && (
-                  <span className="text-gray-400 ml-1">
+                  <span className="text-ink-60 ml-1">
                     (LTCG threshold:{" "}
                     {config.holdingPeriodMonths >= 12
                       ? `${config.holdingPeriodMonths / 12}Y`
@@ -412,66 +412,66 @@ export function CapitalGainsTaxCalculator() {
 
           {/* Tax Breakdown */}
           {result.gain > 0 && (
-            <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-              <h3 className="text-sm font-semibold text-gray-900 mb-3">
+            <div className="bg-white border border-ink/10 rounded-2xl p-4 shadow-sm">
+              <h3 className="text-sm font-display font-semibold text-ink mb-3">
                 Tax Breakdown
               </h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Sale Price</span>
+                  <span className="text-ink-60">Sale Price</span>
                   <span className="font-medium">{formatINR(salePrice)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Purchase Price</span>
+                  <span className="text-ink-60">Purchase Price</span>
                   <span className="font-medium">
                     - {formatINR(purchasePrice)}
                   </span>
                 </div>
-                <div className="flex justify-between pt-2 border-t border-gray-100">
-                  <span className="font-medium text-gray-700">
+                <div className="flex justify-between pt-2 border-t border-ink/5">
+                  <span className="font-medium text-ink">
                     Capital Gain
                   </span>
-                  <span className="font-semibold text-green-700">
+                  <span className="font-semibold text-authority-green">
                     {formatINR(result.gain)}
                   </span>
                 </div>
                 {config.ltcgExemption > 0 && result.isLongTerm && (
                   <div className="flex justify-between">
-                    <span className="text-gray-500">LTCG Exemption</span>
-                    <span className="font-medium text-green-600">
+                    <span className="text-ink-60">LTCG Exemption</span>
+                    <span className="font-medium text-action-green">
                       - {formatINR(config.ltcgExemption)}
                     </span>
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Taxable Gain</span>
+                  <span className="text-ink-60">Taxable Gain</span>
                   <span className="font-medium">
                     {formatINR(result.taxableGain)}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Tax @ {result.taxRate}%</span>
+                  <span className="text-ink-60">Tax @ {result.taxRate}%</span>
                   <span className="font-medium text-red-600">
                     {formatINR(result.tax)}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Health & Edu Cess (4%)</span>
+                  <span className="text-ink-60">Health & Edu Cess (4%)</span>
                   <span className="font-medium text-red-600">
                     {formatINR(result.cess)}
                   </span>
                 </div>
-                <div className="flex justify-between pt-2 border-t border-gray-100">
-                  <span className="font-semibold text-gray-900">Total Tax</span>
+                <div className="flex justify-between pt-2 border-t border-ink/5">
+                  <span className="font-display font-semibold text-ink">Total Tax</span>
                   <span className="font-bold text-red-600">
                     {formatINR(result.totalTax)}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-display font-semibold text-ink">
                     You Receive
                   </span>
-                  <span className="font-bold text-green-700">
+                  <span className="font-bold text-authority-green">
                     {formatINR(result.postTaxAmount)}
                   </span>
                 </div>
@@ -484,26 +484,26 @@ export function CapitalGainsTaxCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       {/* Tax Rate Reference */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Capital Gains Tax Rates — India 2026 (Budget July 2024 Onwards)
         </h3>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left py-2 text-gray-500 font-medium">
+            <tr className="border-b border-ink/5">
+              <th className="text-left py-2 text-ink-60 font-medium">
                 Asset
               </th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+              <th className="text-center py-2 text-ink-60 font-medium">
                 LTCG Threshold
               </th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+              <th className="text-center py-2 text-ink-60 font-medium">
                 STCG Rate
               </th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+              <th className="text-center py-2 text-ink-60 font-medium">
                 LTCG Rate
               </th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+              <th className="text-center py-2 text-ink-60 font-medium">
                 Exemption
               </th>
             </tr>
@@ -512,32 +512,32 @@ export function CapitalGainsTaxCalculator() {
             {Object.entries(ASSET_CONFIGS).map(([key, cfg]) => (
               <tr
                 key={key}
-                className={`border-b border-gray-50 ${key === assetType ? "bg-green-50" : ""}`}
+                className={`border-b border-gray-50 ${key === assetType ? "bg-action-green/10" : ""}`}
               >
-                <td className="py-2.5 font-medium text-gray-900">
+                <td className="py-2.5 font-medium text-ink">
                   {cfg.label}
                 </td>
-                <td className="text-center py-2.5 text-gray-600">
+                <td className="text-center py-2.5 text-ink-60">
                   {cfg.holdingPeriodMonths === 0
                     ? "N/A (slab)"
                     : cfg.holdingPeriodMonths >= 12
                       ? `${cfg.holdingPeriodMonths / 12} year`
                       : `${cfg.holdingPeriodMonths}M`}
                 </td>
-                <td className="text-center py-2.5 text-amber-600 font-medium">
+                <td className="text-center py-2.5 text-indian-gold font-medium">
                   {cfg.stcgRate}%
                 </td>
-                <td className="text-center py-2.5 text-green-700 font-medium">
+                <td className="text-center py-2.5 text-authority-green font-medium">
                   {cfg.ltcgRate}%
                 </td>
-                <td className="text-center py-2.5 text-gray-600">
+                <td className="text-center py-2.5 text-ink-60">
                   {cfg.ltcgExemption > 0 ? formatINR(cfg.ltcgExemption) : "—"}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-ink-60 mt-2">
           * Debt MF gains taxed at slab rate regardless of holding period (post
           April 2023). Property/Gold LTCG at 12.5% without indexation (post July
           2024 budget).

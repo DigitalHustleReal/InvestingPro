@@ -31,7 +31,7 @@ export default function LastUpdatedBadge({
       <span
         className={cn(
           "inline-flex items-center gap-1 text-xs",
-          "text-green-600 dark:text-green-400",
+          "text-action-green dark:text-green-400",
         )}
       >
         <RefreshCw className="w-3 h-3" />
@@ -45,7 +45,7 @@ export default function LastUpdatedBadge({
     <span
       className={cn(
         "inline-flex items-center gap-1 text-xs",
-        "text-gray-400 dark:text-gray-500",
+        "text-ink-60 dark:text-ink-60",
       )}
     >
       <Calendar className="w-3 h-3" />

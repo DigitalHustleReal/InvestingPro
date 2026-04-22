@@ -284,8 +284,8 @@ export function SIPvsLumpsumComparisonCalculator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         {/* Inputs */}
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Investment Details
           </h2>
           <div className="space-y-4">
@@ -322,8 +322,8 @@ export function SIPvsLumpsumComparisonCalculator() {
 
             {/* Volatility Selector */}
             <div className="space-y-2">
-              <label className="text-[13px] font-medium text-gray-600 flex items-center gap-2">
-                <Activity size={15} className="text-green-600" />
+              <label className="text-[13px] font-medium text-ink-60 flex items-center gap-2">
+                <Activity size={15} className="text-action-green" />
                 Market Volatility
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -333,21 +333,21 @@ export function SIPvsLumpsumComparisonCalculator() {
                     onClick={() => setVolatility(v)}
                     className={`text-xs font-medium py-2 px-2 rounded-lg border transition-all ${
                       volatility === v
-                        ? "bg-green-50 border-green-300 text-green-700 ring-2 ring-green-200"
-                        : "bg-white border-gray-200 text-gray-500 hover:border-green-200"
+                        ? "bg-action-green/10 border-green-300 text-authority-green ring-2 ring-green-200"
+                        : "bg-white border-ink/10 text-ink-60 hover:border-green-200"
                     }`}
                   >
                     {v.charAt(0).toUpperCase() + v.slice(1)}
                   </button>
                 ))}
               </div>
-              <p className="text-[10px] text-gray-400">
+              <p className="text-[10px] text-ink-60">
                 {VOLATILITY_LABELS[volatility]}
               </p>
             </div>
           </div>
 
-          <div className="mt-5 p-3 bg-green-50 border border-green-100 rounded-xl space-y-1">
+          <div className="mt-5 p-3 bg-action-green/10 border border-green-100 rounded-sm space-y-1">
             <p className="text-xs text-green-800">
               <strong>SIP Amount:</strong> {formatINR(monthlySIP)}/month x{" "}
               {years * 12} months
@@ -375,11 +375,11 @@ export function SIPvsLumpsumComparisonCalculator() {
 
           {/* Rupee Cost Averaging Insight */}
           {result.rcaBenefit > 0 && (
-            <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+            <div className="bg-action-green/10 border border-green-200 rounded-sm p-4">
               <p className="text-xs font-bold text-green-800 mb-1">
                 Rupee Cost Averaging Benefit
               </p>
-              <p className="text-sm text-green-700">
+              <p className="text-sm text-authority-green">
                 In worst-case scenario, SIP protects{" "}
                 <strong>{result.downsideProtection}%</strong> of your downside.
                 SIP worst case ({formatINR(result.sipWorst)}) vs Lumpsum worst

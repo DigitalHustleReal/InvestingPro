@@ -42,7 +42,7 @@ export function DeskByline({
   return (
     <div className={`text-[13px] leading-relaxed ${className}`}>
       {/* Desk name */}
-      <span className="font-semibold text-gray-900 dark:text-gray-100">
+      <span className="font-semibold text-ink dark:text-gray-100">
         {desk.name}
       </span>
 

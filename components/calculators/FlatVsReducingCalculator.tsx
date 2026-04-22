@@ -166,8 +166,8 @@ export function FlatVsReducingCalculator() {
       <TrustStrip />
 
       {/* Warning banner */}
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start gap-3">
-        <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
+      <div className="bg-indian-gold/10 border border-indian-gold/30 rounded-2xl p-4 flex items-start gap-3">
+        <AlertTriangle className="w-5 h-5 text-indian-gold mt-0.5 shrink-0" />
         <div>
           <p className="text-sm font-semibold text-amber-900">
             Why This Matters
@@ -206,8 +206,8 @@ export function FlatVsReducingCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Loan Details
           </h2>
           <div className="space-y-5">
@@ -244,14 +244,14 @@ export function FlatVsReducingCalculator() {
           </div>
 
           {/* Conversion formula box */}
-          <div className="mt-6 bg-green-50 border border-green-200 rounded-xl p-4">
+          <div className="mt-6 bg-action-green/10 border border-green-200 rounded-sm p-4">
             <p className="text-xs font-semibold text-green-900 mb-2">
               Conversion Formula
             </p>
             <p className="text-sm text-green-800 font-mono">
               Reducing Rate = Flat Rate x 2N / (N+1)
             </p>
-            <p className="text-xs text-green-600 mt-1">
+            <p className="text-xs text-action-green mt-1">
               Where N = total months. For {tenure}Y loan: {flatRate}% x{" "}
               {2 * tenure * 12}/{tenure * 12 + 1} = {result.approxReducingRate}%
             </p>
@@ -287,61 +287,61 @@ export function FlatVsReducingCalculator() {
       </div>
 
       {/* Side-by-side comparison table */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-4">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-4">
           Head-to-Head Comparison
         </h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left py-2 px-3 text-gray-500 font-medium">
+              <tr className="border-b border-ink/5">
+                <th className="text-left py-2 px-3 text-ink-60 font-medium">
                   Parameter
                 </th>
                 <th className="text-right py-2 px-3 text-red-600 font-medium">
                   Flat Rate ({flatRate}%)
                 </th>
-                <th className="text-right py-2 px-3 text-green-700 font-medium">
+                <th className="text-right py-2 px-3 text-authority-green font-medium">
                   Reducing Rate ({flatRate}%)
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               <tr>
-                <td className="py-2.5 px-3 text-gray-700">Monthly EMI</td>
+                <td className="py-2.5 px-3 text-ink">Monthly EMI</td>
                 <td className="py-2.5 px-3 text-right font-semibold text-red-600">
                   {formatINR(result.flatEMI)}
                 </td>
-                <td className="py-2.5 px-3 text-right font-semibold text-green-700">
+                <td className="py-2.5 px-3 text-right font-semibold text-authority-green">
                   {formatINR(result.reducingEMI)}
                 </td>
               </tr>
               <tr>
-                <td className="py-2.5 px-3 text-gray-700">Total Interest</td>
+                <td className="py-2.5 px-3 text-ink">Total Interest</td>
                 <td className="py-2.5 px-3 text-right font-semibold text-red-600">
                   {formatINR(result.flatInterestTotal)}
                 </td>
-                <td className="py-2.5 px-3 text-right font-semibold text-green-700">
+                <td className="py-2.5 px-3 text-right font-semibold text-authority-green">
                   {formatINR(result.reducingInterestTotal)}
                 </td>
               </tr>
               <tr>
-                <td className="py-2.5 px-3 text-gray-700">Total Payment</td>
+                <td className="py-2.5 px-3 text-ink">Total Payment</td>
                 <td className="py-2.5 px-3 text-right font-semibold text-red-600">
                   {formatINR(result.flatTotalPayment)}
                 </td>
-                <td className="py-2.5 px-3 text-right font-semibold text-green-700">
+                <td className="py-2.5 px-3 text-right font-semibold text-authority-green">
                   {formatINR(result.reducingTotalPayment)}
                 </td>
               </tr>
-              <tr className="bg-amber-50">
+              <tr className="bg-indian-gold/10">
                 <td className="py-2.5 px-3 text-amber-900 font-semibold">
                   You Overpay
                 </td>
                 <td className="py-2.5 px-3 text-right font-bold text-red-600">
                   {formatINR(result.extraPaid)}
                 </td>
-                <td className="py-2.5 px-3 text-right font-bold text-green-700">
+                <td className="py-2.5 px-3 text-right font-bold text-authority-green">
                   -
                 </td>
               </tr>
@@ -353,8 +353,8 @@ export function FlatVsReducingCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Interest vs Principal Split (Flat vs Reducing)
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -413,19 +413,19 @@ export function FlatVsReducingCalculator() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-8 mt-3 pt-3 border-t border-ink/5">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-sm bg-red-600" />
               <div>
-                <p className="text-[11px] text-gray-400">Flat Interest</p>
-                <p className="text-sm font-bold text-gray-900">Constant</p>
+                <p className="text-[11px] text-ink-60">Flat Interest</p>
+                <p className="text-sm font-display font-bold text-ink">Constant</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-sm bg-green-600" />
+              <div className="w-3 h-3 rounded-sm bg-action-green" />
               <div>
-                <p className="text-[11px] text-gray-400">Reducing Interest</p>
-                <p className="text-sm font-bold text-gray-900">Decreasing</p>
+                <p className="text-[11px] text-ink-60">Reducing Interest</p>
+                <p className="text-sm font-display font-bold text-ink">Decreasing</p>
               </div>
             </div>
           </div>

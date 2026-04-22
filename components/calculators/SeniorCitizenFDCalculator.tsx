@@ -275,8 +275,8 @@ export function SeniorCitizenFDCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             FD Details
           </h2>
           <div className="space-y-5">
@@ -285,7 +285,7 @@ export function SeniorCitizenFDCalculator() {
               <button
                 onClick={() => setIsSenior(!isSenior)}
                 className={`relative w-11 h-6 rounded-full transition-colors ${
-                  isSenior ? "bg-green-600" : "bg-gray-300"
+                  isSenior ? "bg-action-green" : "bg-gray-300"
                 }`}
               >
                 <span
@@ -294,8 +294,8 @@ export function SeniorCitizenFDCalculator() {
                   }`}
                 />
               </button>
-              <span className="text-sm text-gray-700 flex items-center gap-1.5">
-                <Heart className="w-4 h-4 text-green-600" />
+              <span className="text-sm text-ink flex items-center gap-1.5">
+                <Heart className="w-4 h-4 text-action-green" />
                 Senior Citizen (60+ age, extra 0.25-0.5%)
               </span>
             </div>
@@ -333,7 +333,7 @@ export function SeniorCitizenFDCalculator() {
 
             {/* Payout Mode */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-2 block">
+              <label className="text-xs font-medium text-ink-60 mb-2 block">
                 Interest Payout
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -347,8 +347,8 @@ export function SeniorCitizenFDCalculator() {
                     onClick={() => setPayoutMode(m.value)}
                     className={`px-3 py-2 text-sm font-medium rounded-lg border transition-colors ${
                       payoutMode === m.value
-                        ? "bg-green-50 border-green-600 text-green-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
+                        ? "bg-action-green/10 border-green-600 text-authority-green"
+                        : "bg-white border-ink/10 text-ink-60 hover:border-gray-300"
                     }`}
                   >
                     {m.label}
@@ -409,8 +409,8 @@ export function SeniorCitizenFDCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             FD Growth — Cumulative ({tenure} Years)
           </h3>
           <div className="h-[240px] sm:h-[280px]">
@@ -479,11 +479,11 @@ export function SeniorCitizenFDCalculator() {
       </div>
 
       {/* Bank Comparison Table */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
-        <h3 className="text-sm font-semibold text-gray-900 mb-1">
+      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
+        <h3 className="text-sm font-display font-semibold text-ink mb-1">
           {isSenior ? "Senior Citizen" : "Regular"} FD Rates — {tenure}Y Tenure
         </h3>
-        <p className="text-xs text-gray-400 mb-3">
+        <p className="text-xs text-ink-60 mb-3">
           Sorted by effective rate.{" "}
           {isSenior
             ? "Includes senior citizen extra 0.25-0.5%."
@@ -491,18 +491,18 @@ export function SeniorCitizenFDCalculator() {
         </p>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left py-2 text-gray-500 font-medium">Bank</th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+            <tr className="border-b border-ink/5">
+              <th className="text-left py-2 text-ink-60 font-medium">Bank</th>
+              <th className="text-center py-2 text-ink-60 font-medium">
                 Type
               </th>
-              <th className="text-center py-2 text-gray-500 font-medium">
+              <th className="text-center py-2 text-ink-60 font-medium">
                 Rate
               </th>
-              <th className="text-right py-2 text-gray-500 font-medium">
+              <th className="text-right py-2 text-ink-60 font-medium">
                 Interest on {formatINR(depositAmount)}
               </th>
-              <th className="text-right py-2 text-gray-500 font-medium">
+              <th className="text-right py-2 text-ink-60 font-medium">
                 Maturity
               </th>
             </tr>
@@ -511,12 +511,12 @@ export function SeniorCitizenFDCalculator() {
             {result.bankComparison.map((bank, i) => (
               <tr
                 key={i}
-                className={`border-b border-gray-50 ${i === 0 ? "bg-green-50" : ""}`}
+                className={`border-b border-gray-50 ${i === 0 ? "bg-action-green/10" : ""}`}
               >
-                <td className="py-2.5 font-medium text-gray-900">
+                <td className="py-2.5 font-medium text-ink">
                   {bank.name}
                   {i === 0 && (
-                    <span className="text-[10px] text-green-600 ml-1 font-semibold">
+                    <span className="text-[10px] text-action-green ml-1 font-semibold">
                       BEST
                     </span>
                   )}
@@ -525,10 +525,10 @@ export function SeniorCitizenFDCalculator() {
                   <span
                     className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
                       bank.type === "sfb"
-                        ? "bg-amber-50 text-amber-700"
+                        ? "bg-indian-gold/10 text-amber-700"
                         : bank.type === "private"
                           ? "bg-blue-50 text-blue-700"
-                          : "bg-green-50 text-green-700"
+                          : "bg-action-green/10 text-authority-green"
                     }`}
                   >
                     {bank.type === "sfb"
@@ -538,20 +538,20 @@ export function SeniorCitizenFDCalculator() {
                         : "PSU/Govt"}
                   </span>
                 </td>
-                <td className="text-center py-2.5 font-semibold text-green-700">
+                <td className="text-center py-2.5 font-semibold text-authority-green">
                   {bank.effectiveRate}%
                 </td>
-                <td className="text-right py-2.5 text-gray-700">
+                <td className="text-right py-2.5 text-ink">
                   {formatINR(bank.interest)}
                 </td>
-                <td className="text-right py-2.5 font-semibold text-gray-900">
+                <td className="text-right py-2.5 font-display font-semibold text-ink">
                   {formatINR(bank.maturity)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-ink-60 mt-2">
           * SFBs (Small Finance Banks) are RBI-regulated and deposits up to ₹5L
           are DICGC insured. Split large deposits across banks for full
           coverage.

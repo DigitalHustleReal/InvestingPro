@@ -267,8 +267,8 @@ export function NSCvsFDCalculator() {
       <TrustStrip />
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             Investment Details
           </h2>
           <div className="space-y-4">
@@ -313,13 +313,13 @@ export function NSCvsFDCalculator() {
               formatDisplay={(v) => `${v} years`}
             />
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">
+              <label className="text-sm font-medium text-ink mb-1 block">
                 Tax Slab
               </label>
               <select
                 value={taxSlabIndex}
                 onChange={(e) => setTaxSlabIndex(Number(e.target.value))}
-                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm bg-white"
+                className="w-full rounded-lg border border-ink/10 px-3 py-2 text-sm bg-white"
               >
                 {TAX_SLABS.map((s, i) => (
                   <option key={i} value={i}>
@@ -328,7 +328,7 @@ export function NSCvsFDCalculator() {
                 ))}
               </select>
             </div>
-            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+            <div className="bg-action-green/10 border border-green-200 rounded-lg p-3">
               <p className="text-xs text-green-800">
                 <Shield className="w-3.5 h-3.5 inline mr-1" />
                 NSC is sovereign-backed (Govt of India). FD is insured up to ₹5L

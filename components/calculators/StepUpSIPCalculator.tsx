@@ -192,15 +192,15 @@ export function StepUpSIPCalculator() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <div className="flex items-center gap-2 mb-6 p-1 bg-gray-100 rounded-xl">
+        <div className="bg-white border border-ink/10 rounded-2xl p-6 shadow-sm">
+          <div className="flex items-center gap-2 mb-6 p-1 bg-gray-100 rounded-sm">
             <button
               onClick={() => setMode("invest")}
               className={cn(
                 "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-medium transition-all",
                 mode === "invest"
-                  ? "bg-white text-green-700 shadow-sm"
-                  : "text-gray-500",
+                  ? "bg-white text-authority-green shadow-sm"
+                  : "text-ink-60",
               )}
             >
               <IndianRupee size={14} /> I know my SIP
@@ -210,8 +210,8 @@ export function StepUpSIPCalculator() {
               className={cn(
                 "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-medium transition-all",
                 mode === "goal"
-                  ? "bg-white text-green-700 shadow-sm"
-                  : "text-gray-500",
+                  ? "bg-white text-authority-green shadow-sm"
+                  : "text-ink-60",
               )}
             >
               <Target size={14} /> I know my goal
@@ -274,25 +274,25 @@ export function StepUpSIPCalculator() {
           </div>
 
           {/* Step-Up vs Regular comparison card */}
-          <div className="mt-5 bg-green-50 border border-green-200 rounded-xl p-4">
+          <div className="mt-5 bg-action-green/10 border border-green-200 rounded-sm p-4">
             <p className="text-xs font-semibold text-green-800 mb-2">
               Step-Up Advantage
             </p>
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div>
-                <p className="text-[10px] text-gray-500">Regular SIP</p>
-                <p className="font-bold text-gray-700">
+                <p className="text-[10px] text-ink-60">Regular SIP</p>
+                <p className="font-bold text-ink">
                   {formatINR(regularSIPFV)}
                 </p>
               </div>
               <div>
-                <p className="text-[10px] text-gray-500">Step-Up SIP</p>
-                <p className="font-bold text-green-700">
+                <p className="text-[10px] text-ink-60">Step-Up SIP</p>
+                <p className="font-bold text-authority-green">
                   {formatINR(result.fv)}
                 </p>
               </div>
             </div>
-            <p className="text-xs text-green-700 font-semibold mt-2">
+            <p className="text-xs text-authority-green font-semibold mt-2">
               +{formatINR(stepUpAdvantage)} extra (
               {((stepUpAdvantage / regularSIPFV) * 100).toFixed(0)}% more)
             </p>
@@ -336,8 +336,8 @@ export function StepUpSIPCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-4">
             Wealth Growth — Step-Up vs Regular
           </h3>
           <div className="h-[280px]">
@@ -402,24 +402,24 @@ export function StepUpSIPCalculator() {
       </div>
 
       {/* Year-wise SIP schedule */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+      <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+        <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Year-wise SIP Schedule
         </h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left py-2 px-3 text-xs font-medium text-gray-500">
+              <tr className="border-b border-ink/5">
+                <th className="text-left py-2 px-3 text-xs font-medium text-ink-60">
                   Year
                 </th>
-                <th className="text-right py-2 px-3 text-xs font-medium text-gray-500">
+                <th className="text-right py-2 px-3 text-xs font-medium text-ink-60">
                   Monthly SIP
                 </th>
-                <th className="text-right py-2 px-3 text-xs font-medium text-gray-500">
+                <th className="text-right py-2 px-3 text-xs font-medium text-ink-60">
                   Total Invested
                 </th>
-                <th className="text-right py-2 px-3 text-xs font-medium text-gray-500">
+                <th className="text-right py-2 px-3 text-xs font-medium text-ink-60">
                   Est. Value
                 </th>
               </tr>
@@ -428,18 +428,18 @@ export function StepUpSIPCalculator() {
               {result.yearlyData.slice(0, 10).map((row, i) => (
                 <tr
                   key={i}
-                  className="border-b border-gray-50 hover:bg-green-50/50"
+                  className="border-b border-gray-50 hover:bg-action-green/10/50"
                 >
-                  <td className="py-2 px-3 font-medium text-gray-700">
+                  <td className="py-2 px-3 font-medium text-ink">
                     Year {i + 1}
                   </td>
-                  <td className="py-2 px-3 text-right text-gray-600">
+                  <td className="py-2 px-3 text-right text-ink-60">
                     {formatINR(row.sip)}/mo
                   </td>
-                  <td className="py-2 px-3 text-right text-gray-600">
+                  <td className="py-2 px-3 text-right text-ink-60">
                     {formatINR(row.invested)}
                   </td>
-                  <td className="py-2 px-3 text-right font-bold text-green-700">
+                  <td className="py-2 px-3 text-right font-bold text-authority-green">
                     {formatINR(row.value)}
                   </td>
                 </tr>
@@ -448,7 +448,7 @@ export function StepUpSIPCalculator() {
           </table>
         </div>
         {result.yearlyData.length > 10 && (
-          <p className="text-xs text-gray-400 text-center mt-2">
+          <p className="text-xs text-ink-60 text-center mt-2">
             Showing first 10 of {years} years
           </p>
         )}

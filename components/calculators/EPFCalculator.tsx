@@ -177,8 +177,8 @@ export function EPFCalculator() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white border border-ink/10 rounded-2xl p-6 shadow-sm">
+          <h2 className="text-base font-display font-semibold text-ink mb-5">
             EPF Details
           </h2>
           <div className="space-y-5">
@@ -282,8 +282,8 @@ export function EPFCalculator() {
       <WhatIfScenarios scenarios={scenarios} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">
+        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-4">
             EPF Growth Over {yearsToRet} Years
           </h3>
           <div className="h-[280px]">
@@ -346,8 +346,8 @@ export function EPFCalculator() {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        <div className="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Corpus Breakdown
           </h3>
           <div className="h-[200px]">
@@ -385,33 +385,33 @@ export function EPFCalculator() {
                   className="w-2 h-2 rounded-full"
                   style={{ backgroundColor: d.color }}
                 />
-                <span className="text-gray-500">{d.name}</span>
+                <span className="text-ink-60">{d.name}</span>
               </div>
             ))}
           </div>
 
           {/* Monthly breakdown */}
-          <div className="mt-4 pt-4 border-t border-gray-100 space-y-2 text-xs">
-            <p className="font-semibold text-gray-700">Monthly Breakdown</p>
+          <div className="mt-4 pt-4 border-t border-ink/5 space-y-2 text-xs">
+            <p className="font-semibold text-ink">Monthly Breakdown</p>
             <div className="flex justify-between">
-              <span className="text-gray-500">Employee (12%)</span>
+              <span className="text-ink-60">Employee (12%)</span>
               <span className="font-semibold">
                 {formatINR(basicSalary * 0.12)}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-500">Employer EPF (3.67%)</span>
+              <span className="text-ink-60">Employer EPF (3.67%)</span>
               <span className="font-semibold">
                 {formatINR(basicSalary * 0.0367)}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-500">Employer EPS (8.33%)</span>
-              <span className="font-semibold text-amber-600">
+              <span className="text-ink-60">Employer EPS (8.33%)</span>
+              <span className="font-semibold text-indian-gold">
                 {formatINR(basicSalary * 0.0833)}
               </span>
             </div>
-            <div className="flex justify-between pt-2 border-t border-gray-100 font-bold text-green-700">
+            <div className="flex justify-between pt-2 border-t border-ink/5 font-bold text-authority-green">
               <span>Total to EPF/mo</span>
               <span>{formatINR(basicSalary * 0.1567)}</span>
             </div>

@@ -177,7 +177,7 @@ export function TaxCalculator() {
         <div className="space-y-6 pb-20 md:pb-6">
             {/* Mobile: Collapsible Inputs Card */}
             <div className="lg:hidden">
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="cursor-pointer" onClick={() => setInputsExpanded(!inputsExpanded)}>
                         <div className="flex items-center justify-between">
                             <div className="flex-1">
@@ -212,7 +212,7 @@ export function TaxCalculator() {
             {/* Desktop: Top Row */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Input Card */}
-                <Card className="hidden lg:block border-border shadow-sm rounded-xl">
+                <Card className="hidden lg:block border-border shadow-sm rounded-sm">
                     <CardHeader>
                         <div className="flex items-start justify-between gap-4 mb-2">
                             <div className="flex-1">
@@ -249,10 +249,10 @@ export function TaxCalculator() {
                 </Card>
 
                 {/* Right: Results Card */}
-                <Card className="order-first lg:order-none border-border shadow-sm rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
+                <Card className="order-first lg:order-none border-border shadow-sm rounded-sm bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <CardContent className="pt-4 sm:pt-6 relative z-10">
-                        <div className="text-center p-6 md:p-8 bg-card rounded-xl shadow-sm border border-border mb-4">
+                        <div className="text-center p-6 md:p-8 bg-card rounded-sm shadow-sm border border-border mb-4">
                             <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">
                                 {result.betterRegime} Regime is Better
                             </p>
@@ -263,12 +263,12 @@ export function TaxCalculator() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 mb-4">
-                            <div className="text-center p-5 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-5 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Old Regime Tax</p>
                                 <p className="text-lg font-extrabold text-primary">{formatCurrency(result.oldTax)}</p>
                                 <p className="text-[10px] text-muted-foreground mt-1">Rate: {effectiveOldRate}%</p>
                             </div>
-                            <div className="text-center p-5 bg-card rounded-xl shadow-sm border border-border">
+                            <div className="text-center p-5 bg-card rounded-sm shadow-sm border border-border">
                                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">New Regime Tax</p>
                                 <p className="text-lg font-extrabold text-primary">{formatCurrency(result.newTax)}</p>
                                 <p className="text-[10px] text-muted-foreground mt-1">Rate: {effectiveNewRate}%</p>
@@ -294,7 +294,7 @@ export function TaxCalculator() {
             {/* Bottom Row: Chart & Tax Slab Breakdown */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Left: Old vs New Comparison Bar Chart */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Old vs New Regime Comparison</CardTitle>
                     </CardHeader>
@@ -315,18 +315,18 @@ export function TaxCalculator() {
                 </Card>
 
                 {/* Right: Tax Slab Breakdown Table + Lead Capture */}
-                <Card className="border-border shadow-sm rounded-xl">
+                <Card className="border-border shadow-sm rounded-sm">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Tax Slab Breakdown</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-3">
-                                <div className="p-4 bg-muted rounded-xl border border-border">
+                                <div className="p-4 bg-muted rounded-sm border border-border">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Effective Rate</p>
                                     <p className="text-lg font-bold text-primary">{betterRate}%</p>
                                 </div>
-                                <div className="p-4 bg-muted rounded-xl border border-border">
+                                <div className="p-4 bg-muted rounded-sm border border-border">
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Take Home</p>
                                     <p className="text-lg font-bold text-foreground">{formatCurrency(betterNet)}</p>
                                 </div>
@@ -335,7 +335,7 @@ export function TaxCalculator() {
                             {/* Old Regime Slab Table */}
                             <div>
                                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Old Regime (with deductions)</p>
-                                <div className="overflow-hidden rounded-xl border border-border">
+                                <div className="overflow-hidden rounded-sm border border-border">
                                     <table className="w-full">
                                         <thead className="bg-muted border-b border-border">
                                             <tr>
@@ -363,7 +363,7 @@ export function TaxCalculator() {
                             </div>
 
                             {/* What This Means */}
-                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-xl p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 dark:from-emerald-950/30 dark:to-emerald-950/30 rounded-sm p-5 border border-emerald-100 dark:border-emerald-900/50 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-10"><Trophy className="w-24 h-24 text-emerald-600" /></div>
                                 <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
                                     <Sparkles className="w-4 h-4" /> What This Means
@@ -382,7 +382,7 @@ export function TaxCalculator() {
                             </div>
 
                             {/* Lead Capture */}
-                            <div className="p-5 bg-card rounded-xl border border-border shadow-sm mt-4">
+                            <div className="p-5 bg-card rounded-sm border border-border shadow-sm mt-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className="font-bold text-foreground flex items-center gap-2">
                                         <FileText className="w-4 h-4 text-primary" />
@@ -419,7 +419,7 @@ function TaxSEOContentSection() {
     return (
         <div className="mt-12 space-y-8">
             {/* Introduction */}
-            <Card className="border-0 shadow-lg rounded-xl bg-gradient-to-br from-muted to-card">
+            <Card className="border-0 shadow-lg rounded-sm bg-gradient-to-br from-muted to-card">
                 <CardContent className="p-8">
                     <h2 className="text-3xl font-bold text-foreground mb-4">
                         Income Tax Calculator India 2024-25 - Compare Old vs New Tax Regime
@@ -449,7 +449,7 @@ function TaxSEOContentSection() {
             </Card>
 
             {/* How It Works */}
-            <Card className="border-0 shadow-lg rounded-xl">
+            <Card className="border-0 shadow-lg rounded-sm">
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-foreground">How to Use Income Tax Calculator</CardTitle>
                 </CardHeader>
@@ -476,7 +476,7 @@ function TaxSEOContentSection() {
             </Card>
 
             {/* FAQ Section */}
-            <Card className="border-0 shadow-lg rounded-xl">
+            <Card className="border-0 shadow-lg rounded-sm">
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-6 md:p-8">
                         <Info className="w-6 h-6 text-primary" />
