@@ -36,11 +36,6 @@ interface ContextualTickerProps {
 const TICKER_DATA: Record<string, TickerItem[]> = {
   "credit-cards": [
     {
-      label: "Cards Compared",
-      value: "80+",
-      tooltip: "Across all major Indian banks",
-    },
-    {
       label: "Top Cashback",
       value: "5%",
       isPositive: true,
@@ -58,6 +53,11 @@ const TICKER_DATA: Record<string, TickerItem[]> = {
       tooltip: "Lifetime free credit cards available",
     },
     { label: "Avg Joining Bonus", value: "₹2,500", isPositive: true },
+    {
+      label: "Cheapest Annual Fee (premium)",
+      value: "₹499",
+      tooltip: "Axis Vistara Signature",
+    },
   ],
   "mutual-funds": [
     {
@@ -78,14 +78,14 @@ const TICKER_DATA: Record<string, TickerItem[]> = {
       tooltip: "Lowest expense ratio",
     },
     {
-      label: "Funds Tracked",
-      value: "340+",
-      tooltip: "Across equity, debt, hybrid",
-    },
-    {
       label: "Min SIP",
       value: "₹500",
       tooltip: "Start investing with just ₹500/month",
+    },
+    {
+      label: "ITR deadline",
+      value: "31 Jul",
+      tooltip: "Capital gains reporting window closes",
     },
   ],
   "fixed-deposits": [
@@ -108,9 +108,10 @@ const TICKER_DATA: Record<string, TickerItem[]> = {
       tooltip: "Small finance banks",
     },
     {
-      label: "Banks Compared",
-      value: "50+",
-      tooltip: "All major banks and SFBs",
+      label: "Senior Citizen Boost",
+      value: "+0.50%",
+      isPositive: true,
+      tooltip: "Extra rate above general category",
     },
   ],
   loans: [
@@ -131,7 +132,11 @@ const TICKER_DATA: Record<string, TickerItem[]> = {
       tooltip: "For 750+ CIBIL score",
     },
     { label: "Avg Car Loan", value: "8.5%", tooltip: "New car, 750+ score" },
-    { label: "Lenders Compared", value: "25+", tooltip: "Banks and NBFCs" },
+    {
+      label: "Avg Processing Fee",
+      value: "1-2%",
+      tooltip: "Of loan amount, negotiable",
+    },
   ],
   insurance: [
     {
@@ -150,7 +155,12 @@ const TICKER_DATA: Record<string, TickerItem[]> = {
       value: "₹15K/yr",
       tooltip: "Family floater, no-claim bonus",
     },
-    { label: "Plans Compared", value: "50+", tooltip: "Term + health + motor" },
+    {
+      label: "Top CSR (term)",
+      value: "99.3%",
+      isPositive: true,
+      tooltip: "Max Life Smart Secure",
+    },
   ],
   "demat-accounts": [
     {
@@ -166,9 +176,9 @@ const TICKER_DATA: Record<string, TickerItem[]> = {
       tooltip: "Annual maintenance charges",
     },
     {
-      label: "Brokers Compared",
-      value: "15+",
-      tooltip: "Discount + full-service",
+      label: "Cheapest F&O",
+      value: "₹20/order",
+      tooltip: "Flat brokerage on intraday + F&O",
     },
   ],
 };
@@ -183,35 +193,36 @@ export default function ContextualTicker({
   return (
     <div
       className={cn(
-        "w-full bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-hidden",
+        "w-full surface-ink border-b border-canvas-15 overflow-hidden",
         className,
       )}
     >
-      <div className="max-w-[1400px] mx-auto px-4 py-2">
+      <div className="max-w-[1400px] mx-auto px-4 py-2.5">
         <div className="flex items-center gap-5 md:gap-7 overflow-x-auto scrollbar-none">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-indian-gold whitespace-nowrap flex-shrink-0 font-semibold">
+            Live Data
+          </span>
           {items.map((item) => (
             <div
               key={item.label}
-              className="flex items-center gap-1.5 flex-shrink-0"
+              className="flex items-center gap-2 flex-shrink-0"
               title={item.tooltip}
             >
-              <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-canvas-70">
                 {item.label}
               </span>
               <span
                 className={cn(
-                  "text-[12px] font-semibold tabular-nums",
-                  item.isPositive
-                    ? "text-green-700 dark:text-green-400"
-                    : "text-gray-800 dark:text-gray-200",
+                  "font-mono text-[12px] font-semibold tabular-nums",
+                  item.isPositive ? "text-action-green" : "text-canvas",
                 )}
               >
                 {item.value}
               </span>
             </div>
           ))}
-          <span className="text-[10px] text-gray-400 ml-auto flex-shrink-0 hidden sm:block">
-            Data as of Apr 2026
+          <span className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 ml-auto flex-shrink-0 hidden sm:block">
+            Data · Apr 2026
           </span>
         </div>
       </div>

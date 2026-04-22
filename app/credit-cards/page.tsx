@@ -159,7 +159,7 @@ export default async function CreditCardsPage() {
             <div>
               <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
                 Best Credit Cards{" "}
-                <em className="italic text-authority-green">in India</em>
+                <em className="italic text-indian-gold">in India</em>
               </h1>
               <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
                 Compare {cardCount}+ credit cards. Filter by rewards, fees, and
@@ -167,11 +167,11 @@ export default async function CreditCardsPage() {
               </p>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0 mt-1">
-              <span className="text-xs text-ink-60 bg-gray-100 px-3 py-1.5 rounded-full">
-                {cardCount}+ tested
-              </span>
-              <span className="text-xs text-ink-60 bg-gray-100 px-3 py-1.5 rounded-full">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-ink-60 border border-ink/15 px-2 py-1">
                 Updated daily
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-indian-gold border border-indian-gold/30 px-2 py-1">
+                Methodology disclosed
               </span>
             </div>
           </div>

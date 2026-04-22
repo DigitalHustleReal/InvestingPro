@@ -136,7 +136,7 @@ export default async function MutualFundsPage() {
             <div>
               <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
                 Best Mutual Funds{" "}
-                <em className="italic text-authority-green">in India</em>
+                <em className="italic text-indian-gold">in India</em>
               </h1>
               <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
                 Compare mutual funds by returns, expense ratio, and risk grade.

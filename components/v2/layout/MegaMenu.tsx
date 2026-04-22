@@ -577,33 +577,23 @@ export default function MegaMenu() {
                   </div>
                 </div>
 
-                {/* Right — featured sidebar */}
+                {/* Right — featured tool card (no vanity inventory brags) */}
                 {currentCat.featured && (
                   <div className="w-[240px] border-l border-canvas-15 p-5 flex-shrink-0">
-                    {/* Stat highlight */}
-                    {currentCat.featured.stat && (
-                      <div className="mb-5">
-                        <p className="text-[32px] font-black text-canvas tracking-tight leading-none">
-                          {currentCat.featured.stat}
-                        </p>
-                        <p className="text-xs text-canvas-70 mt-1">
-                          {currentCat.featured.statLabel}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Featured CTA card */}
-                    <div className="p-4 bg-green-50 rounded-xl border border-green-200">
-                      <p className="text-sm font-bold text-canvas mb-1">
+                    <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-3 font-semibold">
+                      Featured Tool
+                    </div>
+                    <div className="bg-canvas text-ink rounded-sm border-2 border-indian-gold p-4">
+                      <p className="font-display font-bold text-[15px] mb-1 leading-tight">
                         {currentCat.featured.label}
                       </p>
-                      <p className="text-[11px] text-canvas-70 leading-relaxed mb-3">
+                      <p className="text-[12px] text-ink-60 leading-relaxed mb-3">
                         {currentCat.featured.desc}
                       </p>
                       <Link
                         href={currentCat.featured.href}
                         onClick={() => setOpenIndex(null)}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-700 hover:text-green-800 transition-colors"
+                        className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline font-semibold"
                       >
                         Try it free <ArrowRight size={12} />
                       </Link>
