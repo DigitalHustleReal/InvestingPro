@@ -142,6 +142,22 @@ export function RichProductCard({
             </h3>
           </Link>
 
+          {/* Editorial byline — NerdWallet-style author attribution (our edge:
+              we use DESK bylines which are more honest than fake individual
+              authors). Makes the card feel editorial, not algorithmic. */}
+          <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-60/80">
+            Reviewed by InvestingPro{" "}
+            {product.category === "credit_card"
+              ? "Credit Team"
+              : product.category === "mutual_fund"
+                ? "Investment Desk"
+                : product.category === "loan"
+                  ? "Lending Desk"
+                  : product.category === "insurance"
+                    ? "Insurance Desk"
+                    : "Editorial Team"}
+          </div>
+
           {/* Pros / Cons data strip */}
           {(topPros.length > 0 || topCons.length > 0) && (
             <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5">

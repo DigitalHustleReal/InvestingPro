@@ -333,7 +333,7 @@ export function TDSCalculator() {
           <AIInsight insights={insights} />
 
           {/* Section info */}
-          <div className="bg-blue-50 border border-blue-200 rounded-sm p-4 text-sm text-blue-800">
+          <div className="bg-indian-gold/10 border border-indian-gold/30 rounded-sm p-4 text-sm text-authority-green">
             <FileText size={14} className="inline mr-1" />
             <strong>Sec {section.code}:</strong> {section.desc}. Rate:{" "}
             {section.rate}% (with PAN) / {section.noPan}% (without). Threshold:

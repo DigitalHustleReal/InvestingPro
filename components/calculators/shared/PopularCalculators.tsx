@@ -68,7 +68,7 @@ export function PopularCalculators({
                     c.tag === "New"
                       ? "bg-green-100 text-authority-green"
                       : c.tag === "VS"
-                        ? "bg-blue-100 text-blue-700"
+                        ? "bg-indian-gold/20 text-indian-gold"
                         : "bg-amber-100 text-amber-700",
                   )}
                 >
@@ -105,7 +105,7 @@ export function PopularCalculators({
                     c.tag === "New"
                       ? "bg-green-100 text-authority-green"
                       : c.tag === "VS"
-                        ? "bg-blue-100 text-blue-700"
+                        ? "bg-indian-gold/20 text-indian-gold"
                         : "bg-amber-100 text-amber-700",
                   )}
                 >
