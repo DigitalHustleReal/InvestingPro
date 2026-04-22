@@ -25,14 +25,14 @@ const typeStyles = {
   },
   moderate: {
     border: "border-green-300",
-    bg: "bg-green-50",
-    text: "text-green-700",
-    badge: "bg-green-100 text-green-700",
+    bg: "bg-action-green/10",
+    text: "text-authority-green",
+    badge: "bg-green-100 text-authority-green",
     ring: "ring-2 ring-green-200",
   },
   aggressive: {
     border: "border-amber-200",
-    bg: "bg-amber-50",
+    bg: "bg-indian-gold/10",
     text: "text-amber-700",
     badge: "bg-amber-100 text-amber-700",
   },
@@ -43,8 +43,8 @@ export function WhatIfScenarios({ scenarios }: WhatIfScenariosProps) {
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-        <TrendingUp size={15} className="text-green-600" />
+      <h3 className="text-sm font-semibold text-ink mb-3 flex items-center gap-2">
+        <TrendingUp size={15} className="text-action-green" />
         What-If Scenarios
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -70,15 +70,15 @@ export function WhatIfScenarios({ scenarios }: WhatIfScenariosProps) {
                   {s.label}
                 </span>
                 {s.type === "moderate" && (
-                  <span className="text-[10px] font-semibold text-green-600">
+                  <span className="text-[10px] font-semibold text-action-green">
                     Recommended
                   </span>
                 )}
               </div>
-              <p className="text-xs text-gray-500 mb-2">{s.description}</p>
+              <p className="text-xs text-ink-60 mb-2">{s.description}</p>
               <p className={cn("text-2xl font-bold", style.text)}>{s.value}</p>
               {s.subtext && (
-                <p className="text-[11px] text-gray-400 mt-1">{s.subtext}</p>
+                <p className="text-[11px] text-ink-60 mt-1">{s.subtext}</p>
               )}
             </div>
           );

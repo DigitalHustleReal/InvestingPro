@@ -198,15 +198,15 @@ export function SIPCalculatorV2() {
       {/* ─── Desktop: 3-column layout ────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Inputs — 5 cols on desktop, full width mobile */}
-        <div className="lg:col-span-5 bg-white border border-ink/10 rounded-2xl p-5 shadow-sm">
+        <div className="lg:col-span-5 bg-white border-2 border-ink/10 rounded-sm p-5 shadow-none">
           {/* Clear mode labels */}
-          <div className="flex items-center gap-1 mb-5 p-1 bg-gray-100 rounded-sm">
+          <div className="flex items-center gap-1 mb-5 p-1 bg-ink/5 rounded-sm">
             <button
               onClick={() => setMode("returns")}
               className={cn(
-                "flex-1 py-2.5 rounded-lg text-[13px] font-semibold transition-all",
+                "flex-1 py-2.5 rounded-sm text-[13px] font-semibold transition-all",
                 mode === "returns"
-                  ? "bg-white text-authority-green shadow-sm"
+                  ? "bg-white text-authority-green shadow-none"
                   : "text-ink-60",
               )}
             >
@@ -215,9 +215,9 @@ export function SIPCalculatorV2() {
             <button
               onClick={() => setMode("goal")}
               className={cn(
-                "flex-1 py-2.5 rounded-lg text-[13px] font-semibold transition-all",
+                "flex-1 py-2.5 rounded-sm text-[13px] font-semibold transition-all",
                 mode === "goal"
-                  ? "bg-white text-authority-green shadow-sm"
+                  ? "bg-white text-authority-green shadow-none"
                   : "text-ink-60",
               )}
             >
@@ -309,7 +309,7 @@ export function SIPCalculatorV2() {
 
       {/* ─── Chart + Product Recs ─────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <div className="lg:col-span-2 bg-white border-2 border-ink/10 rounded-sm p-4 sm:p-5 shadow-none">
           <h3 className="text-sm font-display font-semibold text-ink mb-3">
             Your Wealth Journey — {years} Years
           </h3>
@@ -318,25 +318,25 @@ export function SIPCalculatorV2() {
               <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="sipGrowthV3" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#22c55e" stopOpacity={0.25} />
-                    <stop offset="95%" stopColor="#22c55e" stopOpacity={0.02} />
+                    <stop offset="5%" stopColor="#16A34A" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="#16A34A" stopOpacity={0.02} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid
                   strokeDasharray="3 3"
-                  stroke="#f1f5f9"
+                  stroke="#E8E4DC"
                   vertical={false}
                 />
                 <XAxis
                   dataKey="year"
                   fontSize={11}
-                  tick={{ fill: "#94a3b8" }}
+                  tick={{ fill: "#64748B" }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
                   fontSize={11}
-                  tick={{ fill: "#94a3b8" }}
+                  tick={{ fill: "#64748B" }}
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={yAxisINR}
@@ -397,7 +397,7 @@ export function SIPCalculatorV2() {
       </div>
 
       {/* ─── Year-wise Breakdown ─────────────────────────────── */}
-      <div className="bg-white border border-ink/10 rounded-2xl p-4 sm:p-5 shadow-sm">
+      <div className="bg-white border-2 border-ink/10 rounded-sm p-4 sm:p-5 shadow-none">
         <h3 className="text-sm font-display font-semibold text-ink mb-3">
           Year-by-Year Breakdown
         </h3>
@@ -448,7 +448,7 @@ export function SIPCalculatorV2() {
         {yearlyBreakdown.length > 5 && (
           <button
             onClick={() => setShowAllYears(!showAllYears)}
-            className="w-full mt-3 py-2.5 text-xs font-semibold text-action-green hover:text-authority-green hover:bg-action-green/10 rounded-lg transition-colors"
+            className="w-full mt-3 py-2.5 text-xs font-semibold text-action-green hover:text-authority-green hover:bg-action-green/10 rounded-sm transition-colors"
           >
             {showAllYears
               ? "Show less"

@@ -49,8 +49,8 @@ export function PopularCalculators({
   if (variant === "strip") {
     return (
       <div className="mt-8">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          <Calculator size={15} className="text-green-600" />
+        <h3 className="text-sm font-semibold text-ink mb-3 flex items-center gap-2">
+          <Calculator size={15} className="text-action-green" />
           More Calculators
         </h3>
         <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
@@ -58,7 +58,7 @@ export function PopularCalculators({
             <Link
               key={c.slug}
               href={`/calculators/${c.slug}`}
-              className="flex-shrink-0 px-3 py-2 bg-white border border-gray-200 rounded-lg text-xs font-medium text-gray-700 hover:border-green-300 hover:text-green-700 hover:bg-green-50 transition-all whitespace-nowrap"
+              className="flex-shrink-0 px-3 py-2 bg-white border border-ink/10 rounded-sm text-xs font-medium text-gray-700 hover:border-green-300 hover:text-authority-green hover:bg-action-green/10 transition-all whitespace-nowrap"
             >
               {c.name}
               {c.tag && (
@@ -66,7 +66,7 @@ export function PopularCalculators({
                   className={cn(
                     "ml-1.5 text-[9px] font-bold px-1 py-0.5 rounded",
                     c.tag === "New"
-                      ? "bg-green-100 text-green-700"
+                      ? "bg-green-100 text-authority-green"
                       : c.tag === "VS"
                         ? "bg-blue-100 text-blue-700"
                         : "bg-amber-100 text-amber-700",
@@ -84,9 +84,9 @@ export function PopularCalculators({
 
   // Sidebar variant (Groww-style)
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-      <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-        <Calculator size={15} className="text-green-600" />
+    <div className="bg-white border border-ink/10 rounded-sm p-4 shadow-none">
+      <h3 className="text-sm font-semibold text-ink mb-3 flex items-center gap-2">
+        <Calculator size={15} className="text-action-green" />
         Popular Calculators
       </h3>
       <div className="space-y-0.5">
@@ -94,7 +94,7 @@ export function PopularCalculators({
           <Link
             key={c.slug}
             href={`/calculators/${c.slug}`}
-            className="flex items-center justify-between py-2 px-2.5 rounded-lg text-sm text-gray-600 hover:bg-green-50 hover:text-green-700 transition-all group"
+            className="flex items-center justify-between py-2 px-2.5 rounded-sm text-sm text-ink-60 hover:bg-action-green/10 hover:text-authority-green transition-all group"
           >
             <span>{c.name}</span>
             <div className="flex items-center gap-1.5">
@@ -103,7 +103,7 @@ export function PopularCalculators({
                   className={cn(
                     "text-[9px] font-bold px-1.5 py-0.5 rounded",
                     c.tag === "New"
-                      ? "bg-green-100 text-green-700"
+                      ? "bg-green-100 text-authority-green"
                       : c.tag === "VS"
                         ? "bg-blue-100 text-blue-700"
                         : "bg-amber-100 text-amber-700",
@@ -114,7 +114,7 @@ export function PopularCalculators({
               )}
               <ArrowRight
                 size={12}
-                className="text-gray-300 group-hover:text-green-600 transition-colors"
+                className="text-gray-300 group-hover:text-action-green transition-colors"
               />
             </div>
           </Link>
@@ -122,7 +122,7 @@ export function PopularCalculators({
       </div>
       <Link
         href="/calculators"
-        className="flex items-center justify-center gap-1 mt-3 pt-3 border-t border-gray-100 text-xs font-semibold text-green-600 hover:text-green-700"
+        className="flex items-center justify-center gap-1 mt-3 pt-3 border-t border-ink/5 text-xs font-semibold text-action-green hover:text-authority-green"
       >
         All calculators <ArrowRight size={12} />
       </Link>
