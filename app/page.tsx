@@ -1,5 +1,26 @@
-// InvestingPro Homepage — NerdWallet-parity redesign
-// Clean white theme, interactive constellation hero, full section coverage
+// InvestingPro Homepage — v3 Bold Redesign, engagement-driven editorial flow
+// Reference: brainstorm.md §1 + Phase 2 spec
+//
+// Narrative order (11 sections):
+//   1. Hero              — who we are + rotating question
+//   2. TrustBar          — live data ticker (immediate credibility)
+//   3. RateComparison    — immediate value (best rates today)
+//   4. TopPicks          — editor verdict cards
+//   5. FindYourFit       — 3-step interactive wizard ← VALUE-ADDING UX
+//   6. ExploreCategories — category navigator (SEO + discoverability)
+//   7. CalculatorSpotlight — free tools
+//   8. LifeStageHub      — curated bundles per life moment ← VALUE-ADDING UX
+//   9. Editorial         — latest research (E-E-A-T)
+//  10. TrustMethodology  — "How We Rate" 6-criteria (brainstorm §7)
+//  11. NewsletterTrust   — conversion before footer
+//
+// REMOVED from homepage (components kept, just unmounted):
+//   - MarketPulse (redundant with Editorial)
+//   - BrandMarquee (decorative)
+//   - TrustStats (vanity — users don't care about inventory; replaced with
+//     FindYourFit + LifeStageHub which actually help users decide)
+//   - MoreResources (replaced with LifeStageHub — same discovery intent,
+//     stronger UX, life-stage cards with curated bundles)
 
 export const revalidate = 300; // ISR: 5 minutes
 
@@ -8,17 +29,14 @@ import { Metadata } from "next";
 import Hero from "@/components/v2/home/Hero";
 import TrustBar from "@/components/v2/home/TrustBar";
 import RateComparison from "@/components/v2/home/RateComparison";
-import MarketPulse from "@/components/v2/home/MarketPulse";
 import TopPicks from "@/components/v2/home/TopPicks";
-import CalculatorSpotlight from "@/components/v2/home/CalculatorSpotlight";
+import FindYourFit from "@/components/v2/home/FindYourFit";
 import ExploreCategories from "@/components/v2/home/ExploreCategories";
-import BrandMarquee from "@/components/v2/home/BrandMarquee";
+import CalculatorSpotlight from "@/components/v2/home/CalculatorSpotlight";
+import LifeStageHub from "@/components/v2/home/LifeStageHub";
+import Editorial from "@/components/v2/home/Editorial";
 import TrustMethodology from "@/components/v2/home/TrustMethodology";
 import NewsletterTrust from "@/components/v2/home/NewsletterTrust";
-import Editorial from "@/components/v2/home/Editorial";
-import MoreResources from "@/components/v2/home/MoreResources";
-import PartnerLogos from "@/components/v2/home/PartnerLogos";
-import TrustStats from "@/components/v2/home/TrustStats";
 
 export const metadata: Metadata = {
   title: "InvestingPro — India's Independent Financial Comparison Platform",
@@ -38,18 +56,18 @@ function SectionSkeleton() {
   return (
     <div className="py-12 md:py-16 px-4 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="h-5 w-20 bg-gray-200 rounded mb-2 animate-pulse" />
-        <div className="h-7 w-64 bg-gray-200 rounded mb-7 animate-pulse" />
+        <div className="h-5 w-20 bg-ink/5 rounded mb-2 animate-pulse" />
+        <div className="h-7 w-64 bg-ink/5 rounded mb-7 animate-pulse" />
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="bg-white border border-gray-200 rounded-xl p-4 space-y-3 animate-pulse"
+              className="bg-white border-2 border-ink/10 rounded-sm p-4 space-y-3 animate-pulse"
             >
-              <div className="h-4 bg-gray-100 rounded w-1/3" />
-              <div className="h-5 bg-gray-100 rounded w-3/4" />
-              <div className="h-3 bg-gray-100 rounded w-full" />
-              <div className="h-3 bg-gray-100 rounded w-2/3" />
+              <div className="h-4 bg-ink/5 rounded w-1/3" />
+              <div className="h-5 bg-ink/5 rounded w-3/4" />
+              <div className="h-3 bg-ink/5 rounded w-full" />
+              <div className="h-3 bg-ink/5 rounded w-2/3" />
             </div>
           ))}
         </div>
@@ -82,50 +100,42 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* Hero — rotating questions + constellation */}
+      {/* 1. Hero — rotating questions + constellation */}
       <Hero />
 
-      {/* Live data ticker */}
+      {/* 2. Live data ticker — immediate credibility */}
       <TrustBar />
 
-      {/* Partner logos — disabled until real logo assets replace Clearbit */}
-      {/* <PartnerLogos /> */}
-
-      {/* Find smarter rates — tabbed deposit/loan comparison */}
+      {/* 3. Find smarter rates — tabbed deposit/loan comparison */}
       <RateComparison />
 
-      {/* Editor's Picks — latest articles */}
-      <Suspense fallback={<SectionSkeleton />}>
-        <MarketPulse />
-      </Suspense>
-
-      {/* Top-rated products with scores */}
+      {/* 4. Top-rated products — editor's verdict cards */}
       <Suspense fallback={<SectionSkeleton />}>
         <TopPicks />
       </Suspense>
 
-      {/* Calculator previews with live results */}
-      <CalculatorSpotlight />
+      {/* 5. Find Your Fit — 3-step interactive wizard (engagement + conversion) */}
+      <FindYourFit />
 
-      {/* Category cards — NerdWallet-style with icons + sub-links */}
+      {/* 6. Category navigator — SEO + discoverability */}
       <ExploreCategories />
 
-      {/* Trust stats — why Indians trust us */}
-      <TrustStats />
+      {/* 7. Calculator spotlight — free tools */}
+      <CalculatorSpotlight />
 
-      {/* Brand marquee — scrolling trust signals */}
-      <BrandMarquee />
+      {/* 8. Life Stage Hub — curated bundles (replaces passive MoreResources) */}
+      <LifeStageHub />
 
-      {/* Newsletter signup */}
-      <NewsletterTrust />
-
-      {/* Latest research — editorial grid */}
+      {/* 9. Latest research — editorial E-E-A-T */}
       <Suspense fallback={<SectionSkeleton />}>
         <Editorial />
       </Suspense>
 
-      {/* More resources — NerdWallet-style accordion */}
-      <MoreResources />
+      {/* 10. How We Rate — 6-criteria methodology (brainstorm Phase 2 §7) */}
+      <TrustMethodology />
+
+      {/* 11. Newsletter — conversion before footer */}
+      <NewsletterTrust />
     </>
   );
 }

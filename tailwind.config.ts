@@ -191,23 +191,20 @@ const config: Config = {
         500: "#3B82F6",
       },
 
-      // Bold Redesign Semantic Tokens
-      ink: "var(--ink)",
-      canvas: "var(--canvas)",
-      "authority-green": "var(--authority-green)",
-      "action-green": "var(--action-green)",
-      "indian-gold": "var(--indian-gold)",
-      "warning-red": "var(--warning-red)",
-
-      // Legacy Brands (Keep until fully refactored, but restricted)
-      wt: {
-        nav: "hsl(var(--wt-nav))",
-        gold: "hsl(var(--wt-gold))",
-        "gold-hover": "hsl(var(--wt-gold-hover))",
-      },
+      // Bold Redesign Semantic Tokens (single source of truth — see globals.css)
+      ink: "#0A1F14",
+      "ink-80": "rgb(10 31 20 / 0.80)",
+      "ink-60": "rgb(10 31 20 / 0.60)",
+      "ink-12": "rgb(10 31 20 / 0.12)",
+      canvas: "#FAFAF9",
+      "canvas-70": "rgb(250 250 249 / 0.70)",
+      "canvas-15": "rgb(250 250 249 / 0.15)",
+      "authority-green": "#166534",
+      "action-green": "#16A34A",
+      "indian-gold": "#D97706",
+      "warning-red": "#DC2626",
     },
     extend: {
-      // Keep font/spacing/shadow extensions
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],
         display: ["var(--font-playfair)", "serif"],
@@ -216,19 +213,6 @@ const config: Config = {
         data: ["var(--font-mono)", "monospace"],
         heading: ["var(--font-playfair)", "serif"],
         serif: ["var(--font-playfair)", "serif"],
-      },
-      colors: {
-        ink: "#0A1F14",
-        "ink-80": "rgb(10 31 20 / 0.80)",
-        "ink-60": "rgb(10 31 20 / 0.60)",
-        "ink-12": "rgb(10 31 20 / 0.12)",
-        "authority-green": "#166534",
-        "action-green": "#16A34A",
-        "indian-gold": "#D97706",
-        canvas: "#FAFAF9",
-        "canvas-70": "rgb(250 250 249 / 0.70)",
-        "canvas-15": "rgb(250 250 249 / 0.15)",
-        warning: "#DC2626",
       },
       fontSize: {
         xs: "0.75rem",

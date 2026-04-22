@@ -61,9 +61,9 @@ export default async function MarketPulse() {
             <div className="text-xs font-semibold uppercase tracking-wider text-indian-gold mb-3">
               Editor&apos;s Picks
             </div>
-            <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink dark:text-white">
+            <h2 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink dark:text-white">
               News that impacts{" "}
-              <em className="italic text-authority-green">your wallet</em>
+              <em className="italic text-indian-gold">your wallet</em>
             </h2>
           </div>
           <Link

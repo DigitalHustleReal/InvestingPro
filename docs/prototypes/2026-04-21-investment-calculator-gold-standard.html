@@ -1,0 +1,123 @@
+<!-- GOLD STANDARD REFERENCE
+     User provided a full working prototype on 2026-04-21 (SIP + Lumpsum + SWP in one).
+     The raw HTML lives in Shiv's local files. This doc captures the REQUIREMENTS
+     that every other calculator must meet to match the bar.
+
+     Fonts in prototype: Lora + Poppins + JetBrains Mono.
+     Fonts in production: Playfair Display + Inter + JetBrains Mono.
+     (Swap at build time; visual feel is equivalent — Playfair = sharp Didone serif,
+     Lora = transitional serif. Playfair is more dramatic which matches the
+     "Editorially Bold" brainstorm direction better.)
+
+     Colors already match brainstorm.md tokens 1:1:
+       --ink: #0A1F14        (== --ink)
+       --auth-green: #166534 (== --authority-green)
+       --action-green: #16A34A
+       --gold: #D97706       (== --indian-gold)
+       --canvas: #FAFAF9
+       --red: #DC2626        (== --warning-red)
+-->
+
+<!-- ========== QUALITY BAR — every calculator must have ==========
+
+1. HEADER BLOCK
+   - Crumb trail (mono, small, ash)
+   - Page title in Playfair 500 (42px desktop, 26px mobile) — 2-line editorial headline
+   - Subtitle (15px, ash-deep) explaining what the calc does + tone
+   - Trust row (mono, 12px): "Updated {date} · SEBI-compliant formulas · No signup · No affiliate bias · View methodology →"
+   - Educational disclaimer banner (amber, 13px) — "Educational tool, not advice. Consult SEBI-registered advisor."
+
+2. CALCULATOR TYPE TABS (if multi-mode)
+   - Full-width tabs, 2px border-bottom
+   - Gold bottom-border on active
+   - Tab has title (Playfair 500, 18px) + description (Inter 400, 12px)
+
+3. INPUT SIDE (left column, max-w 1240 / 2-col)
+   - "Quick Start" preset dropdown (gold eyebrow label, 11px uppercase)
+     Presets are persona-based: "I'm 25, saving for retirement" (not "Scenario A")
+   - Sub-mode tabs where applicable: "I have an amount" vs "I have a goal"
+   - Every input:
+       label-row (UPPERCASE 13px label + mono pill showing value with unit)
+       slider (action-green thumb, 20px, border canvas)
+       slider-bounds (mono 11px under slider showing min/max)
+       quick-chips (6px padded pills for common values)
+   - Inline toggles block (above advanced):
+       inflation, step-up (most-used toggles promoted)
+   - Advanced block (most users skip — but should't):
+       LTCG tax, stress test (market crash simulation)
+
+4. RESULT SIDE (right column)
+   Must have ALL of these, not just a number:
+   - Hero card (cream bg #FBF8F1, gold accent underline)
+     - Eyebrow label (11px mono, letter-spacing 1.8px)
+     - Big number (Playfair 500, 52px desktop, 36px mobile)
+     - Sub-line: "You invest X · You earn Y" with Y in mono green
+     - Inflation-adjusted line (shown when toggle on): "In today's rupees: X"
+     - Inline inflation pill: "Assuming inflation of [6% ▾]" — click opens popover
+     - Donut chart on right (140px, invested=grey, returns=green, center "%GAIN")
+   - Stress banner (red, shown when stress test on): "If market drops 30% in Y5, corpus falls to X — a Z gap"
+   - Warning banner (amber, shown when corpus depletes for SWP)
+   - Two metric cards: wealth multiplier + years to ₹1 Cr (or category equivalents)
+   - VERDICT card (editorial box): 2-3 Playfair sentences with mono numbers
+     Every opinion must link to methodology (gold link)
+   - Wealth journey chart (SVG, 600x240, smooth catmull paths, area fill)
+     - Gridlines, y-axis in Cr/L/K mono
+     - Hover zones per year → tooltip with all values
+     - Stress line shown dashed red when active
+   - Scenarios row: 3 rate comparisons (debt/balanced/aggressive) click-to-apply
+   - Action row: "Share as image" (primary green) + "Copy result" (outline)
+
+5. SHARE-AS-IMAGE (html2canvas)
+   - Off-screen template 1080x1350 (Instagram portrait)
+   - Logo + tag + big number + breakdown + donut + footer URL + disclaimer
+   - PNG download on click
+   - Must show math + URL so shares are traffic-driving
+
+6. METHODOLOGY DRAWER (right slide-in, 540px)
+   - Formulas with JetBrains Mono in monospace block
+   - "Default return assumption" with source (e.g., "20-year Nifty 50 TRI · NSE")
+   - "What this does NOT model" — honest about limits (expense ratios, exit loads, behaviour gap)
+   - "Reviewed by" + last reviewed date
+
+7. MATH
+   - SIP: FV of Annuity Due — M = P × [((1+r)ⁿ − 1)/r] × (1+r)
+   - Lumpsum: M = P × (1+r)ⁿ
+   - SWP: month-by-month simulation (more accurate than closed-form)
+   - Step-up: apply annual % increase loop
+   - Tax: 10% LTCG on gains above ₹1L per FY (configurable)
+   - Inflation: corpus / (1 + infl)^years
+   - Stress: multiply corpus by 0.7 in chosen year
+   - Goal mode: inverse — solve for required SIP/lumpsum
+
+8. RESPONSIVE
+   - Desktop: 2-col grid
+   - Tablet (≤960px): single column, full-width
+   - Mobile (≤640px): stacked, tighter padding, simplified chart, donut below hero (not side)
+   - Topbar nav hidden on mobile
+
+9. TONE (critical — separates us from BankBazaar/ClearTax)
+   - Use "you" throughout
+   - Personas not labels ("I'm 25, saving for retirement" not "Scenario A")
+   - Honest limits ("Calculators that hide LTCG tax are lying to you")
+   - Indian defaults (6% inflation CPI, ₹1L LTCG exemption, 20yr Nifty TRI)
+   - No false precision (round to nearest ₹0.01L for display)
+
+========== END QUALITY BAR ========== -->
+
+<!-- The full working HTML prototype (~1300 lines) is preserved by Shiv locally.
+     To rebuild any calculator to this standard, open the prototype and use it as
+     the structural template. Build as React components in:
+         components/calculators/{name}/
+           Calculator.tsx          — orchestrator + state
+           InputPanel.tsx          — left column
+           ResultHero.tsx          — hero card with donut
+           VerdictCard.tsx         — 2-3 sentence opinion
+           WealthChart.tsx         — SVG line chart with hover
+           ScenarioRow.tsx         — 3-way rate comparison
+           MethodologyDrawer.tsx   — formula + limits
+           ShareCard.tsx           — off-screen html2canvas template
+           math.ts                 — pure functions, unit-tested
+     All calculators share: <InputPanel>, <ResultHero>, <WealthChart>,
+     <ScenarioRow>, <MethodologyDrawer>, <ShareCard> as shared components
+     under components/calculators/shared/.
+-->

@@ -9,11 +9,9 @@ export default function NewsletterTrust() {
     <section className="bg-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-[28px] sm:text-[40px] font-medium leading-[1.08] tracking-tight text-ink mb-4">
+          <h2 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink mb-4">
             One email. The week&apos;s best{" "}
-            <em className="italic text-authority-green">
-              financial decisions.
-            </em>
+            <em className="italic text-indian-gold">financial decisions.</em>
           </h2>
           <p className="text-gray-500 mb-8">
             No spam. No sales pitches. Just research-backed insights for Indian
