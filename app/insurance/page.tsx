@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import InsuranceClient from "./InsuranceClient";
+import WeeklyChanges from "@/components/common/WeeklyChanges";
 import { getInsuranceServer } from "@/lib/products/get-insurance-server";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 
@@ -156,6 +157,13 @@ export default async function InsurancePage() {
       <section className="bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
           <InsuranceClient initialPlans={initialPlans} />
+        </div>
+      </section>
+
+      {/* This Week in Indian Money — editorial velocity (NW parity+) */}
+      <section className="bg-white border-t-2 border-ink/10 py-10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+          <WeeklyChanges category="insurance" />
         </div>
       </section>
       <section className="bg-white border-t border-gray-200">
