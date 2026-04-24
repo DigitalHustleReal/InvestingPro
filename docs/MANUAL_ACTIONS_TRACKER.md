@@ -63,6 +63,32 @@
   → Some articles could legitimately live under multiple top-levels (e.g. "PPF vs NPS vs ELSS" — taxes, investing, or retirement?)
   → Need `primary_category` column OR first-match rule
 
+### SEO / GEO / GSC (user-flagged 2026-04-24)
+- [ ] 🟡 Run full SEO audit — invoke `claude-seo:seo-audit` skill on https://www.investingpro.in; delegates to 9 specialists (technical, content, schema, images, links, performance, E-E-A-T, + GEO + local if applicable). Produces a health score.
+- [ ] 🟡 Run GEO audit — `claude-seo:seo-geo` skill. Checks AI crawler access (GPTBot, ClaudeBot, PerplexityBot), llms.txt presence, passage-level citability, brand mentions, Google AI Overviews eligibility.
+- [ ] 🔴 Google Search Console — connect + submit sitemap (https://search.google.com/search-console). **Gated on Phase 3a canonical flip completing** — indexing `/articles/` while `/[cat]/learn/` is canonical causes duplicate-content hits.
+- [ ] 🟡 Set up `llms.txt` at root — lists what AI crawlers may use for training + citation. Current site has `robots.txt` (ChatGPT / Perplexity / Applebot allowed; GPTBot / CCBot / ClaudeBot blocked per CLAUDE.md §9).
+- [ ] 🟡 Request manual indexing on top 10 articles once Phase 3a ships.
+
+### Affiliate link routing (user-flagged 2026-04-24 — fixed in this session)
+- [x] `/go/[slug]` was only checking `affiliate_links` (0 rows) + `products` (36/2584 active), causing 404s on every CC/loan/insurance/broker slug emitted by `InlineProductCard`, `ContextualProducts`, `SmartRecommendation`, `SmartContextualOffers`. Extended to chain-check:
+      - `affiliate_links` (active) → `products` → `credit_cards` (81/81 via apply_link) → `loans` (affiliate/apply/official) → `insurance` (apply/official) → `brokers` (affiliate/official). Mutual funds correctly skipped (no outbound link column — info-only).
+- [x] Final fallback swapped from `/404` (phantom path) to rewrite to `/not-found` with status 404 — the real Next.js 16 catch-all.
+- [ ] 🟡 Reconcile `/go/[slug]` (short-code tracking) vs `/api/out?id=X` (id tracking). Current: 7 components use `/go/`, 5 use `/api/out?id=`. Consolidate to one tracking surface.
+- [ ] 🟢 Populate `affiliate_links` table — currently empty. Each active product should have a row with short code, destination, partner, etc. so click-attribution works beyond the per-table fallbacks.
+- [ ] 🟢 Migration `20260422_fix_affiliate_clicks_schema.sql` — CLAUDE.md §9 flagged this as pending; apply in Supabase SQL editor.
+
+### 404 / not-found page (user-flagged 2026-04-24 — fixed in this session)
+- [x] `app/not-found.tsx` rebuilt as v3 Server Component. Replaces v1/v2 gradients + rounded-2xl + secondary-500 tokens. New surface:
+      - Ink hero: Playfair "Lost in the numbers?" with indian-gold accent
+      - URL structure tip (shows valid top-level categories)
+      - "Did you know?" strip with 3 rupee-accurate data hooks (₹99.9L SIP outcome, old-vs-new threshold, LTCG jump to ₹1.25L)
+      - 6 most-run calculators (SIP/EMI/HRA/old-vs-new/FD/LTCG)
+      - 3 category hub shortcuts (credit-cards/investing-learn/taxes)
+      - CTA back to homepage
+- [ ] 🟢 Refresh data hooks annually after Budget — currently FY 2026-27 aligned.
+- [ ] 🟢 A/B test the CTA copy — once PostHog events flow through, measure click-through from /not-found.
+
 ### Branding (this session — follow-up)
 - [x] Footer channel labels unified to **InvestingPro India** (matches both Telegram and WhatsApp channel display names) — platform disambiguator moved to mono small-caps (`on Telegram`, `on WhatsApp`)
 - [x] Favicon rebuilt on v3 tokens — `app/icon.tsx` + new `app/apple-icon.tsx`, ink (#0A1F14) rounded square with indian-gold (#D97706) serif "IP" monogram. Replaces the legacy teal/emerald gradient.
