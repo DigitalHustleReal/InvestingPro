@@ -37,42 +37,36 @@ const goals = [
     id: "retirement",
     label: "Retirement",
     icon: Target,
-    color: "from-blue-500 to-green-600",
     description: "Build a secure retirement corpus",
   },
   {
     id: "education",
     label: "Child's Education",
     icon: GraduationCap,
-    color: "from-purple-500 to-pink-600",
     description: "Save for education expenses",
   },
   {
     id: "house",
     label: "Dream Home",
     icon: Home,
-    color: "from-amber-500 to-orange-600",
     description: "Down payment or full purchase",
   },
   {
     id: "vacation",
     label: "Vacation",
     icon: Plane,
-    color: "from-emerald-500 to-green-600",
     description: "Plan your dream trip",
   },
   {
     id: "emergency",
     label: "Emergency Fund",
     icon: Shield,
-    color: "from-emerald-500 to-green-600",
     description: "6-12 months expenses backup",
   },
   {
     id: "wealth_creation",
     label: "Wealth Creation",
     icon: TrendingUp,
-    color: "from-rose-500 to-red-600",
     description: "Grow your wealth long-term",
   },
 ];
@@ -245,7 +239,7 @@ export default function GoalPlannerPage() {
         {/* Step 1: Goal Selection */}
         {step === 1 && (
           <div className="max-w-4xl mx-auto">
-            <Card className="rounded-3xl shadow-2xl border-0">
+            <Card className="rounded-sm border border-ink-12">
               <CardHeader className="pb-2">
                 <CardTitle className="text-2xl">
                   What are you saving for?
@@ -260,19 +254,14 @@ export default function GoalPlannerPage() {
                         key={goal.id}
                         onClick={() => handleGoalSelect(goal.id)}
                         className={cn(
-                          "p-6 rounded-2xl border-2 text-left transition-all hover:scale-[1.02] hover:shadow-lg",
+                          "p-6 rounded-sm border-2 text-left transition-all hover:border-indian-gold",
                           selectedGoal === goal.id
                             ? "border-primary-500 bg-primary-50 dark:bg-primary-950"
                             : "border-gray-200 dark:border-gray-700 hover:border-primary-300",
                         )}
                       >
-                        <div
-                          className={cn(
-                            "w-12 h-12 rounded-xl bg-gradient-to-br flex items-center justify-center mb-4",
-                            goal.color,
-                          )}
-                        >
-                          <Icon className="w-6 h-6 text-white" />
+                        <div className="w-12 h-12 rounded-sm bg-ink flex items-center justify-center mb-4">
+                          <Icon className="w-6 h-6 text-canvas" />
                         </div>
                         <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-1">
                           {goal.label}
@@ -292,16 +281,11 @@ export default function GoalPlannerPage() {
         {/* Step 2: Set Target */}
         {step === 2 && selectedGoalData && (
           <div className="max-w-2xl mx-auto">
-            <Card className="rounded-3xl shadow-2xl border-0">
+            <Card className="rounded-sm border border-ink-12">
               <CardHeader>
                 <div className="flex items-center gap-4">
-                  <div
-                    className={cn(
-                      "w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center",
-                      selectedGoalData.color,
-                    )}
-                  >
-                    <selectedGoalData.icon className="w-7 h-7 text-white" />
+                  <div className="w-14 h-14 rounded-sm bg-ink flex items-center justify-center">
+                    <selectedGoalData.icon className="w-7 h-7 text-canvas" />
                   </div>
                   <div>
                     <CardTitle className="text-2xl">
@@ -327,7 +311,7 @@ export default function GoalPlannerPage() {
                       type="number"
                       value={targetAmount}
                       onChange={(e) => setTargetAmount(Number(e.target.value))}
-                      className="pl-10 h-14 text-xl font-bold rounded-xl"
+                      className="pl-10 h-14 text-xl font-bold rounded-sm"
                       placeholder="10,00,000"
                     />
                   </div>
@@ -388,7 +372,7 @@ export default function GoalPlannerPage() {
                           e.target.value ? Number(e.target.value) : undefined,
                         )
                       }
-                      className="pl-10 h-14 text-xl font-bold rounded-xl"
+                      className="pl-10 h-14 text-xl font-bold rounded-sm"
                       placeholder="Leave empty to calculate required SIP"
                     />
                   </div>
@@ -402,14 +386,14 @@ export default function GoalPlannerPage() {
                   <Button
                     variant="outline"
                     onClick={() => setStep(1)}
-                    className="flex-1 h-12 rounded-xl"
+                    className="flex-1 h-12 rounded-sm"
                   >
                     Back
                   </Button>
                   <Button
                     onClick={handleCalculate}
                     disabled={loading}
-                    className="flex-1 h-12 rounded-xl bg-primary-600 hover:bg-primary-700"
+                    className="flex-1 h-12 rounded-sm bg-primary-600 hover:bg-primary-700"
                   >
                     {loading ? "Analyzing..." : "Find Best Funds"}
                     <Calculator className="w-4 h-4 ml-2" />
@@ -424,7 +408,7 @@ export default function GoalPlannerPage() {
         {step === 3 && recommendations.length > 0 && (
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Summary Card */}
-            <Card className="rounded-3xl shadow-2xl border-0 bg-gradient-to-br from-primary-600 to-secondary-600 text-white overflow-hidden">
+            <Card className="rounded-sm border border-ink-12 surface-ink text-canvas overflow-hidden">
               <CardContent className="p-8">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                   <div>
@@ -438,7 +422,7 @@ export default function GoalPlannerPage() {
                       Target: {formatCurrency(targetAmount)} in {timeline} years
                     </p>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
+                  <div className="border border-canvas/20 rounded-sm p-6 text-center">
                     <p className="text-sm text-white/70 mb-1">
                       Required Monthly SIP
                     </p>
@@ -461,14 +445,14 @@ export default function GoalPlannerPage() {
               {recommendations.map((rec, index) => (
                 <Card
                   key={rec.fund.id}
-                  className="rounded-2xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
+                  className="rounded-sm border border-gray-200 dark:border-gray-700 hover:border-indian-gold transition-colors"
                 >
                   <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row md:items-center gap-6">
                       {/* Rank Badge */}
                       <div
                         className={cn(
-                          "w-12 h-12 rounded-2xl flex items-center justify-center font-black text-lg shrink-0",
+                          "w-12 h-12 rounded-sm flex items-center justify-center font-black text-lg shrink-0",
                           index === 0
                             ? "bg-amber-100 text-amber-700"
                             : index === 1
@@ -561,7 +545,7 @@ export default function GoalPlannerPage() {
                       {/* CTA */}
                       <div className="shrink-0">
                         <Link href={`/mutual-funds/${rec.fund.id}`}>
-                          <Button className="h-12 px-6 rounded-xl bg-primary-600 hover:bg-primary-700">
+                          <Button className="h-12 px-6 rounded-sm bg-primary-600 hover:bg-primary-700">
                             Start SIP
                             <ChevronRight className="w-4 h-4 ml-1" />
                           </Button>
@@ -581,7 +565,7 @@ export default function GoalPlannerPage() {
                   setStep(1);
                   setRecommendations([]);
                 }}
-                className="rounded-xl"
+                className="rounded-sm"
               >
                 Plan Another Goal
               </Button>
