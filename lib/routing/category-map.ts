@@ -161,6 +161,112 @@ export const PRODUCT_REVIEW_TABLES: Record<
   learn: [],
 };
 
+/**
+ * Calculator → URL category mapping.
+ *
+ * Each of the 72 flat calculators under /calculators/[slug] gets a natural
+ * home under /[cat]/calculators/[slug]. Unknown / cross-cutting calculators
+ * live under /learn/calculators/[slug] by omission from this map (default).
+ *
+ * Keep synced with `app/calculators/*` directories. When a new calc ships,
+ * add it here.
+ */
+export const CALCULATOR_CATEGORY: Record<string, UrlCategory> = {
+  // Taxes
+  tax: "taxes",
+  "old-vs-new-tax": "taxes",
+  hra: "taxes",
+  "80c": "taxes",
+  "capital-gains-tax": "taxes",
+  ltcg: "taxes",
+  "crypto-tax": "taxes",
+  "nri-tax": "taxes",
+  "freelancer-tax": "taxes",
+  tds: "taxes",
+  gst: "taxes",
+  "stamp-duty": "taxes",
+  gratuity: "taxes",
+  salary: "taxes",
+
+  // Loans
+  emi: "loans",
+  "home-loan-emi": "loans",
+  "car-loan-emi": "loans",
+  "personal-loan-emi": "loans",
+  "education-loan-emi": "loans",
+  "flat-vs-reducing-rate": "loans",
+  "home-loan-vs-sip": "loans",
+
+  // Banking (FDs, RDs, savings schemes)
+  fd: "banking",
+  rd: "banking",
+  "senior-citizen-fd": "banking",
+  "post-office-savings": "banking",
+  "po-fd-vs-bank-fd": "banking",
+  "nsc-vs-fd": "banking",
+  nsc: "banking",
+  kvp: "banking",
+  scss: "banking",
+  mis: "banking",
+  "rd-vs-sip": "banking",
+  "fd-vs-debt-mf": "banking",
+  "sip-vs-fd": "banking",
+  "sip-vs-rd": "banking",
+
+  // Investing (SIP, MF, equity, retirement corpus)
+  sip: "investing",
+  lumpsum: "investing",
+  swp: "investing",
+  cagr: "investing",
+  "step-up-sip": "investing",
+  "sip-vs-lumpsum-comparison": "investing",
+  "lumpsum-vs-sip": "investing",
+  "mutual-fund-returns": "investing",
+  "direct-vs-regular-mf": "investing",
+  "index-vs-active-fund": "investing",
+  "dividend-yield": "investing",
+  "portfolio-rebalancing": "investing",
+  "gold-investment": "investing",
+  "gold-vs-equity": "investing",
+  "real-estate-roi": "investing",
+  "inflation-adjusted-returns": "investing",
+  elss: "investing",
+  ppf: "investing",
+  "ppf-vs-elss": "investing",
+  "nps-vs-ppf": "investing",
+  nps: "investing",
+  "atal-pension-yojana": "investing",
+  ssy: "investing",
+  "ssy-vs-ppf": "investing",
+  epf: "investing",
+  "epf-vs-vpf": "investing",
+  "pm-kisan": "investing",
+  retirement: "investing",
+  fire: "investing",
+
+  // Insurance
+  "term-vs-endowment": "insurance",
+
+  // Learn (cross-cutting / goal planning)
+  "compound-interest": "learn",
+  "simple-interest": "learn",
+  "financial-health-score": "learn",
+  "child-education": "learn",
+  "marriage-cost": "learn",
+  "goal-planning": "learn",
+  "rent-vs-buy": "learn",
+  "rent-vs-buy-comparison": "learn",
+  brokerage: "learn",
+};
+
+/**
+ * Returns the natural URL category for a calculator slug.
+ * Unknown slugs default to `learn` (cross-cutting).
+ */
+export function calculatorCategory(slug: string): UrlCategory {
+  return CALCULATOR_CATEGORY[slug] ?? "learn";
+}
+
 /** Human-readable label for a URL category. Used in breadcrumbs + metadata. */
 export function urlCategoryLabel(urlCategory: UrlCategory): string {
   const labels: Record<UrlCategory, string> = {

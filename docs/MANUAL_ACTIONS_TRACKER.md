@@ -69,12 +69,15 @@
 - [ ] 🟢 Add `savings_accounts` detail page + include in banking review tables (currently skipped)
 - [ ] 🟢 Add `stocks` to investing review tables once stocks table gets `slug` column
 
-### Calculator nesting (Phase 2 Step 3)
-- [ ] 🟡 Approve calculator-to-category mapping
-  → 75 calculators flat today; NerdWallet nests per category
-  → E.g. `sip` → `/investing/calculators/sip`, `emi` → `/loans/calculators/emi`, `hra` → `/taxes/calculators/hra`
-  → Mapping is obvious for most but some (like `cagr`, `compound-interest`) could live under `/learn/calculators/`
-- [ ] 🟢 Move static CALC_CATEGORY map into DB once a `calculators` reference table exists (current static map in code is fine but requires edits per new calc)
+### Calculator nesting (Phase 2 Step 3 — done in this session)
+- [x] Built `/[category]/calculators/[slug]` — 72 flat calcs reachable via nested URLs. Static `CALCULATOR_CATEGORY` map in `lib/routing/category-map.ts` drives routing (taxes: 14, investing: 29, banking: 14, loans: 7, insurance: 1, learn: 9).
+- [x] Cross-category guards verified — `/taxes/calculators/sip` → 404 (SIP is investing), `/loans/calculators/hra` → 404 (HRA is taxes).
+- [ ] 🟡 Decision on 3 ambiguous calcs:
+  → `cagr` currently in investing → confirm (could be learn)
+  → `dividend-yield` currently in investing → confirm
+  → `salary` currently in taxes → confirm (could be learn)
+- [ ] 🟢 Build `/[category]/calculators/` hub per category (list of that category's calcs with v3 design) — Phase 2b nice-to-have
+- [ ] 🟢 Move static CALC_CATEGORY map into DB once a `calculators` reference table exists (current static map is fine but requires code edits per new calc)
 
 ---
 
