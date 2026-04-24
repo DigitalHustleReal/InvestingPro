@@ -1,385 +1,506 @@
-"use client";
+/**
+ * Taxes Hub — Server Component (v3)
+ *
+ * NerdWallet /taxes/-style hub for Indian tax planning.
+ * Pulls featured articles from DB (category = 'tax-planning' or 'tax').
+ * All tokens = v3 (surface-ink hero, canvas sections, indian-gold accents,
+ * Playfair display, JetBrains mono labels).
+ */
 
-import React, { useState, useEffect } from 'react';
-import { 
-    Calculator, 
-    ArrowRight, 
-    ShieldCheck, 
-    PieChart, 
-    Clock, 
-    Info, 
-    CheckCircle2, 
-    ArrowDownCircle,
-    BadgePercent,
-    TrendingUp
-} from 'lucide-react';
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/badge";
-import { 
-    Tabs, 
-    TabsContent, 
-    TabsList, 
-    TabsTrigger 
-} from "@/components/ui/tabs";
-import { Slider } from "@/components/ui/slider";
-import { 
-    Card, 
-    CardContent, 
-    CardDescription, 
-    CardHeader, 
-    CardTitle 
-} from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
+import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
+import { createServiceClient } from "@/lib/supabase/service";
+import { generateCanonicalUrl } from "@/lib/linking/canonical";
 
-// --- Tax Calculator Component ---
+export const revalidate = 21600; // 6 hours — hub page, not time-critical
 
-const TaxHeroCalculator = () => {
-    const [income, setIncome] = useState(1200000); // 12 Lakhs
-    const [deductions, setDeductions] = useState(250000); // 1.5L (80C) + 50k (80D) + 50k (Standard)
-
-    // Rough calculation for FY 2026-27
-    const calculateTax = (inc: number, ded: number, type: 'old' | 'new') => {
-        if (type === 'old') {
-            const taxable = Math.max(0, inc - ded);
-            let tax = 0;
-            if (taxable <= 250000) return 0;
-            if (taxable <= 500000) tax = (taxable - 250000) * 0.05;
-            else if (taxable <= 1000000) tax = 12500 + (taxable - 500000) * 0.20;
-            else tax = 112500 + (taxable - 1000000) * 0.30;
-            
-            // Rebate u/s 87A for old regime is up to 5L
-            if (taxable <= 500000) tax = 0;
-            return tax * 1.04; // Cess
-        } else {
-            // New Regime (Budget 2024 Simplification)
-            // 0-3L: NIL, 3-7L: 5%, 7-10L: 10%, 10-12L: 15%, 12-15L: 20%, Above 15L: 30%
-            // Standard deduction of 75k in new regime
-            const taxable = Math.max(0, inc - 75000);
-            let tax = 0;
-            if (taxable <= 300000) tax = 0;
-            else if (taxable <= 700000) tax = (taxable - 300000) * 0.05;
-            else if (taxable <= 1000000) tax = 20000 + (taxable - 700000) * 0.10;
-            else if (taxable <= 1200000) tax = 50000 + (taxable - 1000000) * 0.15;
-            else if (taxable <= 1500000) tax = 80000 + (taxable - 1200000) * 0.20;
-            else tax = 140000 + (taxable - 1500000) * 0.30;
-
-            // Rebate up to 7L taxable in new regime
-            if (taxable <= 700000) tax = 0;
-            return tax * 1.04;
-        }
-    };
-
-    const oldTax = calculateTax(income, deductions, 'old');
-    const newTax = calculateTax(income, deductions, 'new');
-    const savings = Math.abs(oldTax - newTax);
-    const recommended = newTax < oldTax ? 'New Regime' : 'Old Regime';
-
-// ... (No changes to logic, just styling)
-
-    return (
-        <div className="w-full bg-gray-900 dark:bg-gray-950 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
-            <div className="grid lg:grid-cols-2 gap-0">
-                {/* Inputs */}
-                <div className="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-white/10">
-                    <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-xl bg-primary-500/20 flex items-center justify-center">
-                            <Calculator className="w-6 h-6 text-primary-400" />
-                        </div>
-                        <h2 className="text-2xl font-bold text-white tracking-tight">Tax Optimizer</h2>
-                    </div>
-
-                    <div className="space-y-10">
-                        <div>
-                            <div className="flex justify-between mb-4">
-                                <label className="text-sm font-medium text-gray-600">Annual Income (CTC)</label>
-                                <span className="text-lg font-bold text-white">₹ {(income / 100000).toFixed(1)} Lakhs</span>
-                            </div>
-                            <Slider 
-                                value={[income]} 
-                                min={300000} 
-                                max={5000000} 
-                                step={50000}
-                                onValueChange={(val) => setIncome(val[0])}
-                                className="py-2"
-                            />
-                            <div className="flex justify-between mt-2 text-[10px] text-gray-500 font-bold uppercase tracking-widest">
-                                <span>3L</span>
-                                <span>50L</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="flex justify-between mb-4">
-                                <label className="text-sm font-medium text-gray-600">Investments & Deductions (Old Regime)</label>
-                                <span className="text-lg font-bold text-white">₹ {(deductions / 1000).toFixed(0)}k</span>
-                            </div>
-                            <Slider 
-                                value={[deductions]} 
-                                min={50000} 
-                                max={500000} 
-                                step={5000}
-                                onValueChange={(val) => setDeductions(val[0])}
-                                className="py-2"
-                            />
-                            <p className="mt-3 text-[11px] text-gray-500 leading-relaxed italic">
-                                *Includes 80C, 80D, HRA, etc. Standard deduction (₹50k) is automatically handled.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="mt-12 p-4 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3">
-                        <Info className="w-5 h-5 text-primary-400 mt-0.5" />
-                        <p className="text-xs text-gray-600 leading-relaxed">
-                            Calculations are based on FY 2026-27 rules. New regime now includes ₹75,000 standard deduction and Nil tax up to ₹7 Lakhs taxable income.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Results */}
-                <div className="p-8 lg:p-12 bg-gray-800/50 dark:bg-gray-900/50">
-                    <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-8">Comparison View</h3>
-                    
-                    <div className="space-y-6">
-                        {/* Old Regime Card */}
-                        <div className={cn(
-                            "p-6 rounded-2xl border transition-all duration-300",
-                            recommended === 'Old Regime' ? "bg-primary-500/10 border-primary-500/30" : "bg-white/5 border-white/5"
-                        )}>
-                            <div className="flex justify-between items-center mb-4">
-                                <span className="text-sm font-semibold text-gray-300">Old Tax Regime</span>
-                                {recommended === 'Old Regime' && (
-                                    <Badge className="bg-primary-600 text-white border-0">Best Choice</Badge>
-                                )}
-                            </div>
-                            <div className="text-3xl font-bold text-white">₹ {oldTax.toLocaleString('en-IN')}</div>
-                            <div className="text-xs text-gray-500 mt-1">Effective tax rate: {((oldTax / income) * 100).toFixed(1)}%</div>
-                        </div>
-
-                        {/* New Regime Card */}
-                        <div className={cn(
-                            "p-6 rounded-2xl border transition-all duration-300",
-                            recommended === 'New Regime' ? "bg-primary-500/10 border-primary-500/30 shadow-[0_0_30px_-10px_rgba(13,148,136,0.3)]" : "bg-white/5 border-white/5"
-                        )}>
-                            <div className="flex justify-between items-center mb-4">
-                                <span className="text-sm font-semibold text-gray-300">New Simplified Regime</span>
-                                {recommended === 'New Regime' && (
-                                    <Badge className="bg-primary-600 text-white border-0">Best Choice</Badge>
-                                )}
-                            </div>
-                            <div className="text-3xl font-bold text-white">₹ {newTax.toLocaleString('en-IN')}</div>
-                            <div className="text-xs text-gray-500 mt-1">Effective tax rate: {((newTax / income) * 100).toFixed(1)}%</div>
-                        </div>
-                    </div>
-
-                    {/* Recommendation Footer */}
-                    <div className="mt-8 pt-8 border-t border-white/10 text-center">
-                        <p className="text-gray-600 text-sm mb-2">You save approximately</p>
-                        <div className="text-4xl font-black text-white mb-2">
-                            ₹ {savings.toLocaleString('en-IN')}
-                        </div>
-                        <p className="text-xs text-primary-400 font-bold uppercase tracking-wider">in the {recommended}</p>
-                        
-                        <Button className="w-full mt-8 bg-white hover:bg-gray-100 text-gray-900 font-bold h-12 rounded-xl group transition-colors">
-                            Full Tax Breakdown
-                            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                        </Button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+type TaxArticle = {
+  slug: string;
+  title: string;
+  excerpt: string | null;
+  featured_image: string | null;
+  read_time: string | number | null;
+  published_at: string | null;
 };
 
-
-export default function TaxesPage() {
-    return (
-
-        <div className="min-h-screen bg-white dark:bg-gray-950 font-sans selection:bg-primary-100 selection:text-primary-900">
-            {/* 1. Hero Section */}
-            <section className="relative pt-12 pb-24 overflow-hidden border-b border-gray-200 dark:border-gray-800">
-                {/* Background Accents */}
-                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary-600/10 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-3xl pointer-events-none" />
-
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-4xl mx-auto text-center mb-16">
-                        <Badge className="mb-4 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 border-primary-100 dark:border-primary-500/20 px-4 py-1.5 rounded-full font-bold tracking-wide">
-                            FINANCIAL YEAR 2026-27
-                        </Badge>
-                        <h1 className="text-5xl sm:text-7xl font-black text-gray-900 dark:text-white mb-6 leading-[1.1] tracking-tight">
-                            Save More. <span className="text-transparent bg-clip-text bg-gradient-to-r from-success-400 via-primary-500 to-secondary-500">Tax Less.</span>
-                        </h1>
-                        <p className="text-xl text-gray-500 dark:text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                            Stop overpaying taxes. Compare regimes, track deadlines, and optimize your 80C investments with India's most advanced tax toolkit.
-                        </p>
-                    </div>
-
-                    {/* Tax Calculator Hub */}
-                    <div className="max-w-5xl mx-auto">
-                        <TaxHeroCalculator />
-                    </div>
-                </div>
-            </section>
-// ...
-
-            {/* 2. Tax Saving Instruments (The Grid) */}
-            <section className="py-24 bg-gray-50 dark:bg-gray-900/50">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-                        <div className="max-w-2xl">
-                            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">Tax Saving Radar</h2>
-                            <p className="text-lg text-gray-500 dark:text-gray-600">
-                                Most people leave money on the table. Are you maximizing these deductuions?
-                            </p>
-                        </div>
-                        <Button variant="outline" className="rounded-full border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-                            Download Tax Checklist
-                        </Button>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {/* 80C Card */}
-                        <div className="group p-8 rounded-3xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500/50 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-500 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                                <ShieldCheck className="w-24 h-24 text-primary-500" />
-                            </div>
-                            <div className="w-14 h-14 rounded-2xl bg-primary-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
-                                <ShieldCheck className="w-7 h-7 text-primary-500" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Section 80C</h3>
-                            <p className="text-gray-500 dark:text-gray-600 mb-6 line-clamp-2">
-                                Deductions up to ₹1.5 Lakhs through ELSS, PPF, Insurance premiums, and Home Loan principal.
-                            </p>
-                            <div className="flex items-center gap-2 group/btn cursor-pointer">
-                                <span className="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">Explore Options</span>
-                                <ChevronRight className="w-4 h-4 text-primary-500 group-hover/btn:translate-x-1 transition-transform" />
-                            </div>
-                        </div>
-
-                        {/* 80D Card */}
-                        <div className="group p-8 rounded-3xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500/50 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-500 relative overflow-hidden">
-                            <div className="w-14 h-14 rounded-2xl bg-primary-500/10 flex items-center justify-center mb-6">
-                                <BadgePercent className="w-7 h-7 text-primary-500" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Health (80D)</h3>
-                            <p className="text-gray-500 dark:text-gray-600 mb-6 line-clamp-2">
-                                Claim up to ₹1 Lakh for medical insurance premiums for you, your spouse, and senior citizen parents.
-                            </p>
-                            <div className="flex items-center gap-2 group/btn cursor-pointer">
-                                <span className="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">Calculators</span>
-                                <ChevronRight className="w-4 h-4 text-primary-500 group-hover/btn:translate-x-1 transition-transform" />
-                            </div>
-                        </div>
-
-                        {/* 80CCD (NPS) Card */}
-                        <div className="group p-8 rounded-3xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500/50 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-500 relative overflow-hidden">
-                            <div className="w-14 h-14 rounded-2xl bg-primary-500/10 flex items-center justify-center mb-6">
-                                <TrendingUp className="w-7 h-7 text-primary-500" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">NPS (80CCD)</h3>
-                            <p className="text-gray-500 dark:text-gray-600 mb-6 line-clamp-2">
-                                Additional deduction of ₹50,000 above the 80C limit specifically for National Pension Scheme.
-                            </p>
-                            <div className="flex items-center gap-2 group/btn cursor-pointer">
-                                <span className="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">NPS Guide</span>
-                                <ChevronRight className="w-4 h-4 text-primary-500 group-hover/btn:translate-x-1 transition-transform" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 3. Deadlines & Timeline */}
-            <section className="py-24 bg-white dark:bg-gray-950">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-5xl mx-auto">
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">Crucial Tax Deadlines</h2>
-                            <p className="text-lg text-gray-500 dark:text-gray-600">Mark your calendars to avoid heavy penalties and interest.</p>
-                        </div>
-
-                        <div className="space-y-8">
-                            {[
-                                { date: 'March 31', title: 'Investment Proof Submission', desc: 'Last day to complete your 80C investments for FY 2026-27.', color: 'bg-primary-500' },
-                                { date: 'July 31', title: 'ITR Filing Deadline', desc: 'Standard deadline for individual tax payers and salaried employees.', color: 'bg-accent-500' },
-                                { date: 'Sept 30', title: 'Tax Audit Deadline', desc: 'Deadline for businesses and professionals requiring a tax audit.', color: 'bg-primary-500' },
-                                { date: 'Dec 31', title: 'Belated ITR Return', desc: 'Last chance to file your taxes with a penalty for late submission.', color: 'bg-danger-500' },
-                            ].map((item, idx) => (
-                                <div key={idx} className="flex group">
-                                    <div className="flex flex-col items-center mr-6">
-                                        <div className={cn("w-4 h-4 rounded-full ring-4 ring-gray-100 dark:ring-gray-800 transition-all group-hover:scale-125", item.color)} />
-                                        <div className="w-px h-full bg-gray-200 dark:bg-gray-800 group-hover:bg-gray-300 dark:group-hover:bg-gray-700 transition-colors" />
-                                    </div>
-                                    <div className="pb-12">
-                                        <span className="text-lg font-black text-gray-600 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{item.date}</span>
-                                        <h4 className="text-xl font-bold text-gray-900 dark:text-white mt-1">{item.title}</h4>
-                                        <p className="text-gray-500 dark:text-gray-600 mt-2">{item.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 4. FAQ / Guides Grid */}
-            <section className="py-24 bg-gray-900 dark:bg-surface-dark overflow-hidden relative border-t border-gray-800">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
-                        <div>
-                            <h2 className="text-4xl font-black text-white mb-6 leading-tight">Master Tax Planning with Our Free Guides</h2>
-                            <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-                                Our chartered accountants have written comprehensive blueprints to help you navigate complex tax laws effortlessly.
-                            </p>
-                            <div className="space-y-4">
-                                {[
-                                    "Guide to Real Estate & Capital Gains",
-                                    "How to claim HRA without receipts",
-                                    "Taxation for Cryptocurrency in India",
-                                    "Best ELSS Mutual Funds for 2026"
-                                ].map((guide, i) => (
-                                    <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
-                                        <CheckCircle2 className="w-5 h-5 text-primary-400" />
-                                        <span className="font-semibold text-gray-200 group-hover:text-white">{guide}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-primary-500/20 blur-[100px]" />
-                            <div className="relative p-8 rounded-[40px] bg-gray-800 border border-white/10 shadow-2xl skew-y-3 hover:skew-y-0 transition-transform duration-500">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-12 h-12 rounded-full bg-gray-700 overflow-hidden ring-2 ring-white/20">
-                                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" alt="CA" />
-                                    </div>
-                                    <div>
-                                        <div className="font-bold text-white">Ask a Tax Expert</div>
-                                        <div className="text-xs text-gray-500">Response in {'<'} 2 hours</div>
-                                    </div>
-                                </div>
-                                <div className="space-y-4">
-                                    <div className="p-4 rounded-2xl bg-white/5 text-sm text-gray-300">
-                                        "Which regime is better for 18L income with home loan?"
-                                    </div>
-                                    <div className="p-4 rounded-2xl bg-primary-500/20 border border-primary-500/20 text-sm text-primary-200 italic">
-                                        "For your profile, the Old Regime saves you ₹42,000 specifically due to Section 24(b)..."
-                                    </div>
-                                    <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold h-12 rounded-xl mt-4">
-                                        Start Live Consultation
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    );
+async function getFeaturedTaxArticles(): Promise<TaxArticle[]> {
+  const supabase = createServiceClient();
+  const { data } = await supabase
+    .from("articles")
+    .select("slug, title, excerpt, featured_image, read_time, published_at")
+    .eq("status", "published")
+    .in("category", ["tax-planning", "tax", "taxation"])
+    .order("published_at", { ascending: false })
+    .limit(6);
+  return (data as TaxArticle[]) ?? [];
 }
 
-// Reuse lucide icons not imported
-const ChevronRight = ({ className }: { className?: string }) => (
-    <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-    </svg>
-);
+export const metadata: Metadata = {
+  title: "Indian Tax Planning 2026 — ITR, 80C, HRA, Capital Gains Explained",
+  description:
+    "Complete Indian tax resource: old vs new regime calculator, Section 80C + 80D deductions, HRA exemption, LTCG on mutual funds, ITR filing guide. Worked examples for every salary bracket.",
+  alternates: { canonical: generateCanonicalUrl("/taxes") },
+  openGraph: {
+    title: "Indian Tax Planning — ITR, 80C, HRA, LTCG",
+    description:
+      "Old vs new regime, deductions, and capital gains — explained with worked examples for FY 2026-27.",
+    url: generateCanonicalUrl("/taxes"),
+    type: "website",
+  },
+};
+
+const TAX_CALCULATORS = [
+  {
+    slug: "old-vs-new-tax",
+    title: "Old vs New regime",
+    tagline: "Find out which saves you more",
+    accent: "₹",
+  },
+  {
+    slug: "tax",
+    title: "Income tax",
+    tagline: "FY 2026-27 slabs, both regimes",
+    accent: "%",
+  },
+  {
+    slug: "hra",
+    title: "HRA exemption",
+    tagline: "Metro vs non-metro, 3-component rule",
+    accent: "₹",
+  },
+  {
+    slug: "80c",
+    title: "Section 80C optimizer",
+    tagline: "₹1.5L cap across PPF, ELSS, EPF, NPS",
+    accent: "§",
+  },
+  {
+    slug: "capital-gains-tax",
+    title: "Capital gains (LTCG/STCG)",
+    tagline: "Equity, debt, real estate, gold",
+    accent: "%",
+  },
+  {
+    slug: "ltcg",
+    title: "LTCG calculator",
+    tagline: "After 2024 Budget ₹1.25L threshold",
+    accent: "₹",
+  },
+] as const;
+
+const DEDUCTIONS = [
+  {
+    section: "80C",
+    cap: "₹1.5 L",
+    covers: "PPF, ELSS, EPF, tax-saver FD, life insurance, home-loan principal",
+  },
+  {
+    section: "80D",
+    cap: "₹25–₹1 L",
+    covers: "Self + family + senior-parent health insurance premiums",
+  },
+  {
+    section: "80CCD(1B)",
+    cap: "₹50,000",
+    covers: "Over-and-above NPS contribution on top of 80C",
+  },
+  {
+    section: "80E",
+    cap: "No cap",
+    covers: "Education-loan interest for higher studies",
+  },
+  {
+    section: "80G",
+    cap: "50–100%",
+    covers: "Donations to approved charitable institutions",
+  },
+  {
+    section: "24(b)",
+    cap: "₹2 L",
+    covers: "Home-loan interest on self-occupied property",
+  },
+];
+
+const REGIME_SLABS = [
+  { range: "Up to ₹3 L", old: "Nil", neu: "Nil" },
+  { range: "₹3 L – ₹6 L", old: "5%", neu: "5%" },
+  { range: "₹6 L – ₹9 L", old: "20%", neu: "10%" },
+  { range: "₹9 L – ₹12 L", old: "20%", neu: "15%" },
+  { range: "₹12 L – ₹15 L", old: "30%", neu: "20%" },
+  { range: "Above ₹15 L", old: "30%", neu: "30%" },
+];
+
+const KEY_DATES = [
+  { when: "15 Jun 2026", what: "Advance tax — 1st instalment (15%)" },
+  { when: "15 Sep 2026", what: "Advance tax — 2nd instalment (45%)" },
+  { when: "15 Dec 2026", what: "Advance tax — 3rd instalment (75%)" },
+  { when: "31 Jul 2026", what: "ITR filing deadline — non-audit cases" },
+  { when: "15 Mar 2027", what: "Advance tax — final instalment (100%)" },
+  { when: "31 Oct 2026", what: "ITR filing — audit cases" },
+];
+
+function formatReadTime(rt: string | number | null): string {
+  if (!rt) return "";
+  const n = typeof rt === "string" ? parseInt(rt, 10) : rt;
+  return Number.isFinite(n) && n > 0 ? `${n} min read` : "";
+}
+
+export default async function TaxesHubPage() {
+  const articles = await getFeaturedTaxArticles();
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.investingpro.in/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Taxes",
+        item: "https://www.investingpro.in/taxes",
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      {/* Hero — ink */}
+      <section className="surface-ink pt-10 pb-16">
+        <div className="max-w-[1280px] mx-auto px-6">
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-10">
+            <ol className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-canvas-70">
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-indian-gold transition-colors"
+                >
+                  <Home className="w-3 h-3" />
+                </Link>
+              </li>
+              <ChevronRight className="w-3 h-3 text-canvas-70" />
+              <li className="text-canvas">Taxes</li>
+            </ol>
+          </nav>
+
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-5">
+            India&apos;s tax code · FY 2026-27
+          </div>
+
+          <h1 className="font-display font-black text-[48px] md:text-[72px] lg:text-[84px] leading-[0.98] tracking-tight text-canvas max-w-[1000px]">
+            Taxes, <span className="text-indian-gold">demystified.</span>
+          </h1>
+
+          <p className="mt-7 font-serif text-[20px] md:text-[22px] leading-[1.55] text-canvas max-w-[740px]">
+            Every deduction, every regime, every filing deadline — worked out in
+            rupees for your salary bracket. No jargon. No misleading promises.
+          </p>
+
+          {/* Data strip */}
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-5 max-w-[900px] font-mono">
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-canvas-70">
+                Old regime
+              </div>
+              <div className="text-[22px] font-black text-canvas mt-1">
+                6 slabs
+              </div>
+              <div className="text-[11px] text-canvas-70 mt-0.5">
+                With deductions
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-canvas-70">
+                New regime
+              </div>
+              <div className="text-[22px] font-black text-canvas mt-1">
+                6 slabs
+              </div>
+              <div className="text-[11px] text-canvas-70 mt-0.5">
+                Lower rates, no deductions
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-canvas-70">
+                ITR due
+              </div>
+              <div className="text-[22px] font-black text-indian-gold mt-1">
+                31 Jul 2026
+              </div>
+              <div className="text-[11px] text-canvas-70 mt-0.5">
+                Non-audit cases
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-canvas-70">
+                LTCG threshold
+              </div>
+              <div className="text-[22px] font-black text-canvas mt-1">
+                ₹1.25 L
+              </div>
+              <div className="text-[11px] text-canvas-70 mt-0.5">
+                Equity, post-Budget 2024
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Calculators — canvas */}
+      <section className="bg-canvas py-16">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+                Run the numbers
+              </div>
+              <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight">
+                Tax calculators
+              </h2>
+            </div>
+            <Link
+              href="/calculators"
+              className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
+            >
+              All 75 calculators <ArrowUpRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {TAX_CALCULATORS.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/calculators/${c.slug}`}
+                className="group block bg-white border border-ink-12 rounded-sm p-6 hover:border-indian-gold transition-colors"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="font-mono text-[22px] font-black text-indian-gold leading-none">
+                    {c.accent}
+                  </span>
+                  <ArrowUpRight className="w-4 h-4 text-ink-60 group-hover:text-indian-gold transition-colors" />
+                </div>
+                <h3 className="mt-6 font-display text-[22px] font-black text-ink leading-tight group-hover:text-indian-gold transition-colors">
+                  {c.title}
+                </h3>
+                <p className="mt-2 text-[13px] text-ink-60 leading-[1.5]">
+                  {c.tagline}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Regime comparison — ink */}
+      <section className="surface-ink py-16">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+            Side-by-side
+          </div>
+          <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-canvas tracking-tight mb-2">
+            Old regime vs New regime
+          </h2>
+          <p className="font-serif text-[17px] text-canvas-70 max-w-[720px] mb-10">
+            FY 2026-27 slabs. New regime is default; opt for old via Form 10-IEA
+            only if your deductions ({">"} ₹2–₹3 L) justify it.
+          </p>
+
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[600px] font-mono text-[14px] text-canvas">
+              <thead>
+                <tr className="border-b border-canvas-15">
+                  <th className="text-left py-3 pr-6 text-[10px] uppercase tracking-wider text-canvas-70 font-normal">
+                    Taxable income
+                  </th>
+                  <th className="text-right py-3 px-4 text-[10px] uppercase tracking-wider text-canvas-70 font-normal">
+                    Old regime
+                  </th>
+                  <th className="text-right py-3 pl-4 text-[10px] uppercase tracking-wider text-indian-gold font-normal">
+                    New regime
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {REGIME_SLABS.map((slab) => (
+                  <tr
+                    key={slab.range}
+                    className="border-b border-canvas-15 hover:bg-canvas/5"
+                  >
+                    <td className="py-4 pr-6 text-[14px]">{slab.range}</td>
+                    <td className="py-4 px-4 text-right text-[14px] text-canvas-70">
+                      {slab.old}
+                    </td>
+                    <td className="py-4 pl-4 text-right text-[14px] text-indian-gold font-bold">
+                      {slab.neu}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="font-mono text-[11px] text-canvas-70 mt-6 max-w-[720px] leading-[1.6]">
+            Surcharge and 4% health &amp; education cess apply on top. Rebate
+            u/s 87A makes incomes up to ₹7 L (new) / ₹5 L (old) effectively
+            zero-tax.
+          </p>
+        </div>
+      </section>
+
+      {/* Deductions grid — canvas */}
+      <section className="bg-canvas py-16">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+            Old regime only
+          </div>
+          <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight mb-10">
+            Key deductions
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {DEDUCTIONS.map((d) => (
+              <div
+                key={d.section}
+                className="bg-white border border-ink-12 rounded-sm p-6"
+              >
+                <div className="flex items-baseline justify-between">
+                  <span className="font-display font-black text-[28px] text-ink leading-none">
+                    {d.section}
+                  </span>
+                  <span className="font-mono text-[14px] font-bold text-indian-gold">
+                    {d.cap}
+                  </span>
+                </div>
+                <p className="mt-5 text-[14px] text-ink-80 leading-[1.55]">
+                  {d.covers}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured articles — ink */}
+      {articles.length > 0 && (
+        <section className="surface-ink py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+                  Deep dives
+                </div>
+                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-canvas tracking-tight">
+                  From the tax desk
+                </h2>
+              </div>
+              <Link
+                href="/articles?category=tax-planning"
+                className="font-mono text-[11px] uppercase tracking-wider text-canvas-70 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
+              >
+                All tax articles <ArrowUpRight className="w-3 h-3" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {articles.map((a) => (
+                <Link
+                  key={a.slug}
+                  href={`/articles/${a.slug}`}
+                  className="group block"
+                >
+                  {a.featured_image && (
+                    <div className="relative aspect-[16/10] bg-ink-12 overflow-hidden rounded-sm mb-4">
+                      <Image
+                        src={a.featured_image}
+                        alt={a.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                  )}
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-2">
+                    Tax Desk
+                    {formatReadTime(a.read_time)
+                      ? ` · ${formatReadTime(a.read_time)}`
+                      : ""}
+                  </div>
+                  <h3 className="font-display text-[20px] font-black text-canvas leading-[1.2] group-hover:text-indian-gold transition-colors">
+                    {a.title}
+                  </h3>
+                  {a.excerpt && (
+                    <p className="mt-3 text-[13px] text-canvas-70 leading-[1.55] line-clamp-3">
+                      {a.excerpt}
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Key dates strip — canvas */}
+      <section className="bg-canvas py-16">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+            Mark your calendar
+          </div>
+          <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight mb-10">
+            Key dates · FY 2026-27
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
+            {KEY_DATES.map((d) => (
+              <div
+                key={d.when}
+                className="flex items-start gap-5 py-4 border-b border-ink-12"
+              >
+                <div className="shrink-0 font-mono text-[12px] font-bold text-indian-gold tracking-wider uppercase min-w-[110px]">
+                  {d.when}
+                </div>
+                <div className="text-[15px] text-ink leading-[1.5]">
+                  {d.what}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA — ink */}
+      <section className="surface-ink py-14">
+        <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              This week in Indian money
+            </div>
+            <h3 className="font-display font-black text-[26px] md:text-[32px] text-canvas leading-tight max-w-[640px]">
+              Every Sunday — tax rule changes, deadlines, and one thing worth
+              acting on.
+            </h3>
+          </div>
+          <Link
+            href="/#newsletter"
+            className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-indian-gold text-ink font-bold text-[14px] tracking-wide rounded-sm hover:bg-indian-gold/90 transition-colors"
+          >
+            Subscribe free
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+    </>
+  );
+}
