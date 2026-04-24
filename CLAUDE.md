@@ -21,15 +21,20 @@ Has AI-powered recommendations, financial calculators, and a full CMS/admin pane
 
 ```
 Framework:    Next.js 16.1 (App Router, Turbopack) + React 19 + TypeScript 5
-Styling:      Tailwind CSS 4 + shadcn/ui + Radix UI primitives
+Styling:      Tailwind CSS 3.4.17 + shadcn/ui + Radix UI primitives
 Database:     Supabase (Postgres + Auth + Storage + RLS)
 Payments:     Stripe
 Email:        Resend
-AI (multi):   Gemini → Groq → Mistral → OpenAI (failover chain in lib/ai-service.ts)
-Monitoring:   Sentry + PostHog + Google Analytics 4
-Deploy:       Vercel (auto-deploy on git push)
-Cache:        Upstash Redis
+AI (multi):   Gemini → Groq → Mistral → OpenAI → Anthropic (failover chain in lib/ai-service.ts)
+              Also present: @cloudflare/ai, @google/genai, replicate, groq-sdk
+Monitoring:   Sentry + PostHog + Google Analytics 4 + OpenTelemetry
+Deploy:       Vercel (auto-deploy on git push to master)
+Scheduler:    Vercel Cron (40 scheduled jobs in vercel.json — SEE §13)
+Workflow:     Inngest package installed but NOT WIRED — lib/inngest/client.ts is a stub
+Cache:        Upstash Redis + @upstash/ratelimit
 Rich editor:  Tiptap + BlockNote
+Testing:      Jest + Playwright + @axe-core (accessibility) + Lighthouse CI
+Hooks:        Husky pre-commit → type-check + lint-staged (NO design-token enforcement yet)
 ```
 
 ---
@@ -69,39 +74,85 @@ Legacy `wt-*` variables exist — migrate to semantic tokens when touching those
 ## 4. File Structure Map
 
 ```
-app/
-  (auth)/           → Auth-gated pages (login/signup/profile)
-  (client)/         → Client-rendered pages with force-dynamic
-  admin/            → Full CMS and admin panel (/admin)
-  calculators/      → Financial calculators (FROZEN — validated math)
-  credit-cards/     → Product listing + comparison
-  loans/            → Product listing
-  mutual-funds/     → Product listing
-  demat-accounts/   → Product listing
-  fixed-deposits/   → Product listing
-  globals.css       → Design system CSS variables (source of truth)
-  layout.tsx        → Root layout (providers, fonts, metadata)
-  page.tsx          → Homepage
+app/                        → 71 top-level folders (not 10 — 10 refers to public PRODUCT route patterns)
+  (auth)/                   → Auth-gated pages (login/signup/profile)
+  (client)/                 → Client-rendered pages with force-dynamic
+  admin/                    → Full CMS + autonomy + agents UI (see §12 Admin Map)
+  api/                      → 300+ API routes
+    cron/                   → 40+ Vercel cron endpoints (11 agent-specific) — see §13
+    cms/orchestrator/       → execute / continuous / canary (CMSOrchestrator entry)
+    cms/scrapers/           → ScraperAgent entry
+    cms/health/             → HealthMonitorAgent entry
+    cms/budget/             → BudgetGovernorAgent entry
+    admin/serp-pipeline/    → SERP analysis pipeline
+    admin/strategy/gaps/    → Content gap analysis
+    admin/autonomy/config/  → Auto-publish config (thresholds, category rules)
+    v1/admin/revenue/       → Revenue predictions (auto-fallback to mock if missing)
+    pipeline/runs/          → Live pipeline activity feed
+    performance/metrics/    → Perf dashboard data
+    newsletter/             → Public subscription capture
+    out/, go/[slug]/        → Affiliate redirect with server-side tracking
+  calculators/              → 72 calculator pages (FROZEN math — SIP has gold-standard UX)
+  credit-cards/             → Listing + detail + compare
+  loans/                    → Listing + detail
+  mutual-funds/             → Listing + detail
+  insurance/                → Listing + detail
+  demat-accounts/           → Listing + detail
+  fixed-deposits/           → Listing + detail
+  banking/, ipo/, taxes/, ppf-nps/, small-business/, investing/, stocks/
+  articles/, article/       → 228+ article pages
+  glossary/                 → 101+ terms
+  compare/                  → Comparison tray + pages
+  category/[slug]/          → 8+ category landing pages
+  [category]/best/[subcat]/ → 35 best-of roundups
+  globals.css               → Design system CSS variables + .article-prose
+  layout.tsx                → Root layout (providers, fonts, metadata)
+  page.tsx                  → Homepage (11 editorial sections)
+  sitemap.ts                → ~1,450 URLs
+  robots.ts                 → Bot allowlist/blocklist
+  feed.xml, news-sitemap.xml
 
 components/
-  admin/            → All admin UI (100+ components)
-  calculators/      → Calculator UI components
-  common/           → Shared (ExitIntentPopup, WhatsAppButton, etc.)
-  compare/          → Product comparison bar/modal
-  layout/           → Navbar, footer, TopBar
-  ui/               → Base shadcn/ui primitives
+  admin/                    → 150+ admin components (BrokenLinkReport, AIHealthMonitor,
+                              BulkGenerationPanel, CostDashboard, ScraperDashboard,
+                              AutomationControlCenter, WorkflowBuilder, etc.)
+  ab-testing/               → ABTestWrapper + ExperimentProvider
+  articles/                 → ArticleRenderer, ArticleSources, Callout, newsletter
+  calculators/shared/       → 75 calcs inherit tokens from here
+  common/                   → WeeklyChanges ticker, ContextualTicker, etc.
+  compare/                  → Sticky ink+gold tray + comparison tables
+  layout/                   → Navbar, footer, TopBar
+  products/                 → RichProductCard, ApplyNowCTA
+  ui/                       → shadcn/ui primitives
   theme-provider.tsx
 
 lib/
-  ai-service.ts     → FROZEN: Multi-LLM failover (Gemini→Groq→Mistral→OpenAI)
-  env.ts            → FROZEN: Env var validation (strict)
-  calculators/      → FROZEN: Financial math logic
-  supabase/         → DB client helpers
-  cms/              → CMS service layer
-  auth/             → Auth helpers
+  ai-service.ts             → FROZEN: Multi-LLM failover
+  env.ts                    → FROZEN: Env var validation
+  calculators/              → FROZEN: Financial math logic
+  agents/                   → 34 runtime agent files — Layer A (see §12 Runtime Agents)
+  agents/swarm/             → 11 swarm agents (content-scout → supervisor)
+  automation/               → content-pipeline.ts, link-checker (powers check-links cron)
+  orchestration/            → continuous-mode.ts (wraps CMSOrchestrator)
+  workers/                  → pipelineWorker.ts
+  jobs/                     → content-publishing, content-scoring, keyword-discovery, etc.
+  queue/                    → Message queue evaluation + job types (DEFINED, see docs/PHASE2_*)
+  workflows/                → workflow-engine.ts, workflow-scheduler.ts
+  inngest/client.ts         → STUB — returns no-op fns, NOT wired to Inngest
+  content/weekly-changes.ts → Edit TS file to update weekly ticker commentary (no DB)
+  tracking/                 → affiliate-tracker (non-blocking, UUID validation + retry)
+  services/                 → newsletterService, etc.
+  supabase/                 → client.ts / server.ts / service.ts
+  data/team.ts              → 7 editorial desks (auto-assigned by category)
+  cms/                      → CMS service layer
+  auth/                     → Auth helpers
 
-scripts/            → One-time/admin scripts (populate DB, migrations, etc.)
-__tests__/          → Jest tests (unit, integration, e2e, load)
+scripts/                    → One-time/admin scripts (populate DB, migrations, tests)
+supabase/migrations/        → SQL migrations (run manually via Supabase SQL editor)
+__tests__/                  → Jest tests (unit, integration, e2e, load)
+.husky/pre-commit           → type-check + lint-staged (NO design-token enforcement)
+vercel.json                 → 40 cron schedules (see §13)
+brainstorm.md               → Single source of truth (design lock + production state)
 ```
 
 ---
@@ -349,7 +400,167 @@ NEXT_PUBLIC_POSTHOG_KEY, NEXT_PUBLIC_POSTHOG_HOST (for analytics)
 
 ---
 
-## 12. Session Efficiency Rules
+## 12. Runtime Agent System — Layer A (`lib/agents/`)
+
+**34 agent files, all WIRED via two paths. Live production activity UNVERIFIED (no Vercel/Sentry access yet).**
+
+### Swarm agents (11) — each wired to a dedicated Vercel cron
+`lib/agents/swarm/`
+
+| Agent | Cron route | Phase |
+|---|---|---|
+| ContentScoutAgent | `/api/cron/agent-content-scout` | SENSE (2:00 AM IST) |
+| SerpAnalystAgent | `/api/cron/agent-serp-analyst` | ANALYZE (3:00 AM/PM) |
+| ContentArchitectAgent | `/api/cron/agent-content-architect` | ANALYZE (4:00 AM/PM) |
+| WriterAgent | `/api/cron/agent-writer` | CREATE (6:30 AM/PM) |
+| EditorAgent | `/api/cron/agent-editor` | CREATE (8:00 AM/PM) |
+| PublisherAgent | `/api/cron/agent-publisher` | PUBLISH (10:00 AM) |
+| DistributionAgent | `/api/cron/agent-distribution` | DISTRIBUTE (10:30 AM) |
+| SeoAgent | `/api/cron/agent-seo` | OPTIMIZE (6:00 AM) |
+| DataAgent | `/api/cron/agent-data` | DATA (1:00 AM) |
+| AnalyticsAgent | `/api/cron/agent-analytics` | MEASURE (3:30 AM) |
+| SupervisorAgent | `/api/cron/agent-supervisor` | META (5:30 AM) |
+
+Base: `swarm/base-swarm-agent.ts`. All cron routes gate on `CRON_SECRET` bearer token.
+
+### Classic orchestrator agents (18) — wired via `CMSOrchestrator`
+`lib/agents/orchestrator.ts` instantiates all 18 in constructor. Consumers:
+- `/api/cms/orchestrator/{execute, continuous, canary}` (API)
+- `/api/content-pipeline/` (pipeline worker)
+- `lib/workers/pipelineWorker.ts` + `lib/orchestration/continuous-mode.ts`
+
+Agents (grouped by function):
+
+| Function | Agents |
+|---|---|
+| Content lifecycle | TrendAgent, KeywordAgent, ContentAgent, ImageAgent, QualityAgent, PublishAgent, TrackingAgent, RepurposeAgent |
+| Distribution | SocialAgent, AffiliateAgent |
+| Strategy | StrategyAgent, FeedbackLoopAgent, BulkGenerationAgent |
+| Data | ScraperAgent (also `/api/cms/scrapers`) |
+| Governance | BudgetGovernorAgent (also `/api/cms/budget`), RiskComplianceAgent, HealthMonitorAgent (also `/api/cms/health`) |
+| Intelligence | EconomicIntelligenceAgent |
+
+Base: `base-agent.ts`. All extend it and inherit Supabase service client + multi-provider AI.
+
+### Specialized watchers (1)
+- `MarketEventWatcher` — imported only by `TrendAgent`, monitors Yahoo/Moneycontrol/ET RSS + Google Trends to generate content angles from real market events (Nifty moves, RBI rate changes, budget announcements)
+
+### Providers (1)
+- `providers/google-autocomplete.ts` — helper for keyword agent
+
+### Verified classification summary
+| Class | Count |
+|---|---|
+| WIRED (cron) | 11 swarm agents |
+| WIRED (orchestrator) | 18 classic agents |
+| WIRED (nested import) | 3 (MarketEventWatcher, base-agent, swarm/base-swarm-agent) |
+| WIRED helper | 1 (google-autocomplete) |
+| SCAFFOLDED | 0 |
+| DEAD | 0 |
+| **Total** | **34** |
+
+**Known unknowns (require Vercel/Sentry access to resolve):**
+- Are the cron jobs actually firing on schedule?
+- Are the agents completing successfully or silently erroring?
+- What is the real vs. expected volume (articles generated, publishes, etc.)?
+
+---
+
+## 13. Scheduling & Automation Infrastructure
+
+### Primary scheduler: GitHub Actions (40 workflows in `.github/workflows/cron-*.yml`)
+
+**Migrated from Vercel Cron 2026-04-24** (Session 1b). Reason: Vercel Hobby plan caps cron jobs at 2; this repo needs 40. Rather than pay Vercel Pro ($20/mo) before revenue justifies it, we drive the existing `/api/cron/*` endpoints from GitHub Actions (free, unlimited for public repos).
+
+Architecture:
+- `.github/workflows/_invoke-cron.yml` — reusable workflow. One place to change retry/auth logic.
+- `.github/workflows/cron-<name>.yml` — 40 thin caller workflows, each scheduled independently. All call the reusable workflow with their specific `/api/cron/<name>` path.
+- `vercel.json` — cron array REMOVED. Vercel is now pure hosting + framework config.
+- Secret required: `CRON_SECRET` in GitHub repo Settings → Secrets → Actions. Must match `process.env.CRON_SECRET` in Vercel env.
+- Optional var: `BASE_URL` (defaults to `https://www.investingpro.in`).
+
+| Category | Count | Examples |
+|---|---|---|
+| **Agent-specific (swarm)** | 11 | `cron-agent-writer`, `cron-agent-editor`, `cron-agent-publisher`, `cron-agent-seo`, `cron-agent-supervisor`, etc. |
+| **Content operations** | 8 | `cron-daily-content-generation`, `cron-content-refresh`, `cron-content-strategy`, `cron-content-sense`, `cron-publish-scheduled`, `cron-process-pipeline`, `cron-content-distribution`, `cron-email-sequences` |
+| **Data sync** | 8 | `cron-update-rbi-rates`, `cron-sync-amfi-data`, `cron-sync-legal-products`, `cron-update-intelligence`, `cron-weekly-data-update`, `cron-check-data-freshness`, `cron-check-data-changes`, `cron-scrape-credit-cards` |
+| **SEO / rankings** | 4 | `cron-seo-rankings-update`, `cron-sync-rankings`, `cron-check-rankings-drops`, `cron-sitemap-ping` |
+| **Cost / budget** | 3 | `cron-check-cost-alerts`, `cron-daily-cost-report`, `cron-record-table-sizes` |
+| **Revenue / analytics** | 2 | `cron-daily-revenue-report`, `cron-analytics-sync` |
+| **Link health** | 1 | `cron-check-links` (weekly Sun 18:30 UTC, uses `lib/automation/link-checker`) |
+| **Ops** | 2 | `cron-cleanup`, `cron-archive-data` |
+| **Media** | 1 | `cron-generate-missing-images` |
+
+Known gotchas with GitHub Actions schedule triggers:
+- **Delay tolerance ~5–30 min** during peak GitHub Actions load. Not real-time.
+- **Schedules pause after 60 days of repo inactivity.** Any push resets the timer.
+- **Public repos get unlimited minutes.** This repo is public (per Vercel meta), so free.
+- **Concurrency is per-workflow** via `concurrency.group` in `_invoke-cron.yml` — prevents overlapping runs of the same cron.
+
+Plus pre-existing `.github/workflows/` files that use a DIFFERENT pattern (run TS scripts directly inside the runner, bypassing the API routes):
+- `content-factory.yml` — hourly `scripts/process-planned-queue.ts`
+- `scraper.yml` — daily product + rate scrapers
+- `credit-card-scraper.yml` — weekly credit card scraper with failure-issue auto-create
+- `ci.yml`, `accessibility.yml`, `lighthouse.yml`, `staging.yml` — PR / deploy gates
+
+Potential overlap: `scrape-credit-cards` (GitHub cron Monday 20:30 UTC via new `cron-scrape-credit-cards.yml`) + `credit-card-scraper.yml` (same day/time, different code path). Underlying operations should be idempotent; monitor for duplicates in Session 2.
+
+Plus 2 route files that exist but are NOT scheduled: `import-rss-news`, `update-gold-prices`.
+
+### Upgrade path to Vercel Pro (deferred until revenue justifies)
+When traffic + affiliate revenue justify $20/mo, options:
+1. Re-add `crons` array to `vercel.json` and delete `.github/workflows/cron-*.yml`. Single scheduler.
+2. Keep both — GitHub Actions as backup, Vercel as primary. Expensive on GitHub minutes only if repo goes private.
+
+### Inngest — installed but STUB
+`lib/inngest/client.ts` is a no-op placeholder:
+```ts
+export const inngest = {
+  createFunction: (...args) => args[args.length - 1],
+  send: async () => {},
+};
+```
+26 files import from this stub. **Inngest events fire into /dev/null.** If you want durable event-driven workflows, wire the real client (`inngest` npm package is installed at `3.49.1`).
+
+### Git hooks (`.husky/pre-commit`)
+Currently: `npm run type-check` + `npx lint-staged`. **No design-token enforcement.** A design-lock pre-commit hook is not yet installed — add via Session 4 (v3 Design Guardian).
+
+### Webhooks
+No `/api/webhooks/**` directory exists. If webhook support is needed (Stripe, email, external integrations), it lives elsewhere (check `/api/social/*/callback/*` for OAuth callbacks).
+
+### Auth on crons
+Every agent cron route checks `Authorization: Bearer ${process.env.CRON_SECRET}`. CRON_SECRET is set on Vercel (per brainstorm.md).
+
+---
+
+## 14. Admin Panel Map (`app/admin/`)
+
+Key autonomy / observability dashboards and their data source:
+
+| Route | Reality | Data source |
+|---|---|---|
+| `/admin/agents` | **HARDCODED** (`INITIAL_AGENTS` const) | No real backend wiring — purely decorative |
+| `/admin/autonomy` | REAL | `/api/admin/autonomous` |
+| `/admin/autonomy/settings` | REAL | `/api/admin/autonomy/config` (confidence thresholds, rate limits, category rules) |
+| `/admin/swarm-dashboard` | REAL | Supabase client — pulls live heartbeat + pipeline + queue data |
+| `/admin/ai-personas` | REAL | Supabase view `ai_persona_performance` |
+| `/admin/ops-health` | REAL | `/api/admin/ai/metrics` + `/api/admin/cache/stats` |
+| `/admin/strategy` | REAL | `/api/admin/strategy/gaps` |
+| `/admin/revenue/intelligence` | REAL w/ mock fallback | `/api/v1/admin/revenue/predictions` (falls back to mock if missing) |
+| `/admin/pipeline-monitor` | REAL | `/api/pipeline/runs` + `/api/pipeline/metrics` (5-sec poll) |
+| `/admin/performance-dashboard` | REAL | `/api/performance/metrics` |
+| `/admin/content-factory` | Uses orchestrator | `/api/cms/orchestrator/*` |
+| `/admin/scrapers` | REAL | `/api/cms/scrapers` |
+| `/admin/cms/health` | REAL | `/api/cms/health` |
+| `/admin/cms/budget` | REAL | `/api/cms/budget` |
+
+Plus ~65 more admin pages (articles, products, media, users, webhooks, workflows, import, reviews, etc.) covering the full CMS surface.
+
+**Highest-leverage fix:** wire `/admin/agents` to real data (replace `INITIAL_AGENTS` with a query against agent_runs/heartbeat tables, OR consolidate into `/admin/swarm-dashboard`).
+
+---
+
+## 15. Session Efficiency Rules
 
 ```
 1. Read only files relevant to the task — NOT the whole codebase
