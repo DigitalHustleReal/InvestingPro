@@ -131,6 +131,36 @@ export function dbCategoriesForUrl(urlCategory: UrlCategory): string[] {
   return URL_TO_DBS[urlCategory];
 }
 
+/**
+ * Product review mapping — which Supabase tables to search for a product
+ * slug when a user hits /[cat]/reviews/[slug], and where to redirect them
+ * to the current canonical detail URL.
+ *
+ * Order matters: the route tries tables in the listed order and uses the
+ * first match. Most populous / most-likely-matched first.
+ */
+export const PRODUCT_REVIEW_TABLES: Record<
+  UrlCategory,
+  Array<{ table: string; canonicalPathPrefix: string }>
+> = {
+  "credit-cards": [
+    { table: "credit_cards", canonicalPathPrefix: "/credit-cards" },
+  ],
+  loans: [{ table: "loans", canonicalPathPrefix: "/loans" }],
+  banking: [
+    { table: "fixed_deposits", canonicalPathPrefix: "/fixed-deposits" },
+    // savings_accounts currently has no detail page; skip until one exists
+  ],
+  investing: [
+    { table: "mutual_funds", canonicalPathPrefix: "/mutual-funds" },
+    { table: "brokers", canonicalPathPrefix: "/demat-accounts" },
+    // stocks handled via /investing/stocks/reviews/[slug] path when needed
+  ],
+  insurance: [{ table: "insurance", canonicalPathPrefix: "/insurance" }],
+  taxes: [],
+  learn: [],
+};
+
 /** Human-readable label for a URL category. Used in breadcrumbs + metadata. */
 export function urlCategoryLabel(urlCategory: UrlCategory): string {
   const labels: Record<UrlCategory, string> = {

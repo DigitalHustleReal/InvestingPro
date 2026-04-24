@@ -63,11 +63,18 @@
   → Some articles could legitimately live under multiple top-levels (e.g. "PPF vs NPS vs ELSS" — taxes, investing, or retirement?)
   → Need `primary_category` column OR first-match rule
 
-### Calculator nesting (Phase 2b)
+### Review routes (Phase 2 Step 2 — done in this session)
+- [x] Built `/[category]/reviews/[slug]` dynamic route — PRODUCT_REVIEW_TABLES map handles credit-cards, loans, banking (FDs), investing (MFs + brokers), insurance. Taxes + learn return 404 (no product inventory).
+- [x] Cross-category guard — `/loans/reviews/zerodha` correctly 404s (zerodha is a broker, not a loan).
+- [ ] 🟢 Add `savings_accounts` detail page + include in banking review tables (currently skipped)
+- [ ] 🟢 Add `stocks` to investing review tables once stocks table gets `slug` column
+
+### Calculator nesting (Phase 2 Step 3)
 - [ ] 🟡 Approve calculator-to-category mapping
   → 75 calculators flat today; NerdWallet nests per category
   → E.g. `sip` → `/investing/calculators/sip`, `emi` → `/loans/calculators/emi`, `hra` → `/taxes/calculators/hra`
   → Mapping is obvious for most but some (like `cagr`, `compound-interest`) could live under `/learn/calculators/`
+- [ ] 🟢 Move static CALC_CATEGORY map into DB once a `calculators` reference table exists (current static map in code is fine but requires edits per new calc)
 
 ---
 
