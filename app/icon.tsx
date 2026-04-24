@@ -1,77 +1,45 @@
-import { ImageResponse } from 'next/og';
+import { ImageResponse } from "next/og";
 
-// Route segment config
-export const runtime = 'edge';
+// Brand favicon — InvestingPro monogram in v3 tokens.
+// Matches the "InvestingPro India" channel identity.
+//
+// Design: ink (#0A1F14) rounded square + indian-gold (#D97706) serif "IP"
+// monogram, Playfair Display-style capitals. 32x32 base; Next generates
+// 16x16 automatically.
 
-// Image metadata
+export const runtime = "edge";
+
 export const size = {
   width: 32,
   height: 32,
 };
-export const contentType = 'image/png';
+export const contentType = "image/png";
 
-// Image generation
 export default function Icon() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0d9488 0%, #059669 100%)', // primary-600 to success-600
-          borderRadius: '6px',
-        }}
-      >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M6 3h12"
-            stroke="white"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M6 8h12"
-            stroke="white"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="m6 13 8.5 10"
-            stroke="white"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M6 13h3"
-            stroke="white"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M9 13c6.667 0 6.667-10 0-10"
-            stroke="white"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
-    ),
-    {
-      ...size,
-    }
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#0A1F14", // ink
+        borderRadius: "4px",
+        // Edge-runtime ImageResponse font stack — keep conservative so
+        // it renders consistently at 16px scale-down.
+        fontFamily: "Georgia, 'Times New Roman', serif",
+        fontWeight: 900,
+        color: "#D97706", // indian-gold
+        letterSpacing: "-1px",
+        fontSize: 20,
+        // Vertical alignment nudge because cap-heights drift at tiny sizes
+        lineHeight: "20px",
+        paddingBottom: 1,
+      }}
+    >
+      IP
+    </div>,
+    size,
   );
 }

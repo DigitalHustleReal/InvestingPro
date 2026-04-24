@@ -63,6 +63,12 @@
   → Some articles could legitimately live under multiple top-levels (e.g. "PPF vs NPS vs ELSS" — taxes, investing, or retirement?)
   → Need `primary_category` column OR first-match rule
 
+### Branding (this session — follow-up)
+- [x] Footer channel labels unified to **InvestingPro India** (matches both Telegram and WhatsApp channel display names) — platform disambiguator moved to mono small-caps (`on Telegram`, `on WhatsApp`)
+- [x] Favicon rebuilt on v3 tokens — `app/icon.tsx` + new `app/apple-icon.tsx`, ink (#0A1F14) rounded square with indian-gold (#D97706) serif "IP" monogram. Replaces the legacy teal/emerald gradient.
+- [ ] 🟢 If you have a real profile-picture image from the channel, drop it at `public/icons/profile-512.png` and point `app/icon.tsx` / `app/apple-icon.tsx` at it (swap the ImageResponse for a `redirect()` to the static asset). Right now both routes render the monogram at build time.
+- [ ] 🟢 Replace legacy `public/icons/icon-192x192.png` and `icon-512x512.png` — they still show the old gradient design, used by the PWA manifest. Either regenerate them with the new monogram or link them to rendered ImageResponses.
+
 ### Review routes (Phase 2 Step 2 — done in this session)
 - [x] Built `/[category]/reviews/[slug]` dynamic route — PRODUCT_REVIEW_TABLES map handles credit-cards, loans, banking (FDs), investing (MFs + brokers), insurance. Taxes + learn return 404 (no product inventory).
 - [x] Cross-category guard — `/loans/reviews/zerodha` correctly 404s (zerodha is a broker, not a loan).

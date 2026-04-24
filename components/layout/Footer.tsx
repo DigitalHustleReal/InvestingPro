@@ -203,9 +203,9 @@ const COLUMNS = [
 
 const SOCIAL_CHANNELS = [
   {
-    label: "Telegram",
+    label: "InvestingPro India",
+    platform: "on Telegram",
     href: "https://t.me/InvestingProIndia",
-    handle: "@InvestingProIndia",
     svg: (
       <svg
         viewBox="0 0 24 24"
@@ -217,9 +217,9 @@ const SOCIAL_CHANNELS = [
     ),
   },
   {
-    label: "WhatsApp Channel",
+    label: "InvestingPro India",
+    platform: "on WhatsApp",
     href: "https://whatsapp.com/channel/0029VbCSOFJ3gvWbAnDRuC2T",
-    handle: "Broadcasts only",
     svg: (
       <svg
         viewBox="0 0 24 24"
@@ -355,7 +355,7 @@ export default function Footer() {
                   </span>
                   <span className="font-medium">{channel.label}</span>
                   <span className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 group-hover:text-indian-gold transition-colors">
-                    {channel.handle}
+                    {channel.platform}
                   </span>
                 </a>
               ))}
