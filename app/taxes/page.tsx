@@ -158,13 +158,13 @@ export default async function TaxesHubPage() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://www.investingpro.in/",
+        item: generateCanonicalUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Taxes",
-        item: "https://www.investingpro.in/taxes",
+        item: generateCanonicalUrl("/taxes"),
       },
     ],
   };

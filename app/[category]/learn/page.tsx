@@ -33,24 +33,35 @@ type ArticleRow = {
   category: string | null;
 };
 
-async function getArticlesForCategory(
+async function getCategoryContent(
   urlCategory: UrlCategory,
   limit = 48,
-): Promise<ArticleRow[]> {
+): Promise<{ articles: ArticleRow[]; total: number }> {
   const dbCats = dbCategoriesForUrl(urlCategory);
-  if (dbCats.length === 0) return [];
+  if (dbCats.length === 0) return { articles: [], total: 0 };
 
   const supabase = createServiceClient();
-  const { data } = await supabase
-    .from("articles")
-    .select(
-      "slug, title, excerpt, featured_image, read_time, published_at, category",
-    )
-    .eq("status", "published")
-    .in("category", dbCats)
-    .order("published_at", { ascending: false })
-    .limit(limit);
-  return (data as ArticleRow[]) ?? [];
+  // Run the list + count in parallel (async-parallel, CRITICAL).
+  const [listRes, countRes] = await Promise.all([
+    supabase
+      .from("articles")
+      .select(
+        "slug, title, excerpt, featured_image, read_time, published_at, category",
+      )
+      .eq("status", "published")
+      .in("category", dbCats)
+      .order("published_at", { ascending: false })
+      .limit(limit),
+    supabase
+      .from("articles")
+      .select("slug", { count: "exact", head: true })
+      .eq("status", "published")
+      .in("category", dbCats),
+  ]);
+  return {
+    articles: (listRes.data as ArticleRow[]) ?? [],
+    total: countRes.count ?? 0,
+  };
 }
 
 export async function generateMetadata({
@@ -104,7 +115,7 @@ export default async function CategoryLearnHubPage({
 
   const urlCat = category as UrlCategory;
   const label = urlCategoryLabel(urlCat);
-  const articles = await getArticlesForCategory(urlCat);
+  const { articles, total } = await getCategoryContent(urlCat);
 
   const [featured, ...rest] = articles;
 
@@ -116,19 +127,19 @@ export default async function CategoryLearnHubPage({
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://www.investingpro.in/",
+        item: generateCanonicalUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: label,
-        item: `https://www.investingpro.in/${urlCat}`,
+        item: generateCanonicalUrl(`/${urlCat}`),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Articles",
-        item: `https://www.investingpro.in/${urlCat}/learn`,
+        item: generateCanonicalUrl(`/${urlCat}/learn`),
       },
     ],
   };
@@ -175,8 +186,8 @@ export default async function CategoryLearnHubPage({
             {label} <span className="text-indian-gold">explained.</span>
           </h1>
           <p className="mt-6 font-serif text-[18px] md:text-[20px] leading-[1.55] text-canvas-70 max-w-[740px]">
-            {articles.length} guides — rupee examples, regulatory sources, and
-            picks from the {label.toLowerCase()} desk.
+            {total} guide{total === 1 ? "" : "s"} — rupee examples, regulatory
+            sources, and picks from the {label.toLowerCase()} desk.
           </p>
         </div>
       </section>

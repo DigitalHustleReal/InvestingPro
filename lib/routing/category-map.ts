@@ -111,13 +111,24 @@ export function categoryMatches(
 }
 
 /**
- * Returns all DB category values that map to the given URL category.
+ * Reverse map built once at module load (js-index-maps, O(1) lookup).
  * Used for listing queries — e.g. "all articles under /investing/".
  */
+const URL_TO_DBS: Record<UrlCategory, string[]> = (() => {
+  const acc: Partial<Record<UrlCategory, string[]>> = {};
+  for (const [db, url] of Object.entries(DB_TO_URL)) {
+    (acc[url] ??= []).push(db);
+  }
+  for (const url of URL_CATEGORIES) acc[url] ??= [];
+  return acc as Record<UrlCategory, string[]>;
+})();
+
+/**
+ * Returns all DB category values that map to the given URL category.
+ * Backed by a pre-built reverse map for O(1) access.
+ */
 export function dbCategoriesForUrl(urlCategory: UrlCategory): string[] {
-  return Object.entries(DB_TO_URL)
-    .filter(([, url]) => url === urlCategory)
-    .map(([db]) => db);
+  return URL_TO_DBS[urlCategory];
 }
 
 /** Human-readable label for a URL category. Used in breadcrumbs + metadata. */

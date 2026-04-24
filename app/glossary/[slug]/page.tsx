@@ -12,6 +12,7 @@
  * .article-prose for narrative).
  */
 
+import { cache } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -47,16 +48,18 @@ type GlossaryTerm = {
   reviewer_label?: string | null;
 };
 
-async function getTerm(slug: string): Promise<GlossaryTerm | null> {
+// React.cache dedupes this fetch across generateMetadata + default render
+// within the same request (server-cache-react, HIGH priority).
+const getTerm = cache(async (slug: string): Promise<GlossaryTerm | null> => {
   const supabase = createServiceClient();
   const { data } = await supabase
     .from("glossary_terms")
     .select("*")
     .eq("slug", slug)
-    .eq("published", true)
+    .eq("status", "published")
     .single();
   return (data as GlossaryTerm) ?? null;
-}
+});
 
 async function getRelatedTermDetails(
   slugs: string[],
@@ -67,7 +70,7 @@ async function getRelatedTermDetails(
     .from("glossary_terms")
     .select("slug, term, definition")
     .in("slug", slugs)
-    .eq("published", true)
+    .eq("status", "published")
     .limit(6);
   return (
     (data as Array<{ slug: string; term: string; definition: string }>) ?? []
@@ -80,7 +83,7 @@ export async function generateStaticParams() {
     const { data } = await supabase
       .from("glossary_terms")
       .select("slug")
-      .eq("published", true)
+      .eq("status", "published")
       .order("views", { ascending: false })
       .limit(50);
     return (data || []).map((t: { slug: string }) => ({ slug: t.slug }));
@@ -157,7 +160,7 @@ export default async function GlossaryTermPage({
     inDefinedTermSet: {
       "@type": "DefinedTermSet",
       name: "InvestingPro Financial Glossary",
-      url: "https://www.investingpro.in/glossary",
+      url: generateCanonicalUrl("/glossary"),
     },
     url: canonical,
     ...(term.updated_at && { dateModified: term.updated_at }),
@@ -171,13 +174,13 @@ export default async function GlossaryTermPage({
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://www.investingpro.in/",
+        item: generateCanonicalUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Glossary",
-        item: "https://www.investingpro.in/glossary",
+        item: generateCanonicalUrl("/glossary"),
       },
       { "@type": "ListItem", position: 3, name: term.term, item: canonical },
     ],

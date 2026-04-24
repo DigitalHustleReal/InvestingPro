@@ -17,6 +17,7 @@
  *      canonical in /articles/[slug]).
  */
 
+import { cache } from "react";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { createServiceClient } from "@/lib/supabase/service";
@@ -37,16 +38,20 @@ type ArticleLookup = {
   status: string | null;
 };
 
-async function lookupArticle(slug: string): Promise<ArticleLookup | null> {
-  const supabase = createServiceClient();
-  const { data } = await supabase
-    .from("articles")
-    .select("slug, title, excerpt, category, status")
-    .eq("slug", slug)
-    .eq("status", "published")
-    .single();
-  return (data as ArticleLookup) ?? null;
-}
+// React.cache dedupes across generateMetadata + default render in the
+// same request (server-cache-react, HIGH priority).
+const lookupArticle = cache(
+  async (slug: string): Promise<ArticleLookup | null> => {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("articles")
+      .select("slug, title, excerpt, category, status")
+      .eq("slug", slug)
+      .eq("status", "published")
+      .single();
+    return (data as ArticleLookup) ?? null;
+  },
+);
 
 export async function generateMetadata({
   params,
