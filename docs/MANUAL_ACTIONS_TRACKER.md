@@ -224,6 +224,28 @@ Strategic bets in **strict priority order**. Do not jump ahead — earlier
 items unblock later ones. The user explicitly set this sequence on
 2026-04-25 PM; the previously written items have been re-ordered to match.
 
+### Editorial review — i18n locale strings (parallel to Phase 2a wiring)
+
+UI chrome strings shipped at commit `45d52558` (en + hi + bn + mr + ta + te,
+60+ keys each). Gujarati + Kannada come in Phase 2b. **All 7 regional
+locales are AI-drafted and need native-speaker review** before being
+considered "verified". Track per-locale status here:
+
+- [ ] 🟡 hi (Hindi) — AI-drafted, needs native review
+- [ ] 🟡 bn (Bengali) — AI-drafted, needs native review
+- [ ] 🟡 mr (Marathi) — AI-drafted, needs native review
+- [ ] 🟡 te (Telugu) — AI-drafted, needs native review
+- [ ] 🟡 ta (Tamil) — AI-drafted, needs native review
+- [ ] 🟡 gu (Gujarati) — Phase 2b, then AI-drafted → needs review
+- [ ] 🟡 kn (Kannada) — Phase 2b, then AI-drafted → needs review
+
+Each strings file has a `// TODO: review` marker in the header.
+Editorial team should pass through the file checking that:
+  1. Tone is plain conversational (not formal literary)
+  2. Indian financial abbreviations stay English (per
+     `lib/i18n/abbreviations.ts` preserve list)
+  3. CTAs read natural ("मेरा कार्ड खोजें" not awkward word-for-word)
+
 ### Admin dashboard — surface platform stats internally (parallel to redesign)
 
 User reaffirmed 2026-04-25 PM: platform-stat counts ("X cards / Y banks / avg

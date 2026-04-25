@@ -62,7 +62,6 @@ PR: https://github.com/DigitalHustleReal/InvestingPro/pull/new/claude/vibrant-lo
 ### i18n Phase 2a finish (immediate priority)
 
 **Files still needed:**
-- `lib/i18n/strings/gu.ts` (Gujarati) + `lib/i18n/strings/kn.ts` (Kannada)
 - `lib/i18n/t.ts` — server-side `t(key)` accessor reading
   `getServerLocale()`. Returns `STRINGS[locale][key] ?? EN[key]`.
 - `lib/i18n/client.tsx` — `<LocaleProvider>` + `useT()` client hook
@@ -72,22 +71,33 @@ PR: https://github.com/DigitalHustleReal/InvestingPro/pull/new/claude/vibrant-lo
   preserves Indian lakh/crore notation across all locales
 
 **Wiring still needed:**
-- v2 Navbar (`components/v2/layout/Navbar.tsx`) — replace hardcoded
-  `"Credit Cards"`, `"Loans"`, etc. with `t('nav.creditCards')` etc.
-  Same for MegaMenu top-level labels.
-- Footer (`components/layout/Footer.tsx`) — column headers + legal
-  links via `t('footer.*')` keys
-- LanguageSwitcher — currently shows 2 locales (the original LOCALES
-  before expansion); change to render all 8 (or the top 4-5 with a
-  "more" overflow on mobile)
+- **Internal-links audit (CRITICAL)** — every raw `href` in Navbar /
+  MegaMenu / Footer must route through `localizedPath(href,
+  currentLocale)`. Without this, a Hindi user clicking "Loans" from
+  `/hi/credit-cards` jumps to `/loans` (English), losing locale state.
+  Files to audit:
+    - `components/v2/layout/Navbar.tsx`
+    - `components/v2/layout/MegaMenu.tsx`
+    - `components/layout/Footer.tsx`
+- v2 Navbar — replace hardcoded `"Credit Cards"`, `"Loans"`, etc. with
+  `t('nav.creditCards')` etc. Same for MegaMenu top-level labels.
+- Footer — column headers + legal links via `t('footer.*')` keys
+- LanguageSwitcher — currently renders 2 locales (the original LOCALES
+  before expansion); update to all 8. Order: en, hi, bn, mr, te, ta,
+  gu, kn. gu + kn show with `(English fallback)` hint until strings
+  ship.
 - MobileNav — wire LanguageSwitcher into the mobile menu
 
-**Verification:**
-- `/credit-cards`, `/hi/credit-cards`, `/bn/credit-cards`,
-  `/mr/credit-cards`, `/te/credit-cards`, `/ta/credit-cards` all
-  show locale-correct nav labels
-- `/gu/*` and `/kn/*` fall back to English chrome (acceptable until
-  strings ship)
+**Verification gate (mandatory before commit):**
+- `npx tsc --noEmit --skipLibCheck` clean
+- `Claude_Preview` snapshots of `/credit-cards`, `/hi/credit-cards`,
+  `/bn/credit-cards`, `/mr/credit-cards`, `/te/credit-cards`,
+  `/ta/credit-cards` showing translated nav labels per locale
+- `/gu/credit-cards` and `/kn/credit-cards` fall back to English
+  (acceptable until Phase 2b follow-up)
+- Click test: clicking "Loans" in nav from `/hi/credit-cards` must
+  land at `/hi/loans`, not `/loans` — proves internal-links audit
+  worked
 - `<html lang>` correct per locale
 - Hreflang tags emit cleanly
 
@@ -95,10 +105,18 @@ PR: https://github.com/DigitalHustleReal/InvestingPro/pull/new/claude/vibrant-lo
 
 ## Phase 2b/3+ (deferred)
 
-- **Phase 2b** — self-referencing canonical per locale (each `/hi/X`
-  canonicals to `/hi/X`, not `/X`). Mechanical: convert each hub's
-  static `metadata` to async `generateMetadata()` reading
-  `getServerLocale()`. ~7 hubs.
+- **Phase 2b — i18n loose ends:**
+  1. `lib/i18n/strings/gu.ts` + `kn.ts` (Gujarati + Kannada,
+     AI-drafted with `// TODO: needs native-speaker review` markers)
+  2. Self-referencing canonical per locale (each `/hi/X` canonicals
+     to `/hi/X`, not `/X`). Mechanical: convert each hub's static
+     `metadata` to async `generateMetadata()` reading
+     `getServerLocale()`. ~7 hubs. Flagged in commit `a14c0b6d`,
+     deferred from Phase 1.
+  3. Add row to `docs/MANUAL_ACTIONS_TRACKER.md` tracking which
+     locale strings need editorial review (currently all 7 regional
+     locale strings files are AI-drafted, marked needs-review in
+     their headers).
 - **Phase 3a** — Glossary bilingual entries: add `definition_<locale>`
   columns to `glossary_terms`, AI-translate 101 × 7 = 707 entries,
   editorial review per language
@@ -121,23 +139,66 @@ Paste after `/clear`:
 ```
 Read docs/SESSION_HANDOFF.md first.
 
-Continue with i18n Phase 2a:
-  1. Create lib/i18n/strings/gu.ts + kn.ts (Gujarati + Kannada,
-     same key shape as en.ts, AI-drafted first pass)
-  2. Create lib/i18n/t.ts (server-side t(key) accessor)
-  3. Create lib/i18n/client.tsx (<LocaleProvider> + useT() hook)
-  4. Create lib/i18n/format.ts (Intl helpers)
-  5. Wire t() into v2 Navbar — replace "Credit Cards" / "Loans" /
-     "Banking" / "Investing" / "Insurance" / "Taxes" with t() keys.
-     Same for MegaMenu top-level labels.
-  6. Wire t() into Footer column headers + legal links.
-  7. Update LanguageSwitcher to render all 8 locales (or top 4 with
-     overflow). Wire into MobileNav too.
-  8. Verify each /[locale]/credit-cards renders correct nav.
+Continue with i18n Phase 2a (UI chrome translation across 6 ready
+locales — gu + kn deferred to Phase 2b follow-up). Steps in order:
 
-Branch: claude/vibrant-lovelace-875415 (head 45d52558, fully pushed).
+  1. Create lib/i18n/t.ts (server-side t(key) accessor reading
+     getServerLocale() with English fallback chain)
+  2. Create lib/i18n/client.tsx (<LocaleProvider> populated from
+     server locale + useT() client hook)
+  3. Create lib/i18n/format.ts (Intl.NumberFormat + DateTimeFormat
+     — Indian lakh/crore preserved across all locales)
+  4. **Internal-links audit + fix** (CRITICAL): every raw href
+     in Navbar / MegaMenu / Footer must route through
+     localizedPath(basePath, currentLocale). Otherwise a Hindi user
+     clicking "Loans" from /hi/loans jumps back to English /loans.
+     Use stripLocale(usePathname()) to derive currentLocale on the
+     client. Audit:
+       - components/v2/layout/Navbar.tsx       — CTAs + utility links
+       - components/v2/layout/MegaMenu.tsx     — every category +
+                                                 sub-category href
+       - components/layout/Footer.tsx          — column links
+  5. Wire t() into v2 Navbar — replace hardcoded "Credit Cards" /
+     "Loans" / "Banking" / "Investing" / "Insurance" / "Taxes" with
+     t('nav.creditCards') etc. Same for MegaMenu top-level labels.
+  6. Wire t() into Footer column headers + legal links.
+  7. Update LanguageSwitcher to render all 8 locales (currently 2).
+     Wire into MobileNav too. Order: en, hi, bn, mr, te, ta, gu,
+     kn — gu + kn show with `(English fallback)` hint until their
+     strings file lands.
+
+Verification gate (mandatory before commit):
+  - npx tsc --noEmit --skipLibCheck    must be clean
+  - Claude_Preview snapshot of:
+      /credit-cards          — nav reads English
+      /hi/credit-cards       — nav reads Hindi (क्रेडिट कार्ड etc.)
+      /bn/credit-cards       — nav reads Bengali
+      /mr/credit-cards       — nav reads Marathi
+      /te/credit-cards       — nav reads Telugu
+      /ta/credit-cards       — nav reads Tamil
+      /gu/credit-cards       — falls back to English (no strings yet)
+      /kn/credit-cards       — falls back to English (no strings yet)
+  - Click "Loans" in nav from /hi/credit-cards — must land at
+    /hi/loans, NOT /loans (proves internal-links audit worked)
+
+Phase 2b follow-up (separate commit, can be the same session if time):
+  - Create lib/i18n/strings/gu.ts + kn.ts (AI-drafted, with
+    `// TODO: needs native-speaker review` markers — same as the
+    other 5 regional locales already shipped)
+  - Add a row to docs/MANUAL_ACTIONS_TRACKER.md tracking which
+    locale strings need editorial review (currently all 7 regional
+    locales are AI-drafted)
+  - Convert 7 hub `metadata` blocks from static to async
+    `generateMetadata()` so each locale variant self-canonicals
+    (currently all variants share /credit-cards as canonical;
+    flagged in commit a14c0b6d, deferred from Phase 1)
+
+Branch: claude/vibrant-lovelace-875415 (head 27ce77bd → updated
+                                         after this commit, fully
+                                         pushed).
 Worktree: .claude/worktrees/vibrant-lovelace-875415.
-Use skills + MCPs proactively.
+Use skills + MCPs proactively. Use Claude_Preview MCP for the
+verification gate, not curl.
 ```
 
 ---
