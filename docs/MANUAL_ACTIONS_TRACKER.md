@@ -218,6 +218,104 @@
 
 ---
 
+## Future roadmap (user-added 2026-04-25 — NOT this session)
+
+These are strategic bets, not current-session work. Scoped here so they
+don't get lost.
+
+### 1. Real-time financial news → article engine 🟡 HIGH LEVERAGE
+
+**Concept:** Monitor niche news (SEBI/RBI/Budget/Finance Ministry/BSE/NSE/
+major bank announcements/tax notifications). When a relevant event fires,
+auto-generate + auto-publish a detailed article within minutes. Goal: be
+first to rank on "what happened today in Indian finance".
+
+Why it's credible for InvestingPro: most of the infra already exists.
+- Article generator: `lib/automation/article-generator.ts` (multi-LLM failover)
+- Topic pipeline: `scripts/data/topics.json` + `auto-generate-batch.ts`
+- Desk assignment: `lib/data/team.ts` (7 desks, auto-selected by category)
+- Publish path: `articles` table + ISR + sitemap auto-emit
+
+What's missing:
+- **News ingestion** — RSS/scrape feeds: SEBI press releases, RBI circulars,
+  Budget live, Finance Ministry notifications, BSE/NSE announcements,
+  income-tax notifications, major bank PR feeds.
+- **Event classifier** — LLM filter: is this event relevant + which category?
+  (investing/banking/taxes/credit-cards/insurance/loans/learn)
+- **Velocity gate** — publish within N minutes of event detection.
+  Human-in-loop review vs auto-publish: probably auto-publish for
+  regulatory events (factual), human review for speculative ("stocks to
+  watch") — avoids SEBI advisory violations.
+- **Speed-to-rank tactic** — submit immediately to IndexNow (already set
+  up per `app/robots.ts`) + Bing Webmaster ping + social broadcast via
+  Telegram/WhatsApp channels (already configured).
+
+Risk: SEBI Regulation on Research Analysts (RA). Factual news coverage ≠
+research/recommendation, but the line matters. Editorial guardrails
+required before auto-publish on market-moving events.
+
+### 2. Financial calculator / tool expansion
+
+Each is a SEO-pillar-page candidate — dedicated URL + schema + guide.
+
+- **Mutual fund overlap calculator** — upload 2+ MF holdings, show
+  portfolio overlap %, redundancy warnings. High search intent. Public
+  data via AMFI/Value Research scrape or paid API.
+- **Tax regime simulator** — already exists (`/calculators/old-vs-new-tax`).
+  Extend: upload Form 16 + FY outcomes comparison, multi-year projection.
+- **Tax pre-filing draft from uploaded documents** — user uploads Form 16
+  / AIS / 26AS / bank statements; AI extracts + drafts ITR sections.
+  Differentiator vs ClearTax: free + detailed explanation of each field.
+  Privacy-critical — needs ephemeral storage + clear data deletion policy.
+  Likely Vercel Sandbox + OpenAI vision for extraction.
+- **Other gaps to survey:** F&O P&L simulator, CAGR from CAS/capital-gains
+  statement, REIT-vs-direct-property cashflow, SWP longevity, lifecycle
+  portfolio allocation (Boglehead 3-fund India equivalent).
+
+### 3. Multi-language programmatic expansion
+
+NOT just translation of existing pages. Generate original
+language-specific content at build time so each language is SEO-first-
+class (not a `lang=` subdomain afterthought).
+
+- **Priority markets:** Hindi (largest), then Telugu, Tamil, Marathi,
+  Gujarati, Bengali, Kannada, Malayalam, Punjabi.
+- **Architecture:** route group `app/(intl)/[locale]/…` with 1 tree per
+  locale. Article + glossary content generated via LLM with
+  region-specific examples (Mumbai tenant rent ≠ Bengaluru rent). English
+  version stays the default source of truth.
+- **Rollout phase:** Hindi first — `hi-IN` locale, ~50 pillar articles
+  translated + localized. Schema `inLanguage`, hreflang tags, dedicated
+  `/hi/sitemap.xml`. NerdWallet doesn't do this — meaningful moat.
+
+### 4. Dark theme polish
+
+Infrastructure already exists (next-themes, CSS vars, `.dark` class,
+light-first default). What's missing:
+- Audit every v3 listing/detail page for dark-mode token usage (some
+  still have hardcoded `bg-white` / `text-gray-900` instead of
+  `bg-background` / `text-foreground`)
+- Verify charts in calculators render legibly on dark canvas
+- Verify images — featured images don't have white edges that look
+  broken on dark surface
+- Add theme toggle to navbar (was deferred in earlier session — see
+  memory "Future Navbar Features")
+
+### 5. PWA / mobile optimization
+
+- **PWA manifest** — already exists at `public/manifest.json` with old
+  gradient icons. Regenerate with v3 ink+gold monogram.
+- **Install prompt** — show a dismissible "Install InvestingPro" strip
+  on mobile, bottom-right, respects `beforeinstallprompt` event.
+- **Link from Footer** — "Install App" column entry in the footer (user
+  called this out specifically).
+- **Offline read** — service worker caches the last 10 articles the user
+  viewed for offline read. Low lift, high retention signal.
+- **iOS Add to Home Screen** polish — apple-touch-icon, manifest.json
+  name + short_name, status bar color match v3 ink.
+
+---
+
 ## Notes
 
 - When a manual action completes, mark `[x]` inline + add date.
