@@ -259,15 +259,38 @@ every public route passing the same lighthouse + visual-regression bar.
 
 ### Priority 1 — Multi-language (after redesign sweep)
 
-Reason for the ordering: the user's WhatsApp/Telegram distribution
-audience reads + learns better in regional languages. Translating
-inconsistent pages doubles the design-debt; redesign first, then
-localize from the polished source.
+**Platform positioning to keep in mind across all priorities:** we are
+building a *better-than-NerdWallet* product for India, not a clone.
+Every redesign + language choice is judged against "would this beat
+NerdWallet on the same page" not "does this match NerdWallet".
 
-Approach is unchanged from earlier — original locale-specific content
-generated at build time, not translated at runtime. Hindi first, then
-Telugu/Tamil/Marathi/Gujarati/Bengali. See "Multi-language programmatic
-expansion" further below for the architecture sketch.
+**Language strategy — English is the default and canonical, regional
+languages are *additive*:**
+
+- English stays at root URLs (`/credit-cards`, `/articles/foo`, etc.)
+  and remains the canonical URL for SEO. International audience,
+  educated urban India, and global crawlers all land here first.
+- Regional languages live at locale-prefixed paths (`/hi/credit-cards`,
+  `/te/articles/foo`, …). They emit `hreflang` back to the English
+  canonical and to each other so Google understands the relationship.
+- The goal of regional content is **outreach + reach + SEO growth**:
+  - Outreach: the user's WhatsApp/Telegram distribution audience prefers
+    reading + learning in their own language.
+  - Reach: regional language searches in India are 2–3× English search
+    volume per Google's own India index data, and growing.
+  - SEO: regional pages capture long-tail queries English pages can't,
+    and don't cannibalize the English ranking because hreflang
+    deduplicates.
+- Original locale-specific content generated at build time (real
+  examples in regional context — Mumbai rent ≠ Bengaluru rent ≠
+  Hyderabad rent), not runtime translation. Translation alone is a
+  weak SEO signal; localized content wins.
+- Rollout: Hindi first (~50 pillar articles), then Telugu / Tamil /
+  Marathi / Gujarati / Bengali based on traffic-mix data. Add a locale
+  switcher to navbar (already on the future-navbar memory).
+
+See "Multi-language programmatic expansion" further below for the
+route-group architecture sketch (`app/(intl)/[locale]/…`).
 
 ### Priority 2 — Per the rest of the future roadmap below
 
