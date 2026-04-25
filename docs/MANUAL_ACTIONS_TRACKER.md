@@ -96,8 +96,9 @@
 - [ ] 🟡 Run full SEO audit — invoke `claude-seo:seo-audit` on the live URL post-deploy; delegates to 9 specialists (technical/content/schema/images/links/performance/E-E-A-T + GEO + local). Produces a health score.
 - [ ] 🟡 Add FAQ blocks to 6 category hubs (`/credit-cards`, `/loans`, `/banking`, `/investing`, `/insurance`, `/taxes`) — 134-167 word self-contained Q&A blocks following "What is X?" pattern. Highest GEO impact gap remaining.
 - [ ] 🟡 Add Person/Desk byline JSON-LD + visible "Reviewed by" line on every glossary term and category hub. `lib/data/team.ts` has 7 desks; just wire into JSX.
-- [ ] 🔴 Google Search Console — connect + submit sitemap (https://search.google.com/search-console). **Gated on Phase 3a canonical flip completing** — indexing `/articles/` while `/[cat]/learn/` is canonical causes duplicate-content hits.
-- [ ] 🟡 Request manual indexing on top 10 articles once Phase 3a ships.
+- [ ] 🔴 Google Search Console — connect + submit sitemap (https://search.google.com/search-console). **UNBLOCKED 2026-04-25** — Phase 3a canonical flip shipped on this branch. Sitemap now emits 212 nested + 16 cross-cutting flat URLs (no overlap, single canonical per article).
+- [ ] 🔴 Bing Webmaster Tools — submit sitemap once Phase 3a deploys to prod.
+- [ ] 🟡 Request manual indexing on top 10 articles once Phase 3a deploys.
 
 ### Brand-mention surface (3x stronger AI-citation correlation than backlinks per Ahrefs Dec 2025)
 - [ ] 🔴 Wikipedia — submit a draft entry for InvestingPro (eligible if there's enough independent press coverage)
@@ -149,28 +150,33 @@
 
 ---
 
-## Phase 3 — Canonical flip + redirects
+## Phase 3a — Canonical flip + redirects ✅ SHIPPED 2026-04-25
 
-- [ ] 🔴 Decide: keep `/articles/[slug]` → redirect OR leave as canonical
-  → NerdWallet uses `/[cat]/learn/[slug]` as canonical; we'd redirect `/articles/` → new URL
-  → Risk: any existing external backlinks break (mitigated by 301)
-- [ ] 🟡 Review + approve `next.config.ts` redirect block before deploy
-  → Will contain ~200 route redirects (every product detail, article, calc, best-of, compare page)
-- [ ] 🟡 Update internal link generators
-  → `lib/linking/engine.ts` (auto-links within article content)
-  → `lib/glossary/link-generation.ts` (glossary auto-link)
-  → `components/layout/Footer.tsx` — 70+ SEO links
-  → `components/layout/Navbar.tsx` + mega-menu
-  → Requires one-time find/replace pass
+- [x] **Decision:** `/[cat]/learn/[slug]` is canonical for categorized articles (228 articles). `/articles/[slug]` 308s when category maps to a real URL category; cross-cutting personal-finance content keeps `/articles/[slug]` as canonical.
+- [x] 5-commit Phase 3a series shipped on `claude/vibrant-lovelace-875415`:
+  1. `refactor(articles): extract FullArticleView shared Server Component`
+  2. `feat(phase3a): /[cat]/learn/[slug] renders article content (was 308)`
+  3. `feat(phase3a): /articles/[slug] -> /[cat]/learn/[slug] 308`
+  4. `feat(phase3a): emit nested article URLs from sitemap`
+  5. `refactor(linking): internal article links prefer nested URLs`
+- [x] Internal linkers updated — 13 user-facing files + 2 SEO routes (sitemap.xml + news-sitemap.xml + feed.xml + Footer hardcoded link). Helper `lib/routing/article-url.ts :: articleUrl()` is the single source.
+- [x] Verified end-to-end on dev: 1-hop redirect chain, no loops, cross-category 404s, preview mode bypassed, canonical link points to nested.
+- [ ] 🟡 Followups (out of scope for Phase 3a — 308 catches them):
+  - `lib/automation/article-generator.ts` writes `/articles/<slug>` into article HTML stored in DB. Long-term: regenerate via `articleUrl()` helper. Until then, those internal links 308 once.
+  - `lib/seo/advanced-seo-optimizer.ts` internal-link suggestions
+  - `app/glossary/[slug]/page.tsx` related_guides (slug-only, would need extra DB lookup)
+  - `app/api/conduit-webhook/route.ts` `revalidatePath('/articles/...')` calls — still work, just suboptimal
+  - admin/preview internal nav (admins hit redirect, fine)
 
 ---
 
-## Phase 4 — Sitemap + GSC submission
+## Phase 4 — Sitemap + GSC submission (UNBLOCKED 2026-04-25)
 
 - [ ] 🔴 Submit sitemap to Google Search Console
-  → **Gate: do NOT submit until Phase 3 complete** — indexing disconnected v1/v2 pages hurts ranking more than delay
+  → **Phase 3a shipped** — gate is now: this branch must be merged + deployed to prod before submitting.
   → URL: https://search.google.com/search-console
   → Submit `https://www.investingpro.in/sitemap.xml`
+  → Sitemap currently emits 1,819 URLs total: 212 nested article URLs (`/<cat>/learn/<slug>`), 16 cross-cutting flat (`/articles/<slug>`), 72 calculators, 101 glossary terms, ~1,400 product/category/comparison pages.
 - [ ] 🔴 Submit sitemap to Bing Webmaster Tools
   → URL: https://www.bing.com/webmasters
 - [ ] 🟡 Request manual indexing for top 10 money articles
