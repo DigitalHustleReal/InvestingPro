@@ -1,46 +1,23 @@
 /**
- * Article Detail Page — ISR Server Component
+ * Article Detail Page — ISR Server Component (legacy flat URL)
  *
  * Architecture:
  *   - Server component with ISR (revalidate every hour)
  *   - generateStaticParams: pre-builds top 100 articles at deploy time
  *   - generateMetadata: full SEO tags server-side
  *   - Preview mode: handled via searchParams (no "use client" needed)
- *   - Interactive islands: client components for bookmark, share, progress
+ *   - Render: delegates to <FullArticleView/> shared Server Component.
+ *     The same component is used by /[category]/learn/[slug] (Phase 3a target).
  */
 
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import { createServiceClient } from "@/lib/supabase/service";
-import ArticleRenderer from "@/components/articles/ArticleRenderer";
-import RelatedArticles from "@/components/articles/RelatedArticles";
-import { AuthorBadge } from "@/components/articles/AuthorBadge";
-import { DeskByline } from "@/components/articles/DeskByline";
-import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
-import TopPicksSidebar from "@/components/products/TopPicksSidebar";
-// ContextualProducts removed — sidebar handles product recommendations
-// SeamlessCTA and LeadMagnet removed — cluttered bottom section
-// Badge replaced with inline monospace spans
-import { Calendar, Clock } from "lucide-react";
-import AutoBreadcrumbs from "@/components/common/AutoBreadcrumbs";
-// generateSchema removed — using inline NewsArticle schema for Google News
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
-import { formatSlug } from "@/lib/utils";
-import { generateBreadcrumbSchema } from "@/lib/linking/breadcrumbs";
-import SidebarTableOfContents from "@/components/articles/SidebarTableOfContents";
-import SidebarCalculatorCTA from "@/components/articles/SidebarCalculatorCTA";
-import AISummaryBox from "@/components/articles/AISummaryBox";
-import TableEnhancer from "@/components/articles/TableEnhancer";
-import LiveRatesHydrator from "@/components/articles/LiveRateBadge";
-import { ArticleClientShell } from "./ArticleClientShell";
-import ArticleFeedback from "@/components/articles/ArticleFeedback";
-import ArticleSources from "@/components/articles/ArticleSources";
-import ArticleNewsletterInline from "@/components/articles/ArticleNewsletterInline";
-import EmbeddedCalculator from "@/components/articles/EmbeddedCalculator";
-import "./article-content.css";
+import FullArticleView, {
+  type FullArticle,
+} from "@/components/articles/FullArticleView";
+import type { BreadcrumbItem } from "@/lib/linking/breadcrumbs";
 
 export const revalidate = 3600; // Revalidate every hour
 export const dynamicParams = true; // Allow ISR for slugs not in generateStaticParams
@@ -61,7 +38,10 @@ export async function generateStaticParams() {
   }
 }
 
-async function getArticle(slug: string, isPreview: boolean) {
+async function getArticle(
+  slug: string,
+  isPreview: boolean,
+): Promise<FullArticle | null> {
   // Always use service client to bypass RLS — we filter by status ourselves
   const supabase = createServiceClient();
 
@@ -84,10 +64,10 @@ async function getArticle(slug: string, isPreview: boolean) {
       .eq("slug", slug)
       .eq("status", "published")
       .single();
-    return simple ?? null;
+    return (simple as FullArticle | null) ?? null;
   }
 
-  return data;
+  return data as FullArticle;
 }
 
 export async function generateMetadata({
@@ -102,19 +82,21 @@ export async function generateMetadata({
   const canonical = generateCanonicalUrl(`/articles/${article.slug}`);
 
   return {
-    title: (article.seo_title || article.title).replace(
-      /\s*\|\s*InvestingPro\s*$/i,
-      "",
-    ),
-    description: article.seo_description || article.excerpt,
+    title: (
+      (article as { seo_title?: string }).seo_title || article.title
+    ).replace(/\s*\|\s*InvestingPro\s*$/i, ""),
+    description:
+      (article as { seo_description?: string }).seo_description ||
+      article.excerpt ||
+      undefined,
     alternates: { canonical },
     openGraph: {
       title: article.title,
-      description: article.excerpt,
+      description: article.excerpt || undefined,
       url: canonical,
       type: "article",
-      publishedTime: article.published_at,
-      modifiedTime: article.updated_at,
+      publishedTime: article.published_at || undefined,
+      modifiedTime: article.updated_at || undefined,
       images: article.featured_image
         ? [{ url: article.featured_image, width: 1200, height: 630 }]
         : [],
@@ -122,7 +104,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: article.title,
-      description: article.excerpt,
+      description: article.excerpt || undefined,
       images: article.featured_image ? [article.featured_image] : [],
     },
   };
@@ -157,265 +139,20 @@ export default async function ArticlePage({
     }
   }
 
-  const breadcrumbs = [
+  const breadcrumbs: BreadcrumbItem[] = [
     { label: "Home", url: "/" },
     { label: "Articles", url: "/articles" },
     { label: article.title, url: `/articles/${article.slug}` },
   ];
 
   const canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://investingpro.in";
-
-  // NewsArticle schema for Google News eligibility
-  const newsArticleSchema = {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    headline: article.title,
-    description: article.excerpt || article.meta_description || "",
-    image: article.featured_image ? [article.featured_image] : [],
-    datePublished: article.published_at,
-    dateModified: article.updated_at || article.published_at,
-    author: {
-      "@type": "Organization",
-      name: "InvestingPro",
-      url: baseUrl,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "InvestingPro",
-      url: baseUrl,
-      logo: {
-        "@type": "ImageObject",
-        url: `${baseUrl}/logo.png`,
-      },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": canonicalUrl,
-    },
-    articleSection: article.category || "Finance",
-    keywords: (article.tags || []).join(", "),
-    wordCount: article.reading_time ? article.reading_time * 250 : undefined,
-    isAccessibleForFree: true,
-  };
-
-  const structuredData =
-    article.schema_markup?.articleSchema ?? newsArticleSchema;
-  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
-  const faqSchema = article.schema_markup?.faqSchema;
-
-  const schemas = [structuredData, breadcrumbSchema, faqSchema].filter(Boolean);
 
   return (
-    <>
-      {/* Structured data */}
-      {schemas.map((s, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
-        />
-      ))}
-
-      <div className="min-h-screen bg-background relative">
-        {/* Preview banner */}
-        {isPreview && article.status !== "published" && (
-          <div className="bg-amber-50 border-b border-amber-200 px-4 py-2.5 text-center">
-            <p className="text-sm font-semibold text-amber-800">
-              PREVIEW MODE — Status: {article.status}
-              {article.id && (
-                <a
-                  href={`/admin/articles/${article.id}/edit`}
-                  className="ml-3 underline hover:text-indian-gold"
-                >
-                  Edit Article ✏️
-                </a>
-              )}
-            </p>
-          </div>
-        )}
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <AutoBreadcrumbs />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6">
-            {/* ── Main Content ─────────────────────────────────── */}
-            <article className="lg:col-span-8 min-w-0">
-              {/* Category badge */}
-              <div className="flex flex-wrap items-center gap-3 mb-4">
-                <span className="text-xs font-semibold uppercase tracking-wider text-action-green bg-green-50 px-2.5 py-1 rounded-md">
-                  {formatSlug(article.category || "")}
-                </span>
-              </div>
-
-              {/* Title */}
-              <h1 className="font-display font-black text-[32px] sm:text-[40px] lg:text-[52px] text-ink dark:text-white mb-5 leading-[1.05] tracking-tight">
-                {article.title}
-              </h1>
-
-              {/* Meta row — author + actions on one line, date/time below */}
-              <div className="mb-8 pb-8 border-b border-gray-200 space-y-4">
-                <div className="flex items-center justify-between">
-                  <AuthorBadge
-                    name={
-                      article.author?.name ||
-                      article.author_name ||
-                      "InvestingPro Team"
-                    }
-                    role={article.author?.role || article.author_role}
-                    avatarUrl={
-                      article.author?.photo_url || article.author_avatar
-                    }
-                    slug={article.author?.slug}
-                    bio={article.author?.bio}
-                    credentials={article.author?.credentials}
-                    size="md"
-                    showRole
-                  />
-                  {/* Bookmark + Share inline with author */}
-                  <ArticleClientShell
-                    articleId={article.id}
-                    articleTitle={article.title}
-                  />
-                </div>
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-ink-60">
-                  <span className="flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {article.updated_at &&
-                    article.published_at &&
-                    article.updated_at.slice(0, 10) !==
-                      article.published_at.slice(0, 10)
-                      ? `Updated ${new Date(article.updated_at).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}`
-                      : `Published ${new Date(article.published_at || article.published_date || article.updated_at).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}`}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" />
-                    {article.read_time || "5"} min read
-                  </span>
-                </div>
-
-                {/* Desk byline — auto-selects the right specialist desk from the article category.
-                    Shown for all articles; complements AuthorBadge above. */}
-                <DeskByline
-                  category={article.category}
-                  updatedAt={article.updated_at || article.published_at}
-                />
-              </div>
-
-              {/* Featured image — shown immediately after meta, like NerdWallet */}
-              {article.featured_image && (
-                <div className="relative aspect-video w-full mb-8 overflow-hidden rounded-xl border border-gray-200">
-                  <Image
-                    src={article.featured_image}
-                    alt={article.title}
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 768px) 100vw, 800px"
-                  />
-                </div>
-              )}
-
-              {/* AI Summary Box — collapsible quick read */}
-              <AISummaryBox
-                excerpt={article.excerpt}
-                category={article.category}
-                readTime={article.read_time || article.reading_time}
-              />
-
-              {/* Advertiser disclosure */}
-              <AdvertiserDisclosure className="mb-8" />
-
-              {/* Article body */}
-              <div id="article-content" className="prose-article">
-                <ArticleRenderer
-                  body_html={article.body_html}
-                  body_markdown={article.body_markdown}
-                  content={article.content}
-                />
-                {/* Hydrate tables with sorting + scroll + live rates */}
-                <TableEnhancer />
-                <LiveRatesHydrator />
-
-                {article.category && (
-                  <EmbeddedCalculator category={article.category} />
-                )}
-              </div>
-
-              {/* Newsletter capture — inline at article end */}
-              <ArticleNewsletterInline
-                category={article.category || ""}
-                articleSlug={article.slug}
-              />
-
-              {/* Feedback */}
-              <ArticleFeedback articleId={article.id} />
-
-              {/* Article Sources — expandable citations for E-E-A-T */}
-              <ArticleSources category={article.category || ""} />
-
-              {/* Tags */}
-              {article.tags?.length > 0 && (
-                <div className="mt-10 pt-6 border-t border-gray-200">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-semibold text-ink-60 uppercase tracking-wider mr-2">
-                      Tags
-                    </span>
-                    {article.tags.map((tag: string) => (
-                      <Link key={tag} href={`/tag/${tag}`}>
-                        <span className="text-xs px-3 py-1.5 bg-gray-100 text-ink-60 rounded-lg hover:bg-green-50 hover:text-authority-green transition-colors cursor-pointer">
-                          {tag}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Related articles */}
-              <div className="mt-10">
-                <Suspense fallback={null}>
-                  <RelatedArticles articleId={article.id} />
-                </Suspense>
-              </div>
-
-              {/* Prev / next nav */}
-              <div className="mt-8 pt-6 border-t border-gray-200 flex justify-between gap-4">
-                <Link
-                  href="/articles"
-                  className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
-                >
-                  ← All Articles
-                </Link>
-                {article.category && (
-                  <Link
-                    href={`/category/${article.category}`}
-                    className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors capitalize"
-                  >
-                    More in {formatSlug(article.category)} →
-                  </Link>
-                )}
-              </div>
-            </article>
-
-            {/* ── Sidebar ──────────────────────────────────────── */}
-            <aside className="lg:col-span-4 hidden lg:block">
-              <div className="sticky top-24 space-y-5 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-none">
-                {/* Table of Contents — scroll spy, highlights active */}
-                <SidebarTableOfContents />
-
-                {/* Calculator CTA — contextual per category */}
-                <SidebarCalculatorCTA category={article.category} />
-
-                {/* Top product picks for this category */}
-                <Suspense fallback={null}>
-                  <TopPicksSidebar category={article.category} />
-                </Suspense>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </div>
-    </>
+    <FullArticleView
+      article={article}
+      canonicalUrl={canonicalUrl}
+      breadcrumbs={breadcrumbs}
+      isPreview={isPreview}
+    />
   );
 }
