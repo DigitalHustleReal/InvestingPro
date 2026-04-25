@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useSearch } from "@/components/search/SearchProvider";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import MegaMenu from "./MegaMenu";
 
 interface NavCategory {
@@ -89,6 +90,11 @@ export default function Navbar() {
 
             {/* Right side */}
             <div className="flex items-center gap-3">
+              {/* Language switcher — desktop only */}
+              <div className="hidden lg:block">
+                <LanguageSwitcher />
+              </div>
+
               {/* Search icon */}
               <button
                 onClick={openSearch}

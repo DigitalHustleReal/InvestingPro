@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { hreflangAlternates } from "@/lib/i18n/url";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -44,7 +45,10 @@ export const metadata: Metadata = {
   title: "Investing in India 2026 — Mutual Funds, Stocks, PPF, NPS Compared",
   description:
     "Independent research on mutual funds, stocks, ELSS, PPF, NPS, and gold. Live NIFTY data, asset-class returns, free calculators, no commission. From the InvestingPro Investment Desk.",
-  alternates: { canonical: generateCanonicalUrl("/investing") },
+  alternates: {
+    canonical: generateCanonicalUrl("/investing"),
+    languages: hreflangAlternates("/investing"),
+  },
   openGraph: {
     title: "Investing in India — InvestingPro",
     description:

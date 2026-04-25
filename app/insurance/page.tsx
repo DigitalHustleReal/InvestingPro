@@ -25,6 +25,7 @@ import ContextualTicker from "@/components/common/ContextualTicker";
 import { getInsuranceServer } from "@/lib/products/get-insurance-server";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { hreflangAlternates } from "@/lib/i18n/url";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -38,7 +39,10 @@ export const metadata: Metadata = {
   title: "Best Insurance Plans in India 2026 — Compare & Buy",
   description:
     "Compare term life, health, car, and travel insurance from every major Indian insurer. We track IRDAI claim settlement ratios — independent ratings, no paid placements.",
-  alternates: { canonical: generateCanonicalUrl("/insurance") },
+  alternates: {
+    canonical: generateCanonicalUrl("/insurance"),
+    languages: hreflangAlternates("/insurance"),
+  },
   openGraph: {
     title: "Best Insurance Plans in India 2026",
     description:

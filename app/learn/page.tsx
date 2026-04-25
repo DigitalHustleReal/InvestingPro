@@ -20,6 +20,7 @@ import Image from "next/image";
 import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { hreflangAlternates } from "@/lib/i18n/url";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -33,7 +34,10 @@ export const metadata: Metadata = {
   title: "Personal Finance Basics — Learn the Money Skills",
   description:
     "Plain-English personal finance for India. Budgeting, debt, goals, retirement, behavioural traps. From the InvestingPro Editorial Team.",
-  alternates: { canonical: generateCanonicalUrl("/learn") },
+  alternates: {
+    canonical: generateCanonicalUrl("/learn"),
+    languages: hreflangAlternates("/learn"),
+  },
   openGraph: {
     title: "Personal Finance Basics — Learn the Money Skills",
     description:

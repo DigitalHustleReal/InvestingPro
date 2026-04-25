@@ -55,6 +55,8 @@ import { NavigationProvider } from "@/contexts/NavigationContext";
 import { initializeEventSystem } from "@/lib/events/setup";
 import { initializeLogging } from "@/lib/logging/initialize";
 import { validateEnvOnStartup } from "@/lib/env";
+import { getServerLocale } from "@/lib/i18n/server";
+import { LOCALE_META } from "@/lib/i18n/config";
 import type { Metadata } from "next";
 // Tracing is disabled - file exists as .disabled
 // import { initializeTracing } from "@/lib/tracing/opentelemetry";
@@ -141,8 +143,19 @@ export default async function RootLayout({
   // Navigation is now handled by v2 Navbar component directly
   // const navConfig = await getNavigation();
 
+  // Locale-aware <html lang>. Locale comes from the `x-locale` header
+  // set by middleware.ts when a /hi/* (or other non-default) URL is
+  // rewritten internally.
+  //
+  // hreflang link tags are NOT emitted here — they come from each
+  // page's `metadata.alternates.languages` via hreflangAlternates()
+  // in lib/i18n/url.ts. That keeps locale URLs in one place per page
+  // and avoids the duplicate-emission trap.
+  const locale = await getServerLocale();
+  const htmlLang = LOCALE_META[locale].htmlLang;
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

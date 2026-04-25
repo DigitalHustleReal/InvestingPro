@@ -23,6 +23,7 @@ import WeeklyChanges from "@/components/common/WeeklyChanges";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { getSavingsAccountsServer } from "@/lib/products/get-savings-accounts-server";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { hreflangAlternates } from "@/lib/i18n/url";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -36,7 +37,10 @@ export const metadata: Metadata = {
   title: "Best Banking Products in India 2026 — Savings, FDs, RDs",
   description:
     "Compare savings account interest rates, fixed deposit rates, and recurring deposits from every major Indian bank and small finance bank. DICGC-insured up to ₹5L.",
-  alternates: { canonical: generateCanonicalUrl("/banking") },
+  alternates: {
+    canonical: generateCanonicalUrl("/banking"),
+    languages: hreflangAlternates("/banking"),
+  },
   openGraph: {
     title: "Best Banking Products in India 2026",
     description:

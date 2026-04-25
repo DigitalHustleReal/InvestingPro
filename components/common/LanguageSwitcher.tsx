@@ -2,101 +2,99 @@
 
 import * as React from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Globe, Check } from "lucide-react";
+import { Globe } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/Button";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
+  DEFAULT_LOCALE,
+  LOCALES,
+  LOCALE_META,
+  type Locale,
+} from "@/lib/i18n/config";
+import { localizedPath, stripLocale } from "@/lib/i18n/url";
 
-const LANGUAGES = [
-    { code: 'en', name: 'English', label: 'EN' },
-    { code: 'hi', name: 'Hindi (हिंदी)', label: 'HI' },
-    { code: 'te', name: 'Telugu (తెలుగు)', label: 'TE' },
-    { code: 'mr', name: 'Marathi (मराठी)', label: 'MR' },
-    { code: 'ta', name: 'Tamil (தமிழ்)', label: 'TA' },
-    { code: 'bn', name: 'Bengali (বাংলা)', label: 'BN' },
-    { code: 'gu', name: 'Gujarati (ગુજરાતી)', label: 'GU' },
-];
+/**
+ * Language switcher — wired to the locked i18n architecture
+ * (lib/i18n/config + lib/i18n/url). Reads the current locale from
+ * the URL prefix; on change, navigates to the equivalent path under
+ * the chosen locale (default locale = root, others prefixed).
+ *
+ * Behaviour:
+ *   /credit-cards  → switching to Hindi → /hi/credit-cards
+ *   /hi/articles/foo → switching to English → /articles/foo
+ *
+ * No alerts, no hardcoded behaviour, no special-casing of articles —
+ * it just rewrites the path through the canonical helpers.
+ */
+export default function LanguageSwitcher({
+  isMobile = false,
+}: {
+  isMobile?: boolean;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
 
-export default function LanguageSwitcher({ isMobile = false }: { isMobile?: boolean }) {
-    const router = useRouter();
-    const pathname = usePathname();
-    const [currentLang, setCurrentLang] = React.useState('en');
+  const currentLocale: Locale = React.useMemo(() => {
+    if (!pathname) return DEFAULT_LOCALE;
+    return stripLocale(pathname).locale;
+  }, [pathname]);
 
-    // Detect language from URL
-    React.useEffect(() => {
-        if (!pathname) return;
-        
-        const found = LANGUAGES.find(l => 
-            l.code !== 'en' && (pathname.endsWith(`-${l.code}`) || pathname.includes(`/${l.code}/`))
-        );
-        
-        if (found) setCurrentLang(found.code);
-        else setCurrentLang('en');
-    }, [pathname]);
+  const handleChange = (next: string) => {
+    if (!pathname || next === currentLocale) return;
+    const { basePath } = stripLocale(pathname);
+    const target = localizedPath(basePath, next as Locale);
+    router.push(target);
+  };
 
-    const handleLanguageChange = (langCode: string) => {
-        if (langCode === currentLang) return;
-        
-        let newPath = pathname;
-        // Is this an article page? (Very basic check)
-        const isArticle = pathname.startsWith('/articles/') || pathname.startsWith('/article/');
-
-        if (isArticle) {
-            if (currentLang !== 'en') {
-                newPath = newPath.replace(new RegExp(`-${currentLang}$`), '');
-            }
-            if (langCode !== 'en') {
-                newPath = `${newPath}-${langCode}`;
-            }
-            router.push(newPath);
-        } else {
-            if (langCode !== 'en') {
-                // For demo purposes, we alert if not on an article
-                // Ideally this would go to /te/home
-                alert("Translation is currently active for Articles pages.");
-            } else {
-                router.push('/');
-            }
-        }
-    };
-
-    if (isMobile) {
-        return (
-            <div className="grid grid-cols-2 gap-2">
-                {LANGUAGES.map((lang) => (
-                    <Button
-                        key={lang.code}
-                        variant={currentLang === lang.code ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => handleLanguageChange(lang.code)}
-                        className="w-full justify-start text-xs"
-                    >
-                        {lang.name}
-                        {currentLang === lang.code && <Check className="ml-auto w-3 h-3" />}
-                    </Button>
-                ))}
-            </div>
-        );
-    }
-
+  if (isMobile) {
     return (
-        <Select value={currentLang} onValueChange={handleLanguageChange}>
-            <SelectTrigger className="w-[110px] h-9 text-xs font-medium border-gray-200 bg-transparent hover:bg-gray-50 focus:ring-0">
-                <Globe className="w-3 h-3 mr-2 opacity-50" />
-                <SelectValue placeholder="Language" />
-            </SelectTrigger>
-            <SelectContent align="end">
-                {LANGUAGES.map((lang) => (
-                    <SelectItem key={lang.code} value={lang.code} className="text-xs">
-                        {lang.name}
-                    </SelectItem>
-                ))}
-            </SelectContent>
-        </Select>
+      <div className="grid grid-cols-2 gap-2">
+        {LOCALES.map((code) => {
+          const meta = LOCALE_META[code];
+          const active = currentLocale === code;
+          return (
+            <Button
+              key={code}
+              variant={active ? "default" : "outline"}
+              size="sm"
+              onClick={() => handleChange(code)}
+              className="w-full justify-start text-xs"
+            >
+              <span className="font-mono mr-2 opacity-70">{meta.label}</span>
+              {meta.native}
+            </Button>
+          );
+        })}
+      </div>
     );
+  }
+
+  return (
+    <Select value={currentLocale} onValueChange={handleChange}>
+      <SelectTrigger
+        aria-label="Language"
+        className="w-[120px] h-9 text-xs font-mono uppercase tracking-wider border-ink-12 bg-transparent hover:border-indian-gold focus:ring-0"
+      >
+        <Globe className="w-3 h-3 mr-2 opacity-50" />
+        <SelectValue placeholder="Language" />
+      </SelectTrigger>
+      <SelectContent align="end">
+        {LOCALES.map((code) => {
+          const meta = LOCALE_META[code];
+          return (
+            <SelectItem key={code} value={code} className="text-xs">
+              <span className="font-mono mr-2 opacity-60">{meta.label}</span>
+              {meta.native}
+            </SelectItem>
+          );
+        })}
+      </SelectContent>
+    </Select>
+  );
 }

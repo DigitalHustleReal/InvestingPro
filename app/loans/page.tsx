@@ -24,6 +24,7 @@ import CIBILSimulator from "@/components/tools/CIBILSimulator";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { hreflangAlternates } from "@/lib/i18n/url";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -37,7 +38,10 @@ export const metadata: Metadata = {
   title: "Best Loans in India 2026 — Compare Rates & Apply",
   description:
     "Compare personal, home, car, education, gold, and business loans from every major Indian bank and NBFC. Independent ratings — no paid placements.",
-  alternates: { canonical: generateCanonicalUrl("/loans") },
+  alternates: {
+    canonical: generateCanonicalUrl("/loans"),
+    languages: hreflangAlternates("/loans"),
+  },
   openGraph: {
     title: "Best Loans in India 2026",
     description:

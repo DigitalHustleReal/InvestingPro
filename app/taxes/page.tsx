@@ -15,6 +15,7 @@ import Image from "next/image";
 import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { hreflangAlternates } from "@/lib/i18n/url";
 import CategoryFAQ from "@/components/routing/CategoryFAQ";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import {
@@ -53,7 +54,10 @@ export const metadata: Metadata = {
   title: "Indian Tax Planning 2026 — ITR, 80C, HRA, Capital Gains Explained",
   description:
     "Complete Indian tax resource: old vs new regime calculator, Section 80C + 80D deductions, HRA exemption, LTCG on mutual funds, ITR filing guide. Worked examples for every salary bracket.",
-  alternates: { canonical: generateCanonicalUrl("/taxes") },
+  alternates: {
+    canonical: generateCanonicalUrl("/taxes"),
+    languages: hreflangAlternates("/taxes"),
+  },
   openGraph: {
     title: "Indian Tax Planning — ITR, 80C, HRA, LTCG",
     description:

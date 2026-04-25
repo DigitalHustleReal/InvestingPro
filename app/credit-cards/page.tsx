@@ -35,6 +35,7 @@ import { logger } from "@/lib/logger";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import RatingExplainer from "@/components/products/RatingExplainer";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { hreflangAlternates } from "@/lib/i18n/url";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -47,7 +48,10 @@ export const metadata: Metadata = {
   title: "Best Credit Cards in India 2026 — Compare & Apply",
   description:
     "Compare credit cards from every major Indian bank. Filter by rewards, cashback, travel, fee, and CIBIL score. Independent ratings — no paid placements.",
-  alternates: { canonical: generateCanonicalUrl("/credit-cards") },
+  alternates: {
+    canonical: generateCanonicalUrl("/credit-cards"),
+    languages: hreflangAlternates("/credit-cards"),
+  },
   openGraph: {
     title: "Best Credit Cards in India 2026",
     description:
