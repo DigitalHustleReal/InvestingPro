@@ -448,7 +448,7 @@ export default function CreditCardsClient({
               {viewMode === "table" ? (
                 <CreditCardTable cards={displayedAssets} />
               ) : (
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <div className="flex flex-col gap-5">
                   {displayedAssets.map((product) => (
                     <RichProductCard
                       key={product.id}
@@ -457,6 +457,7 @@ export default function CreditCardsClient({
                       scoreBreakdown={product.scoreBreakdown}
                       rawScore={product.rawScore}
                       isScored={true}
+                      layout="list"
                     />
                   ))}
                 </div>

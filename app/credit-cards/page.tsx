@@ -5,15 +5,18 @@
  * better product list + Indian-context credibility signals.
  *
  * What this page does that NerdWallet doesn't:
- *   - Live card-stats strip (81 cards / 24 lifetime free / avg ₹2,733
- *     annual fee / max reward rate) computed from our own DB on every
- *     ISR rebuild — no other Indian site shows their own aggregate
- *     transparency this way.
  *   - Persona-led routing (First card / Cashback / Travel / Premium)
  *     deeplinking to the find-your-card quiz with the intent preset.
  *   - Editorial Credit Team byline + Organization JSON-LD on the hub.
  *   - WeeklyChanges editorial ticker — what changed in the card market
  *     this week.
+ *   - ContextualTicker — live category-aware data strip at the top.
+ *
+ * NOT here (per locked architectural principle, 2026-04-25 PM):
+ *   - Platform stats ("X cards tracked", "Y banks") — those are admin
+ *     dashboard concerns, not user-facing. Counts on a public page
+ *     read as platform-bragging, not user value. /llms.txt + admin
+ *     dashboard hold the inventory; this page tells users what to do.
  *
  * Tokens — strict v3. Surfaces: surface-ink (hero/credibility),
  * bg-canvas (browse + tools), border-ink-12 (cards), indian-gold
@@ -25,7 +28,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
 import { getCreditCardsServer } from "@/lib/products/get-credit-cards-server";
-import { createServiceClient } from "@/lib/supabase/service";
 import CreditCardsClient from "./CreditCardsClient";
 import WeeklyChanges from "@/components/common/WeeklyChanges";
 import ContextualTicker from "@/components/common/ContextualTicker";
@@ -42,67 +44,18 @@ import CategoryFAQ from "@/components/routing/CategoryFAQ";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Best Credit Cards in India 2026 — Compare 81 Cards from 12 Banks",
+  title: "Best Credit Cards in India 2026 — Compare & Apply",
   description:
-    "Compare 81 credit cards from every major Indian bank — 24 lifetime free, average ₹2,733 annual fee, up to 13% rewards. Filter by category, fee, or rewards. Independent ratings, no paid placements.",
+    "Compare credit cards from every major Indian bank. Filter by rewards, cashback, travel, fee, and CIBIL score. Independent ratings — no paid placements.",
   alternates: { canonical: generateCanonicalUrl("/credit-cards") },
   openGraph: {
     title: "Best Credit Cards in India 2026",
     description:
-      "Compare 81 cards. Filter by rewards / cashback / travel / fee. Independent — no paid placements.",
+      "Filter by rewards / cashback / travel / fee. Independent ratings — no paid placements.",
     url: generateCanonicalUrl("/credit-cards"),
     type: "website",
   },
 };
-
-type CardStats = {
-  total: number;
-  lifetimeFree: number;
-  avgAnnualFee: number;
-  maxRewardRate: number;
-};
-
-async function getCardStats(): Promise<CardStats> {
-  try {
-    const supabase = createServiceClient();
-    const { data } = await supabase
-      .from("credit_cards")
-      .select("annual_fee, annual_fee_text, reward_rate");
-
-    const rows = data ?? [];
-    const total = rows.length;
-    const isLTF = (c: {
-      annual_fee?: number | null;
-      annual_fee_text?: string | null;
-    }) =>
-      c.annual_fee === 0 ||
-      (c.annual_fee_text != null && /lifetime|free/i.test(c.annual_fee_text));
-    const lifetimeFree = rows.filter(isLTF).length;
-    const feeSum = rows.reduce(
-      (s, c) =>
-        s +
-        (typeof c.annual_fee === "number" && c.annual_fee > 0
-          ? c.annual_fee
-          : 0),
-      0,
-    );
-    const feeCount = rows.filter(
-      (c) => typeof c.annual_fee === "number" && c.annual_fee > 0,
-    ).length;
-    const avgAnnualFee = feeCount > 0 ? Math.round(feeSum / feeCount) : 0;
-    const maxRewardRate = rows.reduce(
-      (m, c) => Math.max(m, Number(c.reward_rate ?? 0)),
-      0,
-    );
-    return { total, lifetimeFree, avgAnnualFee, maxRewardRate };
-  } catch (e) {
-    logger.error(
-      "[CreditCardsHub] Stats query failed",
-      e instanceof Error ? e : undefined,
-    );
-    return { total: 0, lifetimeFree: 0, avgAnnualFee: 0, maxRewardRate: 0 };
-  }
-}
 
 export default async function CreditCardsPage() {
   let assets: unknown[] = [];
@@ -116,14 +69,11 @@ export default async function CreditCardsPage() {
     assets = [];
   }
 
-  const [stats, personas, comparisons, tools] = await Promise.all([
-    getCardStats(),
+  const [personas, comparisons, tools] = await Promise.all([
     getEditorialHubs("credit-cards-personas"),
     getEditorialHubs("credit-cards-comparisons"),
     getEditorialHubs("credit-cards-tools"),
   ]);
-
-  const cardCount = stats.total > 0 ? stats.total : assets.length || 81;
 
   const creditDesk = TEAM_MEMBERS.find((m) => m.slug === "credit-team");
   const deskSchema = creditDesk ? deskOrganizationSchema(creditDesk) : null;
@@ -133,9 +83,8 @@ export default async function CreditCardsPage() {
     "@type": "CollectionPage",
     name: "Best Credit Cards in India 2026",
     description:
-      "Compare 81 credit cards from every major Indian bank. Independent ratings — no paid placements.",
+      "Compare credit cards from every major Indian bank. Independent ratings — no paid placements.",
     url: generateCanonicalUrl("/credit-cards"),
-    numberOfItems: cardCount,
     publisher: {
       "@type": "Organization",
       name: "InvestingPro",
@@ -200,7 +149,7 @@ export default async function CreditCardsPage() {
           </nav>
 
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-5">
-            {cardCount} cards · 12 banks · No paid placements
+            Independent ratings · No paid placements
           </div>
 
           <h1 className="font-display font-black text-[44px] md:text-[68px] lg:text-[80px] leading-[0.98] tracking-tight text-canvas max-w-[1000px]">
@@ -232,70 +181,11 @@ export default async function CreditCardsPage() {
         </div>
       </section>
 
-      {/* ── Live card stats — canvas, mono ────────────────────────── */}
-      <section className="bg-canvas border-b border-ink-12">
-        <div className="max-w-[1280px] mx-auto px-6 py-5">
-          <div className="flex items-center justify-between gap-4 mb-4">
-            <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
-              The deck · Live from our database
-            </div>
-            <AdvertiserDisclosure variant="expandable" />
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-4 font-mono">
-            <div>
-              <div className="text-[10px] uppercase tracking-wider text-ink-60">
-                Cards tracked
-              </div>
-              <div className="text-[24px] font-black text-ink mt-1">
-                {stats.total > 0 ? stats.total : "—"}
-              </div>
-              <div className="text-[11px] text-ink-60 mt-0.5">
-                Across 12 Indian banks
-              </div>
-            </div>
-            <div>
-              <div className="text-[10px] uppercase tracking-wider text-ink-60">
-                Lifetime free
-              </div>
-              <div className="text-[24px] font-black text-action-green mt-1">
-                {stats.lifetimeFree > 0 ? stats.lifetimeFree : "—"}
-              </div>
-              <div className="text-[11px] text-ink-60 mt-0.5">
-                No annual fee, ever
-              </div>
-            </div>
-            <div>
-              <div className="text-[10px] uppercase tracking-wider text-ink-60">
-                Avg annual fee
-              </div>
-              <div className="text-[24px] font-black text-ink mt-1">
-                {stats.avgAnnualFee > 0
-                  ? `₹${stats.avgAnnualFee.toLocaleString("en-IN")}`
-                  : "—"}
-              </div>
-              <div className="text-[11px] text-ink-60 mt-0.5">
-                Paid cards only
-              </div>
-            </div>
-            <div>
-              <div className="text-[10px] uppercase tracking-wider text-ink-60">
-                Top reward rate
-              </div>
-              <div className="text-[24px] font-black text-indian-gold mt-1">
-                {stats.maxRewardRate > 0 ? `${stats.maxRewardRate}%` : "—"}
-              </div>
-              <div className="text-[11px] text-ink-60 mt-0.5">
-                On select categories
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Desk byline ───────────────────────────────────────────── */}
-      <section className="bg-canvas border-b border-ink-12 py-6">
-        <div className="max-w-[1280px] mx-auto px-6">
+      {/* ── Advertiser disclosure + Desk byline strip ─────────────── */}
+      <section className="bg-canvas border-b border-ink-12 py-5">
+        <div className="max-w-[1280px] mx-auto px-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <DeskByline category="credit_cards" />
+          <AdvertiserDisclosure variant="expandable" />
         </div>
       </section>
 
