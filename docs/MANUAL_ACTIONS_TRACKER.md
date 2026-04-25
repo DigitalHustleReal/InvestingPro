@@ -63,12 +63,23 @@
   → Some articles could legitimately live under multiple top-levels (e.g. "PPF vs NPS vs ELSS" — taxes, investing, or retirement?)
   → Need `primary_category` column OR first-match rule
 
-### SEO / GEO / GSC (user-flagged 2026-04-24)
-- [ ] 🟡 Run full SEO audit — invoke `claude-seo:seo-audit` skill on https://www.investingpro.in; delegates to 9 specialists (technical, content, schema, images, links, performance, E-E-A-T, + GEO + local if applicable). Produces a health score.
-- [ ] 🟡 Run GEO audit — `claude-seo:seo-geo` skill. Checks AI crawler access (GPTBot, ClaudeBot, PerplexityBot), llms.txt presence, passage-level citability, brand mentions, Google AI Overviews eligibility.
+### SEO / GEO / GSC (user-flagged 2026-04-24, partial in this session)
+- [x] **GEO audit run** via `claude-seo:seo-geo` skill — score went from ~28 → 62/100 after this session's fixes. Detailed report inline in commit message.
+- [x] **`/llms.txt` + `/llms-full.txt`** — dynamic, live counts from Supabase. Concise + extended variants. Replace stale public/llms.txt that claimed 500 glossary terms / 25 calcs.
+- [x] **`robots.ts` flipped to 2026 policy** — now allows GPTBot, OAI-SearchBot, ClaudeBot, Claude-Web, anthropic-ai, Google-Extended, bingbot. ChatGPT web search (900M weekly users) was previously locked out. Still blocks pure training scrapers (CCBot, Bytespider, Diffbot, FacebookBot, ImagesiftBot, Omgilibot).
+- [x] **Removed conflicting `public/llms.txt` + `public/robots.txt`** — Next.js dynamic routes now win.
+- [ ] 🟡 Run full SEO audit — invoke `claude-seo:seo-audit` on the live URL post-deploy; delegates to 9 specialists (technical/content/schema/images/links/performance/E-E-A-T + GEO + local). Produces a health score.
+- [ ] 🟡 Add FAQ blocks to 6 category hubs (`/credit-cards`, `/loans`, `/banking`, `/investing`, `/insurance`, `/taxes`) — 134-167 word self-contained Q&A blocks following "What is X?" pattern. Highest GEO impact gap remaining.
+- [ ] 🟡 Add Person/Desk byline JSON-LD + visible "Reviewed by" line on every glossary term and category hub. `lib/data/team.ts` has 7 desks; just wire into JSX.
 - [ ] 🔴 Google Search Console — connect + submit sitemap (https://search.google.com/search-console). **Gated on Phase 3a canonical flip completing** — indexing `/articles/` while `/[cat]/learn/` is canonical causes duplicate-content hits.
-- [ ] 🟡 Set up `llms.txt` at root — lists what AI crawlers may use for training + citation. Current site has `robots.txt` (ChatGPT / Perplexity / Applebot allowed; GPTBot / CCBot / ClaudeBot blocked per CLAUDE.md §9).
 - [ ] 🟡 Request manual indexing on top 10 articles once Phase 3a ships.
+
+### Brand-mention surface (3x stronger AI-citation correlation than backlinks per Ahrefs Dec 2025)
+- [ ] 🔴 Wikipedia — submit a draft entry for InvestingPro (eligible if there's enough independent press coverage)
+- [ ] 🔴 YouTube channel — 5 founding videos (compounds: each video = potential AI citation source)
+- [ ] 🔴 Reddit engagement — `r/IndianInvestments`, `r/IndiaFinance`, `r/personalfinanceindia` — comment + link strategically (don't spam)
+- [ ] 🟡 LinkedIn company page — set up + cross-post weekly editorial ticker
+- [ ] 🟢 Quora answers — top 50 questions by topic where InvestingPro can authoritatively answer
 
 ### Affiliate link routing (user-flagged 2026-04-24 — fixed in this session)
 - [x] `/go/[slug]` was only checking `affiliate_links` (0 rows) + `products` (36/2584 active), causing 404s on every CC/loan/insurance/broker slug emitted by `InlineProductCard`, `ContextualProducts`, `SmartRecommendation`, `SmartContextualOffers`. Extended to chain-check:
