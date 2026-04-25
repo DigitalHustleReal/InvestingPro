@@ -15,15 +15,25 @@
  *     search volume is 2-3x English per Google's India index data;
  *     hreflang prevents the regional variants from hurting English.
  *
- * Rollout order (set 2026-04-25):
- *   Phase 1 (foundation, this commit): English + Hindi routing.
- *   Phase 2: Telugu / Tamil / Marathi / Gujarati / Bengali. Add to
- *            LOCALES below; the rest of the system (middleware,
- *            metadata helpers, switcher) reads from this list.
+ * Locale ordering follows Indian native-speaker counts (largest first):
+ *   en (default) > hi > bn > mr > te > ta > gu > kn
+ *
+ * Adding a new locale = appending to LOCALES + LOCALE_META below; the
+ * rest of the system (middleware matcher, hreflang alternates, locale
+ * switcher, t() accessor, format helpers) reads from this config.
  */
 
-/** Supported locales. Add a new locale by appending to this list. */
-export const LOCALES = ["en", "hi"] as const;
+/** Supported locales. */
+export const LOCALES = [
+  "en",
+  "hi",
+  "bn",
+  "mr",
+  "te",
+  "ta",
+  "gu",
+  "kn",
+] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -35,18 +45,19 @@ export const LOCALE_META: Record<
   Locale,
   { native: string; english: string; label: string; htmlLang: string }
 > = {
-  en: {
-    native: "English",
-    english: "English",
-    label: "EN",
-    htmlLang: "en-IN",
+  en: { native: "English", english: "English", label: "EN", htmlLang: "en-IN" },
+  hi: { native: "हिन्दी", english: "Hindi", label: "हिं", htmlLang: "hi-IN" },
+  bn: { native: "বাংলা", english: "Bengali", label: "বাং", htmlLang: "bn-IN" },
+  mr: { native: "मराठी", english: "Marathi", label: "मरा", htmlLang: "mr-IN" },
+  te: { native: "తెలుగు", english: "Telugu", label: "తె", htmlLang: "te-IN" },
+  ta: { native: "தமிழ்", english: "Tamil", label: "தமி", htmlLang: "ta-IN" },
+  gu: {
+    native: "ગુજરાતી",
+    english: "Gujarati",
+    label: "ગુ",
+    htmlLang: "gu-IN",
   },
-  hi: {
-    native: "हिन्दी",
-    english: "Hindi",
-    label: "हिं",
-    htmlLang: "hi-IN",
-  },
+  kn: { native: "ಕನ್ನಡ", english: "Kannada", label: "ಕ", htmlLang: "kn-IN" },
 };
 
 /** Type guard. */

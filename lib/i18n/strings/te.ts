@@ -1,0 +1,96 @@
+/**
+ * Telugu (తెలుగు) translations for InvestingPro UI chrome.
+ * AI-drafted, **needs native-speaker review**.
+ */
+
+import type { LocalizedStrings } from "./en";
+
+export const TE: LocalizedStrings = {
+  "nav.creditCards": "క్రెడిట్ కార్డులు",
+  "nav.loans": "లోన్లు",
+  "nav.banking": "బ్యాంకింగ్",
+  "nav.investing": "పెట్టుబడి",
+  "nav.insurance": "బీమా",
+  "nav.taxes": "పన్నులు",
+  "nav.learn": "నేర్చుకోండి",
+  "nav.compare": "పోల్చండి",
+  "nav.search": "శోధన",
+  "nav.menu": "మెనూ",
+  "nav.close": "మూసివేయండి",
+
+  "section.helperKit": "హెల్పర్ కిట్",
+  "section.tools": "టూల్స్",
+  "section.popularComparisons": "ప్రసిద్ధ పోలికలు",
+  "section.runTheNumbers": "నంబర్లను లెక్కించండి",
+  "section.fromTheDesk": "డెస్క్ నుండి",
+  "section.pickStage": "మీ దశను ఎంచుకోండి",
+  "section.decisionsWorth": "ముఖ్యమైన నిర్ణయాలు",
+  "section.cardCalculators": "క్యాలిక్యులేటర్లు",
+  "section.latestArticles": "తాజా విశ్లేషణ",
+
+  "cta.subscribeFree": "ఉచితంగా సబ్‌స్క్రయిబ్",
+  "cta.readMore": "మరింత చదవండి",
+  "cta.showMore": "మరిన్ని చూపించు",
+  "cta.startHere": "ఇక్కడ నుండి మొదలు",
+  "cta.learnMore": "మరింత నేర్చుకోండి",
+  "cta.openComparison": "పోలిక తెరవండి",
+  "cta.findMyMatch": "నా మ్యాచ్ కనుగొనండి",
+  "cta.showOptions": "ఎంపికలు చూపించు",
+  "cta.showPlans": "ప్లాన్‌లు చూపించు",
+  "cta.allArticles": "అన్ని వ్యాసాలు",
+  "cta.allCalculators": "అన్ని క్యాలిక్యులేటర్లు",
+  "cta.compareCards": "కార్డ్‌ల పోలిక",
+  "cta.compareLenders": "రుణదాతల పోలిక",
+  "cta.compareFDRates": "FD రేట్ల పోలిక",
+  "cta.findMyCard": "నా కార్డ్ కనుగొనండి",
+  "cta.runMyEMI": "నా EMI గణించండి",
+  "cta.runMyFDReturn": "నా FD రిటర్న్",
+  "cta.howMuchCover": "ఎంత కవర్ కావాలి?",
+  "cta.runFinancialHealth": "నా ఫైనాన్షియల్ హెల్త్ స్కోర్",
+  "cta.browseGlossary": "గ్లాసరీ చూడండి",
+  "cta.seeClaimData": "క్లెయిమ్ సెటిల్‌మెంట్ డేటా",
+
+  "trust.independentNoPaid":
+    "స్వతంత్ర రేటింగ్‌లు · పెయిడ్ ప్లేస్‌మెంట్‌లు లేవు",
+  "trust.dicgcInsured": "DICGC బీమా · సర్కారీ-మద్దతు పథకాలు",
+  "trust.irdaiClaims": "IRDAI క్లెయిమ్ డేటా · పెయిడ్ ప్లేస్‌మెంట్‌లు లేవు",
+  "trust.moneySkillsPlain": "డబ్బు నైపుణ్యాలు · సరళ భాష · భారతీయ సందర్భం",
+
+  "footer.aboutInvestingPro": "InvestingPro గురించి",
+  "footer.editorialTeam": "ఎడిటోరియల్ టీమ్",
+  "footer.editorialStandards": "ఎడిటోరియల్ ప్రమాణాలు",
+  "footer.howWeMakeMoney": "మేము ఎలా సంపాదిస్తాం",
+  "footer.advertiserDisclosure": "అడ్వర్టైజర్ డిస్‌క్లోజర్",
+  "footer.contact": "సంప్రదించండి",
+  "footer.corrections": "సరిదిద్దుబాట్లు",
+  "footer.privacy": "గోప్యత",
+  "footer.terms": "నిబంధనలు",
+  "footer.cookies": "కుకీ విధానం",
+  "footer.disclaimer": "నిరాకరణ",
+  "footer.security": "భద్రత",
+  "footer.accessibility": "ప్రాప్యత",
+  "footer.subscribeWeekly":
+    "ప్రతి ఆదివారం — ఒక డబ్బు నిర్ణయం తీసుకోవలసినది, ఒకటి నివారించవలసినది, ఒక నియమ మార్పు.",
+
+  "faq.eyebrow": "త్వరిత సమాధానాలు",
+  "faq.frequentlyAsked": "తరచుగా అడిగే",
+  "glossary.title": "గ్లాసరీ",
+  "glossary.tagline": "సరళ భాష. భారతీయ సందర్భం.",
+
+  "label.updatedDaily": "రోజువారీ అప్‌డేట్",
+  "label.indicative": "సూచనాత్మక",
+  "label.popular": "ప్రసిద్ధ",
+  "label.trending": "ట్రెండింగ్",
+  "label.new": "కొత్త",
+  "label.reviewedBy": "సమీక్షించారు",
+  "label.lastUpdated": "చివరి అప్‌డేట్",
+  "label.minRead": "నిమిషాలు చదవడానికి",
+  "label.fyCurrent": "FY 2026-27",
+
+  "empty.noMatches": "మ్యాచ్‌లు లేవు",
+  "empty.noCardsFit": "ఈ ఫిల్టర్‌లలో కార్డ్‌లు లేవు",
+  "empty.tryFinder": "కార్డ్ ఫైండర్ క్విజ్ ప్రయత్నించండి",
+  "empty.clearFilters": "అన్ని ఫిల్టర్‌లను తొలగించండి",
+  "error.somethingWrong": "ఏదో తప్పు జరిగింది",
+  "error.tryAgain": "మళ్లీ ప్రయత్నించండి",
+};

@@ -1,0 +1,96 @@
+/**
+ * Marathi (मराठी) translations for InvestingPro UI chrome.
+ * AI-drafted, **needs native-speaker review**. Indian financial
+ * abbreviations preserved in English per the locked rule.
+ */
+
+import type { LocalizedStrings } from "./en";
+
+export const MR: LocalizedStrings = {
+  "nav.creditCards": "क्रेडिट कार्ड",
+  "nav.loans": "कर्ज",
+  "nav.banking": "बँकिंग",
+  "nav.investing": "गुंतवणूक",
+  "nav.insurance": "विमा",
+  "nav.taxes": "कर",
+  "nav.learn": "शिका",
+  "nav.compare": "तुलना",
+  "nav.search": "शोधा",
+  "nav.menu": "मेनू",
+  "nav.close": "बंद",
+
+  "section.helperKit": "मदत कीट",
+  "section.tools": "साधने",
+  "section.popularComparisons": "लोकप्रिय तुलना",
+  "section.runTheNumbers": "गणित करा",
+  "section.fromTheDesk": "डेस्क वरून",
+  "section.pickStage": "तुमचा टप्पा निवडा",
+  "section.decisionsWorth": "महत्त्वाचे निर्णय",
+  "section.cardCalculators": "कॅल्क्युलेटर",
+  "section.latestArticles": "ताजे विश्लेषण",
+
+  "cta.subscribeFree": "मोफत सदस्यता",
+  "cta.readMore": "अधिक वाचा",
+  "cta.showMore": "अधिक दाखवा",
+  "cta.startHere": "येथून सुरुवात",
+  "cta.learnMore": "अधिक जाणून घ्या",
+  "cta.openComparison": "तुलना उघडा",
+  "cta.findMyMatch": "माझे मॅच शोधा",
+  "cta.showOptions": "पर्याय दाखवा",
+  "cta.showPlans": "प्लॅन दाखवा",
+  "cta.allArticles": "सर्व लेख",
+  "cta.allCalculators": "सर्व कॅल्क्युलेटर",
+  "cta.compareCards": "कार्ड्सची तुलना",
+  "cta.compareLenders": "कर्जदात्यांची तुलना",
+  "cta.compareFDRates": "FD दरांची तुलना",
+  "cta.findMyCard": "माझे कार्ड शोधा",
+  "cta.runMyEMI": "माझे EMI काढा",
+  "cta.runMyFDReturn": "माझे FD रिटर्न",
+  "cta.howMuchCover": "किती कव्हर लागेल?",
+  "cta.runFinancialHealth": "माझा फायनान्शियल हेल्थ स्कोर",
+  "cta.browseGlossary": "शब्दकोश पहा",
+  "cta.seeClaimData": "क्लेम सेटलमेंट डेटा",
+
+  "trust.independentNoPaid": "स्वतंत्र रेटिंग · कोणतेही पेड प्लेसमेंट नाही",
+  "trust.dicgcInsured": "DICGC विमित · सरकारी-समर्थित योजना",
+  "trust.irdaiClaims": "IRDAI क्लेम डेटा · कोणतेही पेड प्लेसमेंट नाही",
+  "trust.moneySkillsPlain": "पैशाचे कौशल्य · सोपी भाषा · भारतीय संदर्भ",
+
+  "footer.aboutInvestingPro": "InvestingPro बद्दल",
+  "footer.editorialTeam": "संपादकीय टीम",
+  "footer.editorialStandards": "संपादकीय मानके",
+  "footer.howWeMakeMoney": "आम्ही कमाई कशी करतो",
+  "footer.advertiserDisclosure": "जाहिरातदार प्रकटीकरण",
+  "footer.contact": "संपर्क",
+  "footer.corrections": "सुधारणा",
+  "footer.privacy": "गोपनीयता",
+  "footer.terms": "अटी",
+  "footer.cookies": "कुकी धोरण",
+  "footer.disclaimer": "अस्वीकरण",
+  "footer.security": "सुरक्षा",
+  "footer.accessibility": "उपलब्धता",
+  "footer.subscribeWeekly":
+    "प्रत्येक रविवार — एक पैशाचा निर्णय करण्यासारखा, एक टाळण्यासारखा, एक नियम बदल.",
+
+  "faq.eyebrow": "त्वरित उत्तरे",
+  "faq.frequentlyAsked": "वारंवार विचारले",
+  "glossary.title": "शब्दकोश",
+  "glossary.tagline": "सोपी भाषा. भारतीय संदर्भ.",
+
+  "label.updatedDaily": "रोज अपडेट",
+  "label.indicative": "अंदाजे",
+  "label.popular": "लोकप्रिय",
+  "label.trending": "ट्रेंडिंग",
+  "label.new": "नवीन",
+  "label.reviewedBy": "पुनरावलोकन",
+  "label.lastUpdated": "शेवटचा अपडेट",
+  "label.minRead": "मिनिटे वाचनासाठी",
+  "label.fyCurrent": "FY 2026-27",
+
+  "empty.noMatches": "कोणतेही मॅच नाही",
+  "empty.noCardsFit": "या फिल्टरमध्ये कार्ड नाही",
+  "empty.tryFinder": "कार्ड फाइंडर क्विझ वापरा",
+  "empty.clearFilters": "सर्व फिल्टर काढा",
+  "error.somethingWrong": "काहीतरी चूक झाली",
+  "error.tryAgain": "पुन्हा प्रयत्न करा",
+};

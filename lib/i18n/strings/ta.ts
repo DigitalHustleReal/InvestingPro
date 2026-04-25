@@ -1,0 +1,96 @@
+/**
+ * Tamil (தமிழ்) translations for InvestingPro UI chrome.
+ * AI-drafted, **needs native-speaker review**.
+ */
+
+import type { LocalizedStrings } from "./en";
+
+export const TA: LocalizedStrings = {
+  "nav.creditCards": "கிரெடிட் கார்டுகள்",
+  "nav.loans": "கடன்கள்",
+  "nav.banking": "வங்கி சேவை",
+  "nav.investing": "முதலீடு",
+  "nav.insurance": "காப்பீடு",
+  "nav.taxes": "வரிகள்",
+  "nav.learn": "கற்றுக்கொள்ளுங்கள்",
+  "nav.compare": "ஒப்பிடு",
+  "nav.search": "தேடல்",
+  "nav.menu": "மெனு",
+  "nav.close": "மூடு",
+
+  "section.helperKit": "உதவி கருவி",
+  "section.tools": "கருவிகள்",
+  "section.popularComparisons": "பிரபலமான ஒப்பீடுகள்",
+  "section.runTheNumbers": "எண்களை இயக்கு",
+  "section.fromTheDesk": "டெஸ்க்கிலிருந்து",
+  "section.pickStage": "உங்கள் நிலையைத் தேர்வு செய்க",
+  "section.decisionsWorth": "செய்ய வேண்டிய முடிவுகள்",
+  "section.cardCalculators": "கணிப்பான்கள்",
+  "section.latestArticles": "சமீபத்திய பகுப்பாய்வு",
+
+  "cta.subscribeFree": "இலவசமாக சந்தா",
+  "cta.readMore": "மேலும் வாசிக்க",
+  "cta.showMore": "மேலும் காட்டு",
+  "cta.startHere": "இங்கிருந்து தொடங்கு",
+  "cta.learnMore": "மேலும் அறிய",
+  "cta.openComparison": "ஒப்பீட்டைத் திற",
+  "cta.findMyMatch": "என் பொருத்தத்தைக் கண்டறி",
+  "cta.showOptions": "விருப்பங்களைக் காட்டு",
+  "cta.showPlans": "திட்டங்களைக் காட்டு",
+  "cta.allArticles": "அனைத்து கட்டுரைகள்",
+  "cta.allCalculators": "அனைத்து கணிப்பான்கள்",
+  "cta.compareCards": "கார்டுகளை ஒப்பிடு",
+  "cta.compareLenders": "கடன் வழங்குநர்களை ஒப்பிடு",
+  "cta.compareFDRates": "FD வீதங்களை ஒப்பிடு",
+  "cta.findMyCard": "என் கார்டைக் கண்டறி",
+  "cta.runMyEMI": "என் EMI கணக்கிடு",
+  "cta.runMyFDReturn": "என் FD வருமானம்",
+  "cta.howMuchCover": "எவ்வளவு கவரேஜ் தேவை?",
+  "cta.runFinancialHealth": "என் நிதி ஆரோக்கிய மதிப்பெண்",
+  "cta.browseGlossary": "சொற்களஞ்சியத்தைப் பார்",
+  "cta.seeClaimData": "க்ளெயிம் செட்டில்மென்ட் தரவு",
+
+  "trust.independentNoPaid":
+    "சுயாதீன மதிப்பீடுகள் · பணம் கொடுத்த இடங்கள் இல்லை",
+  "trust.dicgcInsured": "DICGC காப்பீடு · அரசு ஆதரவு திட்டங்கள்",
+  "trust.irdaiClaims": "IRDAI க்ளெயிம் தரவு · பணம் கொடுத்த இடங்கள் இல்லை",
+  "trust.moneySkillsPlain": "பண திறன்கள் · எளிய மொழி · இந்திய சூழல்",
+
+  "footer.aboutInvestingPro": "InvestingPro பற்றி",
+  "footer.editorialTeam": "தலையங்க குழு",
+  "footer.editorialStandards": "தலையங்க தரநிலைகள்",
+  "footer.howWeMakeMoney": "நாங்கள் எப்படி வருமானம் ஈட்டுகிறோம்",
+  "footer.advertiserDisclosure": "விளம்பரதாரர் அறிவிப்பு",
+  "footer.contact": "தொடர்பு கொள்ள",
+  "footer.corrections": "திருத்தங்கள்",
+  "footer.privacy": "தனியுரிமை",
+  "footer.terms": "விதிமுறைகள்",
+  "footer.cookies": "குக்கீ கொள்கை",
+  "footer.disclaimer": "மறுப்பு",
+  "footer.security": "பாதுகாப்பு",
+  "footer.accessibility": "அணுகல்தன்மை",
+  "footer.subscribeWeekly":
+    "ஒவ்வொரு ஞாயிற்றுக்கிழமையும் — ஒரு பண முடிவு எடுக்க, ஒன்று தவிர்க்க, ஒரு விதி மாற்றம்.",
+
+  "faq.eyebrow": "விரைவான பதில்கள்",
+  "faq.frequentlyAsked": "அடிக்கடி கேட்கப்படும்",
+  "glossary.title": "சொற்களஞ்சியம்",
+  "glossary.tagline": "எளிய மொழி. இந்திய சூழல்.",
+
+  "label.updatedDaily": "தினமும் புதுப்பிக்கப்படுகிறது",
+  "label.indicative": "சுட்டிக்காட்டும்",
+  "label.popular": "பிரபலமான",
+  "label.trending": "டிரெண்டிங்",
+  "label.new": "புதிய",
+  "label.reviewedBy": "மதிப்பாய்வு செய்தவர்",
+  "label.lastUpdated": "கடைசி புதுப்பிப்பு",
+  "label.minRead": "நிமிடங்கள் வாசிக்க",
+  "label.fyCurrent": "FY 2026-27",
+
+  "empty.noMatches": "பொருத்தங்கள் இல்லை",
+  "empty.noCardsFit": "இந்த வடிகட்டிகளில் கார்டுகள் இல்லை",
+  "empty.tryFinder": "கார்ட் கண்டறிதல் வினாடி வினா",
+  "empty.clearFilters": "அனைத்து வடிகட்டிகளையும் அழி",
+  "error.somethingWrong": "ஏதோ தவறு நடந்தது",
+  "error.tryAgain": "மீண்டும் முயற்சி செய்",
+};
