@@ -3,8 +3,10 @@
  *
  * NerdWallet /taxes/-style hub for Indian tax planning.
  * Pulls featured articles from DB (category = 'tax-planning' or 'tax').
- * All tokens = v3 (surface-ink hero, canvas sections, indian-gold accents,
- * Playfair display, JetBrains mono labels).
+ * All tokens = v3 (canvas-dominant body, surface-ink reserved for the
+ * hero + final newsletter CTA only — per locked surface-alternation
+ * rule in brainstorm.md §1, indian-gold accents, Playfair display,
+ * JetBrains mono labels).
  */
 
 import { Metadata } from "next";
@@ -253,31 +255,31 @@ export default async function TaxesHubPage() {
         </div>
       </section>
 
-      {/* Regime comparison — ink */}
-      <section className="surface-ink py-16">
+      {/* Regime comparison — canvas */}
+      <section className="bg-canvas border-t border-ink-12 py-16">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
             Side-by-side
           </div>
-          <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-canvas tracking-tight mb-2">
+          <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight mb-2">
             Old regime vs New regime
           </h2>
-          <p className="font-serif text-[17px] text-canvas-70 max-w-[720px] mb-10">
+          <p className="font-serif text-[17px] text-ink-60 max-w-[720px] mb-10">
             FY 2026-27 slabs. New regime is default; opt for old via Form 10-IEA
             only if your deductions ({">"} ₹2–₹3 L) justify it.
           </p>
 
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[600px] font-mono text-[14px] text-canvas">
+          <div className="overflow-x-auto bg-white border border-ink-12 rounded-sm">
+            <table className="w-full min-w-[600px] font-mono text-[14px] text-ink">
               <thead>
-                <tr className="border-b border-canvas-15">
-                  <th className="text-left py-3 pr-6 text-[10px] uppercase tracking-wider text-canvas-70 font-normal">
+                <tr className="border-b border-ink-12">
+                  <th className="text-left py-3 px-6 text-[10px] uppercase tracking-wider text-ink-60 font-normal">
                     Taxable income
                   </th>
-                  <th className="text-right py-3 px-4 text-[10px] uppercase tracking-wider text-canvas-70 font-normal">
+                  <th className="text-right py-3 px-4 text-[10px] uppercase tracking-wider text-ink-60 font-normal">
                     Old regime
                   </th>
-                  <th className="text-right py-3 pl-4 text-[10px] uppercase tracking-wider text-indian-gold font-normal">
+                  <th className="text-right py-3 pl-4 pr-6 text-[10px] uppercase tracking-wider text-indian-gold font-normal">
                     New regime
                   </th>
                 </tr>
@@ -286,15 +288,15 @@ export default async function TaxesHubPage() {
                 {regimeSlabs.map((slab) => (
                   <tr
                     key={slab.income_range}
-                    className="border-b border-canvas-15 hover:bg-canvas/5"
+                    className="border-b border-ink-12 last:border-0 hover:bg-ink/5"
                   >
-                    <td className="py-4 pr-6 text-[14px]">
+                    <td className="py-4 px-6 text-[14px]">
                       {slab.income_range}
                     </td>
-                    <td className="py-4 px-4 text-right text-[14px] text-canvas-70">
+                    <td className="py-4 px-4 text-right text-[14px] text-ink-60">
                       {slab.rate_old}
                     </td>
-                    <td className="py-4 pl-4 text-right text-[14px] text-indian-gold font-bold">
+                    <td className="py-4 pl-4 pr-6 text-right text-[14px] text-indian-gold font-bold">
                       {slab.rate_new}
                     </td>
                   </tr>
@@ -303,7 +305,7 @@ export default async function TaxesHubPage() {
             </table>
           </div>
 
-          <p className="font-mono text-[11px] text-canvas-70 mt-6 max-w-[720px] leading-[1.6]">
+          <p className="font-mono text-[11px] text-ink-60 mt-6 max-w-[720px] leading-[1.6]">
             Surcharge and 4% health &amp; education cess apply on top. Rebate
             u/s 87A makes incomes up to ₹7 L (new) / ₹5 L (old) effectively
             zero-tax.
@@ -344,22 +346,22 @@ export default async function TaxesHubPage() {
         </div>
       </section>
 
-      {/* Featured articles — ink */}
+      {/* Featured articles — canvas */}
       {articles.length > 0 && (
-        <section className="surface-ink py-16">
+        <section className="bg-canvas border-t border-ink-12 py-16">
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
               <div>
                 <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
                   Deep dives
                 </div>
-                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-canvas tracking-tight">
+                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight">
                   From the tax desk
                 </h2>
               </div>
               <Link
                 href="/articles?category=tax-planning"
-                className="font-mono text-[11px] uppercase tracking-wider text-canvas-70 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
+                className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
               >
                 All tax articles <ArrowUpRight className="w-3 h-3" />
               </Link>
@@ -389,11 +391,11 @@ export default async function TaxesHubPage() {
                       ? ` · ${formatReadTime(a.read_time)}`
                       : ""}
                   </div>
-                  <h3 className="font-display text-[20px] font-black text-canvas leading-[1.2] group-hover:text-indian-gold transition-colors">
+                  <h3 className="font-display text-[20px] font-black text-ink leading-[1.2] group-hover:text-authority-green transition-colors">
                     {a.title}
                   </h3>
                   {a.excerpt && (
-                    <p className="mt-3 text-[13px] text-canvas-70 leading-[1.55] line-clamp-3">
+                    <p className="mt-3 text-[13px] text-ink-60 leading-[1.55] line-clamp-3">
                       {a.excerpt}
                     </p>
                   )}
