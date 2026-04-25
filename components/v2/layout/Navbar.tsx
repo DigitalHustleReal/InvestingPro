@@ -10,6 +10,7 @@ import {
   Shield,
   BarChart3,
   Building2,
+  Receipt,
   Search as SearchIcon,
   Menu,
   X,
@@ -25,13 +26,22 @@ interface NavCategory {
   icon: LucideIcon;
 }
 
+/**
+ * Navbar categories — aligned 2026-04-25 with the locked v3 URL category
+ * lock (`URL_CATEGORIES` in `lib/routing/category-map.ts`). 6 money topics.
+ *
+ * Previously included "Demat Accounts" (sub-category, not a top-level
+ * URL category) and pointed "Investing" at /mutual-funds (bug). Both
+ * fixed below. `learn` is a cross-cutting hub reachable via mega-menu/
+ * footer/in-content links — not a top-nav slot.
+ */
 const CATEGORIES: NavCategory[] = [
   { label: "Credit Cards", href: "/credit-cards", icon: CreditCard },
-  { label: "Banking", href: "/banking", icon: Landmark },
   { label: "Loans", href: "/loans", icon: Building2 },
-  { label: "Investing", href: "/mutual-funds", icon: TrendingUp },
+  { label: "Banking", href: "/banking", icon: Landmark },
+  { label: "Investing", href: "/investing", icon: TrendingUp },
   { label: "Insurance", href: "/insurance", icon: Shield },
-  { label: "Demat Accounts", href: "/demat-accounts", icon: BarChart3 },
+  { label: "Taxes", href: "/taxes", icon: Receipt },
 ];
 
 export default function Navbar() {

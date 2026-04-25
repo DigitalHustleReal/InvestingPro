@@ -346,58 +346,58 @@ const MENU: MenuCategory[] = [
       },
     ],
   },
-  // 6. Demat Accounts — high commission, active trading
+  // 6. Taxes — high search-intent, especially Jan–Mar
+  // (Replaced "Demat Accounts" 2026-04-25 — Demat is a sub-category of
+  // Investing, not a top-level URL category. Taxes is locked in the v3
+  // URL set and was missing from the desktop nav. Demat stays reachable
+  // via Investing > Demat Accounts sub-link below.)
   {
-    label: "Demat Accounts",
-    href: "/demat-accounts",
-    icon: BarChart3,
-    color: "text-action-green",
-    colorBg: "bg-green-50",
-    desc: "Compare brokers — brokerage, platforms, charges",
+    label: "Taxes",
+    href: "/taxes",
+    icon: Receipt,
+    color: "text-indian-gold",
+    colorBg: "bg-canvas",
+    desc: "Old vs new regime, 80C, HRA, capital gains — worked in rupees",
     featured: {
-      label: "Open Demat Account",
-      href: "/demat-accounts",
-      desc: "Compare discount and full-service brokers. Zero brokerage on delivery.",
-      stat: "15+",
-      statLabel: "brokers compared",
+      label: "Old vs New Regime Calculator",
+      href: "/calculators/old-vs-new-tax",
+      desc: "Find which regime saves you more — at your salary, with your deductions.",
+      stat: "FY 26-27",
+      statLabel: "slabs ready",
     },
     columns: [
       {
-        heading: "Broker Types",
-        icon: BarChart3,
+        heading: "Tax topics",
+        icon: Receipt,
         links: [
           {
-            label: "Best Demat Accounts",
-            href: "/demat-accounts",
+            label: "Old vs New Regime",
+            href: "/taxes",
             badge: "popular",
           },
           {
-            label: "Discount Brokers",
-            href: "/demat-accounts?type=discount",
-            badge: "trending",
+            label: "Section 80C optimizer",
+            href: "/calculators/80c",
           },
-          {
-            label: "Full Service Brokers",
-            href: "/demat-accounts?type=full-service",
-          },
-          {
-            label: "Zero Brokerage",
-            href: "/demat-accounts?type=zero-brokerage",
-          },
-          {
-            label: "Best for Beginners",
-            href: "/demat-accounts?type=beginners",
-          },
+          { label: "HRA exemption", href: "/calculators/hra" },
+          { label: "Capital gains (LTCG)", href: "/calculators/ltcg" },
+          { label: "Income tax slabs", href: "/calculators/tax" },
+          { label: "ITR filing guide", href: "/taxes/learn" },
         ],
       },
       {
-        heading: "Tools & Compare",
+        heading: "Tools & guides",
         icon: Calculator,
         links: [
-          { label: "Brokerage Calculator", href: "/calculators/brokerage" },
-          { label: "Compare Brokers", href: "/demat-accounts/compare" },
-          { label: "IPO Calendar", href: "/stocks/ipo" },
-          { label: "Demat Guide", href: "/demat-accounts/guide" },
+          { label: "All tax calculators", href: "/taxes/calculators" },
+          {
+            label: "Tax-saving investments",
+            href: "/taxes/learn",
+            badge: "trending",
+          },
+          { label: "TDS calculator", href: "/calculators/tds" },
+          { label: "GST calculator", href: "/calculators/gst" },
+          { label: "Crypto tax", href: "/calculators/crypto-tax" },
         ],
       },
     ],

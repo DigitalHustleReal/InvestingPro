@@ -293,42 +293,45 @@ export default function CreditCardsClient({
   return (
     <div>
       {/* Quick Filter Pills */}
-      <div className="flex gap-2 overflow-x-auto pb-4 mb-4 scrollbar-hide">
-        {QUICK_FILTERS.map((pill) => (
-          <button
-            key={pill.key}
-            onClick={() => handleQuickFilter(pill.key)}
-            className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors cursor-pointer rounded-full ${
-              activeQuickFilter === pill.key
-                ? "bg-ink text-white"
-                : "bg-gray-100 text-ink-60 hover:bg-gray-200 hover:text-ink"
-            }`}
-          >
-            {pill.label}
-          </button>
-        ))}
+      <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
+        {QUICK_FILTERS.map((pill) => {
+          const active = activeQuickFilter === pill.key;
+          return (
+            <button
+              key={pill.key}
+              onClick={() => handleQuickFilter(pill.key)}
+              className={`inline-flex items-center px-4 py-2 font-mono text-[11px] uppercase tracking-wider whitespace-nowrap transition-colors cursor-pointer rounded-sm border ${
+                active
+                  ? "bg-indian-gold text-ink border-indian-gold"
+                  : "bg-white text-ink-60 border-ink-12 hover:border-indian-gold hover:text-ink"
+              }`}
+            >
+              {pill.label}
+            </button>
+          );
+        })}
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 items-start">
         {/* Filter Sidebar */}
         <ResponsiveFilterContainer activeFiltersCount={activeFiltersCount}>
           <FilterSidebar filters={filters} setFilters={setFilters} />
-          <div className="mt-4 p-4 border border-gray-200 bg-gray-50 rounded-sm">
-            <div className="w-8 h-8 bg-green-50 flex items-center justify-center rounded-lg mb-2.5">
-              <Zap className="w-4 h-4 text-green-700" />
+          <div className="mt-4 p-5 border border-ink-12 bg-white rounded-sm">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              Personalised
             </div>
-            <h3 className="font-bold text-sm text-ink mb-1">
-              Find Your Perfect Card
+            <h3 className="font-display text-[18px] font-black text-ink leading-tight mb-2">
+              Find your perfect card
             </h3>
-            <p className="text-gray-400 text-xs mb-3">
-              3 questions · personalized pick
+            <p className="text-[12px] text-ink-60 mb-4 leading-[1.55]">
+              3 questions · 30 seconds · no email needed.
             </p>
             <Link href="/credit-cards/find-your-card">
               <Button
                 size="sm"
-                className="w-full bg-ink text-white font-semibold hover:bg-ink/80 text-xs"
+                className="w-full bg-indian-gold text-ink font-bold hover:bg-indian-gold/90 font-mono text-[11px] uppercase tracking-wider rounded-sm"
               >
-                Find My Card →
+                Find my card <Zap className="w-3 h-3 ml-1.5" />
               </Button>
             </Link>
           </div>
@@ -356,34 +359,45 @@ export default function CreditCardsClient({
             className="mb-6"
           />
 
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-            <h2 className="text-lg font-bold text-ink">
-              Compare Cards{" "}
-              <span className="text-ink-60 font-medium text-sm ml-2">
-                ({filteredAssets.length} found)
-              </span>
-            </h2>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-4 border-b border-ink-12">
+            <div>
+              <h2 className="font-display font-black text-[22px] text-ink leading-tight">
+                Compare cards
+              </h2>
+              <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60 mt-1">
+                {filteredAssets.length} match
+                {filteredAssets.length === 1 ? "" : "es"} · sorted by{" "}
+                {sortBy === "match"
+                  ? "best match"
+                  : sortBy === "popularity"
+                    ? "most applied"
+                    : sortBy === "trending"
+                      ? "trending"
+                      : "top rated"}
+              </div>
+            </div>
 
             <div className="flex items-center gap-3">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
                 aria-label="Sort cards by"
-                className="px-4 py-2.5 bg-white border-2 border-ink/10 rounded-sm text-sm text-ink focus:outline-none focus:ring-2 focus:ring-indian-gold/30 focus:border-indian-gold cursor-pointer"
+                className="px-4 py-2 bg-white border border-ink-12 rounded-sm font-mono text-[11px] uppercase tracking-wider text-ink focus:outline-none focus:ring-2 focus:ring-indian-gold/30 focus:border-indian-gold cursor-pointer"
               >
-                <option value="match">Best Match</option>
-                <option value="popularity">Most Applied</option>
+                <option value="match">Best match</option>
+                <option value="popularity">Most applied</option>
                 <option value="trending">Trending</option>
-                <option value="rating">Top Rated</option>
+                <option value="rating">Top rated</option>
               </select>
 
-              <div className="flex items-center gap-0 border-2 border-ink/10 rounded-sm p-0.5">
+              <div className="flex items-center gap-0 border border-ink-12 rounded-sm p-0.5">
                 <button
                   onClick={() => setViewMode("table")}
                   aria-pressed={viewMode === "table"}
-                  className={`p-2 rounded-md transition-all cursor-pointer ${
+                  aria-label="Table view"
+                  className={`p-2 rounded-sm transition-colors cursor-pointer ${
                     viewMode === "table"
-                      ? "bg-ink text-white"
+                      ? "bg-ink text-canvas"
                       : "text-ink-60 hover:text-ink"
                   }`}
                 >
@@ -392,9 +406,10 @@ export default function CreditCardsClient({
                 <button
                   onClick={() => setViewMode("grid")}
                   aria-pressed={viewMode === "grid"}
-                  className={`p-2 rounded-md transition-all cursor-pointer ${
+                  aria-label="Card view"
+                  className={`p-2 rounded-sm transition-colors cursor-pointer ${
                     viewMode === "grid"
-                      ? "bg-ink text-white"
+                      ? "bg-ink text-canvas"
                       : "text-ink-60 hover:text-ink"
                   }`}
                 >
@@ -405,15 +420,19 @@ export default function CreditCardsClient({
           </div>
 
           {filteredAssets.length === 0 ? (
-            <div className="text-center py-16 bg-white border border-gray-200 rounded-sm">
-              <div className="w-14 h-14 mx-auto mb-4 bg-gray-50 flex items-center justify-center rounded-full">
-                <Search className="w-7 h-7 text-gray-400" />
+            <div className="text-center py-16 bg-white border border-ink-12 rounded-sm">
+              <div className="w-12 h-12 mx-auto mb-5 border border-ink-12 flex items-center justify-center rounded-sm">
+                <Search className="w-5 h-5 text-ink-60" />
               </div>
-              <h3 className="text-lg font-bold text-ink mb-2">
-                No cards match your filters
+              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+                No matches
+              </div>
+              <h3 className="font-display font-black text-[22px] text-ink mb-3">
+                No cards fit those filters
               </h3>
-              <p className="text-sm text-ink-60 mb-5 max-w-md mx-auto">
-                Try adjusting your filters or search term to see more results.
+              <p className="text-[13px] text-ink-60 mb-6 max-w-md mx-auto leading-[1.55]">
+                Loosen one filter — or let us match you with 3 questions
+                instead.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <button
@@ -431,15 +450,15 @@ export default function CreditCardsClient({
                     });
                     setSearchTerm("");
                   }}
-                  className="px-5 py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-ink/80 transition-colors cursor-pointer"
+                  className="px-5 py-2.5 bg-ink text-canvas font-mono text-[11px] uppercase tracking-wider rounded-sm hover:bg-ink/90 transition-colors cursor-pointer"
                 >
-                  Clear All Filters
+                  Clear all filters
                 </button>
                 <Link
                   href="/credit-cards/find-your-card"
-                  className="px-5 py-2.5 bg-white border-2 border-ink/10 rounded-sm text-sm font-medium text-ink hover:border-gray-300 transition-colors"
+                  className="px-5 py-2.5 bg-indian-gold text-ink font-mono text-[11px] uppercase tracking-wider rounded-sm hover:bg-indian-gold/90 transition-colors"
                 >
-                  Try Card Finder Quiz →
+                  Try card finder quiz →
                 </Link>
               </div>
             </div>
@@ -464,12 +483,12 @@ export default function CreditCardsClient({
               )}
 
               {hasMore && (
-                <div className="pt-6 text-center">
+                <div className="pt-8 text-center">
                   <button
                     onClick={() => setVisibleCount((prev) => prev + 6)}
-                    className="px-5 py-2.5 bg-white border-2 border-ink/10 rounded-sm text-sm font-medium text-ink hover:border-gray-300 hover:shadow-sm transition-all cursor-pointer"
+                    className="px-6 py-3 bg-white border border-ink-12 rounded-sm font-mono text-[11px] uppercase tracking-wider text-ink hover:border-indian-gold hover:text-indian-gold transition-colors cursor-pointer"
                   >
-                    Show more
+                    Show {Math.min(6, scoredAssets.length - visibleCount)} more
                   </button>
                 </div>
               )}
