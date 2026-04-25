@@ -14,6 +14,12 @@ import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import CategoryFAQ from "@/components/routing/CategoryFAQ";
+import { getEditorialHubs } from "@/lib/content/editorial-hubs";
+import {
+  getTaxDeductions,
+  getTaxKeyDates,
+  getTaxRegimeSlabs,
+} from "@/lib/content/tax-data";
 
 export const revalidate = 21600; // 6 hours — hub page, not time-critical
 
@@ -52,98 +58,11 @@ export const metadata: Metadata = {
   },
 };
 
-// CMS-MIGRATION: these arrays (TAX_CALCULATORS, DEDUCTIONS, REGIME_SLABS,
-// KEY_DATES) should live in DB tables — annual rev policy, editorial team
-// edits without deploy. See docs/MANUAL_ACTIONS_TRACKER.md.
-const TAX_CALCULATORS = [
-  {
-    slug: "old-vs-new-tax",
-    title: "Old vs New regime",
-    tagline: "Find out which saves you more",
-    accent: "₹",
-  },
-  {
-    slug: "tax",
-    title: "Income tax",
-    tagline: "FY 2026-27 slabs, both regimes",
-    accent: "%",
-  },
-  {
-    slug: "hra",
-    title: "HRA exemption",
-    tagline: "Metro vs non-metro, 3-component rule",
-    accent: "₹",
-  },
-  {
-    slug: "80c",
-    title: "Section 80C optimizer",
-    tagline: "₹1.5L cap across PPF, ELSS, EPF, NPS",
-    accent: "§",
-  },
-  {
-    slug: "capital-gains-tax",
-    title: "Capital gains (LTCG/STCG)",
-    tagline: "Equity, debt, real estate, gold",
-    accent: "%",
-  },
-  {
-    slug: "ltcg",
-    title: "LTCG calculator",
-    tagline: "After 2024 Budget ₹1.25L threshold",
-    accent: "₹",
-  },
-] as const;
-
-const DEDUCTIONS = [
-  {
-    section: "80C",
-    cap: "₹1.5 L",
-    covers: "PPF, ELSS, EPF, tax-saver FD, life insurance, home-loan principal",
-  },
-  {
-    section: "80D",
-    cap: "₹25–₹1 L",
-    covers: "Self + family + senior-parent health insurance premiums",
-  },
-  {
-    section: "80CCD(1B)",
-    cap: "₹50,000",
-    covers: "Over-and-above NPS contribution on top of 80C",
-  },
-  {
-    section: "80E",
-    cap: "No cap",
-    covers: "Education-loan interest for higher studies",
-  },
-  {
-    section: "80G",
-    cap: "50–100%",
-    covers: "Donations to approved charitable institutions",
-  },
-  {
-    section: "24(b)",
-    cap: "₹2 L",
-    covers: "Home-loan interest on self-occupied property",
-  },
-];
-
-const REGIME_SLABS = [
-  { range: "Up to ₹3 L", old: "Nil", neu: "Nil" },
-  { range: "₹3 L – ₹6 L", old: "5%", neu: "5%" },
-  { range: "₹6 L – ₹9 L", old: "20%", neu: "10%" },
-  { range: "₹9 L – ₹12 L", old: "20%", neu: "15%" },
-  { range: "₹12 L – ₹15 L", old: "30%", neu: "20%" },
-  { range: "Above ₹15 L", old: "30%", neu: "30%" },
-];
-
-const KEY_DATES = [
-  { when: "15 Jun 2026", what: "Advance tax — 1st instalment (15%)" },
-  { when: "15 Sep 2026", what: "Advance tax — 2nd instalment (45%)" },
-  { when: "15 Dec 2026", what: "Advance tax — 3rd instalment (75%)" },
-  { when: "31 Jul 2026", what: "ITR filing deadline — non-audit cases" },
-  { when: "15 Mar 2027", what: "Advance tax — final instalment (100%)" },
-  { when: "31 Oct 2026", what: "ITR filing — audit cases" },
-];
+// TAX_CALCULATORS / DEDUCTIONS / REGIME_SLABS / KEY_DATES were migrated
+// to Supabase on 2026-04-25. See:
+//   - editorial_hubs table (placement='taxes-calculators') for calculators
+//   - tax_data table (kind='deduction'|'regime_slab'|'key_date') for tax data
+//   - lib/content/tax-data.ts + lib/content/editorial-hubs.ts accessors
 
 function formatReadTime(rt: string | number | null): string {
   if (!rt) return "";
@@ -152,7 +71,14 @@ function formatReadTime(rt: string | number | null): string {
 }
 
 export default async function TaxesHubPage() {
-  const articles = await getFeaturedTaxArticles();
+  const [articles, taxCalculators, regimeSlabs, deductions, keyDates] =
+    await Promise.all([
+      getFeaturedTaxArticles(),
+      getEditorialHubs("taxes-calculators"),
+      getTaxRegimeSlabs(),
+      getTaxDeductions(),
+      getTaxKeyDates(),
+    ]);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -283,15 +209,15 @@ export default async function TaxesHubPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {TAX_CALCULATORS.map((c) => (
+            {taxCalculators.map((c) => (
               <Link
-                key={c.slug}
-                href={`/calculators/${c.slug}`}
+                key={c.href}
+                href={c.href}
                 className="group block bg-white border border-ink-12 rounded-sm p-6 hover:border-indian-gold transition-colors"
               >
                 <div className="flex items-start justify-between">
                   <span className="font-mono text-[22px] font-black text-indian-gold leading-none">
-                    {c.accent}
+                    {c.accent ?? "·"}
                   </span>
                   <ArrowUpRight className="w-4 h-4 text-ink-60 group-hover:text-indian-gold transition-colors" />
                 </div>
@@ -337,17 +263,19 @@ export default async function TaxesHubPage() {
                 </tr>
               </thead>
               <tbody>
-                {REGIME_SLABS.map((slab) => (
+                {regimeSlabs.map((slab) => (
                   <tr
-                    key={slab.range}
+                    key={slab.income_range}
                     className="border-b border-canvas-15 hover:bg-canvas/5"
                   >
-                    <td className="py-4 pr-6 text-[14px]">{slab.range}</td>
+                    <td className="py-4 pr-6 text-[14px]">
+                      {slab.income_range}
+                    </td>
                     <td className="py-4 px-4 text-right text-[14px] text-canvas-70">
-                      {slab.old}
+                      {slab.rate_old}
                     </td>
                     <td className="py-4 pl-4 text-right text-[14px] text-indian-gold font-bold">
-                      {slab.neu}
+                      {slab.rate_new}
                     </td>
                   </tr>
                 ))}
@@ -374,7 +302,7 @@ export default async function TaxesHubPage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {DEDUCTIONS.map((d) => (
+            {deductions.map((d) => (
               <div
                 key={d.section}
                 className="bg-white border border-ink-12 rounded-sm p-6"
@@ -467,16 +395,16 @@ export default async function TaxesHubPage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
-            {KEY_DATES.map((d) => (
+            {keyDates.map((d) => (
               <div
-                key={d.when}
+                key={`${d.date_label}-${d.event}`}
                 className="flex items-start gap-5 py-4 border-b border-ink-12"
               >
                 <div className="shrink-0 font-mono text-[12px] font-bold text-indian-gold tracking-wider uppercase min-w-[110px]">
-                  {d.when}
+                  {d.date_label}
                 </div>
                 <div className="text-[15px] text-ink leading-[1.5]">
-                  {d.what}
+                  {d.event}
                 </div>
               </div>
             ))}
