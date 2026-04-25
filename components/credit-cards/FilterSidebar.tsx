@@ -8,9 +8,6 @@ import { Button } from "@/components/ui/Button";
 import {
   RotateCcw,
   Filter,
-  Search,
-  ChevronDown,
-  ChevronUp,
   ShoppingCart,
   Plane,
   Fuel as FuelIcon,
@@ -18,8 +15,6 @@ import {
   Clapperboard,
   ShoppingBag,
 } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 
 export interface CCFilterState {
   maxFee: number;
@@ -28,9 +23,9 @@ export interface CCFilterState {
   issuers: string[];
   features: string[];
   spendingCategories: string[];
-  creditScore: string[]; // NEW
-  rewardsType: string[]; // NEW
-  cardType: string[]; // NEW
+  creditScore: string[];
+  rewardsType: string[];
+  cardType: string[];
 }
 
 interface FilterSidebarProps {
@@ -38,7 +33,6 @@ interface FilterSidebarProps {
   setFilters: React.Dispatch<React.SetStateAction<CCFilterState>>;
 }
 
-const NETWORKS = ["Visa", "Mastercard", "Amex", "Rupay"];
 const ISSUERS = [
   "HDFC",
   "SBI",
@@ -74,8 +68,8 @@ const CARD_TYPES = [
 const REWARDS_TYPES = ["Cashback", "Air Miles", "Points", "Vouchers", "Fuel"];
 const CREDIT_SCORES = [
   { label: "Excellent (750+)", value: "excellent" },
-  { label: "Good (700-749)", value: "good" },
-  { label: "Fair (650-699)", value: "fair" },
+  { label: "Good (700–749)", value: "good" },
+  { label: "Fair (650–699)", value: "fair" },
   { label: "New to Credit", value: "new" },
 ];
 
@@ -87,6 +81,21 @@ const SPENDING_CATEGORIES = [
   { value: "entertainment", label: "Movies", icon: Clapperboard },
   { value: "shopping", label: "Shopping", icon: ShoppingBag },
 ];
+
+/**
+ * V3 design tokens only — ink/canvas/indian-gold/action-green.
+ * Eyebrow labels use the canonical pattern:
+ *   font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold
+ * Active filter pills = indian-gold (emphasis), inactive = bg-white + ink-12
+ * border. No green-* (would conflict with the "indian-gold = emphasis" rule).
+ */
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold">
+      {children}
+    </div>
+  );
+}
 
 export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
   const [showAllBanks, setShowAllBanks] = useState(false);
@@ -117,35 +126,27 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
   };
 
   return (
-    <div className="w-full bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+    <div className="w-full bg-white rounded-sm border border-ink-12 overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white z-10">
-        <h3 className="font-semibold text-ink flex items-center gap-2 text-sm">
-          <Filter className="w-4 h-4 text-green-600" />
+      <div className="px-5 py-4 border-b border-ink-12 flex items-center justify-between">
+        <h3 className="font-display font-black text-[15px] text-ink flex items-center gap-2">
+          <Filter className="w-4 h-4 text-indian-gold" strokeWidth={1.75} />
           Filters
         </h3>
         <Button
           variant="ghost"
           size="sm"
           onClick={handleReset}
-          className="h-8 text-xs text-ink-60 hover:text-green-600"
+          className="h-8 font-mono text-[10px] uppercase tracking-wider text-ink-60 hover:text-indian-gold hover:bg-transparent px-2"
         >
           <RotateCcw className="w-3 h-3 mr-1" /> Reset
         </Button>
       </div>
 
-      <div className="p-5 space-y-6">
-        {/* 1. Credit Score (NEW - High Priority) */}
+      <div className="px-5 py-5 space-y-7">
+        {/* 1. Eligibility */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider flex items-center gap-2">
-            Eligibility (Score)
-            <Badge
-              variant="outline"
-              className="text-[9px] h-4 px-1 border-green-200 text-green-600"
-            >
-              New
-            </Badge>
-          </label>
+          <SectionLabel>Eligibility · Score</SectionLabel>
           <div className="space-y-2">
             {CREDIT_SCORES.map((score) => (
               <div className="flex items-center space-x-2" key={score.value}>
@@ -158,7 +159,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 />
                 <Label
                   htmlFor={`score-${score.value}`}
-                  className="text-sm font-medium text-ink-60 cursor-pointer"
+                  className="text-[13px] text-ink-60 cursor-pointer"
                 >
                   {score.label}
                 </Label>
@@ -167,45 +168,44 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
           </div>
         </div>
 
-        <div className="w-full h-px bg-gray-100" />
+        <div className="w-full h-px bg-ink-12" />
 
-        {/* 2. Card Type (NEW) */}
+        {/* 2. Card Category */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
-            Card Category
-          </label>
+          <SectionLabel>Card category</SectionLabel>
           <div className="flex flex-wrap gap-2">
-            {CARD_TYPES.map((type) => (
-              <button
-                key={type}
-                onClick={() => toggleArrayItem("cardType", type)}
-                className={`text-xs px-3.5 py-2 rounded-lg border transition-all font-semibold cursor-pointer ${
-                  filters.cardType.includes(type)
-                    ? "bg-green-600 text-white border-green-600"
-                    : "bg-white text-ink-60 border-gray-200 hover:border-gray-300"
-                }`}
-              >
-                {type}
-              </button>
-            ))}
+            {CARD_TYPES.map((type) => {
+              const active = filters.cardType.includes(type);
+              return (
+                <button
+                  key={type}
+                  onClick={() => toggleArrayItem("cardType", type)}
+                  className={`text-[12px] px-3 py-1.5 rounded-sm border font-mono uppercase tracking-wider transition-colors cursor-pointer ${
+                    active
+                      ? "bg-indian-gold text-ink border-indian-gold"
+                      : "bg-white text-ink-60 border-ink-12 hover:border-indian-gold hover:text-ink"
+                  }`}
+                >
+                  {type}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        <div className="w-full h-px bg-gray-100" />
+        <div className="w-full h-px bg-ink-12" />
 
         {/* 3. Annual Fee Slider */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
-              Max Annual Fee
-            </label>
-            <span className="text-sm font-bold text-ink">
-              ₹{filters.maxFee}
+          <div className="flex items-baseline justify-between">
+            <SectionLabel>Max annual fee</SectionLabel>
+            <span className="font-mono text-[14px] font-black text-ink tabular-nums">
+              ₹{filters.maxFee.toLocaleString("en-IN")}
             </span>
           </div>
           <Slider
             defaultValue={[filters.maxFee]}
-            max={50000} // Increased range
+            max={50000}
             step={500}
             onValueChange={(val) =>
               setFilters((prev) => ({ ...prev, maxFee: val[0] }))
@@ -213,11 +213,11 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
           />
         </div>
 
-        {/* 4. Issuer Bank (Expanded) */}
+        <div className="w-full h-px bg-ink-12" />
+
+        {/* 4. Issuer Bank */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
-            Issuer Bank
-          </label>
+          <SectionLabel>Issuer bank</SectionLabel>
           <div className="space-y-2">
             {displayedIssuers.map((issuer) => (
               <div className="flex items-center space-x-2" key={issuer}>
@@ -228,7 +228,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 />
                 <Label
                   htmlFor={`issuer-${issuer}`}
-                  className="text-sm text-ink-60 cursor-pointer"
+                  className="text-[13px] text-ink-60 cursor-pointer"
                 >
                   {issuer} Bank
                 </Label>
@@ -237,46 +237,47 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 text-xs text-green-600 p-0 hover:bg-transparent hover:text-green-700 cursor-pointer"
+              className="h-7 font-mono text-[10px] uppercase tracking-wider text-indian-gold p-0 hover:bg-transparent hover:text-ink cursor-pointer"
               onClick={() => setShowAllBanks(!showAllBanks)}
               aria-expanded={showAllBanks}
             >
               {showAllBanks
-                ? "Show Less"
-                : `See All Banks (${ISSUERS.length - 6}+)`}
+                ? "Show less"
+                : `See all banks (${ISSUERS.length - 6}+)`}
             </Button>
           </div>
         </div>
 
-        <div className="w-full h-px bg-gray-100" />
+        <div className="w-full h-px bg-ink-12" />
 
-        {/* 5. Rewards Type (NEW) */}
+        {/* 5. Rewards Type */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
-            Rewards Type
-          </label>
+          <SectionLabel>Rewards type</SectionLabel>
           <div className="flex flex-wrap gap-2">
-            {REWARDS_TYPES.map((type) => (
-              <button
-                key={type}
-                onClick={() => toggleArrayItem("rewardsType", type)}
-                className={`text-xs px-3.5 py-2 rounded-full border transition-all cursor-pointer ${
-                  filters.rewardsType.includes(type)
-                    ? "bg-gray-900 text-white border-gray-900"
-                    : "bg-white text-ink-60 border-gray-200 hover:border-gray-300"
-                }`}
-              >
-                {type}
-              </button>
-            ))}
+            {REWARDS_TYPES.map((type) => {
+              const active = filters.rewardsType.includes(type);
+              return (
+                <button
+                  key={type}
+                  onClick={() => toggleArrayItem("rewardsType", type)}
+                  className={`text-[12px] px-3 py-1.5 rounded-sm border font-mono uppercase tracking-wider transition-colors cursor-pointer ${
+                    active
+                      ? "bg-ink text-canvas border-ink"
+                      : "bg-white text-ink-60 border-ink-12 hover:border-indian-gold hover:text-ink"
+                  }`}
+                >
+                  {type}
+                </button>
+              );
+            })}
           </div>
         </div>
 
+        <div className="w-full h-px bg-ink-12" />
+
         {/* 6. Spending Categories */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
-            Best For Spending
-          </label>
+          <SectionLabel>Best for spending</SectionLabel>
           <div className="space-y-2">
             {SPENDING_CATEGORIES.map((category) => (
               <div className="flex items-center space-x-2" key={category.value}>
@@ -289,9 +290,12 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 />
                 <Label
                   htmlFor={`spending-${category.value}`}
-                  className="text-sm font-medium text-ink-60 cursor-pointer flex items-center gap-2"
+                  className="text-[13px] text-ink-60 cursor-pointer flex items-center gap-2"
                 >
-                  <category.icon className="w-4 h-4 text-green-500" />
+                  <category.icon
+                    className="w-4 h-4 text-indian-gold"
+                    strokeWidth={1.75}
+                  />
                   {category.label}
                 </Label>
               </div>
@@ -299,11 +303,11 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
           </div>
         </div>
 
+        <div className="w-full h-px bg-ink-12" />
+
         {/* 7. Premium Features */}
         <div className="space-y-3">
-          <label className="text-xs font-bold text-ink-60 uppercase tracking-wider">
-            Features
-          </label>
+          <SectionLabel>Features</SectionLabel>
           <div className="space-y-2">
             {FEATURES.map((feat) => (
               <div className="flex items-center space-x-2" key={feat}>
@@ -314,7 +318,7 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
                 />
                 <Label
                   htmlFor={`feat-${feat}`}
-                  className="text-sm font-medium text-ink-60 cursor-pointer"
+                  className="text-[13px] text-ink-60 cursor-pointer"
                 >
                   {feat}
                 </Label>
@@ -323,8 +327,6 @@ export function FilterSidebar({ filters, setFilters }: FilterSidebarProps) {
           </div>
         </div>
       </div>
-
-      {/* Footer Mobile apply button typically rendered by parent container, but we keep this clean here */}
     </div>
   );
 }
