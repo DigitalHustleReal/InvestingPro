@@ -1,359 +1,528 @@
-import React from "react";
+/**
+ * Insurance Hub — Server Component (v3)
+ *
+ * Locked principles applied (matching /credit-cards + /loans + /investing
+ * + /taxes):
+ *   1. Surface-ink reserved for hero + final CTA only — everything else
+ *      `bg-canvas` with border-ink-12 dividers (brainstorm.md §1).
+ *   2. No platform-stat counts on user-facing pages — counts go to
+ *      /admin/dashboard. "20+ insurers" / "CSR verified" / "Updated
+ *      quarterly" badges removed.
+ *   3. Single horizontal product list (InsuranceClient handles its own
+ *      list/grid toggle).
+ *   4. DB-driven content via editorial_hubs + category_faqs +
+ *      lib/data/team Insurance Desk byline.
+ */
+
 import { Metadata } from "next";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
+import { createServiceClient } from "@/lib/supabase/service";
 import InsuranceClient from "./InsuranceClient";
 import WeeklyChanges from "@/components/common/WeeklyChanges";
+import ContextualTicker from "@/components/common/ContextualTicker";
 import { getInsuranceServer } from "@/lib/products/get-insurance-server";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
+import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { getEditorialHubs } from "@/lib/content/editorial-hubs";
+import { TEAM_MEMBERS } from "@/lib/data/team";
+import { deskOrganizationSchema } from "@/lib/content/desk-schema";
+import { DeskByline } from "@/components/articles/DeskByline";
+import CategoryFAQ from "@/components/routing/CategoryFAQ";
+import { articleUrl } from "@/lib/routing/article-url";
 
 export const revalidate = 3600;
+
 export const metadata: Metadata = {
-  title: "Best Insurance Plans in India (2026) — Compare & Buy",
+  title: "Best Insurance Plans in India 2026 — Compare & Buy",
   description:
-    "Compare term life, health, car, and travel insurance from 20+ insurers. Check claim settlement ratios. Independent ratings.",
+    "Compare term life, health, car, and travel insurance from every major Indian insurer. We track IRDAI claim settlement ratios — independent ratings, no paid placements.",
+  alternates: { canonical: generateCanonicalUrl("/insurance") },
   openGraph: {
-    title: "Best Insurance Plans in India (2026)",
-    url: "https://investingpro.in/insurance",
+    title: "Best Insurance Plans in India 2026",
+    description:
+      "Term, health, car, travel insurance compared — with claim settlement data that actually matters.",
+    url: generateCanonicalUrl("/insurance"),
+    type: "website",
   },
 };
 
+// CMS-MIGRATION: insurance type tiles. Could move to a `insurance_types`
+// reference table or to editorial_hubs placement='insurance-types'.
+const INSURANCE_TYPES = [
+  { label: "Term Life", desc: "Pure protection", href: "/insurance?type=term" },
+  {
+    label: "Health",
+    desc: "Mediclaim + family",
+    href: "/insurance?type=health",
+  },
+  { label: "Life", desc: "Endowment + ULIP", href: "/insurance?type=life" },
+  {
+    label: "Car",
+    desc: "Comprehensive + 3rd party",
+    href: "/insurance?type=car",
+  },
+  {
+    label: "Travel",
+    desc: "Domestic + international",
+    href: "/insurance?type=travel",
+  },
+  {
+    label: "Bike",
+    desc: "Two-wheeler protection",
+    href: "/insurance?type=bike",
+  },
+];
+
+type LatestArticle = {
+  slug: string;
+  title: string;
+  excerpt: string | null;
+  category: string | null;
+  featured_image: string | null;
+  read_time: string | number | null;
+  published_at: string | null;
+};
+
+async function getLatestInsuranceArticles(): Promise<LatestArticle[]> {
+  const supabase = createServiceClient();
+  const { data } = await supabase
+    .from("articles")
+    .select(
+      "slug, title, excerpt, category, featured_image, read_time, published_at",
+    )
+    .eq("status", "published")
+    .in("category", [
+      "insurance",
+      "health-insurance",
+      "health_insurance",
+      "life-insurance",
+      "life_insurance",
+      "term-insurance",
+      "term_insurance",
+      "car-insurance",
+    ])
+    .order("published_at", { ascending: false })
+    .limit(6);
+  return (data as LatestArticle[]) ?? [];
+}
+
+function formatReadTime(rt: string | number | null): string {
+  if (!rt) return "";
+  const n = typeof rt === "string" ? parseInt(rt, 10) : rt;
+  return Number.isFinite(n) && n > 0 ? `${n} min read` : "";
+}
+
 export default async function InsurancePage() {
-  let initialPlans: any[] = [];
+  let initialPlans: unknown[] = [];
   try {
     initialPlans = await getInsuranceServer();
   } catch {
     initialPlans = [];
   }
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: "Best Insurance Plans India 2026",
-      description:
-        "Compare term life, health, car, and travel insurance from 20+ insurers. Check claim settlement ratios. Independent ratings — no paid placements.",
-      url: "https://investingpro.in/insurance",
-      publisher: {
-        "@type": "Organization",
-        name: "InvestingPro",
-        url: "https://investingpro.in",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://investingpro.in/logo.png",
-        },
-      },
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: "https://investingpro.in",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Insurance",
-            item: "https://investingpro.in/insurance",
-          },
-        ],
+
+  const [personas, calculators, comparisons, tools, articles] =
+    await Promise.all([
+      getEditorialHubs("insurance-personas"),
+      getEditorialHubs("insurance-calculators"),
+      getEditorialHubs("insurance-comparisons"),
+      getEditorialHubs("insurance-tools"),
+      getLatestInsuranceArticles(),
+    ]);
+
+  const insuranceDesk = TEAM_MEMBERS.find((m) => m.slug === "insurance-desk");
+  const deskSchema = insuranceDesk
+    ? deskOrganizationSchema(insuranceDesk)
+    : null;
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Best Insurance Plans India 2026",
+    description:
+      "Compare term life, health, car, and travel insurance from every major Indian insurer. Independent ratings — no paid placements.",
+    url: generateCanonicalUrl("/insurance"),
+    publisher: {
+      "@type": "Organization",
+      name: "InvestingPro",
+      url: "https://investingpro.in",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://investingpro.in/logo.png",
       },
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
         {
-          "@type": "Question",
-          name: "What is the best term insurance plan in India?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Plans with high claim settlement ratios (>98%) and low premiums. LIC, HDFC Life, and ICICI Prudential consistently rank well.",
-          },
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: generateCanonicalUrl("/"),
         },
         {
-          "@type": "Question",
-          name: "How much health insurance cover do I need?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Minimum ₹10L for individuals, ₹25L for families in metros. Factor in medical inflation of 14% annually.",
-          },
+          "@type": "ListItem",
+          position: 2,
+          name: "Insurance",
+          item: generateCanonicalUrl("/insurance"),
         },
       ],
     },
-  ];
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
-      <section className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
-          <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-sm text-ink-60 dark:text-gray-300">
+      {deskSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(deskSchema) }}
+        />
+      )}
+
+      {/* ── Live ticker — what changed in insurance market ─────────── */}
+      <ContextualTicker category="insurance" />
+
+      {/* ── Hero — ink ────────────────────────────────────────────── */}
+      <section className="surface-ink pt-10 pb-14">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <nav aria-label="Breadcrumb" className="mb-10">
+            <ol className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-canvas-70">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-ink transition-colors"
+                  className="hover:text-indian-gold transition-colors"
+                  aria-label="Home"
                 >
-                  Home
+                  <Home className="w-3 h-3" />
                 </Link>
               </li>
-              <li>
-                <ChevronRight size={14} />
-              </li>
-              <li className="text-ink font-medium">Insurance</li>
+              <ChevronRight className="w-3 h-3 text-canvas-70" />
+              <li className="text-canvas">Insurance</li>
             </ol>
           </nav>
-          <AdvertiserDisclosure variant="expandable" className="mb-3" />
 
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-            <div>
-              <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
-                Best Insurance Plans{" "}
-                <em className="italic text-indian-gold">in India</em>
-              </h1>
-              <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
-                Compare term, health, life, car, and travel insurance. We track
-                claim settlement ratios so you can choose with confidence.
-              </p>
-            </div>
-            <div className="flex items-center gap-4 flex-shrink-0 mt-1">
-              <span className="text-xs text-ink-60 border border-gray-200 px-3 py-1.5">
-                CSR verified
-              </span>
-              <span className="text-xs text-ink-60 border border-gray-200 px-3 py-1.5">
-                Updated quarterly
-              </span>
-            </div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-5">
+            IRDAI claims data · No paid placements
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-            {[
-              "All Plans",
-              "Term Life",
-              "Health",
-              "Life",
-              "Car",
-              "Travel",
-              "Bike",
-            ].map((p, i) => (
+
+          <h1 className="font-display font-black text-[44px] md:text-[68px] lg:text-[80px] leading-[0.98] tracking-tight text-canvas max-w-[1000px]">
+            Insurance,{" "}
+            <span className="text-indian-gold italic">that pays out.</span>
+          </h1>
+
+          <p className="mt-7 font-serif text-[19px] md:text-[21px] leading-[1.55] text-canvas max-w-[740px]">
+            Term, health, car, travel — compared on the only thing that matters:
+            do they actually settle claims? Sourced from IRDAI annual reports,
+            refreshed every quarter.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link
+              href="/calculators/insurance"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-indian-gold text-ink font-bold text-[14px] tracking-wide rounded-sm hover:bg-indian-gold/90 transition-colors"
+            >
+              How much cover do I need?
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/insurance/claims"
+              className="inline-flex items-center gap-2 px-6 py-3.5 border border-canvas-15 text-canvas font-mono text-[12px] uppercase tracking-wider rounded-sm hover:border-indian-gold hover:text-indian-gold transition-colors"
+            >
+              See claim settlement data
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Advertiser disclosure + Desk byline ─────────────────── */}
+      <section className="bg-canvas border-b border-ink-12 py-5">
+        <div className="max-w-[1280px] mx-auto px-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <DeskByline category="insurance" />
+          <AdvertiserDisclosure variant="expandable" />
+        </div>
+      </section>
+
+      {/* ── Insurance types — canvas ───────────────────────────── */}
+      <section className="bg-canvas border-b border-ink-12 py-10">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-6">
+            Insurance types
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {INSURANCE_TYPES.map((t) => (
               <Link
-                key={p}
-                href={
-                  i === 0
-                    ? "/insurance"
-                    : `/insurance?type=${p.toLowerCase().replace(" ", "-")}`
-                }
-                className={`inline-flex items-center px-4 py-2 text-xs font-medium whitespace-nowrap transition-colors rounded-full ${i === 0 ? "bg-authority-green text-white rounded-full" : "bg-gray-100 text-ink-60 hover:bg-gray-100"}`}
+                key={t.label}
+                href={t.href}
+                className="group block bg-white border border-ink-12 rounded-sm p-4 hover:border-indian-gold transition-colors"
               >
-                {p}
+                <div className="font-display text-[14px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                  {t.label}
+                </div>
+                <div className="mt-1.5 font-mono text-[10px] uppercase tracking-wider text-ink-60">
+                  {t.desc}
+                </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
-      <section className="bg-gray-50 min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
-          <InsuranceClient initialPlans={initialPlans} />
+
+      {/* ── Personas — canvas ───────────────────────────────────── */}
+      {personas.length > 0 && (
+        <section className="bg-canvas py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              Who depends on you?
+            </div>
+            <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight mb-3">
+              Pick your situation
+            </h2>
+            <p className="font-serif text-[17px] text-ink-60 max-w-[720px] mb-10">
+              The right cover depends on who relies on your income and your
+              health bill. Start with the closest match.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {personas.map((p) => (
+                <Link
+                  key={`${p.placement}-${p.title}`}
+                  href={p.href}
+                  className="group block bg-white border border-ink-12 rounded-sm p-6 hover:border-indian-gold transition-colors"
+                >
+                  <span className="font-mono text-[20px] font-black text-indian-gold leading-none">
+                    {p.accent ?? "·"}
+                  </span>
+                  <h3 className="mt-5 font-display text-[20px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-[13px] text-ink-60 leading-[1.55]">
+                    {p.tagline}
+                  </p>
+                  <div className="mt-5 flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-ink group-hover:text-indian-gold transition-colors">
+                    Show plans <ArrowUpRight className="w-3 h-3" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Main product list ─────────────────────────────────── */}
+      <section className="bg-canvas border-t border-ink-12">
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
+          <InsuranceClient initialPlans={initialPlans as never} />
         </div>
       </section>
 
-      {/* This Week in Indian Money — editorial velocity (NW parity+) */}
-      <section className="bg-white border-t-2 border-ink/10 py-10">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+      {/* ── Editorial velocity ──────────────────────────────── */}
+      <section className="bg-canvas border-t-2 border-ink-12 py-12">
+        <div className="max-w-[1280px] mx-auto px-6">
           <WeeklyChanges category="insurance" />
         </div>
       </section>
-      <section className="bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            Related Tools
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              {
-                label: "Coverage Calculator",
-                desc: "Find how much coverage you need",
-                href: "/calculators/insurance",
-              },
-              {
-                label: "Compare Plans",
-                desc: "Side-by-side insurer comparison",
-                href: "/insurance/compare",
-              },
-              {
-                label: "Claim Settlement Data",
-                desc: "Which insurers actually pay claims",
-                href: "/insurance/claims",
-              },
-              {
-                label: "Insurance Guide",
-                desc: "Everything you need to know",
-                href: "/insurance/guides",
-              },
-            ].map((t) => (
-              <Link
-                key={t.href}
-                href={t.href}
-                className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
-              >
-                <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
-                  {t.label}
-                </p>
-                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
-                  {t.desc}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Popular comparisons + How we rate + FAQs */}
-      <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            Popular Comparisons
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
-            {[
-              {
-                title: "Term vs Whole Life Insurance",
-                desc: "Pure protection vs savings — what makes sense at your age?",
-                href: "/insurance/compare/term-vs-whole-life",
-              },
-              {
-                title: "LIC vs HDFC Life Term Plan",
-                desc: "CSR, premium, and claim speed compared head-to-head",
-                href: "/insurance/compare/lic-vs-hdfc-life",
-              },
-              {
-                title: "Health Insurance: Star vs ICICI Lombard",
-                desc: "Network hospitals, room limits, and no-claim bonus",
-                href: "/insurance/compare/star-vs-icici-lombard",
-              },
-              {
-                title: "Individual vs Family Floater",
-                desc: "When a family plan saves money — and when it doesn't",
-                href: "/insurance/compare/individual-vs-floater",
-              },
-              {
-                title: "Company Insurance vs Own Policy",
-                desc: "Why employer cover alone isn't enough",
-                href: "/insurance/guides/company-vs-own",
-              },
-              {
-                title: "ULIPs vs Term + Mutual Fund",
-                desc: "Insurance + investment combo vs buying separately",
-                href: "/insurance/compare/ulip-vs-term-mf",
-              },
-            ].map((comp) => (
-              <Link
-                key={comp.href}
-                href={comp.href}
-                className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
-              >
-                <span className="text-xs font-bold text-authority-green bg-green-50 px-2 py-1 mt-0.5 flex-shrink-0 rounded">
-                  VS
-                </span>
-                <div>
-                  <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
-                    {comp.title}
-                  </p>
-                  <p className="text-xs text-ink-60 mt-0.5">{comp.desc}</p>
+      {/* ── Calculators — canvas ────────────────────────────── */}
+      {calculators.length > 0 && (
+        <section className="bg-canvas border-t border-ink-12 py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+                  Run the numbers
                 </div>
-              </Link>
-            ))}
-          </div>
-
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            How We Compare
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
-            {[
-              {
-                num: "98%+",
-                label: "CSR threshold",
-                desc: "We highlight plans with excellent claim settlement ratios",
-              },
-              {
-                num: "20+",
-                label: "Insurers tracked",
-                desc: "IRDAI-regulated companies with public claims data",
-              },
-              {
-                num: "Quarterly",
-                label: "Data refresh",
-                desc: "CSR, network hospitals, and premiums updated from IRDAI filings",
-              },
-              {
-                num: "₹0",
-                label: "Paid placements",
-                desc: "No insurer pays for higher ranking. CSR and claims data drive all rankings.",
-              },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className="p-4 bg-white border border-gray-200 rounded-xl"
-              >
-                <p className="text-2xl font-display font-bold text-ink">{s.num}</p>
-                <p className="text-sm font-display font-semibold text-ink mt-1">
-                  {s.label}
-                </p>
-                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
-                  {s.desc}
-                </p>
+                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight">
+                  Cover sizing tools
+                </h2>
               </div>
-            ))}
-          </div>
-
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">FAQs</h2>
-          <div className="space-y-2">
-            {[
-              {
-                q: "What is term insurance and do I need it?",
-                a: "Term insurance is pure life cover — it pays your family if you die during the policy term. If anyone depends on your income, you need it. It is the most affordable form of life insurance.",
-              },
-              {
-                q: "How much health insurance cover should I have?",
-                a: "Minimum ₹10L for individuals, ₹25L+ for families in metros. Medical inflation runs at 14% annually — what costs ₹5L today will cost ₹20L in 10 years.",
-              },
-              {
-                q: "What is claim settlement ratio and why does it matter?",
-                a: "CSR tells you what percentage of claims an insurer actually pays. Look for 95%+ CSR. We track this data for every insurer on our platform.",
-              },
-              {
-                q: "Should I buy insurance online or through an agent?",
-                a: "Online plans are typically 10-30% cheaper (no agent commission). The coverage is identical. We recommend buying directly from the insurer website.",
-              },
-              {
-                q: "Is health insurance tax deductible?",
-                a: "Yes. Premiums up to ₹25,000 (₹50,000 for senior citizens) qualify for Section 80D deduction. This applies to self, spouse, children, and parents.",
-              },
-              {
-                q: "How does InvestingPro rate insurance plans?",
-                a: "We evaluate on premium value, claim settlement ratio, network hospitals, coverage limits, exclusions, and customer reviews. No insurer pays for higher placement.",
-              },
-            ].map((f, i) => (
-              <details
-                key={i}
-                className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
+              <Link
+                href="/insurance/calculators"
+                className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
               >
-                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-ink hover:bg-gray-50 transition-colors list-none">
-                  {f.q}
-                  <ChevronRight
-                    size={16}
-                    className="text-ink-60 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
-                  />
-                </summary>
-                <div className="px-5 pb-4 text-sm text-ink-60 leading-relaxed border-t border-gray-200 pt-3">
-                  {f.a}
-                </div>
-              </details>
-            ))}
+                All calculators <ArrowUpRight className="w-3 h-3" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {calculators.map((c) => (
+                <Link
+                  key={c.href}
+                  href={c.href}
+                  className="group block bg-white border border-ink-12 rounded-sm p-6 hover:border-indian-gold transition-colors"
+                >
+                  <div className="flex items-start justify-between">
+                    <span className="font-mono text-[22px] font-black text-indian-gold leading-none">
+                      {c.accent ?? "·"}
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-ink-60 group-hover:text-indian-gold transition-colors" />
+                  </div>
+                  <h3 className="mt-6 font-display text-[18px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                    {c.title}
+                  </h3>
+                  <p className="mt-2 text-[12px] text-ink-60 leading-[1.5]">
+                    {c.tagline}
+                  </p>
+                </Link>
+              ))}
+            </div>
           </div>
+        </section>
+      )}
+
+      {/* ── Tools — canvas ──────────────────────────────────── */}
+      {tools.length > 0 && (
+        <section className="bg-canvas border-t border-ink-12 py-14">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              Tools
+            </div>
+            <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-ink tracking-tight mb-10">
+              Helper kit
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+              {tools.map((t) => (
+                <Link
+                  key={t.href}
+                  href={t.href}
+                  className="group block bg-white border border-ink-12 rounded-sm p-5 hover:border-indian-gold transition-colors"
+                >
+                  <span className="font-mono text-[20px] font-black text-indian-gold leading-none">
+                    {t.accent ?? "·"}
+                  </span>
+                  <h3 className="mt-4 font-display text-[16px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                    {t.title}
+                  </h3>
+                  <p className="mt-2 text-[12px] text-ink-60 leading-[1.5]">
+                    {t.tagline}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Comparisons — canvas ─────────────────────────────── */}
+      {comparisons.length > 0 && (
+        <section className="bg-canvas border-t border-ink-12 py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              Decisions worth running
+            </div>
+            <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-ink tracking-tight mb-10">
+              Popular comparisons
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {comparisons.map((c) => (
+                <Link
+                  key={c.href}
+                  href={c.href}
+                  className="group flex items-start gap-4 bg-white border border-ink-12 rounded-sm p-5 hover:border-indian-gold transition-colors"
+                >
+                  <span className="font-mono text-[10px] font-black text-indian-gold border border-indian-gold/40 px-2 py-1 mt-0.5 flex-shrink-0">
+                    {c.accent ?? "VS"}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-display text-[16px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                      {c.title}
+                    </h3>
+                    <p className="mt-2 text-[12px] text-ink-60 leading-[1.55]">
+                      {c.tagline}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Latest articles — canvas ────────────────────────── */}
+      {articles.length > 0 && (
+        <section className="bg-canvas border-t border-ink-12 py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+                  From the desk
+                </div>
+                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight">
+                  Latest insurance analysis
+                </h2>
+              </div>
+              <Link
+                href="/insurance/learn"
+                className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
+              >
+                All insurance articles <ArrowUpRight className="w-3 h-3" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {articles.map((a) => (
+                <Link key={a.slug} href={articleUrl(a)} className="group block">
+                  {a.featured_image ? (
+                    <div className="relative aspect-[16/10] bg-ink-12 overflow-hidden rounded-sm mb-4">
+                      <Image
+                        src={a.featured_image}
+                        alt={a.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                  ) : (
+                    <div className="aspect-[16/10] bg-ink/5 rounded-sm mb-4" />
+                  )}
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-2">
+                    Insurance Desk
+                    {formatReadTime(a.read_time)
+                      ? ` · ${formatReadTime(a.read_time)}`
+                      : ""}
+                  </div>
+                  <h3 className="font-display text-[20px] font-black text-ink leading-[1.2] group-hover:text-authority-green transition-colors">
+                    {a.title}
+                  </h3>
+                  {a.excerpt && (
+                    <p className="mt-3 text-[13px] text-ink-60 leading-[1.55] line-clamp-3">
+                      {a.excerpt}
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── FAQ — DB-driven ───────────────────────────────── */}
+      <CategoryFAQ urlCategory="insurance" variant="canvas" />
+
+      {/* ── Final CTA — ink ────────────────────────────────── */}
+      <section className="surface-ink py-14">
+        <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              This week in Indian money
+            </div>
+            <h3 className="font-display font-black text-[26px] md:text-[32px] text-canvas leading-tight max-w-[640px]">
+              Every Sunday — one premium hike worth knowing, one claim trick
+              insurers won&apos;t volunteer.
+            </h3>
+          </div>
+          <Link
+            href="/#newsletter"
+            className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-indian-gold text-ink font-bold text-[14px] tracking-wide rounded-sm hover:bg-indian-gold/90 transition-colors"
+          >
+            Subscribe free
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
     </>
