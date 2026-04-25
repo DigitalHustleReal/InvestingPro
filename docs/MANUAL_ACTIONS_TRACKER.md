@@ -224,6 +224,17 @@ Strategic bets in **strict priority order**. Do not jump ahead — earlier
 items unblock later ones. The user explicitly set this sequence on
 2026-04-25 PM; the previously written items have been re-ordered to match.
 
+### Admin dashboard — surface platform stats internally (parallel to redesign)
+
+User reaffirmed 2026-04-25 PM: platform-stat counts ("X cards / Y banks / avg
+annual fee / max reward rate") do NOT belong on user-facing hubs. They were
+removed from /credit-cards on the v3 redesign feedback round. They belong on
+`/admin/dashboard` (TBD) so the editorial team can monitor inventory health.
+
+Stats to surface there (per category): total products tracked, lifetime-free
+count, avg/min/max fees, avg/min/max reward rates, last-updated timestamps,
+broken-link count, missing-image count, missing-FAQ count.
+
 ### Priority 0 — Category page redesign sweep (BEFORE everything else)
 
 Goal: a seamless, mobile-first, no-flaw frontend before we drive any
