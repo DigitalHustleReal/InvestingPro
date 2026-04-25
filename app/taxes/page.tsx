@@ -52,6 +52,9 @@ export const metadata: Metadata = {
   },
 };
 
+// CMS-MIGRATION: these arrays (TAX_CALCULATORS, DEDUCTIONS, REGIME_SLABS,
+// KEY_DATES) should live in DB tables — annual rev policy, editorial team
+// edits without deploy. See docs/MANUAL_ACTIONS_TRACKER.md.
 const TAX_CALCULATORS = [
   {
     slug: "old-vs-new-tax",

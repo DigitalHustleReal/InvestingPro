@@ -15,6 +15,10 @@ import {
 } from "@/lib/routing/category-map";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
 
+// CMS-MIGRATION: this 70+ entry static map should live in a `calculators`
+// reference table (slug, url_category, title, tagline, accent, popularity).
+// Pattern proven for FAQs in `category_faqs` (lib/content/faqs.ts).
+// See docs/MANUAL_ACTIONS_TRACKER.md.
 /** Curated display labels + taglines per calc slug. */
 const CALC_META: Record<
   string,

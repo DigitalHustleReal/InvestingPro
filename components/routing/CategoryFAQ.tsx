@@ -10,17 +10,17 @@
  * "Q: ... A: ..." structure and lift it as a citation block.
  */
 
-import { getCategoryFAQs } from "@/lib/content/faq-data";
+import { getFAQsForCategory } from "@/lib/content/faqs";
 import { urlCategoryLabel, type UrlCategory } from "@/lib/routing/category-map";
 
-export default function CategoryFAQ({
+export default async function CategoryFAQ({
   urlCategory,
   variant = "canvas",
 }: {
   urlCategory: UrlCategory;
   variant?: "canvas" | "ink";
 }) {
-  const faqs = getCategoryFAQs(urlCategory);
+  const faqs = await getFAQsForCategory(urlCategory);
   if (!faqs.length) return null;
 
   const label = urlCategoryLabel(urlCategory);

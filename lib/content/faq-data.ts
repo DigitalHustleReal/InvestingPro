@@ -1,3 +1,12 @@
+// Static FAQ fallback. Source-of-truth is the Supabase `category_faqs`
+// table; this module is the resilience fallback when DB is unreachable
+// AND the seed data for the migration. See lib/content/faqs.ts for the
+// runtime accessor.
+//
+// Edits made here should also be applied to the table — preferably via
+// the (TBD) admin UI rather than a migration. Until that UI ships,
+// editorial team uses Supabase Studio.
+
 interface FAQItem {
   question: string;
   answer: string;

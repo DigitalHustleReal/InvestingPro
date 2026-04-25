@@ -64,7 +64,14 @@
   → Need `primary_category` column OR first-match rule
 
 ### Content sources — route through CMS / DB (user-flagged 2026-04-25)
-> User principle: "no hard coded articles or products, route everything through cms, db, front end". Counts shown to users (X cards, X guides) look immature — strip from user-facing pages, keep in admin dashboard only.
+> **Architectural principle (locked):** Every piece of content shown on the
+> public site flows through the CMS / database — even content I (Claude)
+> generate manually inside a session. Code-resident content arrays are an
+> anti-pattern; they couple editorial freshness to engineering deploys
+> and hide content from any future admin tooling. The pattern: write a
+> seed SQL once, populate the table, point the runtime at the DB with a
+> static-module fallback for resilience. Counts shown to users (X cards,
+> X guides) look immature — strip from public pages, keep in admin only.
 
 - [x] Stripped count-claims from `/not-found`, `/[cat]/learn/`, `/[cat]/calculators/`, `/taxes` user-facing copy. Counts still pulled to llms.txt (AI-only) for accurate citation.
 - [x] FAQ blocks added to all 7 `/[cat]/learn/` hubs + `/taxes` top-level via shared `CategoryFAQ` Server Component. Currently sourced from `lib/content/faq-data.ts` (typed module). 35+ FAQ items across 7 categories.

@@ -69,6 +69,12 @@ const TOP_HUBS = [
   },
 ];
 
+// CMS-MIGRATION: these arrays should live in DB tables (editorial_facts /
+// curated_calculators / curated_hubs) so the editorial team refreshes them
+// without a code deploy. See docs/MANUAL_ACTIONS_TRACKER.md "Content
+// sources — route through CMS / DB". The pattern is already proven for
+// FAQs (`category_faqs` table + lib/content/faqs.ts accessor).
+//
 // "Did you know" hooks — rupee-accurate anchor facts that turn a 404
 // into a teaching moment. Update annually after Budget.
 const DATA_HOOKS = [
