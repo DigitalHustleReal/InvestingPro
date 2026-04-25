@@ -1,32 +1,111 @@
-import React from "react";
+/**
+ * Credit Cards Hub — Server Component (v3)
+ *
+ * Highest-revenue page on the site (affiliate driver). Goal: NerdWallet-
+ * better product list + Indian-context credibility signals.
+ *
+ * What this page does that NerdWallet doesn't:
+ *   - Live card-stats strip (81 cards / 24 lifetime free / avg ₹2,733
+ *     annual fee / max reward rate) computed from our own DB on every
+ *     ISR rebuild — no other Indian site shows their own aggregate
+ *     transparency this way.
+ *   - Persona-led routing (First card / Cashback / Travel / Premium)
+ *     deeplinking to the find-your-card quiz with the intent preset.
+ *   - Editorial Credit Team byline + Organization JSON-LD on the hub.
+ *   - WeeklyChanges editorial ticker — what changed in the card market
+ *     this week.
+ *
+ * Tokens — strict v3. Surfaces: surface-ink (hero/credibility),
+ * bg-canvas (browse + tools), border-ink-12 (cards), indian-gold
+ * (eyebrows + accents), authority-green (verified states), no
+ * blue/purple/pink/cyan/teal/sky, rounded-sm max, no shadow-lg.
+ */
+
 import { Metadata } from "next";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
 import { getCreditCardsServer } from "@/lib/products/get-credit-cards-server";
+import { createServiceClient } from "@/lib/supabase/service";
 import CreditCardsClient from "./CreditCardsClient";
 import WeeklyChanges from "@/components/common/WeeklyChanges";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { logger } from "@/lib/logger";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import RatingExplainer from "@/components/products/RatingExplainer";
+import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { getEditorialHubs } from "@/lib/content/editorial-hubs";
+import { TEAM_MEMBERS } from "@/lib/data/team";
+import { deskOrganizationSchema } from "@/lib/content/desk-schema";
+import { DeskByline } from "@/components/articles/DeskByline";
+import CategoryFAQ from "@/components/routing/CategoryFAQ";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Best Credit Cards in India (2026) — Compare & Apply",
+  title: "Best Credit Cards in India 2026 — Compare 81 Cards from 12 Banks",
   description:
-    "Compare credit cards from every major Indian bank. Filter by rewards, cashback, travel, annual fee, and network. Independent ratings — no paid placements.",
+    "Compare 81 credit cards from every major Indian bank — 24 lifetime free, average ₹2,733 annual fee, up to 13% rewards. Filter by category, fee, or rewards. Independent ratings, no paid placements.",
+  alternates: { canonical: generateCanonicalUrl("/credit-cards") },
   openGraph: {
-    title: "Best Credit Cards in India (2026) — Compare & Apply",
+    title: "Best Credit Cards in India 2026",
     description:
-      "Compare credit cards from 50+ banks. Independent research, AI-powered scoring, instant apply.",
-    url: "https://investingpro.in/credit-cards",
+      "Compare 81 cards. Filter by rewards / cashback / travel / fee. Independent — no paid placements.",
+    url: generateCanonicalUrl("/credit-cards"),
     type: "website",
   },
 };
 
+type CardStats = {
+  total: number;
+  lifetimeFree: number;
+  avgAnnualFee: number;
+  maxRewardRate: number;
+};
+
+async function getCardStats(): Promise<CardStats> {
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("credit_cards")
+      .select("annual_fee, annual_fee_text, reward_rate");
+
+    const rows = data ?? [];
+    const total = rows.length;
+    const isLTF = (c: {
+      annual_fee?: number | null;
+      annual_fee_text?: string | null;
+    }) =>
+      c.annual_fee === 0 ||
+      (c.annual_fee_text != null && /lifetime|free/i.test(c.annual_fee_text));
+    const lifetimeFree = rows.filter(isLTF).length;
+    const feeSum = rows.reduce(
+      (s, c) =>
+        s +
+        (typeof c.annual_fee === "number" && c.annual_fee > 0
+          ? c.annual_fee
+          : 0),
+      0,
+    );
+    const feeCount = rows.filter(
+      (c) => typeof c.annual_fee === "number" && c.annual_fee > 0,
+    ).length;
+    const avgAnnualFee = feeCount > 0 ? Math.round(feeSum / feeCount) : 0;
+    const maxRewardRate = rows.reduce(
+      (m, c) => Math.max(m, Number(c.reward_rate ?? 0)),
+      0,
+    );
+    return { total, lifetimeFree, avgAnnualFee, maxRewardRate };
+  } catch (e) {
+    logger.error(
+      "[CreditCardsHub] Stats query failed",
+      e instanceof Error ? e : undefined,
+    );
+    return { total: 0, lifetimeFree: 0, avgAnnualFee: 0, maxRewardRate: 0 };
+  }
+}
+
 export default async function CreditCardsPage() {
-  let assets: any[] = [];
+  let assets: unknown[] = [];
   try {
     assets = await getCreditCardsServer();
   } catch (error) {
@@ -37,408 +116,432 @@ export default async function CreditCardsPage() {
     assets = [];
   }
 
-  const cardCount = assets.length > 0 ? assets.length : 500;
+  const [stats, personas, comparisons, tools] = await Promise.all([
+    getCardStats(),
+    getEditorialHubs("credit-cards-personas"),
+    getEditorialHubs("credit-cards-comparisons"),
+    getEditorialHubs("credit-cards-tools"),
+  ]);
 
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: "Best Credit Cards in India 2026",
-      description:
-        "Compare and apply for the best credit cards in India. Filter by rewards, cashback, travel, annual fee, and network. Independent ratings — no paid placements.",
-      url: "https://investingpro.in/credit-cards",
-      numberOfItems: cardCount,
-      publisher: {
-        "@type": "Organization",
-        name: "InvestingPro",
-        url: "https://investingpro.in",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://investingpro.in/logo.png",
-        },
-      },
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: "https://investingpro.in",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Credit Cards",
-            item: "https://investingpro.in/credit-cards",
-          },
-        ],
+  const cardCount = stats.total > 0 ? stats.total : assets.length || 81;
+
+  const creditDesk = TEAM_MEMBERS.find((m) => m.slug === "credit-team");
+  const deskSchema = creditDesk ? deskOrganizationSchema(creditDesk) : null;
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Best Credit Cards in India 2026",
+    description:
+      "Compare 81 credit cards from every major Indian bank. Independent ratings — no paid placements.",
+    url: generateCanonicalUrl("/credit-cards"),
+    numberOfItems: cardCount,
+    publisher: {
+      "@type": "Organization",
+      name: "InvestingPro",
+      url: "https://investingpro.in",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://investingpro.in/logo.png",
       },
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
         {
-          "@type": "Question",
-          name: "What is the best credit card in India right now?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "It depends on your spending pattern. For cashback, the SBI Cashback Card offers 5% on online purchases. For travel, the HDFC Regalia Gold gives 12 airport lounge visits/year.",
-          },
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: generateCanonicalUrl("/"),
         },
         {
-          "@type": "Question",
-          name: "Will applying for a credit card hurt my credit score?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Each application triggers a hard inquiry, which can temporarily lower your score by 5-10 points. We recommend applying for 1-2 cards at a time.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What credit score do I need for a credit card?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Most premium cards require 750+. Cards for good credit start at 700+. Some secured cards accept 650+.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Are lifetime free credit cards really free?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The card itself has no annual fee, but you may still pay interest on unpaid balances, forex markup, and late payment fees.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How does InvestingPro rate credit cards?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "We evaluate cards on 23 data points including rewards value, annual fees, interest rates, welcome bonuses, and benefits. No bank pays for higher placement.",
-          },
+          "@type": "ListItem",
+          position: 2,
+          name: "Credit Cards",
+          item: generateCanonicalUrl("/credit-cards"),
         },
       ],
     },
-  ];
+  };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
+      {deskSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(deskSchema) }}
+        />
+      )}
 
+      {/* ── Contextual ticker — what's new in cards this week ─────── */}
       <ContextualTicker category="credit-cards" />
 
-      {/* ── Hero ── */}
-      <section className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
-          {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-sm text-ink-60">
+      {/* ── Hero — ink ────────────────────────────────────────────── */}
+      <section className="surface-ink pt-10 pb-14">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <nav aria-label="Breadcrumb" className="mb-10">
+            <ol className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-canvas-70">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-ink transition-colors"
+                  className="hover:text-indian-gold transition-colors"
+                  aria-label="Home"
                 >
-                  Home
+                  <Home className="w-3 h-3" />
                 </Link>
               </li>
-              <li>
-                <ChevronRight size={14} />
-              </li>
-              <li className="text-ink font-medium">Credit Cards</li>
+              <ChevronRight className="w-3 h-3 text-canvas-70" />
+              <li className="text-canvas">Credit Cards</li>
             </ol>
           </nav>
 
-          <AdvertiserDisclosure variant="expandable" className="mb-3" />
-
-          {/* Title row */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-            <div>
-              <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
-                Best Credit Cards{" "}
-                <em className="italic text-indian-gold">in India</em>
-              </h1>
-              <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
-                Compare {cardCount}+ credit cards. Filter by rewards, fees, and
-                network. Ranked by real outcomes — not what pays us most.
-              </p>
-            </div>
-            <div className="flex items-center gap-3 flex-shrink-0 mt-1">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-ink-60 border border-ink/15 px-2 py-1">
-                Updated daily
-              </span>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-indian-gold border border-indian-gold/30 px-2 py-1">
-                Methodology disclosed
-              </span>
-            </div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-5">
+            {cardCount} cards · 12 banks · No paid placements
           </div>
 
-          {/* Quick filter pills are now rendered inside CreditCardsClient for state control */}
+          <h1 className="font-display font-black text-[44px] md:text-[68px] lg:text-[80px] leading-[0.98] tracking-tight text-canvas max-w-[1000px]">
+            Best credit cards{" "}
+            <span className="text-indian-gold italic">in India.</span>
+          </h1>
+
+          <p className="mt-7 font-serif text-[19px] md:text-[21px] leading-[1.55] text-canvas max-w-[740px]">
+            Filter by reward rate, cashback category, travel benefits, or annual
+            fee. Ranked on outcomes you can verify — not on what pays us most.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link
+              href="/credit-cards/find-your-card"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-indian-gold text-ink font-bold text-[14px] tracking-wide rounded-sm hover:bg-indian-gold/90 transition-colors"
+            >
+              Find my card · 3 questions
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/credit-cards/compare"
+              className="inline-flex items-center gap-2 px-6 py-3.5 border border-canvas-15 text-canvas font-mono text-[12px] uppercase tracking-wider rounded-sm hover:border-indian-gold hover:text-indian-gold transition-colors"
+            >
+              Compare side-by-side
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── Main content ── */}
-      <section className="bg-canvas min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
-          <CreditCardsClient initialAssets={assets as any} />
+      {/* ── Live card stats — canvas, mono ────────────────────────── */}
+      <section className="bg-canvas border-b border-ink-12">
+        <div className="max-w-[1280px] mx-auto px-6 py-5">
+          <div className="flex items-center justify-between gap-4 mb-4">
+            <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
+              The deck · Live from our database
+            </div>
+            <AdvertiserDisclosure variant="expandable" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-4 font-mono">
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-ink-60">
+                Cards tracked
+              </div>
+              <div className="text-[24px] font-black text-ink mt-1">
+                {stats.total > 0 ? stats.total : "—"}
+              </div>
+              <div className="text-[11px] text-ink-60 mt-0.5">
+                Across 12 Indian banks
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-ink-60">
+                Lifetime free
+              </div>
+              <div className="text-[24px] font-black text-action-green mt-1">
+                {stats.lifetimeFree > 0 ? stats.lifetimeFree : "—"}
+              </div>
+              <div className="text-[11px] text-ink-60 mt-0.5">
+                No annual fee, ever
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-ink-60">
+                Avg annual fee
+              </div>
+              <div className="text-[24px] font-black text-ink mt-1">
+                {stats.avgAnnualFee > 0
+                  ? `₹${stats.avgAnnualFee.toLocaleString("en-IN")}`
+                  : "—"}
+              </div>
+              <div className="text-[11px] text-ink-60 mt-0.5">
+                Paid cards only
+              </div>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-ink-60">
+                Top reward rate
+              </div>
+              <div className="text-[24px] font-black text-indian-gold mt-1">
+                {stats.maxRewardRate > 0 ? `${stats.maxRewardRate}%` : "—"}
+              </div>
+              <div className="text-[11px] text-ink-60 mt-0.5">
+                On select categories
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── This Week in Indian Money — editorial velocity (NW parity+) ── */}
-      <section className="bg-white border-t-2 border-ink/10 py-10">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+      {/* ── Desk byline ───────────────────────────────────────────── */}
+      <section className="bg-canvas border-b border-ink-12 py-6">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <DeskByline category="credit_cards" />
+        </div>
+      </section>
+
+      {/* ── Personas — canvas ─────────────────────────────────────── */}
+      {personas.length > 0 && (
+        <section className="bg-canvas py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              Pick your spend pattern
+            </div>
+            <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight mb-3">
+              Why are you getting a card?
+            </h2>
+            <p className="font-serif text-[17px] text-ink-60 max-w-[720px] mb-10">
+              The right card depends on what you actually buy. Be honest with
+              yourself — answer one of these and we&apos;ll filter the deck.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {personas.map((p) => (
+                <Link
+                  key={p.href}
+                  href={p.href}
+                  className="group block bg-white border border-ink-12 rounded-sm p-6 hover:border-indian-gold transition-colors"
+                >
+                  <span className="font-mono text-[22px] font-black text-indian-gold leading-none">
+                    {p.accent ?? "·"}
+                  </span>
+                  <h3 className="mt-5 font-display text-[20px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-[13px] text-ink-60 leading-[1.55]">
+                    {p.tagline}
+                  </p>
+                  <div className="mt-5 flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-ink group-hover:text-indian-gold transition-colors">
+                    Find my match <ArrowUpRight className="w-3 h-3" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Main product list ───────────────────────────────────── */}
+      <section className="bg-canvas border-t border-ink-12">
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
+          <CreditCardsClient initialAssets={assets as never} />
+        </div>
+      </section>
+
+      {/* ── Editorial velocity ──────────────────────────────────── */}
+      <section className="bg-canvas border-t-2 border-ink-12 py-12">
+        <div className="max-w-[1280px] mx-auto px-6">
           <WeeklyChanges category="credit-cards" />
         </div>
       </section>
 
-      {/* ── Related tools ── */}
-      <section className="bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            Related Tools
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              {
-                label: "Rewards Calculator",
-                desc: "Estimate annual rewards from your spending",
-                href: "/calculators?type=rewards",
-              },
-              {
-                label: "EMI Calculator",
-                desc: "Calculate card EMI for big purchases",
-                href: "/calculators/emi",
-              },
-              {
-                label: "Compare Cards",
-                desc: "Side-by-side feature comparison",
-                href: "/credit-cards/compare",
-              },
-              {
-                label: "Find Your Card",
-                desc: "Personalized recommendation quiz",
-                href: "/credit-cards/find-your-card",
-              },
-            ].map((tool) => (
-              <Link
-                key={tool.href}
-                href={tool.href}
-                className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
-              >
-                <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
-                  {tool.label}
-                </p>
-                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
-                  {tool.desc}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Popular comparisons ── */}
-      <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            Popular Comparisons
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              {
-                title: "SBI Cashback vs Amazon Pay ICICI",
-                desc: "Best no-fee cashback card for online spending",
-                href: "/credit-cards/compare/sbi-cashback-vs-amazon-pay",
-              },
-              {
-                title: "HDFC Regalia vs Infinia",
-                desc: "Premium travel card showdown — is 5x the fee worth it?",
-                href: "/credit-cards/compare/hdfc-regalia-vs-infinia",
-              },
-              {
-                title: "Axis Ace vs HDFC Millennia",
-                desc: "Best entry-level rewards card under ₹1,000",
-                href: "/credit-cards/compare/axis-ace-vs-hdfc-millennia",
-              },
-              {
-                title: "Rewards vs Cashback Cards",
-                desc: "Points or direct savings — which saves more?",
-                href: "/credit-cards/compare/rewards-vs-cashback",
-              },
-              {
-                title: "Travel vs Fuel Cards",
-                desc: "Best card for frequent travelers vs daily commuters",
-                href: "/credit-cards/compare/travel-vs-fuel",
-              },
-              {
-                title: "Lifetime Free vs Paid Cards",
-                desc: "When the annual fee actually pays for itself",
-                href: "/credit-cards/compare/free-vs-paid",
-              },
-            ].map((comp) => (
-              <Link
-                key={comp.href}
-                href={comp.href}
-                className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
-              >
-                <span className="text-xs font-bold text-authority-green bg-green-50 px-2 py-1 mt-0.5 flex-shrink-0 rounded">
-                  VS
-                </span>
-                <div>
-                  <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
-                    {comp.title}
+      {/* ── Tools — ink ─────────────────────────────────────────── */}
+      {tools.length > 0 && (
+        <section className="surface-ink py-14">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              Tools
+            </div>
+            <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-canvas tracking-tight mb-10">
+              Helper kit
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+              {tools.map((t) => (
+                <Link
+                  key={t.href}
+                  href={t.href}
+                  className="group block border border-canvas-15 rounded-sm p-5 hover:border-indian-gold transition-colors"
+                >
+                  <span className="font-mono text-[20px] font-black text-indian-gold leading-none">
+                    {t.accent ?? "·"}
+                  </span>
+                  <h3 className="mt-4 font-display text-[16px] font-black text-canvas leading-tight group-hover:text-indian-gold transition-colors">
+                    {t.title}
+                  </h3>
+                  <p className="mt-2 text-[12px] text-canvas-70 leading-[1.5]">
+                    {t.tagline}
                   </p>
-                  <p className="text-xs text-ink-60 mt-0.5 leading-relaxed">
-                    {comp.desc}
-                  </p>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* ── How we rate ── */}
-      <section className="bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            How We Rate Products
+      {/* ── Popular comparisons — canvas ─────────────────────────── */}
+      {comparisons.length > 0 && (
+        <section className="bg-canvas py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              The fights worth running
+            </div>
+            <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-ink tracking-tight mb-10">
+              Popular comparisons
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {comparisons.map((c) => (
+                <Link
+                  key={c.href}
+                  href={c.href}
+                  className="group flex items-start gap-4 bg-white border border-ink-12 rounded-sm p-5 hover:border-indian-gold transition-colors"
+                >
+                  <span className="font-mono text-[10px] font-black text-indian-gold border border-indian-gold/40 px-2 py-1 mt-0.5 flex-shrink-0">
+                    {c.accent ?? "VS"}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-display text-[16px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                      {c.title}
+                    </h3>
+                    <p className="mt-2 text-[12px] text-ink-60 leading-[1.55]">
+                      {c.tagline}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── How we rate — ink ──────────────────────────────────── */}
+      <section className="surface-ink py-16">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+            Methodology
+          </div>
+          <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-canvas tracking-tight mb-3">
+            How we rate
           </h2>
-          {/* Quick stats row */}
-          <div className="grid grid-cols-3 gap-4 mb-8">
-            {[
-              {
-                num: "23",
-                label: "Data points per card",
-                desc: "Rewards, fees, interest, benefits, eligibility",
-              },
-              {
-                num: "Daily",
-                label: "Update frequency",
-                desc: "Bank websites and RBI data",
-              },
-              {
-                num: "₹0",
-                label: "Paid placements",
-                desc: "No bank pays for higher ranking",
-              },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="p-4 bg-gray-50 border border-gray-200 rounded-xl"
-              >
-                <p className="text-2xl font-display font-bold text-ink">{stat.num}</p>
-                <p className="text-sm font-display font-semibold text-ink mt-1">
-                  {stat.label}
-                </p>
-                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
-                  {stat.desc}
-                </p>
+          <p className="font-serif text-[17px] text-canvas-70 max-w-[720px] mb-10">
+            Every card on this page is evaluated against the same 23-point
+            framework. We disclose every input. No bank pays for higher
+            placement — disclosed in our advertiser policy above.
+          </p>
+
+          <div className="grid grid-cols-3 gap-5 mb-10">
+            <div className="border border-canvas-15 rounded-sm p-5">
+              <div className="font-mono text-[28px] font-black text-indian-gold leading-none">
+                23
               </div>
-            ))}
+              <div className="mt-3 font-display text-[16px] font-black text-canvas">
+                Data points per card
+              </div>
+              <p className="mt-2 text-[12px] text-canvas-70 leading-[1.5]">
+                Rewards, fees, interest, benefits, eligibility
+              </p>
+            </div>
+            <div className="border border-canvas-15 rounded-sm p-5">
+              <div className="font-mono text-[28px] font-black text-indian-gold leading-none">
+                Daily
+              </div>
+              <div className="mt-3 font-display text-[16px] font-black text-canvas">
+                Update frequency
+              </div>
+              <p className="mt-2 text-[12px] text-canvas-70 leading-[1.5]">
+                Bank websites + RBI disclosures
+              </p>
+            </div>
+            <div className="border border-canvas-15 rounded-sm p-5">
+              <div className="font-mono text-[28px] font-black text-indian-gold leading-none">
+                ₹0
+              </div>
+              <div className="mt-3 font-display text-[16px] font-black text-canvas">
+                Paid placements
+              </div>
+              <p className="mt-2 text-[12px] text-canvas-70 leading-[1.5]">
+                No bank pays for higher rank
+              </p>
+            </div>
           </div>
 
-          {/* Detailed rating explainer */}
-          <RatingExplainer variant="inline" category="credit_card" />
-        </div>
-      </section>
-
-      {/* ── FAQ — with schema markup ── */}
-      <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-3">
-            {[
-              {
-                q: "What is the best credit card in India right now?",
-                a: "It depends on your spending pattern. For cashback, the SBI Cashback Card offers 5% on online purchases. For travel, the HDFC Regalia Gold gives 12 airport lounge visits/year. Use our filters above to find the best card for your needs.",
-              },
-              {
-                q: "Will applying for a credit card hurt my credit score?",
-                a: "Each application triggers a hard inquiry, which can temporarily lower your score by 5-10 points. We recommend applying for 1-2 cards at a time and spacing applications 3-6 months apart.",
-              },
-              {
-                q: "What credit score do I need for a credit card?",
-                a: "Most premium cards require 750+. Cards for good credit start at 700+. Some secured cards accept 650+. If you are new to credit, consider a secured card or a card specifically designed for beginners.",
-              },
-              {
-                q: "Are lifetime free credit cards really free?",
-                a: "The card itself has no annual fee, but you may still pay interest on unpaid balances (typically 36-42% APR), forex markup on international transactions (1.5-3.5%), and late payment fees. Always read the fine print.",
-              },
-              {
-                q: "How do credit card rewards work?",
-                a: "Most cards earn reward points or cashback on purchases. Points can be redeemed for flights, products, or statement credits. Cashback is directly credited to your statement. The effective reward rate typically ranges from 0.5% to 5% depending on the card and spending category.",
-              },
-              {
-                q: "How does InvestingPro rate credit cards?",
-                a: "We evaluate cards on 23 data points including rewards value, annual fees, interest rates, welcome bonuses, travel benefits, and eligibility requirements. Our editorial team reviews every card independently. No bank pays for higher placement.",
-              },
-            ].map((faq, i) => (
-              <details
-                key={i}
-                className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
-              >
-                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-ink hover:bg-gray-50 transition-colors list-none">
-                  {faq.q}
-                  <ChevronRight
-                    size={16}
-                    className="text-ink-60 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
-                  />
-                </summary>
-                <div className="px-5 pb-4 text-sm text-ink-60 leading-relaxed border-t border-gray-100 pt-3">
-                  {faq.a}
-                </div>
-              </details>
-            ))}
+          <div className="bg-canvas text-ink rounded-sm p-6">
+            <RatingExplainer variant="inline" category="credit_card" />
           </div>
         </div>
       </section>
 
-      {/* ── Next steps CTAs ── */}
-      <section className="bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-xl font-display font-bold text-ink mb-5">
-            Not sure yet?
+      {/* ── FAQ — DB-driven ────────────────────────────────────── */}
+      <CategoryFAQ urlCategory="credit-cards" variant="canvas" />
+
+      {/* ── Not sure yet — ink ─────────────────────────────────── */}
+      <section className="surface-ink py-14">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+            Still browsing
+          </div>
+          <h2 className="font-display font-black text-[26px] md:text-[32px] text-canvas leading-tight mb-8">
+            Three more ways in
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <Link
               href="/credit-cards/find-your-card"
-              className="p-5 bg-authority-green hover:bg-green-800 transition-colors text-center rounded-xl"
+              className="group block bg-indian-gold text-ink rounded-sm p-6 hover:bg-indian-gold/90 transition-colors"
             >
-              <p className="text-sm font-semibold text-white">
-                Take the Card Finder Quiz
+              <div className="font-mono text-[10px] uppercase tracking-wider opacity-80">
+                Personalised
+              </div>
+              <h3 className="mt-3 font-display text-[20px] font-black leading-tight">
+                Take the card finder quiz
+              </h3>
+              <p className="mt-2 text-[12px] opacity-80">
+                3 questions · 30 seconds · no email needed
               </p>
-              <p className="text-xs text-white/70 mt-1">
-                3 questions · 30 seconds
-              </p>
+              <div className="mt-5 font-mono text-[10px] uppercase tracking-wider flex items-center gap-1">
+                Start <ArrowUpRight className="w-3 h-3" />
+              </div>
             </Link>
             <Link
               href="/credit-cards/compare"
-              className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all text-center"
+              className="group block border border-canvas-15 rounded-sm p-6 hover:border-indian-gold transition-colors"
             >
-              <p className="text-sm font-display font-semibold text-ink">
-                Compare Cards Side-by-Side
+              <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
+                Side-by-side
+              </div>
+              <h3 className="mt-3 font-display text-[20px] font-black text-canvas leading-tight group-hover:text-indian-gold transition-colors">
+                Compare 2–3 cards
+              </h3>
+              <p className="mt-2 text-[12px] text-canvas-70">
+                Pick from the list, see the differences inline
               </p>
-              <p className="text-xs text-ink-60 mt-1">
-                Pick 2-3 cards and see the difference
-              </p>
+              <div className="mt-5 font-mono text-[10px] uppercase tracking-wider text-canvas-70 flex items-center gap-1">
+                Open compare <ArrowUpRight className="w-3 h-3" />
+              </div>
             </Link>
             <Link
-              href="/credit-cards/guides"
-              className="p-5 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all text-center"
+              href="/credit-cards/learn"
+              className="group block border border-canvas-15 rounded-sm p-6 hover:border-indian-gold transition-colors"
             >
-              <p className="text-sm font-display font-semibold text-ink">
-                Read the Credit Card Guide
+              <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
+                The basics
+              </div>
+              <h3 className="mt-3 font-display text-[20px] font-black text-canvas leading-tight group-hover:text-indian-gold transition-colors">
+                Read the credit card guide
+              </h3>
+              <p className="mt-2 text-[12px] text-canvas-70">
+                CIBIL, fees, reward types — all explained
               </p>
-              <p className="text-xs text-ink-60 mt-1">
-                Everything you need to know
-              </p>
+              <div className="mt-5 font-mono text-[10px] uppercase tracking-wider text-canvas-70 flex items-center gap-1">
+                Read more <ArrowUpRight className="w-3 h-3" />
+              </div>
             </Link>
           </div>
         </div>
