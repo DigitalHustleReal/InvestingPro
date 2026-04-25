@@ -10,14 +10,32 @@
  *     The same component is used by /[category]/learn/[slug] (Phase 3a target).
  */
 
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Metadata } from "next";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { dbCategoryToUrl } from "@/lib/routing/category-map";
 import FullArticleView, {
   type FullArticle,
 } from "@/components/articles/FullArticleView";
 import type { BreadcrumbItem } from "@/lib/linking/breadcrumbs";
+
+/**
+ * Returns the canonical URL for an article. Articles with a real DB
+ * category resolve to /[urlCat]/learn/[slug] (NerdWallet-style nested);
+ * articles without a category mapping (or that map to "learn") stay at
+ * the legacy flat path. Used by both /articles/[slug] (this file, for
+ * canonical metadata + the redirect target) and the sitemap.
+ */
+function articleCanonicalPath(
+  article: Pick<FullArticle, "slug" | "category">,
+): string {
+  const urlCat = dbCategoryToUrl(article.category);
+  if (article.category && urlCat !== "learn") {
+    return `/${urlCat}/learn/${article.slug}`;
+  }
+  return `/articles/${article.slug}`;
+}
 
 export const revalidate = 3600; // Revalidate every hour
 export const dynamicParams = true; // Allow ISR for slugs not in generateStaticParams
@@ -79,7 +97,11 @@ export async function generateMetadata({
   const article = await getArticle(slug, false);
   if (!article) return { title: "Article Not Found" };
 
-  const canonical = generateCanonicalUrl(`/articles/${article.slug}`);
+  // Canonical points to the nested URL when the article has a real category.
+  // Even though we 308 in the default export, generateMetadata fires on the
+  // initial flat-URL request — emitting nested as canonical here means search
+  // engines that don't follow the 308 still see the right URL.
+  const canonical = generateCanonicalUrl(articleCanonicalPath(article));
 
   return {
     title: (
@@ -126,6 +148,16 @@ export default async function ArticlePage({
     notFound();
   }
 
+  // Phase 3a canonical flip: if the article has a real DB category, the
+  // canonical URL is /[urlCat]/learn/[slug] — 308 there. Preview mode skips
+  // the redirect so admin previews keep working at /articles/[slug]?preview=1.
+  if (!isPreview) {
+    const urlCat = dbCategoryToUrl(article.category);
+    if (article.category && urlCat !== "learn") {
+      permanentRedirect(`/${urlCat}/learn/${article.slug}`);
+    }
+  }
+
   // Increment view count asynchronously (fire & forget — doesn't block render)
   if (!isPreview) {
     const supabase = createServiceClient();
@@ -139,13 +171,15 @@ export default async function ArticlePage({
     }
   }
 
+  // We only reach this point when the article has no real category mapping
+  // (or in preview mode) — so legacy "Articles" breadcrumb is correct here.
   const breadcrumbs: BreadcrumbItem[] = [
     { label: "Home", url: "/" },
     { label: "Articles", url: "/articles" },
     { label: article.title, url: `/articles/${article.slug}` },
   ];
 
-  const canonicalUrl = generateCanonicalUrl(`/articles/${article.slug}`);
+  const canonicalUrl = generateCanonicalUrl(articleCanonicalPath(article));
 
   return (
     <FullArticleView
