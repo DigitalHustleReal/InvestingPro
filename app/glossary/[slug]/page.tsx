@@ -19,6 +19,9 @@ import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { getDeskForCategory } from "@/lib/data/team";
+import { deskOrganizationSchema } from "@/lib/content/desk-schema";
+import { DeskByline } from "@/components/articles/DeskByline";
 
 export const revalidate = 3600; // 1 hour
 export const dynamicParams = true;
@@ -151,6 +154,8 @@ export default async function GlossaryTermPage({
   ]);
 
   const canonical = generateCanonicalUrl(`/glossary/${term.slug}`);
+  const desk = getDeskForCategory(term.category);
+  const deskSchema = deskOrganizationSchema(desk);
 
   const definedTermSchema = {
     "@context": "https://schema.org",
@@ -195,6 +200,10 @@ export default async function GlossaryTermPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(deskSchema) }}
       />
 
       {/* Ink hero strip */}
@@ -394,18 +403,13 @@ export default async function GlossaryTermPage({
                 </section>
               )}
 
-            {/* Last reviewed */}
-            {term.updated_at && (
-              <div className="mt-10 pt-6 border-t border-ink-12 font-mono text-[11px] uppercase tracking-wider text-ink-60">
-                Last reviewed ·{" "}
-                {new Date(term.updated_at).toLocaleDateString("en-IN", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })}
-                {term.reviewer_label && <span> · {term.reviewer_label}</span>}
-              </div>
-            )}
+            {/* Desk byline — which editorial desk reviewed this term */}
+            <div className="mt-10 pt-6 border-t border-ink-12">
+              <DeskByline
+                category={term.category}
+                updatedAt={term.updated_at}
+              />
+            </div>
           </article>
 
           {/* Sidebar — sticky */}

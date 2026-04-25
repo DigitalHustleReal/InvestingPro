@@ -20,6 +20,9 @@ import {
   getTaxKeyDates,
   getTaxRegimeSlabs,
 } from "@/lib/content/tax-data";
+import { TEAM_MEMBERS } from "@/lib/data/team";
+import { deskOrganizationSchema } from "@/lib/content/desk-schema";
+import { DeskByline } from "@/components/articles/DeskByline";
 
 export const revalidate = 21600; // 6 hours — hub page, not time-critical
 
@@ -80,6 +83,10 @@ export default async function TaxesHubPage() {
       getTaxKeyDates(),
     ]);
 
+  // Editorial desk responsible for this hub
+  const taxDesk = TEAM_MEMBERS.find((m) => m.slug === "tax-desk");
+  const deskSchema = taxDesk ? deskOrganizationSchema(taxDesk) : null;
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -105,6 +112,12 @@ export default async function TaxesHubPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {deskSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(deskSchema) }}
+        />
+      )}
 
       {/* Hero — ink */}
       <section className="surface-ink pt-10 pb-16">
@@ -185,6 +198,13 @@ export default async function TaxesHubPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Desk byline — editorial accountability */}
+      <section className="bg-canvas border-b border-ink-12 py-6">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <DeskByline category="tax_planning" />
         </div>
       </section>
 

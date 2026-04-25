@@ -20,7 +20,26 @@ import {
 } from "@/lib/routing/category-map";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import { articleUrl } from "@/lib/routing/article-url";
+import { TEAM_MEMBERS } from "@/lib/data/team";
+import { deskOrganizationSchema } from "@/lib/content/desk-schema";
+import { DeskByline } from "@/components/articles/DeskByline";
 import CategoryFAQ from "./CategoryFAQ";
+
+/**
+ * Map url_category -> the desk slug that owns editorial quality for that
+ * hub. Matches what DeskByline auto-selects for articles, but expressed
+ * statically here so the hub emits a consistent Organization schema
+ * regardless of how many articles are loaded.
+ */
+const HUB_DESK_SLUG: Record<UrlCategory, string> = {
+  "credit-cards": "credit-team",
+  loans: "lending-desk",
+  banking: "banking-desk",
+  investing: "investment-desk",
+  insurance: "insurance-desk",
+  taxes: "tax-desk",
+  learn: "editorial-team",
+};
 
 type ArticleRow = {
   slug: string;
@@ -90,6 +109,15 @@ export default async function CategoryLearnHub({
   const { articles, total } = await getCategoryContent(urlCategory);
   const [featured, ...rest] = articles;
 
+  // Editorial desk responsible for this hub's content quality.
+  const desk = TEAM_MEMBERS.find((m) => m.slug === HUB_DESK_SLUG[urlCategory]);
+  const deskSchema = desk ? deskOrganizationSchema(desk) : null;
+
+  // Hub's representative category for DeskByline auto-selection — use the
+  // desk's first mapped category so the byline shows the same desk as
+  // our static map.
+  const hubCategorySeed = desk?.categories[0];
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -121,6 +149,12 @@ export default async function CategoryLearnHub({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {deskSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(deskSchema) }}
+        />
+      )}
 
       <section className="surface-ink pt-10 pb-14">
         <div className="max-w-[1280px] mx-auto px-6">
@@ -161,6 +195,15 @@ export default async function CategoryLearnHub({
           </p>
         </div>
       </section>
+
+      {/* Desk byline — which editorial desk owns this hub's quality */}
+      {desk && hubCategorySeed && (
+        <section className="bg-canvas border-b border-ink-12 py-6">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <DeskByline category={hubCategorySeed} />
+          </div>
+        </section>
+      )}
 
       <section className="bg-canvas py-14">
         <div className="max-w-[1280px] mx-auto px-6">

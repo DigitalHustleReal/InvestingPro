@@ -371,12 +371,21 @@ export const TEAM_MEMBERS: TeamMember[] = [
 /**
  * Resolve the right editorial desk for a given article category.
  * Falls back to the general Editorial Team if no match is found.
+ *
+ * Categories in the DB appear in both hyphen (`mutual-funds`) and
+ * underscore (`mutual_fund`) forms depending on origin (glossary vs
+ * articles vs products). We normalize both sides to underscore before
+ * matching, so a single category arg resolves the same desk regardless
+ * of where it came from.
  */
 export function getDeskForCategory(category?: string | null): TeamMember {
   const fallback = TEAM_MEMBERS.find((m) => m.id === "editorial-team")!;
   if (!category) return fallback;
-  const normalized = category.toLowerCase().trim();
+  const normalize = (s: string) => s.toLowerCase().trim().replace(/-/g, "_");
+  const target = normalize(category);
   return (
-    TEAM_MEMBERS.find((m) => m.categories.includes(normalized)) ?? fallback
+    TEAM_MEMBERS.find((m) =>
+      m.categories.some((c) => normalize(c) === target),
+    ) ?? fallback
   );
 }
