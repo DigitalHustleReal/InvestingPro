@@ -1,429 +1,525 @@
-import React from "react";
+/**
+ * Loans Hub — Server Component (v3)
+ *
+ * Locked principles applied (matching /credit-cards + /investing + /taxes):
+ *   1. Surface-ink reserved for hero + final CTA only — everything else
+ *      `bg-canvas` with border-ink-12 dividers (brainstorm.md §1).
+ *   2. No platform-stat counts on user-facing pages — counts belong on
+ *      /admin/dashboard. "{N}+ lenders" / "Updated daily" badges removed.
+ *   3. Single horizontal product list (LoansClient handles its own
+ *      list/grid toggle).
+ *   4. DB-driven content via editorial_hubs + category_faqs +
+ *      lib/data/team Lending Desk byline.
+ */
+
 import { Metadata } from "next";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
 import { getLoansServer } from "@/lib/products/get-loans-server";
+import { createServiceClient } from "@/lib/supabase/service";
 import LoansClient from "./LoansClient";
 import WeeklyChanges from "@/components/common/WeeklyChanges";
 import CIBILSimulator from "@/components/tools/CIBILSimulator";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
+import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { getEditorialHubs } from "@/lib/content/editorial-hubs";
+import { TEAM_MEMBERS } from "@/lib/data/team";
+import { deskOrganizationSchema } from "@/lib/content/desk-schema";
+import { DeskByline } from "@/components/articles/DeskByline";
+import CategoryFAQ from "@/components/routing/CategoryFAQ";
+import { articleUrl } from "@/lib/routing/article-url";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Best Loans in India (2026) — Compare Rates & Apply",
+  title: "Best Loans in India 2026 — Compare Rates & Apply",
   description:
-    "Compare personal loans, home loans, car loans, and education loans from 60+ lenders. Lowest interest rates, instant eligibility check, EMI calculator.",
+    "Compare personal, home, car, education, gold, and business loans from every major Indian bank and NBFC. Independent ratings — no paid placements.",
+  alternates: { canonical: generateCanonicalUrl("/loans") },
   openGraph: {
-    title: "Best Loans in India (2026) — Compare Rates & Apply",
+    title: "Best Loans in India 2026",
     description:
-      "Compare 60+ lenders. Independent research, lowest rates, instant apply.",
-    url: "https://investingpro.in/loans",
+      "Compare lenders. Filter by type, rate, tenure. Independent — no paid placements.",
+    url: generateCanonicalUrl("/loans"),
+    type: "website",
   },
 };
 
+// CMS-MIGRATION: loan type tiles with current "from-rate" indicators.
+// Should move to a `loan_type_quotes` DB table or live RBI/MCLR feed
+// so editorial team can refresh after rate cycles. "Indicative" stamp
+// keeps the staleness honest until the live feed lands.
+const LOAN_TYPES = [
+  { label: "Personal Loan", rateFrom: "10.5%", href: "/loans?type=personal" },
+  { label: "Home Loan", rateFrom: "8.5%", href: "/loans?type=home" },
+  { label: "Car Loan", rateFrom: "8.7%", href: "/loans?type=car" },
+  { label: "Education Loan", rateFrom: "7.5%", href: "/loans?type=education" },
+  { label: "Gold Loan", rateFrom: "7.0%", href: "/loans?type=gold" },
+  { label: "Business Loan", rateFrom: "11.0%", href: "/loans?type=business" },
+];
+const LOAN_TYPES_AS_OF = "Apr 2026 · Indicative starting rates";
+
+type LatestArticle = {
+  slug: string;
+  title: string;
+  excerpt: string | null;
+  category: string | null;
+  featured_image: string | null;
+  read_time: string | number | null;
+  published_at: string | null;
+};
+
+async function getLatestLoanArticles(): Promise<LatestArticle[]> {
+  const supabase = createServiceClient();
+  const { data } = await supabase
+    .from("articles")
+    .select(
+      "slug, title, excerpt, category, featured_image, read_time, published_at",
+    )
+    .eq("status", "published")
+    .in("category", [
+      "loans",
+      "personal-loans",
+      "personal_loans",
+      "home-loans",
+      "car-loans",
+      "education-loans",
+      "small-business",
+      "small_business",
+    ])
+    .order("published_at", { ascending: false })
+    .limit(6);
+  return (data as LatestArticle[]) ?? [];
+}
+
+function formatReadTime(rt: string | number | null): string {
+  if (!rt) return "";
+  const n = typeof rt === "string" ? parseInt(rt, 10) : rt;
+  return Number.isFinite(n) && n > 0 ? `${n} min read` : "";
+}
+
 export default async function LoansPage() {
-  let loans: any[] = [];
+  let loans: unknown[] = [];
   try {
     loans = await getLoansServer();
   } catch {
     loans = [];
   }
-  const count = loans.length > 0 ? loans.length : 60;
 
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: "Best Loans in India 2026",
-      description:
-        "Compare personal loans, home loans, car loans, and education loans from 60+ lenders. Lowest interest rates, instant eligibility check, EMI calculator.",
-      url: "https://investingpro.in/loans",
-      numberOfItems: count,
-      publisher: {
-        "@type": "Organization",
-        name: "InvestingPro",
-        url: "https://investingpro.in",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://investingpro.in/logo.png",
-        },
-      },
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: "https://investingpro.in",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Loans",
-            item: "https://investingpro.in/loans",
-          },
-        ],
+  const [personas, calculators, comparisons, tools, articles] =
+    await Promise.all([
+      getEditorialHubs("loans-personas"),
+      getEditorialHubs("loans-calculators"),
+      getEditorialHubs("loans-comparisons"),
+      getEditorialHubs("loans-tools"),
+      getLatestLoanArticles(),
+    ]);
+
+  const lendingDesk = TEAM_MEMBERS.find((m) => m.slug === "lending-desk");
+  const deskSchema = lendingDesk ? deskOrganizationSchema(lendingDesk) : null;
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Best Loans in India 2026",
+    description:
+      "Compare personal, home, car, education, gold, and business loans from every major Indian bank and NBFC. Independent ratings — no paid placements.",
+    url: generateCanonicalUrl("/loans"),
+    publisher: {
+      "@type": "Organization",
+      name: "InvestingPro",
+      url: "https://investingpro.in",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://investingpro.in/logo.png",
       },
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
         {
-          "@type": "Question",
-          name: "What is the lowest home loan interest rate in India?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "As of 2026, SBI offers home loans starting at 8.50%. Rates vary by lender, loan amount, and credit score.",
-          },
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: generateCanonicalUrl("/"),
         },
         {
-          "@type": "Question",
-          name: "How is EMI calculated?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "EMI = P × r × (1+r)^n / ((1+r)^n - 1), where P is principal, r is monthly interest rate, and n is tenure in months.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Does checking loan eligibility affect my credit score?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Soft inquiries (eligibility checks) do not affect your score. Only formal applications trigger hard inquiries.",
-          },
+          "@type": "ListItem",
+          position: 2,
+          name: "Loans",
+          item: generateCanonicalUrl("/loans"),
         },
       ],
     },
-  ];
+  };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
+      {deskSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(deskSchema) }}
+        />
+      )}
+
+      {/* ── Live ticker — what changed in the loan market ─────────── */}
       <ContextualTicker category="loans" />
-      <section className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-8">
-          <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-sm text-ink-60">
+
+      {/* ── Hero — ink ────────────────────────────────────────────── */}
+      <section className="surface-ink pt-10 pb-14">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <nav aria-label="Breadcrumb" className="mb-10">
+            <ol className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-canvas-70">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-ink transition-colors"
+                  className="hover:text-indian-gold transition-colors"
+                  aria-label="Home"
                 >
-                  Home
+                  <Home className="w-3 h-3" />
                 </Link>
               </li>
-              <li>
-                <ChevronRight size={14} />
-              </li>
-              <li className="text-ink font-medium">Loans</li>
+              <ChevronRight className="w-3 h-3 text-canvas-70" />
+              <li className="text-canvas">Loans</li>
             </ol>
           </nav>
-          <AdvertiserDisclosure variant="expandable" className="mb-3" />
 
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-            <div>
-              <h1 className="font-display font-black text-[32px] sm:text-[44px] leading-[1.08] tracking-tight text-ink">
-                Best Loans{" "}
-                <em className="italic text-indian-gold">in India</em>
-              </h1>
-              <p className="text-base text-ink-60 mt-3 max-w-xl leading-relaxed">
-                Compare {count}+ loan products from top banks and NBFCs. Filter
-                by type, rate, and tenure. Independent ratings.
-              </p>
-            </div>
-            <div className="flex items-center gap-3 flex-shrink-0 mt-1">
-              <span className="text-xs text-ink-60 bg-gray-100 px-3 py-1.5 rounded-full">
-                {count}+ lenders
-              </span>
-              <span className="text-xs text-ink-60 bg-gray-100 px-3 py-1.5 rounded-full">
-                Updated daily
-              </span>
-            </div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-5">
+            Independent ratings · No paid placements
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-            {[
-              "All Loans",
-              "Personal",
-              "Home",
-              "Car",
-              "Education",
-              "Gold",
-              "Business",
-            ].map((p, i) => (
-              <Link
-                key={p}
-                href={i === 0 ? "/loans" : `/loans?type=${p.toLowerCase()}`}
-                className={`inline-flex items-center px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors rounded-full ${i === 0 ? "bg-authority-green text-white" : "bg-gray-100 text-ink-60 hover:bg-gray-200 hover:text-ink"}`}
-              >
-                {p}
-              </Link>
-            ))}
+
+          <h1 className="font-display font-black text-[44px] md:text-[68px] lg:text-[80px] leading-[0.98] tracking-tight text-canvas max-w-[1000px]">
+            Best loans{" "}
+            <span className="text-indian-gold italic">in India.</span>
+          </h1>
+
+          <p className="mt-7 font-serif text-[19px] md:text-[21px] leading-[1.55] text-canvas max-w-[740px]">
+            Compare rates, fees, prepayment terms, and tenure across every major
+            Indian bank and NBFC. We show the true cost of borrowing — not just
+            the headline rate.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link
+              href="/calculators/emi"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-indian-gold text-ink font-bold text-[14px] tracking-wide rounded-sm hover:bg-indian-gold/90 transition-colors"
+            >
+              Run my EMI · 30 seconds
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/loans/compare"
+              className="inline-flex items-center gap-2 px-6 py-3.5 border border-canvas-15 text-canvas font-mono text-[12px] uppercase tracking-wider rounded-sm hover:border-indian-gold hover:text-indian-gold transition-colors"
+            >
+              Compare lenders
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </section>
-      {/* Loan type cards */}
-      <section className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6">
+
+      {/* ── Advertiser disclosure + Desk byline ─────────────────── */}
+      <section className="bg-canvas border-b border-ink-12 py-5">
+        <div className="max-w-[1280px] mx-auto px-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <DeskByline category="loans" />
+          <AdvertiserDisclosure variant="expandable" />
+        </div>
+      </section>
+
+      {/* ── Loan types — canvas ─────────────────────────────────── */}
+      <section className="bg-canvas border-b border-ink-12 py-10">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="flex items-end justify-between gap-4 mb-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold">
+              Loan types · Starting rates
+            </div>
+            <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60">
+              {LOAN_TYPES_AS_OF}
+            </div>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            {[
-              {
-                label: "Personal Loan",
-                rate: "10.5% onwards",
-                href: "/loans?type=personal",
-              },
-              {
-                label: "Home Loan",
-                rate: "8.5% onwards",
-                href: "/loans?type=home",
-              },
-              {
-                label: "Car Loan",
-                rate: "8.7% onwards",
-                href: "/loans?type=car",
-              },
-              {
-                label: "Education Loan",
-                rate: "7.5% onwards",
-                href: "/loans?type=education",
-              },
-              {
-                label: "Gold Loan",
-                rate: "7.0% onwards",
-                href: "/loans?type=gold",
-              },
-              {
-                label: "Business Loan",
-                rate: "11% onwards",
-                href: "/loans?type=business",
-              },
-            ].map((t) => (
+            {LOAN_TYPES.map((t) => (
               <Link
                 key={t.label}
                 href={t.href}
-                className="p-3 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group text-center"
+                className="group block bg-white border border-ink-12 rounded-sm p-4 hover:border-indian-gold transition-colors"
               >
-                <p className="text-xs font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
+                <div className="font-display text-[13px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
                   {t.label}
-                </p>
-                <p className="text-xs text-action-green font-medium mt-0.5">
-                  {t.rate}
-                </p>
+                </div>
+                <div className="mt-2 font-mono text-[14px] font-black text-indian-gold tabular-nums">
+                  {t.rateFrom}
+                </div>
+                <div className="font-mono text-[9px] uppercase tracking-wider text-ink-60 mt-0.5">
+                  onwards
+                </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-50 min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
-          <LoansClient initialLoans={loans} />
+      {/* ── Personas — canvas ───────────────────────────────────── */}
+      {personas.length > 0 && (
+        <section className="bg-canvas py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              Why are you borrowing?
+            </div>
+            <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight mb-3">
+              Pick your situation
+            </h2>
+            <p className="font-serif text-[17px] text-ink-60 max-w-[720px] mb-10">
+              The right loan depends on what you&apos;re funding and how soon
+              you can repay. Start with the closest match.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {personas.map((p) => (
+                <Link
+                  key={p.href}
+                  href={p.href}
+                  className="group block bg-white border border-ink-12 rounded-sm p-6 hover:border-indian-gold transition-colors"
+                >
+                  <span className="font-mono text-[22px] font-black text-indian-gold leading-none">
+                    {p.accent ?? "·"}
+                  </span>
+                  <h3 className="mt-5 font-display text-[20px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-[13px] text-ink-60 leading-[1.55]">
+                    {p.tagline}
+                  </p>
+                  <div className="mt-5 flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-ink group-hover:text-indian-gold transition-colors">
+                    Show options <ArrowUpRight className="w-3 h-3" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Main product list ─────────────────────────────────── */}
+      <section className="bg-canvas border-t border-ink-12">
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
+          <LoansClient initialLoans={loans as never} />
         </div>
       </section>
 
-      {/* This Week in Indian Money — editorial velocity (NW parity+) */}
-      <section className="bg-white border-t-2 border-ink/10 py-10">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+      {/* ── Editorial velocity ───────────────────────────────── */}
+      <section className="bg-canvas border-t-2 border-ink-12 py-12">
+        <div className="max-w-[1280px] mx-auto px-6">
           <WeeklyChanges category="loans" />
         </div>
       </section>
-      {/* ── CIBIL Score Simulator ── */}
-      <CIBILSimulator />
 
-      <section className="bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            Related Tools
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              {
-                label: "EMI Calculator",
-                desc: "Calculate monthly EMI for any loan",
-                href: "/calculators/emi",
-              },
-              {
-                label: "Eligibility Checker",
-                desc: "Check if you qualify before applying",
-                href: "/loans/eligibility-checker",
-              },
-              {
-                label: "Home Loan vs SIP",
-                desc: "Should you prepay or invest?",
-                href: "/calculators/home-loan-vs-sip",
-              },
-              {
-                label: "Compare Loans",
-                desc: "Side-by-side lender comparison",
-                href: "/loans/compare",
-              },
-            ].map((t) => (
-              <Link
-                key={t.href}
-                href={t.href}
-                className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
-              >
-                <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
-                  {t.label}
-                </p>
-                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
-                  {t.desc}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
+      {/* ── CIBIL simulator ──────────────────────────────────── */}
+      <section className="bg-canvas border-t border-ink-12">
+        <CIBILSimulator />
       </section>
-      <section className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10">
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            Popular Comparisons
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-            {[
-              {
-                title: "Personal Loan vs Credit Card Loan",
-                desc: "Which costs less for short-term borrowing?",
-                href: "/loans/compare/personal-vs-credit-card",
-              },
-              {
-                title: "SBI vs HDFC Home Loan",
-                desc: "Rate, processing fee, and prepayment compared",
-                href: "/loans/compare/sbi-vs-hdfc-home",
-              },
-              {
-                title: "Home Loan Prepayment vs SIP",
-                desc: "Should you prepay or invest the extra EMI?",
-                href: "/calculators/home-loan-vs-sip",
-              },
-              {
-                title: "Gold Loan vs Personal Loan",
-                desc: "Secured vs unsecured — which is cheaper?",
-                href: "/loans/compare/gold-vs-personal",
-              },
-              {
-                title: "Bank vs NBFC Loans",
-                desc: "Bajaj, Tata Capital vs SBI, HDFC — pros and cons",
-                href: "/loans/compare/bank-vs-nbfc",
-              },
-              {
-                title: "Fixed vs Floating Rate",
-                desc: "When to lock your rate and when to float",
-                href: "/loans/guides/fixed-vs-floating",
-              },
-            ].map((comp) => (
-              <Link
-                key={comp.href}
-                href={comp.href}
-                className="flex items-start gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
-              >
-                <span className="text-xs font-bold text-authority-green bg-green-50 px-2 py-1 mt-0.5 flex-shrink-0 rounded">
-                  VS
-                </span>
-                <div>
-                  <p className="text-sm font-display font-semibold text-ink group-hover:text-authority-green transition-colors">
-                    {comp.title}
-                  </p>
-                  <p className="text-xs text-ink-60 mt-0.5">{comp.desc}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
 
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            How We Compare
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
-            {[
-              {
-                num: "18",
-                label: "Data points per loan",
-                desc: "Rate, fee, tenure, prepayment, eligibility, and more",
-              },
-              {
-                num: "60+",
-                label: "Lenders tracked",
-                desc: "Banks, NBFCs, and fintech lenders compared",
-              },
-              {
-                num: "Daily",
-                label: "Rate updates",
-                desc: "Scraped from bank websites and RBI data",
-              },
-              {
-                num: "₹0",
-                label: "Paid placements",
-                desc: "No lender pays for higher ranking",
-              },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className="p-4 bg-white border border-gray-200 rounded-xl"
-              >
-                <p className="text-2xl font-display font-bold text-ink">{s.num}</p>
-                <p className="text-sm font-display font-semibold text-ink mt-1">
-                  {s.label}
-                </p>
-                <p className="text-xs text-ink-60 mt-1 leading-relaxed">
-                  {s.desc}
-                </p>
+      {/* ── Calculator picks — canvas ────────────────────────── */}
+      {calculators.length > 0 && (
+        <section className="bg-canvas border-t border-ink-12 py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+                  Run the numbers
+                </div>
+                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight">
+                  Loan calculators
+                </h2>
               </div>
-            ))}
-          </div>
-
-          <h2 className="text-lg font-display font-semibold text-ink mb-6">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-3">
-            {[
-              {
-                q: "What is the lowest home loan interest rate in India?",
-                a: "As of 2026, SBI offers home loans starting at 8.50%. Rates vary by lender, loan amount, and credit score. Use our comparison tool to find the best rate for your profile.",
-              },
-              {
-                q: "How is EMI calculated?",
-                a: "EMI depends on three factors: principal amount, interest rate, and tenure. Use our EMI calculator to get an exact figure with amortization schedule.",
-              },
-              {
-                q: "Does checking loan eligibility affect my credit score?",
-                a: "Soft inquiries (eligibility checks on our platform) do not affect your score. Only formal loan applications trigger hard inquiries.",
-              },
-              {
-                q: "What credit score do I need for a personal loan?",
-                a: "Most banks require 700+ for personal loans. Some NBFCs accept 650+. Higher scores get lower interest rates.",
-              },
-              {
-                q: "Should I prepay my loan or invest the money?",
-                a: "If your loan rate exceeds expected investment returns (after tax), prepay. Use our Home Loan vs SIP calculator to compare.",
-              },
-              {
-                q: "How does InvestingPro compare loans?",
-                a: "We evaluate loans on 18 data points including interest rate, processing fee, prepayment charges, tenure flexibility, and eligibility criteria. No lender pays for higher placement.",
-              },
-            ].map((f, i) => (
-              <details
-                key={i}
-                className="group bg-white border border-gray-200 rounded-xl overflow-hidden"
+              <Link
+                href="/loans/calculators"
+                className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
               >
-                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer text-sm font-medium text-ink hover:bg-gray-50 transition-colors list-none">
-                  {f.q}
-                  <ChevronRight
-                    size={16}
-                    className="text-ink-60 transition-transform group-open:rotate-90 flex-shrink-0 ml-4"
-                  />
-                </summary>
-                <div className="px-5 pb-4 text-sm text-ink-60 leading-relaxed border-t border-gray-100 pt-3">
-                  {f.a}
-                </div>
-              </details>
-            ))}
+                All loan calculators <ArrowUpRight className="w-3 h-3" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {calculators.map((c) => (
+                <Link
+                  key={c.href}
+                  href={c.href}
+                  className="group block bg-white border border-ink-12 rounded-sm p-6 hover:border-indian-gold transition-colors"
+                >
+                  <div className="flex items-start justify-between">
+                    <span className="font-mono text-[22px] font-black text-indian-gold leading-none">
+                      {c.accent ?? "·"}
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-ink-60 group-hover:text-indian-gold transition-colors" />
+                  </div>
+                  <h3 className="mt-6 font-display text-[20px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                    {c.title}
+                  </h3>
+                  <p className="mt-2 text-[13px] text-ink-60 leading-[1.5]">
+                    {c.tagline}
+                  </p>
+                </Link>
+              ))}
+            </div>
           </div>
+        </section>
+      )}
+
+      {/* ── Tools — canvas ─────────────────────────────────── */}
+      {tools.length > 0 && (
+        <section className="bg-canvas border-t border-ink-12 py-14">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              Tools
+            </div>
+            <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-ink tracking-tight mb-10">
+              Helper kit
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+              {tools.map((t) => (
+                <Link
+                  key={t.href}
+                  href={t.href}
+                  className="group block bg-white border border-ink-12 rounded-sm p-5 hover:border-indian-gold transition-colors"
+                >
+                  <span className="font-mono text-[20px] font-black text-indian-gold leading-none">
+                    {t.accent ?? "·"}
+                  </span>
+                  <h3 className="mt-4 font-display text-[16px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                    {t.title}
+                  </h3>
+                  <p className="mt-2 text-[12px] text-ink-60 leading-[1.5]">
+                    {t.tagline}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Popular comparisons — canvas ───────────────────── */}
+      {comparisons.length > 0 && (
+        <section className="bg-canvas border-t border-ink-12 py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              Decisions worth running
+            </div>
+            <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-ink tracking-tight mb-10">
+              Popular comparisons
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {comparisons.map((c) => (
+                <Link
+                  key={c.href}
+                  href={c.href}
+                  className="group flex items-start gap-4 bg-white border border-ink-12 rounded-sm p-5 hover:border-indian-gold transition-colors"
+                >
+                  <span className="font-mono text-[10px] font-black text-indian-gold border border-indian-gold/40 px-2 py-1 mt-0.5 flex-shrink-0">
+                    {c.accent ?? "VS"}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-display text-[16px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
+                      {c.title}
+                    </h3>
+                    <p className="mt-2 text-[12px] text-ink-60 leading-[1.55]">
+                      {c.tagline}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Latest articles — canvas ────────────────────────── */}
+      {articles.length > 0 && (
+        <section className="bg-canvas border-t border-ink-12 py-16">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+                  From the desk
+                </div>
+                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight">
+                  Latest lending analysis
+                </h2>
+              </div>
+              <Link
+                href="/loans/learn"
+                className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
+              >
+                All loan articles <ArrowUpRight className="w-3 h-3" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {articles.map((a) => (
+                <Link key={a.slug} href={articleUrl(a)} className="group block">
+                  {a.featured_image ? (
+                    <div className="relative aspect-[16/10] bg-ink-12 overflow-hidden rounded-sm mb-4">
+                      <Image
+                        src={a.featured_image}
+                        alt={a.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                  ) : (
+                    <div className="aspect-[16/10] bg-ink/5 rounded-sm mb-4" />
+                  )}
+                  <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-2">
+                    Lending Desk
+                    {formatReadTime(a.read_time)
+                      ? ` · ${formatReadTime(a.read_time)}`
+                      : ""}
+                  </div>
+                  <h3 className="font-display text-[20px] font-black text-ink leading-[1.2] group-hover:text-authority-green transition-colors">
+                    {a.title}
+                  </h3>
+                  {a.excerpt && (
+                    <p className="mt-3 text-[13px] text-ink-60 leading-[1.55] line-clamp-3">
+                      {a.excerpt}
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── FAQ — DB-driven ───────────────────────────────── */}
+      <CategoryFAQ urlCategory="loans" variant="canvas" />
+
+      {/* ── Final CTA — ink ────────────────────────────────── */}
+      <section className="surface-ink py-14">
+        <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
+              This week in Indian money
+            </div>
+            <h3 className="font-display font-black text-[26px] md:text-[32px] text-canvas leading-tight max-w-[640px]">
+              Every Sunday — one rate change worth knowing, one loan trick banks
+              won&apos;t volunteer.
+            </h3>
+          </div>
+          <Link
+            href="/#newsletter"
+            className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-indian-gold text-ink font-bold text-[14px] tracking-wide rounded-sm hover:bg-indian-gold/90 transition-colors"
+          >
+            Subscribe free
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
     </>
