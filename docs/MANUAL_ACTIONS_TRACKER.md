@@ -220,8 +220,64 @@
 
 ## Future roadmap (user-added 2026-04-25 — NOT this session)
 
-These are strategic bets, not current-session work. Scoped here so they
-don't get lost.
+Strategic bets in **strict priority order**. Do not jump ahead — earlier
+items unblock later ones. The user explicitly set this sequence on
+2026-04-25 PM; the previously written items have been re-ordered to match.
+
+### Priority 0 — Category page redesign sweep (BEFORE everything else)
+
+Goal: a seamless, mobile-first, no-flaw frontend before we drive any
+new traffic (multi-language, news engine, ads). Inconsistent pages
+hurt indexing + AI citation more than delay does.
+
+Method:
+1. Audit every category page individually:
+   `/credit-cards`, `/loans`, `/banking`, `/investing`, `/insurance`,
+   `/taxes`, `/learn` — plus all `/[cat]/learn/`, `/[cat]/reviews/`,
+   `/[cat]/calculators/` sub-hubs.
+2. Per page, capture screenshots of NerdWallet's equivalent + 1–2
+   niche-best competitors (BankBazaar, Paisabazaar for cards/loans;
+   ClearTax for taxes; Groww/INDmoney for investing; PolicyBazaar for
+   insurance). Pull what they do well, document what's missing on ours.
+3. Redesign **strictly** in v3 tokens — same lock as homepage:
+   - Colors: ink, authority-green, action-green, indian-gold, canvas,
+     warning-red. **No** blue/purple/pink/cyan/teal/sky.
+   - Typography: Playfair Display headlines, Inter body, JetBrains
+     Mono for data/labels.
+   - Rounded-sm max, no gradients (except hero), no glassmorphism, no
+     `shadow-lg`, no scale-transforms.
+   - Emphasis = indian-gold (never action-green).
+4. Mobile-first verification: bottom-tab thumb-zone navigation, 44px
+   tap targets, no horizontal scroll under 360px width, no layout
+   shift below the fold.
+5. Token/font CI lint to prevent regression — already on backlog
+   (Cross-phase / Infrastructure section). Ship that lint before the
+   redesign work so the sweep doesn't drift.
+
+Estimated effort: 2–3 weeks of focused design iteration. Deliverable:
+every public route passing the same lighthouse + visual-regression bar.
+
+### Priority 1 — Multi-language (after redesign sweep)
+
+Reason for the ordering: the user's WhatsApp/Telegram distribution
+audience reads + learns better in regional languages. Translating
+inconsistent pages doubles the design-debt; redesign first, then
+localize from the polished source.
+
+Approach is unchanged from earlier — original locale-specific content
+generated at build time, not translated at runtime. Hindi first, then
+Telugu/Tamil/Marathi/Gujarati/Bengali. See "Multi-language programmatic
+expansion" further below for the architecture sketch.
+
+### Priority 2 — Per the rest of the future roadmap below
+
+Once the redesign + multi-language land, work the remaining items in
+this order: news engine → financial tool expansion → dark theme polish
+→ PWA / mobile install. Each is independently described below; they're
+intentionally sequenced so revenue-activating work (news engine
+captures search demand the redesign + i18n have unlocked) lands first.
+
+---
 
 ### 1. Real-time financial news → article engine 🟡 HIGH LEVERAGE
 
