@@ -244,14 +244,14 @@ export default async function CreditCardsPage() {
         </div>
       </section>
 
-      {/* ── Tools — ink ─────────────────────────────────────────── */}
+      {/* ── Tools — canvas ──────────────────────────────────────── */}
       {tools.length > 0 && (
-        <section className="surface-ink py-14">
+        <section className="bg-canvas border-t border-ink-12 py-14">
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
               Tools
             </div>
-            <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-canvas tracking-tight mb-10">
+            <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-ink tracking-tight mb-10">
               Helper kit
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
@@ -259,15 +259,15 @@ export default async function CreditCardsPage() {
                 <Link
                   key={t.href}
                   href={t.href}
-                  className="group block border border-canvas-15 rounded-sm p-5 hover:border-indian-gold transition-colors"
+                  className="group block bg-white border border-ink-12 rounded-sm p-5 hover:border-indian-gold transition-colors"
                 >
                   <span className="font-mono text-[20px] font-black text-indian-gold leading-none">
                     {t.accent ?? "·"}
                   </span>
-                  <h3 className="mt-4 font-display text-[16px] font-black text-canvas leading-tight group-hover:text-indian-gold transition-colors">
+                  <h3 className="mt-4 font-display text-[16px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
                     {t.title}
                   </h3>
-                  <p className="mt-2 text-[12px] text-canvas-70 leading-[1.5]">
+                  <p className="mt-2 text-[12px] text-ink-60 leading-[1.5]">
                     {t.tagline}
                   </p>
                 </Link>
@@ -312,58 +312,58 @@ export default async function CreditCardsPage() {
         </section>
       )}
 
-      {/* ── How we rate — ink ──────────────────────────────────── */}
-      <section className="surface-ink py-16">
+      {/* ── How we rate — canvas ──────────────────────────────── */}
+      <section className="bg-canvas border-t border-ink-12 py-16">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
             Methodology
           </div>
-          <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-canvas tracking-tight mb-3">
+          <h2 className="font-display font-black text-[32px] md:text-[40px] leading-[1.05] text-ink tracking-tight mb-3">
             How we rate
           </h2>
-          <p className="font-serif text-[17px] text-canvas-70 max-w-[720px] mb-10">
+          <p className="font-serif text-[17px] text-ink-60 max-w-[720px] mb-10">
             Every card on this page is evaluated against the same 23-point
             framework. We disclose every input. No bank pays for higher
             placement — disclosed in our advertiser policy above.
           </p>
 
           <div className="grid grid-cols-3 gap-5 mb-10">
-            <div className="border border-canvas-15 rounded-sm p-5">
+            <div className="bg-white border border-ink-12 rounded-sm p-5">
               <div className="font-mono text-[28px] font-black text-indian-gold leading-none">
                 23
               </div>
-              <div className="mt-3 font-display text-[16px] font-black text-canvas">
+              <div className="mt-3 font-display text-[16px] font-black text-ink">
                 Data points per card
               </div>
-              <p className="mt-2 text-[12px] text-canvas-70 leading-[1.5]">
+              <p className="mt-2 text-[12px] text-ink-60 leading-[1.5]">
                 Rewards, fees, interest, benefits, eligibility
               </p>
             </div>
-            <div className="border border-canvas-15 rounded-sm p-5">
+            <div className="bg-white border border-ink-12 rounded-sm p-5">
               <div className="font-mono text-[28px] font-black text-indian-gold leading-none">
                 Daily
               </div>
-              <div className="mt-3 font-display text-[16px] font-black text-canvas">
+              <div className="mt-3 font-display text-[16px] font-black text-ink">
                 Update frequency
               </div>
-              <p className="mt-2 text-[12px] text-canvas-70 leading-[1.5]">
+              <p className="mt-2 text-[12px] text-ink-60 leading-[1.5]">
                 Bank websites + RBI disclosures
               </p>
             </div>
-            <div className="border border-canvas-15 rounded-sm p-5">
+            <div className="bg-white border border-ink-12 rounded-sm p-5">
               <div className="font-mono text-[28px] font-black text-indian-gold leading-none">
                 ₹0
               </div>
-              <div className="mt-3 font-display text-[16px] font-black text-canvas">
+              <div className="mt-3 font-display text-[16px] font-black text-ink">
                 Paid placements
               </div>
-              <p className="mt-2 text-[12px] text-canvas-70 leading-[1.5]">
+              <p className="mt-2 text-[12px] text-ink-60 leading-[1.5]">
                 No bank pays for higher rank
               </p>
             </div>
           </div>
 
-          <div className="bg-canvas text-ink rounded-sm p-6">
+          <div className="bg-white border border-ink-12 rounded-sm p-6">
             <RatingExplainer variant="inline" category="credit_card" />
           </div>
         </div>

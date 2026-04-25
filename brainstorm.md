@@ -36,6 +36,7 @@
 - No shadow-lg / shadow-2xl (editorial = flat)
 - Serif = opinion · Monospace = data · Sans = UI
 - No vanity inventory brags ("X+ tested", "Y funds tracked") — users don't care
+- **Surface alternation is NOT zebra striping.** Reserve `surface-ink` for *statement moments only*: the hero (top) and the final CTA (bottom). Optionally one credibility moment (methodology / how-we-rate) on long pages. Everything else stays on `bg-canvas`. Visual rhythm comes from indian-gold eyebrows + ink-12 thin dividers + mono small-caps labels — NOT from alternating dark/light surfaces. Locked 2026-04-25 PM after `/investing` + `/credit-cards` v3 redesign over-applied surface flips.
 
 ### Signature elements
 1. **Verdict Cards** — Playfair headline + "Methodology disclosed →" gold link

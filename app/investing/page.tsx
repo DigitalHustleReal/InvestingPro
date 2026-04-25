@@ -416,13 +416,13 @@ export default async function InvestingHubPage() {
         </div>
       </section>
 
-      {/* ── Investment categories — ink ─────────────────────────────── */}
-      <section className="surface-ink py-16">
+      {/* ── Investment categories — canvas ─────────────────────────── */}
+      <section className="bg-canvas border-t border-ink-12 py-16">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
             Vehicles
           </div>
-          <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-canvas tracking-tight mb-10">
+          <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight mb-10">
             Where the money goes
           </h2>
 
@@ -433,7 +433,7 @@ export default async function InvestingHubPage() {
                 <Link
                   key={cat.label}
                   href={cat.href}
-                  className="group block border border-canvas-15 rounded-sm p-6 hover:border-indian-gold transition-colors"
+                  className="group block bg-white border border-ink-12 rounded-sm p-6 hover:border-indian-gold transition-colors"
                 >
                   <div className="flex items-start justify-between">
                     <Icon
@@ -446,10 +446,10 @@ export default async function InvestingHubPage() {
                       </span>
                     )}
                   </div>
-                  <h3 className="mt-5 font-display text-[22px] font-black text-canvas leading-tight group-hover:text-indian-gold transition-colors">
+                  <h3 className="mt-5 font-display text-[22px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
                     {cat.label}
                   </h3>
-                  <p className="mt-2 text-[13px] text-canvas-70 leading-[1.55]">
+                  <p className="mt-2 text-[13px] text-ink-60 leading-[1.55]">
                     {cat.desc}
                   </p>
                   <div className="mt-5 font-mono text-[10px] uppercase tracking-wider text-indian-gold">
@@ -533,22 +533,22 @@ export default async function InvestingHubPage() {
         </div>
       </section>
 
-      {/* ── Calculator picks — ink ───────────────────────────────────── */}
+      {/* ── Calculator picks — canvas ───────────────────────────────── */}
       {calculators.length > 0 && (
-        <section className="surface-ink py-16">
+        <section className="bg-canvas border-t border-ink-12 py-16">
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
               <div>
                 <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
                   Run the numbers
                 </div>
-                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-canvas tracking-tight">
+                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight">
                   Investing calculators
                 </h2>
               </div>
               <Link
                 href="/investing/calculators"
-                className="font-mono text-[11px] uppercase tracking-wider text-canvas-70 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
+                className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
               >
                 All 29 investing calculators{" "}
                 <ArrowUpRight className="w-3 h-3" />
@@ -560,18 +560,18 @@ export default async function InvestingHubPage() {
                 <Link
                   key={c.href}
                   href={c.href}
-                  className="group block border border-canvas-15 rounded-sm p-6 hover:border-indian-gold transition-colors"
+                  className="group block bg-white border border-ink-12 rounded-sm p-6 hover:border-indian-gold transition-colors"
                 >
                   <div className="flex items-start justify-between">
                     <span className="font-mono text-[22px] font-black text-indian-gold leading-none">
                       {c.accent ?? "·"}
                     </span>
-                    <ArrowUpRight className="w-4 h-4 text-canvas-70 group-hover:text-indian-gold transition-colors" />
+                    <ArrowUpRight className="w-4 h-4 text-ink-60 group-hover:text-indian-gold transition-colors" />
                   </div>
-                  <h3 className="mt-6 font-display text-[20px] font-black text-canvas leading-tight group-hover:text-indian-gold transition-colors">
+                  <h3 className="mt-6 font-display text-[20px] font-black text-ink leading-tight group-hover:text-authority-green transition-colors">
                     {c.title}
                   </h3>
-                  <p className="mt-2 text-[13px] text-canvas-70 leading-[1.5]">
+                  <p className="mt-2 text-[13px] text-ink-60 leading-[1.5]">
                     {c.tagline}
                   </p>
                 </Link>
@@ -620,22 +620,22 @@ export default async function InvestingHubPage() {
         </div>
       </section>
 
-      {/* ── Latest articles — ink ────────────────────────────────────── */}
+      {/* ── Latest articles — canvas ───────────────────────────────── */}
       {articles.length > 0 && (
-        <section className="surface-ink py-16">
+        <section className="bg-canvas border-t border-ink-12 py-16">
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
               <div>
                 <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-indian-gold mb-3">
                   From the desk
                 </div>
-                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-canvas tracking-tight">
+                <h2 className="font-display font-black text-[36px] md:text-[44px] leading-[1.05] text-ink tracking-tight">
                   Latest investing analysis
                 </h2>
               </div>
               <Link
                 href="/investing/learn"
-                className="font-mono text-[11px] uppercase tracking-wider text-canvas-70 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
+                className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
               >
                 All investing articles <ArrowUpRight className="w-3 h-3" />
               </Link>
@@ -655,7 +655,7 @@ export default async function InvestingHubPage() {
                       />
                     </div>
                   ) : (
-                    <div className="aspect-[16/10] bg-canvas-15 rounded-sm mb-4" />
+                    <div className="aspect-[16/10] bg-ink/5 rounded-sm mb-4" />
                   )}
                   <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-2">
                     Investment Desk
@@ -663,11 +663,11 @@ export default async function InvestingHubPage() {
                       ? ` · ${formatReadTime(a.read_time)}`
                       : ""}
                   </div>
-                  <h3 className="font-display text-[20px] font-black text-canvas leading-[1.2] group-hover:text-indian-gold transition-colors">
+                  <h3 className="font-display text-[20px] font-black text-ink leading-[1.2] group-hover:text-authority-green transition-colors">
                     {a.title}
                   </h3>
                   {a.excerpt && (
-                    <p className="mt-3 text-[13px] text-canvas-70 leading-[1.55] line-clamp-3">
+                    <p className="mt-3 text-[13px] text-ink-60 leading-[1.55] line-clamp-3">
                       {a.excerpt}
                     </p>
                   )}
