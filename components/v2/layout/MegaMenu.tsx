@@ -25,6 +25,9 @@ import {
   Search,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useT, useLocale } from "@/lib/i18n/client";
+import { localizedPath, stripLocale } from "@/lib/i18n/url";
+import type { StringKey } from "@/lib/i18n/strings/en";
 
 /* ─── Data types ─── */
 
@@ -50,6 +53,9 @@ interface Featured {
 }
 
 interface MenuCategory {
+  /** Translation key for the top-level chrome label (nav.* keys). */
+  labelKey: StringKey;
+  /** Display fallback when t() returns the English source. */
   label: string;
   href: string;
   icon: LucideIcon;
@@ -86,6 +92,7 @@ function Badge({ type }: { type: "popular" | "trending" | "new" }) {
 const MENU: MenuCategory[] = [
   // 1. Credit Cards — highest search + revenue
   {
+    labelKey: "nav.creditCards",
     label: "Credit Cards",
     href: "/credit-cards",
     icon: CreditCard,
@@ -137,6 +144,7 @@ const MENU: MenuCategory[] = [
   },
   // 2. Banking — user journey stage 1 (everyone needs a bank)
   {
+    labelKey: "nav.banking",
     label: "Banking",
     href: "/banking",
     icon: Building2,
@@ -192,6 +200,7 @@ const MENU: MenuCategory[] = [
   },
   // 3. Loans — high revenue + search
   {
+    labelKey: "nav.loans",
     label: "Loans",
     href: "/loans",
     icon: Landmark,
@@ -244,6 +253,7 @@ const MENU: MenuCategory[] = [
   },
   // 4. Investing — wealth building (MFs, PPF, Stocks)
   {
+    labelKey: "nav.investing",
     label: "Investing",
     href: "/investing",
     icon: TrendingUp,
@@ -297,6 +307,7 @@ const MENU: MenuCategory[] = [
   },
   // 5. Insurance — protection
   {
+    labelKey: "nav.insurance",
     label: "Insurance",
     href: "/insurance",
     icon: Shield,
@@ -352,6 +363,7 @@ const MENU: MenuCategory[] = [
   // URL set and was missing from the desktop nav. Demat stays reachable
   // via Investing > Demat Accounts sub-link below.)
   {
+    labelKey: "nav.taxes",
     label: "Taxes",
     href: "/taxes",
     icon: Receipt,
@@ -411,6 +423,14 @@ export default function MegaMenu() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState(0);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const t = useT();
+  const locale = useLocale();
+
+  /** Wrap a canonical English path with the active locale prefix. */
+  const lp = useCallback(
+    (href: string) => localizedPath(href, locale),
+    [locale],
+  );
 
   const openMenu = useCallback((index: number) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -426,18 +446,23 @@ export default function MegaMenu() {
     if (closeTimer.current) clearTimeout(closeTimer.current);
   }, []);
 
+  // Active-state matching has to compare against the locale-stripped
+  // (canonical English) path, otherwise /hi/banking won't match
+  // href "/banking". `stripLocale` returns the canonical base path.
+  const canonicalPath = pathname ? stripLocale(pathname).basePath : "/";
+
   const isActive = (href: string) => {
     if (href === "/banking")
       return ["/banking", "/fixed-deposits"].some((p) =>
-        pathname?.startsWith(p),
+        canonicalPath.startsWith(p),
       );
     if (href === "/investing")
       return ["/mutual-funds", "/ppf-nps", "/stocks", "/investing"].some((p) =>
-        pathname?.startsWith(p),
+        canonicalPath.startsWith(p),
       );
     if (href === "/demat-accounts")
-      return pathname?.startsWith("/demat-accounts");
-    return pathname?.startsWith(href);
+      return canonicalPath.startsWith("/demat-accounts");
+    return canonicalPath.startsWith(href);
   };
 
   // Single mega panel for all categories (tab-based)
@@ -454,7 +479,7 @@ export default function MegaMenu() {
           onMouseLeave={closeMenu}
         >
           <Link
-            href={cat.href}
+            href={lp(cat.href)}
             aria-current={isActive(cat.href) ? "page" : undefined}
             aria-expanded={openIndex === i}
             aria-haspopup="true"
@@ -466,7 +491,7 @@ export default function MegaMenu() {
                   : "text-canvas-70 hover:text-indian-gold"
             }`}
           >
-            {cat.label}
+            {t(cat.labelKey)}
           </Link>
         </div>
       ))}
@@ -519,7 +544,7 @@ export default function MegaMenu() {
                         <span
                           className={`text-[13px] ${isTab ? "text-canvas" : ""}`}
                         >
-                          {cat.label}
+                          {t(cat.labelKey)}
                         </span>
                       </button>
                     );
@@ -531,7 +556,7 @@ export default function MegaMenu() {
                   {/* Category header */}
                   <div className="mb-5 pb-3 border-b border-canvas-15">
                     <p className="text-lg font-bold text-canvas">
-                      {currentCat.label}
+                      {t(currentCat.labelKey)}
                     </p>
                     <p className="text-[13px] text-canvas-70 mt-0.5">
                       {currentCat.desc}
@@ -554,7 +579,7 @@ export default function MegaMenu() {
                               return (
                                 <li key={link.href}>
                                   <Link
-                                    href={link.href}
+                                    href={lp(link.href)}
                                     onClick={() => setOpenIndex(null)}
                                     className="flex items-center gap-2 px-2 py-2 rounded-lg text-[13px] text-canvas-70 hover:bg-canvas-15 hover:text-canvas transition-colors group"
                                   >
@@ -591,7 +616,7 @@ export default function MegaMenu() {
                         {currentCat.featured.desc}
                       </p>
                       <Link
-                        href={currentCat.featured.href}
+                        href={lp(currentCat.featured.href)}
                         onClick={() => setOpenIndex(null)}
                         className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline font-semibold"
                       >
@@ -601,16 +626,17 @@ export default function MegaMenu() {
 
                     {/* View all */}
                     <Link
-                      href={currentCat.href}
+                      href={lp(currentCat.href)}
                       onClick={() => setOpenIndex(null)}
                       className="mt-4 flex items-center gap-1.5 text-xs font-medium text-canvas-70 hover:text-action-green transition-colors"
                     >
-                      View all {currentCat.label} <ChevronRight size={12} />
+                      View all {t(currentCat.labelKey)}{" "}
+                      <ChevronRight size={12} />
                     </Link>
 
                     {/* Methodology link */}
                     <Link
-                      href="/methodology"
+                      href={lp("/methodology")}
                       onClick={() => setOpenIndex(null)}
                       className="mt-3 flex items-center gap-1.5 text-xs font-medium text-amber-600 hover:underline"
                     >

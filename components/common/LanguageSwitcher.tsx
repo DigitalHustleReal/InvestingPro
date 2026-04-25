@@ -20,6 +20,15 @@ import {
 import { localizedPath, stripLocale } from "@/lib/i18n/url";
 
 /**
+ * Locales whose strings dictionary is not yet shipped — they fall
+ * back to English at lookup time. Surfaced as a hint in the picker
+ * so users aren't surprised when the chrome stays English. Removed
+ * from this list in Phase 2b once `lib/i18n/strings/{gu,kn}.ts`
+ * land.
+ */
+const FALLBACK_LOCALES: ReadonlyArray<Locale> = ["gu", "kn"];
+
+/**
  * Language switcher — wired to the locked i18n architecture
  * (lib/i18n/config + lib/i18n/url). Reads the current locale from
  * the URL prefix; on change, navigates to the equivalent path under
@@ -58,6 +67,7 @@ export default function LanguageSwitcher({
         {LOCALES.map((code) => {
           const meta = LOCALE_META[code];
           const active = currentLocale === code;
+          const isFallback = FALLBACK_LOCALES.includes(code);
           return (
             <Button
               key={code}
@@ -65,9 +75,19 @@ export default function LanguageSwitcher({
               size="sm"
               onClick={() => handleChange(code)}
               className="w-full justify-start text-xs"
+              title={
+                isFallback
+                  ? `${meta.english} — UI in English until full translation ships`
+                  : meta.english
+              }
             >
               <span className="font-mono mr-2 opacity-70">{meta.label}</span>
-              {meta.native}
+              <span className="truncate">{meta.native}</span>
+              {isFallback && (
+                <span className="ml-1 font-mono text-[9px] opacity-60 uppercase tracking-wider">
+                  (en)
+                </span>
+              )}
             </Button>
           );
         })}
@@ -87,10 +107,21 @@ export default function LanguageSwitcher({
       <SelectContent align="end">
         {LOCALES.map((code) => {
           const meta = LOCALE_META[code];
+          const isFallback = FALLBACK_LOCALES.includes(code);
           return (
             <SelectItem key={code} value={code} className="text-xs">
-              <span className="font-mono mr-2 opacity-60">{meta.label}</span>
-              {meta.native}
+              <span className="inline-flex items-center w-full">
+                <span className="font-mono mr-2 opacity-60">{meta.label}</span>
+                <span>{meta.native}</span>
+                {isFallback && (
+                  <span
+                    className="ml-2 font-mono text-[9px] opacity-50 uppercase tracking-wider"
+                    aria-label="English fallback"
+                  >
+                    (English)
+                  </span>
+                )}
+              </span>
             </SelectItem>
           );
         })}

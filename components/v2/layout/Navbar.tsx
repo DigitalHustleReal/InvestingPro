@@ -19,10 +19,15 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { useSearch } from "@/components/search/SearchProvider";
 import LanguageSwitcher from "@/components/common/LanguageSwitcher";
+import { useT, useLocale } from "@/lib/i18n/client";
+import { localizedPath } from "@/lib/i18n/url";
+import type { StringKey } from "@/lib/i18n/strings/en";
 import MegaMenu from "./MegaMenu";
 
 interface NavCategory {
-  label: string;
+  /** Translation key for the visible label (chrome only). */
+  labelKey: StringKey;
+  /** Canonical English path — wrapped through `localizedPath()` at render. */
   href: string;
   icon: LucideIcon;
 }
@@ -35,20 +40,26 @@ interface NavCategory {
  * URL category) and pointed "Investing" at /mutual-funds (bug). Both
  * fixed below. `learn` is a cross-cutting hub reachable via mega-menu/
  * footer/in-content links — not a top-nav slot.
+ *
+ * `href` is the canonical (English) base path. `localizedPath(href,
+ * currentLocale)` runs at render time so a Hindi user clicking "Loans"
+ * from /hi/credit-cards lands on /hi/loans, not /loans.
  */
 const CATEGORIES: NavCategory[] = [
-  { label: "Credit Cards", href: "/credit-cards", icon: CreditCard },
-  { label: "Loans", href: "/loans", icon: Building2 },
-  { label: "Banking", href: "/banking", icon: Landmark },
-  { label: "Investing", href: "/investing", icon: TrendingUp },
-  { label: "Insurance", href: "/insurance", icon: Shield },
-  { label: "Taxes", href: "/taxes", icon: Receipt },
+  { labelKey: "nav.creditCards", href: "/credit-cards", icon: CreditCard },
+  { labelKey: "nav.loans", href: "/loans", icon: Building2 },
+  { labelKey: "nav.banking", href: "/banking", icon: Landmark },
+  { labelKey: "nav.investing", href: "/investing", icon: TrendingUp },
+  { labelKey: "nav.insurance", href: "/insurance", icon: Shield },
+  { labelKey: "nav.taxes", href: "/taxes", icon: Receipt },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { openSearch } = useSearch();
+  const t = useT();
+  const locale = useLocale();
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -74,7 +85,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 lg:h-16">
             {/* Logo — Playfair 900, 22px */}
             <Link
-              href="/"
+              href={localizedPath("/", locale)}
               className="flex items-center gap-0.5 group flex-shrink-0"
             >
               <span className="text-[22px] font-display font-black tracking-tight text-canvas">
@@ -99,25 +110,25 @@ export default function Navbar() {
               <button
                 onClick={openSearch}
                 className="p-2 text-canvas-70 hover:text-canvas transition-colors cursor-pointer"
-                aria-label="Search"
+                aria-label={t("nav.search")}
               >
                 <SearchIcon className="w-5 h-5" />
               </button>
 
               {/* Compare CTA — Action Green, rounded-sm (6px) */}
               <Link
-                href="/compare"
+                href={localizedPath("/compare", locale)}
                 className="hidden sm:inline-flex items-center gap-1.5 px-[18px] py-[10px] bg-action-green text-canvas text-[14px] font-semibold hover:bg-authority-green transition-colors rounded-sm"
               >
                 <BarChart3 className="w-3.5 h-3.5" />
-                Compare
+                {t("nav.compare")}
               </Link>
 
               {/* Mobile menu button */}
               <button
                 className="lg:hidden p-2 text-canvas cursor-pointer"
                 onClick={() => setMobileOpen(!mobileOpen)}
-                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                aria-label={mobileOpen ? t("nav.close") : t("nav.menu")}
               >
                 {mobileOpen ? (
                   <X className="w-6 h-6" />
@@ -148,7 +159,7 @@ export default function Navbar() {
             {/* Drawer header */}
             <div className="flex items-center justify-between px-6 h-16 border-b border-canvas-15">
               <Link
-                href="/"
+                href={localizedPath("/", locale)}
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center gap-0.5"
               >
@@ -162,7 +173,7 @@ export default function Navbar() {
               <button
                 onClick={() => setMobileOpen(false)}
                 className="p-2 text-canvas-70 hover:text-canvas cursor-pointer"
-                aria-label="Close menu"
+                aria-label={t("nav.close")}
               >
                 <X className="w-6 h-6" />
               </button>
@@ -173,11 +184,12 @@ export default function Navbar() {
               <div className="space-y-0">
                 {CATEGORIES.map((cat) => {
                   const Icon = cat.icon;
-                  const isActive = pathname.startsWith(cat.href);
+                  const localizedHref = localizedPath(cat.href, locale);
+                  const isActive = pathname.startsWith(localizedHref);
                   return (
                     <Link
                       key={cat.href}
-                      href={cat.href}
+                      href={localizedHref}
                       onClick={() => setMobileOpen(false)}
                       className={`flex items-center gap-4 px-4 min-h-[44px] py-3 border-b border-canvas-15 ${
                         isActive
@@ -187,7 +199,7 @@ export default function Navbar() {
                     >
                       <Icon className="w-5 h-5" />
                       <span className="text-[15px] font-medium">
-                        {cat.label}
+                        {t(cat.labelKey)}
                       </span>
                     </Link>
                   );
@@ -197,26 +209,34 @@ export default function Navbar() {
               {/* Secondary links */}
               <div className="mt-8 space-y-3">
                 <Link
-                  href="/articles"
+                  href={localizedPath("/articles", locale)}
                   onClick={() => setMobileOpen(false)}
                   className="block px-4 min-h-[44px] py-3 text-center bg-canvas-15 text-canvas rounded-sm text-[14px] font-semibold hover:bg-canvas/20 transition-colors"
                 >
-                  Read Articles
+                  {t("cta.allArticles")}
                 </Link>
                 <Link
-                  href="/calculators"
+                  href={localizedPath("/calculators", locale)}
                   onClick={() => setMobileOpen(false)}
                   className="block px-4 min-h-[44px] py-3 text-center border border-canvas-15 text-canvas rounded-sm text-[14px] font-semibold hover:bg-canvas-15 transition-colors"
                 >
-                  Calculators
+                  {t("section.cardCalculators")}
                 </Link>
                 <Link
-                  href="/compare"
+                  href={localizedPath("/compare", locale)}
                   onClick={() => setMobileOpen(false)}
                   className="block px-4 min-h-[44px] py-3 text-center bg-action-green text-canvas rounded-sm text-[14px] font-semibold hover:bg-authority-green transition-colors"
                 >
-                  Compare Products
+                  {t("nav.compare")}
                 </Link>
+              </div>
+
+              {/* Mobile language switcher — Phase 2a wiring. Native script
+                  labels on the buttons are self-explanatory; no extra heading
+                  needed (and avoids guessing a translation key for "Language"
+                  before Phase 2b ships native-reviewed strings). */}
+              <div className="mt-8 pt-6 border-t border-canvas-15">
+                <LanguageSwitcher isMobile />
               </div>
 
               {/* Trust signal */}

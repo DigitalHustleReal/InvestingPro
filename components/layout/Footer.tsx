@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
+import { useT, useLocale } from "@/lib/i18n/client";
+import { localizedPath } from "@/lib/i18n/url";
+import type { StringKey } from "@/lib/i18n/strings/en";
 
 // Footer structure follows NerdWallet content pattern (not design):
 // - 6 wide columns with sub-sections per column = ~60 SEO-valuable internal links
@@ -234,20 +237,47 @@ const SOCIAL_CHANNELS = [
 
 // Legal + compliance block — separated below the main grid because
 // regulators (SEBI, RBI) and search engines both reward explicit disclosures.
-const LEGAL_LINKS = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms of Service", href: "/terms" },
-  { label: "Cookie Policy", href: "/cookie-policy" },
-  { label: "Advertiser Disclosure", href: "/advertiser-disclosure" },
-  { label: "Editorial Standards", href: "/about/editorial-standards" },
+//
+// `labelKey` resolves through `t()` when present so legal language
+// localises with the rest of the chrome. Items without a key fall
+// back to the English `label` until Phase 2b expands the strings file.
+const LEGAL_LINKS: Array<{
+  label: string;
+  labelKey?: StringKey;
+  href: string;
+}> = [
+  { label: "Privacy Policy", labelKey: "footer.privacy", href: "/privacy" },
+  { label: "Terms of Service", labelKey: "footer.terms", href: "/terms" },
+  {
+    label: "Cookie Policy",
+    labelKey: "footer.cookies",
+    href: "/cookie-policy",
+  },
+  {
+    label: "Advertiser Disclosure",
+    labelKey: "footer.advertiserDisclosure",
+    href: "/advertiser-disclosure",
+  },
+  {
+    label: "Editorial Standards",
+    labelKey: "footer.editorialStandards",
+    href: "/about/editorial-standards",
+  },
   { label: "How We Rate", href: "/about/methodology" },
-  { label: "Corrections Policy", href: "/corrections" },
-  { label: "Security", href: "/security" },
+  {
+    label: "Corrections Policy",
+    labelKey: "footer.corrections",
+    href: "/corrections",
+  },
+  { label: "Security", labelKey: "footer.security", href: "/security" },
 ];
 
 export default function Footer() {
   const pathname = usePathname();
   const [openCol, setOpenCol] = useState<number | null>(null);
+  const t = useT();
+  const locale = useLocale();
+  const lp = (href: string) => localizedPath(href, locale);
 
   if (pathname?.startsWith("/admin")) return null;
 
@@ -271,7 +301,7 @@ export default function Footer() {
                       {section.links.map((link) => (
                         <li key={link.href}>
                           <Link
-                            href={link.href}
+                            href={lp(link.href)}
                             className="text-[13px] text-canvas hover:text-indian-gold transition-colors"
                           >
                             {link.label}
@@ -314,7 +344,7 @@ export default function Footer() {
                         {section.links.map((link) => (
                           <li key={link.href}>
                             <Link
-                              href={link.href}
+                              href={lp(link.href)}
                               className="block text-[14px] text-canvas hover:text-indian-gold transition-colors min-h-[40px] flex items-center"
                             >
                               {link.label}
@@ -386,10 +416,10 @@ export default function Footer() {
               {LEGAL_LINKS.map((link) => (
                 <Link
                   key={link.href}
-                  href={link.href}
+                  href={lp(link.href)}
                   className="text-[12px] text-canvas-70 hover:text-canvas transition-colors"
                 >
-                  {link.label}
+                  {link.labelKey ? t(link.labelKey) : link.label}
                 </Link>
               ))}
             </div>
@@ -423,10 +453,10 @@ export default function Footer() {
             rankings, reviews, or recommendations — our editorial process is
             independent and documented. See our{" "}
             <Link
-              href="/about/how-we-make-money"
+              href={lp("/about/how-we-make-money")}
               className="text-indian-gold hover:underline"
             >
-              How We Make Money
+              {t("footer.howWeMakeMoney")}
             </Link>{" "}
             page for details. Rates, offers, and product availability are
             subject to change without notice; always verify with the issuer

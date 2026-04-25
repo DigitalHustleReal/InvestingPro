@@ -57,6 +57,8 @@ import { initializeLogging } from "@/lib/logging/initialize";
 import { validateEnvOnStartup } from "@/lib/env";
 import { getServerLocale } from "@/lib/i18n/server";
 import { LOCALE_META } from "@/lib/i18n/config";
+import { loadDictionary } from "@/lib/i18n/t";
+import { LocaleProvider } from "@/lib/i18n/client";
 import type { Metadata } from "next";
 // Tracing is disabled - file exists as .disabled
 // import { initializeTracing } from "@/lib/tracing/opentelemetry";
@@ -153,6 +155,7 @@ export default async function RootLayout({
   // and avoids the duplicate-emission trap.
   const locale = await getServerLocale();
   const htmlLang = LOCALE_META[locale].htmlLang;
+  const dict = await loadDictionary(locale);
 
   return (
     <html lang={htmlLang} suppressHydrationWarning>
@@ -209,50 +212,52 @@ export default async function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <PostHogProvider>
-            <ErrorBoundaryProvider>
-              <QueryProvider>
-                <SearchProvider>
-                  <CompareProvider>
-                    <NavigationProvider>
-                      <Suspense fallback={null}>
-                        <Analytics />
-                        <SentryInit />
-                        {/* <PerformanceMonitor /> */}
-                      </Suspense>
+          <LocaleProvider locale={locale} dict={dict}>
+            <PostHogProvider>
+              <ErrorBoundaryProvider>
+                <QueryProvider>
+                  <SearchProvider>
+                    <CompareProvider>
+                      <NavigationProvider>
+                        <Suspense fallback={null}>
+                          <Analytics />
+                          <SentryInit />
+                          {/* <PerformanceMonitor /> */}
+                        </Suspense>
 
-                      {/* Skip to Content Link - Accessibility (UI/UX Phase 1) */}
-                      <a href="#main-content" className="skip-to-content">
-                        Skip to main content
-                      </a>
+                        {/* Skip to Content Link - Accessibility (UI/UX Phase 1) */}
+                        <a href="#main-content" className="skip-to-content">
+                          Skip to main content
+                        </a>
 
-                      <AdminShell>
-                        <ConditionalTopBarV2 />
-                        <main
-                          id="main-content"
-                          className="flex-grow pb-20 md:pb-0"
-                          tabIndex={-1}
-                        >
-                          <PageErrorBoundary pageName="Root Layout">
-                            <ConditionalPublicElements>
-                              {children}
-                            </ConditionalPublicElements>
-                          </PageErrorBoundary>
-                        </main>
-                      </AdminShell>
-                      <ConditionalPublicFloating>
-                        <CompareBar />
-                        <MobileNav />
-                      </ConditionalPublicFloating>
-                      {/* Affiliate & ad scripts — lazy-loaded, page-aware */}
-                      <ThirdPartyScripts />
-                      <Toaster />
-                    </NavigationProvider>
-                  </CompareProvider>
-                </SearchProvider>
-              </QueryProvider>
-            </ErrorBoundaryProvider>
-          </PostHogProvider>
+                        <AdminShell>
+                          <ConditionalTopBarV2 />
+                          <main
+                            id="main-content"
+                            className="flex-grow pb-20 md:pb-0"
+                            tabIndex={-1}
+                          >
+                            <PageErrorBoundary pageName="Root Layout">
+                              <ConditionalPublicElements>
+                                {children}
+                              </ConditionalPublicElements>
+                            </PageErrorBoundary>
+                          </main>
+                        </AdminShell>
+                        <ConditionalPublicFloating>
+                          <CompareBar />
+                          <MobileNav />
+                        </ConditionalPublicFloating>
+                        {/* Affiliate & ad scripts — lazy-loaded, page-aware */}
+                        <ThirdPartyScripts />
+                        <Toaster />
+                      </NavigationProvider>
+                    </CompareProvider>
+                  </SearchProvider>
+                </QueryProvider>
+              </ErrorBoundaryProvider>
+            </PostHogProvider>
+          </LocaleProvider>
         </ThemeProvider>
         {/* Legal-only: Cookie consent (Accept/Decline bar). All other popups removed —
              ExitIntentPopup, WhatsAppButton, Tawk.to, OnboardingTrigger, LeadCapture.
