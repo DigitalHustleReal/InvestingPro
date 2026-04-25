@@ -19,6 +19,7 @@ import {
   type UrlCategory,
 } from "@/lib/routing/category-map";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import CategoryFAQ from "./CategoryFAQ";
 
 type ArticleRow = {
   slug: string;
@@ -154,8 +155,8 @@ export default async function CategoryLearnHub({
             {label} <span className="text-indian-gold">explained.</span>
           </h1>
           <p className="mt-6 font-serif text-[18px] md:text-[20px] leading-[1.55] text-canvas-70 max-w-[740px]">
-            {total} guide{total === 1 ? "" : "s"} — rupee examples, regulatory
-            sources, and picks from the {label.toLowerCase()} desk.
+            Rupee examples, regulatory sources, and picks from the{" "}
+            {label.toLowerCase()} desk.
           </p>
         </div>
       </section>
@@ -261,6 +262,9 @@ export default async function CategoryLearnHub({
           )}
         </div>
       </section>
+
+      {/* Category FAQ — GEO-optimized Q&A block */}
+      <CategoryFAQ urlCategory={urlCategory} variant="ink" />
     </>
   );
 }

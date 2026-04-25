@@ -13,6 +13,7 @@ import Image from "next/image";
 import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import CategoryFAQ from "@/components/routing/CategoryFAQ";
 
 export const revalidate = 21600; // 6 hours — hub page, not time-critical
 
@@ -274,7 +275,7 @@ export default async function TaxesHubPage() {
               href="/calculators"
               className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
             >
-              All 75 calculators <ArrowUpRight className="w-3 h-3" />
+              All calculators <ArrowUpRight className="w-3 h-3" />
             </Link>
           </div>
 
@@ -479,6 +480,9 @@ export default async function TaxesHubPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ block — GEO-optimized Q&A */}
+      <CategoryFAQ urlCategory="taxes" variant="canvas" />
 
       {/* CTA — ink */}
       <section className="surface-ink py-14">

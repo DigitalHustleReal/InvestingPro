@@ -63,6 +63,24 @@
   → Some articles could legitimately live under multiple top-levels (e.g. "PPF vs NPS vs ELSS" — taxes, investing, or retirement?)
   → Need `primary_category` column OR first-match rule
 
+### Content sources — route through CMS / DB (user-flagged 2026-04-25)
+> User principle: "no hard coded articles or products, route everything through cms, db, front end". Counts shown to users (X cards, X guides) look immature — strip from user-facing pages, keep in admin dashboard only.
+
+- [x] Stripped count-claims from `/not-found`, `/[cat]/learn/`, `/[cat]/calculators/`, `/taxes` user-facing copy. Counts still pulled to llms.txt (AI-only) for accurate citation.
+- [x] FAQ blocks added to all 7 `/[cat]/learn/` hubs + `/taxes` top-level via shared `CategoryFAQ` Server Component. Currently sourced from `lib/content/faq-data.ts` (typed module). 35+ FAQ items across 7 categories.
+- [ ] 🟡 **Migrate FAQ data to DB** — create a `category_faqs` table (id, url_category, question, answer, sort_order, published, created_at, updated_at). Refactor `getCategoryFAQs` to query DB via React.cache. Build admin UI under `/admin/faqs`. Keep static fallback for resilience.
+- [ ] 🟡 **Migrate calculator metadata to DB** — `CALCULATOR_CATEGORY` map + `CALC_META` (titles, taglines, accents) currently in code. Create a `calculators` reference table (id, slug, url_category, title, tagline, accent, status, popularity_rank). Refactor hubs + 404 page to query the table. Admin UI under `/admin/calculators`.
+- [ ] 🟢 **Move "Did you know?" data hooks to DB** — currently hardcoded in `app/not-found.tsx`. Future `editorial_facts` table + admin UI lets editorial team refresh post-Budget without a code deploy.
+- [ ] 🟢 **Move tax regime / deductions / key dates from code to DB** — `app/taxes/page.tsx` has TAX_CALCULATORS, DEDUCTIONS, REGIME_SLABS, KEY_DATES as in-code arrays. Should live in `tax_data` table with annual rev policy.
+
+### Counts visible to users (cleanup audit — fixed in this session)
+- [x] `/not-found` — removed "81 cards ranked", "70 deep dives"
+- [x] `/[cat]/learn/` — removed "{N} guides" header
+- [x] `/[cat]/calculators/` — removed "{N} free calculators" header + "All 72 calculators" CTA
+- [x] `/taxes` — "All 75 calculators" → "All calculators"
+- [ ] 🟢 Audit `/credit-cards`, `/loans`, `/banking`, `/investing`, `/insurance` literal hub pages for similar hardcoded counts. Tracked, not yet done.
+- [ ] 🟢 Build admin dashboard view at `/admin/dashboard` showing platform stats (228 articles, 81 cards, 101 glossary, etc.) — _appropriate_ place for these numbers, not the public site.
+
 ### SEO / GEO / GSC (user-flagged 2026-04-24, partial in this session)
 - [x] **GEO audit run** via `claude-seo:seo-geo` skill — score went from ~28 → 62/100 after this session's fixes. Detailed report inline in commit message.
 - [x] **`/llms.txt` + `/llms-full.txt`** — dynamic, live counts from Supabase. Concise + extended variants. Replace stale public/llms.txt that claimed 500 glossary terms / 25 calcs.

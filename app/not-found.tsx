@@ -55,17 +55,17 @@ const TOP_HUBS = [
   {
     href: "/credit-cards",
     title: "Credit cards",
-    tagline: "81 cards ranked, rewards + fees compared",
+    tagline: "Compare rewards, cashback, premium and no-fee cards",
   },
   {
     href: "/investing/learn",
     title: "Investing guides",
-    tagline: "70 deep dives — MF, stocks, NPS, PPF",
+    tagline: "Mutual funds, stocks, NPS, PPF — explained with examples",
   },
   {
     href: "/taxes",
     title: "Tax planning",
-    tagline: "Regimes, 80C optimizer, LTCG rules",
+    tagline: "Old vs new regime, 80C optimizer, LTCG rules",
   },
 ];
 
@@ -164,7 +164,7 @@ export default function NotFound() {
               href="/calculators"
               className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors inline-flex items-center gap-1"
             >
-              All 72 calculators <ArrowUpRight className="w-3 h-3" />
+              All calculators <ArrowUpRight className="w-3 h-3" />
             </Link>
           </div>
 

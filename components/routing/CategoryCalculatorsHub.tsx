@@ -464,8 +464,8 @@ export default async function CategoryCalculatorsHub({
             {label} <span className="text-indian-gold">calculators.</span>
           </h1>
           <p className="mt-6 font-serif text-[18px] md:text-[20px] leading-[1.55] text-canvas-70 max-w-[740px]">
-            {slugs.length} free calculator{slugs.length === 1 ? "" : "s"} —
-            rupee-accurate, FY 2026-27 ready, worked examples built in.
+            Free calculators — rupee-accurate, FY 2026-27 ready, worked examples
+            built in.
           </p>
         </div>
       </section>
@@ -481,7 +481,7 @@ export default async function CategoryCalculatorsHub({
                 href="/calculators"
                 className="mt-6 inline-block font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline"
               >
-                Browse all 72 calculators →
+                Browse all calculators →
               </Link>
             </div>
           ) : (
@@ -520,7 +520,7 @@ export default async function CategoryCalculatorsHub({
                   href="/calculators"
                   className="font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline inline-flex items-center gap-1"
                 >
-                  All 72 calculators <ArrowUpRight className="w-3 h-3" />
+                  All calculators <ArrowUpRight className="w-3 h-3" />
                 </Link>
               </div>
             </>
