@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/static";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { articleUrl } from "@/lib/routing/article-url";
 import {
   Award,
   Linkedin,
@@ -239,7 +240,7 @@ export default async function AuthorPage({ params }: PageProps) {
                       className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-primary-500/50 transition-colors group"
                     >
                       <CardContent className="p-6">
-                        <Link href={`/articles/${article.slug}`}>
+                        <Link href={articleUrl(article)}>
                           <div className="flex items-start justify-between gap-4">
                             <div className="flex-1">
                               {article.category && (

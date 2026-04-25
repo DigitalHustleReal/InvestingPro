@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/static";
+import { articleUrl } from "@/lib/routing/article-url";
 
 /**
  * Google News Sitemap
@@ -33,7 +34,7 @@ export async function GET() {
         const keywords = (article.tags || []).slice(0, 5).join(", ");
 
         return `  <url>
-    <loc>${baseUrl}/articles/${article.slug}</loc>
+    <loc>${baseUrl}${articleUrl(article)}</loc>
     <news:news>
       <news:publication>
         <news:name>InvestingPro</news:name>

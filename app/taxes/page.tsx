@@ -421,7 +421,7 @@ export default async function TaxesHubPage() {
               {articles.map((a) => (
                 <Link
                   key={a.slug}
-                  href={`/articles/${a.slug}`}
+                  href={`/taxes/learn/${a.slug}`}
                   className="group block"
                 >
                   {a.featured_image && (

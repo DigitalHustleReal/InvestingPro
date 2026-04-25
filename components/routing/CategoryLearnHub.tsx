@@ -19,6 +19,7 @@ import {
   type UrlCategory,
 } from "@/lib/routing/category-map";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { articleUrl } from "@/lib/routing/article-url";
 import CategoryFAQ from "./CategoryFAQ";
 
 type ArticleRow = {
@@ -179,7 +180,7 @@ export default async function CategoryLearnHub({
             <>
               {featured && (
                 <Link
-                  href={`/articles/${featured.slug}`}
+                  href={articleUrl(featured)}
                   className="group block mb-14 pb-14 border-b border-ink-12"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-10 items-center">
@@ -223,7 +224,7 @@ export default async function CategoryLearnHub({
                   {rest.map((a) => (
                     <Link
                       key={a.slug}
-                      href={`/articles/${a.slug}`}
+                      href={articleUrl(a)}
                       className="group block"
                     >
                       {a.featured_image && (

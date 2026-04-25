@@ -8,6 +8,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/static";
 import { logger } from "@/lib/logger";
+import { articleUrl } from "@/lib/routing/article-url";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://investingpro.in";
 const SITE_NAME = "InvestingPro";
@@ -41,7 +42,7 @@ function formatDate(dateString: string): string {
 function generateRssFeed(articles: FeedArticle[]): string {
   const items = articles
     .map((article) => {
-      const link = `${SITE_URL}/articles/${article.slug}`;
+      const link = `${SITE_URL}${articleUrl(article)}`;
       const categoryFormatted =
         article.category
           ?.replace(/-/g, " ")

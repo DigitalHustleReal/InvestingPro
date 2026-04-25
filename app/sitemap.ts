@@ -3,7 +3,7 @@ import { logger } from "@/lib/logger";
 import { createClient } from "@/lib/supabase/static";
 import { NAVIGATION_CATEGORIES } from "@/lib/navigation/categories";
 import { NAVIGATION_CONFIG } from "@/lib/navigation/config";
-import { dbCategoryToUrl } from "@/lib/routing/category-map";
+import { articleUrl } from "@/lib/routing/article-url";
 
 /**
  * Automated Sitemap Generation
@@ -215,13 +215,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
       if (articles) {
         for (const article of articles) {
-          const urlCat = dbCategoryToUrl(article.category);
-          const path =
-            article.category && urlCat !== "learn"
-              ? `/${urlCat}/learn/${article.slug}`
-              : `/articles/${article.slug}`;
           sitemap.push({
-            url: `${baseUrl}${path}`,
+            url: `${baseUrl}${articleUrl(article)}`,
             lastModified: article.updated_at
               ? new Date(article.updated_at)
               : article.published_date

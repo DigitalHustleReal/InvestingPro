@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { articleUrl } from "@/lib/routing/article-url";
 
 interface SearchResult {
   id: string;
@@ -163,7 +164,7 @@ export default function SearchPage() {
             {results.length > 0 ? (
               <div className="space-y-4">
                 {results.map((result) => (
-                  <Link key={result.id} href={`/articles/${result.slug}`}>
+                  <Link key={result.id} href={articleUrl(result)}>
                     <Card className="bg-white dark:bg-white/[0.03] border-gray-200 dark:border-white/5 hover:border-primary-500/30 hover:shadow-lg hover:shadow-primary-500/5 transition-all group">
                       <CardContent className="p-6">
                         <div className="flex gap-6">
@@ -256,7 +257,7 @@ export default function SearchPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {trending.map((article) => (
-                <Link key={article.id} href={`/articles/${article.slug}`}>
+                <Link key={article.id} href={articleUrl(article)}>
                   <Card className="h-full bg-white dark:bg-white/[0.03] border-gray-200 dark:border-white/5 hover:border-primary-500/30 hover:shadow-lg hover:shadow-primary-500/5 transition-all group">
                     <CardContent className="p-6">
                       <Badge className="mb-3 bg-primary-500/10 text-primary-600 dark:text-primary-400 border-0 text-[10px] font-bold uppercase tracking-wider">

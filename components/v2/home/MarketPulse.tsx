@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/static";
 import { logger } from "@/lib/logger";
+import { articleUrl } from "@/lib/routing/article-url";
 
 interface PulseItem {
   tag: string;
@@ -38,7 +39,7 @@ async function fetchPulse(): Promise<PulseItem[]> {
       title: article.title,
       take: article.excerpt?.slice(0, 120) || "",
       date: article.published_at ? formatDate(article.published_at) : "",
-      href: `/articles/${article.slug}`,
+      href: articleUrl(article),
     }));
   } catch (err) {
     logger.error(

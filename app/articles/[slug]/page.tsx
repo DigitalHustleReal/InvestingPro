@@ -15,27 +15,11 @@ import { Metadata } from "next";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import { dbCategoryToUrl } from "@/lib/routing/category-map";
+import { articleUrl } from "@/lib/routing/article-url";
 import FullArticleView, {
   type FullArticle,
 } from "@/components/articles/FullArticleView";
 import type { BreadcrumbItem } from "@/lib/linking/breadcrumbs";
-
-/**
- * Returns the canonical URL for an article. Articles with a real DB
- * category resolve to /[urlCat]/learn/[slug] (NerdWallet-style nested);
- * articles without a category mapping (or that map to "learn") stay at
- * the legacy flat path. Used by both /articles/[slug] (this file, for
- * canonical metadata + the redirect target) and the sitemap.
- */
-function articleCanonicalPath(
-  article: Pick<FullArticle, "slug" | "category">,
-): string {
-  const urlCat = dbCategoryToUrl(article.category);
-  if (article.category && urlCat !== "learn") {
-    return `/${urlCat}/learn/${article.slug}`;
-  }
-  return `/articles/${article.slug}`;
-}
 
 export const revalidate = 3600; // Revalidate every hour
 export const dynamicParams = true; // Allow ISR for slugs not in generateStaticParams
@@ -101,7 +85,7 @@ export async function generateMetadata({
   // Even though we 308 in the default export, generateMetadata fires on the
   // initial flat-URL request — emitting nested as canonical here means search
   // engines that don't follow the 308 still see the right URL.
-  const canonical = generateCanonicalUrl(articleCanonicalPath(article));
+  const canonical = generateCanonicalUrl(articleUrl(article));
 
   return {
     title: (
@@ -179,7 +163,7 @@ export default async function ArticlePage({
     { label: article.title, url: `/articles/${article.slug}` },
   ];
 
-  const canonicalUrl = generateCanonicalUrl(articleCanonicalPath(article));
+  const canonicalUrl = generateCanonicalUrl(articleUrl(article));
 
   return (
     <FullArticleView

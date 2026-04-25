@@ -21,6 +21,7 @@ import {
 import Link from "next/link";
 import EmptyState from "@/components/common/EmptyState";
 import DecisionHelper from "@/components/widgets/DecisionHelper";
+import { articleUrl } from "@/lib/routing/article-url";
 
 interface Article {
   id: string;
@@ -117,7 +118,10 @@ export default function CategoryPage() {
               : `Articles · Published as research completes`}
           </p>
           <div className="mt-6">
-            <Link href="/articles" className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-ink flex items-center gap-1 w-fit">
+            <Link
+              href="/articles"
+              className="font-mono text-[11px] uppercase tracking-wider text-ink-60 hover:text-ink flex items-center gap-1 w-fit"
+            >
               ← All articles
             </Link>
           </div>
@@ -161,7 +165,7 @@ export default function CategoryPage() {
               {paginatedArticles.map((article) => (
                 <Link
                   key={article.id}
-                  href={`/articles/${article.slug}`}
+                  href={articleUrl(article)}
                   className="group bg-white border-2 border-ink/10 rounded-sm hover:border-ink/30 transition-all overflow-hidden flex flex-col"
                 >
                   {article.featured_image && (

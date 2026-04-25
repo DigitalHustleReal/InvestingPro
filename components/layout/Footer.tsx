@@ -139,7 +139,7 @@ const COLUMNS = [
           { label: "NPS calculator", href: "/calculators/nps" },
           {
             label: "PPF vs NPS",
-            href: "/articles/ppf-vs-nps-which-is-better-for-retirement-savings",
+            href: "/investing/learn/ppf-vs-nps-which-is-better-for-retirement-savings",
           },
         ],
       },

@@ -10,6 +10,7 @@ import { Search, Clock, Calendar, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import EmptyState from "@/components/common/EmptyState";
 import SmartImage from "@/components/ui/SmartImage";
+import { articleUrl } from "@/lib/routing/article-url";
 
 interface Article {
   id: string;
@@ -179,7 +180,7 @@ export default function ArticlesClient() {
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {paginatedArticles.map((article) => (
-              <Link key={article.id} href={`/articles/${article.slug}`}>
+              <Link key={article.id} href={articleUrl(article)}>
                 <div className="h-full bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all cursor-pointer overflow-hidden group">
                   <div className="aspect-video w-full overflow-hidden relative bg-gray-100 rounded-t-xl">
                     <SmartImage

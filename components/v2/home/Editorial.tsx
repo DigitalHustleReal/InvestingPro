@@ -3,6 +3,7 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase/static";
 import { logger } from "@/lib/logger";
 import { ArrowRight } from "lucide-react";
+import { articleUrl } from "@/lib/routing/article-url";
 
 interface EditorialItem {
   title: string;
@@ -30,7 +31,7 @@ async function fetchEditorial(): Promise<EditorialItem[]> {
       excerpt: article.excerpt || "",
       category: (article.category || "finance").replace(/[-_]/g, " "),
       readTime: article.read_time ? `${article.read_time} min read` : "",
-      href: `/articles/${article.slug}`,
+      href: articleUrl(article),
       image: article.featured_image || null,
     }));
   } catch (err) {

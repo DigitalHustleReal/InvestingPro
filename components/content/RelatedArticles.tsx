@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/static";
 import { logger } from "@/lib/logger";
+import { articleUrl } from "@/lib/routing/article-url";
 
 interface RelatedArticlesProps {
   currentSlug?: string;
@@ -74,7 +75,7 @@ export default async function RelatedArticles({
           {articles.map((article) => (
             <Link
               key={article.slug}
-              href={`/articles/${article.slug}`}
+              href={articleUrl(article)}
               className="flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group"
             >
               <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg group-hover:bg-white dark:group-hover:bg-gray-700 transition-colors">

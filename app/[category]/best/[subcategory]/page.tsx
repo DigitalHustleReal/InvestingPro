@@ -14,6 +14,7 @@ import { formatSlug } from "@/lib/utils";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import { RichProduct } from "@/types/rich-product";
 import BestOfProductList from "./BestOfProductList";
+import { articleUrl } from "@/lib/routing/article-url";
 
 export const revalidate = 86400; // Daily ISR
 
@@ -332,12 +333,14 @@ async function fetchProducts(
 
 async function fetchRelatedArticles(
   category: string,
-): Promise<{ title: string; slug: string; excerpt: string }[]> {
+): Promise<
+  { title: string; slug: string; excerpt: string; category: string | null }[]
+> {
   const supabase = createClient();
 
   const { data, error } = await supabase
     .from("articles")
-    .select("title, slug, excerpt")
+    .select("title, slug, excerpt, category")
     .eq("status", "published")
     .ilike("category", `%${category.replace(/-/g, " ")}%`)
     .order("published_at", { ascending: false })
@@ -581,7 +584,9 @@ export default async function BestOfPage(props: {
                 key={stat.label}
                 className="p-4 bg-gray-50 rounded-xl border border-gray-100"
               >
-                <p className="text-2xl font-black text-action-green">{stat.num}</p>
+                <p className="text-2xl font-black text-action-green">
+                  {stat.num}
+                </p>
                 <p className="text-sm font-semibold text-ink mt-1">
                   {stat.label}
                 </p>
@@ -653,7 +658,7 @@ export default async function BestOfPage(props: {
               {articles.map((article) => (
                 <Link
                   key={article.slug}
-                  href={`/articles/${article.slug}`}
+                  href={articleUrl(article)}
                   className="flex items-start gap-3 p-4 bg-gray-50 border border-ink/10 rounded-xl hover:border-green-500 hover:shadow-sm transition-all group"
                 >
                   <BookOpen
