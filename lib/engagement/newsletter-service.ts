@@ -115,7 +115,20 @@ class NewsletterService {
         .select("id, confirm_token")
         .single();
 
-      if (error) throw error;
+      if (error) {
+        // Surface the actual Supabase error — previously swallowed by the
+        // catch below into a generic "Subscription failed" message which
+        // masked schema / RLS / column-name issues. Production diagnostics
+        // need the real code + message + hint.
+        // eslint-disable-next-line no-console
+        console.error("[newsletter] insert failed", {
+          code: (error as { code?: string }).code,
+          message: error.message,
+          details: (error as { details?: string }).details,
+          hint: (error as { hint?: string }).hint,
+        });
+        throw error;
+      }
 
       // Send confirmation email
       await this.sendConfirmationEmail(normalizedEmail, newSub?.confirm_token);
