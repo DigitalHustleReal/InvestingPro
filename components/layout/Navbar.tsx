@@ -40,11 +40,13 @@ function SearchButton({
     return (
       <button
         onClick={openSearch}
-        className="w-full flex items-center gap-3 h-12 pl-4 pr-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 text-gray-500 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-green-300 dark:hover:border-green-600 transition-all duration-200 text-sm text-left shadow-sm hover:shadow-md"
+        className="w-full flex items-center gap-3 h-11 pl-4 pr-3 border-2 border-ink/10 bg-canvas hover:border-ink transition-colors text-left"
       >
-        <Search className="w-4 h-4 text-green-700 dark:text-green-400 flex-shrink-0" />
-        <span className="flex-1">Search products, guides...</span>
-        <kbd className="px-2 py-0.5 text-xs bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-gray-600">
+        <Search className="w-4 h-4 text-ink-60 flex-shrink-0" />
+        <span className="flex-1 font-mono text-[12px] text-ink-60">
+          Search products, guides…
+        </span>
+        <kbd className="px-2 py-0.5 text-[10px] bg-ink/5 border border-ink/10 text-ink-60 font-mono">
           ⌘K
         </kbd>
       </button>
@@ -54,21 +56,14 @@ function SearchButton({
   return (
     <button
       onClick={openSearch}
-      className="hidden lg:flex items-center gap-2 h-9 w-48 xl:w-56 px-3 
-                       bg-gray-50 dark:bg-gray-800/50 
-                       border border-gray-200 dark:border-gray-700 
-                       hover:border-green-600 dark:hover:border-green-500 
-                       hover:bg-white dark:hover:bg-gray-800
-                       rounded-lg transition-all duration-200 
-                       shadow-sm hover:shadow-md
-                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
+      className="hidden lg:flex items-center gap-2 h-9 w-48 xl:w-56 px-3 bg-canvas border-2 border-ink/10 hover:border-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indian-gold focus-visible:ring-offset-2"
       aria-label="Search products and guides"
     >
-      <Search className="w-4 h-4 text-green-700 dark:text-green-400 flex-shrink-0" />
-      <span className="text-sm text-gray-600 dark:text-gray-400 flex-1 text-left truncate">
-        Search...
+      <Search className="w-4 h-4 text-ink-60 flex-shrink-0" />
+      <span className="font-mono text-[12px] text-ink-60 flex-1 text-left truncate">
+        Search…
       </span>
-      <kbd className="hidden xl:inline-flex px-1.5 py-0.5 text-[10px] bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-600 font-mono">
+      <kbd className="hidden xl:inline-flex px-1.5 py-0.5 text-[10px] bg-ink/5 border border-ink/10 text-ink-60 font-mono">
         ⌘K
       </kbd>
     </button>
@@ -147,7 +142,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0A1F14]/80 border-b border-gray-200/50 dark:border-green-900/30 backdrop-blur-md transition-all duration-300 shadow-sm dark:shadow-green-950/10 supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-[#0A1F14]/60">
+    <header className="sticky top-0 z-50 bg-canvas border-b-2 border-ink/10">
       <nav className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 lg:h-[72px]">
           {/* Logo */}
@@ -193,26 +188,19 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
               {/* Icon-only Login Button */}
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center"
+                className="inline-flex items-center justify-center w-10 h-10 text-ink hover:text-indian-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indian-gold focus-visible:ring-offset-2"
+                aria-label="Sign In"
+                title="Sign In"
               >
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded-xl"
-                  aria-label="Sign In"
-                  title="Sign In"
-                >
-                  <User className="w-5 h-5" />
-                </Button>
+                <User className="w-5 h-5" />
               </Link>
 
-              <Button
-                asChild
-                variant="default"
-                className="bg-green-700 hover:bg-green-800 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-green-900/20 transition-all duration-200 h-10 px-5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+              <Link
+                href="/compare"
+                className="inline-flex items-center justify-center font-mono text-[11px] uppercase tracking-wider px-5 h-10 bg-ink text-canvas hover:bg-indian-gold hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indian-gold focus-visible:ring-offset-2"
               >
-                <Link href="/compare">Compare Now</Link>
-              </Button>
+                Compare Now
+              </Link>
             </div>
           </div>
 
@@ -220,59 +208,53 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
             <ThemeToggle />
 
             {/* Direct Mobile Search Icon */}
-            <Button
-              variant="ghost"
-              size="icon"
+            <button
               onClick={openSearch}
-              className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 rounded-xl"
+              className="w-10 h-10 inline-flex items-center justify-center text-ink hover:text-indian-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indian-gold focus-visible:ring-offset-2"
               aria-label="Search"
             >
               <Search className="w-5 h-5" />
-            </Button>
+            </button>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-green-700 hover:bg-green-50 hover:text-green-800 dark:text-green-400"
-              aria-label="Open menu"
+            <button
               onClick={() => setIsOpen(true)}
+              className="w-10 h-10 inline-flex items-center justify-center text-ink hover:text-indian-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indian-gold focus-visible:ring-offset-2"
+              aria-label="Open menu"
             >
               <Menu className="w-6 h-6" />
-            </Button>
+            </button>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetContent
                 side="right"
-                className="w-full sm:w-96 p-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl flex flex-col h-full border-l border-gray-200/60 dark:border-gray-800/60 shadow-2xl"
+                className="w-full sm:w-96 p-0 bg-canvas flex flex-col h-full border-l-2 border-ink/10"
               >
                 <div className="flex flex-col h-full overflow-hidden">
                   {/* Mobile Menu Header */}
-                  <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800 sticky top-0 bg-white dark:bg-gray-900 z-10">
+                  <div className="flex items-center justify-between p-4 border-b-2 border-ink/10 sticky top-0 bg-canvas z-10">
                     <Logo variant="default" size="md" showText={true} />
-                    <Button
-                      variant="ghost"
-                      size="icon"
+                    <button
                       onClick={() => setIsOpen(false)}
-                      className="text-gray-500 hover:text-gray-900 dark:text-gray-600 dark:hover:text-gray-100"
+                      className="w-10 h-10 inline-flex items-center justify-center text-ink-60 hover:text-ink transition-colors"
                       aria-label="Close menu"
                     >
                       <X className="w-5 h-5" />
-                    </Button>
+                    </button>
                   </div>
 
                   {/* Mobile Search - Opens Command Palette */}
-                  <div className="p-4 border-b border-gray-200 dark:border-gray-800">
+                  <div className="p-4 border-b-2 border-ink/10">
                     <SearchButton variant="mobile" />
                   </div>
 
                   {/* Mobile Navigation */}
                   <div className="flex-1 overflow-y-auto min-h-0">
-                    <nav className="p-4 space-y-2">
+                    <nav className="p-4 space-y-1">
                       {navigationCategories.map((category) => {
                         const isExpanded = expandedCategories[category.slug];
                         return (
                           <div
                             key={category.slug}
-                            className="border-b border-gray-100 last:border-0 pb-2 last:pb-0"
+                            className="border-b border-ink/10 last:border-0 pb-2 last:pb-0"
                           >
                             {/* Category Header - Collapsible */}
                             <button
@@ -280,19 +262,19 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                               className="w-full flex items-center justify-between py-3 text-left group"
                               aria-expanded={isExpanded}
                             >
-                              <span className="text-base font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
+                              <span className="font-display text-[18px] font-bold text-ink group-hover:text-indian-gold transition-colors">
                                 {category.name}
                               </span>
                               {isExpanded ? (
-                                <ChevronDown className="w-5 h-5 text-gray-600" />
+                                <ChevronDown className="w-5 h-5 text-ink-60" />
                               ) : (
-                                <ChevronRight className="w-5 h-5 text-gray-600" />
+                                <ChevronRight className="w-5 h-5 text-ink-60" />
                               )}
                             </button>
 
                             {/* Category Content - Collapsible */}
                             {isExpanded && (
-                              <div className="pl-2 space-y-4 pb-2">
+                              <div className="pl-2 space-y-4 pb-3">
                                 {category.intents.map((intent) => (
                                   <div key={intent.slug}>
                                     <Link
@@ -300,16 +282,16 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                       onClick={() => setIsOpen(false)}
                                       className="block mb-2 group"
                                     >
-                                      <span className="text-sm font-semibold text-gray-700 group-hover:text-primary-600 transition-colors">
+                                      <span className="font-mono text-[10px] uppercase tracking-wider text-indian-gold group-hover:underline">
                                         {intent.name}
                                       </span>
                                       {intent.description && (
-                                        <p className="text-xs text-gray-500 mt-0.5">
+                                        <p className="text-[12px] text-ink-60 mt-0.5">
                                           {intent.description}
                                         </p>
                                       )}
                                     </Link>
-                                    <ul className="space-y-1 ml-2 mt-1">
+                                    <ul className="space-y-0 ml-2 mt-1">
                                       {intent.collections
                                         .slice(0, 4)
                                         .map((collection) => (
@@ -317,7 +299,7 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                             <Link
                                               href={collection.href}
                                               onClick={() => setIsOpen(false)}
-                                              className="text-sm text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400 hover:font-medium transition-all block py-3 min-h-[44px] flex items-center"
+                                              className="text-[14px] text-ink-80 hover:text-indian-gold transition-colors block py-2.5 min-h-[44px] flex items-center"
                                             >
                                               {collection.name}
                                             </Link>
@@ -328,10 +310,10 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                                           <Link
                                             href={`/${category.slug}/${intent.slug}`}
                                             onClick={() => setIsOpen(false)}
-                                            className="text-xs text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                                            className="font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline"
                                           >
                                             View all {intent.name.toLowerCase()}{" "}
-                                            →
+                                            &rarr;
                                           </Link>
                                         </li>
                                       )}
@@ -347,32 +329,30 @@ export default function Navbar({ initialConfig }: NavbarProps = {}) {
                   </div>
 
                   {/* Mobile Menu Footer */}
-                  <div className="p-4 border-t border-gray-200 bg-gray-50 space-y-3">
-                    <Link href="/compare" onClick={() => setIsOpen(false)}>
-                      <Button
-                        variant="default"
-                        className="w-full bg-green-700 hover:bg-green-800 text-white font-bold shadow-lg hover:shadow-xl hover:shadow-green-900/20 transition-all h-10 rounded-lg"
-                      >
-                        Compare Now
-                      </Button>
+                  <div className="p-4 border-t-2 border-ink/10 bg-canvas space-y-3">
+                    <Link
+                      href="/compare"
+                      onClick={() => setIsOpen(false)}
+                      className="block w-full text-center font-mono text-[11px] uppercase tracking-wider px-5 h-11 leading-[44px] bg-ink text-canvas hover:bg-indian-gold hover:text-ink transition-colors"
+                    >
+                      Compare Now
                     </Link>
-                    <Link href="/login" onClick={() => setIsOpen(false)}>
-                      <Button
-                        variant="outline"
-                        className="w-full h-10 font-semibold text-gray-600 hover:text-green-700 border-gray-200"
-                      >
-                        Log In
-                      </Button>
+                    <Link
+                      href="/login"
+                      onClick={() => setIsOpen(false)}
+                      className="block w-full text-center font-mono text-[11px] uppercase tracking-wider px-5 h-11 leading-[44px] border-2 border-ink/15 text-ink hover:border-ink transition-colors"
+                    >
+                      Log In
                     </Link>
                     <Link
                       href="/methodology"
                       onClick={() => setIsOpen(false)}
-                      className="block text-center py-2 text-sm font-semibold text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 transition-colors"
+                      className="block text-center py-2 font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline"
                     >
-                      ⭐ How We Rate Products
+                      How we rate products &rarr;
                     </Link>
-                    <div className="pt-2 border-t border-gray-200">
-                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <div className="pt-3 border-t border-ink/10">
+                      <p className="font-mono text-[10px] uppercase tracking-wider text-ink-60 mb-2">
                         Language
                       </p>
                       <LanguageSwitcher isMobile={true} />

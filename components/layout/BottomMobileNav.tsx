@@ -1,43 +1,50 @@
 "use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Home, Search, Calculator, BookOpen, User } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Home, Search, Calculator, BookOpen, User } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   {
-    label: 'Home',
-    href: '/',
+    label: "Home",
+    href: "/",
     icon: Home,
     exact: true,
   },
   {
-    label: 'Compare',
-    href: '/credit-cards',
+    label: "Compare",
+    href: "/credit-cards",
     icon: Search,
     exact: false,
-    matchPaths: ['/credit-cards', '/loans', '/mutual-funds', '/demat-accounts', '/fixed-deposits', '/insurance'],
+    matchPaths: [
+      "/credit-cards",
+      "/loans",
+      "/mutual-funds",
+      "/demat-accounts",
+      "/fixed-deposits",
+      "/insurance",
+    ],
   },
   {
-    label: 'Tools',
-    href: '/calculators',
+    label: "Tools",
+    href: "/calculators",
     icon: Calculator,
     exact: false,
   },
   {
-    label: 'Learn',
-    href: '/blog',
+    label: "Learn",
+    href: "/blog",
     icon: BookOpen,
     exact: false,
   },
   {
-    label: 'Account',
-    href: '/profile',
+    label: "Account",
+    href: "/profile",
     icon: User,
     exact: false,
-    matchPaths: ['/profile', '/login', '/signup'],
+    matchPaths: ["/profile", "/login", "/signup"],
   },
 ] as const;
 
@@ -45,11 +52,11 @@ export default function BottomMobileNav() {
   const pathname = usePathname();
 
   // Hide on admin pages and auth pages that have their own nav
-  if (pathname?.startsWith('/admin')) return null;
+  if (pathname?.startsWith("/admin")) return null;
 
   function isActive(item: (typeof NAV_ITEMS)[number]) {
     if (item.exact) return pathname === item.href;
-    if ('matchPaths' in item && item.matchPaths) {
+    if ("matchPaths" in item && item.matchPaths) {
       return item.matchPaths.some((p) => pathname?.startsWith(p));
     }
     return pathname?.startsWith(item.href) ?? false;
@@ -62,10 +69,8 @@ export default function BottomMobileNav() {
         "fixed bottom-0 inset-x-0 z-50 md:hidden",
         // Safe area for notched phones
         "pb-safe",
-        // Light mode surface
-        "bg-white/95 backdrop-blur-xl border-t border-gray-200",
-        // Dark mode surface
-        "dark:bg-[#0A1F14]/95 dark:border-green-900/40"
+        // v3 surface — solid (no glassmorphism), 2px ink border
+        "bg-canvas border-t-2 border-ink/12",
       )}
       aria-label="Mobile navigation"
     >
@@ -80,35 +85,22 @@ export default function BottomMobileNav() {
               href={item.href}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 flex-1 h-full",
-                "text-xs font-medium transition-colors duration-200",
-                "min-w-0 rounded-xl py-1",
-                active
-                  ? "text-primary dark:text-green-400"
-                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                "font-mono text-[10px] uppercase tracking-wider transition-colors",
+                "min-w-0 py-1",
+                active ? "text-indian-gold" : "text-ink-60 hover:text-ink",
               )}
-              aria-current={active ? 'page' : undefined}
+              aria-current={active ? "page" : undefined}
             >
-              <div
-                className={cn(
-                  "relative flex items-center justify-center w-8 h-8 rounded-xl transition-all duration-200",
-                  active
-                    ? "bg-primary-pale dark:bg-green-900/50"
-                    : "bg-transparent"
-                )}
-              >
-                <Icon
-                  className={cn(
-                    "w-5 h-5 transition-all duration-200",
-                    active ? "scale-110" : "scale-100"
-                  )}
-                  strokeWidth={active ? 2.5 : 1.8}
-                />
-                {/* Active dot indicator */}
+              <div className="relative flex items-center justify-center w-8 h-8">
+                <Icon className="w-5 h-5" strokeWidth={active ? 2.4 : 1.8} />
+                {/* Active gold underline indicator */}
                 {active && (
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary dark:bg-green-400" />
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-indian-gold" />
                 )}
               </div>
-              <span className={cn("truncate", active ? "font-semibold" : "font-normal")}>
+              <span
+                className={cn("truncate", active ? "font-bold" : "font-medium")}
+              >
                 {item.label}
               </span>
             </Link>
