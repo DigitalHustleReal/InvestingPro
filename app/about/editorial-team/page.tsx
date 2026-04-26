@@ -11,6 +11,7 @@ import {
   BookOpen,
   Users,
 } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
 
 export const metadata = {
   title: "Our Editorial Team & Process",
@@ -18,40 +19,44 @@ export const metadata = {
     "How InvestingPro researches, writes, and fact-checks financial content. Our editorial process ensures every guide is accurate, unbiased, and data-driven.",
 };
 
-const DESKS = [
-  {
-    name: "Tax Desk",
-    focus: "Income Tax, Section 80C, ITR Filing, HRA, Tax Regime Analysis",
-    articles: "10+ guides",
-    approach:
-      "Every tax article references specific sections of the Income Tax Act 1961 and is updated after Finance Act amendments. We include salary-based INR calculations for 4+ income levels.",
-    icon: Scale,
-  },
-  {
-    name: "Credit & Banking Team",
-    focus: "Credit Cards, CIBIL Scores, Savings Accounts, Banking Products",
-    articles: "15+ guides",
-    approach:
-      "Card reward rates verified from official T&C documents. Fee-to-benefit break-even calculated for every recommendation. CIBIL content aligned with TransUnion guidelines.",
-    icon: BarChart3,
-  },
-  {
-    name: "Investment Research",
-    focus: "Mutual Funds, SIP, ELSS, Index Funds, Stocks, IPOs",
-    articles: "15+ guides",
-    approach:
-      "Fund recommendations backed by historical NAV data. SIP calculations use compound interest formulas validated against AMC calculators. No fund house sponsorships.",
-    icon: FileSearch,
-  },
-  {
-    name: "Lending & Insurance Desk",
-    focus: "Home Loans, Personal Loans, Term Insurance, Health Insurance",
-    articles: "10+ guides",
-    approach:
-      "Interest rates sourced from bank websites and RBI data. EMI calculations independently verified. Insurance comparisons based on IRDAI-filed product brochures.",
-    icon: BookOpen,
-  },
-];
+// Roll-up rules: which DB article categories belong to which desk.
+// Slugs include both hyphenated and underscored variants because both
+// exist in the articles table.
+const DESK_CATEGORIES: Record<string, string[]> = {
+  tax: ["tax-planning", "tax"],
+  credit_banking: [
+    "banking",
+    "credit-cards",
+    "credit_cards",
+    "personal-finance",
+    "fixed-deposits",
+    "fixed_deposit",
+  ],
+  investment: [
+    "investing",
+    "investing-basics",
+    "mutual-funds",
+    "mutual_fund",
+    "stocks",
+    "ipo",
+    "demat_account",
+    "demat-accounts",
+    "retirement",
+  ],
+  lending_insurance: [
+    "loans",
+    "insurance",
+    "personal-loans",
+    "small_business",
+    "small-business",
+  ],
+};
+
+function bucketLabel(count: number): string {
+  if (count < 5) return `${count} guides`;
+  if (count < 10) return "5+ guides";
+  return `${Math.floor(count / 5) * 5}+ guides`;
+}
 
 const PROCESS_STEPS = [
   {
@@ -86,7 +91,83 @@ const PROCESS_STEPS = [
   },
 ];
 
-export default function EditorialTeamPage() {
+export default async function EditorialTeamPage() {
+  // Fetch live counts per category to compute real per-desk totals
+  let totalArticles = 228;
+  const deskCounts: Record<string, number> = {
+    tax: 0,
+    credit_banking: 0,
+    investment: 0,
+    lending_insurance: 0,
+  };
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+    const { data, count } = await supabase
+      .from("articles")
+      .select("category", { count: "exact" })
+      .eq("status", "published");
+    if (count) totalArticles = count;
+    if (data) {
+      for (const row of data as { category: string }[]) {
+        for (const [desk, cats] of Object.entries(DESK_CATEGORIES)) {
+          if (cats.includes(row.category)) {
+            deskCounts[desk]++;
+            break;
+          }
+        }
+      }
+    }
+  } catch {
+    // Conservative fallback to ground-truth counts as of 2026-04-26
+    deskCounts.tax = 22;
+    deskCounts.credit_banking = 58;
+    deskCounts.investment = 70;
+    deskCounts.lending_insurance = 72;
+  }
+
+  const DESKS = [
+    {
+      name: "Tax Desk",
+      focus: "Income Tax, Section 80C, ITR Filing, HRA, Tax Regime Analysis",
+      articles: bucketLabel(deskCounts.tax),
+      approach:
+        "Every tax article references specific sections of the Income Tax Act 1961 and is updated after Finance Act amendments. We include salary-based INR calculations for 4+ income levels.",
+      icon: Scale,
+    },
+    {
+      name: "Credit & Banking Team",
+      focus: "Credit Cards, CIBIL Scores, Savings Accounts, Banking Products",
+      articles: bucketLabel(deskCounts.credit_banking),
+      approach:
+        "Card reward rates verified from official T&C documents. Fee-to-benefit break-even calculated for every recommendation. CIBIL content aligned with TransUnion guidelines.",
+      icon: BarChart3,
+    },
+    {
+      name: "Investment Research",
+      focus: "Mutual Funds, SIP, ELSS, Index Funds, Stocks, IPOs",
+      articles: bucketLabel(deskCounts.investment),
+      approach:
+        "Fund recommendations backed by historical NAV data. SIP calculations use compound interest formulas validated against AMC calculators. No fund house sponsorships.",
+      icon: FileSearch,
+    },
+    {
+      name: "Lending & Insurance Desk",
+      focus: "Home Loans, Personal Loans, Term Insurance, Health Insurance",
+      articles: bucketLabel(deskCounts.lending_insurance),
+      approach:
+        "Interest rates sourced from bank websites and RBI data. EMI calculations independently verified. Insurance comparisons based on IRDAI-filed product brochures.",
+      icon: BookOpen,
+    },
+  ];
+
+  const articleDisplay =
+    totalArticles >= 100
+      ? `${Math.floor(totalArticles / 10) * 10}+`
+      : `${totalArticles}`;
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Hero */}
@@ -134,10 +215,10 @@ export default function EditorialTeamPage() {
             <div className="flex flex-col items-center gap-2">
               <Newspaper className="h-7 w-7 text-primary" />
               <h3 className="font-semibold text-sm text-gray-900 dark:text-white">
-                51+ Articles Published
+                {articleDisplay} Articles Published
               </h3>
               <p className="text-xs text-gray-500">
-                Across 16 finance categories
+                Across all finance categories
               </p>
             </div>
             <div className="flex flex-col items-center gap-2">

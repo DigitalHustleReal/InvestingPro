@@ -105,94 +105,418 @@ const CATEGORIES: CategoryDef[] = [
 
 const PICKS: Record<string, Pick[]> = {
   "cards-cashback": [
-    { title: "Amazon Pay ICICI", badge: "Best overall · 91/100", oneLiner: "5% on Amazon, 2% everywhere. Lifetime free.", cta: "See details →", href: "/credit-cards/amazon-pay-icici-credit-card" },
-    { title: "SBI Cashback Card", badge: "Best for online · 88/100", oneLiner: "5% cashback on all online spending, ₹999 fee.", cta: "See details →", href: "/credit-cards/sbi-cashback-credit-card" },
-    { title: "HDFC Millennia", badge: "Best for young spenders · 72/100", oneLiner: "5% on Amazon, Flipkart, Swiggy, Zomato.", cta: "See details →", href: "/credit-cards/hdfc-millennia" },
+    {
+      title: "Amazon Pay ICICI",
+      badge: "Best overall · 91/100",
+      oneLiner: "5% on Amazon, 2% everywhere. Lifetime free.",
+      cta: "See details →",
+      href: "/credit-cards/amazon-pay-icici-credit-card",
+    },
+    {
+      title: "SBI Cashback Card",
+      badge: "Best for online · 88/100",
+      oneLiner: "5% cashback on all online spending, ₹999 fee.",
+      cta: "See details →",
+      href: "/credit-cards/sbi-cashback-credit-card",
+    },
+    {
+      title: "HDFC Millennia",
+      badge: "Best for young spenders · 72/100",
+      oneLiner: "5% on Amazon, Flipkart, Swiggy, Zomato.",
+      cta: "See details →",
+      href: "/credit-cards/hdfc-millennia",
+    },
   ],
   "cards-travel": [
-    { title: "HDFC Infinia", badge: "Premium travel · 98/100", oneLiner: "Unlimited lounges, 3.3% return on SmartBuy.", cta: "See details →", href: "/credit-cards/hdfc-infinia-credit-card" },
-    { title: "Amex Platinum Travel", badge: "Best miles · 92/100", oneLiner: "Lounge access + travel vouchers on milestones.", cta: "See details →", href: "/credit-cards/amex-platinum-travel" },
-    { title: "Axis Magnus", badge: "Best reward rate · 89/100", oneLiner: "High reward rate on travel partners via Edge.", cta: "See details →", href: "/credit-cards/axis-magnus" },
+    {
+      title: "HDFC Infinia",
+      badge: "Premium travel · 98/100",
+      oneLiner: "Unlimited lounges, 3.3% return on SmartBuy.",
+      cta: "See details →",
+      href: "/credit-cards/hdfc-infinia-credit-card",
+    },
+    {
+      title: "Amex Platinum Travel",
+      badge: "Best miles · 92/100",
+      oneLiner: "Lounge access + travel vouchers on milestones.",
+      cta: "See details →",
+      href: "/credit-cards/amex-platinum-travel",
+    },
+    {
+      title: "Axis Magnus",
+      badge: "Best reward rate · 89/100",
+      oneLiner: "High reward rate on travel partners via Edge.",
+      cta: "See details →",
+      href: "/credit-cards/axis-magnus",
+    },
   ],
   "cards-nofee": [
-    { title: "Amazon Pay ICICI", badge: "Lifetime free · 91/100", oneLiner: "Zero annual fee. Ever. Solid 2–5% rewards.", cta: "See details →", href: "/credit-cards/amazon-pay-icici-credit-card" },
-    { title: "Axis Ace", badge: "No fee · 84/100", oneLiner: "5% on Google Pay bills, 2% on Swiggy/Ola.", cta: "See details →", href: "/credit-cards/axis-ace" },
-    { title: "IDFC First Wealth", badge: "No fee premium · 81/100", oneLiner: "Free for life with lounge access.", cta: "See details →", href: "/credit-cards/idfc-first-wealth" },
+    {
+      title: "Amazon Pay ICICI",
+      badge: "Lifetime free · 91/100",
+      oneLiner: "Zero annual fee. Ever. Solid 2–5% rewards.",
+      cta: "See details →",
+      href: "/credit-cards/amazon-pay-icici-credit-card",
+    },
+    {
+      title: "Axis Ace",
+      badge: "No fee · 84/100",
+      oneLiner: "5% on Google Pay bills, 2% on Swiggy/Ola.",
+      cta: "See details →",
+      href: "/credit-cards/axis-ace",
+    },
+    {
+      title: "IDFC First Wealth",
+      badge: "No fee premium · 81/100",
+      oneLiner: "Free for life with lounge access.",
+      cta: "See details →",
+      href: "/credit-cards/idfc-first-wealth",
+    },
   ],
   "loans-home": [
-    { title: "SBI Home Loan", badge: "Cheapest at 8.35%", oneLiner: "Lowest among PSU banks, 20-yr tenure.", cta: "Compare rates →", href: "/loans?type=home" },
-    { title: "HDFC Home Loan", badge: "Fast processing", oneLiner: "Digital flow, 8.70% p.a., salaried priority.", cta: "Compare rates →", href: "/loans?type=home" },
-    { title: "Home Loan EMI Calculator", badge: "Tool", oneLiner: "EMI + total interest + prepayment savings.", cta: "Run the numbers →", href: "/calculators/home-loan-emi" },
+    {
+      title: "SBI Home Loan",
+      badge: "Cheapest at 8.35%",
+      oneLiner: "Lowest among PSU banks, 20-yr tenure.",
+      cta: "Compare rates →",
+      href: "/loans?type=home",
+    },
+    {
+      title: "HDFC Home Loan",
+      badge: "Fast processing",
+      oneLiner: "Digital flow, 8.70% p.a., salaried priority.",
+      cta: "Compare rates →",
+      href: "/loans?type=home",
+    },
+    {
+      title: "Home Loan EMI Calculator",
+      badge: "Tool",
+      oneLiner: "EMI + total interest + prepayment savings.",
+      cta: "Run the numbers →",
+      href: "/calculators/home-loan-emi",
+    },
   ],
   "loans-personal": [
-    { title: "HDFC Personal Loan", badge: "Lowest at 10.49%", oneLiner: "No collateral, 4-yr max, salaried-friendly.", cta: "Compare →", href: "/loans?type=personal" },
-    { title: "Bajaj Finserv", badge: "Fastest disbursal", oneLiner: "Same-day for existing customers.", cta: "Compare →", href: "/loans?type=personal" },
-    { title: "EMI Calculator", badge: "Tool", oneLiner: "Stress-test EMIs before you borrow.", cta: "Run the numbers →", href: "/calculators/emi" },
+    {
+      title: "HDFC Personal Loan",
+      badge: "Lowest at 10.49%",
+      oneLiner: "No collateral, 4-yr max, salaried-friendly.",
+      cta: "Compare →",
+      href: "/loans?type=personal",
+    },
+    {
+      title: "Bajaj Finserv",
+      badge: "Fastest disbursal",
+      oneLiner: "Same-day for existing customers.",
+      cta: "Compare →",
+      href: "/loans?type=personal",
+    },
+    {
+      title: "EMI Calculator",
+      badge: "Tool",
+      oneLiner: "Stress-test EMIs before you borrow.",
+      cta: "Run the numbers →",
+      href: "/calculators/emi",
+    },
   ],
   "loans-car": [
-    { title: "Bank of Baroda Car Loan", badge: "Cheapest at 8.70%", oneLiner: "New car, 7-yr tenure, zero processing fee.", cta: "Compare →", href: "/loans?type=car" },
-    { title: "SBI Car Loan", badge: "Priority for salaried", oneLiner: "8.85%, up to 85% on-road funding.", cta: "Compare →", href: "/loans?type=car" },
-    { title: "Car Loan EMI Calculator", badge: "Tool", oneLiner: "EMI + interest + down-payment scenarios.", cta: "Run the numbers →", href: "/calculators/car-loan-emi" },
+    {
+      title: "Bank of Baroda Car Loan",
+      badge: "Cheapest at 8.70%",
+      oneLiner: "New car, 7-yr tenure, zero processing fee.",
+      cta: "Compare →",
+      href: "/loans?type=car",
+    },
+    {
+      title: "SBI Car Loan",
+      badge: "Priority for salaried",
+      oneLiner: "8.85%, up to 85% on-road funding.",
+      cta: "Compare →",
+      href: "/loans?type=car",
+    },
+    {
+      title: "Car Loan EMI Calculator",
+      badge: "Tool",
+      oneLiner: "EMI + interest + down-payment scenarios.",
+      cta: "Run the numbers →",
+      href: "/calculators/car-loan-emi",
+    },
   ],
   "mf-safe": [
-    { title: "Short-term debt funds", badge: "6–7% · Low risk", oneLiner: "Better than FD for 1–3 year goals.", cta: "Top funds →", href: "/mutual-funds?type=debt" },
-    { title: "Corporate bond funds", badge: "7–8% · Low-med risk", oneLiner: "Slightly higher returns with modest risk.", cta: "Top funds →", href: "/mutual-funds?type=debt" },
-    { title: "FD vs Debt Fund guide", badge: "Read", oneLiner: "Which wins after tax for your bracket?", cta: "Read article →", href: "/articles/fd-vs-debt-fund-comparison" },
+    {
+      title: "Short-term debt funds",
+      badge: "6–7% · Low risk",
+      oneLiner: "Better than FD for 1–3 year goals.",
+      cta: "Top funds →",
+      href: "/mutual-funds?type=debt",
+    },
+    {
+      title: "Corporate bond funds",
+      badge: "7–8% · Low-med risk",
+      oneLiner: "Slightly higher returns with modest risk.",
+      cta: "Top funds →",
+      href: "/mutual-funds?type=debt",
+    },
+    {
+      title: "FD vs Debt Fund guide",
+      badge: "Read",
+      oneLiner: "Which wins after tax for your bracket?",
+      cta: "Read article →",
+      href: "/articles/fd-vs-debt-fund-comparison",
+    },
   ],
   "mf-balanced": [
-    { title: "Nifty 50 Index Fund", badge: "10–12% · Low cost", oneLiner: "The default equity allocation for most Indians.", cta: "Top funds →", href: "/mutual-funds?type=index" },
-    { title: "Flexi-cap funds", badge: "11–14% · Balanced", oneLiner: "Active managers across large/mid/small.", cta: "Top funds →", href: "/mutual-funds?type=equity" },
-    { title: "SIP Calculator", badge: "Tool", oneLiner: "Compute 10-year SIP corpus with step-up.", cta: "Run the numbers →", href: "/calculators/sip" },
+    {
+      title: "Nifty 50 Index Fund",
+      badge: "10–12% · Low cost",
+      oneLiner: "The default equity allocation for most Indians.",
+      cta: "Top funds →",
+      href: "/mutual-funds?type=index",
+    },
+    {
+      title: "Flexi-cap funds",
+      badge: "11–14% · Balanced",
+      oneLiner: "Active managers across large/mid/small.",
+      cta: "Top funds →",
+      href: "/mutual-funds?type=equity",
+    },
+    {
+      title: "SIP Calculator",
+      badge: "Tool",
+      oneLiner: "Compute 10-year SIP corpus with step-up.",
+      cta: "Run the numbers →",
+      href: "/calculators/sip",
+    },
   ],
   "mf-aggressive": [
-    { title: "Small-cap equity funds", badge: "13–16% · High risk", oneLiner: "For 10+ year horizons only. Stomach required.", cta: "Top funds →", href: "/mutual-funds?type=equity" },
-    { title: "Mid-cap funds", badge: "12–15% · Med-high risk", oneLiner: "Better risk-adjusted than small-cap.", cta: "Top funds →", href: "/mutual-funds?type=equity" },
-    { title: "ELSS (tax-saving equity)", badge: "Bonus: 80C", oneLiner: "3-yr lock-in, ₹46,800 tax saved at 30% slab.", cta: "Top funds →", href: "/mutual-funds?type=elss" },
+    {
+      title: "Small-cap equity funds",
+      badge: "13–16% · High risk",
+      oneLiner: "For 10+ year horizons only. Stomach required.",
+      cta: "Top funds →",
+      href: "/mutual-funds?type=equity",
+    },
+    {
+      title: "Mid-cap funds",
+      badge: "12–15% · Med-high risk",
+      oneLiner: "Better risk-adjusted than small-cap.",
+      cta: "Top funds →",
+      href: "/mutual-funds?type=equity",
+    },
+    {
+      title: "ELSS (tax-saving equity)",
+      badge: "Bonus: 80C",
+      oneLiner: "3-yr lock-in, ₹46,800 tax saved at 30% slab.",
+      cta: "Top funds →",
+      href: "/mutual-funds?type=elss",
+    },
   ],
   "insurance-life": [
-    { title: "HDFC Life Click 2 Protect", badge: "Claim ratio · 98.6%", oneLiner: "Pure term, ₹1 Cr cover ~₹700/mo at 30.", cta: "Compare terms →", href: "/insurance?type=term" },
-    { title: "Max Life Smart Secure Plus", badge: "Strong CSR · 99.3%", oneLiner: "Smart add-ons for critical illness.", cta: "Compare terms →", href: "/insurance?type=term" },
-    { title: "Term Cover Calculator", badge: "Tool", oneLiner: "How much cover do you actually need?", cta: "Find out →", href: "/calculators/term-cover" },
+    {
+      title: "HDFC Life Click 2 Protect",
+      badge: "Claim ratio · 98.6%",
+      oneLiner: "Pure term, ₹1 Cr cover ~₹700/mo at 30.",
+      cta: "Compare terms →",
+      href: "/insurance?type=term",
+    },
+    {
+      title: "Max Life Smart Secure Plus",
+      badge: "Strong CSR · 99.3%",
+      oneLiner: "Smart add-ons for critical illness.",
+      cta: "Compare terms →",
+      href: "/insurance?type=term",
+    },
+    {
+      title: "Term Cover Calculator",
+      badge: "Tool",
+      oneLiner: "How much cover do you actually need?",
+      cta: "Find out →",
+      href: "/calculators/term-cover",
+    },
   ],
   "insurance-health": [
-    { title: "HDFC ERGO Optima Secure", badge: "Top rated · 95/100", oneLiner: "No-claim doubling + restore built-in.", cta: "Compare →", href: "/insurance?type=health" },
-    { title: "Niva Bupa ReAssure", badge: "Best restore feature", oneLiner: "Unlimited automatic refills after claim.", cta: "Compare →", href: "/insurance?type=health" },
-    { title: "Health Cover Calculator", badge: "Tool", oneLiner: "How much cover do you need in India?", cta: "Find out →", href: "/calculators/health-cover" },
+    {
+      title: "HDFC ERGO Optima Secure",
+      badge: "Top rated · 95/100",
+      oneLiner: "No-claim doubling + restore built-in.",
+      cta: "Compare →",
+      href: "/insurance?type=health",
+    },
+    {
+      title: "Niva Bupa ReAssure",
+      badge: "Best restore feature",
+      oneLiner: "Unlimited automatic refills after claim.",
+      cta: "Compare →",
+      href: "/insurance?type=health",
+    },
+    {
+      title: "Health Cover Calculator",
+      badge: "Tool",
+      oneLiner: "How much cover do you need in India?",
+      cta: "Find out →",
+      href: "/calculators/health-cover",
+    },
   ],
   "insurance-car": [
-    { title: "ICICI Lombard Car Insurance", badge: "Fastest settlement", oneLiner: "Cashless at 4,400+ network garages.", cta: "Compare →", href: "/insurance?type=car" },
-    { title: "Tata AIG Auto Secure", badge: "Best add-ons", oneLiner: "Zero-dep + engine protect + consumables.", cta: "Compare →", href: "/insurance?type=car" },
-    { title: "Car IDV Calculator", badge: "Tool", oneLiner: "What's your car's insured declared value?", cta: "Find out →", href: "/calculators/car-idv" },
+    {
+      title: "ICICI Lombard Car Insurance",
+      badge: "Fastest settlement",
+      oneLiner: "Cashless at 4,400+ network garages.",
+      cta: "Compare →",
+      href: "/insurance?type=car",
+    },
+    {
+      title: "Tata AIG Auto Secure",
+      badge: "Best add-ons",
+      oneLiner: "Zero-dep + engine protect + consumables.",
+      cta: "Compare →",
+      href: "/insurance?type=car",
+    },
+    {
+      title: "Car IDV Calculator",
+      badge: "Tool",
+      oneLiner: "What's your car's insured declared value?",
+      cta: "Find out →",
+      href: "/calculators/car-idv",
+    },
   ],
   "fd-short": [
-    { title: "Savings Account", badge: "7.25% AU SFB · Liquid", oneLiner: "Actually better than short FDs below 1 year.", cta: "Compare →", href: "/banking?sort=rate" },
-    { title: "Liquid Funds", badge: "~7% · No lock-in", oneLiner: "More tax-efficient than short FD for emergencies.", cta: "Top funds →", href: "/mutual-funds?type=liquid" },
-    { title: "Emergency Fund Guide", badge: "Read", oneLiner: "Where to park 6 months of expenses.", cta: "Read →", href: "/articles/emergency-fund-guide" },
+    {
+      title: "Savings Account",
+      badge: "7.25% AU SFB · Liquid",
+      oneLiner: "Actually better than short FDs below 1 year.",
+      cta: "Compare →",
+      href: "/banking?sort=rate",
+    },
+    {
+      title: "Liquid Funds",
+      badge: "~7% · No lock-in",
+      oneLiner: "More tax-efficient than short FD for emergencies.",
+      cta: "Top funds →",
+      href: "/mutual-funds?type=liquid",
+    },
+    {
+      title: "Emergency Fund Guide",
+      badge: "Read",
+      oneLiner: "Where to park 6 months of expenses.",
+      cta: "Read →",
+      href: "/articles/emergency-fund-guide",
+    },
   ],
   "fd-medium": [
-    { title: "Shriram Finance FD", badge: "9.10% · 1-year top rate", oneLiner: "AAA-rated NBFC, ₹5L DICGC insurance.", cta: "Compare FDs →", href: "/fixed-deposits?sort=rate" },
-    { title: "Unity Small Finance Bank", badge: "8.60% · 2-year", oneLiner: "Small finance bank, RBI regulated.", cta: "Compare FDs →", href: "/fixed-deposits?sort=rate" },
-    { title: "FD Ladder Calculator", badge: "Tool", oneLiner: "Stagger FDs for liquidity + rate advantage.", cta: "Run the numbers →", href: "/calculators/fd-ladder" },
+    {
+      title: "Shriram Finance FD",
+      badge: "9.10% · 1-year top rate",
+      oneLiner: "AAA-rated NBFC, ₹5L DICGC insurance.",
+      cta: "Compare FDs →",
+      href: "/fixed-deposits?sort=rate",
+    },
+    {
+      title: "Unity Small Finance Bank",
+      badge: "8.60% · 2-year",
+      oneLiner: "Small finance bank, RBI regulated.",
+      cta: "Compare FDs →",
+      href: "/fixed-deposits?sort=rate",
+    },
+    {
+      title: "FD Ladder Calculator",
+      badge: "Tool",
+      oneLiner: "Stagger FDs for liquidity + rate advantage.",
+      cta: "Run the numbers →",
+      href: "/calculators/fd-ladder",
+    },
   ],
   "fd-long": [
-    { title: "Tax-saving 5-yr FD (SBI)", badge: "7.25% · 80C", oneLiner: "Lock 5 yrs, deduct up to ₹1.5L.", cta: "Compare →", href: "/fixed-deposits?filter=tax-saving" },
-    { title: "Tax-saving FD (ICICI)", badge: "7.20% · 80C", oneLiner: "Standard terms, easy to operate.", cta: "Compare →", href: "/fixed-deposits?filter=tax-saving" },
-    { title: "Tax-saving FD vs ELSS", badge: "Read", oneLiner: "Which ₹1.5L instrument wins after tax?", cta: "Read →", href: "/articles/tax-saving-fd-vs-elss" },
+    {
+      title: "Tax-saving 5-yr FD (SBI)",
+      badge: "7.25% · 80C",
+      oneLiner: "Lock 5 yrs, deduct up to ₹1.5L.",
+      cta: "Compare →",
+      href: "/fixed-deposits?filter=tax-saving",
+    },
+    {
+      title: "Tax-saving FD (ICICI)",
+      badge: "7.20% · 80C",
+      oneLiner: "Standard terms, easy to operate.",
+      cta: "Compare →",
+      href: "/fixed-deposits?filter=tax-saving",
+    },
+    {
+      title: "Tax-saving FD vs ELSS",
+      badge: "Read",
+      oneLiner: "Which ₹1.5L instrument wins after tax?",
+      cta: "Read →",
+      href: "/articles/tax-saving-fd-vs-elss",
+    },
   ],
   "tax-regime": [
-    { title: "Old vs New Regime Calculator", badge: "Tool · 60-sec answer", oneLiner: "Enter salary → see which saves more tax.", cta: "Run the numbers →", href: "/calculators/old-vs-new-tax" },
-    { title: "FY 2026 Tax Changes", badge: "Read", oneLiner: "Budget 2026 changes that affect your choice.", cta: "Read →", href: "/articles/budget-2026-tax-changes" },
-    { title: "Tax Slab Lookup", badge: "Reference", oneLiner: "All brackets side-by-side, FY26.", cta: "View slabs →", href: "/articles/income-tax-slabs-fy-2025-26" },
+    {
+      title: "Old vs New Regime Calculator",
+      badge: "Tool · 60-sec answer",
+      oneLiner: "Enter salary → see which saves more tax.",
+      cta: "Run the numbers →",
+      href: "/calculators/old-vs-new-tax",
+    },
+    {
+      title: "FY 2026 Tax Changes",
+      badge: "Read",
+      oneLiner: "Budget 2026 changes that affect your choice.",
+      cta: "Read →",
+      href: "/articles/budget-2026-tax-changes",
+    },
+    {
+      title: "Tax Slab Lookup",
+      badge: "Reference",
+      oneLiner: "All brackets side-by-side, FY26.",
+      cta: "View slabs →",
+      href: "/articles/income-tax-slabs-fy-2025-26",
+    },
   ],
   "tax-80c": [
-    { title: "80C Optimiser", badge: "Tool", oneLiner: "Allocate ₹1.5L across instruments for max saving.", cta: "Optimise →", href: "/calculators/80c" },
-    { title: "ELSS funds", badge: "Top-pick instrument", oneLiner: "Shortest lock-in (3yr) + equity growth.", cta: "Top funds →", href: "/mutual-funds?type=elss" },
-    { title: "Complete 80C Guide", badge: "Read", oneLiner: "Every 80C instrument ranked by post-tax return.", cta: "Read →", href: "/articles/section-80c-complete-guide" },
+    {
+      title: "80C Optimiser",
+      badge: "Tool",
+      oneLiner: "Allocate ₹1.5L across instruments for max saving.",
+      cta: "Optimise →",
+      href: "/calculators/80c",
+    },
+    {
+      title: "ELSS funds",
+      badge: "Top-pick instrument",
+      oneLiner: "Shortest lock-in (3yr) + equity growth.",
+      cta: "Top funds →",
+      href: "/mutual-funds?type=elss",
+    },
+    {
+      title: "Complete 80C Guide",
+      badge: "Read",
+      oneLiner: "Every 80C instrument ranked by post-tax return.",
+      cta: "Read →",
+      href: "/articles/section-80c-complete-guide",
+    },
   ],
   "tax-hra": [
-    { title: "HRA Exemption Calculator", badge: "Tool", oneLiner: "Compute exempt portion from rent + salary.", cta: "Run the numbers →", href: "/calculators/hra" },
-    { title: "HRA Claim Checklist", badge: "Read", oneLiner: "Documents, PAN rule, common mistakes.", cta: "Read →", href: "/articles/hra-exemption-complete-guide" },
-    { title: "Tax Calculator", badge: "Tool", oneLiner: "Full annual tax with all exemptions.", cta: "Run the numbers →", href: "/calculators/tax" },
+    {
+      title: "HRA Exemption Calculator",
+      badge: "Tool",
+      oneLiner: "Compute exempt portion from rent + salary.",
+      cta: "Run the numbers →",
+      href: "/calculators/hra",
+    },
+    {
+      title: "HRA Claim Checklist",
+      badge: "Read",
+      oneLiner: "Documents, PAN rule, common mistakes.",
+      cta: "Read →",
+      href: "/articles/hra-exemption-complete-guide",
+    },
+    {
+      title: "Tax Calculator",
+      badge: "Tool",
+      oneLiner: "Full annual tax with all exemptions.",
+      cta: "Run the numbers →",
+      href: "/calculators/tax",
+    },
   ],
 };
 
@@ -249,8 +573,20 @@ export default function FindYourFit() {
             <em className="italic text-indian-gold">a friend.</em>
           </h2>
           <p className="text-sm text-ink-60 mt-3 leading-relaxed">
-            Our three picks — no paid placement, no browsing 80 products.
-            Switch category or intent, picks update instantly.
+            Our three picks — no paid placement, no browsing 80 products. Switch
+            category or intent, picks update instantly.
+          </p>
+          <p className="text-[12px] text-ink-60 mt-3 leading-relaxed">
+            Insurance claim ratios sourced from{" "}
+            <Link
+              href="/methodology/insurance"
+              className="text-indian-gold hover:underline"
+            >
+              IRDAI annual reports
+            </Link>
+            ; FD/savings rates verified from issuer rate cards as of 26 Apr
+            2026; mutual-fund return ranges are 3-year category historical
+            bands. Verify with the provider before applying.
           </p>
         </div>
 

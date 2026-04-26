@@ -58,6 +58,29 @@ export default async function AboutPage() {
     },
   ];
 
+  // Real platform stats — article count fetched live; other counts are
+  // ground-truth as of last manual audit (2026-04-26: 193 unique providers
+  // across credit_cards + fixed_deposits + savings_accounts + loans +
+  // brokers + mutual_funds tables; 72 calculator pages in app/calculators/*;
+  // 7 product categories shipped to production).
+  let articleCount = 228;
+  const providerDisplay = "190+"; // 193 actual; rounded down for safety
+  const calculatorCount = 72;
+  const categoryCount = 7;
+  try {
+    const articlesRes = await supabase
+      .from("articles")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "published");
+    if (articlesRes?.count) articleCount = articlesRes.count;
+  } catch {
+    // Fallback to conservative default if DB unavailable
+  }
+  const articleDisplay =
+    articleCount >= 100
+      ? `${Math.floor(articleCount / 10) * 10}+`
+      : `${articleCount}`;
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* ... Hero Section ... */}
@@ -89,27 +112,35 @@ export default async function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl md:text-5xl font-bold mb-2">7</div>
+              <div className="text-3xl md:text-5xl font-bold mb-2">
+                {categoryCount}
+              </div>
               <div className="text-gray-600 text-sm font-medium uppercase tracking-wider">
                 Product Categories
               </div>
             </div>
             <div>
-              <div className="text-3xl md:text-5xl font-bold mb-2">50+</div>
+              <div className="text-3xl md:text-5xl font-bold mb-2">
+                {providerDisplay}
+              </div>
               <div className="text-gray-600 text-sm font-medium uppercase tracking-wider">
-                Banks & NBFCs Tracked
+                Banks, NBFCs & AMCs Tracked
               </div>
             </div>
             <div>
-              <div className="text-3xl md:text-5xl font-bold mb-2">15+</div>
+              <div className="text-3xl md:text-5xl font-bold mb-2">
+                {calculatorCount}
+              </div>
               <div className="text-gray-600 text-sm font-medium uppercase tracking-wider">
                 Financial Calculators
               </div>
             </div>
             <div>
-              <div className="text-3xl md:text-5xl font-bold mb-2">Daily</div>
+              <div className="text-3xl md:text-5xl font-bold mb-2">
+                {articleDisplay}
+              </div>
               <div className="text-gray-600 text-sm font-medium uppercase tracking-wider">
-                Data Updates
+                Published Guides
               </div>
             </div>
           </div>
@@ -152,8 +183,8 @@ export default async function AboutPage() {
                 Hyper-Localized Data
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                We specialize in the Indian market, tracking real-time data from
-                50+ Indian banks, NBFCs, and AMC providers.
+                We specialize in the Indian market, tracking data from 190+
+                Indian banks, NBFCs, fund houses and brokers.
               </p>
             </div>
 
@@ -192,16 +223,26 @@ export default async function AboutPage() {
                 key={member.slug}
                 className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all"
               >
-                <div className="aspect-square relative overflow-hidden bg-gray-100 dark:bg-gray-800">
-                  <div className="w-full h-full flex items-center justify-center">
+                <div className="aspect-square relative overflow-hidden bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-900/40 flex items-center justify-center">
+                  {member.avatar ? (
                     <Image
-                      src={`https://api.dicebear.com/7.x/personas/svg?seed=${member.slug}`}
+                      src={member.avatar}
                       alt={member.name}
                       width={200}
                       height={200}
-                      className="opacity-80"
+                      className="object-cover w-full h-full"
                     />
-                  </div>
+                  ) : (
+                    <div className="text-5xl md:text-6xl font-extrabold text-primary-600 dark:text-primary-400 select-none">
+                      {member.name
+                        .split(" ")
+                        .filter(Boolean)
+                        .slice(0, 2)
+                        .map((p: string) => p[0])
+                        .join("")
+                        .toUpperCase()}
+                    </div>
+                  )}
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-lg font-extrabold text-gray-900 dark:text-white mb-1">

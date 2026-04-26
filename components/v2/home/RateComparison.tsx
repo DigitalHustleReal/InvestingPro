@@ -4,6 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, TrendingDown, TrendingUp } from "lucide-react";
 
+// Each rate is verified against the issuer's published rate-card or RBI/MCLR
+// data on the date noted in AS_OF below. Rates change frequently — readers
+// should verify with the issuer before applying.
+const AS_OF = "26 Apr 2026";
+
 const TABS = [
   {
     label: "Best Deposit Rates",
@@ -91,7 +96,8 @@ export default function RateComparison() {
               <em className="italic text-indian-gold">today</em>
             </h2>
             <p className="text-sm text-ink-60 mt-2">
-              Live rates from top Indian banks and NBFCs. Updated daily.
+              Verified from issuer rate cards as of {AS_OF}. Rates change
+              frequently — confirm with the bank before applying.
             </p>
           </div>
 
