@@ -15,6 +15,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { env, getServerPublicUrl } from "@/lib/env";
 import { logger } from "@/lib/logger";
+import { pingIndexNowBatch } from "@/lib/seo/indexnow-helper";
 
 // Verify cron secret (for Vercel Cron Jobs)
 function verifyCronSecret(request: NextRequest): boolean {
@@ -267,7 +268,7 @@ export async function GET(request: NextRequest) {
     try {
       const { data: drafts } = await supabase
         .from("articles")
-        .select("id, title, quality_score, body_html")
+        .select("id, slug, title, quality_score, body_html")
         .eq("status", "draft")
         .gte(
           "created_at",
@@ -275,6 +276,8 @@ export async function GET(request: NextRequest) {
         ) // Last 2 hours
         .order("created_at", { ascending: false })
         .limit(10);
+
+      const justPublishedSlugs: string[] = [];
 
       for (const draft of drafts || []) {
         const score = draft.quality_score || 0;
@@ -296,6 +299,9 @@ export async function GET(request: NextRequest) {
             })
             .eq("id", draft.id);
           published++;
+          if (draft.slug) {
+            justPublishedSlugs.push(`/articles/${draft.slug}`);
+          }
           logger.info(
             `Auto-published: "${draft.title}" (score: ${score}, words: ${wordCount})`,
           );
@@ -305,6 +311,15 @@ export async function GET(request: NextRequest) {
             `Kept as draft: "${draft.title}" (score: ${score}, words: ${wordCount}) — needs review`,
           );
         }
+      }
+
+      // Batch-ping IndexNow (Bing/Yandex) for fresh URLs.
+      // Fire-and-forget — failure here must not block the cron run.
+      if (justPublishedSlugs.length > 0) {
+        pingIndexNowBatch(justPublishedSlugs);
+        logger.info(
+          `[indexnow] queued ${justPublishedSlugs.length} new article URLs for instant indexing`,
+        );
       }
     } catch (pubErr) {
       logger.warn("Auto-publish step failed", {

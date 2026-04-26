@@ -421,31 +421,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       logger.error("Error fetching fixed_deposits for sitemap", error as Error);
     }
 
-    // Savings accounts — 15 real banks, all with apply_link
-    try {
-      const { data: savings } = await supabase
-        .from("savings_accounts")
-        .select("slug, updated_at")
-        .eq("is_active", true)
-        .limit(10000);
-      if (savings) {
-        for (const s of savings) {
-          sitemap.push({
-            url: `${baseUrl}/savings-accounts/${s.slug}`,
-            lastModified: s.updated_at ? new Date(s.updated_at) : new Date(),
-            changeFrequency: "weekly",
-            priority: 0.75,
-          });
-        }
-      }
-    } catch (error) {
-      logger.error(
-        "Error fetching savings_accounts for sitemap",
-        error as Error,
-      );
-    }
+    // Savings accounts — 15 real banks, listed on /banking hub.
+    // Individual /savings-accounts/[slug] detail routes do NOT exist;
+    // including them would 404 and harm crawler trust. They are surfaced
+    // on the /banking page until per-bank detail pages are built.
+    // (Kept here as a comment so the next dev knows the intent.)
 
-    // Government schemes — 11 real schemes (PPF, NPS, SSY, etc.)
+    // Government schemes — 11 real schemes (PPF/NPS/SSY/SCSS etc.)
+    // Detail page lives at /ppf-nps/[slug], not /govt-schemes/[slug].
     try {
       const { data: schemes } = await supabase
         .from("govt_schemes")
@@ -455,7 +438,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (schemes) {
         for (const s of schemes) {
           sitemap.push({
-            url: `${baseUrl}/govt-schemes/${s.slug}`,
+            url: `${baseUrl}/ppf-nps/${s.slug}`,
             lastModified: s.updated_at ? new Date(s.updated_at) : new Date(),
             changeFrequency: "weekly",
             priority: 0.8,
