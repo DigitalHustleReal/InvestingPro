@@ -3,36 +3,40 @@
  * Run with: npx tsx scripts/generate-sip-swp-article.ts
  */
 
-import OpenAI from 'openai'
-import { createClient } from '@supabase/supabase-js'
+import OpenAI from "openai";
+import { createClient } from "@supabase/supabase-js";
 
-// Get from .env.local manually or set before running
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY || 'sk-proj-T_GpkAOc0BZ2oyTyysrQ9K15SF7hrd8AuQvdYFkAYaIVhc2TQauQKSHxaalnmhoxKCo76qW-EBUxuMctaRVewXOJmQ'
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://txwxmbmbqltefwvilsii.supabase.co'
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4d3htYm1icWx0ZWZ3dmlsc2lpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNDY4MjEzMSwiZXhwIjoyMDUwMjU4MTMxfQ.o4OncbjLpZg7eie2_WTnVhMMBB0'
+// Strict env-only. Hardcoded fallbacks removed 2026-04-26 after a security
+// audit found the service_role JWT + an OpenAI key in committed source.
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!OPENAI_API_KEY) {
-  console.error('❌ OPENAI_API_KEY missing')
-  process.exit(1)
+  console.error("❌ OPENAI_API_KEY missing");
+  process.exit(1);
 }
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
-  console.error('❌ Supabase keys missing')
-  process.exit(1)
+  console.error("❌ Supabase keys missing");
+  process.exit(1);
 }
 
-const openai = new OpenAI({ apiKey: OPENAI_API_KEY })
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
-console.log('✅ Environment loaded successfully')
-console.log('🚀 Generating SIP vs SWP article...\n')
+console.log("✅ Environment loaded successfully");
+console.log("🚀 Generating SIP vs SWP article...\n");
 
 const topic = {
-  category: 'investing',
-  title: 'SIP vs SWP: Complete Guide to Systematic Investment and Withdrawal Plans',
-  keywords: 'SIP, SWP, systematic investment plan, systematic withdrawal plan, mutual funds, retirement planning',
-  target_audience: 'Investors planning for wealth creation and retirement income'
-}
+  category: "investing",
+  title:
+    "SIP vs SWP: Complete Guide to Systematic Investment and Withdrawal Plans",
+  keywords:
+    "SIP, SWP, systematic investment plan, systematic withdrawal plan, mutual funds, retirement planning",
+  target_audience:
+    "Investors planning for wealth creation and retirement income",
+};
 
 async function generateArticle() {
   const prompt = `You are a financial content writer for InvestingPro, India's leading financial comparison platform.
@@ -138,49 +142,52 @@ INDIA-SPECIFIC:
 OUTPUT FORMAT:
 Return ONLY the HTML body content.
 Start with <h2>Introduction</h2> and end with closing tag.
-MUST include: Key Takeaways, Comparison Slider, Timeline, Pro Tip.`
+MUST include: Key Takeaways, Comparison Slider, Timeline, Pro Tip.`;
 
   try {
-    console.log('📡 Calling OpenAI API...')
-    
+    console.log("📡 Calling OpenAI API...");
+
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: "gpt-4o-mini",
       messages: [
         {
-          role: 'system',
-          content: 'You are an expert financial content writer specializing in India-focused content. You write in clean HTML format only.'
+          role: "system",
+          content:
+            "You are an expert financial content writer specializing in India-focused content. You write in clean HTML format only.",
         },
         {
-          role: 'user',
-          content: prompt
-        }
+          role: "user",
+          content: prompt,
+        },
       ],
       temperature: 0.7,
-      max_tokens: 4000
-    })
-    
-    const body_html = completion.choices[0].message.content?.trim() || ''
-    
-    console.log(`✅ Content generated: ${body_html.length} characters`)
-    
+      max_tokens: 4000,
+    });
+
+    const body_html = completion.choices[0].message.content?.trim() || "";
+
+    console.log(`✅ Content generated: ${body_html.length} characters`);
+
     // Create slug
     const slug = topic.title
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '')
-    
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
     // Extract excerpt
-    const excerptMatch = body_html.match(/<p>(.*?)<\/p>/)
-    const excerpt = excerptMatch ? excerptMatch[1].substring(0, 160) + '...' : ''
-    
+    const excerptMatch = body_html.match(/<p>(.*?)<\/p>/);
+    const excerpt = excerptMatch
+      ? excerptMatch[1].substring(0, 160) + "..."
+      : "";
+
     // Calculate stats
-    const text = body_html.replace(/<[^>]*>/g, '')
-    const word_count = text.split(/\s+/).length
-    const reading_time = Math.ceil(word_count / 200)
-    
+    const text = body_html.replace(/<[^>]*>/g, "");
+    const word_count = text.split(/\s+/).length;
+    const reading_time = Math.ceil(word_count / 200);
+
     // Save to database
-    console.log('💾 Saving to database...')
-    
+    console.log("💾 Saving to database...");
+
     const articleData = {
       title: topic.title,
       slug,
@@ -189,46 +196,47 @@ MUST include: Key Takeaways, Comparison Slider, Timeline, Pro Tip.`
       body_html,
       meta_title: `${topic.title} | InvestingPro`,
       meta_description: `Complete guide to SIP and SWP in India. Understand the differences, benefits, and when to use each strategy for wealth creation and retirement income.`,
-      status: 'draft',
+      status: "draft",
       reading_time,
       word_count,
       structured_content: {
         h2_count: (body_html.match(/<h2>/g) || []).length,
         h3_count: (body_html.match(/<h3>/g) || []).length,
         word_count,
-        reading_time
-      }
-    }
-    
+        reading_time,
+      },
+    };
+
     const { data, error } = await supabase
-      .from('articles')
+      .from("articles")
       .insert([articleData])
       .select()
-      .single()
-    
+      .single();
+
     if (error) {
-      throw new Error(`Database error: ${error.message}`)
+      throw new Error(`Database error: ${error.message}`);
     }
-    
-    console.log('\n✅ SUCCESS!')
-    console.log(`📝 Title: "${data.title}"`)
-    console.log(`📊 Stats: ${word_count} words | ${reading_time} min read`)
-    console.log(`🔗 URL: /articles/${slug}`)
-    console.log(`\n🌐 View in browser: http://localhost:3000/articles/${slug}`)
-    console.log(`🔧 Edit in admin: http://localhost:3000/admin/articles/${data.id}/edit`)
-    
+
+    console.log("\n✅ SUCCESS!");
+    console.log(`📝 Title: "${data.title}"`);
+    console.log(`📊 Stats: ${word_count} words | ${reading_time} min read`);
+    console.log(`🔗 URL: /articles/${slug}`);
+    console.log(`\n🌐 View in browser: http://localhost:3000/articles/${slug}`);
+    console.log(
+      `🔧 Edit in admin: http://localhost:3000/admin/articles/${data.id}/edit`,
+    );
   } catch (error: any) {
-    console.error('❌ Error:', error.message)
-    process.exit(1)
+    console.error("❌ Error:", error.message);
+    process.exit(1);
   }
 }
 
 generateArticle()
   .then(() => {
-    console.log('\n✅ Article generation complete!')
-    process.exit(0)
+    console.log("\n✅ Article generation complete!");
+    process.exit(0);
   })
   .catch((error) => {
-    console.error('\n💥 Fatal error:', error)
-    process.exit(1)
-  })
+    console.error("\n💥 Fatal error:", error);
+    process.exit(1);
+  });

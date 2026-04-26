@@ -16,17 +16,23 @@ dotenv.config({ path: ".env.local" });
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
 
-// Configuration - Hardcoded to avoid env issues
-const OPENAI_API_KEY =
-  process.env.OPENAI_API_KEY ||
-  "sk-proj-Vu1Tz6Wy9kAZhZZfuNGCDGMlrKOJhBKkHUFqmPfZGWJXNlpTdmZnCJVPmNT3BlbkFJCqAqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPqPq";
-const SUPABASE_URL = "https://txwxmbmbqltefwvilsii.supabase.co";
-const SUPABASE_SERVICE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4d3htYm1icWx0ZWZ3dmlsc2lpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NjMwNjEzMSwiZXhwIjoyMDgxODgyMTMxfQ.o4OncbjLpZg7eie2_WTnVhMMBB0tddiBmYFhl454t3U";
+// Configuration — strict env-only. Never hardcode secrets, even as fallbacks.
+// Hardcoded fallbacks were rotated 2026-04-26 after a leaked-key audit found
+// the service_role JWT in committed source. See docs/SECURITY_AUDIT_2026_04_26.md.
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-if (!OPENAI_API_KEY || OPENAI_API_KEY.includes("PqPqPq")) {
-  console.error("❌ Error: Valid OPENAI_API_KEY required");
+if (!OPENAI_API_KEY) {
+  console.error("❌ Error: OPENAI_API_KEY required");
   console.error("Please set OPENAI_API_KEY environment variable");
+  process.exit(1);
+}
+
+if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+  console.error(
+    "❌ Error: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY required",
+  );
   process.exit(1);
 }
 
