@@ -1,31 +1,64 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  AlertCircle,
-  Clock,
-  Mail,
-  CheckCircle2,
-  FileWarning,
-  Eye,
-  MessageSquare,
-  ShieldCheck,
-  BookOpen,
-} from "lucide-react";
+import { ChevronRight, Home } from "lucide-react";
+
+const LAST_UPDATED = "2026-04-26";
 
 export const metadata: Metadata = {
-  title: "Corrections Policy — How We Handle Errors",
+  title: "Corrections Policy | InvestingPro",
   description:
-    "Our commitment to accuracy. Learn how errors are reported, investigated, and corrected on InvestingPro. All corrections are transparent with full audit trails.",
+    "How InvestingPro handles errors, corrections, and transparency. Every confirmed correction is logged with the original claim, the corrected version, and the date the change went live.",
+  alternates: { canonical: "https://investingpro.in/corrections" },
   openGraph: {
-    title: "Corrections Policy | InvestingPro India",
+    title: "Corrections Policy | InvestingPro",
     description:
       "How we handle errors, corrections, and transparency on InvestingPro.",
     url: "https://investingpro.in/corrections",
     type: "website",
   },
 };
+
+const PROCESS = [
+  {
+    step: "1 · Report",
+    body: "Anyone — reader, source, regulator, partner — can flag an error. Email contact@investingpro.in with the article URL, the specific claim, and the source you believe contradicts it.",
+  },
+  {
+    step: "2 · Acknowledge (within 48 hours)",
+    body: "We acknowledge every fact-check request within 48 hours. We do not ignore reports, even when we ultimately disagree.",
+  },
+  {
+    step: "3 · Investigate",
+    body: "The relevant editorial desk (Tax / Credit / Investment / Lending / Insurance / Banking) cross-checks the claim against original-source data — RBI / SEBI / IRDAI / AMFI / IT Act / issuer rate cards.",
+  },
+  {
+    step: "4 · Correct + log",
+    body: "If the claim is wrong, we update the article and log the correction here on /corrections with: original claim, corrected version, date of change, and source we relied on. The article itself displays a 'Last updated' stamp at the top.",
+  },
+  {
+    step: "5 · Disclose materiality",
+    body: "If the error materially changed the recommendation (e.g., a fund was rated 4.5 stars based on a wrong return number), we disclose that prominently in the article and reset the rating.",
+  },
+];
+
+const COMMITMENTS = [
+  "Every confirmed error is logged publicly on this page — not silently edited away.",
+  "We never delete an article to hide an error; we correct in place with version history.",
+  "Updated articles show a 'Last updated YYYY-MM-DD' stamp at the top of the page.",
+  "If a methodology change reverses a recommendation, the prior version is archived.",
+  "We disclose conflicts of interest if the error involves a product we earn commission on.",
+  "We accept reports about minor typos, factual errors, and methodology disputes equally.",
+];
+
+const RECENT_CORRECTIONS: {
+  date: string;
+  article: string;
+  correction: string;
+  source: string;
+}[] = [
+  // Empty until first real correction lands. We will not fabricate
+  // historical corrections to look responsive.
+];
 
 export default function CorrectionsPage() {
   const structuredData = {
@@ -35,9 +68,10 @@ export default function CorrectionsPage() {
     description:
       "How InvestingPro handles errors, corrections, and transparency.",
     url: "https://investingpro.in/corrections",
+    dateModified: `${LAST_UPDATED}T00:00:00+05:30`,
     publisher: {
       "@type": "Organization",
-      name: "InvestingPro India",
+      name: "InvestingPro",
       url: "https://investingpro.in",
     },
   };
@@ -49,350 +83,155 @@ export default function CorrectionsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-        {/* Hero */}
-        <div className="relative bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-          <div className="absolute inset-0 bg-gradient-to-b from-primary-50/50 to-transparent dark:from-primary-950/10 pointer-events-none" />
-          <div className="container mx-auto px-4 py-16 relative">
-            <div className="max-w-3xl mx-auto text-center">
-              <Badge
-                variant="outline"
-                className="mb-4 bg-primary-50 text-primary-700 border-primary-200 dark:bg-primary-950/50 dark:text-primary-400"
-              >
-                Accountability & Accuracy
-              </Badge>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-6">
-                Corrections Policy
-              </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                We take accuracy seriously. When we get something wrong, we fix
-                it transparently and promptly. Here is exactly how our
-                corrections process works.
-              </p>
+      <div className="min-h-screen bg-canvas">
+        <section className="surface-ink pt-12 pb-16">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <nav aria-label="Breadcrumb" className="mb-8">
+              <ol className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-canvas-70">
+                <li>
+                  <Link
+                    href="/"
+                    className="hover:text-indian-gold transition-colors"
+                    aria-label="Home"
+                  >
+                    <Home className="w-3 h-3" />
+                  </Link>
+                </li>
+                <ChevronRight className="w-3 h-3 text-canvas-70" />
+                <li className="text-canvas">Corrections</li>
+              </ol>
+            </nav>
+            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-indian-gold mb-4">
+              Trust · Last updated {LAST_UPDATED}
             </div>
+            <h1 className="font-display font-black text-[44px] md:text-[64px] leading-[1.02] tracking-tight text-canvas max-w-[860px]">
+              Corrections <span className="text-indian-gold">policy</span>.
+            </h1>
+            <p className="mt-7 font-serif text-[20px] md:text-[22px] leading-[1.55] text-canvas max-w-[820px]">
+              When we get something wrong, we fix it transparently — in public,
+              with full audit trail, with the date the change went live. No
+              silent edits, no hidden retractions.
+            </p>
           </div>
-        </div>
+        </section>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-          {/* Our Commitment */}
-          <Card className="border-2 border-primary-100 dark:border-primary-900">
-            <CardContent className="p-8">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
-                  <ShieldCheck className="w-6 h-6 text-primary-600" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                    Our Commitment to Accuracy
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Financial information impacts real decisions about money. We
-                    understand the responsibility that comes with publishing
-                    product comparisons, interest rates, and financial guidance.
-                    When errors occur — and they sometimes do — we believe the
-                    right thing to do is acknowledge them openly, correct them
-                    swiftly, and learn from them to prevent recurrence.
+        <section className="bg-canvas py-14">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-indian-gold mb-3">
+              Five-step process
+            </div>
+            <h2 className="font-display text-[30px] md:text-[36px] font-black text-ink leading-tight mb-10 max-w-[820px]">
+              From report to correction.
+            </h2>
+            <div className="space-y-7 max-w-[820px]">
+              {PROCESS.map((p) => (
+                <div
+                  key={p.step}
+                  className="border-l-2 border-indian-gold pl-5"
+                >
+                  <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold mb-2">
+                    {p.step}
+                  </div>
+                  <p className="text-[15px] leading-[1.65] text-ink-80">
+                    {p.body}
                   </p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              ))}
+            </div>
+          </div>
+        </section>
 
-          {/* How to Report an Error */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <MessageSquare className="w-6 h-6 text-primary-600" />
-                How to Report an Error
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300">
-                If you spot an inaccuracy in any of our content — incorrect
-                interest rate, outdated fee, wrong calculation, or factual error
-                — please let us know using any of these channels:
+        <section className="bg-canvas py-14 border-t-2 border-ink-12">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-indian-gold mb-3">
+              Our commitments
+            </div>
+            <h2 className="font-display text-[28px] md:text-[34px] font-black text-ink leading-tight mb-6 max-w-[820px]">
+              What we promise.
+            </h2>
+            <ul className="space-y-3 text-[15px] leading-[1.65] text-ink-80 max-w-[820px]">
+              {COMMITMENTS.map((c, i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="font-mono text-[11px] text-ink-60 mt-1">
+                    ·
+                  </span>
+                  <span>{c}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="bg-canvas py-14 border-t-2 border-ink-12">
+          <div className="max-w-[1100px] mx-auto px-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-indian-gold mb-3">
+              Recent corrections
+            </div>
+            <h2 className="font-display text-[28px] md:text-[34px] font-black text-ink leading-tight mb-6 max-w-[820px]">
+              Public log.
+            </h2>
+            {RECENT_CORRECTIONS.length === 0 ? (
+              <p className="text-[15px] leading-[1.6] text-ink-80 max-w-[820px]">
+                No corrections have been logged since launch. As we publish
+                more, this section will list every confirmed correction with the
+                original claim, the corrected version, and the date. We will not
+                pre-populate this list with fabricated entries to look more
+                responsive.
               </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
-                  <Mail className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-1">
-                      Email (Preferred)
-                    </h4>
-                    <a
-                      href="mailto:corrections@investingpro.in"
-                      className="text-sm text-primary-600 hover:underline font-medium"
-                    >
-                      corrections@investingpro.in
-                    </a>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      Include the article URL, the error, and the correct
-                      information with a source if possible.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
-                  <AlertCircle className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-1">
-                      On-Page Feedback
-                    </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Use the &quot;Report an Issue&quot; link at the bottom of
-                      any article or comparison page.
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      This goes directly to the editorial team for that content
-                      category.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Correction Timeline */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Clock className="w-6 h-6 text-primary-600" />
-                Correction Timeline
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {[
-                  {
-                    time: "Within 2 hours",
-                    title: "Acknowledgement",
-                    description:
-                      "We acknowledge receipt of your error report and assign it to the relevant subject matter expert for investigation.",
-                  },
-                  {
-                    time: "Within 24 hours",
-                    title: "Investigation & Verification",
-                    description:
-                      "The assigned expert verifies the reported error against primary sources. If confirmed, a correction is drafted. If the error involves a financial product rate or fee, we also contact the provider directly for confirmation.",
-                  },
-                  {
-                    time: "Within 48 hours",
-                    title: "Correction Published",
-                    description:
-                      "The corrected content is published with a visible correction notice. For critical errors (wrong interest rate, incorrect eligibility criteria), we aim for same-day correction.",
-                  },
-                  {
-                    time: "Within 72 hours",
-                    title: "Reporter Notified",
-                    description:
-                      "We email the person who reported the error to confirm the correction has been made and thank them for improving our content.",
-                  },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-5">
-                    <div className="flex-shrink-0 w-28">
-                      <Badge
-                        variant="outline"
-                        className="text-xs border-primary-200 text-primary-600 whitespace-nowrap"
-                      >
-                        {item.time}
-                      </Badge>
+            ) : (
+              <div className="space-y-5 max-w-[820px]">
+                {RECENT_CORRECTIONS.map((c, i) => (
+                  <div key={i} className="border-l-2 border-warning-red pl-5">
+                    <div className="font-mono text-[11px] uppercase tracking-wider text-warning-red mb-1">
+                      {c.date}
                     </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                        {item.title}
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {item.description}
-                      </p>
-                    </div>
+                    <h3 className="font-display text-[18px] font-bold text-ink mb-2">
+                      {c.article}
+                    </h3>
+                    <p className="text-[14px] leading-[1.6] text-ink-80 mb-2">
+                      {c.correction}
+                    </p>
+                    <p className="text-[12px] text-ink-60 italic">
+                      Source: {c.source}
+                    </p>
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
+            )}
+          </div>
+        </section>
 
-          {/* How Corrections Appear */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Eye className="w-6 h-6 text-primary-600" />
-                How Corrections Appear on Our Site
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <p className="text-gray-600 dark:text-gray-300">
-                We believe in full transparency. When we correct content, we
-                make it visible — not hidden.
-              </p>
-
-              {/* Example correction notice */}
-              <div className="border-l-4 border-amber-400 bg-amber-50 dark:bg-amber-900/20 p-4 rounded-r-lg">
-                <p className="text-sm font-semibold text-amber-800 dark:text-amber-200 mb-1">
-                  Correction (April 3, 2026)
-                </p>
-                <p className="text-sm text-amber-700 dark:text-amber-300">
-                  An earlier version of this article stated the HDFC Regalia
-                  annual fee as ₹2,500. The correct fee is ₹3,500 (revised
-                  effective January 2026). We regret the error. The comparison
-                  scores have been recalculated.
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <h4 className="font-semibold text-gray-900 dark:text-white">
-                  Our correction practices:
-                </h4>
-                <ul className="space-y-2">
-                  {[
-                    "Correction notices are placed at the top of the affected article, clearly visible before the content.",
-                    "The original incorrect text is shown with strikethrough formatting so readers can see what changed.",
-                    "Every correction includes the date of the correction and a brief explanation of what was wrong.",
-                    'The "Last Updated" date on the article is updated to reflect the correction.',
-                    "For product comparison pages, scores are recalculated and any ranking changes are noted.",
-                    "We never silently delete or alter content without a correction notice.",
-                  ].map((item, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Types of Corrections */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <FileWarning className="w-6 h-6 text-primary-600" />
-                Types of Corrections
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[
-                  {
-                    type: "Factual Correction",
-                    severity: "High",
-                    badge: "bg-red-100 text-red-700 border-red-200",
-                    description:
-                      "Incorrect data points — wrong interest rate, fee, eligibility criteria, or regulatory information. These are corrected immediately with a prominent notice.",
-                  },
-                  {
-                    type: "Calculation Error",
-                    severity: "High",
-                    badge: "bg-red-100 text-red-700 border-red-200",
-                    description:
-                      "Errors in comparison scores, savings calculations, or EMI computations. Scores are recalculated and any ranking changes noted.",
-                  },
-                  {
-                    type: "Outdated Information",
-                    severity: "Medium",
-                    badge: "bg-amber-100 text-amber-700 border-amber-200",
-                    description:
-                      "Information that was correct at publication but has since changed (e.g., a bank revised its fees). Updated with a note about the change.",
-                  },
-                  {
-                    type: "Clarification",
-                    severity: "Low",
-                    badge: "bg-blue-100 text-blue-700 border-blue-200",
-                    description:
-                      'Content that was technically accurate but misleading or incomplete. Clarified with additional context. These do not get a correction notice but may update the "Last Updated" date.',
-                  },
-                  {
-                    type: "Typo / Grammar",
-                    severity: "Low",
-                    badge: "bg-gray-100 text-gray-700 border-gray-200",
-                    description:
-                      "Minor typographical or grammatical errors that do not affect the meaning. Fixed silently without a correction notice.",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.type}
-                    className="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg"
-                  >
-                    <Badge
-                      variant="outline"
-                      className={`text-xs flex-shrink-0 ${item.badge}`}
-                    >
-                      {item.severity}
-                    </Badge>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-1">
-                        {item.type}
-                      </h4>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Contact for Corrections */}
-          <div className="bg-primary-900 rounded-2xl p-8 text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-primary-800 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-50" />
-            <div className="relative z-10 text-center max-w-xl mx-auto">
-              <h2 className="text-2xl font-bold mb-3">Found an Error?</h2>
-              <p className="text-primary-100 mb-6">
-                Help us maintain the highest standards. Send corrections to our
-                editorial team and we will investigate within 24 hours.
-              </p>
-              <a
-                href="mailto:corrections@investingpro.in"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-900 rounded-full font-bold hover:bg-gray-100 transition-colors"
+        <section className="bg-canvas py-10 border-t-2 border-ink-12">
+          <div className="max-w-[1100px] mx-auto px-6 flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-wider text-ink-60">
+            <div>Corrections policy v1.0 · last updated {LAST_UPDATED}</div>
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              <Link
+                href="/fact-check"
+                className="hover:text-indian-gold transition-colors"
               >
-                <Mail className="w-4 h-4" />
-                corrections@investingpro.in
+                Fact-check policy
+              </Link>
+              <Link
+                href="/about/editorial-standards"
+                className="hover:text-indian-gold transition-colors"
+              >
+                Editorial standards
+              </Link>
+              <Link
+                href="/about/editorial-team"
+                className="hover:text-indian-gold transition-colors"
+              >
+                Editorial team
+              </Link>
+              <a
+                href="mailto:contact@investingpro.in"
+                className="hover:text-indian-gold transition-colors"
+              >
+                contact@investingpro.in
               </a>
             </div>
           </div>
-
-          {/* Related Pages */}
-          <div className="grid md:grid-cols-3 gap-4">
-            <Link
-              href="/editorial-methodology"
-              className="p-5 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-primary-300 dark:hover:border-primary-700 transition-colors bg-white dark:bg-gray-900"
-            >
-              <BookOpen className="w-5 h-5 text-primary-600 mb-2" />
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                Editorial Methodology
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Our 5-step review process.
-              </p>
-            </Link>
-            <Link
-              href="/authors"
-              className="p-5 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-primary-300 dark:hover:border-primary-700 transition-colors bg-white dark:bg-gray-900"
-            >
-              <ShieldCheck className="w-5 h-5 text-primary-600 mb-2" />
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                Our Team
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Meet our certified experts.
-              </p>
-            </Link>
-            <Link
-              href="/about-our-data"
-              className="p-5 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-primary-300 dark:hover:border-primary-700 transition-colors bg-white dark:bg-gray-900"
-            >
-              <BookOpen className="w-5 h-5 text-primary-600 mb-2" />
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                About Our Data
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Data sources and freshness.
-              </p>
-            </Link>
-          </div>
-        </div>
+        </section>
       </div>
     </>
   );

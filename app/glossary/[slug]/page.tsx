@@ -1,460 +1,404 @@
-"use client";
+/**
+ * /glossary/[slug] — Server-component glossary term detail page.
+ *
+ * Pre-2026-04-26: this was a 'use client' page with runtime fetch via
+ * api.entities.Glossary.list() — meaning Google couldn't reliably
+ * index any of the 101 terms (they all loaded via client JS only).
+ *
+ * Now: full SSG with generateStaticParams (101 terms pre-rendered),
+ * generateMetadata for proper meta tags, JSON-LD DefinedTerm schema,
+ * v3 design tokens. This is one of the largest single SEO wins on
+ * the platform — every glossary term becomes a real indexable URL.
+ */
 
-import React, { useState, useEffect, use } from 'react';
-import { api } from '@/lib/api';
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/Button";
-import Link from 'next/link';
-import SEOHead from '@/components/common/SEOHead';
-import { 
-    BookOpen, 
-    Share2, 
-    Calculator,
-    AlertCircle,
-    Lightbulb,
-    ExternalLink,
-    CheckCircle,
-    ChevronRight,
-    User,
-    Calendar
-} from 'lucide-react';
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ChevronRight, Home, BookOpen, Calculator } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
+import { generateCanonicalUrl } from "@/lib/linking/canonical";
 
-interface EnrichedGlossaryTerm {
-    id: string;
-    term: string;
-    category: string;
-    definition: string;
-    why_it_matters?: string;
-    example_numeric?: string;
-    example_text?: string;
-    how_to_use?: string;
-    common_mistakes?: string[];
-    related_terms?: string[];
-    related_calculators?: string[];
-    seo_title?: string;
-    seo_description?: string;
+export const revalidate = 3600;
+const LAST_UPDATED_FALLBACK = "2026-04-26";
+
+interface GlossaryTerm {
+  id: string;
+  term: string;
+  slug: string;
+  category: string;
+  definition: string;
+  detailed_explanation?: string | null;
+  example?: string | null;
+  example_numeric?: string | null;
+  example_text?: string | null;
+  why_it_matters?: string | null;
+  how_to_use?: string | null;
+  common_mistakes?: string[] | null;
+  related_terms?: string[] | null;
+  related_calculators?: string[] | null;
+  related_guides?: string[] | null;
+  full_form?: string | null;
+  pronunciation?: string | null;
+  sources?: string[] | string | null;
+  seo_title?: string | null;
+  seo_description?: string | null;
+  updated_at?: string | null;
+  reviewed_at?: string | null;
 }
 
-interface TableOfContentsItem {
-    id: string;
-    title: string;
+function getServiceClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anon) return null;
+  return createClient(url, anon);
 }
 
-export default function GlossaryArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = use(params);
-    
-    const [termData, setTermData] = useState<EnrichedGlossaryTerm | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [activeSection, setActiveSection] = useState<string>('');
+async function getTerm(slug: string): Promise<GlossaryTerm | null> {
+  const supabase = getServiceClient();
+  if (!supabase) return null;
 
-    const tableOfContents: TableOfContentsItem[] = [
-        { id: 'definition', title: `What Is ${termData?.term || 'This Term'}?` },
-        { id: 'understanding', title: `Understanding ${termData?.term || 'This Term'}` },
-        { id: 'examples', title: 'Examples & Calculations' },
-        { id: 'how-to-use', title: 'How to Use' },
-        { id: 'common-mistakes', title: 'Common Mistakes' },
-        { id: 'faq', title: 'Frequently Asked Questions' },
-        { id: 'bottom-line', title: 'The Bottom Line' },
-    ];
+  const { data } = await supabase
+    .from("glossary_terms")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
 
-    useEffect(() => {
-        const fetchTerm = async () => {
-            setLoading(true);
-            try {
-                const allTerms: any[] = await api.entities.Glossary.list();
-                const matched = allTerms.find(t => t.slug === slug);
-                
-                if (matched) {
-                    setTermData(matched);
-                } else {
-                    setTermData(null);
-                }
-            } catch (e) {
-                console.error("Failed to load term", e);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchTerm();
-    }, [slug]);
+  return (data as GlossaryTerm) || null;
+}
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const sections = tableOfContents.map(item => document.getElementById(item.id));
-            const scrollPosition = window.scrollY + 150;
+async function getRelatedTerms(
+  slugs: string[],
+): Promise<{ slug: string; term: string }[]> {
+  if (!slugs?.length) return [];
+  const supabase = getServiceClient();
+  if (!supabase) return [];
+  const { data } = await supabase
+    .from("glossary_terms")
+    .select("slug, term")
+    .in("slug", slugs.slice(0, 6))
+    .eq("status", "published");
+  return (data as { slug: string; term: string }[]) || [];
+}
 
-            for (let i = sections.length - 1; i >= 0; i--) {
-                const section = sections[i];
-                if (section && section.offsetTop <= scrollPosition) {
-                    setActiveSection(tableOfContents[i].id);
-                    break;
-                }
-            }
-        };
+export async function generateStaticParams() {
+  const supabase = getServiceClient();
+  if (!supabase) return [];
+  const { data } = await supabase
+    .from("glossary_terms")
+    .select("slug")
+    .eq("status", "published")
+    .limit(1000);
+  return (data || []).map((t: { slug: string }) => ({ slug: t.slug }));
+}
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [termData]);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const term = await getTerm(slug);
+  if (!term) {
+    return {
+      title: "Term not found | InvestingPro Glossary",
+    };
+  }
+  const title =
+    term.seo_title ||
+    `${term.term} — Definition, Examples & Calculator | InvestingPro`;
+  const description =
+    term.seo_description ||
+    `${term.term}: ${term.definition?.slice(0, 155) || "Plain-English finance term explained with Indian examples."}`;
+  return {
+    title,
+    description,
+    alternates: { canonical: generateCanonicalUrl(`/glossary/${slug}`) },
+    openGraph: {
+      title,
+      description,
+      url: generateCanonicalUrl(`/glossary/${slug}`),
+      type: "article",
+    },
+  };
+}
 
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
-                <div className="text-center">
-                    <BookOpen className="w-12 h-12 text-primary-500 animate-pulse mx-auto mb-4" />
-                    <p className="text-gray-600 dark:text-gray-400">Loading article...</p>
-                </div>
+function ParaList({ value }: { value?: string | null }) {
+  if (!value) return null;
+  // Render newline-separated paragraphs while keeping inline formatting plain.
+  const parts = value.split(/\n{2,}|\r\n{2,}/g).filter(Boolean);
+  if (parts.length <= 1) {
+    return <p className="text-[16px] leading-[1.75] text-ink mb-4">{value}</p>;
+  }
+  return (
+    <>
+      {parts.map((p, i) => (
+        <p key={i} className="text-[16px] leading-[1.75] text-ink mb-4">
+          {p}
+        </p>
+      ))}
+    </>
+  );
+}
+
+export default async function GlossaryTermPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const term = await getTerm(slug);
+  if (!term) notFound();
+
+  const relatedTerms = term.related_terms
+    ? await getRelatedTerms(term.related_terms as string[])
+    : [];
+
+  // JSON-LD: DefinedTerm + BreadcrumbList
+  const definedTermSchema = {
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    name: term.term,
+    description: term.definition,
+    inDefinedTermSet: {
+      "@type": "DefinedTermSet",
+      name: "InvestingPro Glossary",
+      url: "https://investingpro.in/glossary",
+    },
+    url: generateCanonicalUrl(`/glossary/${slug}`),
+    ...(term.updated_at ? { dateModified: term.updated_at } : {}),
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: generateCanonicalUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Glossary",
+        item: generateCanonicalUrl("/glossary"),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: term.term,
+        item: generateCanonicalUrl(`/glossary/${slug}`),
+      },
+    ],
+  };
+
+  const lastReviewed = term.reviewed_at
+    ? new Date(term.reviewed_at).toISOString().split("T")[0]
+    : term.updated_at
+      ? new Date(term.updated_at).toISOString().split("T")[0]
+      : LAST_UPDATED_FALLBACK;
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(definedTermSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      <div className="min-h-screen bg-canvas">
+        {/* Hero */}
+        <section className="surface-ink pt-12 pb-14">
+          <div className="max-w-[900px] mx-auto px-6">
+            <nav aria-label="Breadcrumb" className="mb-8">
+              <ol className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-canvas-70">
+                <li>
+                  <Link
+                    href="/"
+                    className="hover:text-indian-gold transition-colors"
+                    aria-label="Home"
+                  >
+                    <Home className="w-3 h-3" />
+                  </Link>
+                </li>
+                <ChevronRight className="w-3 h-3 text-canvas-70" />
+                <li>
+                  <Link
+                    href="/glossary"
+                    className="hover:text-indian-gold transition-colors"
+                  >
+                    Glossary
+                  </Link>
+                </li>
+                <ChevronRight className="w-3 h-3 text-canvas-70" />
+                <li className="text-canvas truncate">{term.term}</li>
+              </ol>
+            </nav>
+            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-indian-gold mb-3">
+              {term.category || "Finance term"} · Last reviewed {lastReviewed}
             </div>
-        );
-    }
+            <h1 className="font-display font-black text-[44px] md:text-[60px] leading-[1.05] tracking-tight text-canvas">
+              {term.term}
+              {term.full_form && (
+                <span className="block font-display font-medium text-[18px] md:text-[22px] text-canvas-70 mt-3 italic">
+                  {term.full_form}
+                </span>
+              )}
+            </h1>
+            <p className="mt-6 font-serif text-[19px] md:text-[21px] leading-[1.55] text-canvas max-w-[820px]">
+              {term.definition}
+            </p>
+          </div>
+        </section>
 
-    if (!termData) {
-        return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
-                <div className="text-center max-w-md mx-auto px-4">
-                    <BookOpen className="w-16 h-16 text-gray-300 mb-4 mx-auto" />
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Term Not Found</h1>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">The term you are looking for doesn't exist in our glossary.</p>
-                    <Button asChild>
-                        <Link href="/glossary">Return to Glossary</Link>
-                    </Button>
+        {/* Body */}
+        <section className="bg-canvas py-12">
+          <div className="max-w-[820px] mx-auto px-6 article-prose">
+            {term.detailed_explanation && (
+              <div className="mb-10">
+                <h2 className="font-display text-[28px] md:text-[32px] font-black text-ink leading-tight mb-4">
+                  Understanding {term.term}
+                </h2>
+                <ParaList value={term.detailed_explanation} />
+              </div>
+            )}
+
+            {term.why_it_matters && (
+              <div className="mb-10">
+                <h2 className="font-display text-[28px] md:text-[32px] font-black text-ink leading-tight mb-4">
+                  Why it matters
+                </h2>
+                <ParaList value={term.why_it_matters} />
+              </div>
+            )}
+
+            {(term.example_numeric || term.example_text || term.example) && (
+              <div className="mb-10">
+                <h2 className="font-display text-[28px] md:text-[32px] font-black text-ink leading-tight mb-4">
+                  Example
+                </h2>
+                {term.example_numeric && (
+                  <div className="border-l-2 border-indian-gold pl-5 mb-4 py-2">
+                    <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-1">
+                      Numeric example
+                    </div>
+                    <ParaList value={term.example_numeric} />
+                  </div>
+                )}
+                {term.example_text && <ParaList value={term.example_text} />}
+                {!term.example_numeric &&
+                  !term.example_text &&
+                  term.example && <ParaList value={term.example} />}
+              </div>
+            )}
+
+            {term.how_to_use && (
+              <div className="mb-10">
+                <h2 className="font-display text-[28px] md:text-[32px] font-black text-ink leading-tight mb-4">
+                  How to use it
+                </h2>
+                <ParaList value={term.how_to_use} />
+              </div>
+            )}
+
+            {term.common_mistakes && term.common_mistakes.length > 0 && (
+              <div className="mb-10">
+                <h2 className="font-display text-[28px] md:text-[32px] font-black text-ink leading-tight mb-4">
+                  Common mistakes
+                </h2>
+                <ul className="space-y-3 text-[16px] leading-[1.7] text-ink">
+                  {term.common_mistakes.map((m, i) => (
+                    <li key={i} className="flex gap-3">
+                      <span className="font-mono text-[11px] text-warning-red mt-1">
+                        ·
+                      </span>
+                      <span>{m}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {term.related_calculators &&
+              term.related_calculators.length > 0 && (
+                <div className="mb-10 border-t-2 border-ink-12 pt-8">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-indian-gold mb-3 flex items-center gap-2">
+                    <Calculator className="w-3.5 h-3.5" /> Related calculators
+                  </div>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-[15px]">
+                    {term.related_calculators.slice(0, 6).map((c) => (
+                      <li key={c}>
+                        <Link
+                          href={`/calculators/${c}`}
+                          className="text-indian-gold hover:underline"
+                        >
+                          {c
+                            .split("-")
+                            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                            .join(" ")}{" "}
+                          calculator &rarr;
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-            </div>
-        );
-    }
+              )}
 
-    const seoTitle =
-        termData.seo_title ||
-        `${termData.term} Meaning, Definition & Examples`;
-    const seoDescription =
-        termData.seo_description ||
-        termData.definition.slice(0, 155);
-
-    const structuredData = [
-        {
-            '@context': 'https://schema.org',
-            '@type': 'DefinedTerm',
-            'name': termData.term,
-            'description': termData.definition,
-            'inDefinedTermSet': 'https://investingpro.in/glossary',
-            'url': `https://investingpro.in/glossary/${slug}`,
-            'category': termData.category,
-        },
-        {
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            'mainEntity': [
-                {
-                    '@type': 'Question',
-                    'name': `Why is ${termData.term} important?`,
-                    'acceptedAnswer': {
-                        '@type': 'Answer',
-                        'text':
-                            termData.why_it_matters?.split('\n')[0] ||
-                            `Understanding ${termData.term} helps you make better ${termData.category.replace(/-/g, ' ')} decisions.`,
-                    },
-                },
-            ],
-        },
-    ];
-
-    const keyTakeaways = termData.why_it_matters 
-        ? termData.why_it_matters.split('\n').filter(line => line.trim()).slice(0, 4)
-        : [];
-
-    return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-            <SEOHead
-                title={seoTitle}
-                description={seoDescription}
-                structuredData={structuredData}
-            />
-            {/* Breadcrumbs */}
-            <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                    <nav className="flex items-center gap-2 text-sm">
-                        <Link href="/" className="text-gray-500 hover:text-primary-600 transition-colors">Home</Link>
-                        <ChevronRight className="w-4 h-4 text-gray-400" />
-                        <Link href="/glossary" className="text-gray-500 hover:text-primary-600 transition-colors">Glossary</Link>
-                        <ChevronRight className="w-4 h-4 text-gray-400" />
-                        <span className="text-gray-500 capitalize">{termData.category}</span>
-                        <ChevronRight className="w-4 h-4 text-gray-400" />
-                        <span className="text-gray-900 dark:text-white font-medium truncate">{termData.term}</span>
-                    </nav>
+            {relatedTerms.length > 0 && (
+              <div className="border-t-2 border-ink-12 pt-8">
+                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-indian-gold mb-3 flex items-center gap-2">
+                  <BookOpen className="w-3.5 h-3.5" /> Related terms
                 </div>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-[15px]">
+                  {relatedTerms.map((rt) => (
+                    <li key={rt.slug}>
+                      <Link
+                        href={`/glossary/${rt.slug}`}
+                        className="text-indian-gold hover:underline"
+                      >
+                        {rt.term} &rarr;
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Footer strip */}
+        <section className="bg-canvas py-10 border-t-2 border-ink-12">
+          <div className="max-w-[1100px] mx-auto px-6 flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-wider text-ink-60">
+            <div>
+              {term.term} · last reviewed {lastReviewed}
             </div>
-
-            {/* Main Container */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
-                    {/* Main Content */}
-                    <article className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm">
-                        {/* Article Header */}
-                        <header className="p-8 pb-6 border-b border-gray-100 dark:border-gray-800">
-                            <div className="flex flex-wrap items-center gap-3 mb-6">
-                                <Badge className="rounded-md px-3 py-1 text-xs font-bold uppercase tracking-wider bg-primary-50 text-primary-700 dark:bg-primary-900/20 border-0">
-                                    {termData.category}
-                                </Badge>
-                                <div className="flex items-center gap-2 text-sm text-gray-500">
-                                    <CheckCircle className="w-4 h-4 text-success-600" />
-                                    <span>Fact-Checked</span>
-                                </div>
-                            </div>
-
-                            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                                {termData.term}
-                            </h1>
-
-                            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-6">
-                                <div className="flex items-center gap-2">
-                                    <User className="w-4 h-4" />
-                                    <span>By <strong className="text-gray-900 dark:text-white">InvestingPro Editorial Team</strong></span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <Calendar className="w-4 h-4" />
-                                    <span>Updated Jan 2026</span>
-                                </div>
-                            </div>
-
-                            <div className="flex gap-2">
-                                <Button variant="outline" size="sm" className="text-gray-600">
-                                    <Share2 className="w-4 h-4 mr-2" />
-                                    Share
-                                </Button>
-                            </div>
-                        </header>
-
-                        {/* Key Takeaways */}
-                        {keyTakeaways.length > 0 && (
-                            <div className="m-8 p-6 bg-gradient-to-br from-primary-50 to-primary-100/50 dark:from-primary-950/50 dark:to-primary-900/30 rounded-xl border border-primary-200 dark:border-primary-800">
-                                <div className="flex items-start gap-3 mb-4">
-                                    <Lightbulb className="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5" />
-                                    <h2 className="text-lg font-bold text-gray-900 dark:text-white">Key Takeaways</h2>
-                                </div>
-                                <ul className="space-y-2">
-                                    {keyTakeaways.map((point, i) => (
-                                        <li key={i} className="flex gap-3 text-gray-700 dark:text-gray-300">
-                                            <span className="text-primary-600 dark:text-primary-400 font-bold flex-shrink-0">•</span>
-                                            <span>{point}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-
-                        {/* Content Sections */}
-                        <div className="p-8 space-y-12">
-                            {/* What Is [Term]? */}
-                            <section id="definition" className="scroll-mt-24">
-                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                                    What Is {termData.term}?
-                                </h2>
-                                <div className="prose prose-lg dark:prose-invert max-w-none">
-                                    <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                                        {termData.definition}
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* Understanding [Term] */}
-                            {termData.why_it_matters && (
-                                <section id="understanding" className="scroll-mt-24">
-                                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                                        Understanding {termData.term}
-                                    </h2>
-                                    <div className="prose prose-lg dark:prose-invert max-w-none">
-                                        <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                                            {termData.why_it_matters}
-                                        </p>
-                                    </div>
-                                </section>
-                            )}
-
-                            {/* Examples & Calculations */}
-                            {(termData.example_numeric || termData.example_text) && (
-                                <section id="examples" className="scroll-mt-24">
-                                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                                        Examples & Calculations
-                                    </h2>
-                                    {termData.example_numeric && (
-                                        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 mb-4">
-                                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                                                <Calculator className="w-5 h-5 text-primary-600" />
-                                                Numeric Example
-                                            </h3>
-                                            <div className="prose dark:prose-invert max-w-none">
-                                                <pre className="whitespace-pre-wrap font-mono text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-4 rounded-lg">
-                                                    {termData.example_numeric}
-                                                </pre>
-                                            </div>
-                                        </div>
-                                    )}
-                                    {termData.example_text && (
-                                        <div className="prose prose-lg dark:prose-invert max-w-none">
-                                            <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                                                {termData.example_text}
-                                            </p>
-                                        </div>
-                                    )}
-                                </section>
-                            )}
-
-                            {/* How to Use */}
-                            {termData.how_to_use && (
-                                <section id="how-to-use" className="scroll-mt-24">
-                                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                                        How to Use {termData.term}
-                                    </h2>
-                                    <div className="prose prose-lg dark:prose-invert max-w-none">
-                                        <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                                            {termData.how_to_use}
-                                        </p>
-                                    </div>
-                                </section>
-                            )}
-
-                            {/* Common Mistakes */}
-                            {termData.common_mistakes && termData.common_mistakes.length > 0 && (
-                                <section id="common-mistakes" className="scroll-mt-24">
-                                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                                        Common Mistakes to Avoid
-                                    </h2>
-                                    <div className="bg-danger-50 dark:bg-danger-950/20 rounded-xl p-6 border border-danger-200 dark:border-danger-900">
-                                        <ul className="space-y-3">
-                                            {termData.common_mistakes.map((mistake: string, i: number) => (
-                                                <li key={i} className="flex gap-3 text-danger-900 dark:text-danger-200">
-                                                    <AlertCircle className="w-5 h-5 text-danger-600 dark:text-danger-400 flex-shrink-0 mt-0.5" />
-                                                    <span className="text-lg">{mistake}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </section>
-                            )}
-
-                            {/* FAQ Section */}
-                            <section id="faq" className="scroll-mt-24">
-                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                                    Frequently Asked Questions
-                                </h2>
-                                <div className="space-y-4">
-                                    <details className="group bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 cursor-pointer">
-                                        <summary className="text-lg font-semibold text-gray-900 dark:text-white list-none flex items-center justify-between">
-                                            <span>Why is {termData.term} important?</span>
-                                            <ChevronRight className="w-5 h-5 text-gray-400 group-open:rotate-90 transition-transform" />
-                                        </summary>
-                                        <p className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-                                            {termData.why_it_matters?.split('\n')[0] || `Understanding ${termData.term} is crucial for making informed financial decisions.`}
-                                        </p>
-                                    </details>
-                                    
-                                    {termData.related_calculators && termData.related_calculators.length > 0 && (
-                                        <details className="group bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 cursor-pointer">
-                                            <summary className="text-lg font-semibold text-gray-900 dark:text-white list-none flex items-center justify-between">
-                                                <span>How do I calculate {termData.term}?</span>
-                                                <ChevronRight className="w-5 h-5 text-gray-400 group-open:rotate-90 transition-transform" />
-                                            </summary>
-                                            <p className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-                                                You can use our free calculators to compute {termData.term}. Check out the related calculators section below.
-                                            </p>
-                                        </details>
-                                    )}
-                                </div>
-                            </section>
-
-                            {/* The Bottom Line */}
-                            <section id="bottom-line" className="scroll-mt-24">
-                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                                    The Bottom Line
-                                </h2>
-                                <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 border-l-4 border-primary-600">
-                                    <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                                        {termData.definition.split('.')[0]}. Understanding this concept is essential for {termData.category.replace(/-/g, ' ')} decisions in the Indian financial market.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* Related Calculators */}
-                            {termData.related_calculators && termData.related_calculators.length > 0 && (
-                                <section className="pt-8 border-t border-gray-200 dark:border-gray-800">
-                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Try It Yourself</h2>
-                                    <div className="grid md:grid-cols-2 gap-4">
-                                        {termData.related_calculators.map((calc: string) => (
-                                            <Link
-                                                key={calc}
-                                                href={`/calculators/${calc}`}
-                                                className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-all group"
-                                            >
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-3">
-                                                        <Calculator className="w-5 h-5 text-primary-600" />
-                                                        <span className="font-bold capitalize text-gray-900 dark:text-white">{calc.replace(/-/g, ' ')} Calculator</span>
-                                                    </div>
-                                                    <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
-                                                </div>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </section>
-                            )}
-                        </div>
-                    </article>
-
-                    {/* Sticky Sidebar */}
-                    <aside className="lg:sticky lg:top-24 lg:self-start space-y-6">
-                        {/* Table of Contents */}
-                        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-6">
-                            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4">
-                                In This Article
-                            </h3>
-                            <nav className="space-y-2">
-                                {tableOfContents.map((item) => (
-                                    <a
-                                        key={item.id}
-                                        href={`#${item.id}`}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-                                        }}
-                                        className={`block text-sm py-2 px-3 rounded-lg transition-colors ${
-                                            activeSection === item.id
-                                                ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 font-semibold'
-                                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-                                        }`}
-                                    >
-                                        {item.title}
-                                    </a>
-                                ))}
-                            </nav>
-                        </div>
-
-                        {/* Related Terms */}
-                        {termData.related_terms && termData.related_terms.length > 0 && (
-                            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-6">
-                                <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4">
-                                    Related Terms
-                                </h3>
-                                <div className="space-y-2">
-                                    {termData.related_terms.map((relatedTerm: string) => {
-                                        const relatedSlug = relatedTerm.toLowerCase()
-                                            .replace(/[()]/g, '')
-                                            .replace(/\s+/g, '-')
-                                            .replace(/&/g, 'and');
-                                        return (
-                                            <Link
-                                                key={relatedTerm}
-                                                href={`/glossary/${relatedSlug}`}
-                                                className="block text-sm py-2 px-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-400 transition-colors font-medium"
-                                            >
-                                                {relatedTerm}
-                                            </Link>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                    </aside>
-                </div>
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              <Link
+                href="/glossary"
+                className="hover:text-indian-gold transition-colors"
+              >
+                All terms
+              </Link>
+              <Link
+                href="/methodology"
+                className="hover:text-indian-gold transition-colors"
+              >
+                Methodology
+              </Link>
+              <Link
+                href="/articles"
+                className="hover:text-indian-gold transition-colors"
+              >
+                Read articles
+              </Link>
             </div>
-        </div>
-    );
+          </div>
+        </section>
+      </div>
+    </>
+  );
 }

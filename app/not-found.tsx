@@ -1,67 +1,103 @@
-import React from 'react';
-import Link from 'next/link';
-import { Search, Map, ChevronRight, Home } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import Link from "next/link";
+import { Search, ArrowRight, Home } from "lucide-react";
 
+/**
+ * 404 — Page Not Found.
+ * v3 design: ink hero, indian-gold accent, no gradients/glassmorphism/shadow-lg.
+ */
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-4">
-      <div className="max-w-xl w-full">
-        {/* Visual Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2rem] bg-gradient-to-br from-secondary-500 to-secondary-600 shadow-xl shadow-secondary-500/20 mb-8 transform rotate-3">
-             <span className="text-4xl font-black text-white italic">404</span>
+    <div className="min-h-screen bg-canvas">
+      {/* Hero */}
+      <section className="surface-ink py-20 md:py-28">
+        <div className="max-w-[900px] mx-auto px-6 text-center">
+          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-indian-gold mb-4">
+            404 · Page not found
           </div>
-          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
-            Page Not Found
+          <h1 className="font-display font-black text-[44px] md:text-[64px] leading-[1.05] tracking-tight text-canvas">
+            That page doesn&apos;t exist.
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-            Sorry, we couldn't find the page you're looking for. It may have been moved or no longer exists.
+          <p className="mt-6 font-serif text-[18px] md:text-[20px] leading-[1.55] text-canvas-70 max-w-[640px] mx-auto">
+            The link may have moved or the page never existed. Try one of the
+            most-visited sections below, or head back home.
           </p>
         </div>
+      </section>
 
-        {/* Suggestion Links */}
-        <div className="grid gap-4 mb-12">
-          {[
-            { title: 'Looking for a Credit Card?', description: 'Compare the best rewards and LTF cards.', href: '/credit-cards' },
-            { title: 'Analyzing Mutual Funds?', description: 'Data-driven insights for long-term growth.', href: '/mutual-funds' },
-            { title: 'Need a Loan?', description: 'Check eligibility across 20+ banks.', href: '/loans' },
-          ].map((item, i) => (
-            <Link 
-              key={i}
-              href={item.href}
-              className="group flex items-center justify-between p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl hover:border-secondary-500 dark:hover:border-secondary-500/50 hover:shadow-lg transition-all"
+      {/* Suggestions */}
+      <section className="bg-canvas py-14 md:py-20 border-t-2 border-ink-12">
+        <div className="max-w-[900px] mx-auto px-6">
+          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-indian-gold mb-3">
+            Most-visited
+          </div>
+          <h2 className="font-display text-[28px] md:text-[34px] font-black text-ink leading-tight mb-8">
+            Try these instead.
+          </h2>
+
+          <div className="space-y-3">
+            {[
+              {
+                title: "Compare credit cards",
+                desc: "81 cards from HDFC, ICICI, SBI, Axis, Amex and more — sortable by reward rate, fee, lounge access.",
+                href: "/credit-cards",
+              },
+              {
+                title: "Mutual fund explorer",
+                desc: "565 AMFI-listed funds with real NAV, returns, and per-segment methodology rating.",
+                href: "/mutual-funds",
+              },
+              {
+                title: "Fixed deposit rates",
+                desc: "Latest rates from 25+ banks including senior-citizen + women-specific offers.",
+                href: "/fixed-deposits",
+              },
+              {
+                title: "Loans hub",
+                desc: "Personal, home, car, education, gold, and business loans — 56 lenders compared.",
+                href: "/loans",
+              },
+              {
+                title: "Glossary",
+                desc: "101+ Indian-finance terms explained with examples and calculator links.",
+                href: "/glossary",
+              },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group block border-2 border-ink-12 hover:border-ink p-5 transition-colors"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-display text-[18px] md:text-[20px] font-bold text-ink mb-1 group-hover:text-indian-gold transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-[14px] text-ink-80 leading-[1.5]">
+                      {item.desc}
+                    </p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-ink-60 group-hover:text-indian-gold group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" />
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap items-center gap-4 pt-8 border-t-2 border-ink-12">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider px-5 py-3 bg-ink text-canvas hover:bg-authority-green transition-colors"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center group-hover:bg-secondary-500/10 transition-colors">
-                  <Search className="w-5 h-5 text-gray-500 group-hover:text-secondary-500" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 dark:text-white">{item.title}</h3>
-                  <p className="text-sm text-gray-500">{item.description}</p>
-                </div>
-              </div>
-              <ChevronRight className="w-5 h-5 text-gray-300 group-helper:text-secondary-500 transition-transform group-hover:translate-x-1" />
+              <Home className="w-3.5 h-3.5" /> Back to homepage
             </Link>
-          ))}
+            <Link
+              href="/articles"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline"
+            >
+              <Search className="w-3.5 h-3.5" /> Browse articles
+            </Link>
+          </div>
         </div>
-
-        {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-            <Button asChild className="w-full sm:w-auto px-8 h-12 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold gap-2">
-                <Link href="/">
-                    <Home className="w-4 h-4" />
-                    Back to Home
-                </Link>
-            </Button>
-            <Button variant="ghost" asChild className="w-full sm:w-auto h-12 rounded-xl text-gray-500">
-                <Link href="/glossary">
-                    <Map className="w-4 h-4 mr-2" />
-                    Explore Glossary
-                </Link>
-            </Button>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
