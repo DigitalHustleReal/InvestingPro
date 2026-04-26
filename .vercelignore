@@ -1,10 +1,36 @@
-# Ignore files that shouldn't be deployed
+# Files / dirs excluded from `vercel deploy` uploads.
+# Vercel's git-integration deploys are unaffected (those clone fresh from GitHub),
+# but `vercel deploy` from local CLI uploads everything not listed here. Without
+# excluding the dev-only / session-state directories below, the upload exceeds
+# Vercel's 15,000-file cap (`.claude/` alone has ~66k worktree + session files).
+
+# Build artefacts + dependencies
 node_modules
 .next
+
+# Local-only env files (production secrets live in Vercel env vars)
 .env.local
 .env*.local
+
+# Logs / OS junk / certs
 *.log
 .DS_Store
 *.pem
 
+# Claude Code session state (worktrees, prompts, command logs).
+# Never deployed; lives in .gitignore for git too.
+.claude
 
+# Test coverage reports — produced locally by `npm run test:coverage`
+coverage
+
+# Archived legacy code kept in-repo for reference but not shipped
+archive
+
+# Playwright MCP screenshots + cache (generated when Claude_Preview tool runs)
+.playwright-mcp
+screenshots
+
+# Pre-edit backups occasionally created by editors
+*.bak
+*~
