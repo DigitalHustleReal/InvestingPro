@@ -224,10 +224,10 @@ Strategic bets in **strict priority order**. Do not jump ahead — earlier
 items unblock later ones. The user explicitly set this sequence on
 2026-04-25 PM; the previously written items have been re-ordered to match.
 
-### Editorial review — i18n locale strings (parallel to Phase 2a wiring)
+### Editorial review — i18n locale strings (Phase 2a + 2b complete)
 
-UI chrome strings shipped at commit `45d52558` (en + hi + bn + mr + ta + te,
-60+ keys each). Gujarati + Kannada come in Phase 2b. **All 7 regional
+UI chrome strings shipped: en + hi + bn + mr + ta + te at `45d52558`,
+gu + kn at the Phase 2b commit (60+ keys each). **All 7 regional
 locales are AI-drafted and need native-speaker review** before being
 considered "verified". Track per-locale status here:
 
@@ -236,8 +236,8 @@ considered "verified". Track per-locale status here:
 - [ ] 🟡 mr (Marathi) — AI-drafted, needs native review
 - [ ] 🟡 te (Telugu) — AI-drafted, needs native review
 - [ ] 🟡 ta (Tamil) — AI-drafted, needs native review
-- [ ] 🟡 gu (Gujarati) — Phase 2b, then AI-drafted → needs review
-- [ ] 🟡 kn (Kannada) — Phase 2b, then AI-drafted → needs review
+- [ ] 🟡 gu (Gujarati) — AI-drafted, needs native review
+- [ ] 🟡 kn (Kannada) — AI-drafted, needs native review
 
 Each strings file has a `// TODO: review` marker in the header.
 Editorial team should pass through the file checking that:

@@ -31,7 +31,8 @@ import {
 } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
-import { hreflangAlternates } from "@/lib/i18n/url";
+import { hreflangAlternates, localizedPath } from "@/lib/i18n/url";
+import { getServerLocale } from "@/lib/i18n/server";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -41,22 +42,28 @@ import { articleUrl } from "@/lib/routing/article-url";
 
 export const revalidate = 21600; // 6 hours
 
-export const metadata: Metadata = {
-  title: "Investing in India 2026 — Mutual Funds, Stocks, PPF, NPS Compared",
-  description:
-    "Independent research on mutual funds, stocks, ELSS, PPF, NPS, and gold. Live NIFTY data, asset-class returns, free calculators, no commission. From the InvestingPro Investment Desk.",
-  alternates: {
-    canonical: generateCanonicalUrl("/investing"),
-    languages: hreflangAlternates("/investing"),
-  },
-  openGraph: {
-    title: "Investing in India — InvestingPro",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const localizedCanonical = generateCanonicalUrl(
+    localizedPath("/investing", locale),
+  );
+  return {
+    title: "Investing in India 2026 — Mutual Funds, Stocks, PPF, NPS Compared",
     description:
-      "Mutual funds, stocks, retirement schemes — compared with real Indian data, not US frameworks.",
-    url: generateCanonicalUrl("/investing"),
-    type: "website",
-  },
-};
+      "Independent research on mutual funds, stocks, ELSS, PPF, NPS, and gold. Live NIFTY data, asset-class returns, free calculators, no commission. From the InvestingPro Investment Desk.",
+    alternates: {
+      canonical: localizedCanonical,
+      languages: hreflangAlternates("/investing"),
+    },
+    openGraph: {
+      title: "Investing in India — InvestingPro",
+      description:
+        "Mutual funds, stocks, retirement schemes — compared with real Indian data, not US frameworks.",
+      url: localizedCanonical,
+      type: "website",
+    },
+  };
+}
 
 // CMS-MIGRATION: live market quotes — hardcode for now, plumb to NSE/BSE
 // data API or a `market_quotes` table. "Indicative · last updated" stamp

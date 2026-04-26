@@ -35,7 +35,8 @@ import { logger } from "@/lib/logger";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import RatingExplainer from "@/components/products/RatingExplainer";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
-import { hreflangAlternates } from "@/lib/i18n/url";
+import { hreflangAlternates, localizedPath } from "@/lib/i18n/url";
+import { getServerLocale } from "@/lib/i18n/server";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -44,22 +45,35 @@ import CategoryFAQ from "@/components/routing/CategoryFAQ";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Best Credit Cards in India 2026 — Compare & Apply",
-  description:
-    "Compare credit cards from every major Indian bank. Filter by rewards, cashback, travel, fee, and CIBIL score. Independent ratings — no paid placements.",
-  alternates: {
-    canonical: generateCanonicalUrl("/credit-cards"),
-    languages: hreflangAlternates("/credit-cards"),
-  },
-  openGraph: {
-    title: "Best Credit Cards in India 2026",
+/**
+ * Per-locale metadata. Phase 2b: each locale variant self-canonicals
+ * (was Phase 1 leftover). `/credit-cards` canonicals to itself; `/hi/
+ * credit-cards` canonicals to `/hi/credit-cards`. Hreflang map still
+ * lists every locale variant + x-default so Google can dedupe — no
+ * cannibalising of the English ranking.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const localizedCanonical = generateCanonicalUrl(
+    localizedPath("/credit-cards", locale),
+  );
+  return {
+    title: "Best Credit Cards in India 2026 — Compare & Apply",
     description:
-      "Filter by rewards / cashback / travel / fee. Independent ratings — no paid placements.",
-    url: generateCanonicalUrl("/credit-cards"),
-    type: "website",
-  },
-};
+      "Compare credit cards from every major Indian bank. Filter by rewards, cashback, travel, fee, and CIBIL score. Independent ratings — no paid placements.",
+    alternates: {
+      canonical: localizedCanonical,
+      languages: hreflangAlternates("/credit-cards"),
+    },
+    openGraph: {
+      title: "Best Credit Cards in India 2026",
+      description:
+        "Filter by rewards / cashback / travel / fee. Independent ratings — no paid placements.",
+      url: localizedCanonical,
+      type: "website",
+    },
+  };
+}
 
 export default async function CreditCardsPage() {
   let assets: unknown[] = [];

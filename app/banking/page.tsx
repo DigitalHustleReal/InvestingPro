@@ -23,7 +23,8 @@ import WeeklyChanges from "@/components/common/WeeklyChanges";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { getSavingsAccountsServer } from "@/lib/products/get-savings-accounts-server";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
-import { hreflangAlternates } from "@/lib/i18n/url";
+import { hreflangAlternates, localizedPath } from "@/lib/i18n/url";
+import { getServerLocale } from "@/lib/i18n/server";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -33,22 +34,28 @@ import { articleUrl } from "@/lib/routing/article-url";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Best Banking Products in India 2026 — Savings, FDs, RDs",
-  description:
-    "Compare savings account interest rates, fixed deposit rates, and recurring deposits from every major Indian bank and small finance bank. DICGC-insured up to ₹5L.",
-  alternates: {
-    canonical: generateCanonicalUrl("/banking"),
-    languages: hreflangAlternates("/banking"),
-  },
-  openGraph: {
-    title: "Best Banking Products in India 2026",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const localizedCanonical = generateCanonicalUrl(
+    localizedPath("/banking", locale),
+  );
+  return {
+    title: "Best Banking Products in India 2026 — Savings, FDs, RDs",
     description:
-      "Compare savings, FD, RD rates. Sovereign + DICGC ₹5L coverage. Independent — no paid placements.",
-    url: generateCanonicalUrl("/banking"),
-    type: "website",
-  },
-};
+      "Compare savings account interest rates, fixed deposit rates, and recurring deposits from every major Indian bank and small finance bank. DICGC-insured up to ₹5L.",
+    alternates: {
+      canonical: localizedCanonical,
+      languages: hreflangAlternates("/banking"),
+    },
+    openGraph: {
+      title: "Best Banking Products in India 2026",
+      description:
+        "Compare savings, FD, RD rates. Sovereign + DICGC ₹5L coverage. Independent — no paid placements.",
+      url: localizedCanonical,
+      type: "website",
+    },
+  };
+}
 
 // CMS-MIGRATION: banking product tiles. Could move to a `banking_types`
 // reference table or to editorial_hubs placement='banking-types'.

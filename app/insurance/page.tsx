@@ -25,7 +25,8 @@ import ContextualTicker from "@/components/common/ContextualTicker";
 import { getInsuranceServer } from "@/lib/products/get-insurance-server";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
-import { hreflangAlternates } from "@/lib/i18n/url";
+import { hreflangAlternates, localizedPath } from "@/lib/i18n/url";
+import { getServerLocale } from "@/lib/i18n/server";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -35,22 +36,28 @@ import { articleUrl } from "@/lib/routing/article-url";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Best Insurance Plans in India 2026 — Compare & Buy",
-  description:
-    "Compare term life, health, car, and travel insurance from every major Indian insurer. We track IRDAI claim settlement ratios — independent ratings, no paid placements.",
-  alternates: {
-    canonical: generateCanonicalUrl("/insurance"),
-    languages: hreflangAlternates("/insurance"),
-  },
-  openGraph: {
-    title: "Best Insurance Plans in India 2026",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const localizedCanonical = generateCanonicalUrl(
+    localizedPath("/insurance", locale),
+  );
+  return {
+    title: "Best Insurance Plans in India 2026 — Compare & Buy",
     description:
-      "Term, health, car, travel insurance compared — with claim settlement data that actually matters.",
-    url: generateCanonicalUrl("/insurance"),
-    type: "website",
-  },
-};
+      "Compare term life, health, car, and travel insurance from every major Indian insurer. We track IRDAI claim settlement ratios — independent ratings, no paid placements.",
+    alternates: {
+      canonical: localizedCanonical,
+      languages: hreflangAlternates("/insurance"),
+    },
+    openGraph: {
+      title: "Best Insurance Plans in India 2026",
+      description:
+        "Term, health, car, travel insurance compared — with claim settlement data that actually matters.",
+      url: localizedCanonical,
+      type: "website",
+    },
+  };
+}
 
 // CMS-MIGRATION: insurance type tiles. Could move to a `insurance_types`
 // reference table or to editorial_hubs placement='insurance-types'.

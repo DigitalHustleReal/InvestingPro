@@ -15,7 +15,8 @@ import Image from "next/image";
 import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
-import { hreflangAlternates } from "@/lib/i18n/url";
+import { hreflangAlternates, localizedPath } from "@/lib/i18n/url";
+import { getServerLocale } from "@/lib/i18n/server";
 import CategoryFAQ from "@/components/routing/CategoryFAQ";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import {
@@ -50,22 +51,28 @@ async function getFeaturedTaxArticles(): Promise<TaxArticle[]> {
   return (data as TaxArticle[]) ?? [];
 }
 
-export const metadata: Metadata = {
-  title: "Indian Tax Planning 2026 — ITR, 80C, HRA, Capital Gains Explained",
-  description:
-    "Complete Indian tax resource: old vs new regime calculator, Section 80C + 80D deductions, HRA exemption, LTCG on mutual funds, ITR filing guide. Worked examples for every salary bracket.",
-  alternates: {
-    canonical: generateCanonicalUrl("/taxes"),
-    languages: hreflangAlternates("/taxes"),
-  },
-  openGraph: {
-    title: "Indian Tax Planning — ITR, 80C, HRA, LTCG",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const localizedCanonical = generateCanonicalUrl(
+    localizedPath("/taxes", locale),
+  );
+  return {
+    title: "Indian Tax Planning 2026 — ITR, 80C, HRA, Capital Gains Explained",
     description:
-      "Old vs new regime, deductions, and capital gains — explained with worked examples for FY 2026-27.",
-    url: generateCanonicalUrl("/taxes"),
-    type: "website",
-  },
-};
+      "Complete Indian tax resource: old vs new regime calculator, Section 80C + 80D deductions, HRA exemption, LTCG on mutual funds, ITR filing guide. Worked examples for every salary bracket.",
+    alternates: {
+      canonical: localizedCanonical,
+      languages: hreflangAlternates("/taxes"),
+    },
+    openGraph: {
+      title: "Indian Tax Planning — ITR, 80C, HRA, LTCG",
+      description:
+        "Old vs new regime, deductions, and capital gains — explained with worked examples for FY 2026-27.",
+      url: localizedCanonical,
+      type: "website",
+    },
+  };
+}
 
 // TAX_CALCULATORS / DEDUCTIONS / REGIME_SLABS / KEY_DATES were migrated
 // to Supabase on 2026-04-25. See:

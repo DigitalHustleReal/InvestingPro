@@ -20,7 +20,8 @@ import Image from "next/image";
 import { ChevronRight, Home, ArrowUpRight } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
-import { hreflangAlternates } from "@/lib/i18n/url";
+import { hreflangAlternates, localizedPath } from "@/lib/i18n/url";
+import { getServerLocale } from "@/lib/i18n/server";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -30,22 +31,28 @@ import { articleUrl } from "@/lib/routing/article-url";
 
 export const revalidate = 21600; // 6 hours
 
-export const metadata: Metadata = {
-  title: "Personal Finance Basics — Learn the Money Skills",
-  description:
-    "Plain-English personal finance for India. Budgeting, debt, goals, retirement, behavioural traps. From the InvestingPro Editorial Team.",
-  alternates: {
-    canonical: generateCanonicalUrl("/learn"),
-    languages: hreflangAlternates("/learn"),
-  },
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const localizedCanonical = generateCanonicalUrl(
+    localizedPath("/learn", locale),
+  );
+  return {
     title: "Personal Finance Basics — Learn the Money Skills",
     description:
-      "Budgeting, debt, goals, retirement — explained in plain English. From the InvestingPro Editorial Team.",
-    url: generateCanonicalUrl("/learn"),
-    type: "website",
-  },
-};
+      "Plain-English personal finance for India. Budgeting, debt, goals, retirement, behavioural traps. From the InvestingPro Editorial Team.",
+    alternates: {
+      canonical: localizedCanonical,
+      languages: hreflangAlternates("/learn"),
+    },
+    openGraph: {
+      title: "Personal Finance Basics — Learn the Money Skills",
+      description:
+        "Budgeting, debt, goals, retirement — explained in plain English. From the InvestingPro Editorial Team.",
+      url: localizedCanonical,
+      type: "website",
+    },
+  };
+}
 
 // Topic shortcuts — the seven everyday-finance themes that don't have a
 // single product page. Each links into existing content paths.

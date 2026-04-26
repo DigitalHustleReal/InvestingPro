@@ -50,9 +50,9 @@ async function loadDictUncached(locale: Locale): Promise<LocalizedStrings> {
     case "ta":
       return (await import("./strings/ta")).TA;
     case "gu":
+      return (await import("./strings/gu")).GU;
     case "kn":
-      // Phase 2b — strings files not shipped yet, fall back to EN.
-      return EN as LocalizedStrings;
+      return (await import("./strings/kn")).KN;
     default: {
       // Compile-time exhaustiveness guard.
       const _exhaustive: never = locale;

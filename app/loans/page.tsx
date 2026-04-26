@@ -24,7 +24,8 @@ import CIBILSimulator from "@/components/tools/CIBILSimulator";
 import ContextualTicker from "@/components/common/ContextualTicker";
 import { AdvertiserDisclosure } from "@/components/common/AdvertiserDisclosure";
 import { generateCanonicalUrl } from "@/lib/linking/canonical";
-import { hreflangAlternates } from "@/lib/i18n/url";
+import { hreflangAlternates, localizedPath } from "@/lib/i18n/url";
+import { getServerLocale } from "@/lib/i18n/server";
 import { getEditorialHubs } from "@/lib/content/editorial-hubs";
 import { TEAM_MEMBERS } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
@@ -34,22 +35,28 @@ import { articleUrl } from "@/lib/routing/article-url";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Best Loans in India 2026 — Compare Rates & Apply",
-  description:
-    "Compare personal, home, car, education, gold, and business loans from every major Indian bank and NBFC. Independent ratings — no paid placements.",
-  alternates: {
-    canonical: generateCanonicalUrl("/loans"),
-    languages: hreflangAlternates("/loans"),
-  },
-  openGraph: {
-    title: "Best Loans in India 2026",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const localizedCanonical = generateCanonicalUrl(
+    localizedPath("/loans", locale),
+  );
+  return {
+    title: "Best Loans in India 2026 — Compare Rates & Apply",
     description:
-      "Compare lenders. Filter by type, rate, tenure. Independent — no paid placements.",
-    url: generateCanonicalUrl("/loans"),
-    type: "website",
-  },
-};
+      "Compare personal, home, car, education, gold, and business loans from every major Indian bank and NBFC. Independent ratings — no paid placements.",
+    alternates: {
+      canonical: localizedCanonical,
+      languages: hreflangAlternates("/loans"),
+    },
+    openGraph: {
+      title: "Best Loans in India 2026",
+      description:
+        "Compare lenders. Filter by type, rate, tenure. Independent — no paid placements.",
+      url: localizedCanonical,
+      type: "website",
+    },
+  };
+}
 
 // CMS-MIGRATION: loan type tiles with current "from-rate" indicators.
 // Should move to a `loan_type_quotes` DB table or live RBI/MCLR feed

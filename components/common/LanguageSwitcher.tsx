@@ -22,11 +22,14 @@ import { localizedPath, stripLocale } from "@/lib/i18n/url";
 /**
  * Locales whose strings dictionary is not yet shipped — they fall
  * back to English at lookup time. Surfaced as a hint in the picker
- * so users aren't surprised when the chrome stays English. Removed
- * from this list in Phase 2b once `lib/i18n/strings/{gu,kn}.ts`
- * land.
+ * so users aren't surprised when the chrome stays English.
+ *
+ * Phase 2b (commit landing this update) shipped gu + kn strings, so
+ * the list is empty. Keep the variable + render path so any future
+ * locale added to `LOCALES` ahead of its strings file gets the same
+ * treatment automatically.
  */
-const FALLBACK_LOCALES: ReadonlyArray<Locale> = ["gu", "kn"];
+const FALLBACK_LOCALES: ReadonlyArray<Locale> = [];
 
 /**
  * Language switcher — wired to the locked i18n architecture

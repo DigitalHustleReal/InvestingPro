@@ -1,4 +1,4 @@
-# Session Handoff — 2026-04-26 (i18n Phase 2a complete)
+# Session Handoff — 2026-04-26 (i18n Phase 2 complete — chrome layer fully shipped)
 
 > **Read this first.** Everything else is reachable from the pointers below.
 
@@ -6,7 +6,7 @@
 
 ## TL;DR
 
-Branch `claude/vibrant-lovelace-875415` — **45 commits**, fully pushed.
+Branch `claude/vibrant-lovelace-875415` — **46 commits**, fully pushed.
 
 Three workstreams from this thread of sessions:
 
@@ -15,12 +15,11 @@ Three workstreams from this thread of sessions:
 2. **i18n Phase 1 (routing) — DONE.** Middleware rewrites `/hi/*` →
    internal English path, `<html lang>` dynamic per locale, hreflang
    tags on every hub, LanguageSwitcher router-aware.
-3. **i18n Phase 2a (UI strings) — DONE.** Server `t()` + client
-   `useT()` shipped. Navbar / MegaMenu / Footer / MobileNav all read
-   strings via `t()` and route through `localizedPath()`. Verified
-   end-to-end on dev preview across 6 locales (en/hi/bn/mr/ta/te);
-   gu + kn cleanly fall back to English with a "(English)" hint in
-   the picker.
+3. **i18n Phase 2 — DONE.** Server `t()` + client `useT()` shipped,
+   chrome wired across all 4 nav surfaces (Navbar/MegaMenu/Footer/
+   MobileNav), all 8 locales have strings shipped (gu+kn drafted in
+   2b), and every hub now self-canonicals per locale via async
+   `generateMetadata()`.
 
 PR: https://github.com/DigitalHustleReal/InvestingPro/pull/new/claude/vibrant-lovelace-875415
 
@@ -45,6 +44,10 @@ PR: https://github.com/DigitalHustleReal/InvestingPro/pull/new/claude/vibrant-lo
 10. **Tiered content per locale** — UI chrome + glossary + FAQs +
     calc labels in all 8 languages; pillar articles in Hindi (top
     100), regional (top 25–50 each); long-tail stays English
+11. **Each locale variant self-canonicals.** `/hi/credit-cards`
+    canonicals to `/hi/credit-cards`, not `/credit-cards`. Hreflang
+    map still emits all locale alternates so Google dedupes —
+    English ranking is preserved.
 
 ### Phase 1 i18n routing (commit `a14c0b6d`)
 - Middleware rewrites `/hi/credit-cards` → internal `/credit-cards` with
@@ -57,104 +60,101 @@ PR: https://github.com/DigitalHustleReal/InvestingPro/pull/new/claude/vibrant-lo
 - LanguageSwitcher.tsx is router-aware (uses `localizedPath()` +
   `stripLocale()`)
 
-### Phase 2a i18n UI chrome (this session)
-- `lib/i18n/t.ts` — server-side `getServerT()` + `loadDictionary()`
-  with React `cache()` memoisation + dynamic locale imports (no all-locale
-  bundle bloat). `lookup()` falls back to English per-key.
-- `lib/i18n/client.tsx` — `<LocaleProvider>` + `useT()` + `useLocale()`
-  hooks. Provider reads dict from server, ships only the active locale's
-  strings to the client.
-- `lib/i18n/format.ts` — `formatCurrency` (Indian lakh/crore grouping
-  preserved across all locales), `formatNumber`, `formatPercent`,
-  `formatDate`, `formatRelative`. Compact form (`compact: true`) renders
-  ₹1,25,000 as "₹1.25 lakh".
-- `app/layout.tsx` — wraps the tree with `<LocaleProvider>`, loads the
-  dict server-side via `loadDictionary(locale)`.
-- `components/v2/layout/Navbar.tsx` — labels via `t(nav.*)`, every
-  `href` wrapped in `localizedPath(path, locale)`, mobile drawer adds
-  the LanguageSwitcher.
-- `components/v2/layout/MegaMenu.tsx` — top-level category labels via
-  `t(nav.*)`, every link href wrapped in `lp(href)`. Active-state
-  comparison switched to use the canonical (locale-stripped) path so
-  /hi/banking still highlights "Banking" tab.
-- `components/v2/layout/MobileNav.tsx` — bottom tab labels via `t()`
-  for matching keys (Compare/Tools/Learn). Hrefs localised. Home/
-  Account stay English until Phase 2b adds keys.
-- `components/layout/Footer.tsx` — every link href wrapped in `lp()`.
-  Legal links use `t(footer.*)` keys where they exist; "How We Make
-  Money" inline link translated via `footer.howWeMakeMoney`.
-- `components/common/LanguageSwitcher.tsx` — gu + kn rendered with
-  `(English)` suffix in the picker so users know the chrome will
-  fall back. Removed in Phase 2b once strings ship.
+### Phase 2a i18n UI chrome (commit `db393155`)
+- `lib/i18n/t.ts` — `getServerT()` + `loadDictionary()` (cached, dynamic
+  imports), `lookup()` with English per-key fallback.
+- `lib/i18n/client.tsx` — `<LocaleProvider>` + `useT()` + `useLocale()`.
+- `lib/i18n/format.ts` — Indian lakh/crore-preserving currency, locale-
+  aware dates, compact form.
+- `app/layout.tsx` wraps tree in `<LocaleProvider>`.
+- Navbar / MegaMenu / Footer / MobileNav all read labels via `t()` and
+  route every `href` through `localizedPath(href, locale)`.
+- LanguageSwitcher renders all 8 locales.
 
-### Phase 2a verification (preview gate)
-Dev server (port 3001) was started, every locale was checked end-to-end:
+### Phase 2b i18n loose ends (this commit)
+- `lib/i18n/strings/gu.ts` — Gujarati, AI-drafted (60+ keys, abbrev
+  preserve list applied). Marked needs-review.
+- `lib/i18n/strings/kn.ts` — Kannada, AI-drafted. Marked needs-review.
+- `lib/i18n/t.ts` — `loadDictionary` now wires gu + kn (was English
+  fallback in 2a).
+- `LanguageSwitcher` — `FALLBACK_LOCALES` is now `[]`; the "(English)"
+  suffix removed for all locales now that strings ship.
+- All 7 hub `metadata` blocks (`credit-cards/loans/banking/investing/
+  insurance/taxes/learn`) converted from static to async
+  `generateMetadata()`. Each now reads `getServerLocale()` and emits
+  a self-canonical URL plus the same hreflang map.
+- `docs/MANUAL_ACTIONS_TRACKER.md` updated — gu/kn now listed alongside
+  the other 5 regional locales as "AI-drafted, needs native review".
 
-| Locale | HTTP | `<html lang>` | "Credit Cards" | "Loans" |
-| ------ | ---- | --- | --- | --- |
-| en     | 200  | en-IN | Credit Cards | Loans |
-| hi     | 200  | hi-IN | क्रेडिट कार्ड | लोन |
-| bn     | 200  | bn-IN | ক্রেডিট কার্ড | লোন |
-| mr     | 200  | mr-IN | क्रेडिट कार्ड | कर्ज |
-| ta     | 200  | ta-IN | கிரெடிட் கார்டுகள் | கடன்கள் |
-| te     | 200  | te-IN | క్రెడిట్ కార్డులు | లోన్లు |
-| gu     | 200  | gu-IN | Credit Cards | Loans (English fallback) |
-| kn     | 200  | kn-IN | Credit Cards | Loans (English fallback) |
+### Phase 2 verification (preview gate, port 3001)
 
-Click test: clicking "लोन" from `/hi/credit-cards` navigated to
-`/hi/loans` (NOT `/loans`) — internal-links audit verified working.
+| Locale | HTTP | `<html lang>` | canonical | "Credit Cards" | "Loans" |
+| ------ | ---- | --- | --- | --- | --- |
+| en     | 200  | en-IN | …/credit-cards | Credit Cards | Loans |
+| hi     | 200  | hi-IN | …/hi/credit-cards | क्रेडिट कार्ड | लोन |
+| bn     | 200  | bn-IN | …/bn/credit-cards | ক্রেডিট কার্ড | লোন |
+| mr     | 200  | mr-IN | …/mr/credit-cards | क्रेडिट कार्ड | कर्ज |
+| ta     | 200  | ta-IN | …/ta/credit-cards | கிரெடிட் கார்டுகள் | கடன்கள் |
+| te     | 200  | te-IN | …/te/credit-cards | క్రెడిట్ కార్డులు | లోన్లు |
+| gu     | 200  | gu-IN | …/gu/credit-cards | ક્રેડિટ કાર્ડ | લોન |
+| kn     | 200  | kn-IN | …/kn/credit-cards | ಕ್ರೆಡಿಟ್ ಕಾರ್ಡ್ | ಸಾಲ |
 
-`npx tsc --noEmit --skipLibCheck` — clean.
+`(English)` fallback hint count on the picker = 0. Click "लोन" from
+`/hi/credit-cards` → `/hi/loans` (NOT `/loans`). `npx tsc --noEmit
+--skipLibCheck` clean.
 
 ---
 
 ## What's NOT done (next-session pick-up)
 
-### Phase 2b — i18n loose ends
+### Phase 3 — Content layer translation (largest remaining)
 
-**Files still needed:**
-- `lib/i18n/strings/gu.ts` (Gujarati) — AI-drafted with `// TODO:
-  needs native-speaker review` markers. Same key shape as `en.ts`.
-- `lib/i18n/strings/kn.ts` (Kannada) — same pattern.
-- After they ship: remove `gu` + `kn` from `FALLBACK_LOCALES` in
-  `components/common/LanguageSwitcher.tsx` so the `(English)` hint
-  drops off.
+These require DB schema changes + AI translation passes + editorial
+review per locale. Roughly 1,600+ rows × 7 locales = ~11k entries to
+translate. The translation runs are AI-generated; the schema +
+runtime accessors ship per-locale and can roll out one language at a
+time.
 
-**Self-referencing canonicals (flagged in commit `a14c0b6d`):**
-- 7 hub `metadata` blocks (`app/{credit-cards,loans,banking,investing,
-  insurance,taxes,learn}/page.tsx`) currently hard-code their canonical
-  to the English root path. Each `/hi/credit-cards` etc. emits the
-  same canonical, which is fine for hreflang dedupe but suboptimal.
-  Convert each block from static `metadata` to async
-  `generateMetadata()` reading `getServerLocale()` so each variant
-  self-canonicals. Mechanical, ~7 files.
+- **Phase 3a — Glossary bilingual entries.** Add `definition_<locale>`
+  columns (or a `glossary_translations` join table) to
+  `glossary_terms`. AI-translate 101 × 7 = 707 entries. Editorial
+  review per locale.
 
-**Optional translation-quality polish (low urgency):**
-- Add row to `docs/MANUAL_ACTIONS_TRACKER.md` tracking which locale
-  strings are still AI-drafted (currently hi/bn/mr/ta/te all need
-  native-speaker review; gu+kn need first-pass + review).
-- Expand `en.ts` with column-title keys ("Banking & Savings", "Taxes
-  & Insurance", "Learn & About") + section subheads ("By Category",
-  "By Issuer", "Tools") so Footer column structure can be fully
-  localised.
-- Add `cta.tryItFree`, `mega.featuredTool`, `mega.viewAll`,
-  `mega.methodologyDisclosed` keys for MegaMenu chrome that's still
-  English.
+- **Phase 3b — FAQs in 7 locales.** Add `locale` column to
+  `category_faqs`, plus `(question_id, locale)` unique index. AI-
+  translate 54 × 7 = 378 entries.
 
-### Phase 3+ (deferred)
+- **Phase 3c — Calculator labels.** Add `locale` column to
+  `calculators`. AI-translate 74 × 7 = 518 entries.
 
-- **Phase 3a** — Glossary bilingual entries: add `definition_<locale>`
-  columns to `glossary_terms`, AI-translate 101 × 7 = 707 entries,
-  editorial review per language
-- **Phase 3b** — FAQs in 7 locales: add `locale` column to
-  `category_faqs`, AI-translate 54 × 7 = 378 entries
-- **Phase 3c** — Calculator labels: add `locale` column to
-  `calculators`, AI-translate 74 × 7 = 518 entries
-- **Phase 4** — Article body content (tiered):
-  - Hindi: full 100 pillar articles via existing
-    `scripts/auto-generate-batch.ts` with Hindi prompts
-  - bn/mr/te/ta/gu/kn: top 25–50 pillar articles each
-  - Long-tail articles stay English (hreflang routes to English)
+- **Phase 3d — Editorial hub copy.** `editorial_hubs` table is
+  currently English-only. Either add `locale` column or embed a
+  `body_translations: jsonb` field. ~96 rows × 7 locales.
+
+### Phase 4 — Article body content (tiered)
+
+Largest by volume but lowest urgency since hreflang already routes
+non-localised long-tail articles back to English.
+- Hindi: full 100 pillar articles via existing `scripts/auto-generate-
+  batch.ts` with Hindi prompts.
+- bn / mr / te / ta / gu / kn: top 25–50 pillar articles each.
+- Long-tail articles stay English — hreflang covers it.
+
+### Optional polish (Phase 2c)
+
+Low urgency, small footprint:
+- Expand `en.ts` with footer column titles ("Banking & Savings",
+  "Taxes & Insurance", "Learn & About") + section subheads ("By
+  Category", "By Issuer", "Tools") + MegaMenu chrome ("Featured
+  Tool", "Try it free", "View all", "Methodology disclosed"). Add
+  to all 7 regional files.
+- Localise the breadcrumb JSON-LD (currently emits English root URLs
+  even on `/hi/*`). Acceptable per principle 11 above, but if you
+  want each locale's breadcrumb to self-link, the page Server
+  Components have access to `getServerLocale()` already.
+- Add desktop-side `LanguageSwitcher` (`isMobile=false`) to the
+  hidden-on-mobile slot — currently only the mobile drawer shows it
+  on small screens; desktop has it via Navbar.
 
 ---
 
@@ -165,45 +165,61 @@ Paste after `/clear`:
 ```
 Read docs/SESSION_HANDOFF.md first.
 
-Continue with i18n Phase 2b loose ends. Steps in order:
+Continue with i18n Phase 3a (glossary bilingual entries — first slice
+of the content-translation layer).
 
-  1. Create lib/i18n/strings/gu.ts (Gujarati) and kn.ts (Kannada).
-     Mirror the key shape of en.ts — `Partial<Record<StringKey,
-     string>>`. AI-draft per-key, mark each file header with
-     "needs native-speaker review". Match the abbreviations rule
-     (SIP/FD/EMI/etc. stay English in Devanagari/regional script
-     sentence flow — see hi.ts for the pattern).
+Steps in order:
 
-  2. Once shipped, remove "gu" and "kn" from FALLBACK_LOCALES in
-     components/common/LanguageSwitcher.tsx — the picker drops the
-     "(English)" suffix automatically.
+  1. Inspect the current glossary_terms table shape via Supabase MCP
+     (project ref txwxmbmbqltefwvilsii). Confirm: `slug`, `term`,
+     `definition`, `category`, `created_at` (or similar). Decide
+     between adding `definition_<locale>` columns vs. a separate
+     `glossary_translations(term_id, locale, term, definition)`
+     join table. Recommend the join table — cleaner for adding
+     locales later.
 
-  3. Optional: convert the 7 hub `metadata` blocks from static
-     to async `generateMetadata()` reading `getServerLocale()`,
-     so each locale variant self-canonicals (currently they all
-     canonical to the English root, flagged in commit a14c0b6d).
-     Files: app/{credit-cards,loans,banking,investing,insurance,
-     taxes,learn}/page.tsx.
+  2. Create the migration via Supabase MCP. Apply locally + push to
+     production via `mcp__supabase-alt__apply_migration`.
 
-  4. Optional: expand en.ts with footer column titles + sub-section
-     keys + MegaMenu chrome keys. Re-translate across the 5 active
-     regional files. Wire into Footer + MegaMenu.
+  3. Build `lib/content/glossary-i18n.ts` — `getGlossaryTerm(slug,
+     locale)` accessor that reads the locale's row, falls back to
+     English if missing. Mirror the FAQ/editorial-hubs accessor
+     pattern (`lib/content/faqs.ts`, `lib/content/editorial-hubs.ts`).
 
-  5. Add a row to docs/MANUAL_ACTIONS_TRACKER.md tracking the AI-
-     drafted strings files that need native-speaker review.
+  4. Wire the glossary detail page (`app/glossary/[slug]/page.tsx`)
+     to use the locale-aware accessor. Same for `/glossary` index.
+
+  5. Run AI translation for hi (Hindi) only as a first-locale proof:
+     - Read all 101 entries.
+     - Translate via Gemini → Groq → Mistral → OpenAI failover
+       (existing `lib/ai-service.ts` chain).
+     - Insert into `glossary_translations` with `locale='hi'`.
+     - Add `// TODO: native review` audit log entry.
+     Defer bn/mr/te/ta/gu/kn translation runs to follow-up sessions
+     so the editorial team can review hi first before the others
+     ship.
 
 Verification gate (mandatory before commit):
   - npx tsc --noEmit --skipLibCheck    must be clean
   - Claude_Preview snapshot:
-      /gu/credit-cards — nav reads Gujarati ("ક્રેડિટ કાર્ડ")
-      /kn/credit-cards — nav reads Kannada ("ಕ್ರೆಡಿಟ್ ಕಾರ್ಡ್")
-      LanguageSwitcher — gu + kn no longer show (English)
-  - Click test still works: /hi/credit-cards → "लोन" → /hi/loans
+      /glossary               — index reads English
+      /glossary/sip           — definition reads English
+      /hi/glossary/sip        — definition reads Hindi (with
+                                 fallback to English if a key is
+                                 missing in the translated row)
+  - Supabase RLS still enforced on the new translations table
+    (read public, write service-role only)
 
-Branch: claude/vibrant-lovelace-875415 (head <will be updated after
-                                          this commit, fully pushed).
+Phase 3a stops at hi — bn/mr/te/ta/gu/kn translation runs are
+follow-up sessions. Phase 3b (FAQs) and 3c (calc labels) follow the
+same pattern.
+
+Branch: claude/vibrant-lovelace-875415 (head will be updated after
+                                         this commit, fully pushed).
 Worktree: .claude/worktrees/vibrant-lovelace-875415.
 Use Claude_Preview MCP for the verification gate, not curl.
+Use the supabase-alt MCP, not the primary supabase MCP (the primary
+sees the inactive Conduit project).
 ```
 
 ---
@@ -216,34 +232,38 @@ lib/i18n/
 ├── url.ts             — localizedPath, stripLocale, hreflangAlternates
 ├── server.ts          — getServerLocale, getServerBasePath
 ├── abbreviations.ts   — ~120 preserved English terms
-├── t.ts               — getServerT, loadDictionary, lookup (Phase 2a)
-├── client.tsx         — LocaleProvider, useT, useLocale (Phase 2a)
-├── format.ts          — formatCurrency/Number/Percent/Date/Relative (Phase 2a)
-└── strings/
-    ├── en.ts          — 60+ source-of-truth keys (SHIPPED)
-    ├── hi.ts          — Hindi (SHIPPED, AI-drafted, needs review)
-    ├── bn.ts          — Bengali (SHIPPED, AI-drafted, needs review)
-    ├── mr.ts          — Marathi (SHIPPED, AI-drafted, needs review)
-    ├── ta.ts          — Tamil (SHIPPED, AI-drafted, needs review)
-    ├── te.ts          — Telugu (SHIPPED, AI-drafted, needs review)
-    ├── gu.ts          — TODO (Phase 2b)
-    └── kn.ts          — TODO (Phase 2b)
+├── t.ts               — getServerT, loadDictionary, lookup
+├── client.tsx         — LocaleProvider, useT, useLocale
+├── format.ts          — formatCurrency/Number/Percent/Date/Relative
+└── strings/           — all 8 locales SHIPPED
+    ├── en.ts          — source-of-truth (60+ keys)
+    ├── hi.ts          — Hindi (AI-drafted, needs review)
+    ├── bn.ts          — Bengali (AI-drafted, needs review)
+    ├── mr.ts          — Marathi (AI-drafted, needs review)
+    ├── ta.ts          — Tamil (AI-drafted, needs review)
+    ├── te.ts          — Telugu (AI-drafted, needs review)
+    ├── gu.ts          — Gujarati (AI-drafted, needs review)
+    └── kn.ts          — Kannada (AI-drafted, needs review)
 
 middleware.ts          — locale rewrites + x-locale header
 app/layout.tsx         — dynamic <html lang> + LocaleProvider wrap
+app/{credit-cards,loans,banking,investing,insurance,taxes,learn}/page.tsx
+                       — async generateMetadata() with per-locale
+                         self-canonical
 components/common/
-└── LanguageSwitcher.tsx — router-aware switcher with gu/kn fallback hint
+└── LanguageSwitcher.tsx — router-aware switcher, no fallback hints
 components/v2/layout/
 ├── Navbar.tsx         — t() chrome + localizedPath hrefs
-├── MegaMenu.tsx       — t() top-level + localizedPath hrefs + canonical
+├── MegaMenu.tsx       — t() top-level + localizedPath + canonical
 │                        path active-state
 └── MobileNav.tsx      — t() + localizedPath
 components/layout/
 └── Footer.tsx         — localizedPath hrefs + t() legal links
 
-All 7 hub pages — alternates.languages wired via hreflangAlternates()
 brainstorm.md §1     — design tokens + zebra rule
-docs/MANUAL_ACTIONS_TRACKER.md — pending blocked items
+docs/MANUAL_ACTIONS_TRACKER.md — pending blocked items (incl. all
+                                 7 AI-drafted locale strings needing
+                                 native review)
 ```
 
 ---
@@ -255,9 +275,13 @@ docs/MANUAL_ACTIONS_TRACKER.md — pending blocked items
 - Open + merge this branch's PR
 
 🟡 SEO:
-- Submit sitemap.xml to GSC (Phase 4 — was unblocked when canonical
-  flipped earlier in this thread)
+- Submit sitemap.xml to GSC (now that Phase 2 self-canonical landed,
+  fully unblocked)
 - Submit sitemap to Bing
 - Apply for Google AdSense (228 articles qualify)
+
+🟡 Editorial:
+- Native-speaker review pass on all 7 regional locale strings files
+  (hi, bn, mr, ta, te, gu, kn)
 
 Full list: `docs/MANUAL_ACTIONS_TRACKER.md`
