@@ -36,23 +36,26 @@ interface RichProductCardProps {
   rawScore?: number;
 }
 
-export function RichProductCard({
-  product,
-  onCompare,
-}: RichProductCardProps) {
+export function RichProductCard({ product, onCompare }: RichProductCardProps) {
   const { addProduct, removeProduct, isSelected } = useCompare();
   const isCompareSelected = isSelected(product.id);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
-  // Normalise rating to 0-100 score for editorial display
-  const scoreNum = React.useMemo(() => {
-    if (typeof product.rating === "number") {
+  // Normalise rating to 0-100 score for editorial display.
+  // Returns null when no real rating exists — UI shows "—" instead of
+  // a fabricated 75/100. This is the no-fake-data principle.
+  const scoreNum = React.useMemo<number | null>(() => {
+    if (typeof product.rating === "number" && product.rating > 0) {
       return Math.round(product.rating * 20);
     }
-    if (typeof product.rating === "object" && product.rating?.overall) {
+    if (
+      typeof product.rating === "object" &&
+      product.rating?.overall &&
+      product.rating.overall > 0
+    ) {
       return Math.round(product.rating.overall * 20);
     }
-    return 75;
+    return null;
   }, [product.rating]);
 
   const handleCompareClick = (e: React.MouseEvent) => {
@@ -69,6 +72,34 @@ export function RichProductCard({
   const imageConfig = getCategoryImageConfig(
     (product.category || "mutual_fund") as ProductCategory,
   );
+
+  // Map product category → segment-specific methodology page slug.
+  // Every product card links to the rubric used to score it (E-E-A-T).
+  // Cast through string because some product categories in the DB
+  // ("savings_account", "govt_scheme", "fixed_deposit") aren't members
+  // of the narrow ProductCategory image-config enum.
+  const methodologyPath = React.useMemo<string>(() => {
+    const cat = String(product.category || "");
+    switch (cat) {
+      case "credit_card":
+        return "/methodology/credit-cards";
+      case "loan":
+        return "/methodology/loans";
+      case "mutual_fund":
+        return "/methodology/mutual-funds";
+      case "insurance":
+        return "/methodology/insurance";
+      case "fixed_deposit":
+      case "savings_account":
+      case "govt_scheme":
+        return "/methodology/banking";
+      case "demat_account":
+      case "broker":
+        return "/methodology/brokers";
+      default:
+        return "/methodology";
+    }
+  }, [product.category]);
 
   // Key features: first 4 in the data strip, rest in accordion
   const topFeatures = product.key_features?.slice(0, 4) || [];
@@ -183,16 +214,21 @@ export function RichProductCard({
           )}
         </div>
 
-        {/* Score badge — square, ink border, mono */}
+        {/* Score badge — square, ink border, mono. Renders "—" when no
+            real rating is available rather than a fabricated number. */}
         <div className="flex lg:flex-col items-center lg:items-end gap-4 lg:gap-3 shrink-0">
-          <div className="w-16 h-16 border-2 border-ink bg-canvas flex flex-col items-center justify-center">
+          <Link
+            href={methodologyPath}
+            className="w-16 h-16 border-2 border-ink bg-canvas flex flex-col items-center justify-center hover:bg-ink/5 transition-colors group"
+            title="See how we calculate this score"
+          >
             <span className="font-mono text-[24px] font-bold text-ink leading-none tabular-nums">
-              {scoreNum}
+              {scoreNum ?? "—"}
             </span>
-            <span className="font-mono text-[9px] uppercase tracking-wider text-ink-60 mt-0.5">
-              /100
+            <span className="font-mono text-[9px] uppercase tracking-wider text-ink-60 mt-0.5 group-hover:text-indian-gold transition-colors">
+              {scoreNum != null ? "/100" : "n/a"}
             </span>
-          </div>
+          </Link>
 
           <div className="lg:w-36 flex flex-col gap-2">
             <ApplyNowCTA
@@ -238,8 +274,12 @@ export function RichProductCard({
               className={cn(
                 "px-4 py-3",
                 i < topFeatures.length - 1 && "sm:border-r border-ink/10",
-                i < 2 && topFeatures.length > 2 && "border-b sm:border-b-0 border-ink/10",
-                i % 2 === 1 && i < topFeatures.length - 1 && "border-r-0 sm:border-r",
+                i < 2 &&
+                  topFeatures.length > 2 &&
+                  "border-b sm:border-b-0 border-ink/10",
+                i % 2 === 1 &&
+                  i < topFeatures.length - 1 &&
+                  "border-r-0 sm:border-r",
               )}
             >
               <div className="font-mono text-[10px] uppercase tracking-wider text-ink-60 mb-0.5">
@@ -270,10 +310,11 @@ export function RichProductCard({
               Read full review &rarr;
             </Link>
             <Link
-              href="/about/methodology"
+              href={methodologyPath}
               className="font-mono text-[11px] uppercase tracking-wider text-indian-gold hover:underline"
+              title="See the per-segment scoring rubric we used to rate this product"
             >
-              Methodology disclosed &rarr;
+              How we score this &rarr;
             </Link>
           </div>
         </div>

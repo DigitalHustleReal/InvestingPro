@@ -55,12 +55,12 @@ function transformProduct(product: any, category: string) {
   // Extract affiliate link
   const hasAffiliateLink = !!(product.affiliate_link || product.apply_link);
 
-  // Mock analytics data (in production, fetch from analytics_events table)
-  const views = Math.floor(Math.random() * 5000) + 100;
-  const clicks = Math.floor(Math.random() * 500) + 10;
-  const affiliateIncome = hasAffiliateLink
-    ? Math.floor(Math.random() * 5000) + 100
-    : 0;
+  // Real analytics not yet wired (analytics_events table currently
+  // orphan-writer-pending per 2026-04-26 audit). Return zeros instead
+  // of Math.random() fake values — admin dashboard renders empty-state.
+  const views = 0;
+  const clicks = 0;
+  const affiliateIncome = 0;
 
   return {
     id: product.id,

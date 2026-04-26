@@ -102,25 +102,27 @@ export default function AdminDashboardPage() {
     },
     refetchInterval: 60000,
   });
-  // Sample sparkline data
+  // Empty sparkline + velocity series until real analytics pipe is
+  // wired (analytics_events writer is currently orphan per
+  // 2026-04-26 audit). Was Math.random()-style fake data; removed.
   const sparklineData = [
-    { value: 400 },
-    { value: 300 },
-    { value: 500 },
-    { value: 450 },
-    { value: 600 },
-    { value: 550 },
-    { value: 700 },
+    { value: 0 },
+    { value: 0 },
+    { value: 0 },
+    { value: 0 },
+    { value: 0 },
+    { value: 0 },
+    { value: 0 },
   ];
 
   const velocityData = [
-    { name: "Mon", views: 2400, articles: 2 },
-    { name: "Tue", views: 1398, articles: 4 },
-    { name: "Wed", views: 9800, articles: 6 },
-    { name: "Thu", views: 3908, articles: 3 },
-    { name: "Fri", views: 4800, articles: 8 },
-    { name: "Sat", views: 3800, articles: 5 },
-    { name: "Sun", views: 4300, articles: 7 },
+    { name: "Mon", views: 0, articles: 0 },
+    { name: "Tue", views: 0, articles: 0 },
+    { name: "Wed", views: 0, articles: 0 },
+    { name: "Thu", views: 0, articles: 0 },
+    { name: "Fri", views: 0, articles: 0 },
+    { name: "Sat", views: 0, articles: 0 },
+    { name: "Sun", views: 0, articles: 0 },
   ];
 
   return (
@@ -255,8 +257,8 @@ export default function AdminDashboardPage() {
               />
               <MetricBentoCard
                 label="Est. Revenue"
-                value="₹2,450"
-                subtext="Daily Affiliate Income"
+                value="—"
+                subtext="Daily Affiliate (live data wiring pending)"
                 icon={DollarSign}
                 variant="rose"
                 data={sparklineData}
