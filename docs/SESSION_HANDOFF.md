@@ -1,4 +1,4 @@
-# Session Handoff — 2026-04-26 (i18n Phase 2 complete — chrome layer fully shipped)
+# Session Handoff — 2026-04-26 (i18n Phase 3a infra shipped — content-layer rails live)
 
 > **Read this first.** Everything else is reachable from the pointers below.
 
@@ -6,9 +6,9 @@
 
 ## TL;DR
 
-Branch `claude/vibrant-lovelace-875415` — **46 commits**, fully pushed.
+Branch `claude/vibrant-lovelace-875415` — **47 commits**, fully pushed.
 
-Three workstreams from this thread of sessions:
+Four workstreams from this thread of sessions:
 
 1. **Priority-0 redesign sweep — DONE.** All 7 v3 URL-category hubs
    rebuilt + aligned to locked principles.
@@ -17,9 +17,15 @@ Three workstreams from this thread of sessions:
    tags on every hub, LanguageSwitcher router-aware.
 3. **i18n Phase 2 — DONE.** Server `t()` + client `useT()` shipped,
    chrome wired across all 4 nav surfaces (Navbar/MegaMenu/Footer/
-   MobileNav), all 8 locales have strings shipped (gu+kn drafted in
-   2b), and every hub now self-canonicals per locale via async
-   `generateMetadata()`.
+   MobileNav), all 8 locales have strings shipped, every hub self-
+   canonicals per locale via async `generateMetadata()`.
+4. **i18n Phase 3a infrastructure — DONE.** `glossary_translations`
+   table live in production, `lib/content/glossary-i18n.ts` accessor
+   with per-field English fallback, `/glossary` index + `/glossary/
+   [slug]` detail both wired (locale-aware data, hreflang, self-
+   canonical). Hindi AI translation run **deferred** until the
+   2026-05-10 chrome-review nudge closes feedback so the next 700+
+   entries inherit any tone-correction lessons.
 
 PR: https://github.com/DigitalHustleReal/InvestingPro/pull/new/claude/vibrant-lovelace-875415
 
@@ -105,20 +111,87 @@ PR: https://github.com/DigitalHustleReal/InvestingPro/pull/new/claude/vibrant-lo
 
 ---
 
+### Phase 3a glossary infrastructure (this commit)
+
+- Migration `create_glossary_translations` applied to production
+  Supabase (project ref `txwxmbmbqltefwvilsii`). Schema:
+    glossary_translations (term_id, locale, term, definition,
+      detailed_explanation, example_numeric, example_text,
+      why_it_matters, how_to_use, common_mistakes, full_form,
+      pronunciation, seo_title, seo_description, ai_generated,
+      ai_model, reviewed_by, reviewed_at, needs_review, ...).
+    UNIQUE(term_id, locale). RLS: public read; writes via
+    service-role only.
+- `lib/content/glossary-i18n.ts` — three React.cache-wrapped
+  accessors: `getGlossaryTerm(slug, locale)`,
+  `getRelatedTermCards(slugs, locale)`, `getGlossaryIndex(locale)`.
+  Each does one English fetch + one locale fetch (skipped when
+  locale === 'en'), merges per-field with `compactTranslation()`
+  so NULL / empty values fall back to English.
+- `app/glossary/[slug]/page.tsx` — fully migrated off the inline
+  Supabase fetch onto `getGlossaryTerm(slug, locale)`. canonical +
+  hreflang.alternates wired. All breadcrumbs, sidebar links, related-
+  term + related-calculator + related-guide hrefs run through
+  `localizedPath()`.
+- `app/glossary/page.tsx` — converted from sync to async server
+  component. Reads locale, server-fetches via
+  `getGlossaryIndex(locale)`, passes `initialTerms` + `locale` to
+  `GlossaryClient`. Emits self-canonical + hreflang.
+- `app/glossary/GlossaryClient.tsx` — accepts `initialTerms` +
+  `locale` props. When SSR provides initial data, the legacy
+  `api.entities.Glossary.list()` fetch is skipped (kept as
+  defensive fallback). Term-card link hrefs wrapped in
+  `localizedPath()`.
+
+### Phase 3a verification (preview, port 3001)
+
+| URL                                          | HTTP | htmlLang | canonical                                               | hreflang | Notes |
+| -------------------------------------------- | ---- | -------- | ------------------------------------------------------- | -------- | --- |
+| /glossary                                    | 200  | en-IN    | /glossary                                               | 9        | Self-canonical |
+| /hi/glossary                                 | 200  | hi-IN    | /hi/glossary                                            | 9        | Self-canonical |
+| /glossary/sip-systematic-investment-plan     | 200  | en-IN    | /glossary/sip-systematic-investment-plan                | 9        | English content |
+| /hi/glossary/sip-systematic-investment-plan  | 200  | hi-IN    | /hi/glossary/sip-systematic-investment-plan             | 9        | English fallback (no translations data yet) |
+
+**Smoke test of the per-field merge** — inserted a single dummy
+Hindi `definition` row for `sip-systematic-investment-plan` and
+fetched `/hi/glossary/sip-...`: the page rendered the Hindi
+definition, while the English page kept English. Test row deleted
+after confirmation. Runtime + DB + accessor + RSC pipeline all
+proven end-to-end.
+
+`npx tsc --noEmit --skipLibCheck` — clean.
+
+---
+
 ## What's NOT done (next-session pick-up)
 
-### Phase 3 — Content layer translation (largest remaining)
+### Phase 3a Hindi translation run (deferred until 2026-05-10)
 
-These require DB schema changes + AI translation passes + editorial
-review per locale. Roughly 1,600+ rows × 7 locales = ~11k entries to
-translate. The translation runs are AI-generated; the schema +
-runtime accessors ship per-locale and can roll out one language at a
-time.
+The infrastructure ships ready for translations to be loaded at
+any time. The actual Hindi translation pass is **deliberately
+deferred** until the chrome-strings native review nudge fires
+(2026-05-10, routine `trig_017GTDe6rgHY3WJqMueXAHXo`) so the next
+700+ entries inherit any tone-correction lessons from the chrome
+review. After that:
 
-- **Phase 3a — Glossary bilingual entries.** Add `definition_<locale>`
-  columns (or a `glossary_translations` join table) to
-  `glossary_terms`. AI-translate 101 × 7 = 707 entries. Editorial
-  review per locale.
+- Read all 101 published `glossary_terms` rows.
+- For each, AI-draft Hindi translations of the 12 translatable
+  fields (term may stay English in Devanagari sentence flow per
+  the abbreviations rule — see `lib/i18n/abbreviations.ts`).
+- Insert into `glossary_translations` with
+  `locale='hi'`, `ai_generated=true`, `ai_model=<used>`,
+  `needs_review=true`.
+- Use the failover chain in `lib/ai-service.ts`
+  (Gemini → Groq → Mistral → OpenAI).
+- Add a tracker row in `docs/MANUAL_ACTIONS_TRACKER.md` for
+  editorial review of the Hindi pass before bn/mr/te/ta/gu/kn
+  runs.
+
+### Phase 3 — Remaining content layer
+
+These follow the same pattern as 3a (table + accessor + page wiring,
+then per-locale AI translation passes deferred until review feedback
+closes):
 
 - **Phase 3b — FAQs in 7 locales.** Add `locale` column to
   `category_faqs`, plus `(question_id, locale)` unique index. AI-
@@ -165,57 +238,49 @@ Paste after `/clear`:
 ```
 Read docs/SESSION_HANDOFF.md first.
 
-Continue with i18n Phase 3a (glossary bilingual entries — first slice
-of the content-translation layer).
+Hold on Phase 3a Hindi translation run — wait for the 2026-05-10
+chrome-strings review nudge (trig_017GTDe6rgHY3WJqMueXAHXo) to
+fire and resolve before piling 700+ more AI-drafted entries on the
+same reviewers. The infrastructure is shipped and waiting; nothing
+else is blocked.
 
-Steps in order:
+Two productive paths to pick up in the meantime:
 
-  1. Inspect the current glossary_terms table shape via Supabase MCP
-     (project ref txwxmbmbqltefwvilsii). Confirm: `slug`, `term`,
-     `definition`, `category`, `created_at` (or similar). Decide
-     between adding `definition_<locale>` columns vs. a separate
-     `glossary_translations(term_id, locale, term, definition)`
-     join table. Recommend the join table — cleaner for adding
-     locales later.
+OPTION A — Phase 3b (FAQs in 7 locales infrastructure)
+  Mirror the Phase 3a pattern for `category_faqs`:
+    1. Migration: `category_faqs_translations(faq_id, locale,
+       question, answer, ai_generated, ai_model, needs_review,
+       created_at, updated_at)` with UNIQUE(faq_id, locale).
+       RLS: public read, service-role write.
+    2. `lib/content/faqs.ts` — extend `getFAQsForCategory` to
+       accept a `locale` param and merge per-row translations
+       (English fallback, same shape as glossary-i18n).
+    3. CategoryFAQ component — already locale-aware via
+       `getServerLocale()` upstream. Pass the locale through.
+    4. Verification: tsc clean + Claude_Preview snapshot of
+       /credit-cards (FAQ block in English) and /hi/credit-cards
+       (FAQ block falls back to English until the translations
+       table fills).
 
-  2. Create the migration via Supabase MCP. Apply locally + push to
-     production via `mcp__supabase-alt__apply_migration`.
+OPTION B — Phase 3c (Calculator labels in 7 locales infrastructure)
+  Same pattern. `calculators_translations(calculator_id, locale,
+  name, description, ...)`. Calculator hub + detail pages read
+  the locale-aware accessor.
 
-  3. Build `lib/content/glossary-i18n.ts` — `getGlossaryTerm(slug,
-     locale)` accessor that reads the locale's row, falls back to
-     English if missing. Mirror the FAQ/editorial-hubs accessor
-     pattern (`lib/content/faqs.ts`, `lib/content/editorial-hubs.ts`).
+Both options build the rails without adding to the editorial review
+queue. Pick A first — FAQs are surfaced on every hub, higher SEO
+multiplier than calculator labels.
 
-  4. Wire the glossary detail page (`app/glossary/[slug]/page.tsx`)
-     to use the locale-aware accessor. Same for `/glossary` index.
+Verification gate (mandatory before commit, both options):
+  - npx tsc --noEmit --skipLibCheck    clean
+  - Claude_Preview snapshot of one English path + one /hi/* path
+  - Smoke-test the runtime merge by inserting a single dummy row
+    in the new translations table, fetching the /hi/* page,
+    confirming the Hindi text shows, then deleting the row before
+    commit (proven pattern from Phase 3a).
 
-  5. Run AI translation for hi (Hindi) only as a first-locale proof:
-     - Read all 101 entries.
-     - Translate via Gemini → Groq → Mistral → OpenAI failover
-       (existing `lib/ai-service.ts` chain).
-     - Insert into `glossary_translations` with `locale='hi'`.
-     - Add `// TODO: native review` audit log entry.
-     Defer bn/mr/te/ta/gu/kn translation runs to follow-up sessions
-     so the editorial team can review hi first before the others
-     ship.
-
-Verification gate (mandatory before commit):
-  - npx tsc --noEmit --skipLibCheck    must be clean
-  - Claude_Preview snapshot:
-      /glossary               — index reads English
-      /glossary/sip           — definition reads English
-      /hi/glossary/sip        — definition reads Hindi (with
-                                 fallback to English if a key is
-                                 missing in the translated row)
-  - Supabase RLS still enforced on the new translations table
-    (read public, write service-role only)
-
-Phase 3a stops at hi — bn/mr/te/ta/gu/kn translation runs are
-follow-up sessions. Phase 3b (FAQs) and 3c (calc labels) follow the
-same pattern.
-
-Branch: claude/vibrant-lovelace-875415 (head will be updated after
-                                         this commit, fully pushed).
+Branch: claude/vibrant-lovelace-875415 (head updated after this
+                                         commit, fully pushed).
 Worktree: .claude/worktrees/vibrant-lovelace-875415.
 Use Claude_Preview MCP for the verification gate, not curl.
 Use the supabase-alt MCP, not the primary supabase MCP (the primary
@@ -250,6 +315,11 @@ app/layout.tsx         — dynamic <html lang> + LocaleProvider wrap
 app/{credit-cards,loans,banking,investing,insurance,taxes,learn}/page.tsx
                        — async generateMetadata() with per-locale
                          self-canonical
+app/glossary/page.tsx          — async server component, locale-aware
+                                  initial terms via getGlossaryIndex
+app/glossary/[slug]/page.tsx   — getGlossaryTerm(slug, locale) +
+                                  hreflang + localized links
+app/glossary/GlossaryClient.tsx — accepts initialTerms + locale props
 components/common/
 └── LanguageSwitcher.tsx — router-aware switcher, no fallback hints
 components/v2/layout/
@@ -259,6 +329,17 @@ components/v2/layout/
 └── MobileNav.tsx      — t() + localizedPath
 components/layout/
 └── Footer.tsx         — localizedPath hrefs + t() legal links
+
+lib/content/
+├── glossary-i18n.ts   — getGlossaryTerm/Index/RelatedTermCards with
+│                        per-field English fallback (Phase 3a)
+├── faqs.ts            — DB-first FAQ accessor (English-only today;
+│                        Phase 3b adds locale)
+└── editorial-hubs.ts  — DB-first hub copy (English-only today)
+
+supabase migration: create_glossary_translations
+                       — applied to production project
+                         (txwxmbmbqltefwvilsii)
 
 brainstorm.md §1     — design tokens + zebra rule
 docs/MANUAL_ACTIONS_TRACKER.md — pending blocked items (incl. all

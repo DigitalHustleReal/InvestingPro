@@ -12,7 +12,6 @@
  * .article-prose for narrative).
  */
 
-import { cache } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -22,63 +21,15 @@ import { generateCanonicalUrl } from "@/lib/linking/canonical";
 import { getDeskForCategory } from "@/lib/data/team";
 import { deskOrganizationSchema } from "@/lib/content/desk-schema";
 import { DeskByline } from "@/components/articles/DeskByline";
+import {
+  getGlossaryTerm,
+  getRelatedTermCards,
+} from "@/lib/content/glossary-i18n";
+import { getServerLocale } from "@/lib/i18n/server";
+import { localizedPath, hreflangAlternates } from "@/lib/i18n/url";
 
 export const revalidate = 3600; // 1 hour
 export const dynamicParams = true;
-
-type GlossaryTerm = {
-  id: string;
-  term: string;
-  slug: string;
-  category: string;
-  definition: string;
-  detailed_explanation?: string | null;
-  why_it_matters?: string | null;
-  example_numeric?: string | null;
-  example_text?: string | null;
-  how_to_use?: string | null;
-  common_mistakes?: string[] | null;
-  related_terms?: string[] | null;
-  related_calculators?: string[] | null;
-  related_guides?: string[] | null;
-  sources?: Array<{ title?: string; url?: string; publisher?: string }> | null;
-  full_form?: string | null;
-  pronunciation?: string | null;
-  seo_title?: string | null;
-  seo_description?: string | null;
-  updated_at?: string | null;
-  published_at?: string | null;
-  reviewer_label?: string | null;
-};
-
-// React.cache dedupes this fetch across generateMetadata + default render
-// within the same request (server-cache-react, HIGH priority).
-const getTerm = cache(async (slug: string): Promise<GlossaryTerm | null> => {
-  const supabase = createServiceClient();
-  const { data } = await supabase
-    .from("glossary_terms")
-    .select("*")
-    .eq("slug", slug)
-    .eq("status", "published")
-    .single();
-  return (data as GlossaryTerm) ?? null;
-});
-
-async function getRelatedTermDetails(
-  slugs: string[],
-): Promise<Array<{ slug: string; term: string; definition: string }>> {
-  if (!slugs?.length) return [];
-  const supabase = createServiceClient();
-  const { data } = await supabase
-    .from("glossary_terms")
-    .select("slug, term, definition")
-    .in("slug", slugs)
-    .eq("status", "published")
-    .limit(6);
-  return (
-    (data as Array<{ slug: string; term: string; definition: string }>) ?? []
-  );
-}
 
 export async function generateStaticParams() {
   try {
@@ -101,10 +52,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const term = await getTerm(slug);
+  const locale = await getServerLocale();
+  const term = await getGlossaryTerm(slug, locale);
   if (!term) return { title: "Term Not Found" };
 
-  const canonical = generateCanonicalUrl(`/glossary/${term.slug}`);
+  const basePath = `/glossary/${term.slug}`;
+  const canonical = generateCanonicalUrl(localizedPath(basePath, locale));
   const title = (
     term.seo_title || `${term.term} — Meaning, Examples & How It Works`
   ).replace(/\s*\|\s*InvestingPro\s*$/i, "");
@@ -115,7 +68,10 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: hreflangAlternates(basePath),
+    },
     openGraph: {
       title,
       description,
@@ -145,15 +101,18 @@ export default async function GlossaryTermPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const term = await getTerm(slug);
+  const locale = await getServerLocale();
+  const term = await getGlossaryTerm(slug, locale);
   if (!term) notFound();
 
   const [related, relatedCalcDetails] = await Promise.all([
-    getRelatedTermDetails(term.related_terms ?? []),
+    getRelatedTermCards(term.related_terms ?? [], locale),
     Promise.resolve((term.related_calculators ?? []).slice(0, 4)),
   ]);
 
-  const canonical = generateCanonicalUrl(`/glossary/${term.slug}`);
+  const canonical = generateCanonicalUrl(
+    localizedPath(`/glossary/${term.slug}`, locale),
+  );
   const desk = getDeskForCategory(term.category);
   const deskSchema = deskOrganizationSchema(desk);
 
@@ -165,7 +124,7 @@ export default async function GlossaryTermPage({
     inDefinedTermSet: {
       "@type": "DefinedTermSet",
       name: "InvestingPro Financial Glossary",
-      url: generateCanonicalUrl("/glossary"),
+      url: generateCanonicalUrl(localizedPath("/glossary", locale)),
     },
     url: canonical,
     ...(term.updated_at && { dateModified: term.updated_at }),
@@ -179,13 +138,13 @@ export default async function GlossaryTermPage({
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: generateCanonicalUrl("/"),
+        item: generateCanonicalUrl(localizedPath("/", locale)),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Glossary",
-        item: generateCanonicalUrl("/glossary"),
+        item: generateCanonicalUrl(localizedPath("/glossary", locale)),
       },
       { "@type": "ListItem", position: 3, name: term.term, item: canonical },
     ],
@@ -214,7 +173,7 @@ export default async function GlossaryTermPage({
             <ol className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-canvas-70">
               <li>
                 <Link
-                  href="/"
+                  href={localizedPath("/", locale)}
                   className="hover:text-indian-gold transition-colors"
                   aria-label="Home"
                 >
@@ -224,7 +183,7 @@ export default async function GlossaryTermPage({
               <ChevronRight className="w-3 h-3 text-canvas-70" />
               <li>
                 <Link
-                  href="/glossary"
+                  href={localizedPath("/glossary", locale)}
                   className="hover:text-indian-gold transition-colors"
                 >
                   Glossary
@@ -424,7 +383,7 @@ export default async function GlossaryTermPage({
                   {related.map((r) => (
                     <li key={r.slug}>
                       <Link
-                        href={`/glossary/${r.slug}`}
+                        href={localizedPath(`/glossary/${r.slug}`, locale)}
                         className="block group"
                       >
                         <div className="font-display text-[16px] font-black text-ink group-hover:text-indian-gold transition-colors leading-tight">
@@ -450,7 +409,7 @@ export default async function GlossaryTermPage({
                   {relatedCalcDetails.map((calcSlug) => (
                     <li key={calcSlug}>
                       <Link
-                        href={`/calculators/${calcSlug}`}
+                        href={localizedPath(`/calculators/${calcSlug}`, locale)}
                         className="inline-flex items-center gap-2 text-[13px] text-ink hover:text-indian-gold transition-colors"
                       >
                         <span className="font-mono text-[10px] text-ink-60">
@@ -480,7 +439,7 @@ export default async function GlossaryTermPage({
                   {term.related_guides.slice(0, 5).map((guideSlug) => (
                     <li key={guideSlug}>
                       <Link
-                        href={`/articles/${guideSlug}`}
+                        href={localizedPath(`/articles/${guideSlug}`, locale)}
                         className="text-[13px] text-ink hover:text-indian-gold transition-colors leading-[1.4] block"
                       >
                         {guideSlug
@@ -497,7 +456,7 @@ export default async function GlossaryTermPage({
             {/* Back to glossary */}
             <div className="pt-4 border-t border-ink-12">
               <Link
-                href="/glossary"
+                href={localizedPath("/glossary", locale)}
                 className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-ink-60 hover:text-indian-gold transition-colors"
               >
                 ← All terms

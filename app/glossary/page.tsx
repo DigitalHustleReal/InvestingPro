@@ -3,27 +3,43 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, BookOpen } from "lucide-react";
 import GlossaryClient from "./GlossaryClient";
+import { generateCanonicalUrl } from "@/lib/linking/canonical";
+import { hreflangAlternates, localizedPath } from "@/lib/i18n/url";
+import { getServerLocale } from "@/lib/i18n/server";
+import { getGlossaryIndex } from "@/lib/content/glossary-i18n";
 
 export const revalidate = 86400;
 
-export const metadata: Metadata = {
-  title: "Financial Glossary — 200+ Terms Explained Simply",
-  description:
-    "Plain-English definitions for financial terms. SIP, NAV, CAGR, expense ratio, CIBIL score, 80C, NPS, ELSS — every term explained with examples.",
-  openGraph: {
-    title: "Financial Glossary — InvestingPro",
-    url: "https://investingpro.in/glossary",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const canonical = generateCanonicalUrl(localizedPath("/glossary", locale));
+  return {
+    title: "Financial Glossary — 200+ Terms Explained Simply",
+    description:
+      "Plain-English definitions for financial terms. SIP, NAV, CAGR, expense ratio, CIBIL score, 80C, NPS, ELSS — every term explained with examples.",
+    alternates: {
+      canonical,
+      languages: hreflangAlternates("/glossary"),
+    },
+    openGraph: {
+      title: "Financial Glossary — InvestingPro",
+      url: canonical,
+    },
+  };
+}
 
-export default function GlossaryPage() {
+export default async function GlossaryPage() {
+  const locale = await getServerLocale();
+  const initialTerms = await getGlossaryIndex(locale);
+  const canonical = generateCanonicalUrl(localizedPath("/glossary", locale));
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "DefinedTermSet",
     name: "InvestingPro Financial Glossary",
     description:
       "Plain-English definitions for 200+ financial terms relevant to Indian investors.",
-    url: "https://investingpro.in/glossary",
+    url: canonical,
   };
 
   return (
@@ -38,7 +54,7 @@ export default function GlossaryPage() {
             <ol className="flex items-center gap-1.5 text-[13px] text-gray-600 dark:text-gray-400">
               <li>
                 <Link
-                  href="/"
+                  href={localizedPath("/", locale)}
                   className="hover:text-green-600 transition-colors"
                 >
                   Home
@@ -61,7 +77,7 @@ export default function GlossaryPage() {
       </section>
       <section className="bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
-          <GlossaryClient />
+          <GlossaryClient initialTerms={initialTerms} locale={locale} />
         </div>
       </section>
     </>
