@@ -1,112 +1,164 @@
 /**
- * Stripe Webhook Handler
- * 
- * Handles Stripe events for subscription lifecycle
+ * Razorpay Webhook Handler.
+ * Replaced Stripe webhook 2026-04-26.
+ *
+ * Razorpay sends signed events for the subscription lifecycle. We
+ * authoritatively flip user_profiles.subscription_* state based on
+ * these events; the in-checkout payment handler is just a UX hint.
+ *
+ * Key event types handled:
+ *   - subscription.activated  → Pro flag ON, status = active
+ *   - subscription.charged    → renewal succeeded, extend period_end
+ *   - subscription.cancelled  → Pro flag OFF on cycle end
+ *   - subscription.halted     → mandate revoked / payment-method invalid
+ *   - subscription.completed  → fixed-tenure end, downgrade to free
+ *   - payment.failed          → log only (Razorpay retries automatically)
+ *
+ * Configure in Razorpay dashboard:
+ *   URL: https://investingpro.in/api/payments/webhook
+ *   Secret: matches RAZORPAY_WEBHOOK_SECRET env
+ *   Events: all subscription.* + payment.failed
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/logger';
-import stripeService from '@/lib/payments/stripe-service';
-import { createClient } from '@/lib/supabase/server';
+import { NextRequest, NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
+import { verifyWebhookSignature } from "@/lib/payments/razorpay-service";
+import { createClient } from "@/lib/supabase/server";
+
+interface RazorpayWebhookEvent {
+  event: string;
+  payload: {
+    subscription?: {
+      entity: {
+        id: string;
+        plan_id: string;
+        status: string;
+        customer_id?: string;
+        notes?: Record<string, string>;
+        current_start?: number;
+        current_end?: number;
+      };
+    };
+    payment?: {
+      entity: {
+        id: string;
+        order_id?: string;
+        status: string;
+      };
+    };
+  };
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.text();
-    const signature = request.headers.get('stripe-signature');
+    const rawBody = await request.text();
+    const signature = request.headers.get("x-razorpay-signature");
 
-    if (!signature) {
+    if (!verifyWebhookSignature(rawBody, signature)) {
       return NextResponse.json(
-        { error: 'Missing stripe-signature header' },
-        { status: 400 }
+        { error: "Invalid webhook signature" },
+        { status: 400 },
       );
     }
 
-    const event = stripeService.verifyWebhookSignature(
-      Buffer.from(body),
-      signature
-    );
-
-    if (!event) {
-      return NextResponse.json(
-        { error: 'Invalid webhook signature' },
-        { status: 400 }
-      );
-    }
-
+    const event = JSON.parse(rawBody) as RazorpayWebhookEvent;
     const supabase = await createClient();
 
-    switch (event.type) {
-      case 'checkout.session.completed': {
-        const session = event.data.object;
-        logger.info('[WEBHOOK] Checkout completed:', { value: session.id });
-        
-        // Update user subscription status in database
-        const customerId = session.customer as string;
-        const subscriptionId = session.subscription as string;
-        
+    const sub = event.payload.subscription?.entity;
+    const planFromNotes = sub?.notes?.plan;
+    const userIdFromNotes = sub?.notes?.userId;
+
+    switch (event.event) {
+      case "subscription.activated": {
+        if (!sub) break;
+        logger.info(`[razorpay-webhook] subscription.activated ${sub.id}`);
         await supabase
-          .from('user_profiles')
+          .from("user_profiles")
           .update({
-            stripe_customer_id: customerId,
-            stripe_subscription_id: subscriptionId,
-            subscription_status: 'active',
-            subscription_plan: 'pro',
+            razorpay_customer_id: sub.customer_id,
+            razorpay_subscription_id: sub.id,
+            subscription_status: "active",
+            subscription_plan: planFromNotes || "pro",
+            subscription_period_end: sub.current_end
+              ? new Date(sub.current_end * 1000).toISOString()
+              : null,
             updated_at: new Date().toISOString(),
           })
-          .eq('stripe_customer_id', customerId);
-        
+          .eq("razorpay_subscription_id", sub.id);
         break;
       }
 
-      case 'customer.subscription.updated': {
-        const subscription = event.data.object;
-        logger.info('[WEBHOOK] Subscription updated:', { value: subscription.id });
-        
+      case "subscription.charged": {
+        if (!sub) break;
+        logger.info(`[razorpay-webhook] subscription.charged ${sub.id}`);
+        // Extend period end on successful renewal
         await supabase
-          .from('user_profiles')
+          .from("user_profiles")
           .update({
-            subscription_status: subscription.status,
+            subscription_status: "active",
+            subscription_period_end: sub.current_end
+              ? new Date(sub.current_end * 1000).toISOString()
+              : null,
             updated_at: new Date().toISOString(),
           })
-          .eq('stripe_subscription_id', subscription.id);
-        
+          .eq("razorpay_subscription_id", sub.id);
         break;
       }
 
-      case 'customer.subscription.deleted': {
-        const subscription = event.data.object;
-        logger.info('[WEBHOOK] Subscription cancelled:', { value: subscription.id });
-        
+      case "subscription.cancelled":
+      case "subscription.completed":
+      case "subscription.expired": {
+        if (!sub) break;
+        logger.info(`[razorpay-webhook] ${event.event} ${sub.id}`);
         await supabase
-          .from('user_profiles')
+          .from("user_profiles")
           .update({
-            subscription_status: 'cancelled',
-            subscription_plan: 'free',
+            subscription_status:
+              event.event === "subscription.cancelled"
+                ? "cancelled"
+                : "expired",
+            subscription_plan: "free",
             updated_at: new Date().toISOString(),
           })
-          .eq('stripe_subscription_id', subscription.id);
-        
+          .eq("razorpay_subscription_id", sub.id);
         break;
       }
 
-      case 'invoice.payment_failed': {
-        const invoice = event.data.object;
-        logger.info('[WEBHOOK] Payment failed:', { value: invoice.id });
-        
-        // Could send email notification here
+      case "subscription.halted": {
+        if (!sub) break;
+        logger.warn(
+          `[razorpay-webhook] subscription.halted ${sub.id} — mandate revoked or payment method invalid; user remains active until period_end`,
+        );
+        await supabase
+          .from("user_profiles")
+          .update({
+            subscription_status: "past_due",
+            updated_at: new Date().toISOString(),
+          })
+          .eq("razorpay_subscription_id", sub.id);
+        break;
+      }
+
+      case "payment.failed": {
+        const pay = event.payload.payment?.entity;
+        logger.warn(
+          `[razorpay-webhook] payment.failed ${pay?.id} (Razorpay will auto-retry)`,
+        );
+        // Razorpay handles retry on its own; we only flip user state when
+        // the subscription transitions to halted / cancelled.
         break;
       }
 
       default:
-        logger.info('[WEBHOOK] Unhandled event type:', { value: event.type });
+        logger.info(`[razorpay-webhook] unhandled event ${event.event}`);
     }
 
     return NextResponse.json({ received: true });
-  } catch (error) {
-    logger.error('[WEBHOOK] Error:', { value: error });
+  } catch (err) {
+    logger.error("[razorpay-webhook] processing failed", err as Error);
     return NextResponse.json(
-      { error: 'Webhook processing failed' },
-      { status: 500 }
+      { error: "Webhook processing failed" },
+      { status: 500 },
     );
   }
 }

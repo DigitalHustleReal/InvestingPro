@@ -38,7 +38,9 @@ export default function WebVitalsTracker() {
           const loadWebVitals = async () => {
             try {
               const webVitals = await import("web-vitals");
-              const { onCLS, onFID, onFCP, onLCP, onTTFB } = webVitals;
+              // web-vitals v4 dropped onFID (Google deprecated FID for INP).
+              // We keep the rest; INP now reflects interactivity.
+              const { onCLS, onFCP, onLCP, onTTFB, onINP } = webVitals;
 
               // Track Core Web Vitals
               const vitals: {
@@ -112,7 +114,8 @@ export default function WebVitalsTracker() {
                 // Ignore
               }
               try {
-                onFID(handleMetric);
+                // INP replaces FID since web-vitals v4
+                onINP(handleMetric);
               } catch (e) {
                 // Ignore
               }

@@ -143,7 +143,7 @@ export default function UnsubscribeClient({ searchParamsPromise }: Props) {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
+            placeholder="rahul@gmail.com"
             className="w-full px-4 py-3 border-2 border-ink/20 focus:border-ink focus:outline-none font-mono text-[14px] bg-canvas"
             disabled={state === "loading"}
           />

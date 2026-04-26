@@ -91,23 +91,39 @@ export async function GET() {
         ],
       },
       {
-        label: "Payments (Stripe)",
-        description: "Subscription billing and checkout",
+        label: "Payments (Razorpay)",
+        description:
+          "Subscription billing — UPI, cards, net banking via Razorpay (RBI-compliant)",
         vars: [
           {
-            key: "STRIPE_SECRET_KEY",
-            configured: check("STRIPE_SECRET_KEY"),
-            label: "Secret Key",
+            key: "RAZORPAY_KEY_ID",
+            configured: check("RAZORPAY_KEY_ID"),
+            label: "Key ID (server)",
           },
           {
-            key: "STRIPE_PUBLISHABLE_KEY",
-            configured: check("STRIPE_PUBLISHABLE_KEY"),
-            label: "Publishable Key",
+            key: "RAZORPAY_KEY_SECRET",
+            configured: check("RAZORPAY_KEY_SECRET"),
+            label: "Key Secret (server)",
           },
           {
-            key: "STRIPE_WEBHOOK_SECRET",
-            configured: check("STRIPE_WEBHOOK_SECRET"),
+            key: "NEXT_PUBLIC_RAZORPAY_KEY_ID",
+            configured: check("NEXT_PUBLIC_RAZORPAY_KEY_ID"),
+            label: "Public Key ID (client checkout)",
+          },
+          {
+            key: "RAZORPAY_WEBHOOK_SECRET",
+            configured: check("RAZORPAY_WEBHOOK_SECRET"),
             label: "Webhook Secret",
+          },
+          {
+            key: "RAZORPAY_PRO_MONTHLY_PLAN_ID",
+            configured: check("RAZORPAY_PRO_MONTHLY_PLAN_ID"),
+            label: "Pro Monthly Plan ID",
+          },
+          {
+            key: "RAZORPAY_PRO_ANNUAL_PLAN_ID",
+            configured: check("RAZORPAY_PRO_ANNUAL_PLAN_ID"),
+            label: "Pro Annual Plan ID",
           },
         ],
       },

@@ -84,8 +84,13 @@ export function slugifyTerm(term: string): string {
     .replace(/[^a-z0-9]+/g, "-") // Replace non-alphanumeric chars with hyphens
     .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
 }
+/**
+ * Format a number compactly using Indian conventions (lakh / crore).
+ * `1234567` → `12.3L`, `12345678` → `1.2Cr`. The base `'en-IN'` compact
+ * notation handles this natively across modern browsers + Node.
+ */
 export function formatCompactNumber(number: number): string {
-  return Intl.NumberFormat("en-US", {
+  return Intl.NumberFormat("en-IN", {
     notation: "compact",
     maximumFractionDigits: 1,
   }).format(number);

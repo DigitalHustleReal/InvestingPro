@@ -88,9 +88,12 @@ export default function WebVitals() {
     // Only run in browser
     if (typeof window === "undefined") return;
 
-    // Dynamically import web-vitals library
+    // Dynamically import web-vitals library.
+    // Note (2026-04): web-vitals v4 dropped onFID — Google deprecated FID
+    // in favour of INP (Interaction to Next Paint). We keep recording all
+    // remaining metrics; INP is now the headline interactivity metric.
     import("web-vitals")
-      .then(({ onCLS, onFID, onFCP, onLCP, onTTFB, onINP }) => {
+      .then(({ onCLS, onFCP, onLCP, onTTFB, onINP }) => {
         // Largest Contentful Paint
         onLCP((metric) => {
           reportMetric({
@@ -98,17 +101,6 @@ export default function WebVitals() {
             value: metric.value,
             id: metric.id,
             rating: getRating("LCP", metric.value),
-            delta: metric.delta,
-          });
-        });
-
-        // First Input Delay (deprecated, use INP)
-        onFID((metric) => {
-          reportMetric({
-            name: "FID",
-            value: metric.value,
-            id: metric.id,
-            rating: getRating("FID", metric.value),
             delta: metric.delta,
           });
         });

@@ -38,7 +38,7 @@ const FAQ = [
   },
   {
     q: "Is my payment secure?",
-    a: "Payments are processed by Stripe, the same platform used by Amazon and Google. We never store your card details.",
+    a: "Payments are processed by Razorpay — RBI-compliant, used by Swiggy, Zerodha, and most major Indian platforms. We never see or store your card details.",
   },
   {
     q: "Do you offer a free trial?",
@@ -46,7 +46,7 @@ const FAQ = [
   },
   {
     q: "What payment methods are accepted?",
-    a: "UPI, all major debit/credit cards (Visa, Mastercard, RuPay), and net banking via Stripe.",
+    a: "UPI (Google Pay, PhonePe, Paytm), UPI AutoPay for recurring renewals, all major debit/credit cards (Visa, Mastercard, RuPay, Amex), net banking from 50+ banks, and EMI on credit cards — all via Razorpay.",
   },
   {
     q: "Will prices change?",
@@ -156,7 +156,7 @@ export default function PricingPage() {
 
               <div className="mt-4 flex items-center justify-center gap-4 text-xs text-gray-500">
                 <span className="flex items-center gap-1">
-                  <Shield className="w-3 h-3" /> Secure via Stripe
+                  <Shield className="w-3 h-3" /> Secure via Razorpay
                 </span>
                 <span className="flex items-center gap-1">
                   <Zap className="w-3 h-3" /> Cancel anytime
@@ -168,9 +168,9 @@ export default function PricingPage() {
 
         {/* Trust strip */}
         <p className="text-center text-sm text-gray-500 dark:text-gray-500 mt-8">
-          Built for Indian investors • Payments secured by{" "}
-          <strong className="text-gray-700 dark:text-gray-300">Stripe</strong> •
-          Questions?{" "}
+          Built for Indian investors • UPI, cards, net banking via{" "}
+          <strong className="text-gray-700 dark:text-gray-300">Razorpay</strong>{" "}
+          • Questions?{" "}
           <Link
             href="/contact-us"
             className="text-primary-600 dark:text-primary-400 hover:underline"

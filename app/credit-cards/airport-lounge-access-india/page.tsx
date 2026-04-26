@@ -329,7 +329,7 @@ const FAQ_DATA = [
   {
     question: "What happens if I exceed my lounge visit limit?",
     answer:
-      "If you exceed your complimentary lounge visits, additional visits are charged to your credit card. The charge is typically Rs 2,000-2,500 per visit for domestic lounges and $27-32 for international Priority Pass lounges. This charge will appear on your next credit card statement.",
+      "If you exceed your complimentary lounge visits, additional visits are charged to your credit card. The charge is typically ₹2,000–2,500 per visit for domestic lounges and USD 27–32 (≈ ₹2,250–2,650) for international Priority Pass lounges. This charge will appear on your next credit card statement.",
   },
   {
     question: "Which airports in India have the best credit card lounges?",
@@ -914,7 +914,7 @@ export default async function AirportLoungeAccessPage() {
                   card does not include guest access, a charge of Rs 2,000 to Rs
                   2,500 is levied per guest for domestic lounges. For
                   international lounges via Priority Pass, the charge is
-                  typically $27 to $32 per guest.
+                  typically USD 27 to USD 32 (≈ ₹2,250 to ₹2,650) per guest.
                 </p>
                 <p>
                   <strong className="text-gray-900 dark:text-white">

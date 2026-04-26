@@ -305,7 +305,7 @@ export default function AdminSignupPage() {
                     <input
                       id="email"
                       type="email"
-                      placeholder="you@example.com"
+                      placeholder="admin@investingpro.in"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
