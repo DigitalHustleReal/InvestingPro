@@ -1,19 +1,41 @@
 import { NextRequest } from "next/server";
 import { logger } from "@/lib/logger";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import OpenAI from "openai";
 import axios from "axios";
 import fs from "fs";
 import path from "path";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+// Lazy client init — module-level construction with non-null bangs would
+// throw at import time if any env var is missing, producing an opaque 500.
+// We construct inside the handler so a missing OPENAI_API_KEY returns a
+// clean 200 with a "skipped" message instead.
+let _supabase: SupabaseClient | null = null;
+let _openai: OpenAI | null = null;
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
+function getClients(): {
+  supabase: SupabaseClient | null;
+  openai: OpenAI | null;
+  missing: string[];
+} {
+  const missing: string[] = [];
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const openaiKey = process.env.OPENAI_API_KEY;
+
+  if (!supabaseUrl) missing.push("NEXT_PUBLIC_SUPABASE_URL");
+  if (!supabaseKey) missing.push("SUPABASE_SERVICE_ROLE_KEY");
+  if (!openaiKey) missing.push("OPENAI_API_KEY");
+
+  if (missing.length > 0) {
+    return { supabase: null, openai: null, missing };
+  }
+
+  if (!_supabase) _supabase = createClient(supabaseUrl!, supabaseKey!);
+  if (!_openai) _openai = new OpenAI({ apiKey: openaiKey! });
+
+  return { supabase: _supabase, openai: _openai, missing: [] };
+}
 
 // Same helper functions as main endpoint
 const BRAND_COLORS: Record<
@@ -76,6 +98,21 @@ export async function GET(request: NextRequest) {
 
     if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Lazy client init — return clean 200 if env keys are missing rather
+    // than throwing 500. This makes the cron observable as "skipped" in
+    // monitoring instead of a generic failure.
+    const { supabase, openai, missing } = getClients();
+    if (missing.length > 0 || !supabase || !openai) {
+      logger.warn(
+        `[cron generate-missing-images] skipped — missing env: ${missing.join(", ")}`,
+      );
+      return Response.json({
+        skipped: true,
+        message: `Skipped — missing env vars: ${missing.join(", ")}`,
+        generated: 0,
+      });
     }
 
     logger.info("\n🤖 CRON: Checking for products without images...");
