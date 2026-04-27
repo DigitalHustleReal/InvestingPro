@@ -292,14 +292,18 @@ export default function Hero() {
             <div className="absolute top-[10px] right-[40px] w-[28px] h-[18px] border-t-2 border-r-2 border-[#D97706]" />
 
             <div className="relative w-full h-[620px] constellation-container">
-              {/* Background dot mesh */}
+              {/* Background dot mesh — 8×6 grid (was 12×10 = 120 nodes;
+                  PSI flagged "Most children: 120" as DOM-size hot spot.
+                  Even though wrapped in hidden lg:block, SSR ships the
+                  full DOM tree to mobile, counted by Lighthouse). */}
               <svg
                 className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.15]"
                 viewBox="0 0 100 100"
               >
-                {Array.from({ length: 120 }).map((_, i) => {
-                  const gx = (i % 12) * 9 + 5;
-                  const gy = Math.floor(i / 12) * 10 + 5;
+                {Array.from({ length: 48 }).map((_, i) => {
+                  const cols = 8;
+                  const gx = (i % cols) * 13 + 6;
+                  const gy = Math.floor(i / cols) * 16 + 6;
                   const distToFocal = Math.sqrt(
                     (gx - FOCAL.x) ** 2 + (gy - FOCAL.y) ** 2,
                   );
@@ -309,7 +313,7 @@ export default function Hero() {
                       key={i}
                       cx={gx}
                       cy={gy}
-                      r={0.2 + warp * 0.3}
+                      r={0.3 + warp * 0.4}
                       fill={warp > 0.3 ? "rgba(217,119,6,0.4)" : "#D4CEC0"}
                       className="transition-all duration-1000"
                     />
