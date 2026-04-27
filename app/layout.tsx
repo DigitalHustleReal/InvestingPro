@@ -60,8 +60,11 @@ import type { Metadata } from "next";
 // import { initializeTracing } from "@/lib/tracing/opentelemetry";
 
 // Global metadata for the application
+const SITE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL || "https://www.investingpro.in";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://investingpro.in"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "InvestingPro - Smart Financial Decisions Made Simple",
     template: "%s | InvestingPro",
@@ -87,7 +90,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://investingpro.in",
+    url: SITE_URL,
     siteName: "InvestingPro",
     title: "InvestingPro - Smart Financial Decisions Made Simple",
     description:
