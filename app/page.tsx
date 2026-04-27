@@ -30,6 +30,7 @@ import { Metadata } from "next";
 
 // ABOVE THE FOLD — eager imports (LCP critical)
 import Hero from "@/components/v2/home/Hero";
+import PromiseStrip from "@/components/v2/home/PromiseStrip";
 import TrustBar from "@/components/v2/home/TrustBar";
 import RateComparison from "@/components/v2/home/RateComparison";
 import TopPicks from "@/components/v2/home/TopPicks";
@@ -128,6 +129,11 @@ export default function Home() {
 
       {/* 1. Hero — rotating questions + constellation */}
       <Hero />
+
+      {/* 1.5. Promise Strip — universal trust-signal section.
+          Renders identically on desktop + mobile; answers the YMYL
+          "why trust you?" question before any commercial CTA. */}
+      <PromiseStrip />
 
       {/* 2. Live data ticker — immediate credibility */}
       <TrustBar />
