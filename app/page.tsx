@@ -25,18 +25,41 @@
 export const revalidate = 300; // ISR: 5 minutes
 
 import React, { Suspense } from "react";
+import dynamic from "next/dynamic";
 import { Metadata } from "next";
+
+// ABOVE THE FOLD — eager imports (LCP critical)
 import Hero from "@/components/v2/home/Hero";
 import TrustBar from "@/components/v2/home/TrustBar";
 import RateComparison from "@/components/v2/home/RateComparison";
 import TopPicks from "@/components/v2/home/TopPicks";
-import FindYourFit from "@/components/v2/home/FindYourFit";
-import ExploreCategories from "@/components/v2/home/ExploreCategories";
-import CalculatorSpotlight from "@/components/v2/home/CalculatorSpotlight";
-import LifeStageHub from "@/components/v2/home/LifeStageHub";
+
+// Server components (no JS shipped to client) — eager is fine, free
 import Editorial from "@/components/v2/home/Editorial";
 import TrustMethodology from "@/components/v2/home/TrustMethodology";
-import NewsletterTrust from "@/components/v2/home/NewsletterTrust";
+
+// BELOW THE FOLD — client components, dynamic-imported so their JS bundles
+// don't ship in the initial homepage bundle. Mobile users on slow 4G see
+// the skeleton while their browser fetches/parses these in idle time.
+const FindYourFit = dynamic(() => import("@/components/v2/home/FindYourFit"), {
+  loading: () => <SectionSkeleton />,
+});
+const ExploreCategories = dynamic(
+  () => import("@/components/v2/home/ExploreCategories"),
+  { loading: () => <SectionSkeleton /> },
+);
+const CalculatorSpotlight = dynamic(
+  () => import("@/components/v2/home/CalculatorSpotlight"),
+  { loading: () => <SectionSkeleton /> },
+);
+const LifeStageHub = dynamic(
+  () => import("@/components/v2/home/LifeStageHub"),
+  { loading: () => <SectionSkeleton /> },
+);
+const NewsletterTrust = dynamic(
+  () => import("@/components/v2/home/NewsletterTrust"),
+  { loading: () => <SectionSkeleton /> },
+);
 
 export const metadata: Metadata = {
   title: "Money, Decoded. — InvestingPro",
