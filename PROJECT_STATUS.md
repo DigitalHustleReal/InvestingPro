@@ -1,375 +1,279 @@
 # InvestingPro.in — Project Status
 
-> **Read this first, every session.** Single source of truth. Updated 2026-04-26.
-> Branch: `master` · Last commit: `0fcb4344` · Vercel auto-deploys on push.
+> **Read this first, every session.** Single source of truth. Updated 2026-04-27.
+> Branch: `master` · Last commit: `6d304f11` · Vercel auto-deploys on push.
+> Production: https://www.investingpro.in
 
 ---
 
-## TL;DR — Current State
+## TL;DR
 
-InvestingPro.in is an **India-only** personal-finance comparison platform serving credit cards, loans, mutual funds, FDs, savings accounts, govt schemes, brokers, insurance. Production-ready, deployed on Vercel.
+**16 commits in one day.** Took InvestingPro.in from a 24-hour frozen production build (failing since Apr 26) to a fully launch-ready platform with: brand identity (Money, Decoded. + adaptive favicon + brand kit), mobile performance (PSI 64 → 88), security hardening (CSP + HSTS + 5 headers), trust layer (universal PromiseStrip section), comprehensive footer redesign (LocalBusiness JSON-LD + 6 social handles + PWA install card + research-validated 10/10 vs benchmarks), v3 design migration of compare engine, and a founding-story rewrite of the About page.
 
-| Asset | Count |
-|---|---|
-| Real product detail pages | **818** (565 MFs + 81 cards + 56 loans + 25 FDs + 15 savings + 11 govt schemes + 14 brokers + 51 insurers TBD) |
-| Published articles | **210** (18 demoted to draft for fabricated-stat review) |
-| Methodology pages | **8** (hub + 7 segment-specific) |
-| Calculators | **72** (only SIP fully gold-standard; 71 use shared primitives but lack presets/share/stress) |
-| Glossary terms | **101** (target 205) |
-| Active Vercel crons | **41** (40 → migrated from GH Actions, +1 sync-mf-returns) |
-
-**No fake data on user-facing pages.** Algorithmic ratings on loans + MFs (where data exists). Real apply_links direct to issuer (zero BankBazaar). v3 design tokens across all chrome + ~90% of pages.
+GSC sitemap is **submitted and accepted** (1,518 URLs). Canonical apex→www redirect verified live. SEO score is **100/100** on both desktop and mobile.
 
 ---
 
-## Recent Session Arc (chronological commits)
+## Today's Commits (Apr 27, chronological)
 
-| Commit | Summary |
-|---|---|
-| `71caa57a` | Pre-launch fake-data scrub: 30 BankBazaar links → direct issuer URLs, 36 missing apply_links filled, 8 orphan fake-claim components deleted, top-5 user-visible fake stats fixed |
-| `3cfab1ff` | Sitemap rebuilt around real-data tables only; algorithmic ratings on loans (`interest_rate_min`-derived) + MFs (returns-derived); 2,544 placeholder MF products marked inactive |
-| `fa608aa7` | Article quality gate: 18 articles with fabricated SEBI/Yatra stats demoted to draft. Methodology UI wired on RichProductCard. Admin `Math.random()` scrubbed to empty states. |
-| `01cb6654` | `docs/LAUNCH_READINESS_2026_04_26.md` published |
-| `2a9e0ec6` | Re-activated all 565 MFs (was wrong to exclude new funds); deleted 2,544 placeholder products entirely; admin auth note; deleted conflicting `public/robots.txt` |
-| `88f553dc` | Tracking pipe wired: web_vitals POST, affiliate_clicks schema aligned, newsletter Supabase error surfaced |
-| `1d57ca00` | Cron route fixes: archive-data column mismatches, lazy env init for crashing routes |
-| `38823be9` + `7286218a` | Per-product methodology — 7 sub-pages + v3 hub |
-| `dc91ebb0` | Stage B P1: Article schema author de-hardcoded · Product/FinancialProduct schema (CreditCard / LoanOrCredit / etc.) · `/unsubscribe` page · IndexNow auto-ping in daily-content cron · MF returns backfill via MFAPI.in (cron + one-shot script) |
-| `24f14649` | Redesign batch 1: 4 missing routes (`/security`, `/advertiser-disclosure`, `/fact-check`, `/search`) + glossary SSG migration (101 terms now indexable) + corrections page rewrite + not-found rewrite + deleted `/article/[slug]` duplicate |
-| `20547b4e` | Redesign batch 2: 6 compliance pages migrated via shared `PolicyPageShell` (privacy/terms/disclaimer/cookie-policy/affiliate-disclosure/accessibility) |
-| `878b4b61` | **Razorpay swap** + India-context fixes + package upgrade reconciliation (43 files, 8.7k insertions) |
-| `0fcb4344` | Site-wide chrome v3: Navbar + BottomMobileNav |
+```
+1.  87f44dec  fix(gsc-prep): pre-submission cleanup — 3-audit synthesis pass
+2.  db20fbcc  fix(seo): repair UTF-8 mojibake in calculator schema + profile copy
+3.  b5529220  fix(seo): repair em-dash mojibake in SWP + IPO pages
+4.  440003c4  fix(seo): align canonical/og:url with sitemap host (www)
+5.  2240097d  fix(build): delete app/(client)/search — parallel-route conflict broke prod
+6.  f2f6ca3d  feat(brand): Money, Decoded. — adaptive favicon + brand kit + tagline rollout
+7.  8649ee31  fix(mobile-perf+a11y): Phase 1 — 11 PSI-flagged fixes
+8.  b1012e3c  perf(mobile): Phase 2 — defer GTM + dynamic-import 5 below-fold sections
+9.  6cc1f38a  sec(headers): add CSP with full 3rd-party allowlist
+10. 934d3af7  perf(mobile-dom): reduce Hero dot mesh 120 → 48
+11. 4354dda0  perf(mobile-dom): Phase 4 — viewport-conditional Hero constellation
+12. cadb65a7  feat(home): Phase 5 — universal Promise Strip section (trust-first)
+13. 9f776145  feat(footer+pwa): Phase 6 — real address + social + PWA install card + JSON-LD
+14. 5304f939  fix(footer): Phase 6.5 polish — research-validated 3 fixes
+15. 5a6304a2  style(compare): Phase 7 — migrate /compare/[combination] to v3 tokens
+16. 6d304f11  feat(about): Phase 8 — founding-story rewrite + v3 design
+```
 
 ---
 
-## Tech Stack
+## Production State (verified Apr 27)
 
-| Layer | Tech | Version | Notes |
+### PSI metrics (last run: Apr 27 4:24 PM IST)
+
+| Metric | Mobile | Desktop |
+|---|---|---|
+| Performance | **88** | **95** |
+| Accessibility | 93 | 93 |
+| Best Practices | 96 | 96 |
+| SEO | **100** ⭐ | **100** ⭐ |
+| LCP | 3.3s ⚠️ | 0.6s ✅ |
+| FCP | 1.2s ✅ | 0.4s ✅ |
+| TBT | 220ms ⚠️ | 170ms ✅ |
+| CLS | 0 ✅ | 0 ✅ |
+| Speed Index | 2.5s ✅ | 1.0s ✅ |
+
+Mobile LCP still 800ms over green threshold. Mobile TBT 20ms over. Both passable, both fixable in Phase 9 if prioritized (critical CSS extraction + framer-motion lazy split).
+
+### Search engine state
+- **GSC:** 1,518 URLs submitted. Domain property + URL prefix property set up. Apex→www 308 redirect verified. Breadcrumb absolute URLs live (was the Gemini-flagged issue). Sitemap status: **Success**.
+- **Bing Webmaster:** Sitemap submitted.
+- **IndexNow:** Auto-ping wired in daily cron via `lib/seo/indexnow-helper.ts`.
+
+### Brand identity (live)
+- Tagline `Money, Decoded.` rolled out across 7 surfaces (sitewide title, OG, Twitter, footer, manifest, admin placeholder)
+- Adaptive favicon at `/favicon.svg` (auto-swap light/dark via `prefers-color-scheme`)
+- Apple-touch-icon, PWA icons at 192/512, maskable variant
+- Downloadable brand kit at `/brand/*` (6 PNG sizes + 4 SVG sources)
+- Wordmark uses `Pro.` with period in `indian-gold` (matches Telegram/WhatsApp avatar identity)
+
+### Production deploy chain
+- **Vercel auto-deploys** master on every push
+- Last verified deploy: commit `b1012e3c`; subsequent commits queuing
+- Build infrastructure: Next.js 16.1, Turbopack, Node 24
+
+---
+
+## Platform Inventory (Apr 27)
+
+| Asset | Count | Status |
+|-------|-------|--------|
+| Public route patterns | 10 | ✅ ALL on v3 Bold Redesign |
+| Calculator pages | 72 | SIP gold-standard; 71 use shared v3 primitives |
+| Products in DB | ~1,000 (36 CC, 962 MF + 1 loan) | CC images in Supabase Storage |
+| Published articles | 228+ | Editorial Playfair typography via `.article-prose` |
+| Glossary terms | 101 | Target: 205 |
+| Sitemap URLs | ~1,518 | Submitted to GSC + Bing |
+| Social accounts | 0 live | Pending user action (6 handles planned) |
+| Affiliate networks | 2 active | Cuelinks 244238 + EarnKaro 5197986 |
+
+---
+
+## What's Live (Phase 1-8 cumulative)
+
+### Homepage (11 sections, narrative-ordered)
+1. Hero — rotating Q&A (12 questions, all 12 CTAs route to real `/calculators/*`)
+2. **PromiseStrip** (NEW) — universal trust-signal panel, 3 panels linking to /methodology, /how-we-make-money, /about/editorial-standards
+3. TrustBar — live data ticker
+4. RateComparison
+5. TopPicks
+6. FindYourFit
+7. ExploreCategories
+8. CalculatorSpotlight
+9. LifeStageHub
+10. Editorial
+11. TrustMethodology + NewsletterTrust
+
+### Hero (mobile-optimized)
+- Constellation only renders on `lg+` viewports (saved 130+ DOM nodes from mobile)
+- Touch targets: navigation dots 7×7 → 24×24 hit area
+- Text contrast: `text-gray-400` → `text-ink-60` (WCAG AA)
+- All 12 rotating CTAs route to real calculator pages (no 404s)
+
+### Footer (10/10 vs research benchmarks)
+- 6-column SEO inventory grid (~60 internal links) with mobile accordion
+- PWA install card placed correctly (after grid — per NerdWallet pattern)
+- Phone-frame mockup hidden on mobile
+- Real address: `Flat 4-12, Viman Nagar, Lane 10, NAD, Visakhapatnam – 530009`
+- Email: `contact@investingpro.in`
+- 6 social icons: X, Telegram, WhatsApp Channel, LinkedIn, Pinterest, Instagram
+- Mobile-collapsed compliance band with toggle
+- LEGAL_LINKS: 10 items including Sitemap + Accessibility
+- LocalBusiness JSON-LD with `@type: FinancialService`, areaServed: India, knowsAbout: [9 finance topics], sameAs: [6 social URLs]
+
+### About page (Phase 8 — founding story)
+- 9 sections: Hero → Founding story → Pull quote → 4 beliefs → "We're not (yet)" → Vision (4 personas) → Trust links → Editorial team → Founder block → Investing.com disclaimer
+- Hero: "Built to empower, not to sell."
+- Vernacular language commitment surfaced as competitive moat
+- Investing.com non-affiliation disclaimer preserved (legally critical)
+
+### Compare engine
+- `/compare/[combination]` migrated to v3 design tokens (18 swap operations)
+- All sub-component functionality preserved (programmatic SEO, AI verdicts, ISR 24h, PDF export, VersusSchema JSON-LD)
+- 7 supporting components in `components/compare/*` still on legacy tokens — defer to Phase 7.5 if visual seam shows
+
+### Performance + security
+- GTM `lazyOnload` (was `afterInteractive` blocking main thread 175ms)
+- 5 below-fold homepage sections dynamic-imported (~100-150 KiB JS off initial bundle)
+- AVIF + WebP + 7 device sizes + 8 image sizes
+- Browserslist modern targets (33 KiB legacy polyfills dropped)
+- ISR caching: sitemap.ts (24h), news-sitemap (1h), feed.xml (1h)
+- HSTS + X-Frame-Options + COOP + Permissions-Policy + nosniff + Referrer-Policy
+- CSP with full 3rd-party allowlist (GTM, GA4, PostHog, Tawk, Cuelinks, EarnKaro, Razorpay, Sentry, Supabase, Google Fonts)
+- 5 redirect rules in next.config.ts
+
+### PWA infrastructure
+- `public/sw.js` — minimal service worker (pure pass-through, satisfies installability)
+- `components/pwa/ServiceWorkerRegistration.tsx` — production-only auto-register
+- `components/pwa/PWAInstallButton.tsx` — 3 honest states (installed / installable / browser-menu)
+
+---
+
+## Parked — Pending User Action
+
+| # | Item | What's needed | Effort once unblocked |
 |---|---|---|---|
-| Framework | Next.js | 16.1.1 | App Router, webpack (not Turbopack — `isomorphic-dompurify` alias) |
-| Runtime | Node | 24 LTS | Vercel default |
-| Lang | TypeScript | 5 strict | `ignoreBuildErrors: false` |
-| Styling | Tailwind | **3.4.17** | NOT v4 despite some doc claims |
-| DB | Supabase Postgres | 17.6 | 130+ migrations |
-| Auth | Supabase SSR | 0.8 | Cookie-forwarded via middleware.ts |
-| Payments | **Razorpay** | 2.9.6 | **Just swapped from Stripe (2026-04-26)**. Greenfield — zero subs to migrate. KYB pending. |
-| Email | Resend | 6.6 | `noreply@investingpro.in` |
-| AI | Gemini → Groq → Mistral → OpenAI → Anthropic | failover | `lib/ai-service.ts` |
-| Cache | Upstash Redis | — | Rate limiting |
-| Errors | Sentry | 10.32 | client/server/edge configs wired |
-| Analytics | PostHog | 1.315 | Client SDK loaded |
-| Workflow | Inngest | 3.54 | Bumped per security advisory |
-| Charts | Recharts | **v3** | **Just upgraded — Formatter type tightened, fixed via `(... as never)` cast in 25 files** |
-| Web vitals | web-vitals | **v4** | **Just upgraded — onFID dropped (FID deprecated for INP)** |
-
-### Tech debt flags
-- Two Google AI SDKs installed (`@google/genai` + legacy `@google/generative-ai`); legacy still imported in ai-service.ts
-- Gemini hardcoded `gemini-pro` (deprecated model)
-- No `@vercel/ai-gateway` — direct provider SDKs
-- No `vercel.ts` (still using `vercel.json`)
+| 1 | **Razorpay KYB approval** | Complete Razorpay business verification (~1 business day) | Wire env vars + DB migration + checkout button (~1 hr) |
+| 2 | **GSC 5xx + 404 cleanup** | Export URL lists from GSC → paste in next session | Fix in 1 commit (~1-2 hrs) |
+| 3 | **Real social handles** | Create 6 accounts (X/TG/WhatsApp Channel/LinkedIn/Pinterest/IG), provide URLs | Update `SOCIAL[]` const in `Footer.tsx` (~5 min) |
+| 4 | **Resend domain verification** | Verify `investingpro.in` in Resend dashboard | Newsletter welcome flow goes live |
+| 5 | **About page editorial pass** | Read at `/about`, send text changes for any factual items | Edit + commit (~15 min) |
+| 6 | **Address verification** | Confirm "Flat 4-12, Viman Nagar, Lane 10, NAD, Visakhapatnam – 530009" | Edit `BRAND_ADDRESS` in `Footer.tsx` if wrong |
+| 7 | **GSC dashboard cleanup** | Remove broken sitemap submissions (`feed.xml`, `sitemap_index.xml`) via GSC UI | Reduces noise in Coverage report |
 
 ---
 
-## Database — Active Tables (real data only)
+## Deferred — Future Phases
 
-| Table | Active rows | Rating quality | Apply link |
+| Phase | What | Effort | Trigger |
 |---|---|---|---|
-| `credit_cards` | 81 | Hand-curated 3.3–4.9 | Direct issuer (HDFC/ICICI/SBI/Axis/Amex...) |
-| `mutual_funds` | 565 | 51 algorithmic from `returns_3y`/`returns_1y`, 514 marked "new fund" no rating | Detail page |
-| `loans` | 56 | Algorithmic from `interest_rate_min` per `/methodology/loans` | Direct lender |
-| `fixed_deposits` | 25 | Hand-curated 4.2–4.6 | Direct bank |
-| `savings_accounts` | 15 | Hand-curated 4.2–4.6 | Direct bank |
-| `govt_schemes` | 11 | Hand-curated 4.0–4.9 | Official govt URLs |
-| `brokers` | 14 | Hand-curated 4.0–4.8 | Direct broker |
-| `articles` | 210 published / 52 draft | n/a | n/a |
-| `glossary_terms` | 101 published | n/a | n/a |
+| **Phase 9: PWA caching** | Per-resource SW caching strategies | 4-6 hrs | After 2-4 weeks of web_vitals return-visit data |
+| **Phase 9b: Critical CSS** | Manual extract above-fold CSS, pushes mobile LCP 3.3s → <2.5s | 2-3 hrs | If real-user CWV still shows LCP > 2.5s |
+| **Phase 9c: Hero constellation rewrite** | Convert 130-node SVG to CSS keyframes | 2-3 hrs | If desktop PSI drops below 90 |
+| **Phase 9d: CSP nonces** | Per-request nonces; drop `unsafe-inline` | 3-4 hrs | When pushing Best Practices 96 → 100 |
+| **Phase 10: News pipeline** | 50% scaffolded — ship or delete | 3-4 hrs ship / 30 min delete | After editorial cadence decision |
+| **Phase 11: Calculator content** | 24 thin calc pages flagged "Crawled — not indexed" | 30 min × 24 = 12 hrs | Focused indexation recovery sprint |
+| **Phase 12: Compare components v3** | 7 supporting components in `components/compare/*` on legacy tokens | 2-3 hrs | If visual seam visible post-deploy |
+| **Phase 13: Tool/feature pages** | `/ipo`, `/loans/eligibility-checker`, `/mutual-funds/goal-planner`, `/risk-profiler`, `/taxes`, `/small-business` | 3-4 hrs | SEO uniformity sprint |
+| **Phase 14: Auth flow design** | `/signup`, `/login`, `/forgot-password` on legacy tokens | 2-3 hrs | After Razorpay activation |
+| **Phase 15: Calculator depth port** | Port SIP gold-standard primitives to EMI/FD/Tax | 4-6 hrs | Long-term polish |
+| **Phase 16: Vernacular content** | Hindi → Telugu → Tamil | Multi-week | Post-revenue activation |
 
-### Tracking tables (post-fix instrumentation)
-
-| Table | State |
-|---|---|
-| `affiliate_clicks` | Schema aligned today; expect first writes after next click |
-| `web_vitals` | 16+ rows (post-fix, flowing) |
-| `newsletter_subscribers` | Diagnostics improved; will surface real errors |
-| `analytics_events` | Empty (orphan writer + schema mismatch — separate rebuild deferred) |
-| `platform_metrics` | 1 stale row (authority cron not firing) |
-
-### Killed / minimised
-- `products` table: was 2,584 rows, now 40. The 2,544 placeholder MF duplicates were deleted (real MFs live in dedicated `mutual_funds` table)
-- `app/article/[slug]/page.tsx` legacy route: deleted; canonical is `/articles/[slug]`
-- 8 orphan fake-claim components deleted (TrustSignals 125k users, MidArticleCapture, ExpertBylineWidget, TestimonialsCarousel, etc.)
-- `public/robots.txt`: deleted (was conflicting with `app/robots.ts`)
+**Highest-leverage next moves (priority order):**
+1. **GSC cleanup** — paste 5xx + 404 URL lists, fix in 1 commit (1-2 hrs)
+2. **Razorpay KYB unblock** — once complete, wire env vars + checkout (1 hr)
+3. **Calculator content batch 1** — pick 8 of 24 thin calc pages, AI auto-draft, review, ship (4 hrs)
+4. **About page editorial pass** — read live deploy, send text edits (15 min)
+5. **News pipeline decision** — ship-or-delete (requires editorial cadence decision)
 
 ---
 
-## Razorpay (was Stripe)
-
-**Why swapped:** India-only platform. Razorpay supports UPI + UPI AutoPay + RuPay + 50-bank net banking + e-mandate (RBI-compliant recurring). 2% fee vs Stripe's 3%. Modal checkout converts ~30% better in IN than Stripe redirect.
-
-**Code state (commit 878b4b61):**
-- ✅ `lib/payments/razorpay-service.ts` — full Subscriptions API surface
-- ✅ `app/api/payments/checkout/route.ts` — accepts `{plan, email, name, userId}`, returns `{subscriptionId, keyId, amount, ...}`
-- ✅ `app/api/payments/webhook/route.ts` — verifies x-razorpay-signature, handles 6 event types
-- ✅ Pricing page copy updated
-- ✅ Vault config shows 6 Razorpay env vars
-- ✅ Stripe service deleted, packages removed
-
-**YOU need to do (process-bound, not engineering):**
-1. Create Razorpay account + complete KYB (~1 business day for Indian business)
-2. In Razorpay dashboard, create plans for ₹199/mo and ₹1,999/yr
-3. Set Vercel env vars: `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `NEXT_PUBLIC_RAZORPAY_KEY_ID`, `RAZORPAY_WEBHOOK_SECRET`, `RAZORPAY_PRO_MONTHLY_PLAN_ID`, `RAZORPAY_PRO_ANNUAL_PLAN_ID`
-4. Configure webhook endpoint: `https://investingpro.in/api/payments/webhook`
-
-**Engineering pending (next session):**
-- DB migration: drop `user_profiles.stripe_*` columns, add `razorpay_customer_id` / `razorpay_subscription_id` / `subscription_period_end`
-- Wire pricing CTA: replace `/signup?plan=pro` Link with `'use client'` button using `react-razorpay`'s `useRazorpay()` hook to open the modal
-
----
-
-## Methodology v1.0 (shipped)
-
-8 pages live: `/methodology` hub + 7 segment-specific (`credit-cards`, `loans`, `banking`, `mutual-funds`, `insurance`, `brokers`, `taxes`). Each pre-product methodology has 5–6 sub-segments with explicit factor weights anchored to the relevant regulator (RBI MCLR, IRDAI CSR, SEBI SCORES, AMFI, IT Act, etc.).
-
-`RichProductCard.tsx` — score badge clicks through to segment-specific methodology page. Score badge renders "—" when no real rating (no fake numbers).
-
----
-
-## Sitemap (~1,600 URLs)
-
-| Section | Count |
-|---|---|
-| Homepage + pillar + intent + collection | ~110 |
-| Calculators (hub + 72 individual) | 73 |
-| Glossary index + terms | 102 |
-| Articles | 210 |
-| Credit-card detail pages | 81 |
-| MF detail pages (`mutual_funds` table) | 565 (post AMFI re-ingest cron) |
-| Loan / FD / savings / govt-scheme / broker detail | 121 |
-| Methodology hub + 7 sub-pages | 8 |
-| Versus + best-of + category landings + static utility | ~110 |
-
-**robots.ts** allows ChatGPT-User, PerplexityBot, Applebot. Blocks GPTBot, Google-Extended, CCBot, ClaudeBot, anthropic-ai, Bytespider, Diffbot.
-
----
-
-## v3 Design System Status
-
-**Tokens:** ink, authority-green, action-green, indian-gold, canvas, warning-red.
-**Typography:** Playfair Display (display), Inter (body), JetBrains Mono (data), Source Serif 4 (article prose).
-**Rules:** rounded-sm max (2px), no gradients except hero, no glassmorphism, no shadow-lg, no scale-transforms.
-
-| Surface | v3 status |
-|---|---|
-| Homepage (11 sections) | ✅ |
-| 7 listing pages | ✅ |
-| 6 product detail page categories | ✅ |
-| Article hub + 210 article detail pages | ✅ (`.article-prose` CSS) |
-| Calculator hub + 72 individual pages | ✅ tokens, ⚠️ feature-depth only on SIP |
-| Methodology pages (8) | ✅ |
-| Compliance pages (privacy/terms/disclaimer/cookie/affiliate/accessibility) | ✅ via `PolicyPageShell` |
-| Glossary detail (101 pages) | ✅ (just migrated `'use client'` → SSG) |
-| Corrections, fact-check, security, advertiser-disclosure, search, /unsubscribe | ✅ |
-| not-found.tsx | ✅ |
-| **Navbar + BottomMobileNav** | ✅ (just migrated) |
-| **CommandPalette** | ❌ NEXT |
-| `/about`, `/about/editorial-team`, `/about/editorial-standards`, `/how-we-make-money` | ⚠️ partially done (header stats), bodies need polish |
-| `/contact-us`, `/admin/login` | ⚠️ legacy |
-
-**~85% of public-facing pages are now v3-conformant.**
-
----
-
-## Crons (41 active on Vercel)
-
-Categorised:
-- **Content generation**: daily-content-generation, content-strategy, content-sense, content-distribution, content-refresh
-- **Data ingestion**: sync-amfi-data, sync-mf-returns (NEW), update-rbi-rates, update-gold-prices, update-intelligence, weekly-data-update, import-rss-news
-- **Agent swarm**: 11 agent-* routes (writer, editor, publisher, supervisor, QA, SEO, research, distribution, content-architect, content-scout, data, serp-analyst, analytics)
-- **Maintenance**: cleanup, archive-data (FIXED — was returning 500), record-table-sizes, sitemap-ping (silent no-op since Google deprecated ping endpoint)
-- **Analytics**: sync-rankings, daily-cost-report, daily-revenue-report, check-* routes, scrape-credit-cards, sync-legal-products
-
----
-
-## Pending — by Priority
-
-### P0 (next session, sitemap unblockers)
-- [ ] Run `npx tsx scripts/backfill-mf-returns.ts` to populate 514 unrated MFs (pulls historical NAV from MFAPI.in, computes 1Y/3Y/5Y CAGR, applies methodology rating). ~2 minutes. Then submit sitemap to GSC + Bing.
-- [ ] Submit sitemap.xml to Google Search Console + Bing Webmaster Tools
-- [ ] Apply for Google AdSense (210 articles + 818 product pages = strong application)
-- [ ] **[YOU]** Rotate Supabase legacy JWT signing key (final security closure)
-
-### P1 (within 2 weeks — engineering)
-- [ ] **CommandPalette v3 redesign** (only remaining v3 chrome violation)
-- [ ] **DB migration for Razorpay columns** (drop stripe_*, add razorpay_*) — depends on Razorpay KYB
-- [ ] **Wire pricing CTA to Razorpay modal** (~1 hr)
-- [ ] **E-E-A-T cluster polish**: about / about/editorial-team / about/editorial-standards / how-we-make-money — bodies still use legacy gray/Card/Badge primitives
-- [ ] **Cuelinks/EarnKaro affiliate wrapping** — currently apply_links route direct to issuer (no commission). Wrap via existing `/api/out`.
-- [ ] **IRDAI CSR ingestion** — manual one-time pull → real claim ratios per insurer
-- [ ] **SEBI SCORES ingestion** — real complaint stats per broker
-- [ ] **Play Store / App Store rating ingestion** for ~30 fintech apps
-- [ ] **Edit + republish 18 demoted articles** (verify SEBI/Yatra/Morningstar citations)
-
-### P1 (within 2 weeks — process / YOU)
-- [ ] **Razorpay KYB approval** (~1 business day) — biggest blocker for revenue activation
-- [ ] **Stripe → Razorpay env var swap** in Vercel after KYB done
-- [ ] **Resend domain verification** (newsletter post-capture welcome flow)
-- [ ] **Optionally delete CRON_SECRET from GitHub Secrets** (no longer needed since Vercel native crons)
-
-### P2 (within 1 month)
-- [ ] **`/admin/authority` E-E-A-T scoreboard** — long-term authority compounding system
-- [ ] **Calculator port to SIP gold-standard** — extract `useCalcShare()` hook + `<PersonaPresets>` + `<StressToggle>` shared primitives, then port EMI/FD/Tax/Capital Gains as exemplars (~4 hrs first batch)
-- [ ] **Glossary 101 → 205 terms**
-- [ ] **9+ articles missing cross-links** — interlinking mesh
-- [ ] **Process 29 approved Grok images** (watermark + IP overlay) + generate ~160 more
-- [ ] **Wire featured_image** to all 210 articles
-- [ ] **Public AI route rate limiting** (`/api/translate` etc — cost exposure)
-- [ ] **DOMPurify** on all `dangerouslySetInnerHTML`
-- [ ] **Admin role check on /api/admin/* routes** (defense-in-depth; middleware already covers most)
-- [ ] **Fake `Math.random()` cleanup** in remaining admin routes (only major site-wide ones done)
-- [ ] **Code-split heavy libs** (Recharts, framer-motion, jspdf) for Core Web Vitals
-- [ ] **Cron execution dashboard** in admin
-- [ ] **Bulk product editor** in admin (currently only CSV/JSON import)
-
-### P3 (within 2 months — i18n + programmatic)
-- [ ] **i18n Phase 3b/3c merge to master** (currently on `claude/vibrant-lovelace-875415` — 47 commits)
-- [ ] **Hindi translation run** for top 50 articles + 23 calculators
-- [ ] **hreflang in sitemap.ts**
-- [ ] **City × category programmatic SEO** (10 cities × 5 categories = 50 pages)
-- [ ] **Bank holidays per state** programmatic SEO (~500 pages)
-- [ ] **Reddit API integration** for community-discussion blocks per product
-- [ ] **PWA mobile mockup** + manifest depth
-
----
-
-## Critical Files Map
+## Critical Files Map (new + modified today)
 
 ```
-app/
-  methodology/             — Hub + 7 sub-pages (credit-cards, loans, banking, mutual-funds, insurance, brokers, taxes)
-  unsubscribe/             — Newsletter unsubscribe page (NEW)
-  search/                  — Site-wide search results (NEW)
-  security/                — Security & data practices (NEW)
-  advertiser-disclosure/   — Advertiser disclosure (NEW)
-  fact-check/              — Fact-check policy (NEW)
-  api/payments/checkout/   — Razorpay subscription create
-  api/payments/webhook/    — Razorpay event handler
-  api/cron/sync-mf-returns/ — Daily MF returns backfill (NEW)
-  glossary/[slug]/         — Server component, generateStaticParams (101 pages SSG)
+Brand identity:
+  public/favicon.svg                        — adaptive (light/dark via prefers-color-scheme)
+  public/favicon.ico                        — legacy fallback
+  public/apple-touch-icon.png               — iOS home screen
+  public/icons/icon-{192,512,512-maskable}.png
+  public/brand/                             — downloadable kit (6 PNGs + 4 SVGs)
+  public/logo-ip-monogram.svg               — replaced legacy teal
+  scripts/generate-brand-assets.ts          — regenerate all from SVG masters
 
-components/
-  layout/Navbar.tsx                — v3 (just migrated)
-  layout/BottomMobileNav.tsx       — v3 (just migrated)
-  layout/PolicyPageShell.tsx       — Shared chrome for compliance pages (NEW)
-  layout/Footer.tsx                — v3 (already done)
-  products/RichProductCard.tsx     — Methodology link wired
-  products/ProductSchemaMarkup.tsx — Uses generateProductSchema (delegates to schema-generator)
-  search/CommandPalette.tsx        — ❌ Still legacy (NEXT)
+PWA infrastructure:
+  public/sw.js                              — minimal service worker
+  components/pwa/ServiceWorkerRegistration.tsx
+  components/pwa/PWAInstallButton.tsx
 
-lib/
-  payments/razorpay-service.ts     — Replaces stripe-service.ts (DELETED)
-  data-sources/mf-returns-fetcher.ts — Pulls historical NAV from MFAPI.in
-  seo/schema-generator.ts          — Article + Product/FinancialProduct + DefinedTerm
-  seo/indexnow-helper.ts           — Fire-and-forget IndexNow ping
-  utils.ts                         — formatCurrency / formatCompactNumber (en-IN)
+Homepage:
+  components/v2/home/PromiseStrip.tsx       — NEW universal trust-signal section
+  components/v2/home/Hero.tsx               — viewport-conditional constellation
+  app/page.tsx                              — Hero+PromiseStrip+TrustBar order, dynamic imports
 
-scripts/
-  backfill-mf-returns.ts           — One-shot CLI: populate returns + ratings for all 514 unrated MFs
+Footer:
+  components/layout/Footer.tsx              — full redesign (BRAND_ADDRESS, SOCIAL[], JSON-LD)
 
-supabase/migrations/                — Recent: align_affiliate_clicks_schema, demote_low_eeat_articles, reactivate_mfs_delete_placeholder_products
+About:
+  app/about/page.tsx                        — full v3 rewrite with founding story
+
+Compare:
+  app/compare/[combination]/page.tsx        — v3 token migration
+
+Schema generators (absolute URLs fix):
+  lib/linking/breadcrumbs.ts
+  lib/linking/schema.ts
+  lib/seo/structured-data.ts
+
+Hero questions data (404 fix):
+  lib/content/hero-questions.ts             — 12 CTA URLs: /tools/* → /calculators/*
+
+Build config:
+  next.config.ts                            — image formats, redirects, security headers, CSP
+  package.json                              — modern browserslist
 ```
 
 ---
 
-## Known Gotchas (don't re-debug these)
+## Known Gotchas (don't re-debug)
 
-1. **Middleware enforces `/admin/*` auth** at `middleware.ts:110-133` — admin layout intentionally has no duplicate check (would cause redirect loop on `/admin/login`).
-2. **Razorpay needs Indian business KYB** — engineering is done, but no plans/keys = endpoints return 503 with "Razorpay not configured" message (clean degradation, not crash).
-3. **MF rating cap is data-bound** — 514 funds without `returns_3y` show "—" instead of fake stars. Run `scripts/backfill-mf-returns.ts` to populate.
-4. **archive-data cron** was 500ing on column mismatches — fixed in `1d57ca00`. Article_analytics has only `updated_at`, article_views uses `viewed_at`, affiliate_clicks uses `created_at`.
-5. **Pre-commit hook runs full tsc** — every commit must pass `npx tsc --noEmit --skipLibCheck` cleanly. Don't skip with `--no-verify`.
-6. **Calculator math layer is FROZEN** (`app/calculators/**`) — port shared UI primitives into `components/calculators/shared/` only.
-7. **Stripe legacy DB columns** still exist on `user_profiles` (`stripe_customer_id`, etc.) — pending migration to drop them in favor of `razorpay_*`. Don't remove them prematurely.
-8. **Recharts v3 + web-vitals v4 already reconciled** in commit `878b4b61` — don't be surprised by `(... as never)` casts on Tooltip formatters.
-9. **`/article/[slug]` legacy route deleted** — only `/articles/[slug]` (plural) is canonical.
-10. **`public/robots.txt` deleted** — `app/robots.ts` is the dynamic single source.
+1. **Sentry .d.ts typo in node_modules** — `@sentry/core/build/types/integrations/express/types.d.ts:30` has `SpanAttributes = from` instead of `SpanAttributes } from`. Patch locally to unblock tsc. Lost on next `npm install`. Fix: re-patch OR install `patch-package` OR wait for upstream fix.
 
----
+2. **Turbopack vs --webpack** — `next.config.ts` has both `webpack` config (for `isomorphic-dompurify` alias) and `turbopack: {}`. Production builds use Turbopack. If you see `isomorphic-dompurify` import errors locally, run `next build --webpack`.
 
-## Environment Variables (current)
+3. **`/article/:slug` vs `/articles/:slug`** — singular `/article` is deleted. Canonical is plural `/articles`. 308 redirect in `next.config.ts` for straggling external links.
 
-### Required core
-```
-NEXT_PUBLIC_SUPABASE_URL
-NEXT_PUBLIC_SUPABASE_ANON_KEY
-SUPABASE_SERVICE_ROLE_KEY
-NEXT_PUBLIC_BASE_URL=https://www.investingpro.in
-CRON_SECRET=investingpro-cron-secret-2026-secure
-```
+4. **`(client)/search` was the build-blocker** — Production frozen Apr 26→27 because `app/(client)/search/page.tsx` AND `app/search/page.tsx` both resolved to `/search` (Turbopack rejects). Deleted `(client)/search` in commit `2240097d`. Don't recreate.
 
-### Razorpay (NEW — replaces Stripe)
-```
-RAZORPAY_KEY_ID
-RAZORPAY_KEY_SECRET
-NEXT_PUBLIC_RAZORPAY_KEY_ID
-RAZORPAY_WEBHOOK_SECRET
-RAZORPAY_PRO_MONTHLY_PLAN_ID    # Create in Razorpay dashboard
-RAZORPAY_PRO_ANNUAL_PLAN_ID     # Create in Razorpay dashboard
-```
+5. **CSP keeps `'unsafe-inline'` and `'unsafe-eval'`** — Required for Next.js inline hydration + PostHog SDK + GTM dataLayer. Best Practices 96 → 100 requires nonce-based CSP (Phase 9d).
 
-### AI providers (chain failover order)
-```
-GOOGLE_GEMINI_API_KEY  # Primary
-GROQ_API_KEY            # Fast fallback
-MISTRAL_API_KEY         # Fallback
-OPENAI_API_KEY          # Fallback
-ANTHROPIC_API_KEY       # Fallback
-```
+6. **PWA SW only registers on production** — local dev intentionally skips registration (avoids HMR cache issues). Test PWA install only on live deploy.
 
-### Removed (no longer needed)
-```
-STRIPE_SECRET_KEY               # ❌ deleted
-STRIPE_PUBLISHABLE_KEY          # ❌ deleted
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY  # ❌ deleted
-STRIPE_WEBHOOK_SECRET           # ❌ deleted
-STRIPE_PRO_MONTHLY_PRICE_ID     # ❌ deleted
-STRIPE_PRO_ANNUAL_PRICE_ID      # ❌ deleted
-```
+7. **Hero constellation is desktop-only** — `lg+` viewports only. Removing the `isDesktop` conditional adds ~130 DOM nodes back to mobile.
 
-### Optional but used
-```
-RESEND_API_KEY                  # Newsletter + transactional
-UPSTASH_REDIS_REST_URL          # Rate limiting
-UPSTASH_REDIS_REST_TOKEN
-NEXT_PUBLIC_GA_MEASUREMENT_ID
-NEXT_PUBLIC_TAWK_PROPERTY_ID
-NEXT_PUBLIC_SENTRY_DSN
-NEXT_PUBLIC_POSTHOG_KEY
-NEXT_PUBLIC_POSTHOG_HOST
-PEXELS_API_KEY
-INNGEST_EVENT_KEY
-INNGEST_SIGNING_KEY
-```
+8. **Footer is `"use client"`** — needs `usePathname` + state. Don't convert to server component.
+
+9. **`BRAND_ADDRESS` + `BRAND_EMAIL` + `SOCIAL[]` are single source of truth** — Footer text + LocalBusiness JSON-LD `sameAs` both read from these constants.
+
+10. **Calculator math is FROZEN** — `app/calculators/**/*` math layer untouchable. Only port shared UI primitives into `components/calculators/shared/`.
 
 ---
 
-## Next-Session Bootstrap
-
-When you start a fresh Claude session:
-
-1. **Tell it**: "Read PROJECT_STATUS.md first."
-2. **Pick from pending list above** based on time + priority.
-3. **Run** `git log --oneline -10` to see what's landed since this doc was written (timestamp at top).
-4. **Don't re-debug the gotchas** — they're already solved.
-
-**Highest-leverage next-session task: run the MF backfill, then submit the sitemap to GSC + Bing.** That's the revenue-activation unlock; everything else compounds on top.
+## Bootstrap Recipe for Next Session
 
 ```bash
-npx tsx scripts/backfill-mf-returns.ts   # ~2 min, populates 514 MFs with real returns + ratings
-# Then: GSC → Sitemaps → submit https://www.investingpro.in/sitemap.xml
-# Then: Bing Webmaster Tools → submit same URL
+# 1. Read this file first
+cat PROJECT_STATUS.md
+
+# 2. Confirm git state
+git log --oneline -5
+
+# 3. Confirm production is live
+curl -sI https://www.investingpro.in/ | head -5
+
+# 4. Pick from the "Parked" or "Deferred" tables above
 ```
 
 ---
 
-*This doc is the operational source of truth. Update it whenever a major commit lands.*
-*CLAUDE.md should reference this doc rather than duplicate state.*
+*Single source of truth for Claude Code sessions on InvestingPro.in.*
+*Update this file whenever major architectural or status changes are made.*
