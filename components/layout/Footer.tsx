@@ -302,6 +302,8 @@ const COLUMNS = [
 
 // Legal + compliance block — separated below the main grid because
 // regulators (SEBI, RBI) and search engines both reward explicit disclosures.
+// Standard fintech footer legal items + sitemap/accessibility
+// (NerdWallet, Bankrate, Investopedia all include sitemap link in this strip).
 const LEGAL_LINKS = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
@@ -310,93 +312,24 @@ const LEGAL_LINKS = [
   { label: "Editorial Standards", href: "/about/editorial-standards" },
   { label: "How We Rate", href: "/about/methodology" },
   { label: "Corrections Policy", href: "/corrections" },
+  { label: "Accessibility", href: "/accessibility" },
   { label: "Security", href: "/security" },
+  { label: "Sitemap", href: "/sitemap.xml" },
 ];
 
 export default function Footer() {
   const pathname = usePathname();
   const [openCol, setOpenCol] = useState<number | null>(null);
+  // Mobile-only compliance toggle. Desktop always shows full text (always
+  // important for credibility); mobile collapses by default to save scroll.
+  // NerdWallet uses the same pattern. Legal text remains discoverable.
+  const [complianceOpen, setComplianceOpen] = useState(false);
 
   if (pathname?.startsWith("/admin")) return null;
 
   return (
     <footer className="surface-ink pt-16 pb-10">
       <div className="max-w-[1280px] mx-auto px-6">
-        {/* ── PWA install card ────────────────────────────────────
-            "InvestingPro on your phone" panel with a CSS-built phone-frame
-            mockup on the right and install CTA on the left. Modeled on the
-            NerdWallet footer "Get the app" card but PWA-only (no app stores —
-            we install via web manifest). PWAInstallButton is a client
-            component that shows three honest states: installed / installable
-            (browser fired beforeinstallprompt) / not-yet (browser menu only).
-        */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center mb-14 pb-14 border-b border-canvas-15">
-          {/* LEFT — text + CTA */}
-          <div className="order-2 md:order-1">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold mb-3">
-              InvestingPro on your phone
-            </div>
-            <h3 className="font-display font-black text-[28px] md:text-[34px] text-canvas leading-[1.05] tracking-tight mb-3">
-              Add to your home screen.
-            </h3>
-            <p className="text-[14px] text-canvas-70 leading-relaxed max-w-[420px] mb-5">
-              Offline calculators. Instant repeat-visits. Push alerts when rates
-              change. No app store, no permissions — just one tap.
-            </p>
-            <PWAInstallButton />
-          </div>
-
-          {/* RIGHT — CSS-built phone frame mockup with InvestingPro screen */}
-          <div className="order-1 md:order-2 flex items-center justify-center">
-            <div
-              className="relative w-[200px] h-[400px] bg-ink rounded-[36px] border-[5px] border-canvas-15 shadow-2xl overflow-hidden"
-              aria-hidden="true"
-            >
-              {/* Notch */}
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[72px] h-[18px] bg-ink rounded-full z-10" />
-
-              {/* Screen */}
-              <div className="absolute inset-1 bg-canvas rounded-[32px] flex flex-col">
-                {/* Status bar */}
-                <div className="flex justify-between items-center px-5 pt-7 text-[10px] font-medium text-ink">
-                  <span>9:41</span>
-                  <span className="font-mono">●●●●</span>
-                </div>
-
-                {/* Hero content — branded preview */}
-                <div className="flex-1 flex flex-col items-center justify-center px-4 text-center -mt-4">
-                  <div className="flex items-baseline gap-0">
-                    <span className="font-display font-black text-[18px] text-ink leading-none">
-                      Investing
-                    </span>
-                    <span className="font-display font-black text-[18px] text-ink leading-none">
-                      Pro
-                    </span>
-                    <span className="font-display font-black text-[18px] text-indian-gold leading-none">
-                      .
-                    </span>
-                  </div>
-                  <h4 className="font-display font-black text-[28px] text-ink leading-[1.05] tracking-tight mt-5">
-                    Money,
-                  </h4>
-                  <h4 className="font-display font-black text-[28px] text-ink leading-[1.05] tracking-tight">
-                    Decoded
-                    <span className="text-indian-gold">.</span>
-                  </h4>
-                  <p className="font-mono text-[9px] uppercase tracking-wider text-ink-60 mt-4">
-                    India · Independent
-                  </p>
-                </div>
-
-                {/* Home indicator */}
-                <div className="flex justify-center pb-2.5">
-                  <div className="w-[100px] h-1 bg-ink/80 rounded-full" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Main grid — 6 columns desktop with sub-sections per column, accordion on mobile */}
         <div className="hidden md:grid md:grid-cols-6 gap-6">
           {COLUMNS.map((col) => (
@@ -473,6 +406,83 @@ export default function Footer() {
           ))}
         </div>
 
+        {/* ── PWA install card ────────────────────────────────────
+            Placed AFTER the 6-column SEO inventory + mobile accordion
+            (research-validated: NerdWallet/Wise/Stripe all place app-promo
+            cards as the "by the way, install us" moment AFTER navigation
+            inventory, not before).
+
+            Mobile: shows text + CTA only (mockup hidden via `hidden md:flex`).
+            Mobile users are already on a phone; a phone-mockup illustration
+            is recursive and wastes 400px of scroll. Desktop users benefit
+            from the visual since they can't see the actual phone version.
+
+            PWAInstallButton renders three honest states:
+              ✓ Installed on this device  (display-mode: standalone detected)
+              [Add to Home Screen →]      (beforeinstallprompt fired)
+              Add via your browser menu   (Safari, criteria unmet)
+        */}
+        <div className="mt-14 pt-14 border-t border-canvas-15 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          {/* TEXT + CTA — full-width on mobile, left half on desktop */}
+          <div>
+            <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold mb-3">
+              InvestingPro on your phone
+            </div>
+            <h3 className="font-display font-black text-[28px] md:text-[34px] text-canvas leading-[1.05] tracking-tight mb-3">
+              Add to your home screen.
+            </h3>
+            <p className="text-[14px] text-canvas-70 leading-relaxed max-w-[420px] mb-5">
+              Offline calculators. Instant repeat-visits. Push alerts when rates
+              change. No app store, no permissions — just one tap.
+            </p>
+            <PWAInstallButton />
+          </div>
+
+          {/* PHONE MOCKUP — hidden on mobile (md+ only) */}
+          <div
+            className="hidden md:flex items-center justify-center"
+            aria-hidden="true"
+          >
+            <div className="relative w-[200px] h-[400px] bg-ink rounded-[36px] border-[5px] border-canvas-15 shadow-2xl overflow-hidden">
+              {/* Notch */}
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[72px] h-[18px] bg-ink rounded-full z-10" />
+
+              {/* Screen */}
+              <div className="absolute inset-1 bg-canvas rounded-[32px] flex flex-col">
+                <div className="flex justify-between items-center px-5 pt-7 text-[10px] font-medium text-ink">
+                  <span>9:41</span>
+                  <span className="font-mono">●●●●</span>
+                </div>
+                <div className="flex-1 flex flex-col items-center justify-center px-4 text-center -mt-4">
+                  <div className="flex items-baseline gap-0">
+                    <span className="font-display font-black text-[18px] text-ink leading-none">
+                      Investing
+                    </span>
+                    <span className="font-display font-black text-[18px] text-ink leading-none">
+                      Pro
+                    </span>
+                    <span className="font-display font-black text-[18px] text-indian-gold leading-none">
+                      .
+                    </span>
+                  </div>
+                  <h4 className="font-display font-black text-[28px] text-ink leading-[1.05] tracking-tight mt-5">
+                    Money,
+                  </h4>
+                  <h4 className="font-display font-black text-[28px] text-ink leading-[1.05] tracking-tight">
+                    Decoded<span className="text-indian-gold">.</span>
+                  </h4>
+                  <p className="font-mono text-[9px] uppercase tracking-wider text-ink-60 mt-4">
+                    India · Independent
+                  </p>
+                </div>
+                <div className="flex justify-center pb-2.5">
+                  <div className="w-[100px] h-1 bg-ink/80 rounded-full" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* ── Contact + Social band ─────────────────────────────────
             Real address (anonymized door number) + email + 6 social handles.
             Powers the LocalBusiness JSON-LD at the bottom. NAP consistency
@@ -481,7 +491,7 @@ export default function Footer() {
             useful info (how to reach us) is closest to the most-recent
             content the user just scrolled through.
         */}
-        <div className="mt-14 pt-10 border-t border-canvas-15 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Address + Email */}
           <div className="space-y-3">
             <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
@@ -577,52 +587,79 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Compliance / regulatory block — required, not decoration */}
+        {/* Compliance / regulatory block — required, not decoration.
+            Desktop: always-visible. Mobile: collapsed by default with
+            "Read full regulatory disclosure ▾" toggle. Pattern follows
+            NerdWallet's mobile footer — keeps legal text discoverable
+            without burying the copyright/jurisdiction line under 3
+            paragraphs of fine print on small screens. */}
         <div className="mt-8 pt-6 border-t border-canvas-15 space-y-4">
-          <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
-            Regulatory & Compliance
+          <div className="flex items-center justify-between gap-4">
+            <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
+              Regulatory & Compliance
+            </div>
+            {/* Mobile toggle — desktop hides this since text is always shown */}
+            <button
+              type="button"
+              onClick={() => setComplianceOpen((o) => !o)}
+              aria-expanded={complianceOpen}
+              aria-controls="footer-compliance-text"
+              className="md:hidden inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-canvas-70 hover:text-canvas transition-colors"
+            >
+              {complianceOpen ? "Hide" : "Read full"}
+              <ChevronDown
+                className={`w-3 h-3 transition-transform ${complianceOpen ? "rotate-180" : ""}`}
+              />
+            </button>
           </div>
 
-          <p className="font-mono text-[11px] text-canvas-70 leading-[18px] max-w-[920px]">
-            <strong className="text-canvas">
-              InvestingPro is not a SEBI-registered investment advisor.
-            </strong>{" "}
-            Content on this platform is for educational and informational
-            purposes only and does not constitute investment advice,
-            solicitation, or recommendation to buy, sell, or hold any security,
-            instrument, or product. Past performance does not guarantee future
-            results. Mutual fund investments are subject to market risks; read
-            all scheme-related documents carefully. Please consult a
-            SEBI-registered investment advisor before making any investment
-            decision.
-          </p>
+          {/* 3 paragraphs — always rendered on desktop (md+), conditionally on mobile */}
+          <div
+            id="footer-compliance-text"
+            className={`space-y-4 ${complianceOpen ? "block" : "hidden md:block"}`}
+          >
+            <p className="font-mono text-[11px] text-canvas-70 leading-[18px] max-w-[920px]">
+              <strong className="text-canvas">
+                InvestingPro is not a SEBI-registered investment advisor.
+              </strong>{" "}
+              Content on this platform is for educational and informational
+              purposes only and does not constitute investment advice,
+              solicitation, or recommendation to buy, sell, or hold any
+              security, instrument, or product. Past performance does not
+              guarantee future results. Mutual fund investments are subject to
+              market risks; read all scheme-related documents carefully. Please
+              consult a SEBI-registered investment advisor before making any
+              investment decision.
+            </p>
 
-          <p className="font-mono text-[11px] text-canvas-70 leading-[18px] max-w-[920px]">
-            <strong className="text-canvas">Affiliate disclosure:</strong>{" "}
-            InvestingPro may earn affiliate commissions when you apply for
-            financial products through our links. This never influences our
-            rankings, reviews, or recommendations — our editorial process is
-            independent and documented. See our{" "}
-            <Link
-              href="/about/how-we-make-money"
-              className="text-indian-gold hover:underline"
-            >
-              How We Make Money
-            </Link>{" "}
-            page for details. Rates, offers, and product availability are
-            subject to change without notice; always verify with the issuer
-            before applying.
-          </p>
+            <p className="font-mono text-[11px] text-canvas-70 leading-[18px] max-w-[920px]">
+              <strong className="text-canvas">Affiliate disclosure:</strong>{" "}
+              InvestingPro may earn affiliate commissions when you apply for
+              financial products through our links. This never influences our
+              rankings, reviews, or recommendations — our editorial process is
+              independent and documented. See our{" "}
+              <Link
+                href="/about/how-we-make-money"
+                className="text-indian-gold underline hover:no-underline"
+              >
+                How We Make Money
+              </Link>{" "}
+              page for details. Rates, offers, and product availability are
+              subject to change without notice; always verify with the issuer
+              before applying.
+            </p>
 
-          <p className="font-mono text-[11px] text-canvas-70 leading-[18px] max-w-[920px]">
-            <strong className="text-canvas">Jurisdiction:</strong> This platform
-            is intended for residents of India. Financial products and services
-            referenced are governed by Indian regulators — RBI (banking, loans,
-            deposits), SEBI (mutual funds, securities), IRDAI (insurance), and
-            PFRDA (pensions/NPS). International users: products may not be
-            available in your jurisdiction.
-          </p>
+            <p className="font-mono text-[11px] text-canvas-70 leading-[18px] max-w-[920px]">
+              <strong className="text-canvas">Jurisdiction:</strong> This
+              platform is intended for residents of India. Financial products
+              and services referenced are governed by Indian regulators — RBI
+              (banking, loans, deposits), SEBI (mutual funds, securities), IRDAI
+              (insurance), and PFRDA (pensions/NPS). International users:
+              products may not be available in your jurisdiction.
+            </p>
+          </div>
 
+          {/* Copyright + last-reviewed — always visible regardless of toggle */}
           <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-canvas-15">
             <span className="font-mono text-[11px] text-canvas-70">
               &copy; {new Date().getFullYear()} InvestingPro.in · All rights
