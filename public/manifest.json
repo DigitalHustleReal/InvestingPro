@@ -1,12 +1,17 @@
 {
-  "name": "InvestingPro",
+  "name": "InvestingPro — Money, Decoded.",
   "short_name": "InvestingPro",
-  "description": "India's Independent Financial Comparison Platform",
+  "description": "Money, Decoded. India's transparent personal finance comparison platform — credit cards, mutual funds, loans, and 72 free calculators.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FFFFFF",
-  "theme_color": "#166534",
+  "background_color": "#FAFAF9",
+  "theme_color": "#0A1F14",
   "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
     {
       "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
@@ -18,10 +23,10 @@
       "type": "image/png"
     },
     {
-       "src": "/icons/icon-512x512.png",
-       "sizes": "512x512",
-       "type": "image/png",
-       "purpose": "maskable"
+      "src": "/icons/icon-512x512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

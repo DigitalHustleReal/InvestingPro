@@ -55,16 +55,14 @@ export default function SettingsPage() {
         { key: "site_description", value: siteDescription },
       ];
       for (const s of settings) {
-        await supabase
-          .from("system_settings")
-          .upsert(
-            {
-              key: s.key,
-              value: s.value,
-              updated_at: new Date().toISOString(),
-            },
-            { onConflict: "key" },
-          );
+        await supabase.from("system_settings").upsert(
+          {
+            key: s.key,
+            value: s.value,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "key" },
+        );
       }
       toast.success("Settings saved!");
     } catch {
@@ -115,7 +113,7 @@ export default function SettingsPage() {
                 <Textarea
                   value={siteDescription}
                   onChange={(e) => setSiteDescription(e.target.value)}
-                  placeholder="India's Best Financial Comparison Platform"
+                  placeholder="Money, Decoded."
                   rows={3}
                   className="bg-muted/50 dark:bg-muted/50 border-border/70 dark:border-border/70 text-foreground dark:text-foreground"
                 />

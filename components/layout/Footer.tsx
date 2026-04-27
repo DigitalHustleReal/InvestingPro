@@ -308,13 +308,14 @@ export default function Footer() {
                 <span className="text-[22px] font-display font-black text-canvas">
                   Investing
                 </span>
-                <span className="text-[22px] font-display font-black text-indian-gold">
+                <span className="text-[22px] font-display font-black text-canvas">
                   Pro
                 </span>
+                <span className="text-[22px] font-display font-black text-indian-gold">
+                  .
+                </span>
               </div>
-              <p className="text-[12px] text-canvas-70 mt-1">
-                India&apos;s Independent Finance Platform
-              </p>
+              <p className="text-[12px] text-canvas-70 mt-1">Money, Decoded.</p>
             </div>
 
             {/* Legal links grid */}

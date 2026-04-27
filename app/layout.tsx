@@ -66,11 +66,11 @@ const SITE_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "InvestingPro - Smart Financial Decisions Made Simple",
+    default: "InvestingPro — Money, Decoded.",
     template: "%s | InvestingPro",
   },
   description:
-    "Compare credit cards, loans, mutual funds, and government schemes. Get AI-powered recommendations and expert reviews to make smarter financial decisions.",
+    "Money, Decoded. Compare credit cards, mutual funds, loans, and use 72 free calculators. Independent ratings, transparent methodology — for India.",
   keywords: [
     "personal finance",
     "credit cards",
@@ -84,6 +84,19 @@ export const metadata: Metadata = {
   authors: [{ name: "InvestingPro Team" }],
   creator: "InvestingPro",
   publisher: "InvestingPro",
+  alternates: { canonical: SITE_URL },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: {
+      url: "/apple-touch-icon.png",
+      sizes: "180x180",
+      type: "image/png",
+    },
+    other: [{ rel: "mask-icon", url: "/favicon.svg", color: "#D97706" }],
+  },
   verification: {
     google: "frJEpYhU206CZdHR23QlUvVr-4SFZbllQlQ2bQ_h0Uc",
   },
@@ -92,15 +105,24 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: SITE_URL,
     siteName: "InvestingPro",
-    title: "InvestingPro - Smart Financial Decisions Made Simple",
+    title: "InvestingPro — Money, Decoded.",
     description:
-      "Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.",
+      "Money, Decoded. Independent ratings on credit cards, mutual funds, loans + 72 calculators. Transparent methodology, zero paid placements.",
+    images: [
+      {
+        url: "/brand/wordmark-light-1024.png",
+        width: 1024,
+        height: 256,
+        alt: "InvestingPro — Money, Decoded.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "InvestingPro - Smart Financial Decisions Made Simple",
+    title: "InvestingPro — Money, Decoded.",
     description:
-      "Compare credit cards, loans, mutual funds, and more. Get AI-powered recommendations and expert reviews.",
+      "Money, Decoded. Independent ratings + 72 calculators. Transparent methodology, zero paid placements.",
+    images: ["/brand/wordmark-light-1024.png"],
   },
   manifest: "/manifest.json",
   robots: {
@@ -154,7 +176,7 @@ export default async function RootLayout({
           rel="alternate"
           type="application/rss+xml"
           title="InvestingPro — Finance News & Guides"
-          href="https://investingpro.in/feed.xml"
+          href="https://www.investingpro.in/feed.xml"
         />
       </head>
       <body
@@ -175,10 +197,10 @@ export default async function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "InvestingPro",
-              url: "https://investingpro.in",
-              logo: "https://investingpro.in/logo.png",
+              url: "https://www.investingpro.in",
+              logo: "https://www.investingpro.in/brand/wordmark-light-1024.png",
               description:
-                "India's free personal finance comparison platform. Compare credit cards, mutual funds, loans, and use 75+ financial calculators.",
+                "Money, Decoded. India's transparent personal finance comparison platform — credit cards, mutual funds, loans, and 72 free calculators.",
               sameAs: [],
               email: "contact@investingpro.in",
               contactPoint: {

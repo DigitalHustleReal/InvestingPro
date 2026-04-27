@@ -39,14 +39,15 @@ import TrustMethodology from "@/components/v2/home/TrustMethodology";
 import NewsletterTrust from "@/components/v2/home/NewsletterTrust";
 
 export const metadata: Metadata = {
-  title: "InvestingPro — India's Independent Financial Comparison Platform",
+  title: "Money, Decoded. — InvestingPro",
   description:
-    "Compare credit cards, mutual funds, loans, and more across 50+ Indian banks. Independent research, AI-powered recommendations, 75 free calculators. No paid rankings.",
+    "Money, Decoded. Compare credit cards, mutual funds, loans, and use 72 free calculators. Independent ratings, transparent methodology — for India.",
+  alternates: { canonical: "https://www.investingpro.in" },
   openGraph: {
-    title: "InvestingPro — India's Independent Financial Comparison Platform",
+    title: "Money, Decoded. — InvestingPro",
     description:
-      "Compare credit cards, mutual funds, loans, insurance, and more. Free. Independent. Updated daily.",
-    url: "https://investingpro.in",
+      "Money, Decoded. Independent ratings on credit cards, mutual funds, loans + 72 calculators. Transparent methodology, zero paid placements.",
+    url: "https://www.investingpro.in",
     type: "website",
     locale: "en_IN",
   },
@@ -81,13 +82,15 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "InvestingPro",
-    url: "https://investingpro.in",
-    description: "India's independent financial comparison platform",
+    url: "https://www.investingpro.in",
+    description:
+      "Money, Decoded. — India's transparent personal finance platform.",
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://investingpro.in/search?q={search_term_string}",
+        urlTemplate:
+          "https://www.investingpro.in/search?q={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },

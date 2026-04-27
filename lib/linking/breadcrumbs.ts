@@ -203,9 +203,12 @@ function formatSegmentLabel(slug: string): string {
 }
 
 /**
- * Generate breadcrumb structured data (JSON-LD)
+ * Generate breadcrumb structured data (JSON-LD).
+ * Uses ABSOLUTE URLs (with www) as required by Google Rich Results.
  */
 export function generateBreadcrumbSchema(breadcrumbs: BreadcrumbItem[]): any {
+  const SITE_URL =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.investingpro.in";
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -213,7 +216,9 @@ export function generateBreadcrumbSchema(breadcrumbs: BreadcrumbItem[]): any {
       "@type": "ListItem",
       position: index + 1,
       name: crumb.label,
-      item: `${process.env.NEXT_PUBLIC_BASE_URL || "https://investingpro.in"}${crumb.url}`,
+      item: crumb.url.startsWith("http")
+        ? crumb.url
+        : `${SITE_URL}${crumb.url.startsWith("/") ? crumb.url : `/${crumb.url}`}`,
     })),
   };
 }
