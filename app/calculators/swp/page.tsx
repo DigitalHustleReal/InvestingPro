@@ -194,11 +194,10 @@ export default function SWPCalculatorPage() {
               <p className="text-lg leading-relaxed">
                 A <strong>Systematic Withdrawal Plan (SWP)</strong> is a mutual
                 fund facility that allows you to withdraw a fixed amount of
-                money from your investment corpus at regular
-                intervalsâ€”monthly, quarterly, or annually. It is the exact
-                opposite of SIP (Systematic Investment Plan). While SIP allows
-                you to invest systematically, SWP allows you to withdraw
-                systematically.
+                money from your investment corpus at regular intervals—monthly,
+                quarterly, or annually. It is the exact opposite of SIP
+                (Systematic Investment Plan). While SIP allows you to invest
+                systematically, SWP allows you to withdraw systematically.
               </p>
               <p className="text-lg leading-relaxed">
                 SWP is widely used by retirees to generate a{" "}
