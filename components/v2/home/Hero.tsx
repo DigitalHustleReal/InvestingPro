@@ -225,7 +225,7 @@ export default function Hero() {
               <span className="font-display font-black text-[44px] sm:text-[56px] lg:text-[68px] leading-[1.05] text-indian-gold tracking-tight block">
                 {q.questionLine2}
               </span>
-              <div className="text-sm text-gray-400 mt-3">
+              <div className="text-sm text-ink-60 mt-3">
                 Q{q.id} of {HERO_QUESTIONS.length} · most-asked this month
               </div>
             </div>
@@ -272,8 +272,13 @@ export default function Hero() {
                     key={i}
                     onClick={() => handleDot(i)}
                     aria-label={`Go to question ${i + 1}`}
-                    className={`w-[7px] h-[7px] rounded-full border-none cursor-pointer transition-all duration-500 ${i === idx ? "bg-[#D97706] scale-125" : "bg-[#D4CEC0]"}`}
-                  />
+                    className="w-6 h-6 flex items-center justify-center cursor-pointer bg-transparent border-none p-0"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`block w-[7px] h-[7px] rounded-full transition-all duration-500 ${i === idx ? "bg-[#D97706] scale-125" : "bg-[#D4CEC0]"}`}
+                    />
+                  </button>
                 ))}
               </div>
               <span className="text-[12px] font-light text-[#64748B]">

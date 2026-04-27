@@ -70,7 +70,7 @@ export default function AppTeaser() {
                 Join the waitlist
               </Link>
             </div>
-            <p className="mt-3 text-[11px] text-gray-400">
+            <p className="mt-3 text-[11px] text-ink-60">
               Works on any device. No app store needed.
             </p>
           </div>
@@ -213,7 +213,7 @@ export default function AppTeaser() {
                             {r.rate}
                           </p>
                           <p
-                            className={`text-[7px] font-semibold ${r.down ? "text-red-500" : "text-gray-400"}`}
+                            className={`text-[7px] font-semibold ${r.down ? "text-red-500" : "text-ink-60"}`}
                           >
                             {r.delta}
                           </p>

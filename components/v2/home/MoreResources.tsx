@@ -242,7 +242,7 @@ export default function MoreResources() {
                   }`}
                 >
                   <Icon
-                    className={`w-5 h-5 flex-shrink-0 ${isActive ? "text-green-600" : "text-gray-400"}`}
+                    className={`w-5 h-5 flex-shrink-0 ${isActive ? "text-green-600" : "text-ink-60"}`}
                   />
                   <span className="text-sm font-semibold">{sec.label}</span>
                   {isActive && (
@@ -266,7 +266,7 @@ export default function MoreResources() {
                   <span className="text-2xl font-black text-green-600 leading-none">
                     {active.stat}
                   </span>
-                  <span className="text-[10px] text-gray-400 mt-1 text-center leading-tight">
+                  <span className="text-[10px] text-ink-60 mt-1 text-center leading-tight">
                     {active.statLabel}
                   </span>
                 </div>
@@ -299,7 +299,7 @@ export default function MoreResources() {
                     <span className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors">
                       {link.label}
                     </span>
-                    <span className="text-sm text-gray-400 ml-2 hidden sm:inline">
+                    <span className="text-sm text-ink-60 ml-2 hidden sm:inline">
                       {link.desc}
                     </span>
                   </div>

@@ -43,9 +43,9 @@ export default function CookieConsent() {
             We use cookies for analytics &amp; affiliate tracking.{" "}
             <Link
               href="/cookie-policy"
-              className="text-indian-gold hover:underline"
+              className="text-indian-gold underline underline-offset-2"
             >
-              Learn more
+              Read our cookie policy
             </Link>
           </p>
           <div className="flex items-center gap-2 flex-shrink-0">

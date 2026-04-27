@@ -67,7 +67,7 @@ export default function PartnerLogos() {
   return (
     <section className="py-10 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <p className="text-center text-sm text-gray-400 mb-6">
+        <p className="text-center text-sm text-ink-60 mb-6">
           Comparing products from India&apos;s top financial institutions
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">

@@ -647,9 +647,9 @@ export default function FindYourFit() {
               <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-3">
                 #{i + 1} · {p.badge}
               </div>
-              <h4 className="font-display font-bold text-xl text-ink mb-2 leading-snug group-hover:text-authority-green transition-colors">
+              <h3 className="font-display font-bold text-xl text-ink mb-2 leading-snug group-hover:text-authority-green transition-colors">
                 {p.title}
-              </h4>
+              </h3>
               <p className="text-[13px] text-ink-60 leading-relaxed mb-4 flex-1">
                 {p.oneLiner}
               </p>

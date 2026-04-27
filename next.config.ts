@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   turbopack: {},
   images: {
     unoptimized: false,
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     remotePatterns: [
       { protocol: "https", hostname: "**.supabase.co" },
       { protocol: "https", hostname: "images.unsplash.com" },
@@ -46,6 +49,58 @@ const nextConfig: NextConfig = {
         source: "/article/:slug",
         destination: "/articles/:slug",
         permanent: true,
+      },
+      // Defensive 301s for legacy /tools/* paths that some external links may
+      // still reference. The Hero CTAs themselves now point to /calculators/*
+      // directly. These redirects only kick in if someone shares an old URL.
+      {
+        source: "/tools/regime-calculator",
+        destination: "/calculators/old-vs-new-tax",
+        permanent: true,
+      },
+      {
+        source: "/tools/retirement-calculator",
+        destination: "/calculators/retirement",
+        permanent: true,
+      },
+      {
+        source: "/tools/nps-calculator",
+        destination: "/calculators/nps",
+        permanent: true,
+      },
+      {
+        source: "/tools/emergency-fund",
+        destination: "/calculators/financial-health-score",
+        permanent: true,
+      },
+      {
+        source: "/tools/credit-card-finder",
+        destination: "/credit-cards/find-your-card",
+        permanent: true,
+      },
+    ];
+  },
+  // Best-Practices: HSTS + COOP + XFO + a few sane defaults.
+  // CSP intentionally omitted for now — needs careful 3rd-party audit
+  // (GTM + PostHog + Tawk + Cuelinks/EarnKaro) to avoid breaking analytics.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
       },
     ];
   },
