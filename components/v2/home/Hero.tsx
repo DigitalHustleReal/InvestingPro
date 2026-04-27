@@ -90,12 +90,29 @@ export default function Hero() {
   const [idx, setIdx] = useState(0);
   const [fading, setFading] = useState(false);
   const [paused, setPaused] = useState(false);
+  // Viewport-conditional rendering: the constellation block (dot mesh +
+  // connection lines + animated particles + pulsing rings) is heavy in
+  // both DOM size and SVG paint cost. It's CSS-hidden on mobile via
+  // `hidden lg:block`, but the DOM tree still ships through SSR — PSI
+  // mobile counts every node toward DOM-size + layout cost.
+  // Solution: don't render the inner SVGs at all on mobile. Initial SSR
+  // render is empty; after hydration we matchMedia and mount on desktop.
+  const [isDesktop, setIsDesktop] = useState(false);
   const pausedRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     pausedRef.current = paused;
   }, [paused]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const sync = () => setIsDesktop(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   const q = HERO_QUESTIONS[idx];
   const activeCore = q.activeCore;
@@ -287,261 +304,263 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── RIGHT: Contextual Constellation ── */}
-          <div className="hidden lg:block relative min-h-[620px]">
-            <div className="absolute top-[10px] right-[40px] w-[28px] h-[18px] border-t-2 border-r-2 border-[#D97706]" />
+          {/* ── RIGHT: Contextual Constellation (desktop-only render) ── */}
+          {isDesktop && (
+            <div className="hidden lg:block relative min-h-[620px]">
+              <div className="absolute top-[10px] right-[40px] w-[28px] h-[18px] border-t-2 border-r-2 border-[#D97706]" />
 
-            <div className="relative w-full h-[620px] constellation-container">
-              {/* Background dot mesh — 8×6 grid (was 12×10 = 120 nodes;
+              <div className="relative w-full h-[620px] constellation-container">
+                {/* Background dot mesh — 8×6 grid (was 12×10 = 120 nodes;
                   PSI flagged "Most children: 120" as DOM-size hot spot.
                   Even though wrapped in hidden lg:block, SSR ships the
                   full DOM tree to mobile, counted by Lighthouse). */}
-              <svg
-                className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.15]"
-                viewBox="0 0 100 100"
-              >
-                {Array.from({ length: 48 }).map((_, i) => {
-                  const cols = 8;
-                  const gx = (i % cols) * 13 + 6;
-                  const gy = Math.floor(i / cols) * 16 + 6;
-                  const distToFocal = Math.sqrt(
-                    (gx - FOCAL.x) ** 2 + (gy - FOCAL.y) ** 2,
-                  );
-                  const warp = Math.max(0, 1 - distToFocal / 40);
-                  return (
-                    <circle
-                      key={i}
-                      cx={gx}
-                      cy={gy}
-                      r={0.3 + warp * 0.4}
-                      fill={warp > 0.3 ? "rgba(217,119,6,0.4)" : "#D4CEC0"}
-                      className="transition-all duration-1000"
-                    />
-                  );
-                })}
-              </svg>
-
-              {/* Connection lines + particles */}
-              <svg
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <circle id="p" r="0.35" fill="#D97706" opacity="0.9" />
-                  <filter id="glow">
-                    <feGaussianBlur stdDeviation="1.2" result="b" />
-                    <feMerge>
-                      <feMergeNode in="b" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                  <linearGradient
-                    id="goldLine"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="0%"
-                  >
-                    <stop offset="0%" stopColor="rgba(217,119,6,0.1)" />
-                    <stop offset="50%" stopColor="rgba(217,119,6,0.5)" />
-                    <stop offset="100%" stopColor="rgba(217,119,6,0.1)" />
-                  </linearGradient>
-                </defs>
-
-                {/* Core-to-core bezier curves */}
-                {CORE_LINKS.map(([a, b]) => {
-                  const pa = positions.cores[a];
-                  const pb = positions.cores[b];
-                  if (!pa || !pb) return null;
-                  const isRelevant = a === activeCore || b === activeCore;
-                  const d = bezierPath(pa.x, pa.y, pb.x, pb.y);
-                  return (
-                    <g key={`cc-${a}-${b}`}>
-                      <path
-                        d={d}
-                        fill="none"
-                        stroke={isRelevant ? "url(#goldLine)" : "#E5E0D4"}
-                        strokeWidth={isRelevant ? "0.18" : "0.08"}
-                        className="transition-all duration-700 ease-out"
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.15]"
+                  viewBox="0 0 100 100"
+                >
+                  {Array.from({ length: 48 }).map((_, i) => {
+                    const cols = 8;
+                    const gx = (i % cols) * 13 + 6;
+                    const gy = Math.floor(i / cols) * 16 + 6;
+                    const distToFocal = Math.sqrt(
+                      (gx - FOCAL.x) ** 2 + (gy - FOCAL.y) ** 2,
+                    );
+                    const warp = Math.max(0, 1 - distToFocal / 40);
+                    return (
+                      <circle
+                        key={i}
+                        cx={gx}
+                        cy={gy}
+                        r={0.3 + warp * 0.4}
+                        fill={warp > 0.3 ? "rgba(217,119,6,0.4)" : "#D4CEC0"}
+                        className="transition-all duration-1000"
                       />
-                      {isRelevant && (
-                        <circle r="0.3" fill="#D97706" opacity="0.8">
-                          <animateMotion
-                            dur={`${3.5 + (a.length % 3) * 0.5}s`}
+                    );
+                  })}
+                </svg>
+
+                {/* Connection lines + particles */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                >
+                  <defs>
+                    <circle id="p" r="0.35" fill="#D97706" opacity="0.9" />
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="1.2" result="b" />
+                      <feMerge>
+                        <feMergeNode in="b" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                    <linearGradient
+                      id="goldLine"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stopColor="rgba(217,119,6,0.1)" />
+                      <stop offset="50%" stopColor="rgba(217,119,6,0.5)" />
+                      <stop offset="100%" stopColor="rgba(217,119,6,0.1)" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Core-to-core bezier curves */}
+                  {CORE_LINKS.map(([a, b]) => {
+                    const pa = positions.cores[a];
+                    const pb = positions.cores[b];
+                    if (!pa || !pb) return null;
+                    const isRelevant = a === activeCore || b === activeCore;
+                    const d = bezierPath(pa.x, pa.y, pb.x, pb.y);
+                    return (
+                      <g key={`cc-${a}-${b}`}>
+                        <path
+                          d={d}
+                          fill="none"
+                          stroke={isRelevant ? "url(#goldLine)" : "#E5E0D4"}
+                          strokeWidth={isRelevant ? "0.18" : "0.08"}
+                          className="transition-all duration-700 ease-out"
+                        />
+                        {isRelevant && (
+                          <circle r="0.3" fill="#D97706" opacity="0.8">
+                            <animateMotion
+                              dur={`${3.5 + (a.length % 3) * 0.5}s`}
+                              repeatCount="indefinite"
+                              path={d}
+                            />
+                          </circle>
+                        )}
+                      </g>
+                    );
+                  })}
+
+                  {/* Sub-to-core bezier curves */}
+                  {CONSTELLATION_NODES.sub.map((s) => {
+                    const sp = positions.subs[s.id];
+                    const coreId = SUB_PARENT[s.id];
+                    const cp = positions.cores[coreId];
+                    if (!sp || !cp) return null;
+                    const isActive =
+                      coreId === activeCore && activeSubs.includes(s.id);
+                    const d = bezierPath(sp.x, sp.y, cp.x, cp.y);
+                    return (
+                      <g key={`sc-${s.id}`}>
+                        <path
+                          d={d}
+                          fill="none"
+                          stroke={
+                            isActive
+                              ? "rgba(217,119,6,0.45)"
+                              : "rgba(237,232,223,0.5)"
+                          }
+                          strokeWidth={isActive ? "0.18" : "0.06"}
+                          strokeDasharray={isActive ? "none" : "0.4 0.6"}
+                          className="transition-all duration-700 ease-out"
+                        />
+                        {isActive && (
+                          <>
+                            <circle r="0.25" fill="#16A34A" opacity="0.7">
+                              <animateMotion
+                                dur={`${2.5 + (s.id.length % 3) * 0.4}s`}
+                                repeatCount="indefinite"
+                                path={d}
+                              />
+                            </circle>
+                            <circle r="0.2" fill="#D97706" opacity="0.6">
+                              <animateMotion
+                                dur={`${4 + (s.id.length % 2)}s`}
+                                repeatCount="indefinite"
+                                path={d}
+                                begin="1s"
+                              />
+                            </circle>
+                          </>
+                        )}
+                      </g>
+                    );
+                  })}
+
+                  {/* Pulsing rings around active core */}
+                  {(() => {
+                    const cp = positions.cores[activeCore];
+                    if (!cp) return null;
+                    return (
+                      <>
+                        <circle
+                          cx={cp.x}
+                          cy={cp.y}
+                          r="4"
+                          fill="none"
+                          stroke="rgba(217,119,6,0.12)"
+                          strokeWidth="0.12"
+                          filter="url(#glow)"
+                        >
+                          <animate
+                            attributeName="r"
+                            values="3;6;3"
+                            dur="3s"
                             repeatCount="indefinite"
-                            path={d}
+                          />
+                          <animate
+                            attributeName="opacity"
+                            values="0.25;0.05;0.25"
+                            dur="3s"
+                            repeatCount="indefinite"
                           />
                         </circle>
-                      )}
-                    </g>
+                        <circle
+                          cx={cp.x}
+                          cy={cp.y}
+                          r="5"
+                          fill="none"
+                          stroke="rgba(22,163,74,0.08)"
+                          strokeWidth="0.08"
+                        >
+                          <animate
+                            attributeName="r"
+                            values="5;8;5"
+                            dur="4.5s"
+                            repeatCount="indefinite"
+                          />
+                          <animate
+                            attributeName="opacity"
+                            values="0.15;0.02;0.15"
+                            dur="4.5s"
+                            repeatCount="indefinite"
+                          />
+                        </circle>
+                      </>
+                    );
+                  })()}
+                </svg>
+
+                {/* Sub-topic pills */}
+                {CONSTELLATION_NODES.sub.map((s, i) => {
+                  const pos = positions.subs[s.id];
+                  if (!pos) return null;
+                  const isActive = activeSubs.includes(s.id);
+                  const link = NODE_LINKS[s.id] || "/calculators";
+                  return (
+                    <a
+                      key={s.id}
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-3 py-1.5 text-[11.5px] font-medium border cursor-pointer transition-all duration-700 ease-out hover:border-[#D97706] hover:text-[#0A1F14] hover:scale-110 ${
+                        isActive
+                          ? "text-[#0A1F14] border-[#D97706] bg-white shadow-md scale-[1.08] z-10"
+                          : "text-[#94A3B8] border-[#E2DED3] bg-[#FAFAF9]/80 opacity-50 hover:opacity-100 scale-[0.92]"
+                      }`}
+                      style={{
+                        left: `${pos.x}%`,
+                        top: `${pos.y}%`,
+                        animation: isActive
+                          ? "none"
+                          : `hero-float-${i % 3 === 0 ? "a" : i % 3 === 1 ? "b" : "c"} ${5.5 + (i % 4) * 0.7}s ease-in-out infinite`,
+                      }}
+                    >
+                      {s.label}
+                    </a>
                   );
                 })}
 
-                {/* Sub-to-core bezier curves */}
-                {CONSTELLATION_NODES.sub.map((s) => {
-                  const sp = positions.subs[s.id];
-                  const coreId = SUB_PARENT[s.id];
-                  const cp = positions.cores[coreId];
-                  if (!sp || !cp) return null;
-                  const isActive =
-                    coreId === activeCore && activeSubs.includes(s.id);
-                  const d = bezierPath(sp.x, sp.y, cp.x, cp.y);
+                {/* Core category pills */}
+                {CONSTELLATION_NODES.core.map((c) => {
+                  const pos = positions.cores[c.id];
+                  if (!pos) return null;
+                  const isActive = c.id === activeCore;
+                  const isGreen = c.style === "green";
+                  const link = NODE_LINKS[c.id] || "/";
                   return (
-                    <g key={`sc-${s.id}`}>
-                      <path
-                        d={d}
-                        fill="none"
-                        stroke={
-                          isActive
-                            ? "rgba(217,119,6,0.45)"
-                            : "rgba(237,232,223,0.5)"
-                        }
-                        strokeWidth={isActive ? "0.18" : "0.06"}
-                        strokeDasharray={isActive ? "none" : "0.4 0.6"}
-                        className="transition-all duration-700 ease-out"
-                      />
-                      {isActive && (
-                        <>
-                          <circle r="0.25" fill="#16A34A" opacity="0.7">
-                            <animateMotion
-                              dur={`${2.5 + (s.id.length % 3) * 0.4}s`}
-                              repeatCount="indefinite"
-                              path={d}
-                            />
-                          </circle>
-                          <circle r="0.2" fill="#D97706" opacity="0.6">
-                            <animateMotion
-                              dur={`${4 + (s.id.length % 2)}s`}
-                              repeatCount="indefinite"
-                              path={d}
-                              begin="1s"
-                            />
-                          </circle>
-                        </>
-                      )}
-                    </g>
+                    <a
+                      key={c.id}
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-4 py-2 text-[13.5px] font-semibold tracking-[0.2px] cursor-pointer transition-all duration-700 ease-out hover:scale-110 z-20 ${
+                        isGreen
+                          ? "bg-[#EEF7F1] text-[#166534] border-[#16A34A]"
+                          : "bg-[#FDF2E0] text-[#A55C04] border-[#D97706]"
+                      } ${
+                        isActive
+                          ? "scale-[1.22] border-[3px] shadow-xl shadow-[rgba(217,119,6,0.2)]"
+                          : "border-2 opacity-60 hover:opacity-100 scale-[0.95]"
+                      }`}
+                      style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
+                    >
+                      {c.label}
+                    </a>
                   );
                 })}
+              </div>
 
-                {/* Pulsing rings around active core */}
-                {(() => {
-                  const cp = positions.cores[activeCore];
-                  if (!cp) return null;
-                  return (
-                    <>
-                      <circle
-                        cx={cp.x}
-                        cy={cp.y}
-                        r="4"
-                        fill="none"
-                        stroke="rgba(217,119,6,0.12)"
-                        strokeWidth="0.12"
-                        filter="url(#glow)"
-                      >
-                        <animate
-                          attributeName="r"
-                          values="3;6;3"
-                          dur="3s"
-                          repeatCount="indefinite"
-                        />
-                        <animate
-                          attributeName="opacity"
-                          values="0.25;0.05;0.25"
-                          dur="3s"
-                          repeatCount="indefinite"
-                        />
-                      </circle>
-                      <circle
-                        cx={cp.x}
-                        cy={cp.y}
-                        r="5"
-                        fill="none"
-                        stroke="rgba(22,163,74,0.08)"
-                        strokeWidth="0.08"
-                      >
-                        <animate
-                          attributeName="r"
-                          values="5;8;5"
-                          dur="4.5s"
-                          repeatCount="indefinite"
-                        />
-                        <animate
-                          attributeName="opacity"
-                          values="0.15;0.02;0.15"
-                          dur="4.5s"
-                          repeatCount="indefinite"
-                        />
-                      </circle>
-                    </>
-                  );
-                })()}
-              </svg>
-
-              {/* Sub-topic pills */}
-              {CONSTELLATION_NODES.sub.map((s, i) => {
-                const pos = positions.subs[s.id];
-                if (!pos) return null;
-                const isActive = activeSubs.includes(s.id);
-                const link = NODE_LINKS[s.id] || "/calculators";
-                return (
-                  <a
-                    key={s.id}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-3 py-1.5 text-[11.5px] font-medium border cursor-pointer transition-all duration-700 ease-out hover:border-[#D97706] hover:text-[#0A1F14] hover:scale-110 ${
-                      isActive
-                        ? "text-[#0A1F14] border-[#D97706] bg-white shadow-md scale-[1.08] z-10"
-                        : "text-[#94A3B8] border-[#E2DED3] bg-[#FAFAF9]/80 opacity-50 hover:opacity-100 scale-[0.92]"
-                    }`}
-                    style={{
-                      left: `${pos.x}%`,
-                      top: `${pos.y}%`,
-                      animation: isActive
-                        ? "none"
-                        : `hero-float-${i % 3 === 0 ? "a" : i % 3 === 1 ? "b" : "c"} ${5.5 + (i % 4) * 0.7}s ease-in-out infinite`,
-                    }}
-                  >
-                    {s.label}
-                  </a>
-                );
-              })}
-
-              {/* Core category pills */}
-              {CONSTELLATION_NODES.core.map((c) => {
-                const pos = positions.cores[c.id];
-                if (!pos) return null;
-                const isActive = c.id === activeCore;
-                const isGreen = c.style === "green";
-                const link = NODE_LINKS[c.id] || "/";
-                return (
-                  <a
-                    key={c.id}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-4 py-2 text-[13.5px] font-semibold tracking-[0.2px] cursor-pointer transition-all duration-700 ease-out hover:scale-110 z-20 ${
-                      isGreen
-                        ? "bg-[#EEF7F1] text-[#166534] border-[#16A34A]"
-                        : "bg-[#FDF2E0] text-[#A55C04] border-[#D97706]"
-                    } ${
-                      isActive
-                        ? "scale-[1.22] border-[3px] shadow-xl shadow-[rgba(217,119,6,0.2)]"
-                        : "border-2 opacity-60 hover:opacity-100 scale-[0.95]"
-                    }`}
-                    style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
-                  >
-                    {c.label}
-                  </a>
-                );
-              })}
+              <div className="text-center text-[13px] font-light text-[#64748B] mt-2">
+                Every money decision. One platform. Disclosed methodology.
+              </div>
             </div>
-
-            <div className="text-center text-[13px] font-light text-[#64748B] mt-2">
-              Every money decision. One platform. Disclosed methodology.
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
