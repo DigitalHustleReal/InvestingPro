@@ -3,7 +3,106 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Mail, MapPin, Linkedin, Instagram } from "lucide-react";
+import PWAInstallButton from "@/components/pwa/PWAInstallButton";
+
+// Brand contact — sourced from a single const so the LocalBusiness JSON-LD
+// at the bottom matches the visible NAP (Name, Address, Phone) data exactly.
+// NAP consistency across web (footer, GBP, citations) is a top local-SEO
+// ranking signal. Update both visible content + JSON-LD if anything changes.
+//
+// Door number is intentionally generic ("Flat 4-12") to anonymize residential
+// access while keeping the verifiable PIN + locality. Every Indian fintech
+// (Paisabazaar, BankBazaar, etc.) uses similar pattern for founder safety.
+const BRAND_ADDRESS = {
+  street: "Flat 4-12, Viman Nagar, Lane 10, NAD",
+  locality: "Visakhapatnam",
+  region: "Andhra Pradesh",
+  postal: "530009",
+  country: "IN",
+} as const;
+
+const BRAND_EMAIL = "contact@investingpro.in";
+
+// Social handles — placeholders the editorial team should update with the
+// real handles when they're created. URLs are also used in the LocalBusiness
+// JSON-LD `sameAs` array so Google Knowledge Graph can disambiguate the
+// brand entity. WhatsApp uses a Channel link (no phone exposure).
+const SOCIAL = [
+  {
+    name: "X",
+    href: "https://x.com/investingpro_in",
+    label: "Follow on X",
+    // Custom SVG — Lucide doesn't ship the X glyph
+    svg: (
+      <svg
+        viewBox="0 0 24 24"
+        className="w-4 h-4"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
+  {
+    name: "Telegram",
+    href: "https://t.me/investingpro_in",
+    label: "Join Telegram channel",
+    svg: (
+      <svg
+        viewBox="0 0 24 24"
+        className="w-4 h-4"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+      </svg>
+    ),
+  },
+  {
+    name: "WhatsApp",
+    href: "https://whatsapp.com/channel/investingpro",
+    label: "WhatsApp updates",
+    svg: (
+      <svg
+        viewBox="0 0 24 24"
+        className="w-4 h-4"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+      </svg>
+    ),
+  },
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com/company/investingpro-in",
+    label: "Follow on LinkedIn",
+    svg: <Linkedin className="w-4 h-4" aria-hidden="true" />,
+  },
+  {
+    name: "Pinterest",
+    href: "https://pinterest.com/investingpro_in",
+    label: "Pinterest infographics",
+    svg: (
+      <svg
+        viewBox="0 0 24 24"
+        className="w-4 h-4"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.747-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z" />
+      </svg>
+    ),
+  },
+  {
+    name: "Instagram",
+    href: "https://instagram.com/investingpro_in",
+    label: "Follow on Instagram",
+    svg: <Instagram className="w-4 h-4" aria-hidden="true" />,
+  },
+] as const;
 
 // Footer structure follows NerdWallet content pattern (not design):
 // - 6 wide columns with sub-sections per column = ~60 SEO-valuable internal links
@@ -223,6 +322,81 @@ export default function Footer() {
   return (
     <footer className="surface-ink pt-16 pb-10">
       <div className="max-w-[1280px] mx-auto px-6">
+        {/* ── PWA install card ────────────────────────────────────
+            "InvestingPro on your phone" panel with a CSS-built phone-frame
+            mockup on the right and install CTA on the left. Modeled on the
+            NerdWallet footer "Get the app" card but PWA-only (no app stores —
+            we install via web manifest). PWAInstallButton is a client
+            component that shows three honest states: installed / installable
+            (browser fired beforeinstallprompt) / not-yet (browser menu only).
+        */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center mb-14 pb-14 border-b border-canvas-15">
+          {/* LEFT — text + CTA */}
+          <div className="order-2 md:order-1">
+            <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold mb-3">
+              InvestingPro on your phone
+            </div>
+            <h3 className="font-display font-black text-[28px] md:text-[34px] text-canvas leading-[1.05] tracking-tight mb-3">
+              Add to your home screen.
+            </h3>
+            <p className="text-[14px] text-canvas-70 leading-relaxed max-w-[420px] mb-5">
+              Offline calculators. Instant repeat-visits. Push alerts when rates
+              change. No app store, no permissions — just one tap.
+            </p>
+            <PWAInstallButton />
+          </div>
+
+          {/* RIGHT — CSS-built phone frame mockup with InvestingPro screen */}
+          <div className="order-1 md:order-2 flex items-center justify-center">
+            <div
+              className="relative w-[200px] h-[400px] bg-ink rounded-[36px] border-[5px] border-canvas-15 shadow-2xl overflow-hidden"
+              aria-hidden="true"
+            >
+              {/* Notch */}
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[72px] h-[18px] bg-ink rounded-full z-10" />
+
+              {/* Screen */}
+              <div className="absolute inset-1 bg-canvas rounded-[32px] flex flex-col">
+                {/* Status bar */}
+                <div className="flex justify-between items-center px-5 pt-7 text-[10px] font-medium text-ink">
+                  <span>9:41</span>
+                  <span className="font-mono">●●●●</span>
+                </div>
+
+                {/* Hero content — branded preview */}
+                <div className="flex-1 flex flex-col items-center justify-center px-4 text-center -mt-4">
+                  <div className="flex items-baseline gap-0">
+                    <span className="font-display font-black text-[18px] text-ink leading-none">
+                      Investing
+                    </span>
+                    <span className="font-display font-black text-[18px] text-ink leading-none">
+                      Pro
+                    </span>
+                    <span className="font-display font-black text-[18px] text-indian-gold leading-none">
+                      .
+                    </span>
+                  </div>
+                  <h4 className="font-display font-black text-[28px] text-ink leading-[1.05] tracking-tight mt-5">
+                    Money,
+                  </h4>
+                  <h4 className="font-display font-black text-[28px] text-ink leading-[1.05] tracking-tight">
+                    Decoded
+                    <span className="text-indian-gold">.</span>
+                  </h4>
+                  <p className="font-mono text-[9px] uppercase tracking-wider text-ink-60 mt-4">
+                    India · Independent
+                  </p>
+                </div>
+
+                {/* Home indicator */}
+                <div className="flex justify-center pb-2.5">
+                  <div className="w-[100px] h-1 bg-ink/80 rounded-full" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Main grid — 6 columns desktop with sub-sections per column, accordion on mobile */}
         <div className="hidden md:grid md:grid-cols-6 gap-6">
           {COLUMNS.map((col) => (
@@ -299,8 +473,78 @@ export default function Footer() {
           ))}
         </div>
 
+        {/* ── Contact + Social band ─────────────────────────────────
+            Real address (anonymized door number) + email + 6 social handles.
+            Powers the LocalBusiness JSON-LD at the bottom. NAP consistency
+            here matches the schema — Google's local-SEO ranking signal.
+            On mobile, this band sits above the bottom strip so the most
+            useful info (how to reach us) is closest to the most-recent
+            content the user just scrolled through.
+        */}
+        <div className="mt-14 pt-10 border-t border-canvas-15 grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Address + Email */}
+          <div className="space-y-3">
+            <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
+              Reach Us
+            </div>
+            <address className="not-italic">
+              <div className="flex items-start gap-2.5">
+                <MapPin
+                  className="w-4 h-4 text-canvas-70 mt-0.5 flex-shrink-0"
+                  aria-hidden="true"
+                />
+                <div className="text-[13px] text-canvas leading-relaxed">
+                  {BRAND_ADDRESS.street}
+                  <br />
+                  {BRAND_ADDRESS.locality} – {BRAND_ADDRESS.postal}
+                  <br />
+                  {BRAND_ADDRESS.region}, India
+                </div>
+              </div>
+              <div className="flex items-center gap-2.5 mt-3">
+                <Mail
+                  className="w-4 h-4 text-canvas-70 flex-shrink-0"
+                  aria-hidden="true"
+                />
+                <a
+                  href={`mailto:${BRAND_EMAIL}`}
+                  className="text-[13px] text-canvas hover:text-indian-gold transition-colors"
+                >
+                  {BRAND_EMAIL}
+                </a>
+              </div>
+            </address>
+          </div>
+
+          {/* Social */}
+          <div className="space-y-3 md:text-right">
+            <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
+              Follow
+            </div>
+            <ul className="flex flex-wrap md:justify-end gap-2.5">
+              {SOCIAL.map((s) => (
+                <li key={s.name}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    aria-label={s.label}
+                    className="inline-flex items-center justify-center w-10 h-10 border-2 border-canvas-15 rounded-sm text-canvas-70 hover:text-indian-gold hover:border-indian-gold transition-colors"
+                  >
+                    {s.svg}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 leading-relaxed md:text-right max-w-[280px] md:ml-auto">
+              Pinterest for infographics · Telegram for editorial alerts · X for
+              daily research
+            </p>
+          </div>
+        </div>
+
         {/* Bottom strip — logo + legal links + copyright */}
-        <div className="mt-14 pt-8 border-t border-canvas-15">
+        <div className="mt-12 pt-8 border-t border-canvas-15">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             {/* Logo + tagline */}
             <div>
@@ -382,7 +626,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-canvas-15">
             <span className="font-mono text-[11px] text-canvas-70">
               &copy; {new Date().getFullYear()} InvestingPro.in · All rights
-              reserved
+              reserved · Made in India · Andhra Pradesh
             </span>
             <span className="font-mono text-[10px] uppercase tracking-wider text-canvas-70">
               Last reviewed: Apr 2026
@@ -390,6 +634,53 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* ── LocalBusiness JSON-LD (invisible, SEO) ──────────────
+          Feeds Google Knowledge Graph "About InvestingPro" panel + branded
+          search results. NAP fields (address, email) are sourced from the
+          BRAND_ADDRESS / BRAND_EMAIL constants above so visible content +
+          structured data can never drift apart.
+          areaServed=IN signals India-only context to all crawlers.
+          sameAs= social URLs help Google disambiguate the brand entity
+          across the social web. Update SOCIAL[] above when handles change.
+      */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FinancialService",
+            name: "InvestingPro",
+            alternateName: "InvestingPro.in",
+            url: "https://www.investingpro.in",
+            logo: "https://www.investingpro.in/brand/wordmark-light-1024.png",
+            description:
+              "Money, Decoded. India's transparent personal finance comparison platform — credit cards, mutual funds, loans, fixed deposits, and 72 free calculators. Independent ratings, methodology disclosed.",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: BRAND_ADDRESS.street,
+              addressLocality: BRAND_ADDRESS.locality,
+              addressRegion: BRAND_ADDRESS.region,
+              postalCode: BRAND_ADDRESS.postal,
+              addressCountry: BRAND_ADDRESS.country,
+            },
+            email: BRAND_EMAIL,
+            areaServed: { "@type": "Country", name: "India" },
+            knowsAbout: [
+              "Personal Finance",
+              "Credit Cards",
+              "Mutual Funds",
+              "Fixed Deposits",
+              "Home Loans",
+              "Personal Loans",
+              "Tax Planning",
+              "Retirement Planning",
+              "Insurance",
+            ],
+            sameAs: SOCIAL.map((s) => s.href),
+          }),
+        }}
+      />
     </footer>
   );
 }

@@ -25,6 +25,7 @@ import { ConditionalPublicElements } from "@/components/common/ConditionalPublic
 import { ConditionalPublicFloating } from "@/components/common/ConditionalPublicFloating";
 import CookieConsent from "@/components/common/CookieConsent";
 import ThirdPartyScripts from "@/components/monetization/ThirdPartyScripts";
+import ServiceWorkerRegistration from "@/components/pwa/ServiceWorkerRegistration";
 
 // Font configurations — v3 Design System (Playfair Display + Inter + JetBrains Mono)
 const inter = Inter({
@@ -219,6 +220,11 @@ export default async function RootLayout({
         <GoogleAnalytics
           GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""}
         />
+        {/* PWA installability: registers /sw.js on production-only after
+            window.load. Renders nothing. Required for browsers to fire
+            beforeinstallprompt and for the footer's "Add to Home Screen"
+            button to become functional. */}
+        <ServiceWorkerRegistration />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
