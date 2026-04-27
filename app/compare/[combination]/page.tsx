@@ -142,7 +142,7 @@ export default async function ComparisonPage({
   const scenarios = buildBestForScenarios(p1, p2);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-canvas">
       {/* JSON-LD Schema Markup for SEO */}
       <VersusSchema
         product1Name={p1.name}
@@ -162,20 +162,20 @@ export default async function ComparisonPage({
           <div className="flex items-center justify-center gap-6 sm:gap-16 mb-8">
             <ProductHero p={p1} isWinner={winner === "p1"} />
             <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-muted border border-border flex items-center justify-center">
-                <ArrowLeftRight className="w-5 h-5 text-muted-foreground" />
+              <div className="w-12 h-12 rounded-full bg-canvas border border-ink/10 flex items-center justify-center">
+                <ArrowLeftRight className="w-5 h-5 text-ink-60" />
               </div>
-              <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
+              <span className="text-xs font-bold text-ink-60 uppercase tracking-widest">
                 VS
               </span>
             </div>
             <ProductHero p={p2} isWinner={winner === "p2"} />
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black text-foreground mb-4 leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-black text-ink mb-4 leading-tight">
             {p1.name} vs {p2.name}
           </h1>
-          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+          <p className="text-ink-60 mb-6 max-w-xl mx-auto">
             Detailed side-by-side comparison based on fees, rewards, benefits,
             and real user data.
           </p>
@@ -184,7 +184,7 @@ export default async function ComparisonPage({
             <Badge variant="outline" className="text-xs">
               {p1.category?.replace("_", " ")}
             </Badge>
-            <Badge variant="outline" className="text-xs text-muted-foreground">
+            <Badge variant="outline" className="text-xs text-ink-60">
               Updated{" "}
               {new Date().toLocaleDateString("en-IN", {
                 month: "short",
@@ -205,24 +205,24 @@ export default async function ComparisonPage({
         </div>
 
         {/* ── Feature Comparison Matrix ──────────────────────────── */}
-        <div className="mb-12 rounded-2xl border border-border overflow-hidden">
-          <div className="bg-muted/40 px-6 py-4 border-b border-border flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-bold text-foreground">
+        <div className="mb-12 rounded-sm border border-ink/10 overflow-hidden">
+          <div className="bg-ink/5 px-6 py-4 border-b border-ink/10 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-indian-gold" />
+            <h2 className="text-lg font-bold text-ink">
               Feature-by-Feature Comparison
             </h2>
           </div>
 
           {/* Matrix header */}
-          <div className="grid grid-cols-[1fr_1fr_1fr] bg-muted/20 border-b border-border">
-            <div className="px-5 py-3 text-xs font-bold text-muted-foreground uppercase tracking-widest">
+          <div className="grid grid-cols-[1fr_1fr_1fr] bg-ink/5 border-b border-ink/10">
+            <div className="px-5 py-3 text-xs font-bold text-ink-60 uppercase tracking-widest">
               Feature
             </div>
-            <div className="px-5 py-3 text-xs font-bold text-center border-l border-border">
-              <span className="text-foreground">{p1.name}</span>
+            <div className="px-5 py-3 text-xs font-bold text-center border-l border-ink/10">
+              <span className="text-ink">{p1.name}</span>
             </div>
-            <div className="px-5 py-3 text-xs font-bold text-center border-l border-border">
-              <span className="text-foreground">{p2.name}</span>
+            <div className="px-5 py-3 text-xs font-bold text-center border-l border-ink/10">
+              <span className="text-ink">{p2.name}</span>
             </div>
           </div>
 
@@ -233,22 +233,22 @@ export default async function ComparisonPage({
         </div>
 
         {/* ── AI Verdict ─────────────────────────────────────────── */}
-        <div className="mb-12 bg-gradient-to-br from-primary/5 to-primary/0 border border-primary/20 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-1.5 h-full bg-primary rounded-l-2xl" />
+        <div className="mb-12 bg-gradient-to-br from-primary/5 to-primary/0 border border-indian-gold/20 rounded-sm p-6 sm:p-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-1.5 h-full bg-indian-gold rounded-l-2xl" />
           <div className="flex items-center gap-3 mb-5 ml-2">
-            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
-              <ShieldCheck className="w-5 h-5 text-primary" />
+            <div className="w-9 h-9 rounded-sm bg-indian-gold/10 flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5 text-indian-gold" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-foreground">
+              <h2 className="text-xl font-bold text-ink">
                 InvestingPro Expert Verdict
               </h2>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-ink-60">
                 Based on SEBI-compliant analysis • Affiliate disclosed
               </p>
             </div>
           </div>
-          <div className="ml-2 prose prose-slate dark:prose-invert max-w-none prose-p:text-muted-foreground prose-strong:text-primary prose-headings:text-foreground">
+          <div className="ml-2 prose prose-slate dark:prose-invert max-w-none prose-p:text-ink-60 prose-strong:text-indian-gold prose-headings:text-ink">
             <ReactMarkdown>{verdict}</ReactMarkdown>
           </div>
         </div>
@@ -257,8 +257,8 @@ export default async function ComparisonPage({
         {scenarios.length > 0 && (
           <div className="mb-12">
             <div className="flex items-center gap-2 mb-6">
-              <Target className="w-5 h-5 text-primary" />
-              <h2 className="text-xl font-bold text-foreground">
+              <Target className="w-5 h-5 text-indian-gold" />
+              <h2 className="text-xl font-bold text-ink">
                 Who Should Get Which?
               </h2>
             </div>
@@ -286,8 +286,8 @@ export default async function ComparisonPage({
         </Suspense>
 
         {/* SEBI disclaimer */}
-        <div className="mt-10 p-4 bg-muted/30 rounded-xl border border-border">
-          <p className="text-xs text-muted-foreground text-center leading-relaxed">
+        <div className="mt-10 p-4 bg-ink/5 rounded-sm border border-ink/10">
+          <p className="text-xs text-ink-60 text-center leading-relaxed">
             <strong>Disclaimer:</strong> This comparison is for informational
             purposes only. Product details may change; verify on official bank
             websites before applying. InvestingPro may earn affiliate commission
@@ -305,17 +305,17 @@ function ProductHero({ p, isWinner }: { p: any; isWinner: boolean }) {
   return (
     <div className="flex flex-col items-center gap-3">
       {isWinner && (
-        <div className="flex items-center gap-1 text-amber-600 text-xs font-bold">
-          <Trophy className="w-3.5 h-3.5 fill-amber-500" />
+        <div className="flex items-center gap-1 text-indian-gold text-xs font-bold">
+          <Trophy className="w-3.5 h-3.5 fill-indian-gold" />
           WINNER
         </div>
       )}
       <div
         className={cn(
-          "w-20 h-20 sm:w-28 sm:h-28 rounded-2xl bg-background border-2 p-3 shadow-sm flex items-center justify-center transition-all",
+          "w-20 h-20 sm:w-28 sm:h-28 rounded-sm bg-canvas border-2 p-3 shadow-sm flex items-center justify-center transition-all",
           isWinner
-            ? "border-primary shadow-primary/20 shadow-lg"
-            : "border-border",
+            ? "border-indian-gold shadow-primary/20 shadow-lg"
+            : "border-ink/10",
         )}
       >
         {p.image_url ? (
@@ -325,14 +325,12 @@ function ProductHero({ p, isWinner }: { p: any; isWinner: boolean }) {
             className="max-w-full max-h-full object-contain"
           />
         ) : (
-          <div className="text-2xl font-black text-muted-foreground">
-            {p.name[0]}
-          </div>
+          <div className="text-2xl font-black text-ink-60">{p.name[0]}</div>
         )}
       </div>
       <div className="text-center">
-        <div className="font-bold text-sm text-foreground">{p.name}</div>
-        <div className="text-xs text-muted-foreground">{p.provider_name}</div>
+        <div className="font-bold text-sm text-ink">{p.name}</div>
+        <div className="text-xs text-ink-60">{p.provider_name}</div>
       </div>
     </div>
   );
@@ -351,24 +349,24 @@ function ScoreCard({
   return (
     <div
       className={cn(
-        "rounded-2xl border p-5 text-center transition-all",
+        "rounded-sm border p-5 text-center transition-all",
         isWinner
-          ? "border-primary bg-primary/5 shadow-sm shadow-primary/10"
-          : "border-border bg-muted/20",
+          ? "border-indian-gold bg-indian-gold/5 shadow-sm shadow-primary/10"
+          : "border-ink/10 bg-ink/5",
       )}
     >
       {isWinner && (
-        <div className="text-xs font-bold text-primary mb-1 flex items-center justify-center gap-1">
+        <div className="text-xs font-bold text-indian-gold mb-1 flex items-center justify-center gap-1">
           <Trophy className="w-3 h-3 fill-primary" /> Recommended
         </div>
       )}
-      <div className="text-4xl font-black text-foreground mb-1">{score}</div>
-      <div className="text-xs text-muted-foreground mb-2">{label} / 100</div>
-      <div className="w-full bg-muted rounded-full h-1.5">
+      <div className="text-4xl font-black text-ink mb-1">{score}</div>
+      <div className="text-xs text-ink-60 mb-2">{label} / 100</div>
+      <div className="w-full bg-canvas rounded-full h-1.5">
         <div
           className={cn(
             "h-1.5 rounded-full transition-all",
-            isWinner ? "bg-primary" : "bg-muted-foreground/40",
+            isWinner ? "bg-indian-gold" : "bg-canvas-foreground/40",
           )}
           style={{ width: `${score}%` }}
         />
@@ -380,12 +378,12 @@ function ScoreCard({
             className={cn(
               "w-3.5 h-3.5",
               i < Math.floor(p.rating || 0)
-                ? "fill-amber-400 text-amber-400"
-                : "text-muted-foreground/30",
+                ? "fill-indian-gold text-indian-gold"
+                : "text-ink-60/30",
             )}
           />
         ))}
-        <span className="ml-1 text-xs font-semibold text-muted-foreground">
+        <span className="ml-1 text-xs font-semibold text-ink-60">
           {p.rating}/5
         </span>
       </div>
@@ -405,13 +403,13 @@ function ComparisonRow({ row, idx }: { row: CompRow; idx: number }) {
   return (
     <div
       className={cn(
-        "grid grid-cols-[1fr_1fr_1fr] border-b border-border last:border-0",
-        idx % 2 === 0 ? "bg-background" : "bg-muted/20",
+        "grid grid-cols-[1fr_1fr_1fr] border-b border-ink/10 last:border-0",
+        idx % 2 === 0 ? "bg-canvas" : "bg-ink/5",
       )}
     >
-      <div className="px-5 py-4 text-sm font-medium text-muted-foreground flex items-center gap-2">
+      <div className="px-5 py-4 text-sm font-medium text-ink-60 flex items-center gap-2">
         {row.category && (
-          <span className="text-[10px] font-bold uppercase text-muted-foreground/50 tracking-widest w-full">
+          <span className="text-[10px] font-bold uppercase text-ink-60/50 tracking-widest w-full">
             {row.category}
           </span>
         )}
@@ -427,10 +425,10 @@ function CellValue({ value, isWinner }: { value: string; isWinner: boolean }) {
   return (
     <div
       className={cn(
-        "px-5 py-4 text-sm text-center border-l border-border flex items-center justify-center gap-2",
+        "px-5 py-4 text-sm text-center border-l border-ink/10 flex items-center justify-center gap-2",
         isWinner
           ? "text-green-700 dark:text-green-400 font-semibold bg-green-50/50 dark:bg-green-900/10"
-          : "text-foreground",
+          : "text-ink",
       )}
     >
       {isWinner && (
@@ -447,13 +445,13 @@ function BestForCard({
   scenario: { product: string; reason: string; icon: string };
 }) {
   return (
-    <div className="flex gap-4 p-5 rounded-xl border border-border bg-muted/20 hover:border-primary/30 transition-colors">
+    <div className="flex gap-4 p-5 rounded-sm border border-ink/10 bg-ink/5 hover:border-indian-gold/30 transition-colors">
       <div className="text-2xl flex-shrink-0">{scenario.icon}</div>
       <div>
-        <div className="font-bold text-sm text-foreground mb-1">
+        <div className="font-bold text-sm text-ink mb-1">
           Choose {scenario.product}
         </div>
-        <div className="text-sm text-muted-foreground leading-relaxed">
+        <div className="text-sm text-ink-60 leading-relaxed">
           {scenario.reason}
         </div>
       </div>
@@ -463,10 +461,10 @@ function BestForCard({
 
 function ApplyCTA({ p }: { p: any }) {
   return (
-    <div className="rounded-2xl border border-border p-5 flex flex-col gap-4">
+    <div className="rounded-sm border border-ink/10 p-5 flex flex-col gap-4">
       <div className="flex items-center gap-3">
         {p.image_url && (
-          <div className="w-10 h-10 rounded-lg bg-background border border-border p-1.5 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-canvas border border-ink/10 p-1.5 flex items-center justify-center">
             <img
               src={p.image_url}
               alt={p.name}
@@ -475,8 +473,8 @@ function ApplyCTA({ p }: { p: any }) {
           </div>
         )}
         <div>
-          <div className="font-bold text-sm text-foreground">{p.name}</div>
-          <div className="text-xs text-muted-foreground">{p.provider_name}</div>
+          <div className="font-bold text-sm text-ink">{p.name}</div>
+          <div className="text-xs text-ink-60">{p.provider_name}</div>
         </div>
       </div>
       <Link
@@ -489,7 +487,7 @@ function ApplyCTA({ p }: { p: any }) {
           <ExternalLink className="w-3.5 h-3.5" />
         </Button>
       </Link>
-      <p className="text-[10px] text-muted-foreground text-center">
+      <p className="text-[10px] text-ink-60 text-center">
         Opens official {p.provider_name} website
       </p>
     </div>
@@ -518,20 +516,18 @@ async function RelatedComparisons({
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
-        <Users className="w-5 h-5 text-primary" />
-        <h3 className="text-lg font-bold text-foreground">
-          Related Comparisons
-        </h3>
+        <Users className="w-5 h-5 text-indian-gold" />
+        <h3 className="text-lg font-bold text-ink">Related Comparisons</h3>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {related.map((r: any) => (
           <Link key={r.slug} href={`/compare/${r.slug}`}>
-            <div className="rounded-xl border border-border p-3 hover:border-primary/40 hover:bg-muted/30 transition-all text-sm text-center">
-              <span className="font-medium text-foreground text-xs">
+            <div className="rounded-sm border border-ink/10 p-3 hover:border-indian-gold/40 hover:bg-ink/5 transition-all text-sm text-center">
+              <span className="font-medium text-ink text-xs">
                 {r.product1_name}
               </span>
-              <span className="text-muted-foreground mx-1 text-xs">vs</span>
-              <span className="font-medium text-foreground text-xs">
+              <span className="text-ink-60 mx-1 text-xs">vs</span>
+              <span className="font-medium text-ink text-xs">
                 {r.product2_name}
               </span>
             </div>
@@ -545,9 +541,9 @@ async function RelatedComparisons({
 function InvalidComparison({ message }: { message: string }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center gap-4">
-      <AlertCircle className="w-12 h-12 text-muted-foreground/40" />
-      <h1 className="text-xl font-bold text-foreground">Invalid Comparison</h1>
-      <p className="text-muted-foreground max-w-md">{message}</p>
+      <AlertCircle className="w-12 h-12 text-ink-60/40" />
+      <h1 className="text-xl font-bold text-ink">Invalid Comparison</h1>
+      <p className="text-ink-60 max-w-md">{message}</p>
       <Link href="/products">
         <Button>Browse Products</Button>
       </Link>
