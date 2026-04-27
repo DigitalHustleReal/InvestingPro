@@ -6,14 +6,10 @@ import { usePathname } from "next/navigation";
 import { ChevronDown, Mail, MapPin, Linkedin, Instagram } from "lucide-react";
 import PWAInstallButton from "@/components/pwa/PWAInstallButton";
 
-// Brand contact — sourced from a single const so the LocalBusiness JSON-LD
-// at the bottom matches the visible NAP (Name, Address, Phone) data exactly.
-// NAP consistency across web (footer, GBP, citations) is a top local-SEO
-// ranking signal. Update both visible content + JSON-LD if anything changes.
-//
-// Door number is intentionally generic ("Flat 4-12") to anonymize residential
-// access while keeping the verifiable PIN + locality. Every Indian fintech
-// (Paisabazaar, BankBazaar, etc.) uses similar pattern for founder safety.
+// ─── Brand constants ────────────────────────────────────────────────────────
+// Single source of truth for NAP data — visible footer + LocalBusiness JSON-LD
+// must always match. "Flat 4-12" is intentionally generic per Indian fintech
+// founder-safety convention (see Paisabazaar, BankBazaar for same pattern).
 const BRAND_ADDRESS = {
   street: "Flat 4-12, Viman Nagar, Lane 10, NAD",
   locality: "Visakhapatnam",
@@ -24,16 +20,13 @@ const BRAND_ADDRESS = {
 
 const BRAND_EMAIL = "contact@investingpro.in";
 
-// Social handles — placeholders the editorial team should update with the
-// real handles when they're created. URLs are also used in the LocalBusiness
-// JSON-LD `sameAs` array so Google Knowledge Graph can disambiguate the
-// brand entity. WhatsApp uses a Channel link (no phone exposure).
+// Social handles — used in visible footer + LocalBusiness sameAs JSON-LD.
+// Update URLs here when real accounts are created; JSON-LD updates automatically.
 const SOCIAL = [
   {
     name: "X",
     href: "https://x.com/investingpro_in",
     label: "Follow on X",
-    // Custom SVG — Lucide doesn't ship the X glyph
     svg: (
       <svg
         viewBox="0 0 24 24"
@@ -104,12 +97,7 @@ const SOCIAL = [
   },
 ] as const;
 
-// Footer structure follows NerdWallet content pattern (not design):
-// - 6 wide columns with sub-sections per column = ~60 SEO-valuable internal links
-// - Deep-links to filtered listings and calc-specific pages for long-tail SEO
-// - Legal/compliance block separated below, explicit about SEBI + affiliate model
-// - Single source of truth: brainstorm.md §6 (content borrowed from NW, design ours)
-
+// ─── Nav columns ─────────────────────────────────────────────────────────────
 const COLUMNS = [
   {
     title: "Credit Cards",
@@ -300,10 +288,6 @@ const COLUMNS = [
   },
 ];
 
-// Legal + compliance block — separated below the main grid because
-// regulators (SEBI, RBI) and search engines both reward explicit disclosures.
-// Standard fintech footer legal items + sitemap/accessibility
-// (NerdWallet, Bankrate, Investopedia all include sitemap link in this strip).
 const LEGAL_LINKS = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
@@ -317,81 +301,395 @@ const LEGAL_LINKS = [
   { label: "Sitemap", href: "/sitemap.xml" },
 ];
 
+// ─── Mini homepage mockup ────────────────────────────────────────────────────
+// Renders a pixel-accurate but scaled-down representation of the InvestingPro
+// homepage inside the phone frame. Not a screenshot — pure HTML/CSS so it's
+// always in sync with the brand identity and renders crisply on any DPI.
+function HomepageMockup() {
+  return (
+    <div
+      className="w-full h-full bg-[#FAFAF9] flex flex-col overflow-hidden"
+      style={{ fontSize: "7px" }}
+    >
+      {/* Status bar */}
+      <div
+        className="flex items-center justify-between px-3 pt-2 pb-1"
+        style={{ background: "#0A1F14" }}
+      >
+        <span className="font-mono text-[6px] text-[#FAFAF9] font-semibold">
+          9:41
+        </span>
+        <div className="flex items-center gap-[3px]">
+          {/* Signal bars */}
+          <div className="flex items-end gap-[1.5px]">
+            <div className="w-[2px] h-[3px] bg-[#FAFAF9] rounded-[0.5px]" />
+            <div className="w-[2px] h-[4px] bg-[#FAFAF9] rounded-[0.5px]" />
+            <div className="w-[2px] h-[5px] bg-[#FAFAF9] rounded-[0.5px]" />
+            <div className="w-[2px] h-[6px] bg-[#FAFAF9] rounded-[0.5px]" />
+          </div>
+          {/* WiFi */}
+          <svg viewBox="0 0 10 8" className="w-[8px] h-[6px] fill-[#FAFAF9]">
+            <path d="M5 6.5a1 1 0 110 1 1 1 0 010-1zM5 4.2a3.3 3.3 0 012.35.97l.94-.94A4.6 4.6 0 005 3a4.6 4.6 0 00-3.29 1.23l.94.94A3.3 3.3 0 015 4.2zM5 1.5A6.5 6.5 0 0110 4l.7-.7A7.5 7.5 0 005 0 7.5 7.5 0 00-.7 3.3L0 4a6.5 6.5 0 015-2.5z" />
+          </svg>
+          {/* Battery */}
+          <div className="flex items-center">
+            <div className="w-[11px] h-[6px] border border-[#FAFAF9] rounded-[1px] relative">
+              <div className="absolute inset-[1px] right-[2px] bg-[#FAFAF9] rounded-[0.5px]" />
+            </div>
+            <div className="w-[1.5px] h-[3px] bg-[#FAFAF9] rounded-r-[1px]" />
+          </div>
+        </div>
+      </div>
+
+      {/* Navbar */}
+      <div
+        className="flex items-center justify-between px-3 py-[5px]"
+        style={{ background: "#0A1F14" }}
+      >
+        <div className="flex items-center gap-[3px]">
+          {/* IP monogram */}
+          <div
+            className="w-[14px] h-[14px] rounded-[2px] flex items-center justify-center"
+            style={{ background: "#166534" }}
+          >
+            <span className="font-mono font-black text-[6px] text-[#FAFAF9]">
+              IP
+            </span>
+          </div>
+          <div className="flex items-baseline gap-0">
+            <span className="font-sans font-black text-[7px] text-[#FAFAF9] leading-none">
+              Investing
+            </span>
+            <span className="font-sans font-black text-[7px] text-[#FAFAF9] leading-none">
+              Pro
+            </span>
+            <span
+              className="font-sans font-black text-[7px] leading-none"
+              style={{ color: "#D97706" }}
+            >
+              .
+            </span>
+          </div>
+        </div>
+        {/* Hamburger */}
+        <div className="flex flex-col gap-[2px] pr-0.5">
+          <div className="w-[10px] h-[1px] bg-[#FAFAF9] rounded" />
+          <div className="w-[10px] h-[1px] bg-[#FAFAF9] rounded" />
+          <div className="w-[7px] h-[1px] bg-[#FAFAF9] rounded" />
+        </div>
+      </div>
+
+      {/* TrustBar ticker */}
+      <div
+        className="flex items-center gap-3 px-3 py-[3px] overflow-hidden"
+        style={{
+          background: "#0A1F14",
+          borderBottom: "1px solid rgba(250,250,249,0.1)",
+        }}
+      >
+        <span
+          className="font-mono text-[5px] uppercase tracking-wide whitespace-nowrap"
+          style={{ color: "#D97706" }}
+        >
+          LIVE
+        </span>
+        <div className="flex items-center gap-[6px] overflow-hidden">
+          {[
+            { label: "FD Rate", val: "9.10%" },
+            { label: "Repo", val: "6.50%" },
+            { label: "Savings", val: "7.25%" },
+          ].map((d) => (
+            <div
+              key={d.label}
+              className="flex items-center gap-[3px] whitespace-nowrap"
+            >
+              <span
+                className="font-mono text-[5px] uppercase"
+                style={{ color: "rgba(250,250,249,0.6)" }}
+              >
+                {d.label}
+              </span>
+              <span
+                className="font-mono text-[5px] font-bold"
+                style={{ color: "#16A34A" }}
+              >
+                {d.val}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Hero section */}
+      <div className="px-3 pt-3 pb-2" style={{ background: "#0A1F14" }}>
+        {/* Section label */}
+        <div
+          className="font-mono text-[5px] uppercase tracking-widest mb-1"
+          style={{ color: "#D97706" }}
+        >
+          Money, Decoded.
+        </div>
+        {/* Headline */}
+        <div
+          className="font-serif font-black leading-[1.05] tracking-tight mb-2"
+          style={{
+            fontSize: "12px",
+            color: "#FAFAF9",
+            fontFamily: "Georgia, serif",
+          }}
+        >
+          Which SIP makes
+          <br />
+          <span style={{ color: "#D97706" }}>₹1 Cr</span> fastest?
+        </div>
+        {/* CTA pill */}
+        <div
+          className="inline-flex items-center gap-[4px] px-2 py-[3px] rounded-[2px]"
+          style={{ background: "#166534" }}
+        >
+          <span className="font-mono text-[5px] font-bold text-[#FAFAF9] uppercase tracking-wide">
+            Calculate →
+          </span>
+        </div>
+      </div>
+
+      {/* Rate cards row */}
+      <div className="px-3 py-2 flex gap-1.5" style={{ background: "#FAFAF9" }}>
+        {[
+          { label: "Best FD", val: "9.10%", sub: "Suryoday SFB" },
+          { label: "Top CC", val: "5% CB", sub: "Axis Ace" },
+        ].map((card) => (
+          <div
+            key={card.label}
+            className="flex-1 p-[5px] border rounded-[2px]"
+            style={{ borderColor: "rgba(10,31,20,0.12)", background: "#fff" }}
+          >
+            <div
+              className="font-mono text-[5px] uppercase tracking-wide mb-[2px]"
+              style={{ color: "rgba(10,31,20,0.5)" }}
+            >
+              {card.label}
+            </div>
+            <div
+              className="font-mono font-black text-[9px] leading-none"
+              style={{ color: "#16A34A" }}
+            >
+              {card.val}
+            </div>
+            <div
+              className="font-mono text-[4.5px] mt-[2px]"
+              style={{ color: "rgba(10,31,20,0.4)" }}
+            >
+              {card.sub}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Category chips */}
+      <div
+        className="px-3 py-[5px] flex flex-wrap gap-[4px]"
+        style={{
+          background: "#FAFAF9",
+          borderTop: "1px solid rgba(10,31,20,0.06)",
+        }}
+      >
+        {["Cards", "MF", "Loans", "FD", "Tax", "Demat"].map((cat) => (
+          <div
+            key={cat}
+            className="px-[5px] py-[2px] rounded-[1px] font-mono text-[5px] font-bold uppercase tracking-wide border"
+            style={{
+              borderColor: "rgba(10,31,20,0.2)",
+              color: "#0A1F14",
+              background: "#FAFAF9",
+            }}
+          >
+            {cat}
+          </div>
+        ))}
+      </div>
+
+      {/* Article preview cards */}
+      <div
+        className="flex-1 px-3 py-2 space-y-[5px]"
+        style={{ background: "#FAFAF9" }}
+      >
+        <div
+          className="font-mono text-[5px] uppercase tracking-widest mb-1"
+          style={{ color: "#D97706" }}
+        >
+          This Week
+        </div>
+        {[
+          { cat: "TAX", title: "New regime vs Old: 2024-25 verdict" },
+          { cat: "MF", title: "Best ELSS funds to max 80C" },
+        ].map((a) => (
+          <div
+            key={a.title}
+            className="flex items-start gap-[5px] pb-[5px]"
+            style={{ borderBottom: "1px solid rgba(10,31,20,0.06)" }}
+          >
+            <div
+              className="flex-shrink-0 w-[8px] h-[8px] rounded-[1px] mt-[1px] font-mono text-[4px] flex items-center justify-center font-bold text-[#FAFAF9]"
+              style={{ background: "#166534" }}
+            >
+              {a.cat[0]}
+            </div>
+            <div>
+              <div
+                className="font-mono text-[4.5px] font-bold uppercase tracking-wide mb-[1px]"
+                style={{ color: "#D97706" }}
+              >
+                {a.cat}
+              </div>
+              <div
+                className="text-[5.5px] font-sans leading-[1.3]"
+                style={{ color: "#0A1F14", fontWeight: 600 }}
+              >
+                {a.title}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Home indicator */}
+      <div
+        className="flex justify-center pb-1.5 pt-1"
+        style={{ background: "#FAFAF9" }}
+      >
+        <div
+          className="w-[30px] h-[2px] rounded-full"
+          style={{ background: "rgba(10,31,20,0.3)" }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// ─── Newsletter capture strip ────────────────────────────────────────────────
+function NewsletterStrip() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), source: "footer" }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  return (
+    <div className="border-b border-canvas-15 py-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        {/* Copy */}
+        <div className="flex-1 min-w-0">
+          <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold mb-1">
+            Weekly insights · Free
+          </div>
+          <p className="font-display font-black text-[20px] md:text-[22px] text-canvas leading-tight tracking-tight">
+            Money moves, decoded every Sunday.
+          </p>
+          <p className="text-[12px] text-canvas-70 mt-1">
+            Rate changes, SEBI alerts, tax deadlines — one email, no noise.
+          </p>
+        </div>
+
+        {/* Form */}
+        {status === "success" ? (
+          <div className="flex items-center gap-2 px-4 py-3 border border-action-green/40 rounded-sm">
+            <span className="font-mono text-[11px] text-action-green uppercase tracking-wider">
+              ✓ You&rsquo;re in. Check your inbox.
+            </span>
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-2 md:min-w-[360px]"
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              required
+              aria-label="Email address for newsletter"
+              className="flex-1 px-4 py-2.5 bg-canvas text-ink font-mono text-[12px] placeholder:text-ink-40 border border-canvas-15 rounded-sm outline-none focus:border-indian-gold transition-colors"
+            />
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="px-5 py-2.5 bg-indian-gold text-ink font-mono text-[11px] uppercase tracking-wider font-bold rounded-sm hover:bg-[#b45309] transition-colors disabled:opacity-60 whitespace-nowrap"
+            >
+              {status === "loading" ? "Sending…" : "Get insights →"}
+            </button>
+          </form>
+        )}
+      </div>
+      {status === "error" && (
+        <p className="font-mono text-[10px] text-warning-red mt-2">
+          Something went wrong — try again or email us directly.
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ─── Main footer ─────────────────────────────────────────────────────────────
 export default function Footer() {
   const pathname = usePathname();
   const [openCol, setOpenCol] = useState<number | null>(null);
-  // Mobile-only compliance toggle. Desktop always shows full text (always
-  // important for credibility); mobile collapses by default to save scroll.
-  // NerdWallet uses the same pattern. Legal text remains discoverable.
   const [complianceOpen, setComplianceOpen] = useState(false);
 
   if (pathname?.startsWith("/admin")) return null;
 
   return (
-    <footer className="surface-ink pt-16 pb-10">
+    <footer className="surface-ink pt-10 pb-10">
       <div className="max-w-[1280px] mx-auto px-6">
-        {/* Main grid — 6 columns desktop with sub-sections per column, accordion on mobile */}
-        <div className="hidden md:grid md:grid-cols-6 gap-6">
-          {COLUMNS.map((col) => (
-            <div key={col.title}>
-              <h3 className="font-display font-black text-[15px] text-indian-gold mb-5 tracking-tight">
-                {col.title}
-              </h3>
-              <div className="space-y-5">
-                {col.sections.map((section) => (
-                  <div key={section.label}>
-                    <div className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 mb-2">
-                      {section.label}
-                    </div>
-                    <ul className="space-y-[8px]">
-                      {section.links.map((link) => (
-                        <li key={link.href}>
-                          <Link
-                            href={link.href}
-                            className="text-[13px] text-canvas hover:text-indian-gold transition-colors"
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* ── 1. Newsletter strip ──────────────────────────────────────── */}
+        <NewsletterStrip />
 
-        {/* Mobile accordion */}
-        <div className="md:hidden space-y-0 divide-y divide-canvas-15">
-          {COLUMNS.map((col, i) => (
-            <div key={col.title}>
-              <button
-                onClick={() => setOpenCol(openCol === i ? null : i)}
-                className="w-full flex items-center justify-between min-h-[48px] py-3 cursor-pointer"
-              >
-                <span className="font-display font-black text-[15px] text-indian-gold">
+        {/* ── 2. Navigation grid ──────────────────────────────────────────
+            6-column SEO inventory grid (~60 internal links).
+            Desktop: always-visible grid.
+            Mobile: accordion (tap column heading to expand).
+        */}
+        <div className="mt-12">
+          {/* Desktop grid */}
+          <div className="hidden md:grid md:grid-cols-6 gap-6">
+            {COLUMNS.map((col) => (
+              <div key={col.title}>
+                <h3 className="font-display font-black text-[15px] text-indian-gold mb-5 tracking-tight">
                   {col.title}
-                </span>
-                <ChevronDown
-                  className={`w-4 h-4 text-canvas-70 transition-transform ${
-                    openCol === i ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {openCol === i && (
-                <div className="pb-4 space-y-4">
+                </h3>
+                <div className="space-y-5">
                   {col.sections.map((section) => (
                     <div key={section.label}>
                       <div className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 mb-2">
                         {section.label}
                       </div>
-                      <ul className="space-y-[6px]">
+                      <ul className="space-y-[8px]">
                         {section.links.map((link) => (
                           <li key={link.href}>
                             <Link
                               href={link.href}
-                              className="block text-[14px] text-canvas hover:text-indian-gold transition-colors min-h-[40px] flex items-center"
+                              className="text-[13px] text-canvas hover:text-indian-gold transition-colors"
                             >
                               {link.label}
                             </Link>
@@ -401,97 +699,164 @@ export default function Footer() {
                     </div>
                   ))}
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* ── PWA install card ────────────────────────────────────
-            Placed AFTER the 6-column SEO inventory + mobile accordion
-            (research-validated: NerdWallet/Wise/Stripe all place app-promo
-            cards as the "by the way, install us" moment AFTER navigation
-            inventory, not before).
-
-            Mobile: shows text + CTA only (mockup hidden via `hidden md:flex`).
-            Mobile users are already on a phone; a phone-mockup illustration
-            is recursive and wastes 400px of scroll. Desktop users benefit
-            from the visual since they can't see the actual phone version.
-
-            PWAInstallButton renders three honest states:
-              ✓ Installed on this device  (display-mode: standalone detected)
-              [Add to Home Screen →]      (beforeinstallprompt fired)
-              Add via your browser menu   (Safari, criteria unmet)
-        */}
-        <div className="mt-14 pt-14 border-t border-canvas-15 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* TEXT + CTA — full-width on mobile, left half on desktop */}
-          <div>
-            <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold mb-3">
-              InvestingPro on your phone
-            </div>
-            <h3 className="font-display font-black text-[28px] md:text-[34px] text-canvas leading-[1.05] tracking-tight mb-3">
-              Add to your home screen.
-            </h3>
-            <p className="text-[14px] text-canvas-70 leading-relaxed max-w-[420px] mb-5">
-              Offline calculators. Instant repeat-visits. Push alerts when rates
-              change. No app store, no permissions — just one tap.
-            </p>
-            <PWAInstallButton />
+              </div>
+            ))}
           </div>
 
-          {/* PHONE MOCKUP — hidden on mobile (md+ only) */}
+          {/* Mobile accordion */}
+          <div className="md:hidden space-y-0 divide-y divide-canvas-15">
+            {COLUMNS.map((col, i) => (
+              <div key={col.title}>
+                <button
+                  onClick={() => setOpenCol(openCol === i ? null : i)}
+                  className="w-full flex items-center justify-between min-h-[48px] py-3 cursor-pointer"
+                >
+                  <span className="font-display font-black text-[15px] text-indian-gold">
+                    {col.title}
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-canvas-70 transition-transform ${openCol === i ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {openCol === i && (
+                  <div className="pb-4 space-y-4">
+                    {col.sections.map((section) => (
+                      <div key={section.label}>
+                        <div className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 mb-2">
+                          {section.label}
+                        </div>
+                        <ul className="space-y-[6px]">
+                          {section.links.map((link) => (
+                            <li key={link.href}>
+                              <Link
+                                href={link.href}
+                                className="block text-[14px] text-canvas hover:text-indian-gold transition-colors min-h-[40px] flex items-center"
+                              >
+                                {link.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── 3. PWA install card ─────────────────────────────────────────
+            Phone mockup (LEFT) + install CTA text (RIGHT) on desktop.
+            Mobile: hides phone (users are on a phone — mockup is pointless),
+            shows only the CTA text + install button.
+
+            Phone shows a pixel-faithful mini render of the InvestingPro
+            homepage — navbar, TrustBar, Hero, rate cards, category chips,
+            article previews — so desktop users see exactly what they'll get.
+        */}
+        <div className="mt-14 pt-14 border-t border-canvas-15 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+          {/* LEFT — Phone mockup (desktop only) */}
           <div
             className="hidden md:flex items-center justify-center"
             aria-hidden="true"
           >
-            <div className="relative w-[200px] h-[400px] bg-ink rounded-[36px] border-[5px] border-canvas-15 shadow-2xl overflow-hidden">
-              {/* Notch */}
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[72px] h-[18px] bg-ink rounded-full z-10" />
-
-              {/* Screen */}
-              <div className="absolute inset-1 bg-canvas rounded-[32px] flex flex-col">
-                <div className="flex justify-between items-center px-5 pt-7 text-[10px] font-medium text-ink">
-                  <span>9:41</span>
-                  <span className="font-mono">●●●●</span>
-                </div>
-                <div className="flex-1 flex flex-col items-center justify-center px-4 text-center -mt-4">
-                  <div className="flex items-baseline gap-0">
-                    <span className="font-display font-black text-[18px] text-ink leading-none">
-                      Investing
-                    </span>
-                    <span className="font-display font-black text-[18px] text-ink leading-none">
-                      Pro
-                    </span>
-                    <span className="font-display font-black text-[18px] text-indian-gold leading-none">
-                      .
-                    </span>
+            <div className="relative" style={{ perspective: "1200px" }}>
+              {/* Subtle tilt for depth */}
+              <div
+                style={{
+                  transform: "rotateY(-8deg) rotateX(4deg)",
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                {/* Phone shell */}
+                <div
+                  className="relative w-[210px] h-[420px] rounded-[38px] overflow-hidden shadow-2xl"
+                  style={{
+                    border: "7px solid #1a3527",
+                    boxShadow:
+                      "0 30px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)",
+                  }}
+                >
+                  {/* Notch cutout */}
+                  <div className="absolute top-0 left-0 right-0 h-[10px] z-20 flex justify-center">
+                    <div
+                      className="w-[70px] h-[24px] rounded-b-[14px]"
+                      style={{ background: "#1a3527" }}
+                    />
                   </div>
-                  <h4 className="font-display font-black text-[28px] text-ink leading-[1.05] tracking-tight mt-5">
-                    Money,
-                  </h4>
-                  <h4 className="font-display font-black text-[28px] text-ink leading-[1.05] tracking-tight">
-                    Decoded<span className="text-indian-gold">.</span>
-                  </h4>
-                  <p className="font-mono text-[9px] uppercase tracking-wider text-ink-60 mt-4">
-                    India · Independent
-                  </p>
+
+                  {/* Side buttons — decorative */}
+                  <div
+                    className="absolute -right-[7px] top-[80px] w-[4px] h-[36px] rounded-r-[2px]"
+                    style={{ background: "#1a3527" }}
+                  />
+                  <div
+                    className="absolute -left-[7px] top-[60px] w-[4px] h-[24px] rounded-l-[2px]"
+                    style={{ background: "#1a3527" }}
+                  />
+                  <div
+                    className="absolute -left-[7px] top-[94px] w-[4px] h-[24px] rounded-l-[2px]"
+                    style={{ background: "#1a3527" }}
+                  />
+
+                  {/* Screen */}
+                  <div className="absolute inset-0 rounded-[32px] overflow-hidden">
+                    <HomepageMockup />
+                  </div>
                 </div>
-                <div className="flex justify-center pb-2.5">
-                  <div className="w-[100px] h-1 bg-ink/80 rounded-full" />
-                </div>
+
+                {/* Reflection strip beneath phone */}
+                <div
+                  className="mt-3 mx-auto w-[140px] h-[12px] rounded-full blur-lg"
+                  style={{ background: "rgba(22,163,74,0.2)" }}
+                />
               </div>
             </div>
           </div>
+
+          {/* RIGHT — CTA text (full width on mobile, right half on desktop) */}
+          <div>
+            <div className="font-mono text-[11px] uppercase tracking-wider text-indian-gold mb-3">
+              InvestingPro on your home screen
+            </div>
+            <h3 className="font-display font-black text-[28px] md:text-[32px] text-canvas leading-[1.05] tracking-tight mb-4">
+              Offline calculators.
+              <br className="hidden md:block" /> Zero install friction.
+            </h3>
+
+            {/* Feature list */}
+            <ul className="space-y-2 mb-6">
+              {[
+                "72 calculators — work without internet",
+                "Push alerts when repo rate or FD rates change",
+                "No app store · No 200 MB download",
+                "Instant from any browser — tap once",
+              ].map((feat) => (
+                <li key={feat} className="flex items-start gap-2.5">
+                  <span className="font-mono text-[11px] text-action-green mt-0.5 flex-shrink-0">
+                    ✓
+                  </span>
+                  <span className="text-[13px] text-canvas-70 leading-relaxed">
+                    {feat}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <PWAInstallButton />
+
+            <p className="font-mono text-[10px] text-canvas-70 mt-3 uppercase tracking-wider">
+              Works on Android Chrome · iOS Safari · Desktop Chromium
+            </p>
+          </div>
         </div>
 
-        {/* ── Contact + Social band ─────────────────────────────────
-            Real address (anonymized door number) + email + 6 social handles.
-            Powers the LocalBusiness JSON-LD at the bottom. NAP consistency
-            here matches the schema — Google's local-SEO ranking signal.
-            On mobile, this band sits above the bottom strip so the most
-            useful info (how to reach us) is closest to the most-recent
-            content the user just scrolled through.
+        {/* ── 4. Contact + Social band ────────────────────────────────────
+            NAP data here matches LocalBusiness JSON-LD at the bottom.
+            NAP consistency = local SEO ranking signal.
         */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="mt-12 pt-12 border-t border-canvas-15 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Address + Email */}
           <div className="space-y-3">
             <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
@@ -539,6 +904,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer me"
                     aria-label={s.label}
+                    title={s.label}
                     className="inline-flex items-center justify-center w-10 h-10 border-2 border-canvas-15 rounded-sm text-canvas-70 hover:text-indian-gold hover:border-indian-gold transition-colors"
                   >
                     {s.svg}
@@ -547,13 +913,12 @@ export default function Footer() {
               ))}
             </ul>
             <p className="font-mono text-[10px] uppercase tracking-wider text-canvas-70 leading-relaxed md:text-right max-w-[280px] md:ml-auto">
-              Pinterest for infographics · Telegram for editorial alerts · X for
-              daily research
+              Pinterest · infographics · Telegram · rate alerts · X · research
             </p>
           </div>
         </div>
 
-        {/* Bottom strip — logo + legal links + copyright */}
+        {/* ── 5. Bottom strip — logo + legal + copyright ──────────────── */}
         <div className="mt-12 pt-8 border-t border-canvas-15">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             {/* Logo + tagline */}
@@ -569,11 +934,13 @@ export default function Footer() {
                   .
                 </span>
               </div>
-              <p className="text-[12px] text-canvas-70 mt-1">Money, Decoded.</p>
+              <p className="text-[12px] text-canvas-70 mt-0.5">
+                Money, Decoded.
+              </p>
             </div>
 
-            {/* Legal links grid */}
-            <div className="flex flex-wrap gap-x-5 gap-y-2">
+            {/* Legal links */}
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
               {LEGAL_LINKS.map((link) => (
                 <Link
                   key={link.href}
@@ -587,18 +954,15 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Compliance / regulatory block — required, not decoration.
-            Desktop: always-visible. Mobile: collapsed by default with
-            "Read full regulatory disclosure ▾" toggle. Pattern follows
-            NerdWallet's mobile footer — keeps legal text discoverable
-            without burying the copyright/jurisdiction line under 3
-            paragraphs of fine print on small screens. */}
+        {/* ── 6. Compliance block ─────────────────────────────────────────
+            Desktop: always-visible. Mobile: collapsed (tap to expand).
+            Required for SEBI + affiliate model transparency. Not decoration.
+        */}
         <div className="mt-8 pt-6 border-t border-canvas-15 space-y-4">
           <div className="flex items-center justify-between gap-4">
             <div className="font-mono text-[10px] uppercase tracking-wider text-indian-gold">
               Regulatory & Compliance
             </div>
-            {/* Mobile toggle — desktop hides this since text is always shown */}
             <button
               type="button"
               onClick={() => setComplianceOpen((o) => !o)}
@@ -613,7 +977,6 @@ export default function Footer() {
             </button>
           </div>
 
-          {/* 3 paragraphs — always rendered on desktop (md+), conditionally on mobile */}
           <div
             id="footer-compliance-text"
             className={`space-y-4 ${complianceOpen ? "block" : "hidden md:block"}`}
@@ -659,7 +1022,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Copyright + last-reviewed — always visible regardless of toggle */}
+          {/* Copyright — always visible */}
           <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-canvas-15">
             <span className="font-mono text-[11px] text-canvas-70">
               &copy; {new Date().getFullYear()} InvestingPro.in · All rights
@@ -672,14 +1035,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── LocalBusiness JSON-LD (invisible, SEO) ──────────────
-          Feeds Google Knowledge Graph "About InvestingPro" panel + branded
-          search results. NAP fields (address, email) are sourced from the
-          BRAND_ADDRESS / BRAND_EMAIL constants above so visible content +
-          structured data can never drift apart.
-          areaServed=IN signals India-only context to all crawlers.
-          sameAs= social URLs help Google disambiguate the brand entity
-          across the social web. Update SOCIAL[] above when handles change.
+      {/* ── LocalBusiness JSON-LD (invisible — SEO) ──────────────────────
+          NAP sourced from BRAND_ADDRESS/BRAND_EMAIL constants (never drift).
+          sameAs = SOCIAL URLs for Knowledge Graph entity disambiguation.
       */}
       <script
         type="application/ld+json"
