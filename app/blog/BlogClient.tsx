@@ -177,7 +177,7 @@ export default function BlogPage() {
               <h2 className="text-sm font-bold text-gray-600 uppercase tracking-[0.2em] mb-6">
                 Latest Highlight
               </h2>
-              <Link href={`/article/${featuredArticle.slug}`}>
+              <Link href={`/articles/${featuredArticle.slug}`}>
                 <Card className="overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 border-gray-200 group">
                   <div className="grid md:grid-cols-2">
                     <div className="h-64 md:h-auto overflow-hidden relative">
@@ -259,7 +259,7 @@ export default function BlogPage() {
                   </Card>
                 ))
               : displayArticles.map((article: any) => (
-                  <Link key={article.id} href={`/article/${article.slug}`}>
+                  <Link key={article.id} href={`/articles/${article.slug}`}>
                     <Card className="h-full flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-gray-200 group bg-white shadow-sm overflow-hidden">
                       <div className="h-56 relative overflow-hidden bg-gray-100">
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-400 to-gray-600 opacity-20" />

@@ -29,10 +29,10 @@ export const metadata: Metadata = {
   title:
     "Free Financial Calculators India (2026) — SIP, EMI, Tax, FD, PPF | InvestingPro",
   description:
-    "25 free financial calculators with inflation adjustment. SIP, EMI, FD, PPF, NPS, tax, retirement, and goal planning. No registration. Accurate results.",
+    "72 free financial calculators with inflation adjustment. SIP, EMI, FD, PPF, NPS, tax, retirement, and goal planning. No registration. Accurate results.",
   openGraph: {
     title: "Free Financial Calculators India (2026)",
-    description: "25 free calculators for smart financial planning.",
+    description: "72 free calculators for smart financial planning.",
     url: "https://investingpro.in/calculators",
   },
 };
@@ -218,9 +218,9 @@ export default function CalculatorsPage() {
     "@type": "CollectionPage",
     name: "Free Financial Calculators India",
     description:
-      "25 free financial calculators for Indian investors and taxpayers.",
+      "72 free financial calculators for Indian investors and taxpayers.",
     url: "https://investingpro.in/calculators",
-    numberOfItems: 25,
+    numberOfItems: 72,
   };
 
   return (
@@ -255,7 +255,7 @@ export default function CalculatorsPage() {
                 Free Financial Calculators
               </h1>
               <p className="text-base text-ink-60 mt-2 max-w-xl leading-relaxed">
-                25 calculators with inflation adjustment, tax impact, and
+                72 calculators with inflation adjustment, tax impact, and
                 shareable results. No sign-up. Run the numbers before you
                 commit.
               </p>

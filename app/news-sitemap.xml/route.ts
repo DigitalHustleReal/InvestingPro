@@ -10,6 +10,8 @@ import { createClient } from "@/lib/supabase/static";
  *
  * @see https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap
  */
+export const revalidate = 3600; // ISR: rebuild hourly
+
 export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://investingpro.in";
 

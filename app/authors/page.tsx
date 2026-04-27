@@ -181,10 +181,10 @@ export default function AuthorsPage() {
               </div>
               <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: "Articles Published", count: "51+" },
-                  { label: "Calculators Built", count: "75" },
-                  { label: "Products Compared", count: "2,500+" },
-                  { label: "Glossary Terms", count: "101" },
+                  { label: "Articles Published", count: "200+" },
+                  { label: "Calculators Built", count: "72" },
+                  { label: "Products Compared", count: "800+" },
+                  { label: "Glossary Terms", count: "100+" },
                 ].map((stat) => (
                   <div
                     key={stat.label}

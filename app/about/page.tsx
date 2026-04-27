@@ -63,7 +63,7 @@ export default async function AboutPage() {
   // across credit_cards + fixed_deposits + savings_accounts + loans +
   // brokers + mutual_funds tables; 72 calculator pages in app/calculators/*;
   // 7 product categories shipped to production).
-  let articleCount = 228;
+  let articleCount = 210;
   const providerDisplay = "190+"; // 193 actual; rounded down for safety
   const calculatorCount = 72;
   const categoryCount = 7;

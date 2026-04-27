@@ -10,6 +10,8 @@ import { NAVIGATION_CONFIG } from "@/lib/navigation/config";
  * Generates sitemap with all pages and internal links
  * Includes: pillar pages, subcategory pages, Category → Intent → Collection routes, calculators, glossary, articles
  */
+export const revalidate = 86400; // ISR: rebuild once per day
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://investingpro.in";
   const sitemap: MetadataRoute.Sitemap = [];

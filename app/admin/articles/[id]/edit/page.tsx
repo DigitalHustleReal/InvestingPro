@@ -258,7 +258,6 @@ export default function EditArticlePage() {
           body: JSON.stringify({
             paths: [
               `/articles/${result.slug}`,
-              `/article/${result.slug}`,
               `/category/${article?.category || "investing-basics"}`,
               `/articles`,
               `/`,

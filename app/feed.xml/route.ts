@@ -9,6 +9,8 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/static";
 import { logger } from "@/lib/logger";
 
+export const revalidate = 3600; // ISR: rebuild hourly
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://investingpro.in";
 const SITE_NAME = "InvestingPro";
 const SITE_DESCRIPTION =

@@ -128,7 +128,7 @@ export default function EMICalculatorPage() {
 
           {/* Key Benefits Grid */}
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
+            <Card className="border-0 shadow-md rounded-2xl bg-white dark:bg-gray-900">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                   <TrendingUp className="w-5 h-5" />
@@ -143,7 +143,7 @@ export default function EMICalculatorPage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900">
+            <Card className="border-0 shadow-md rounded-2xl bg-white dark:bg-gray-900">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                   <Zap className="w-5 h-5" />
@@ -158,7 +158,7 @@ export default function EMICalculatorPage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-gray-800 dark:to-gray-900">
+            <Card className="border-0 shadow-md rounded-2xl bg-white dark:bg-gray-900">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-primary-700 dark:text-primary-400">
                   <CheckCircle2 className="w-5 h-5" />
@@ -173,7 +173,7 @@ export default function EMICalculatorPage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-0 shadow-md rounded-2xl bg-gradient-to-br from-accent-50 to-white dark:from-gray-800 dark:to-gray-900">
+            <Card className="border-0 shadow-md rounded-2xl bg-white dark:bg-gray-900">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl font-bold text-accent-700 dark:text-accent-400">
                   <Info className="w-5 h-5" />

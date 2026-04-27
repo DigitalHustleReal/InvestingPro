@@ -349,7 +349,7 @@ export default function AffiliateDisclosurePage() {
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
             <Link
-              href="/terms-of-service"
+              href="/terms"
               className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
             >
               <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
@@ -364,7 +364,7 @@ export default function AffiliateDisclosurePage() {
             </Link>
 
             <Link
-              href="/privacy-policy"
+              href="/privacy"
               className="flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
             >
               <Shield className="w-5 h-5 text-primary-600 dark:text-primary-400" />

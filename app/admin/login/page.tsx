@@ -343,7 +343,7 @@ export default function AdminLoginPage() {
                 <input
                   id="password"
                   type="password"
-                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                  placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -396,7 +396,7 @@ export default function AdminLoginPage() {
 
         {/* Footer */}
         <p className="text-center text-muted-foreground/70 dark:text-muted-foreground/70 text-xs mt-6">
-          Protected by Supabase Auth â€¢ Secure & Encrypted
+          Protected by Supabase Auth • Secure & Encrypted
         </p>
       </div>
     </div>
