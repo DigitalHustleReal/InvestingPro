@@ -39,7 +39,7 @@ export default function LumpsumCalculatorPage() {
       {
         "@type": "HowToStep",
         name: "Enter Investment Amount",
-        text: "Input your total one-time investment amount (minimum â‚¹500).",
+        text: "Input your total one-time investment amount (minimum ₹500).",
       },
       {
         "@type": "HowToStep",
@@ -96,7 +96,7 @@ export default function LumpsumCalculatorPage() {
     {
       question: "How to calculate lumpsum returns?",
       answer:
-        "Lumpsum returns are calculated using compound interest formula: FV = PV Ã— (1 + r)^n, where FV is future value, PV is present value (investment amount), r is annual return rate, and n is number of years. Our calculator does this automatically and also shows inflation-adjusted returns.",
+        "Lumpsum returns are calculated using compound interest formula: FV = PV × (1 + r)^n, where FV is future value, PV is present value (investment amount), r is annual return rate, and n is number of years. Our calculator does this automatically and also shows inflation-adjusted returns.",
     },
     {
       question: "What is a good return rate for lumpsum investment?",
