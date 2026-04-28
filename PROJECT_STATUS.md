@@ -1,20 +1,45 @@
 # InvestingPro.in — Project Status
 
-> **Read this first, every session.** Single source of truth. Updated 2026-04-27.
-> Branch: `master` · Last commit: `6d304f11` · Vercel auto-deploys on push.
+> **Read this first, every session.** Single source of truth. Updated 2026-04-28.
+> Branch: `clever-shannon-bdbc17` (worktree) · Last commit: `4d09c352` · Merge to master when ready.
 > Production: https://www.investingpro.in
 
 ---
 
 ## TL;DR
 
-**16 commits in one day.** Took InvestingPro.in from a 24-hour frozen production build (failing since Apr 26) to a fully launch-ready platform with: brand identity (Money, Decoded. + adaptive favicon + brand kit), mobile performance (PSI 64 → 88), security hardening (CSP + HSTS + 5 headers), trust layer (universal PromiseStrip section), comprehensive footer redesign (LocalBusiness JSON-LD + 6 social handles + PWA install card + research-validated 10/10 vs benchmarks), v3 design migration of compare engine, and a founding-story rewrite of the About page.
+**18 new files, 4,980 lines — News Intelligence Pipeline shipped (Apr 28).** InvestingPro can now detect breaking personal finance events (RBI rate cuts, DA hikes, LPG price changes, gold rates, budget announcements — any personal finance news), automatically generate SEO-optimized articles within ~30 minutes, and publish them before competitors. The pipeline is DB-configurable (add sources from admin UI), SERP-credit-rationed (10/day), and runs on GitHub Actions every 15 minutes.
 
-GSC sitemap is **submitted and accepted** (1,518 URLs). Canonical apex→www redirect verified live. SEO score is **100/100** on both desktop and mobile.
+Previous milestone (Apr 27): **16 commits.** Brand identity (Money, Decoded.), PSI 64→88, CSP headers, PromiseStrip trust section, Footer redesign (LocalBusiness JSON-LD + 6 social handles + PWA install + NerdWallet phone mockup), About page founding story, v3 Compare migration. GSC submitted (1,518 URLs). SEO **100/100** on both desktop and mobile.
 
 ---
 
-## Today's Commits (Apr 27, chronological)
+## Apr 28 Commits (News Intelligence Pipeline)
+
+```
+1.  10e3ea9e  feat(footer): NerdWallet-style redesign — phone mockup + newsletter strip
+2.  2051f5db  docs(spec): News Intelligence Pipeline design spec
+3.  4d09c352  feat(news): News Intelligence Pipeline — source-to-live in ~30 min
+```
+
+**What the news pipeline does:**
+- Polls 14 configurable RSS/price sources every 15 min (RBI, SEBI, PIB, ET, MC, Livemint, NDTV Profit, BSE, NSE + more)
+- Classifies events into 17 categories (da_announcement, repo_rate, lpg, fuel_price, gold_silver, tax_change, budget, mutual_fund, ipo, epfo, insurance_regulation, banking, pension, forex, markets, pay_commission, general_finance)
+- Runs parallel spike pre-screening: Google Trends RSS + GSC impressions delta + internal traffic
+- SERP analysis: Serper.dev (paid, 10 credits/day) or Google Autocomplete (free fallback)
+- Generates articles via `generateArticle()` with category-specific 700+ word templates
+- Quality gate: ≥75/100 (vs 85 for editorial). Auto-publishes + pings IndexNow.
+- Admin dashboard at `/admin/news-intelligence` with live feed, credit meter, source health
+
+**⚠️ ACTION REQUIRED before pipeline is live:**
+1. Run `supabase/migrations/20260428_news_intelligence_pipeline.sql` in Supabase SQL editor
+2. Optional: Add `SERPER_API_KEY` to Vercel env vars (get free key at serper.dev — 2,500 searches/month)
+3. Merge `clever-shannon-bdbc17` → `master` to activate GitHub Actions crons
+4. Add `/admin/news-intelligence` link to admin sidebar navigation
+
+---
+
+## Apr 27 Commits (chronological)
 
 ```
 1.  87f44dec  fix(gsc-prep): pre-submission cleanup — 3-audit synthesis pass
