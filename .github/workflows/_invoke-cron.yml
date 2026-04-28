@@ -1,0 +1,90 @@
+# Reusable workflow — invokes a Vercel cron endpoint via HTTPS.
+# Called by all cron-*.yml files. Do not schedule this workflow directly.
+#
+# Why: Vercel Hobby plan caps cron jobs at 2. This repo declares 40+
+# cron endpoints in vercel.json, but only 1 actually fires in production
+# (confirmed via 30-day Vercel runtime logs). Rather than upgrade to Pro
+# immediately, we drive the same /api/cron/* endpoints from GitHub Actions
+# (free, unlimited crons for public repos).
+#
+# Usage from a caller workflow:
+#   jobs:
+#     run:
+#       uses: ./.github/workflows/_invoke-cron.yml
+#       with:
+#         path: /api/cron/agent-writer
+#       secrets: inherit
+#
+# Requires secret: CRON_SECRET (set in repo Settings → Secrets → Actions)
+# Optional var:    BASE_URL   (defaults to https://www.investingpro.in)
+
+name: _Invoke Cron Endpoint
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: "Cron endpoint path, e.g. /api/cron/agent-writer"
+        required: true
+        type: string
+      timeout-minutes:
+        description: "Job timeout in minutes (matches Vercel function max)"
+        required: false
+        type: number
+        default: 10
+
+jobs:
+  invoke:
+    name: "Invoke ${{ inputs.path }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    concurrency:
+      group: cron-${{ inputs.path }}
+      cancel-in-progress: false
+    steps:
+      - name: Invoke cron endpoint
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          BASE_URL: ${{ vars.BASE_URL || 'https://www.investingpro.in' }}
+          PATH_PARAM: ${{ inputs.path }}
+        run: |
+          set -eo pipefail
+          URL="${BASE_URL}${PATH_PARAM}"
+          echo "::group::Invoking $URL"
+          START=$(date +%s)
+          HTTP_CODE=$(curl -sS \
+            --retry 3 \
+            --retry-delay 30 \
+            --retry-all-errors \
+            --max-time 300 \
+            --connect-timeout 15 \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            -H "User-Agent: github-actions-cron/1.0" \
+            -H "Accept: application/json" \
+            -o /tmp/response.txt \
+            -w "%{http_code}" \
+            "$URL") || true
+          END=$(date +%s)
+          DURATION=$((END - START))
+          echo "HTTP $HTTP_CODE · ${DURATION}s"
+          echo "---"
+          head -c 2000 /tmp/response.txt || true
+          echo ""
+          echo "::endgroup::"
+          case "$HTTP_CODE" in
+            2*)
+              echo "::notice::${PATH_PARAM} succeeded (HTTP $HTTP_CODE, ${DURATION}s)"
+              ;;
+            401|403)
+              echo "::error::${PATH_PARAM} auth failure (HTTP $HTTP_CODE) — check CRON_SECRET matches Vercel env"
+              exit 1
+              ;;
+            5*)
+              echo "::error::${PATH_PARAM} server error (HTTP $HTTP_CODE)"
+              exit 1
+              ;;
+            *)
+              echo "::error::${PATH_PARAM} unexpected status (HTTP $HTTP_CODE)"
+              exit 1
+              ;;
+          esac
