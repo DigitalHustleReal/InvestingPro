@@ -45,6 +45,7 @@ import {
   Webhook,
   Video,
   Code2,
+  Newspaper,
 } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
@@ -120,6 +121,12 @@ export const NAV_SECTIONS: Record<string, NavSection> = {
     items: [
       { label: "Agent Swarm", href: "/admin/swarm-dashboard", icon: Bot },
       { label: "AI Agents", href: "/admin/agents", icon: Bot },
+      {
+        label: "News Intelligence",
+        href: "/admin/news-intelligence",
+        icon: Newspaper,
+        description: "Live news events, spike detection, SERP credits",
+      },
       { label: "Automation Hub", href: "/admin/automation", icon: Rss },
       {
         label: "Pipeline Monitor",
@@ -307,6 +314,7 @@ export const CATEGORIES: Category[] = [
       "/admin/autonomy/settings",
       "/admin/agents",
       "/admin/swarm-dashboard",
+      "/admin/news-intelligence",
       "/admin/webhooks",
       "/admin/creator",
       "/admin/creator/script",
