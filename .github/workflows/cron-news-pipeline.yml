@@ -1,0 +1,24 @@
+name: Cron — News Pipeline (offset 7 min)
+
+on:
+  schedule:
+    # Runs at 7, 22, 37, 52 minutes past every hour
+    # 7-min offset from news-monitor ensures fresh events are available before pipeline runs
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual trigger'
+        required: false
+        default: 'Manual test'
+
+concurrency:
+  group: cron-news-pipeline
+  cancel-in-progress: false
+
+jobs:
+  invoke:
+    uses: ./.github/workflows/_invoke-cron.yml
+    with:
+      path: /api/cron/news-pipeline
+    secrets: inherit

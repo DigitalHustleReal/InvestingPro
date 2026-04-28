@@ -1,0 +1,23 @@
+name: Cron — News Monitor (every 15 min)
+
+on:
+  schedule:
+    # Runs at 0, 15, 30, 45 minutes past every hour, 24/7
+    - cron: '0,15,30,45 * * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual trigger'
+        required: false
+        default: 'Manual test'
+
+concurrency:
+  group: cron-news-monitor
+  cancel-in-progress: false
+
+jobs:
+  invoke:
+    uses: ./.github/workflows/_invoke-cron.yml
+    with:
+      path: /api/cron/news-monitor
+    secrets: inherit
