@@ -298,6 +298,13 @@ curl -sI https://www.investingpro.in/ | head -5
 # 4. Pick from the "Parked" or "Deferred" tables above
 ```
 
+**Highest-leverage next moves (priority order):**
+1. **GSC 5xx + 404 cleanup** — paste URL lists, I fix in 1 commit (1-2 hrs)
+2. **Razorpay KYB unblock** — once you complete it, I wire env vars + checkout (1 hr)
+3. **About page editorial pass** — read live deploy, send me text edits for any item (15 min)
+4. **Calculator content batch 1** — pick 8 of 24 thin calc pages, AI auto-draft via existing pipeline, you review, ship (4 hrs)
+5. **News pipeline decision** — ship-or-delete. Need your call.
+
 ---
 
 *Single source of truth for Claude Code sessions on InvestingPro.in.*
